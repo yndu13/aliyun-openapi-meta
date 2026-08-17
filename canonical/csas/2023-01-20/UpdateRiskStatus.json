@@ -1,0 +1,94 @@
+{
+  "camel_example": "",
+  "cmd_full_name": "csas update-risk-status",
+  "cmd_name": "update-risk-status",
+  "deprecated": false,
+  "description_en": "Updates the current handling status and conclusion of a specified risk event",
+  "description_zh": "用于更新指定风险事件的当前处理状态及结论",
+  "kebab_example": "",
+  "method": "POST",
+  "multi_version": false,
+  "name": "UpdateRiskStatus",
+  "operation": {
+    "action": "UpdateRiskStatus",
+    "api_style": "RPC",
+    "api_version": "2023-01-20",
+    "content_type": "application/x-www-form-urlencoded",
+    "method": "POST",
+    "operation_type": "readAndWrite",
+    "protocol": "HTTPS",
+    "req_body_type": "formData",
+    "system_operation_type": "update",
+    "url": ""
+  },
+  "parameters": [
+    {
+      "example": "69ef648034cf53d7bac7a9c9c912****",
+      "help_en": "The risk event ID. You can obtain the value from the following operation:\n`ListRiskItems`: Queries the list of risk events",
+      "help_zh": "风险事件 ID。取值来源：\n`ListRiskItems`：查询风险事件列表",
+      "location": "formData",
+      "name": "risk_id",
+      "options": [
+        "--risk-id"
+      ],
+      "raw_name": "RiskId",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "Processed",
+      "help_en": "The handling status of the risk event. Valid values:\n`Unprocess`: Unprocessed.\n`Processing`: Being processed.\n`Processed`: Processed",
+      "help_zh": "风险事件处置状态。取值：\n`Unprocess`：未处理。\n`Processing`：处理中。\n`Processed`：已处理",
+      "location": "formData",
+      "name": "status",
+      "options": [
+        "--status"
+      ],
+      "raw_name": "Status",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "Risk",
+      "help_en": "The manually confirmed risk conclusion. This parameter is required when `Status` is set to `Processed`. Do not specify this parameter when `Status` is set to `Unprocess` or `Processing`. Valid values:\n`Risk`: Confirmed as risky.\n`Ignore`: Confirmed as not risky.\n`Invalid`: Confirmed as a false positive",
+      "help_zh": "人工确认的风险结论。当 `Status` 取值为 `Processed` 时必填；当 `Status` 取值为 `Unprocess` 或 `Processing` 时，请勿传入该参数。取值：\n`Risk`：确认为有风险。\n`Ignore`：确认为无风险。\n`Invalid`：确认为误报",
+      "location": "formData",
+      "name": "risk_confirm",
+      "options": [
+        "--risk-confirm"
+      ],
+      "raw_name": "RiskConfirm",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "经核查，该风险事件为真实风险。",
+      "help_en": "The description of the risk event handling. The length must be 1 to 128 characters",
+      "help_zh": "风险事件处置说明。长度为 1~128 个字符",
+      "location": "formData",
+      "name": "risk_confirm_desc",
+      "options": [
+        "--risk-confirm-desc"
+      ],
+      "raw_name": "RiskConfirmDesc",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "account_stolen",
+      "help_en": "The risk scenario. This parameter is optional. If not specified, the system automatically populates it based on RiskId. Valid values:\naccount_share: Account sharing.\naccount_stolen: Account stolen.\ndevice_share: Device sharing.\nremote_logon: Remote logon.\nsensitive_data_leakage: Sensitive data leakage.\nlateral_scanning: Lateral scanning.\nai_skill_malware: Malicious skill.\nai_config_check: AI configuration check.\nopenclaw_vulnerability: OpenClaw vulnerability",
+      "help_zh": "风险场景。可选，未填写时系统会根据 RiskId 自动补全。取值：\naccount_share：账号共享。\naccount_stolen：账号被盗。\ndevice_share：设备共享。\nremote_logon：异地登录。\nsensitive_data_leakage：敏感数据外发。\nlateral_scanning：横向扫描。\nai_skill_malware：恶意 Skill。\nai_config_check：AI 配置检查。\nopenclaw_vulnerability：OpenClaw 漏洞",
+      "location": "formData",
+      "name": "risk_scene",
+      "options": [
+        "--risk-scene"
+      ],
+      "raw_name": "RiskScene",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "pathPattern": "",
+  "product_code": "csas",
+  "protocol": "HTTPS"
+}
