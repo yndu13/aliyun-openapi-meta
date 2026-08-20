@@ -1,15 +1,30 @@
 {
   "name": "ListRepository",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "InstanceId",
-      "description": "The ID of the Container Registry instance.",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "MaxResults",
+      "description": "The maximum number of entries to return.\n\nUse this parameter together with NextToken. This parameter takes priority over PageNo and PageSize.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "NextToken",
+      "description": "The pagination token for the next page. If a next page exists, the service returns a NextToken value. Pass this value in the next request.\n\nUse this parameter together with MaxResults. This parameter takes priority over PageNo and PageSize.",
+      "position": "Query",
+      "type": "String",
+      "required": false
     },
     {
       "name": "PageNo",
@@ -20,28 +35,28 @@
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Maximum value: 100. If you specify a value larger than 100 for this parameter, the system reports a parameter error or uses 100 as the maximum value.",
+      "description": "The number of entries per page. The maximum value is 100. If the specified value exceeds 100, the system returns a parameter error or uses 100 as the actual maximum number of entries returned.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RepoName",
-      "description": "The name of the repository.",
+      "description": "The repository name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepoNamespaceName",
-      "description": "The name of the namespace to which the repository belongs.",
+      "description": "The repository namespace name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepoStatus",
-      "description": "",
+      "description": "The repository status. Valid values:\n\n- `NORMAL`: Normal.\n\n- `DELETING`: Being deleted.\n\n- `DELETED`: Deleted.\n\n- `ALL`: All repository statuses.",
       "position": "Query",
       "type": "String",
       "required": false

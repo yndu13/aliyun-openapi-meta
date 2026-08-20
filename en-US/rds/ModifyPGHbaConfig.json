@@ -1,74 +1,83 @@
 {
   "name": "ModifyPGHbaConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "A reserved parameter. You do not need to specify this parameter.",
+      "description": "A reserved parameter. You do not need to specify this parameter.\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID. You can call the DescribeDBInstances operation to query the instance ID.",
+      "description": "The instance ID. You can call the DescribeDBInstances operation to query the instance ID.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "HbaItem",
-      "description": "An array that consists of the details of the AD domain services.",
+      "description": "An array that consists of the details of the AD domain services.\n",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Address",
+          "description": "The IP addresses from which the specified users can access the specified databases. If you set this parameter to 0.0.0.0/0, the specified users are allowed to access the specified databases from all IP addresses.\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Database",
+          "description": "The name of the database. If you set this parameter to all, the specified users are allowed to access all databases on the instance.\n\nIf you specify multiple entries, separate the entries with commas (,).\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Mask",
+          "description": "The mask of the IP address. If the value of the **Address** parameter is an IP address, you can use this parameter to specify the mask of the IP address.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Method",
+          "description": "The authentication method. Valid values:\n\n*   **trust**\n*   **reject**\n*   **scram-sha-256**\n*   **md5**\n*   **password**\n*   **gss**\n*   **sspi**\n*   **ldap**\n*   **radius**\n*   **cert**\n*   **pam**\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Option",
+          "description": "The options of the authentication method. In this topic, LDAP is used as an example. You must configure this parameter. For more information, see [Authentication Methods](https://www.postgresql.org/docs/11/auth-methods.html).\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PriorityId",
+          "description": "The priority of the record. If you set this parameter to 0, the record has the highest priority. Valid values: 0 to 10000.\n\nThis parameter is used to identify each record. When you add a record, the value of the PriorityId parameter for the new record must be different from the value of the PriorityId parameter of any existing record. When you modify or delete a record, you must also modify or delete the value of the PriorityId parameter for this record.\n",
           "position": "Query",
           "type": "Integer",
           "required": true
         },
         {
           "name": "Type",
+          "description": "The connection type.\n\nValid values:\n\n*   **host**: The record matches TCP/IP connections, including SSL connections and non-SSL connections.\n*   **hostssl**: The record matches only TCP/IP connections that are established over SSL.\n*   **hostnossl**: The record matches only TCP/IP connections that are not established over SSL connections.\n\n>  You can set this parameter to hostssl only when SSL encryption is enabled for the instance. For more information, see Configure SSL encryption for an ApsaraDB RDS for PostgreSQL instance.[](~~229518~~)\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "User",
+          "description": "The user who is allowed to access the specified databases. You must specify the user that is used to log on to the RDS instance. If you specify multiple entries, separate the entries with commas (,).\n",
           "position": "Query",
           "type": "String",
           "required": true
@@ -77,7 +86,7 @@
     },
     {
       "name": "OpsType",
-      "description": "The method that you use to modify the pg_hba.conf file. Valid values:\n\n*   **add**: adds one or more records. If you use this method, make sure that the value of the PriorityId parameter for each new record is different from the value of the PriorityId parameter for any existing record.\n*   **delete**: deletes one or more records. If you use this method, the record that corresponds to the specified value of the **PriorityId** parameter is deleted from the pg_hba.conf file.\n*   **modify**: modifies one or more records. If you use this method, the record that corresponds to the specified value of the **PriorityId** parameter is modified.\n*   **update**: overwrites the existing configuration in the pg_hba.conf file by using the new configuration.",
+      "description": "The method that you use to modify the pg_hba.conf file. Valid values:\n\n*   **add**: adds one or more records. If you use this method, make sure that the value of the PriorityId parameter for each new record is different from the value of the PriorityId parameter for any existing record.\n*   **delete**: deletes one or more records. If you use this method, the record that corresponds to the specified value of the **PriorityId** parameter is deleted from the pg_hba.conf file.\n*   **modify**: modifies one or more records. If you use this method, the record that corresponds to the specified value of the **PriorityId** parameter is modified.\n*   **update**: overwrites the existing configuration in the pg_hba.conf file by using the new configuration.\n",
       "position": "Query",
       "type": "String",
       "required": true

@@ -1,33 +1,34 @@
 {
   "name": "DescribePrefixLists",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AddressFamily",
-      "description": "The IP address family. Valid values:\n\n*   IPv4\n*   IPv6\n\nThis parameter is empty by default, which indicates that all prefix lists are queried.",
+      "description": "The address family of the prefix list. Valid values:\n\n- IPv4\n- IPv6\n\nDefault value: empty, which indicates that information about all prefix lists is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries per page.\n\nValid values: 1 to 100.\n\nDefault value: 10.",
+      "description": "The number of entries per page for a paged query.\n\nMaximum value: 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the request to retrieve a new page of results. Set the value to the `NextToken` value returned in the last call to this operation. Leave this parameter empty the first time you call this operation.",
+      "description": "The pagination token. Set this parameter to the value of `NextToken` returned in the previous call. You do not need to set this parameter for the first request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrefixListId",
-      "description": "The IDs of prefix lists. Valid values of N: 0 to 100.",
+      "description": "The prefix list ID. Valid values of N: 0 to 100.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -41,7 +42,7 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -55,19 +56,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags of the prefix list.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the prefix list. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the prefix list. Valid values of N: 1 to 20. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

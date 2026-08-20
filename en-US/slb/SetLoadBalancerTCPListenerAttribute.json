@@ -14,28 +14,28 @@
     },
     {
       "name": "AclStatus",
-      "description": "Specifies whether to enable access control. Valid values:\n\n*   **on**: yes\n*   **off**: no",
+      "description": "Specifies whether to enable access control. Valid values:\n\n- **on**: yes\n\n- **off**: no",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclType",
-      "description": "The type of the network ACL. Valid values:\n\n*   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the allowlist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.\n\n    If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.\n\n*   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.\n\n    If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.\n\n>  If **AclStatus** is set to **on**, this parameter is required.",
+      "description": "The type of the network ACL. Valid values:\n\n- **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the allowlist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.\n\n  If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.\n\n- **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.\n\n  If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.\n\n> If **AclStatus** is set to **on**, this parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "The maximum bandwidth of the listener. Unit: Mbit/s. Valid values: **-1** and **1** to **5120**.\n\n*   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**, which specifies unlimited bandwidth.\n*   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of the maximum bandwidth values of all listeners cannot exceed the maximum bandwidth of the CLB instance.",
+      "description": "The maximum bandwidth of the listener. Unit: Mbit/s. Valid values: **-1** and **1** to **5120**.\n\n- **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**, which specifies unlimited bandwidth.\n\n- **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of the maximum bandwidth values of all listeners cannot exceed the maximum bandwidth of the CLB instance.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ConnectionDrain",
-      "description": "Specifies whether to enable connection draining. Valid values:\n\n*   **on**: yes\n*   **off**: no",
+      "description": "Specifies whether to enable connection draining. Valid values:\n\n- **on**: yes\n\n- **off**: no",
       "position": "Query",
       "type": "String",
       "required": false
@@ -55,6 +55,12 @@
       "required": false
     },
     {
+      "name": "DryRun",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "EstablishedTimeout",
       "description": "The timeout period of a connection. Unit: seconds. Valid values: **10** to **900**.",
       "position": "Query",
@@ -70,14 +76,14 @@
     },
     {
       "name": "HealthCheckConnectTimeout",
-      "description": "The timeout period of a health check.\n\nIf a backend ECS instance does not return a health check response within the specified timeout period, the server fails the health check.\n\nValid values: **1** to **300**. Unit: seconds.\n\n>  If the value of the **HealthCheckConnectTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HCTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.",
+      "description": "The timeout period of a health check.\n\nIf a backend ECS instance does not return a health check response within the specified timeout period, the server fails the health check.\n\nValid values: **1** to **300**. Unit: seconds.\n\n> If the value of the **HealthCheckConnectTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HCTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckDomain",
-      "description": "The domain name that is used for health checks. You can set this parameter when the TCP listener requires HTTP health checks. If you do not set this parameter, TCP health checks are performed.\n\n*   **$\\_ip**: the private IP addresses of the backend servers.\n\n    If you do not set the HealthCheckHost parameter or set the parameter to $SERVER_IP, the CLB instance uses the private IP addresses of backend servers for health checks.\n\n*   **domain**: The domain name is 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).",
+      "description": "The domain name that is used for health checks. You can set this parameter when the TCP listener requires HTTP health checks. If you do not set this parameter, TCP health checks are performed.\n\n- **$\\_ip**: the private IP addresses of the backend servers.\n\n  If you do not set the HealthCheckHost parameter or set the parameter to $SERVER\\_IP, the CLB instance uses the private IP addresses of backend servers for health checks.\n\n- **domain**: The domain name is 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -98,7 +104,7 @@
     },
     {
       "name": "HealthCheckSwitch",
-      "description": "Specifies whether to enable the health check feature. Valid values:\n\n*   **on**: yes\n*   **off**: no",
+      "description": "Specifies whether to enable the health check feature. Valid values:\n\n- **on**: yes\n\n- **off**: no",
       "position": "Query",
       "type": "String",
       "required": false
@@ -140,14 +146,14 @@
     },
     {
       "name": "MasterSlaveServerGroup",
-      "description": "Specifies whether to use a primary/secondary server group. Valid values:\n\n*   **on**: yes\n*   **off**: no\n\nYou cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.",
+      "description": "Specifies whether to use a primary/secondary server group. Valid values:\n\n- **on**: yes\n\n- **off**: no\n\nYou cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MasterSlaveServerGroupId",
-      "description": "The ID of the primary/secondary server group.\n\n>  You can set only one of the VServerGroupId and MasterSlaveServerGroupId parameters.",
+      "description": "The ID of the primary/secondary server group.\n\n> You can set only one of the VServerGroupId and MasterSlaveServerGroupId parameters.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -161,7 +167,7 @@
     },
     {
       "name": "ProxyProtocolV2Enabled",
-      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n*   **true**: yes\n*   **false**: no",
+      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n- **true**: yes\n\n- **false**: no",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -175,14 +181,14 @@
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.\n*   **rr**: Requests are distributed to backend servers in sequence.\n*   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.\n*   **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.\n\n> *   Only high-performance CLB instances support the **sch** and **tch** algorithms.\n> *   CLB does not support converting the **wrr** and **rr** algorithms to sch or tch. You cannot switch the hash algorithm from one to another.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.\n\n- **rr**: Requests are distributed to backend servers in sequence.\n\n- **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.\n\n- **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.\n\n> * Only high-performance CLB instances support the **sch** and **tch** algorithms.\n>\n> * CLB does not support converting the **wrr** and **rr** algorithms to sch or tch. You cannot switch the hash algorithm from one to another.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SynProxy",
-      "description": "Specifies whether to enable the SynProxy feature of CLB for protection. Valid values:\n\n*   **enable**: yes\n*   **disable**: no\n\nWe recommend that you use the default value of this parameter.",
+      "description": "Specifies whether to enable the SynProxy feature of CLB for protection. Valid values:\n\n- **enable**: yes\n\n- **disable**: no\n\nWe recommend that you use the default value of this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -196,7 +202,7 @@
     },
     {
       "name": "VServerGroup",
-      "description": "Specifies whether to use a vServer group. Valid values:\n\n*   **on**: yes\n*   **off**: no\n\n>  You cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.",
+      "description": "Specifies whether to use a vServer group. Valid values:\n\n- **on**: yes\n\n- **off**: no\n\n> You cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false

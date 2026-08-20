@@ -7,38 +7,45 @@
   "parameters": [
     {
       "name": "Content",
-      "description": "The Base64-encoded content of the error page. The content type is specified by the Content-Type field.",
+      "description": "The BASE64-encoded page content, which must be consistent with `ContentType`.\n\n**Encoding method**:\n1. Convert the original page content to a UTF-8 byte string.\n2. Encode the byte string using standard BASE64 encoding.\n\n**Example**: `<html>hello page</html>` → `PGh0bWw+aGVsbG8gcGFnZTwvaHRtbD4=`\n\n> The maximum size limit is subject to the server-side custom page specification. If this parameter is not specified, the original page content is retained.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "ContentType",
-      "description": "The Content-Type field in the HTTP header. Valid values:\n\n*   text/html\n*   application/json",
+      "description": "The MIME type of the page content, which is returned to the client as the HTTP `Content-Type` response header when a rule is matched.\n\n**Common values**:\n- `text/html`: HTML page\n- `application/json`: JSON response\n\n> The complete set of supported values is subject to the server-side specification. The actual format of `Content` must match this field. A mismatch may cause browser rendering issues.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Description",
-      "description": "The description of the custom error page.",
+      "description": "The description of the page after the update. This is used to identify the purpose of the page in the console list. This is an optional field. If this parameter is not specified, the original description is retained. The maximum field length is subject to the server-side limit.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Id",
-      "description": "The ID of the custom error page, which can be obtained by calling the [ListPages](~~2850223~~) operation.",
+      "description": "The ID of the custom response page. You can obtain this value by calling the [ListPages](~~2850223~~) operation.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "Name",
-      "description": "The name of the custom error page.",
+      "description": "The name of the custom response page after the update.\n\n**Naming suggestion**: Use a combination of letters, digits, and underscores (such as `blocked_page_v2`) for easy reference in rules. The character set, maximum length, and uniqueness constraints are subject to the server-side naming conventions for custom pages. If this parameter is not specified, the original name is retained.",
       "position": "Body",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "SiteIds",
+      "description": "The list of site IDs associated with this page after the update. This parameter uses full overwrite semantics.\n\n- You can obtain site IDs by calling the `ListSites` operation.\n- Passing an empty list dissociates all sites from the page.\n- Including a site ID that does not belong to your account returns an `InvalidParameter` error.",
+      "position": "Body",
+      "type": "Json",
+      "required": false
     }
   ]
 }

@@ -7,67 +7,70 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "Client token used to ensure the idempotence of the request. Generate a parameter value from your client to ensure that it is unique across different requests. ClientToken supports only ASCII characters. Note: If you do not specify this, the system automatically uses the RequestId of the API request as the ClientToken identifier. Each API request has a different RequestId.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters. If you do not specify this parameter, the system automatically uses the RequestId value as the ClientToken value. The RequestId value is different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConfigMode",
-      "description": "The configuration mode of the route target group. Supported modes:\n\n- **Active-Standby**: Active-Standby mode.",
+      "description": "The configuration mode of the route target group. Valid values:\n\n- **Active-Standby**: active/standby mode.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region ID to which the route target group belongs. You can obtain the region ID by calling the DescribeRegions interface.",
+      "description": "The region ID of the route target group. You can call the DescribeRegions operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The resource group ID.\n\nFor more information about resource groups, see [What is a Resource Group](~~2381067~~).",
+      "description": "The resource group ID.\n\nFor more information about resource groups, see [What is a resource group?](~~2381067~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteTargetGroupDescription",
-      "description": "The description of the route target group.\n\nThe description length must be between 1 and 256 characters, and cannot start with http:// or https://.",
+      "description": "The description of the route target group.\nThe description must be 1 to 256 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteTargetGroupName",
-      "description": "The name of the route target group.\n\nThe name length must be between 1 and 128 characters, and cannot start with http:// or https://.",
+      "description": "The name of the route target group.\n\nThe name must be 1 to 128 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteTargetMemberList",
-      "description": "The member list of the route target group.\n\nIn Active-Standby mode, the following restrictions apply to the members of the route target group:\n\n1. The number of route target group members must be 2.\n2. The route target group members must belong to different availability zones.",
+      "description": "The member list of the route target group.\n\nIn active/standby mode, the following limits apply to route target group members:\n\n1. The number of route target group members must be 2.\n2. The route target group members must be in different zones.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "MemberId",
+          "description": "The instance ID of the route target group member.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "MemberType",
+          "description": "The member type of the route target group.\n\nSupported type:\n\n- **GatewayLoadBalancerEndpoint**\n\nIn active/standby mode, all members of the route target group must be of the same type.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Weight",
+          "description": "The weight of the route target group member. Valid values:\n\n- **100**: The member is the primary instance.\n- **0**: The member is the secondary instance.\n\nThe weight can only be set during creation and cannot be modified.",
           "position": "Query",
           "type": "Integer",
           "required": true
@@ -83,12 +86,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

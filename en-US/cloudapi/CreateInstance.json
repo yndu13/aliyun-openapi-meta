@@ -1,12 +1,13 @@
 {
   "name": "CreateInstance",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Whether to automatically pay when renewing. Value:\n\n- True: Automatic payment. Please ensure that your account has sufficient balance.\n- False: Console manual payment. The specific operation is to log in to the console, select Expenses in the upper right corner, enter the Expense Center, and find the target order in Order Management to make payment.\n\nDefault value: False.",
+      "description": "Specifies whether to enable auto-payment for renewals. Valid values:\n\n- **True**: Auto-payment is enabled. Make sure that your account has a sufficient balance.\n\n- False: Manual payment is required. To pay for an order, log on to the console. In the upper-right corner, choose **Billing** > **User Center**. On the **Order Management** page, find the order and complete the payment.\n\nDefault value: **False**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -20,7 +21,7 @@
     },
     {
       "name": "Duration",
-      "description": "The subscription duration of the instance.\n\n*   If PricingCycle is set to **Month**, set this parameter to an integer ranges from **1** to **9**.\n*   If PricingCycle is set to **Year**, set this parameter to an integer ranges from **1** to **3**.\n\n>  This parameter is valid and required only if the ChargeType parameter is set to **PrePaid**.",
+      "description": "The subscription duration of the instance. Valid values:\n\n- If PricingCycle is set to **Month**, the valid values are **1** to **9**.\n\n- If PricingCycle is set to **Year**, the valid values are **1** to **3**.\n\n> This parameter is required and takes effect only if you set ChargeType to **PrePaid**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -34,54 +35,56 @@
     },
     {
       "name": "InstanceCidr",
-      "description": "The CIDR block of the VPC integration instance.\n\n*   192.168.0.0/16\n*   172.16.0.0/12\n\n**\n\n**Warning** The VPC integration instance is connected to the specified CIDR block. Plan your CIDR block carefully to prevent overlaps with the private IP addresses of cloud services.\n\n>  This parameter is in invitational preview and not available for public use.",
+      "description": "The CIDR block of the instance if the instance is a VPC-connected dedicated instance.\n\n- 192.168.0.0/16\n\n- 172.16.0.0/12\n\n><warning>The VPC-connected dedicated instance connects to the specified CIDR block. To prevent IP address conflicts, make sure that the CIDR block does not overlap with the private IP addresses of your Alibaba Cloud services.></warning>\n><notice>This parameter is available only for invitational preview and is not publicly available.></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceName",
-      "description": "Instance Name",
+      "description": "The name of the instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceSpec",
-      "description": "Instance specifications",
+      "description": "The instance type.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceType",
-      "description": "The type of the dedicated instance. Valid values:\n\n*   vpc_connect: a VPC integration instance\n*   normal: a conventional dedicated instance\n\n>  This parameter is in invitational preview and not available for public use.",
+      "description": "The type of the dedicated instance.\n\n- vpc\\_connect: a VPC-connected dedicated instance\n\n- normal: a classic network-type dedicated instance\n\n><notice>\n\nThis parameter is available only for invitational preview and is not publicly available.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "The unit of the subscription duration of the subscription instance. Valid values:\n\n*   **year**\n*   **month**\n\n>  This parameter is required if the ChargeType parameter is set to Prepaid.",
+      "description": "The billing cycle of the subscription instance. Valid values:\n\n- **year**\n\n- **month**\n\n> This parameter is required if you set ChargeType to PrePaid.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags that you want to add to the instance.",
+      "description": "A list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -90,52 +93,56 @@
     },
     {
       "name": "Token",
-      "description": "Passwords are used to prevent duplicate requests from being submitted, please do not reuse them.",
+      "description": "A security token used to prevent duplicate requests. Do not reuse the token. The gateway automatically removes leading and trailing spaces from the token string.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "UserVpcId",
-      "description": "The ID of the user's VPC to be connected by the VPC integration instance.\n\n>  This parameter is in invitational preview and not available for public use.",
+      "description": "The ID of the user VPC to which you want to connect. This parameter is required if the instance is a VPC-connected dedicated instance. ><notice>This parameter is available only for invitational preview and is not publicly available.></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The zone in which you want to create the instance. This parameter is required for a conventional dedicated instance and optional for a virtual private cloud (VPC) integration instance.",
+      "description": "The zone where the instance is deployed. This parameter is required for classic network-type dedicated instances. This parameter is optional for VPC-connected dedicated instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneVSwitchSecurityGroup",
-      "description": "The network information when the instance is a VPC integration instance, such as the zone, vSwitch, and security group.\n\n>  This parameter is in invitational preview and not available for public use.",
+      "description": "The zone, vSwitch, and security group information required for network connectivity. This parameter is required if the instance is a VPC-connected dedicated instance. ><notice>This parameter is available only for invitational preview and is not publicly available.></notice>",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "CidrBlock",
+          "description": "The IPv4 CIDR block of the vSwitch.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecurityGroupId",
+          "description": "The ID of the security group. Services in the same security group can access each other.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VSwitchId",
+          "description": "The vSwitch ID.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZoneId",
+          "description": "The zone ID.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,26 +1,27 @@
 {
   "name": "PutDcdnKv",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Expiration",
-      "description": "The time when the key expires.Example: \"1690081381\".",
+      "description": "The expiration time. This is a UNIX timestamp in seconds and cannot be earlier than the current time. If you set both Expiration and ExpirationTtl, ExpirationTtl takes precedence.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ExpirationTtl",
-      "description": "The time when the key expires.Example: \"3600\".",
+      "description": "The expiration time. This is a relative time in seconds. If you set both Expiration and ExpirationTtl, ExpirationTtl takes precedence.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Key",
-      "description": "The key. The key can be up to 512 characters in length, and cannot contain spaces.",
+      "description": "The name of the key that you want to set. The key can be up to 512 characters in length and cannot contain spaces or backslashes (/).",
       "position": "Query",
       "type": "String",
       "required": true
@@ -34,7 +35,7 @@
     },
     {
       "name": "Value",
-      "description": "The value of the key. The maximum size is 2 MB (2 x 1000 x 1000 bytes).",
+      "description": "The content of the key. The maximum size is 2 MB (2 × 1,000 × 1,000 bytes).",
       "position": "Body",
       "type": "String",
       "required": true

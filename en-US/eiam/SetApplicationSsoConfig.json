@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "ApplicationId",
-      "description": "The ID of the application.",
+      "description": "The application ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClientToken",
-      "description": "Idp client token.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see How to ensure idempotence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InitLoginType",
-      "description": "The initial SSO method. Valid values:\n\n*   only_app_init_sso: Only application-initiated SSO is allowed. This method is selected by default when the SSO protocol of the application is an OIDC protocol. If this method is selected when the SSO protocol of the application is SAML, the InitLoginUrl parameter is required.\n*   idaas_or_app_init_sso: IDaaS-initiated SSO and application-initiated SSO are allowed. This method is selected by default when the SSO protocol of the application is SAML. If this method is selected when the SSO protocol of the application is an OIDC protocol, the InitLoginUrl parameter is required.",
+      "description": "The initialization single sign-on (SSO) method. Valid values:\n- only\\_app\\_init\\_sso: Only application-initiated SSO. This is the default value for OIDC protocol applications. When a SAML application specifies this method, InitLoginUrl must be specified.\n- idaas\\_or\\_app\\_init\\_sso: SSO initiated from the IDaaS portal or the application. This is the default value for SAML protocol applications. When an OIDC protocol application specifies this method, InitLoginUrl must be specified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InitLoginUrl",
-      "description": "The initial webhook URL of SSO. This parameter is required when the SSO protocol of the application is an OIDC protocol and the InitLoginType parameters is set to idaas_or_app_init_sso or when the SSO protocol of the application is SAML and the InitLoginType parameter is set to only_app_init_sso.",
+      "description": "The URL that triggers the initialization single sign-on (SSO).\nWhen an OIDC protocol application sets InitLoginType to idaas\\_or\\_app\\_init\\_sso, this parameter is required.\nWhen a SAML protocol application sets InitLoginType to only\\_app\\_init\\_sso, this parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -42,14 +42,14 @@
     },
     {
       "name": "OidcSsoConfig",
-      "description": "The Open ID Connect (OIDC)-based SSO configuration attributes of the application.",
+      "description": "The SSO configuration parameters for an OIDC protocol-based application.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "SamlSsoConfig",
-      "description": "The Security Assertion Markup Language (SAML)-based SSO configuration attributes of the application.",
+      "description": "The SSO configuration parameters for a SAML protocol-based application.",
       "position": "Query",
       "type": "Struct",
       "required": false

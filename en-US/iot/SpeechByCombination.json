@@ -1,61 +1,62 @@
 {
   "name": "SpeechByCombination",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AudioFormat",
-      "description": "",
+      "description": "The audio format. Only **wav**, **mp3**, and **amr** formats are supported.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "CombinationList",
-      "description": "",
+      "description": "The combined speech content, which includes the following types:\n\n- Speech corpus that has been successfully pushed to the device. Specify the identifier of the corpus.\n\n- Dynamic content supported for playback. Specify the content based on the specific rules supported by the device.\n    \n    Example: amount, in the format of `{$xxx}`, where xxx is the specific amount. For example, `{$1000}` causes the device to play **1000 yuan**.\n    \nThe device plays the content in the order specified in CombinationList.",
       "position": "Body",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "DeviceName",
-      "description": "",
+      "description": "The **DeviceName** of the device.\nIf you specify this parameter, you must also specify **ProductKey**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "EnforceFlag",
-      "description": "",
+      "description": "Specifies whether to deliver a forced playback flag to the device.\n\n- **false** (default): does not deliver the flag.\n- **true**: delivers the flag.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IotId",
-      "description": "",
+      "description": "The device ID. You can call [QuerySpeechDevice](~~280408~~) to obtain this parameter.\n\n>If you specify this parameter, you do not need to specify **ProductKey** or **DeviceName**. **IotId** is a globally unique identifier of a device and corresponds to a combination of **ProductKey** and **DeviceName**. If you specify both **IotId** and the combination of **ProductKey** and **DeviceName**, **IotId** takes precedence.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "",
+      "description": "The instance ID. <props=\"china\"><ph>You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.</ph></props>\n\n><notice>\n- If an ID value exists, you must specify this ID value. Otherwise, the call fails.\n- If no ID value exists, you do not need to specify this parameter.\n\n></notice>\n\n<props=\"china\">For more information about instances, see [How to obtain an instance ID](~~267533~~).</props>",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "",
+      "description": "The **ProductKey** of the product to which the device belongs. If you specify this parameter, you must also specify **DeviceName**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SpeechId",
-      "description": "",
+      "description": "The unique speech ID delivered to the device.\n><notice>\nIf you do not specify this parameter, the system generates one. If you retry a speech delivery for business purposes, specify the speech ID of the retry to avoid duplicate business broadcasts.\n></notice>",
       "position": "Body",
       "type": "String",
       "required": false

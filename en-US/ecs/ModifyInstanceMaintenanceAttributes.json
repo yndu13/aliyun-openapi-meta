@@ -1,38 +1,41 @@
 {
   "name": "ModifyInstanceMaintenanceAttributes",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ActionOnMaintenance",
-      "description": "The maintenance action. Valid values:\n\n*   Stop: stops the instance.\n*   AutoRecover: automatically recovers the instance.\n*   AutoRedeploy: redeploys the instance, which may damage the data disks attached to the instance.",
+      "description": "The maintenance action. Valid values:\n\n- Stop: The instance is stopped (that is, the instance goes down).\n- AutoRecover: The instance is automatically recovered.\n- AutoRedeploy: The instance is redeployed upon downtime, with possible data disk loss.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of instance N. Valid values of N: 1 to 100.",
+      "description": "The instance ID. Valid values of N: 1 to 100.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "MaintenanceWindow",
-      "description": "The maintenance windows.",
+      "description": "The list of maintenance time windows.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "EndTime",
+          "description": "The end time of the time window. The time must be on the hour. Minutes and seconds cannot be specified. The start time and end time must be specified together, and the interval between them must be 1 to 23 hours. The time is in the UTC+8 time zone and in the `HH:mm:ss` format. Valid values of N: 1. Only one time window can be specified.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartTime",
+          "description": "The start time of the time window. The time must be on the hour. Minutes and seconds cannot be specified. The start time and end time must be specified together, and the interval between them must be 1 to 23 hours. The time is in the UTC+8 time zone and in the `HH:mm:ss` format. Valid values of N: 1. Only one time window can be specified.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -41,14 +44,14 @@
     },
     {
       "name": "NotifyOnMaintenance",
-      "description": "Specifies whether to send an event notification before maintenance. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to send an event notification before instance downtime maintenance. Valid values:\n\n- true: An event notification is sent.\n- false: No event notification is sent.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the instance. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true

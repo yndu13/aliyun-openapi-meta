@@ -1,0 +1,37 @@
+{
+  "name": "GenerateMac",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "Algorithm",
+      "description": "The algorithm that is used to generate the message authentication code. Valid values vary based on the key specification:  \n\n- HMAC_SM3\n\n- HMAC_SHA_224\n\n- HMAC_SHA_256\n\n- HMAC_SHA_384\n\n- HMAC_SHA_512",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "DryRun",
+      "description": "Specifies whether to enable DryRun mode.\n\n- true: enabled\n- false (default): disabled\n\nDryRun mode is used to test API calls and verify whether you have the required permissions on the corresponding resources and whether the request parameters are correctly configured. When DryRun mode is enabled, KMS always returns a failure and provides the failure reason. Failure reasons include:\n\n- DryRunOperationError: The request would succeed without the DryRun parameter.\n- ValidationError: The parameters specified in the request are invalid.\n- AccessDeniedError: You are not authorized to perform this operation on the KMS resource.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "KeyId",
+      "description": "The ID of the key. You can also specify a key alias or a key Amazon Resource Name (ARN). For more information about aliases, refer to [Manage key aliases](~~480655~~).\n>When you access a key that belongs to a different Alibaba Cloud account, you must specify the key ARN. The format of a key ARN is `acs:kms:${region}:${account}:key/${keyid}`.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Message",
+      "description": "The data for which you want to generate a message authentication code.  \n\nThe value is Base64-encoded. For example, if the hexadecimal data is `[0x31, 0x32, 0x33, 0x34]`, the corresponding Base64-encoded value is `MTIzNA==`.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

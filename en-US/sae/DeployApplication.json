@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "AcrAssumeRoleArn",
-      "description": "The Alibaba Cloud Resource Name (ARN) required for a RAM role to obtain images across accounts. For more information, see [Grant permissions across Alibaba Cloud accounts by using a RAM role](~~223585~~).",
+      "description": "The ARN of the RAM role required for cross-account image pulling. For more information, see [Grant permissions across Alibaba Cloud accounts by using a RAM role](~~223585~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AcrInstanceId",
-      "description": "The ID of Container Registry Enterprise Edition instance N. This parameter is required when the **ImageUrl** parameter is set to the URL of an image in an ACR Enterprise Edition instance.",
+      "description": "The Container Registry Enterprise instance ID. This parameter is required when **ImageUrl** is set to a Container Registry Enterprise instance image.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AgentVersion",
-      "description": "",
+      "description": "The AliyunAgent version.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AlbIngressReadinessGate",
-      "description": "",
+      "description": "The ALB gateway ReadinessGate configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AppId",
-      "description": "The ID of the application.",
+      "description": "The ID of the application to deploy.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AssociateEip",
-      "description": "Specifies whether to associate an EIP with the node pool. Take note of the following rules:\n\n*   **true**: The EIP is associated with the application instance.\n*   **false**: The EIP is not associated with the application instance.",
+      "description": "Specifies whether to associate an elastic IP address (EIP). Valid values:\n\n- **true**: associates an EIP.\n- **false**: does not associate an EIP.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoEnableApplicationScalingRule",
-      "description": "Specifies whether to automatically enable an auto scaling policy for the application. Take note of the following rules:\n\n*   **true**: turns on Logon-free Sharing\n*   **false**: turns off Logon-free Sharing",
+      "description": "Specifies whether to automatically enable the application elastic scaling policy. Valid values:\n- **true**: enabled.\n- **false**: disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "BatchWaitTime",
-      "description": "The interval between batches during a batch release. Unit: minutes.",
+      "description": "The interval between deployment batches. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -70,420 +70,423 @@
     },
     {
       "name": "Command",
-      "description": "The command that is used to start the image. The command must be an existing executable object in the container. Sample statements:\n\n    command:\n          - echo\n          - abc\n          - >\n          - file0\n\nIn this example, the Command parameter is set to `Command=\"echo\", CommandArgs=[\"abc\", \">\", \"file0\"]`.",
+      "description": "The image startup command. The command must be an executable object in the container. Example:\n\n```\ncommand:\n      - echo\n      - abc\n      - >\n      - file0\n```\nBased on the preceding example, `Command=\"echo\", CommandArgs=[\"abc\", \">\", \"file0\"]`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CommandArgs",
-      "description": "The parameters of the image startup command. The CommandArgs parameter specifies the parameters that are required for the **Command** parameter. You can specify the name in one of the following formats:\n\n`[\"a\",\"b\"]`\n\nIn the preceding example, the CommandArgs parameter is set to `CommandArgs=[\"abc\", \">\", \"file0\"]`. The data type of `[\"abc\", \">\", \"file0\"]` must be an array of strings in the JSON format. This parameter is optional.",
+      "description": "The arguments of the image startup command. These are the arguments required by the startup command specified in **Command**. Format:\n\n`[\"a\",\"b\"]`\n\nIn the preceding example, `CommandArgs=[\"abc\", \">\", \"file0\"]`, where `[\"abc\", \">\", \"file0\"]` must be converted to a String type, and the internal format is a JSON array. If this parameter is not required, leave it empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConfigMapMountDesc",
-      "description": "The description of the **ConfigMap** instance mounted to the application. Use configurations created on the Configuration Items page to configure containers. The following table describes the parameters that are used in the preceding statements.\n\n*   **congfigMapId**: the ID of the ConfigMap instance. You can call the [ListNamespacedConfigMaps](~~176917~~) operation to obtain the ID.\n*   **key**: the key.\n\n> You can use `sae-sys-configmap-all` to mount all keys.\n\n*   **mountPath**: the mount path in the container.",
+      "description": "The **ConfigMap** mount description. Use a ConfigMap created on the namespace configuration items page to inject configuration information into the container. Settings:\n\n- **configMapId**: the ConfigMap instance ID. You can obtain it by calling the [ListNamespacedConfigMaps](~~176917~~) operation.\n- **key**: the key.\n\n> You can mount all keys by passing the `sae-sys-configmap-all` parameter.\n\n- **mountPath**: the mount path.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Cpu",
-      "description": "The CPU specifications that are required for each instance. Unit: millicores. This parameter cannot be set to 0. Valid values:\n\n*   **500**\n*   **1000**\n*   **2000**\n*   **4000**\n*   **8000**\n*   **12000**\n*   **16000**\n*   **32000**",
+      "description": "The CPU resources required for each instance. Unit: millicores. This parameter cannot be set to 0. Only the following defined specifications are supported:\n- **500**\n- **1000**\n- **2000**\n- **4000**\n- **8000**\n- **12000**\n- **16000**\n- **32000**",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "CustomHostAlias",
-      "description": "The custom mappings between hostnames and IP addresses in the container. Take note of the following rules:\n\n*   **hostName**: the domain name or hostname.\n*   **ip**: the IP address.",
+      "description": "The custom host mapping in the container. Valid values:\n\n- **hostName**: the domain name or hostname.\n- **ip**: the IP address.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomImageNetworkType",
-      "description": "Custom image type. To it to empty string to use pre-built image.\n\n- internet: Public network image\n\n- intranet: Private network image",
+      "description": "The custom image type. If the image is not a custom image, set this parameter to an empty string:\n\n- internet: public image.\n- intranet: private image.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Deploy",
-      "description": "This parameter takes effect only for applications that are in the Stopped state. If you call the **DeployApplication** operation to manage a running application, the application is immediately redeployed.\n\n*   **true** (default): specifies that the system immediately deploys the application, enables new configurations, and pulls application instances.\n*   **false**: specifies that the system only enables the new configurations.",
+      "description": "This parameter takes effect only for applications in the stopped state. If you call the **DeployApplication** operation for a running application, the application is immediately redeployed.\n- **true**: default value. Deploys immediately, applies the new deployment configuration, and starts instances.\n- **false**: applies the new deployment configuration only, without starting application instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Dotnet",
-      "description": "The version of .NET\n\n- .NET 3.1\n- .NET 5.0\n- .NET 6.0\n- .NET 7.0\n- .NET 8.0",
+      "description": "The version of the .NET framework: \n\n- .NET 3.1\n- .NET 5.0\n- .NET 6.0\n- .NET 7.0\n- .NET 8.0",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EdasContainerVersion",
-      "description": "The version of the container, such as Ali-Tomcat, in which an application developed based on High-speed Service Framework (HSF) is deployed.",
+      "description": "The version of the application runtime environment in the HSF framework, such as the Ali-Tomcat container.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EmptyDirDesc",
-      "description": "",
+      "description": "The shared ephemeral storage configuration.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableAhas",
-      "description": "Indicates whether access to Application High Availability Service (AHAS) is enabled. Take note of the following rules:\n\n*   **true**: Access to AHAS is enabled.\n*   **false**: Access to AHAS is disabled.",
+      "description": "Specifies whether to enable Application High Availability Service (AHAS). Valid values:\n\n- **true**: enables AHAS.\n- **false**: does not enable AHAS.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableCpuBurst",
-      "description": "Enable CPU Burst.\n\ntrue: enable\n\nfalse: disable",
+      "description": "Specifies whether to enable the CPU Burst feature:\n\n- true: enabled.\n- false: disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableGreyTagRoute",
-      "description": "Indicates whether canary release rules are enabled. Canary release rules apply only to applications in Spring Cloud and Dubbo frameworks. Take note of the following rules:\n\n*   **true**: The canary release rules are enabled.\n*   **false**: The canary release rules are disabled.",
+      "description": "Specifies whether to enable traffic canary release rules. This rule applies only to applications that use the Spring Cloud or Dubbo framework. Valid values:\n\n- **true**: enables canary release rules.\n- **false**: disables canary release rules.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableNamespaceAgentVersion",
-      "description": "",
+      "description": "Specifies whether to reuse the namespace Agent version configuration.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableNewArms",
-      "description": "Enable new ARMS features.\n\n- true: enable\n\n- false: disable",
+      "description": "Specifies whether to enable the new ARMS feature:\n\n- true: enabled.\n- false: disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnablePrometheus",
-      "description": "",
+      "description": "Specifies whether to enable custom Prometheus metric collection.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableSidecarResourceIsolated",
-      "description": "Enable Sidecar resource isolation.\n\ntrue: enable\n\nfalse: disable",
+      "description": "Specifies whether to enable sidecar resource isolation:\n\n- true: enables isolation.\n- false: does not enable isolation.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Envs",
-      "description": "The environment variables. You can configure custom environment variables or reference a ConfigMap. If you want to reference a ConfigMap, you must first create a ConfigMap. For more information, see [CreateConfigMap](~~176914~~). Take note of the following rules:\n\n*   Customize\n\n    *   **name**: the name of the environment variable.\n    *   **value**: the value of the environment variable.\n\n*   Reference ConfigMap\n\n    *   **name**: the name of the environment variable. You can reference one or all keys. If you want to reference all keys, specify `sae-sys-configmap-all-<ConfigMap name>`. Example: `sae-sys-configmap-all-test1`.\n    *   **valueFrom**: the reference of the environment variable. Set the value to `configMapRef`.\n    *   **configMapId**: the ConfigMap ID.\n    *   **key**: the key. If you want to reference all keys, do not configure this parameter.\n\n*   Reference secret dictionary\n\n    *   **name**: the name of the environment variable. You can reference one or all keys. If you want to reference all keys, specify `sae-sys-secret-all-<Secret dictionary name>`. Example: `sae-sys-secret-all-test1`.\n    *   **valueFrom**: the reference of the environment variable. Set the value to `secretRef`.\n    *   **secretId**: the secret dictionary ID.\n    *   **key**: the key. If you want to reference all keys, do not configure this parameter.",
+      "description": "The container environment variable parameters. You can customize environment variables or reference ConfigMap items. To reference a ConfigMap item, create a ConfigMap instance first. For more information, see [CreateConfigMap](~~176914~~). Valid values:\n- Custom configuration\n    - **name**: the name of the environment variable.\n    - **value**: the value of the environment variable. This takes priority over valueFrom.\n- Reference a ConfigMap item (valueFrom)\n    - **name**: the name of the environment variable. To reference all keys, enter `sae-sys-configmap-all-<ConfigMap name>`, such as `sae-sys-configmap-all-test1`.\n    - **valueFrom**: the environment variable reference. Set the value to `configMapRef`.\n    - **configMapId**: the ConfigMap ID.\n    - **key**: the key. Do not set this field if you want to reference all keys.\n- Reference a secret (valueFrom)\n    - **name**: the name of the environment variable. To reference all keys, enter `sae-sys-secret-all-<secret name>`, such as `sae-sys-secret-all-test1`.\n    - **valueFrom**: the environment variable reference. Set the value to `secretRef`.\n    - **secretId**: the secret ID.\n    - **key**: the key. Do not set this field if you want to reference all keys.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GpuConfig",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Html",
-      "description": "",
+      "description": "The Nginx version.\n- nginx 1.20\n- nginx 1.22\n- nginx 1.24\n- nginx 1.26\n- nginx 1.28",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImagePullSecrets",
-      "description": "The ID of the corresponding Secret.",
+      "description": "The corresponding secret ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageUrl",
-      "description": "The URL of the image. This parameter is returned only if the **PackageType** parameter is set to **Image**.",
+      "description": "The image URL. This parameter is required when **Package Type** is set to **Image**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InitContainersConfig",
-      "description": "Initialize container configuration.",
+      "description": "The init container configuration.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "JarStartArgs",
-      "description": "The arguments in the JAR package. The arguments are used to start the application container. The default startup command is `$JAVA_HOME/bin/java $JarStartOptions -jar $CATALINA_OPTS \"$package_path\" $JarStartArgs`.",
+      "description": "The startup arguments for a JAR package-based application. The default startup command is `$JAVA_HOME/bin/java $JarStartOptions -jar $CATALINA_OPTS \"$package_path\" $JarStartArgs`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JarStartOptions",
-      "description": "The option settings in the JAR package. The settings are used to start the application container. The default startup command for application deployment is `$JAVA_HOME/bin/java $JarStartOptions -jar $CATALINA_OPTS \"$package_path\" $JarStartArgs`.",
+      "description": "The startup options for a JAR package-based application. The default startup command is `$JAVA_HOME/bin/java $JarStartOptions -jar $CATALINA_OPTS \"$package_path\" $JarStartArgs`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Jdk",
-      "description": "The version of the Java development kit (JDK) on which the deployment package of the application depends. The following versions are supported:\n\n*   **Open JDK 8**\n*   **Open JDK 7**\n*   **Dragonwell 11**\n*   **Dragonwell 8**\n*   **openjdk-8u191-jdk-alpine3.9**\n*   **openjdk-7u201-jdk-alpine3.9**\n\nThis parameter is not returned if the **PackageType** parameter is set to **Image**.",
+      "description": "The JDK version on which the deployment package depends. Valid values:\n\n- **Open JDK 8**\n- **Open JDK 7**\n- **Dragonwell 11**\n- **Dragonwell 8**\n- **openjdk-8u191-jdk-alpine3.9**\n- **openjdk-7u201-jdk-alpine3.9**\n\nThis parameter is not supported when **Package Type** is set to **Image**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KafkaConfigs",
-      "description": "The logging configurations of Message Queue for Apache Kafka. Take note of the following rules:\n\n*   **kafkaEndpoint**: the endpoint of the Message Queue for Apache Kafka API.\n*   **kafkaInstanceId**: the ID of the Message Queue for Apache Kafka instance.\n*   **kafkaConfigs**: One or more logging configurations of Message Queue for Apache Kafka. For information about sample values and parameters, see the request parameter **KafkaLogfileConfig** in this topic.",
+      "description": "The summary of log collection configurations for Kafka. Valid values:\n\n- **kafkaEndpoint**: the endpoint of the Kafka API.\n- **kafkaInstanceId**: the Kafka instance ID.\n- **kafkaConfigs**: the configuration summary for one or more log entries. For example values and parameter descriptions, see the **kafkaConfigs** request parameter in this topic.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Labels",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Liveness",
-      "description": "The details of the availability check that was performed on the container. If the container fails this health check multiple times, the system disables and restarts the container. You can use one of the following methods to perform the health check:\n\n*   Example of **exec**: `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"cat/home/admin/start.sh\"]},\"initialDelaySeconds\":30,\"periodSeconds\":30,\"timeoutSeconds\":2}`\n*   Sample code of the **httpGet** method: `{\"httpGet\":{\"path\":\"/\",\"port\":18091,\"scheme\":\"HTTP\",\"isContainKeyWord\":true,\"keyWord\":\"SAE\"},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n*   Sample code of the **tcpSocket** method: `{\"tcpSocket\":{\"port\":18091},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n\n> You can use only one method to perform the health check.\n\nThe following table describes the parameters that are used in the preceding statements.\n\n*   **exec.command**: the health check command.\n*   **httpGet.path**: the request path.\n*   **httpGet.scheme**: the protocol that is used to perform the health check. Valid values: **HTTP** and **HTTPS**.\n*   **httpGet.isContainKeyWord**: indicates whether the response contains keywords. Valid values: **true** and **false**. If this field is not returned, the advanced settings are not used.\n*   **httpGet.keyWord**: the custom keyword. This parameter is available only if the **isContainKeyWord** field is returned.\n*   **tcpSocket.port**: the port that is used to check the status of TCP connections.\n*   **initialDelaySeconds**: the delay of the health check. Default value: 10. Unit: seconds.\n*   **periodSeconds**: the interval at which health checks are performed. Default value: 30. Unit: seconds.\n*   **timeoutSeconds**: the timeout period of the health check. Default value: 1. Unit: seconds. If you set this parameter to 0 or leave this parameter empty, the timeout period is automatically set to 1 second.",
+      "description": "The container health check. Containers that fail the health check are shutdown and recovered. The following methods are supported:\n\n- **exec**: for example, `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"cat/home/admin/start.sh\"]},\"initialDelaySeconds\":30,\"periodSeconds\":30,\"timeoutSeconds\":2}`\n- **httpGet**: for example, `{\"httpGet\":{\"path\":\"/\",\"port\":18091,\"scheme\":\"HTTP\",\"isContainKeyWord\":true,\"keyWord\":\"SAE\"},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n- **tcpSocket**: for example, `{\"tcpSocket\":{\"port\":18091},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n\n> Only one method can be selected for health checks.\n\nSettings:\n\n- **exec.command**: sets the health check command.\n- **httpGet.path**: the access path.\n- **httpGet.scheme**: **HTTP** or **HTTPS**.\n- **httpGet.isContainKeyWord**: **true** indicates that the keyword is included, **false** indicates that the keyword is not included, and the absence of this field indicates that the advanced feature is not used.\n- **httpGet.keyWord**: the custom keyword. The **isContainKeyWord** field must be present when this parameter is used.\n- **tcpSocket.port**: the port for TCP connection detection.\n- **initialDelaySeconds**: sets the initial delay for the health check. Default value: 10. Unit: seconds.\n- **periodSeconds**: sets the health check epoch. Default value: 30. Unit: seconds.\n- **timeoutSeconds**: sets the health check timeout period. Default value: 1. Unit: seconds. If this parameter is set to 0 or is not set, the default timeout period is 1 second.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LokiConfigs",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxSurgeInstanceRatio",
-      "description": "",
+      "description": "The maximum surge instance percentage. Valid values:\n\nIf the minimum number of available instances is 100%, the maximum surge cannot be set to 0. If this parameter is set to **-1**, the system-recommended value of 30% is used, which is 30% of the current number of instances. For example, if the current number of instances is 10, the value is 10 × 30% = 3.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MaxSurgeInstances",
-      "description": "",
+      "description": "The maximum number of surge instances. Valid values:\n\nIf the minimum number of available instances is 100%, the maximum surge cannot be set to 0.\nIf this parameter is set to **-1**, the system-recommended value of 30% is used, which is 30% of the current number of instances. For example, if the current number of instances is 10, the value is 10 × 30% = 3.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Memory",
-      "description": "The memory size that is required by each instance. Unit: MB. This parameter cannot be set to 0. The values of this parameter correspond to the values of the Cpu parameter:\n\n*   This parameter is set to **1024** if the Cpu parameter is set to 500 or 1000.\n*   This parameter is set to **2048** if the Cpu parameter is set to 500, 1000, or 2000.\n*   This parameter is set to **4096** if the Cpu parameter is set to 1000, 2000, or 4000.\n*   This parameter is set to **8192** if the Cpu parameter is set to 2000, 4000, or 8,000.\n*   This parameter is set to **12288** if the Cpu parameter is set to 12000.\n*   This parameter is set to **16384** if the Cpu parameter is set to 4000, 8000, or 16000.\n*   This parameter is set to **24576** if the Cpu parameter is set to 12000.\n*   This parameter is set to **32768** if the Cpu parameter is set to 16000.\n*   This parameter is set to **65536** if the Cpu parameter is set to 8000, 16000, or 32000.\n*   This parameter is set to **131072** if the Cpu parameter is set to 32000.",
+      "description": "The memory required for each instance. Unit: MB. This parameter cannot be set to 0. The memory has a one-to-one mapping with CPU. Only the following defined specifications are supported:\n- **1024**: corresponds to 500 and 1000 millicores of CPU.\n- **2048**: corresponds to 500, 1000, and 2000 millicores of CPU.\n- **4096**: corresponds to 1000, 2000, and 4000 millicores of CPU.\n- **8192**: corresponds to 2000, 4000, and 8000 millicores of CPU.\n- **12288**: corresponds to 12000 millicores of CPU.\n- **16384**: corresponds to 4000, 8000, and 16000 millicores of CPU.\n- **24576**: corresponds to 12000 millicores of CPU.\n- **32768**: corresponds to 16000 millicores of CPU.\n- **65536**: corresponds to 8000, 16000, and 32000 millicores of CPU.\n- **131072**: corresponds to 32000 millicores of CPU.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MicroRegistration",
-      "description": "The Nacos registry. Valid values:\n\n*   **0**: SAE built-in Nacos registry\n*   **1**: self-managed Nacos registry\n*   **2** : MSE Nacos registry",
+      "description": "Specifies the Nacos registry. Valid values:\n- **0**: Serverless App Engine built-in Nacos.\n- **1**: self-managed Nacos.\n- **2**: Microservices Engine (MSE) commercial edition Nacos.\n\n> If you select Serverless App Engine built-in Nacos, you cannot obtain the configuration of the built-in Nacos.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MicroRegistrationConfig",
-      "description": "Select the edition of Nacos.\n\n- 0: SAE built-in Nacos. Unable to get the configuration of SAE built-in Nacos.\n\n- 1: Self-built Nacos from users.\n\n- 2: MSE enterprise Nacos.",
+      "description": "The registry configuration, which takes effect only when the registry type is MSE Nacos Enterprise Edition.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MicroserviceEngineConfig",
-      "description": "Configure Microservices Governance\n\nWhether to enable microservices governance (enable):\n- true: Enable\n- false: Disable\n\nConfigure lossless online/offline deployment (mseLosslessRule):\n\ndelayTime: Delay duration (unit: seconds)\n\nenable: Whether to enable lossless deployment\n\n- true: Enable\n\n- false: Disable\n\nnotice: Whether to enable notifications\n\n- true: Enable\n\n- false: Disable\n\nwarmupTime: Small-traffic warm-up duration (unit: seconds)",
+      "description": "Configures microservice governance.\n\n- Specifies whether to enable microservice governance (enable):\n\n   - true: enabled.\n\n  - false: disabled.\n\n- Configures lossless online/offline (mseLosslessRule):\n\n  - delayTime: the delay time.\n\n  - enable: specifies whether to enable the lossless online feature. true indicates enabled, and false indicates disabled.\n\n  - notice: specifies whether to enable the notification feature. true indicates enabled, and false indicates disabled.\n\n  - warmupTime: the warm-up duration for low-traffic scenarios. Unit: seconds.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MinReadyInstanceRatio",
-      "description": "The percentage of the minimum number of available instances. Take note of the following rules:\n\n*   If you set the value to **-1**, the minimum number of available instances is not determined based on this parameter. Default value: -1.\n*   If you set the value to a number **from 0 to 100**, the minimum number of available instances is calculated by using the following formula: Current number of instances × (Value of MinReadyInstanceRatio × 100%). The value is the nearest integer rounded up from the calculated result. For example, if the percentage is set to **50**% and five instances are available, the minimum number of available instances is 3.\n\n> When both **MinReadyInstance** and **MinReadyInstanceRatio** are specified and **MinReadyInstanceRatio** is set to a number from 0 to 100, the value of **MinReadyInstanceRatio**** takes precedence. For example, if **MinReadyInstances** is set to **5, and **MinReadyInstanceRatio** is set to **50**, the minimum number of available instances is set to the nearest integer rounded up from the calculated result of the following formula: Current number of instances × **50%**.",
+      "description": "The minimum percentage of available instances. Valid values:\n\n - **-1**: the initialization value, which indicates that the percentage is not used.\n - **0~100**: the unit is percentage, rounded up. For example, if this parameter is set to **50**% and the current number of instances is 5, the minimum number of available instances is 3.\n\n> When both **MinReadyInstance** and **MinReadyInstanceRatio** are specified and the value of **MinReadyInstanceRatio** is not **-1**, the **MinReadyInstanceRatio** parameter takes precedence. For example, if **MinReadyInstances** is set to **5** and **MinReadyInstanceRatio** is set to **50**, the value **50** is used to calculate the minimum number of available instances.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MinReadyInstances",
-      "description": "The minimum number of available instances. Special values:\n\n*   If you set the value to **0**, business interruptions occur when the application is updated.\n*   If you set the value to \\*\\*-1\\*\\*, the minimum number of available instances is automatically set to a system-recommended value. The value is the nearest integer to which the calculated result of the following formula is rounded up: Current number of instances × 25%. For example, if five instances are available, the minimum number of available instances is calculated by using the following formula: 5 × 25% = 1.25. In this case, the minimum number of available instances is 2.\n\n> Make sure that at least one instance is available during application deployment and rollback to prevent business interruptions.",
+      "description": "The minimum number of available instances. Valid values:\n\n- If this parameter is set to **0**, service is interrupted during the upgrade.\n- If this parameter is set to **-1**, the system-recommended value is used, which is 25% of the current number of instances. If the current number of instances is 5, 5 × 25% = 1.25, which is rounded up to 2.\n\n> The minimum number of available instances for each rolling deployment should be ≥ 1 to prevent service interruption.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MountDesc",
-      "description": "The configurations for mounting the NAS file system. After the application is created, you may want to call other operations to manage the application. If you do not want to change the NAS configurations in these subsequent operations, you can omit the **MountDesc** parameter in the requests. If you want to unmount the NAS file system, you must set the **MountDesc** values in the subsequent requests to an empty string (\"\").",
+      "description": "We do not recommend that you configure this field. Configure **NasConfigs** instead. The NAS mount description. If the configuration has not changed during deployment, you do not need to set this parameter (that is, the **MountDesc** field does not need to be included in the request). To clear the NAS configuration, set the value of this field to an empty string (that is, set the value of the **MountDesc** field to \"\" in the request).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MountHost",
-      "description": "The mount target of the NAS file system in the VPC where the application is deployed. If you do not need to modify this configuration during the deployment, configure the **MountHost** parameter only in the first request. You do not need to include this parameter in subsequent requests. If you need to remove this configuration, leave the **MountHost** parameter empty in the request.",
+      "description": "We do not recommend that you configure this field. Configure **NasConfigs** instead. The mount point of the NAS file system in the VPC of the application. If the configuration has not changed during deployment, you do not need to set this parameter (that is, the **MountHost** field does not need to be included in the request). To clear the NAS configuration, set the value of this field to an empty string (that is, set the value of the **MountHost** field to \"\" in the request).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NasConfigs",
-      "description": "The configurations of mounting the NAS file system. Take note of the following rules:\n\n*   **mountPath**: the mount path of the container.\n*   **readOnly**: If you set the value to **false**, the application has the read and write permissions.\n*   **nasId**: the ID of the NAS file system.\n*   **mountDomain**: the domain name of the mount target. For more information, see [DescribeMountTargets](~~62626~~).\n*   **nasPath**: the directory in the NAS file system.",
+      "description": "The NAS mount configuration. Valid values:\n- **mountPath**: the container mount path.\n- **readOnly**: set to **false** for read and write permission.\n- **nasId**: the NAS ID.\n- **mountDomain**: the container mount point address. For more information, see [DescribeMountTargets](~~62626~~).\n- **nasPath**: the NAS relative file directory.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NasId",
-      "description": "The ID of the File Storage NAS file system. After the application is created, you may want to call other operations to manage the application. If you do not want to change the NAS configurations in these subsequent operations, you can omit the **NasId** parameter in the requests. If you want to unmount the NAS file system, you must set the **NasId** values in the subsequent requests to an empty string (\"\").",
+      "description": "We do not recommend that you configure this field. Configure **NasConfigs** instead. The ID of the NAS file system. If the configuration has not changed during deployment, you do not need to set this parameter (that is, the **NasId** field does not need to be included in the request). To clear the NAS configuration, set the value of this field to an empty string (that is, set the value of the **NasId** field to \"\" in the request).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NewSaeVersion",
-      "description": "SAE edition.\n\n- lite: the lightweight edition.\n\n- std: the standard edition.\n\n- pro: the professional edition.",
+      "description": "The application version:\n\n- lite: lite edition.\n- std: standard edition.\n- pro: professional edition.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OidcRoleName",
-      "description": "The name of the RAM role used to authenticate the user identity.\n\n>  You need to create an OpenID Connect (OIDC) identity provider (IdP) and an identity provider (IdP) for role-based single sign-on (SSO) in advance. For more information, see [Creates an OpenID Connect (OIDC) identity provider (IdP)](~~2331022~~) and [Creates an identity provider (IdP) for role-based single sign-on (SSO)](~~2331016~~).",
+      "description": "The RAM role for identity authentication.\n\n\n> Create an OIDC identity provider and an identity provider role in the same region in advance. For more information, see [Create an OIDC identity provider](~~2331022~~) and [Create a role for SSO identity provider](~~2331016~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OssAkId",
-      "description": "The AccessKey ID that is used to read data from and write data to Object Storage Service (OSS) buckets.",
+      "description": "The AccessKey ID for OSS read and write operations.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "OssAkSecret",
-      "description": "The AccessKey secret that is used to read data from and write data to OSS buckets.",
+      "description": "The AccessKey Secret for OSS read and write operations.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "OssMountDescs",
-      "description": "Information of the Object Storage Service (OSS) bucket mounted to the application. The following table describes the parameters that are used in the preceding statements.\n\n*   **bucketName**: the name of the OSS bucket.\n\n*   **bucketPath**: the directory or object in OSS. If the specified directory or object does not exist, an error is returned.\n\n*   **mountPath**: the directory of the container in SAE. If the path already exists, the newly specified path overwrites the previous one. If the path does not exist, it is created.\n\n*   **readOnly**: specifies whether to only allow the container path to read data from the OSS directory. Valid values:\n\n    *   **true**: The container path only has read permission on the OSS directory.\n    *   **false**: The application has read and write permissions.",
+      "description": "The OSS mount description. Parameter settings:\n\n- **bucketName**: the bucket name.\n- **bucketPath**: the folder or object that you created in OSS. If the OSS mount folder does not exist, an exception is triggered.\n- **mountPath**: the container path in Serverless App Engine. If the path already exists, it is an overwrite relationship. If the path does not exist, it is created.\n- **readOnly**: specifies whether the container path has read-only permission on the mounted folder resources. Valid values:\n    - **true**: read-only permission.\n    - **false**: read and write permission.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PackageType",
-      "description": "The package type.\n\nWhen using Java, FatJar, War and Image are supported.\nWhen using Python, PythonZip and Image are supported.\nWhen using PHP, the followings are supported:\n- PhpZip\n- IMAGE_PHP_5_4\n- IMAGE_PHP_5_4_ALPINE\n- IMAGE_PHP_5_5\n- IMAGE_PHP_5_5_ALPINE\n- IMAGE_PHP_5_6\n- IMAGE_PHP_5_6_ALPINE\n- IMAGE_PHP_7_0\n- IMAGE_PHP_7_0_ALPINE\n- IMAGE_PHP_7_1\n- IMAGE_PHP_7_1_ALPINE\n- IMAGE_PHP_7_2\n- IMAGE_PHP_7_2_ALPINE\n- IMAGE_PHP_7_3\n- IMAGE_PHP_7_3_ALPINE",
+      "description": "The application package type. Valid values:\n\n- When you deploy with Java, the following types are supported: **FatJar**, **War**, and **Image**.\n- When you deploy with PHP, the following types are supported:\n    - **PhpZip**\n    - **IMAGE\\_PHP\\_5\\_4**\n    - **IMAGE\\_PHP\\_5\\_4\\_ALPINE**\n    - **IMAGE\\_PHP\\_5\\_5**\n    - **IMAGE\\_PHP\\_5\\_5\\_ALPINE**\n    - **IMAGE\\_PHP\\_5\\_6**\n    - **IMAGE\\_PHP\\_5\\_6\\_ALPINE**\n    - **IMAGE\\_PHP\\_7\\_0**\n    - **IMAGE\\_PHP\\_7\\_0\\_ALPINE**\n    - **IMAGE\\_PHP\\_7\\_1**\n    - **IMAGE\\_PHP\\_7\\_1\\_ALPINE**\n    - **IMAGE\\_PHP\\_7\\_2**\n    - **IMAGE\\_PHP\\_7\\_2\\_ALPINE**\n    - **IMAGE\\_PHP\\_7\\_3**\n    - **IMAGE\\_PHP\\_7\\_3\\_ALPINE**\n- When you deploy with Python, the following types are supported: **PythonZip** and **Image**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PackageUrl",
-      "description": "The address of the deployment package. This parameter is required when the **PackageType** parameter is set to **FatJar**, **War**, or **PythonZip**.",
+      "description": "The URL of the deployment package. This parameter is required when **Package Type** is set to **FatJar**, **War**, or **PythonZip**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PackageVersion",
-      "description": "The version of the deployment package. This parameter is required when the **PackageType** parameter is set to **FatJar**, **War**, or **PythonZip**.",
+      "description": "The version number of the deployment package. This parameter is required when **Package Type** is set to **FatJar**, **War**, or **PythonZip**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Php",
-      "description": "The dependent PHP version of PHP package. Image is not supported.",
+      "description": "The PHP version on which the deployment package depends. Not supported for images.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PhpArmsConfigLocation",
-      "description": "The path on which the PHP configuration file for application monitoring is mounted. Make sure that the PHP server loads the configuration file. SAE automatically generates the corresponding configuration file. No manual operations are required.",
+      "description": "The mount path for PHP application monitoring. Ensure that the PHP server loads the configuration file from this path. You do not need to manage the configuration content because Serverless App Engine automatically renders the correct configuration file.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PhpConfig",
-      "description": "The details of the PHP configuration file.",
+      "description": "The content of the PHP configuration file.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PhpConfigLocation",
-      "description": "The path on which the PHP configuration file for application startup is mounted. Make sure that the PHP server uses this configuration file during the startup.",
+      "description": "The mount path for the PHP application startup configuration. Ensure that the PHP server uses this configuration file for startup.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PostStart",
-      "description": "The script that is run immediately after the container is started. Example: `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"echo hello\"\\]}}`",
+      "description": "The script that is run after the container starts. A script is triggered immediately after the container is created. Format: `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"echo hello\"\\]}}`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PreStop",
-      "description": "The script that is run before the container is stopped. Example: `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"echo hello\"\\]}}`",
+      "description": "The script that is run before the container stops. A script is triggered before the container is deleted. Format: `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"echo hello\"\\]}}`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PvtzDiscoverySvc",
-      "description": "The configurations of Kubernetes Service-based service registration and discovery. Take note of the following rules:\n\n*   **serviceName**: the name of the Alibaba Cloud service. Format: `<Custom content>-<Namespace ID>`. `-<Namespace ID>` is automatically specified based on the namespace in which an application resides and cannot be changed. For example, if you select the default namespace in the China (Beijing) region, `-cn-beijing-default` is automatically specified.\n*   **namespaceId**: the namespace ID.\n*   **portAndProtocol**: the port number and protocol. Valid values of the port number: 1 to 65535. Valid values of the protocol: **TCP** and **UDP**.\n*   **enable**: enables the Kubernetes Service-based registration and discovery feature.",
+      "description": "Enables K8s Service-based service registration and discovery. Valid values:\n\n- **portProtocols**: the port and protocol. Valid port values: \\[1,65535]. Valid protocol values: **TCP** and **UDP**.\n- **portAndProtocol**: the port and protocol. Valid port values: \\[1,65535]. Valid protocol values: **TCP** and **UDP**. **portProtocols is recommended. If portProtocols is set, only portProtocols takes effect**.\n- **enable**: enables K8s Service-based service registration and discovery.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Python",
-      "description": "The Python environment. Set the value to **PYTHON 3.9.15**.",
+      "description": "The Python environment. **PYTHON 3.9.15** is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PythonModules",
-      "description": "The configurations for installing custom module dependencies. By default, the dependencies defined by the requirements.txt file in the root directory are installed. If the package does not contain this file and you do not configure custom dependencies in the package, specify the dependencies that you want to install in the text box.",
+      "description": "The custom installation module dependencies. By default, the dependencies defined in the requirements.txt file in the root folder are installed. If no dependencies are configured or custom packages are needed, you can specify the dependencies to install.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RaspConfig",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Readiness",
-      "description": "The details of the health check that was performed on the container. If the container fails this health check multiple times, the system disables and restarts the container. Containers that fail health checks cannot receive traffic from Server Load Balancer (SLB) instances. You can use the **exec**, **httpGet**, or **tcpSocket** method to perform health checks. For more information, see the description of the **Liveness** parameter.\n\n> You can use only one method to perform the health check.",
+      "description": "The application startup status check. Containers that fail multiple health checks are shut down and restarted. Containers that do not pass the health check do not receive SLB traffic. The **exec**, **httpGet**, and **tcpSocket** methods are supported. For specific examples, see the **Liveness** parameter.\n\n> Only one method can be selected for health checks.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -497,63 +500,63 @@
     },
     {
       "name": "SecretMountDesc",
-      "description": "Secret Mount Description\nUse the secret dictionaries created in the Namespace Secret Dictionary page to inject information into containers. Parameter descriptions are as follows:\n\n- secretId: Secret instance ID. Obtain via the ListSecrets interface.\n\n- key: Key-value pair. Note: Set the parameter sae-sys-secret-all to mount all keys.\n\n- mountPath: Mount path.",
+      "description": "The **Secret** mount description. Use a secret created on the namespace secrets page to inject sensitive information into the container. Settings:\n\n- **secretId**: the secret instance ID. You can obtain it by calling the ListSecrets operation.\n- **key**: the key.\n\n> You can mount all keys by passing the `sae-sys-secret-all` parameter.\n\n- **mountPath**: the mount path.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "Security group ID.",
+      "description": "The security group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServiceTags",
-      "description": "The gray-release tag of the application.",
+      "description": "The canary release tags configured for the application.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SidecarContainersConfig",
-      "description": "The configuration of the container.",
+      "description": "The sidecar container configuration.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "SlsConfigs",
-      "description": "The logging configurations of Log Service.\n\n*   To use Log Service resources that are automatically created by SAE, set this parameter to `[{\"logDir\":\"\",\"logType\":\"stdout\"},{\"logDir\":\"/tmp/a.log\"}]`.\n*   To use custom Log Service resources, set this parameter to `[{\"projectName\":\"test-sls\",\"logType\":\"stdout\",\"logDir\":\"\",\"logstoreName\":\"sae\",\"logtailName\":\"\"},{\"projectName\":\"test\",\"logDir\":\"/tmp/a.log\",\"logstoreName\":\"sae\",\"logtailName\":\"\"}]`.\n\nThe following table describes the parameters that are used in the preceding statements.\n\n*   **projectName**: the name of the Log Service project.\n*   **logDir**: the path in which logs are stored.\n*   **logType**: the log type. **stdout**: the standard output log of the container. You can specify only one stdout value for this parameter. If you leave this parameter empty, file logs are collected.\n*   **logstoreName**: the name of the Logstore in Log Service.\n*   **logtailName**: the name of the Logtail configuration in Log Service. If you do not configure this parameter, a new Logtail configuration is created.\n\nIf you do not need to modify the logging configurations when you deploy the application, configure the **SlsConfigs** parameter only in the first request. You do not need to include this parameter in subsequent requests. If you no longer need to use Log Service, leave the **SlsConfigs** parameter empty in the request.\n\n> A Log Service project that is automatically created by SAE when you create an application is deleted when the application is deleted. Therefore, when you create an application, you cannot select a Log Service project that is automatically created by SAE for log collection.",
+      "description": "The configuration for log collection to Simple Log Service.\n\n- Use SLS resources automatically created by Serverless App Engine: `[{\"logDir\":\"\",\"logType\":\"stdout\"},{\"logDir\":\"/tmp/a.log\"}]`.\n- Use custom SLS resources: `[{\"projectName\":\"test-sls\",\"logType\":\"stdout\",\"logDir\":\"\",\"logstoreName\":\"sae\",\"logtailName\":\"\"},{\"projectName\":\"test\",\"logDir\":\"/tmp/a.log\",\"logstoreName\":\"sae\",\"logtailName\":\"\"}]`.\n\nSettings:\n\n- **projectName**: the name of the project in Simple Log Service.  \n- **logDir**: the log path.\n- **logType**: the log type. **stdout** indicates container standard output logs, and only one entry can be set. If this parameter is not set, file logs are collected.\n- **logstoreName**: the name of the Logstore in Simple Log Service.\n- **logtailName**: the name of the Logtail in Simple Log Service. If this parameter is not specified, a new Logtail is created by automatic creation.\n\nIf the SLS collection configuration has not changed during multiple deployments, you do not need to set this parameter (that is, the **SlsConfigs** field does not need to be included in the request). If you no longer need the SLS collection feature, set the value of this field to an empty string (that is, set the value of the **SlsConfigs** field to \"\" in the request).\n\n> A project that is automatically created with the application is deleted when the application is deleted. Therefore, do not select a project that is automatically created by Serverless App Engine when selecting an existing project.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlsLogEnvTags",
-      "description": "",
+      "description": "sls log tags",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartupProbe",
-      "description": "Check Failure: Indicates that the application failed to start. The system will report the exception and automatically restart it.\n\nNote: \n\nSupports exec, httpGet, and tcpSocket methods. For specific examples, see Liveness Parameters.\nOnly one method can be selected for health checks.",
+      "description": "Enables the application startup probe.\n\n- Check succeeded: indicates that the application started successfully. If you configured Liveness and Readiness checks, they are performed after the application starts successfully.\n- Check failed: indicates that the application failed to start. An exception is reported and the application is automatically restarted.\n\n> This is the description content.\n> - The exec, httpGet, and tcpSocket methods are supported. For specific examples, see the Liveness parameter.\n> - Only one method can be selected for health checks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SwimlanePvtzDiscoverySvc",
-      "description": "Configure K8s Service-based Service Registration/Discovery and Full-Chain Grayscale Capabilities\n\n- enable: Whether to enable full-link grayscale based on K8s Service (set to \"true\" to enable; set to \"false\" to disable).\n\n- namespaceId: Namespace ID\n\n- portAndProtocol: Listener port and protocol. Format: {\"Port:Protocol Type\":\"Container Port\"}\n- portProtocols: Define service ports and protocols\nport: Port\nprotocol: Protocol\ntargetPort: Container port\n\n- pvtzDiscoveryName: Service discovery name\n\n- serviceId: Service ID\n\n- serviceName: Service name",
+      "description": "Configures K8s Service-based service registration and discovery with end-to-end canary release:\n\n- enable: specifies whether to enable end-to-end canary release based on K8s Service.\n  - true: enabled.\n  - false: disabled.\n- namespaceId: the namespace ID.\n- portAndProtocol: the listening port and protocol. Format: {\"port:protocol type\":\"container port\"}.\n- portProtocols: defines the service port and protocol.\n  - port: the port.\n  - protocol: the protocol.\n  - targetPort: the container port.\n- pvtzDiscoveryName: the service discovery name.\n- serviceId: the service ID.\n- serviceName: the service name.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TerminationGracePeriodSeconds",
-      "description": "The timeout period for a graceful shutdown. Default value: 30. Unit: seconds. Valid values: 1 to 300.",
+      "description": "The graceful shutdown timeout period. Default value: 30. Unit: seconds. Valid values: 1 to 300.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -567,35 +570,35 @@
     },
     {
       "name": "TomcatConfig",
-      "description": "The Tomcat configuration. If you want to cancel this configuration, set this parameter to \"\" or \"{}\". The following variables are included in the configuration: Take note of the following rules:\n\n*   **port**: the port number. The port number ranges from 1024 to 65535. Though the admin permissions are configured for the container, the root permissions are required to perform operations on ports whose number is smaller than 1024. Enter a value that ranges from 1025 to 65535 because the container has only the admin permissions. If you do not specify this parameter, the default port number 8080 is used.\n*   **contextPath**: the path. Default value: /. This value indicates the root directory.\n*   **maxThreads**: the maximum number of connections in the connection pool. Default value: 400.\n*   **uriEncoding**: the URI encoding scheme in the Tomcat container. Valid values: UTF-8, ISO-8859-1, GBK, and GB2312.************ If you do not specify this parameter, the default value **ISO-8859-1** is used.\n*   **useBodyEncoding**: specifies whether to use the encoding scheme specified in the request body for URI query parameters. Default value: true.",
+      "description": "The Tomcat configuration. Set this parameter to \"\" or \"{}\" to delete the configuration. Valid values:\n\n- **port**: the port number. Valid values: 1024 to 65535. Ports smaller than 1024 require root permissions. Because the container is configured with admin permissions, specify a port greater than 1024. Default value: 8080.\n- **contextPath**: the access path. Default value: root directory \"/\".\n- **maxThreads**: the connection pool size. Default value: 400.\n- **uriEncoding**: the encoding format of Tomcat. Valid values: **UTF-8**, **ISO-8859-1**, **GBK**, and **GB2312**. Default value: **ISO-8859-1**.\n- **useBodyEncodingForUri**: specifies whether to use **BodyEncoding for URL**. Default value: **true**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UpdateStrategy",
-      "description": "The deployment policy. If the minimum number of available instances is 1, the value of the **UpdateStrategy** parameter is an empty string (\"\"). If the minimum number of available instances is greater than 1, the following strategies can be configured:\n\n*   The application is deployed on an instance. The remaining instances are automatically classified into two release batches whose interval is set to 1. In this case, the parameter is set to `{\"type\":\"GrayBatchUpdate\",\"batchUpdate\":{\"batch\":2,\"releaseType\":\"auto\",\"batchWaitTime\":1},\"grayUpdate\":{\"gray\":1}}`.\n*   The application is deployed on an instance. The remaining instances are manually classified into two release batches. In this case, the parameter is set to `{\"type\":\"GrayBatchUpdate\",\"batchUpdate\":{\"batch\":2,\"releaseType\":\"manual\"},\"grayUpdate\":{\"gray\":1}}`.\n*   All instances are automatically classified into two release batches. The application is deployed on the instances of the two batches in parallel. In this case, the parameter is set to `{\"type\":\"BatchUpdate\",\"batchUpdate\":{\"batch\":2,\"releaseType\":\"auto\",\"batchWaitTime\":0}}`\n\nThe following table describes the parameters that are used in the preceding statements.\n\n*   **type**: the type of the release policy. Valid values: **GrayBatchUpdate** and **BatchUpdate**.\n\n*   **batchUpdate**: the phased release policy.\n\n    *   **batch**: the number of release batches.\n    *   **releaseType**: the processing method for the batches. Valid values: **auto** and **manual**.\n    *   **batchWaitTime**: the interval between release batches. Unit: seconds.\n\n*   **grayUpdate**: the number of release batches in the phased release after a canary release. This parameter is returned only if the **type** parameter is set to **GrayBatchUpdate**.",
+      "description": "The deployment policy. When the minimum number of available instances is 1, the value of the **UpdateStrategy** field is \"\". When the minimum number of available instances is greater than 1, examples are as follows:\n \n - Grayscale 1 instance + 2 subsequent batches + automatic batching + 1-minute batch interval: `{\"type\":\"GrayBatchUpdate\",\"batchUpdate\":{\"batch\":2,\"releaseType\":\"auto\",\"batchWaitTime\":1},\"grayUpdate\":{\"gray\":1}}`\n  - Grayscale 1 instance + 2 subsequent batches + manual batching: `{\"type\":\"GrayBatchUpdate\",\"batchUpdate\":{\"batch\":2,\"releaseType\":\"manual\"},\"grayUpdate\":{\"gray\":1}}`\n  - 2 batches + automatic batching + 0-minute batch interval: `{\"type\":\"BatchUpdate\",\"batchUpdate\":{\"batch\":2,\"releaseType\":\"auto\",\"batchWaitTime\":0}}`\n\nSettings:\n  - **type**: the publish policy type. Valid values: **GrayBatchUpdate** (grayscale publish) and **BatchUpdate** (batch publish).\n  - **batchUpdate**: the batch publish policy.\n    - **batch**: the number of publish batches.\n    - **releaseType**: the processing method between batches. Valid values: **auto** (automatic) and **manual** (manual).\n    - **batchWaitTime**: the interval between batches. Unit: minutes.\n\n  - **grayUpdate**: the number of grayscale instances. This parameter is required when **type** is set to **GrayBatchUpdate**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch, where the EIP of the application instances resides. The vSwitch must reside in the VPC above.",
+      "description": "The vSwitch where the network interface controllers (NICs) of the application instance reside. The vSwitch must be in the specified VPC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WarStartOptions",
-      "description": "The startup command of the WAR package. For information about how to configure the startup command, see [Configure startup commands](~~96677~~).",
+      "description": "The startup command for deploying a WAR package-based application. The configuration procedure is the same as that for the startup command of an image-based deployment. For more information, see [Configure a startup command](~~96677~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WebContainer",
-      "description": "The version of the Tomcat container on which the deployment package depends. Valid values:\n\n*   **apache-tomcat-7.0.91**\n*   **apache-tomcat-8.5.42**\n\nThis parameter is not returned if the **PackageType** parameter is set to **Image**.",
+      "description": "The Tomcat version on which the deployment package depends. Valid values:\n\n- **apache-tomcat-7.0.91**\n- **apache-tomcat-8.5.42**\n\nThis parameter is not supported when **Package Type** is set to **Image**.",
       "position": "Query",
       "type": "String",
       "required": false

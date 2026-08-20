@@ -1,0 +1,44 @@
+{
+  "name": "VerifyMac",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "Algorithm",
+      "description": "生成消息验证码的算法。依据使用的密钥规格不同，可取值包括：  \n\n- HMAC_SM3\n\n- HMAC_SHA_224\n\n- HMAC_SHA_256\n\n- HMAC_SHA_384\n\n- HMAC_SHA_512",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "DryRun",
+      "description": "是否开启DryRun模式。true：开启false（默认值）：关闭DryRun模式用于测试API调用，验证您是否具有相应资源的权限，以及请求参数是否配置正确。DryRun模式开启后，KMS会始终返回失败并提示失败原因。失败原因包含如下：DryRunOperationError：不配置DryRun参数时，请求会成功。ValidationError：请求中指定的参数有误。AccessDeniedError：您无权在KMS资源上执行该操作。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "KeyId",
+      "description": "密钥的ID，也可以指定为密钥别名或密钥资源名称（ARN）。关于别名的详细介绍，请参见[管理密钥别名](~~480655~~)。\n>访问其他阿里云账号下的密钥时，必须输入密钥ARN。密钥ARN的格式为`acs:kms:${region}:${account}:key/${keyid}`。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Mac",
+      "description": "base64编码的待校验消息验证码",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Message",
+      "description": "原始消息数据。  \n\n使用Base64编码。例如：待生成消息验证码的十六进制内容为`[0x31, 0x32, 0x33, 0x34]`，则对应的Base64编码为`MTIzNA==`。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

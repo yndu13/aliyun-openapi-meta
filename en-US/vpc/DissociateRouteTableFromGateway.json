@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.\n\n>  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nThe client generates the value. The value must be unique among different requests and cannot exceed 64 ASCII characters in length.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may vary for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to only precheck the request. Valid values:\n\n*   **true**: prechecks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails to pass the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.\n*   **false** (default): sends the request. After the request passes the precheck, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run without disassociating the gateway route table from the IPv4 gateway instance. The system checks the required parameters, request format, and service limits. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n- **false** (default): performs a dry run and sends the request. If the check succeeds, an HTTP 2xx status code is returned and the gateway route table is disassociated from the IPv4 gateway instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "GatewayId",
-      "description": "The ID of the IPv4 gateway.",
+      "description": "The instance ID of the IPv4 gateway to disassociate.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GatewayType",
-      "description": "The type of a gateway to be disassociated from a route table.",
+      "description": "The type of the gateway instance to disassociate.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the IPv4 gateway from which you want to disassociate the gateway route table.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the gateway route table and IPv4 gateway instance to disassociate.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteTableId",
-      "description": "The ID of the gateway route table.",
+      "description": "The ID of the gateway route table to disassociate.",
       "position": "Query",
       "type": "String",
       "required": true

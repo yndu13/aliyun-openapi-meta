@@ -1,5 +1,6 @@
 {
   "name": "UpdateStackInstances",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,14 +14,14 @@
     },
     {
       "name": "ClientToken",
-      "description": "保证请求的幂等性。该值由客户端生成，并且必须是全局唯一的。  \n长度不超过64个字符，可包含英文字母、数字、短划线（-）和下划线（_）。  \n更多详情，请参见[如何保证幂等性](~~134212~~)。",
+      "description": "保证请求的幂等性。该值由客户端生成，并且必须是全局唯一的。  \n长度不超过64个字符，可包含英文字母、数字、短划线（-）和下划线（_）。  \n更多详情，请参见[如何保证幂等性](~~134212~~)。\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeploymentTargets",
-      "description": "使用服务管理权限模式部署资源栈的部署目标。\n\n> 使用服务管理权限模式更新资源栈时，此参数必填。",
+      "description": "使用服务管理权限模式部署资源栈的部署目标。\n\n> 使用服务管理权限模式更新资源栈时，此参数必填。  ",
       "position": "Query",
       "type": "String",
       "required": false
@@ -48,12 +49,14 @@
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "覆盖参数的名称。如果未指定参数名称，ROS将使用创建资源栈组时所指定的参数名称。\n\nN最大值为200。  \n\n> - ParameterOverrides为可选参数。  \n>- 如果需要指定ParameterOverrides，则ParameterOverrides.N.ParameterKey和ParameterOverrides.N.ParameterValue必须同时指定。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "覆盖参数的值。如果未指定特定参数的名称和值，ROS将使用创建资源栈组时所指定的参数。\n\nN最大值为200。  \n\n> - ParameterOverrides为可选参数。  \n>- 如果需要指定ParameterOverrides，则ParameterOverrides.N.ParameterKey和ParameterOverrides.N.ParameterValue必须同时指定。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -62,7 +65,7 @@
     },
     {
       "name": "RegionId",
-      "description": "资源栈组所属的地域ID。您可以调用[DescribeRegions](~~131035~~)查看最新的阿里云地域列表。",
+      "description": "资源栈组所属的地域ID。您可以调用[DescribeRegions](~~131035~~)查看最新的阿里云地域列表。\n",
       "position": "Query",
       "type": "String",
       "required": true

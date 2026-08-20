@@ -1,108 +1,111 @@
 {
   "name": "CreateDefenseResource",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CustomHeaders",
-      "description": "",
+      "description": "The list of specified header fields.\n> When XffStatus is set to 1, the first IP in the specified header field is used as the client source IP to prevent XFF spoofing. When multiple headers are specified, the system attempts to obtain the source IP from each header in order. If the first header does not contain an IP, the system tries the second header, and so on. If no specified header contains an IP, the first IP in the X-Forwarded-For header is used. When XffStatus is set to 1, the IP is obtained from the first available header.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "Description",
-      "description": "",
+      "description": "The description of the protected object.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Detail",
-      "description": "",
+      "description": "The specific parameter information of the protected object, which is a string converted from a JSON object constructed with a series of parameters.\n\n> The parameters vary depending on the specified **cloud product** (**Product**) and **protection mode** (**Pattern**). For more information, see **Detail parameter description for protected objects**.\n\n><notice>When **Product** is set to **ecs**, **clb4**, **clb7**, or **nlb**, domain names connected to regions in the Chinese mainland must have completed ICP filing.</notice>",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "",
+      "description": "The ID of the WAF instance.\n\n> You can call [DescribeInstance](~~433756~~) to query the ID of the current WAF instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "OwnerUserId",
-      "description": "",
+      "description": "The ID of the account to which the protected object belongs in multi-account scenarios. By default, the protected object belongs to the WAF administrator account.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Pattern",
-      "description": "",
+      "description": "The protection mode of the protected object. Valid values:\n\n- **domain**: domain name-based protection.\n\n- **multi_service**: hybrid cloud service-based protection.\n\n> Currently, only the following combinations are supported: when **Product** is set to **alb**, **ecs**, **clb4**, **clb7**, or **nlb**, **Pattern** must be set to **domain**. When **Product** is set to **waf**, **Pattern** must be set to **multi_service**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Product",
-      "description": "",
+      "description": "The cloud product name. Valid values:\n\n- **alb**: Application Load Balancer (ALB).\n\n- **ecs**: Elastic Compute Service (ECS).\n\n- **clb4**: Classic Load Balancer (CLB) Layer 4 access.\n\n- **clb7**: Classic Load Balancer (CLB) Layer 7 access.\n\n- **nlb**: Network Load Balancer (NLB).\n\n- **waf**: Web Application Firewall (WAF).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region where the WAF instance resides. Valid values:\n\n- **cn-hangzhou**: the Chinese mainland.\n\n- **ap-southeast-1**: outside the Chinese mainland.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Resource",
-      "description": "",
+      "description": "The name of the protected object.\n> \n> - Only protected objects in hybrid cloud service mode support custom protected object names.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroup",
-      "description": "",
+      "description": "The name of the protection group to which the protected object is added. This parameter is optional.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceManagerResourceGroupId",
-      "description": "",
+      "description": "The Alibaba Cloud resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceOrigin",
-      "description": "",
+      "description": "The source of the protected object. Valid values:\n\n- **custom**: user-defined.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The tag list, which contains up to 20 items.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -111,7 +114,7 @@
     },
     {
       "name": "XffStatus",
-      "description": "",
+      "description": "Specifies whether XFF proxy is enabled for the protected object. Valid values:\n\n- **0**: Disabled (default).\n\n- **1**: Enabled.",
       "position": "Query",
       "type": "Integer",
       "required": false

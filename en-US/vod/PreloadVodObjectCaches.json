@@ -1,33 +1,34 @@
 {
   "name": "PreloadVodObjectCaches",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Area",
-      "description": "The acceleration region in which you want to prefetch content. If you do not specify a region, the value overseas is used.\n\n*   **domestic**: Chinese mainland\n*   **overseas**: outside the Chinese mainland",
+      "description": "The prefetch region. Valid values: **domestic**, **overseas**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "L2Preload",
-      "description": "Specifies whether to prefetch content to POPs. Valid values:\n\n*   **true**: prefetches content to nodes that include L2 DCDN nodes.\n*   **false**: prefetches content to L2 POPs or L3 POPs.",
+      "description": "Specifies whether to directly prefetch content to L2 nodes. Valid values:\n\n- **true**: The prefetch node level must include L2 nodes.\n\n- **false**: Only back-to-origin layer nodes are prefetched. This is the **default value**. The back-to-origin layer node may be an L2 node or an L3 node.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ObjectPath",
-      "description": "The URL of the file to be prefetched. Separate multiple URLs with line breaks (\\n or \\r\\n).",
+      "description": "The URL of the file to prefetch. Separate multiple URLs with line breaks (\n or \r\n).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "WithHeader",
-      "description": "The custom header for prefetch in the JSON format.",
+      "description": "The default header carried in a prefetch request is Accept-Encoding:gzip. If you want the prefetch request to carry other headers or implement multi-copy prefetch, use this parameter to customize prefetch headers. Submit the value in JSON format.",
       "position": "Query",
       "type": "String",
       "required": false

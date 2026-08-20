@@ -7,33 +7,35 @@
   "parameters": [
     {
       "name": "AdjustmentType",
-      "description": "The adjustment method of the scaling rule. If you set **ScalingRuleType** to **SimpleScalingRule** or **StepScalingRule**, you must specify this parameter. Valid values:\n\n*   QuantityChangeInCapacity: adds the specified number of Elastic Compute Service (ECS) instances to or removes the specified number of ECS instances from the scaling group.\n*   PercentChangeInCapacity: adds the specified percentage of ECS instances to or removes the specified percentage of ECS instances from the scaling group.\n*   TotalCapacity: adjusts the number of ECS instances in the scaling group to a specified number.",
+      "description": "The adjustment method of the scaling rule. This parameter is applicable to simple scaling rules and step scaling rules, and is required in this case. Valid values:\n\n- QuantityChangeInCapacity: adds or removes a specified number of ECS instances.\n- PercentChangeInCapacity: adds or removes a specified percentage of ECS instances.\n- TotalCapacity: adjusts the number of ECS instances in the current scaling group to a specified value.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AdjustmentValue",
-      "description": "The number of instances that must be scaled based on the scaling rule. If you set **ScalingRuleType** to **SimpleScalingRule** or **StepScalingRule**, you must specify this parameter. The number of ECS instances to be scaled in a single scaling activity cannot exceed 1,000. Valid values of **AdjustmentValue** vary based on the value of **AdjustmentType**.\n\n*   Valid values of **AdjustmentValue** when **AdjustmentType** is set to **QuantityChangeInCapacity**: -1000 to 1000.\n*   Valid values of **AdjustmentValue** when **AdjustmentType** is set to **PercentChangeInCapacity**: -100 to 10000.\n*   Valid values of **AdjustmentValue** when **AdjustmentType** is set to **TotalCapacity**: 0 to 2000.",
+      "description": "The adjustment value of the scaling rule. This parameter is applicable to simple scaling rules and step scaling rules, and is required in this case. The number of ECS instances adjusted in a single scaling activity cannot exceed 1,000. Valid values vary based on the adjustment method:\n- QuantityChangeInCapacity: -1000 to 1000.\n- PercentChangeInCapacity: -100 to 10000.\n- TotalCapacity: 0 to 2000.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AlarmDimension",
-      "description": "The dimension information associated with the item is applicable to the target tracking rule and is set when the item requires additional dimension information, for example, the `LoadBalancerRealServerAverageQps` item needs to specify the `rulePool` dimension information.",
+      "description": "The dimension information associated with the metric. This parameter is applicable to target tracking scaling rules. Set this parameter when the metric requires additional dimension information. For example, the `LoadBalancerRealServerAverageQps` metric requires the `rulePool` dimension information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DimensionKey",
+          "description": "The key of the dimension associated with the metric.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DimensionValue",
+          "description": "The value of the dimension associated with the metric.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -42,65 +44,70 @@
     },
     {
       "name": "AlarmOptions",
-      "description": "",
+      "description": "The alert property definitions.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "Cooldown",
-      "description": "The cooldown period of the scaling rule. This parameter is available only if you set **ScalingRuleType** to **SimpleScalingRule**.\n\nValid values: 0 to 86400. Unit: seconds.",
+      "description": "The cooldown time of the scaling rule. This parameter is applicable only to simple scaling rules.\n\nValid values: 0 to 86400. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DisableScaleIn",
-      "description": "Specifies whether to disable scale-in. This parameter is available only if you set **ScalingRuleType** to **TargetTrackingScalingRule**.",
+      "description": "Specifies whether to disable scale-in. This parameter is applicable only to target tracking scaling rules.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EstimatedInstanceWarmup",
-      "description": "The warmup period of an ECS instance. This parameter is available only if you set **ScalingRuleType** to **TargetTrackingScalingRule** or **PredictiveScalingRule**. Auto Scaling adds ECS instances that are in the Warmup state to a scaling group but does not report monitoring data of the ECS instances to CloudMonitor during the warmup period.\n\n>  When Auto Scaling calculates the number of ECS instances that you want to scale, the ECS instances that are in the Warmup state are not counted towards the current capacity of the scaling group.\n\nValid values: 0 to 86400. Unit: seconds.",
+      "description": "The warm-up period of an instance. This parameter is applicable to target tracking scaling rules and step scaling rules. An ECS instance in the warm-up state is added to the scaling group as expected, but CloudMonitor does not report monitoring data for the instance during this period.\n> When the number of ECS instances to scale is dynamically calculated, instances in the warm-up state are not counted toward the existing instance count.\n\nValid values: 0 to 86400. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HybridMetrics",
-      "description": "",
+      "description": "The Hybrid Cloud Monitoring monitoring metrics settings. For more information about how to configure this parameter, see [Use formula-based custom target tracking scaling rules](~~2852162~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Dimensions",
+          "description": "The metric dimensions. Specifies the resources to monitor for the metric.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Expression",
+          "description": "The formula expression for multiple Hybrid Cloud Monitoring metrics. The calculation result of the expression is used to trigger scaling activities.\n\nThe expression must comply with the Reverse Polish Notation (RPN) specification, and only the `+ - * /` operators are supported.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Id",
+          "description": "The reference ID of the metric in the formula expression.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MetricName",
+          "description": "The name of the monitoring metrics in the Hybrid Cloud Monitoring monitoring metrics repository.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Statistic",
+          "description": "The statistical method of the metric. Valid values:\n- Average: the average of all data points within the specified interval.\n- Minimum: the minimum value of all data points within the specified interval.\n- Maximum: the maximum value of all data points within the specified interval.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -109,77 +116,77 @@
     },
     {
       "name": "HybridMonitorNamespace",
-      "description": "",
+      "description": "The ID of the Hybrid Cloud Monitoring monitoring metrics repository.\n\nTo manage monitoring metrics repositories, see [Manage monitoring metrics repositories](~~217606~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InitialMaxSize",
-      "description": "The maximum number of ECS instances that can be contained in the scaling group. If you specify **InitialMaxSize**, you must specify **PredictiveValueBehavior**.",
+      "description": "The maximum number of instances in the scaling group. This parameter is used together with PredictiveValueBehavior.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MetricName",
-      "description": "The predefined metric that you want to monitor. If you set **ScalingRuleType** to **TargetTrackingScalingRule** or **PredictiveScalingRule**, you must specify this parameter.\n\nValid values of **MetricName** when** ScalingRuleType** is set to **TargetTrackingScalingRule**:\n\n*   CpuUtilization: the average CPU utilization\n*   ClassicInternetRx: the average inbound Internet traffic over the classic network\n*   ClassicInternetTx: the average outbound Internet traffic over the classic network\n*   VpcInternetRx: the average inbound Internet traffic over a virtual private cloud (VPC)\n*   VpcInternetTx: the average outbound Internet traffic over a VPC\n*   IntranetRx: the average inbound traffic over the internal network\n*   IntranetTx: the average outbound traffic over the internal network\n\nValid values of **MetricName** when **ScalingRuleType** is set to **PredictiveScalingRule**:\n\n*   CpuUtilization: the average CPU utilization\n*   IntranetRx: the average inbound traffic over the internal network\n*   IntranetTx: the average outbound traffic over the internal network",
+      "description": "The predefined metric. This parameter is applicable to target tracking scaling rules and predictive scaling rules, and is required in this case.\n\nValid values for target tracking scaling rules: \n- CpuUtilizationAgent: (Agent) CPU utilization (recommended).\n- MemoryUtilization: (Agent) memory utilization (recommended).\n- CpuUtilization: (ECS) average CPU utilization.\n- IntranetTx: (ECS) average outbound traffic over the internal network.\n- IntranetRx: (ECS) average inbound traffic over the internal network.\n- VpcInternetTx: (ECS) average outbound traffic over the Internet.\n- VpcInternetRx: (ECS) average inbound traffic over the Internet.\n- LoadBalancerRealServerAverageQps: (ALB) QPS per server in a server group.\n\nValid values for predictive scaling rules: \n- CpuUtilization: (ECS) average CPU utilization.\n- IntranetRx: (ECS) average inbound traffic over the internal network.\n- IntranetTx: (ECS) average outbound traffic over the internal network.\n\nFor more information, see [Event-triggered tasks for system monitoring](~~74854~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MetricType",
-      "description": "",
+      "description": "The type of the metric. Valid values:\n\n- system: uses CloudMonitor system metrics.\n- custom: uses custom metrics reported to CloudMonitor.\n- hybrid: uses Hybrid Cloud Monitoring metrics.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MinAdjustmentMagnitude",
-      "description": "The minimum number of instances that must be scaled. This parameter takes effect only when `ScalingRuleType` is set to `SimpleScalingRule` or `StepScalingRule` and **AdjustmentType** is set to `PercentChangeInCapacity`.",
+      "description": "The minimum number of instances to adjust in a scaling rule. This parameter takes effect only when the scaling rule type is `SimpleScalingRule` or `StepScalingRule` and `AdjustmentType` is set to `PercentChangeInCapacity`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PredictiveScalingMode",
-      "description": "The mode of the predictive scaling rule. Valid values:\n\n*   PredictAndScale: provides predictions and creates prediction tasks.\n*   PredictOnly: provides predictions but does not create prediction tasks.",
+      "description": "The mode of the predictive scaling rule. Valid values:\n\n- PredictAndScale: generates prediction results and creates prediction tasks.\n- PredictOnly: generates prediction results but does not create prediction tasks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PredictiveTaskBufferTime",
-      "description": "The amount of buffer time before the prediction task is executed. By default, all prediction tasks that are automatically created by a predictive scaling rule are executed on the hour. You can set a buffer time to execute prediction tasks and prepare resources in advance. Valid values: 0 to 60.",
+      "description": "Prediction tasks automatically created by a predictive scaling rule execute on the hour by default. You can configure a buffer time to execute prediction tasks ahead of schedule and prepare resources in advance. Valid values: 0 to 60.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PredictiveValueBehavior",
-      "description": "The action on the predicted maximum value. Valid values:\n\n*   MaxOverridePredictiveValue: uses the initial maximum capacity as the maximum value for prediction tasks if the predicted value is greater than the initial maximum capacity.\n*   PredictiveValueOverrideMax: uses the predicted value as the maximum value for prediction tasks if the predicted value is greater than the initial maximum capacity.\n*   PredictiveValueOverrideMaxWithBuffer: increases the predicted value by a ratio that is specified by **PredictiveValueBuffer**, and uses the increased value as the maximum value for prediction tasks if the predicted value increased by this ratio is greater than the initial maximum capacity.",
+      "description": "The method used to handle the maximum value of the predictive scaling rule. Valid values:\n\n- MaxOverridePredictiveValue: the initial maximum value overrides the predicted value. If the predicted value is greater than the initial maximum value, the maximum value of the prediction task is set to the initial maximum value.\n- PredictiveValueOverrideMax: the predicted value overrides the initial maximum value. If the predicted value is greater than the initial maximum value, the maximum value of the prediction task is set to the predicted value.\n- PredictiveValueOverrideMaxWithBuffer: the predicted value is increased by a specified percentage. The predicted value is increased based on the PredictiveValueBuffer percentage. If the increased value is greater than the initial maximum value, the increased value is used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PredictiveValueBuffer",
-      "description": "The ratio based on which the predicted value is increased when **PredictiveValueBehavior** is set to **PredictiveValueOverrideMaxWithBuffer**. If the predicted value increased by this ratio is greater than the initial maximum capacity, the increased value is used as the maximum value for prediction tasks. Valid values: 0 to 100.",
+      "description": "This parameter takes effect when `PredictiveValueBehavior` is set to `PredictiveValueOverrideMaxWithBuffer`. The predicted value is increased by this percentage. If the increased value is greater than the initial maximum value, the increased value is used. Valid values: 0 to 100.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ScaleInEvaluationCount",
-      "description": "The number of consecutive times that the event-triggered task created for scale-ins meets the threshold conditions before an alert is triggered. After a target tracking scaling rule is created, an event-triggered task is automatically created and associated with the target tracking scaling rule.",
+      "description": "After a target tracking scaling rule is created, an event-triggered task is automatically created. This parameter specifies the number of consecutive times that the threshold condition must be met before the corresponding scale-in event-triggered task triggers an alert.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ScaleOutEvaluationCount",
-      "description": "The number of consecutive times that the event-triggered task created for scale-outs meets the threshold conditions before an alert is triggered. After a target tracking scaling rule is created, an event-triggered task is automatically created and associated with the target tracking scaling rule.",
+      "description": "After a target tracking scaling rule is created, an event-triggered task is automatically created. This parameter specifies the number of consecutive times that the threshold condition must be met before the corresponding scale-out event-triggered task triggers an alert.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -193,32 +200,35 @@
     },
     {
       "name": "ScalingRuleName",
-      "description": "The name of the scaling rule. The name must be 2 to 64 characters in length, and can contain letters, digits, underscores (\\_), hyphens (-), and periods (.). The name must start with a letter or a digit. The name of a scaling rule must be unique within an Alibaba Cloud account in a region.",
+      "description": "The name of the scaling rule. The name must be 2 to 64 characters in length and can contain digits, uppercase letters, lowercase letters, Chinese characters, underscores (\\_), hyphens (-), and periods (.). It must start with a digit, letter, or Chinese character.\n\n>The name of a scaling rule must be unique within the same scaling group under the same Alibaba Cloud account in the same region.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StepAdjustment",
-      "description": "Details of the step adjustments.",
+      "description": "The collection of step adjustment information for step scaling.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "MetricIntervalLowerBound",
+          "description": "The lower bound of a step adjustment. This parameter is applicable only to step scaling rules. Valid values: -9.999999E18 to 9.999999E18.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "MetricIntervalUpperBound",
+          "description": "The upper bound of a step adjustment. This parameter is applicable only to step scaling rules. Valid values: -9.999999E18 to 9.999999E18.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "ScalingAdjustment",
+          "description": "The number of instances to scale in a step adjustment. This parameter is applicable only to step scaling rules.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -227,7 +237,7 @@
     },
     {
       "name": "TargetValue",
-      "description": "The target value. This parameter is available only if you set **ScalingRuleType** to **TargetTrackingScalingRule** or **PredictiveScalingRule**. The value must be greater than 0 and can contain up to three decimal places.",
+      "description": "The target value. This parameter is applicable to target tracking scaling rules and predictive scaling rules. The value of TargetValue can have up to three decimal places and must be greater than 0.",
       "position": "Query",
       "type": "Float",
       "required": false

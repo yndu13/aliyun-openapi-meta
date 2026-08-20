@@ -7,112 +7,112 @@
   "parameters": [
     {
       "name": "ACL",
-      "description": "The method that is used to verify the identities of clients. This parameter is supported only when the instance runs PostgreSQL with cloud disks. In addition, this parameter is available only when the public key of the CA that issues client certificates is enabled. Valid values:\n\n*   **cert**\n*   **prefer**\n*   **verify-ca**\n*   **verify-full** (supported only when the instance runs PostgreSQL 12 or later)",
+      "description": "The authentication method for an ApsaraDB RDS for PostgreSQL instance with cloud disks. Valid values:\n- **cert**\n- **prefer**\n- **verify-ca**\n- **verify-full** (supported for RDS PostgreSQL 12 and later)\n\n> This parameter can be configured only when ClientCAEnabled is set to **1**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CAType",
-      "description": "The type of the server certificate. This parameter is supported only when the instance runs MySQL or PostgreSQL with cloud disks. If you set SSLEnabled to **1**, the default value of this parameter is **aliyun**. Valid values:\n\n*   **aliyun**: a cloud certificate\n*   **custom**: a custom certificate",
+      "description": "The certificate type for ApsaraDB RDS for MySQL and ApsaraDB RDS for PostgreSQL instances with cloud disks. Valid values:\n- **aliyun** (default): uses an Alibaba Cloud certificate.\n- **custom**: uses a custom certificate.\n> This parameter is required when SSLEnabled is set to **1**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Certificate",
-      "description": "The custom certificate. The custom certificate is in the `PFX` format.\n\n*   Public endpoint: `oss-<The ID of the region>.aliyuncs.com:<The name of the bucket>:<The name of the certificate file (The file name contains the extension.)>`\n*   Internal endpoint: `oss-<The ID of the region>-internal.aliyuncs.com:<The name of the bucket>:<The name of the certificate file (The file name contains the extension.)>`",
+      "description": "The custom certificate content for the SQL Server instance. Only the `pfx` certificate format is supported.\n- Public endpoint: `oss-<region ID>.aliyuncs.com:<Bucket name>:<certificate file name (with file extension)>`\n- Internal endpoint: `oss-<region ID>-internal.aliyuncs.com:<Bucket name>:<certificate file name (with file extension)>`",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientCACert",
-      "description": "The public key of the CA that issues client certificates. This parameter is supported only when the instance runs PostgreSQL with cloud disks. This parameter must be specified when ClientCAEbabled is set to **1**.",
+      "description": "The client certificate authorization public key for ApsaraDB RDS for PostgreSQL instances with cloud disks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientCAEnabled",
-      "description": "Specifies whether to enable the public key of the CA that issues client certificates. This parameter is supported only when the instance runs PostgreSQL with cloud disks. Valid values:\n\n*   **1**: enables the public key.\n*   **0**: disables the public key.",
+      "description": "Specifies whether to enable the public key of the client certificate authority (CA) for the ApsaraDB RDS for PostgreSQL instance with cloud disks. Valid values:\n- **1**: Enabled.\n- **0**: Disabled.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ClientCertRevocationList",
-      "description": "The CRL that contains revoked client certificates. This parameter is supported only when the instance runs PostgreSQL with cloud disks. This parameter must be specified when ClientCrlEnabled is set to **1**.",
+      "description": "The client revocation certificate file for ApsaraDB RDS for PostgreSQL instances with cloud disks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientCrlEnabled",
-      "description": "Specifies whether to enable a certificate revocation list (CRL) that contains revoked client certificates. This parameter is supported only when the instance runs PostgreSQL with cloud disks. In addition, this parameter is available only when the public key of the CA that issues client certificates is enabled. Valid values:\n\n*   **1**: enables the CRL.\n*   **0**: disables the CRL.",
+      "description": "Specifies whether to enable the client certificate revocation list (CRL) for an ApsaraDB RDS for PostgreSQL instance with cloud disks. Valid values:\n- **1**: Enabled.\n- **0**: Disabled.\n\n> This parameter can be configured only when ClientCAEnabled is set to **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ConnectionString",
-      "description": "The internal or public endpoint for which the server certificate needs to be created or updated.",
+      "description": "The internal or public endpoint for which you want to create or update the server certificate.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID. You can call the DescribeDBInstances operation to query the instance ID.",
+      "description": "The instance ID. You can call DescribeDBInstances to obtain the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ForceEncryption",
-      "description": "Specifies whether to enable the forceful SSL encryption feature. This parameter is supported only for ApsaraDB RDS for SQL Server instances. For more information, see [Configure the SSL encryption feature](~~95715~~). Valid values:\n\n*   **1**: enables the feature.\n*   **0**: disables the feature.",
+      "description": "The [SSL forced encryption switch](~~95715~~) for ApsaraDB RDS for MySQL and ApsaraDB RDS for SQL Server instances. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PassWord",
-      "description": "The password of the certificate.",
+      "description": "The password of the custom certificate for ApsaraDB RDS for SQL Server instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReplicationACL",
-      "description": "The method that is used to verify the replication permission. This parameter is supported only when the instance runs PostgreSQL with cloud disks. In addition, this parameter is available only when the public key of the CA that issues client certificates is enabled. Valid values:\n\n*   **cert**\n*   **prefer**\n*   **verify-ca**\n*   **verify-full** (supported only when the instance runs PostgreSQL 12 or later)",
+      "description": "The authentication method for the replication permission of an ApsaraDB RDS for PostgreSQL instance with cloud disks. Valid values:\n- **cert**\n- **prefer**\n- **verify-ca**\n- **verify-full** (supported by RDS PostgreSQL 12 and later)\n> This parameter can be configured only when ClientCAEnabled is set to **1**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SSLEnabled",
-      "description": "Specifies whether to enable or disable the SSL encryption feature. Valid values:\n\n*   **1**: enables the feature.\n*   **0**: disables the feature.",
+      "description": "Specifies whether to enable or disable SSL. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ServerCert",
-      "description": "The content of the server certificate. This parameter is supported only when the instance runs PostgreSQL with cloud disks. This parameter must be specified when CAType is set to **custom**.",
+      "description": "The custom certificate content of the server for ApsaraDB RDS for MySQL and ApsaraDB RDS for PostgreSQL instances with cloud disks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerKey",
-      "description": "The private key of the server certificate. This parameter is supported only when the instance runs PostgreSQL with cloud disks. This parameter must be specified when CAType is set to **custom**.",
+      "description": "The private key of the server certificate for ApsaraDB RDS for MySQL and ApsaraDB RDS for PostgreSQL instances with cloud disks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TlsVersion",
-      "description": "The minimum Transport Layer Security (TLS) version. Valid values: 1.0, 1.1, and 1.2. This parameter is supported only for ApsaraDB RDS for SQL Server instances. For more information, see [Configure the SSL encryption feature](~~95715~~).",
+      "description": "The [minimum TLS version](~~95715~~) for ApsaraDB RDS for SQL Server instances. Connections using a version lower than the specified version are rejected. Currently supported values: 1.0, 1.1, and 1.2.",
       "position": "Query",
       "type": "String",
       "required": false

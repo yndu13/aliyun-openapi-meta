@@ -17,12 +17,20 @@
       "description": "目标端数据源设置列表",
       "position": "Body",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "DataSourceName",
+          "description": "数据源名称",
           "position": "FormData",
           "type": "String",
+          "required": false
+        },
+        {
+          "name": "DataSourceProperties",
+          "description": "数据源属性",
+          "position": "FormData",
+          "type": "Struct",
           "required": false
         }
       ]
@@ -32,7 +40,14 @@
       "description": "目标端数据源类型，枚举值：Hologres，OSS-HDFS，OSS，MaxCompute，LogHub，StarRocks，DataHub，AnalyticDB_For_MySQL，Kafka，Hive。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
+    },
+    {
+      "name": "FileSpec",
+      "description": "脚本模式代码内容。",
+      "position": "Body",
+      "type": "String",
+      "required": false
     },
     {
       "name": "JobName",
@@ -60,11 +75,18 @@
       "description": "同步类型，可选的枚举值有：\n- FullAndRealtimeIncremental（全量和实时增量，整库实时）\n- RealtimeIncremental（实时增量，单表实时）\n- Full（全量，整库离线）\n- OfflineIncremental（离线增量，整库离线）\n- FullAndOfflineIncremental（全量+离线增量，整库离线）",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "Name",
       "description": "任务名称。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Owner",
+      "description": "任务责任人。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -81,23 +103,25 @@
       "description": "资源设置",
       "position": "Body",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "SourceDataSourceSettings",
       "description": "源端数据源设置列表",
       "position": "Body",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "DataSourceName",
+          "description": "数据源名称",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DataSourceProperties",
+          "description": "数据源属性",
           "position": "FormData",
           "type": "Struct",
           "required": false
@@ -109,23 +133,25 @@
       "description": "源端数据源类型，枚举值： PolarDB，MySQL，Kafka，LogHub，Hologres，Oracle，OceanBase，MongoDB，RedShift，Hive，SQLServer，Doris，ClickHouse。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "TableMappings",
       "description": "同步对象转换映射列表，列表中每个元素描述了一组源端同步对象选择规则列表和在该组同步对象上应用的同步对象转换规则列表\n\n> [ { \"SourceObjectSelectionRules\":[ { \"ObjectType\":\"Database\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"biz_db\" }, { \"ObjectType\":\"Schema\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"s1\" }, { \"ObjectType\":\"Table\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"table1\" } ], \"TransformationRuleNames\":[ { \"RuleName\":\"my_database_rename_rule\", \"RuleActionType\":\"Rename\", \"RuleTargetType\":\"Schema\" } ] } ]",
       "position": "Body",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "SourceObjectSelectionRules",
+          "description": "每条规则可选择待同步源端对象的集合，多条规则组成选一个表",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "TransformationRules",
+          "description": "同步对象转换规则定义列表，列表中每个元素为一条转换规则定义",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
@@ -141,24 +167,28 @@
       "sub_parameters": [
         {
           "name": "RuleActionType",
+          "description": "动作类型，可选的枚举值：\n\n- DefinePrimaryKey（定义主键）\n- Rename（重命名）\n- AddColumn（增加列）\n- HandleDml（DML处理）\n- DefineIncrementalCondition（定义增量条件）\n- DefineCycleScheduleSettings（定义周期调度设置）\n- DefinePartitionKey（定义分区列）",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleExpression",
+          "description": "规则表达式，json string格式。\n\n1. 重命名规则（Rename）\n- 示例：{\"expression\":\"${srcDatasourceName}_${srcDatabaseName}_0922\" }\n- expression：为重命名转换规则表达式，表达式内支持变量包括：${srcDatasourceName}（源端数据源名）、${srcDatabaseName}（源端库名）、${srcTableName}（源端表名）。\n2. 加列规则（AddColumn)\n- 示例：{\"columns\":[{\"columnName\":\"my_add_column\",\"columnValueType\":\"Constant\",\"columnValue\":\"123\"}]}\n- 如不指定，默认规则为不加列不复制。\n- columnName：附加的列名称。\n- columnValueType：附加的列取值类型，包括Constant（常量）、Variable（变量）。\n- columnValue：附加的列取值。当columnValueType=Constant时，value为自定义常量，String类型。当columnValueType=Variable时，value为内置变量。内置变量可选值包括：EXECUTE_TIME（执行时间，Long类型）、DB_NAME_SRC（源端数据库名称，String类型）、DATASOURCE_NAME_SRC（源端数据源名称，String类型）、TABLE_NAME_SRC（源端表名，String类型）、DB_NAME_DEST（目标端数据库名称，String类型）、DATASOURCE_NAME_DEST（目标端数据源名称，String类型）、TABLE_NAME_DEST（目标端表名，String类型）、DB_NAME_SRC_TRANSED（转换后的数据库名称，String类型）。\n3. 指定目标端表的主键列列名（DefinePrimaryKey）\n- 示例：{\"columns\":[\"ukcolumn1\",\"ukcolumn2\"]}\n- 如不指定默认使用源端主键列。\n- 当目标端为已有表：数据集成系统不会修改目标端表结构，如果指定的主键列不在目标端的列集合中，任务启动会报错提示。\n- 当目标端为自动建表：数据集成系统会自动创建目标端表结构，表结构包含定义的主键列。当指定的主键列不在目标端的列集合中时，任务启动会报错提示。\n4. DML处理规则（HandleDml）\n- 示例： {\"dmlPolicies\":[{\"dmlType\":\"Delete\",\"dmlAction\":\"Filter\",\"filterCondition\":\"id > 1\"}]}\n- 如不指定，默认规则为Insert、Update、Delete均为Normal\n- dmlType：DML操作类型，Insert（插入）、Update（更新）、Delete（删除）\n- dmlAction：DML处理策略，Normal（正常处理）、Ignore（忽略）、Filter（有条件的正常处理，当dmlType=Update/Delete时使用）、LogicalDelete（逻辑删除）\n- filterCondition：DML过滤条件，当dmlAction=Filter时使用\n5. 增量条件（DefineIncrementalCondition）\n- 示例： {\"where\":\"id > 0\"}\n- 指定增量过滤条件\n6. 周期调度参数（DefineCycleScheduleSettings）\n- 示例： {\"cronExpress\":\" * * * * * *\", \"cycleType\":\"1\"}\n- 指定周期任务调度参数\n7. 指定分区键（DefinePartitionKey）\n- 示例： {\"columns\":[\"id\"]}\n- 指定分区键",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleName",
+          "description": "规则名称，当动作类型和动作作用的目标类型相同时，规则名称需保证唯一性，长度不能超过50个字符",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleTargetType",
+          "description": "动作作用的目标类型，可选的枚举值：\n\n- Table（表）\n- Schema（schema）\n- Database（数据库）",
           "position": "FormData",
           "type": "String",
           "required": false

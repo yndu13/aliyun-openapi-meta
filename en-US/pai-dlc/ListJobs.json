@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "Accessibility",
-      "description": "The job visibility. Valid values:\n\n*   PUBLIC: The job is visible to all members in the workspace.\n*   PRIVATE: The job is visible only to you and the administrator of the workspace.",
+      "description": "The visibility of the job. Valid values:\n- PUBLIC: Visible to all members in the workspace.\n- PRIVATE (default): Visible only to you and administrators in the workspace.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BusinessUserId",
-      "description": "The ID of the user associated with the job.",
+      "description": "The user ID associated with the job.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -27,225 +27,237 @@
       "required": false
     },
     {
+      "name": "Description",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "DisplayName",
-      "description": "The job name. Fuzzy query is supported. The name is case-insensitive. Wildcards are not supported. For example, if you enter test, test-job1, job-test, job-test2, or job-test can be matched, and job-t1 cannot be matched. The default value null indicates any job name.",
+      "description": "The job name. Supports fuzzy match and is case-insensitive. Wildcards are not supported.\nFor example, entering test matches test-job1, job-test, job-test2, or job-Test, but does not match job-t1.\nDefault value: empty, which indicates all job names.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DisplayNameSearchMode",
-      "description": "",
+      "description": "The search mode for DisplayName. Default value: wildcard match.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableAssignNode",
-      "description": "",
+      "description": "Filters jobs based on whether running on specified nodes is enabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end time of the query. Use the job creation time to filter data. The default value is the current time.",
+      "description": "The end time of the query range. The job creation time is used for filtering. Default value: the current time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FromAllWorkspaces",
-      "description": "Specifies whether to query a list of jobs across workspaces. This parameter must be used together with `ShowOwn=true`. You can use this parameter to query a list of jobs recently submitted by the current user.",
+      "description": "Specifies whether to retrieve jobs across all workspaces. This parameter must be used together with `ShowOwn=true` to query jobs recently submitted by the current user.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ImageSearch",
-      "description": "",
+      "description": "Uses full-text index to retrieve the images field. Supports Chinese and English tokenization.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobId",
-      "description": "The job ID. Fuzzy query is supported. The name is case-insensitive. Wildcards are not supported. The default value null indicates any job ID.",
+      "description": "The job ID. Fuzzy match is not supported. Case-insensitive. Wildcards are not supported.\nDefault value: empty, which indicates all job IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobIds",
-      "description": "",
+      "description": "A list of job IDs separated by commas. If both JobIds and JobId are specified, JobId takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobType",
-      "description": "The job type. The default value null indicates any type. Valid values:\n\n*   TFJob\n*   PyTorchJob\n*   XGBoostJob\n*   OneFlowJob\n*   ElasticBatchJob",
+      "description": "The job type. Default value: empty, which indicates all types. Valid values:\n- TFJob\n- PyTorchJob\n- XGBoostJob\n- OneFlowJob\n- ElasticBatchJob",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NumericRangeField",
-      "description": "",
+      "description": "The field name for numeric range filtering. Must be used together with NumericRangeMin or NumericRangeMax.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NumericRangeMax",
-      "description": "",
+      "description": "The maximum value (inclusive) for numeric range filtering. Must be used together with NumericRangeField.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NumericRangeMin",
-      "description": "",
+      "description": "The minimum value (inclusive) for numeric range filtering. Must be used together with NumericRangeField.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Order",
-      "description": "The sorting order. Valid values:\n\n*   desc (default)\n*   asc",
+      "description": "The sort order. Valid values:\n\n- desc: Descending order. This is the default value.\n- asc: Ascending order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OversoldInfo",
-      "description": "The Idle resource information. Valid values:\n\n*   ForbiddenQuotaOverSold\n*   ForceQuotaOverSold\n*   AcceptQuotaOverSold-true (true indicates that the job uses idle resources.)\n*   AcceptQuotaOverSold-false (false indicates that the job uses guaranteed resources.)",
+      "description": "The off-peak resource information. Valid values:\n- ForbiddenQuotaOverSold\n- ForceQuotaOverSold\n- AcceptQuotaOverSold-true (true indicates the job actually used off-peak resources)\n- AcceptQuotaOverSold-false (false indicates the job actually used guaranteed resources)",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The number of the page to return for the current query. Minimum value: 1. Default value: 1.",
+      "description": "The page number to return in a paged query. Minimum value: 1. Default value: 1. Paging starts from page 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of jobs per page.",
+      "description": "The number of jobs to return per page.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PaymentType",
-      "description": "The type of the resource. Valid values:\n\n*   PrePaid: Resource quota\n*   Spot: Preemptible resources\n*   PostPaid: Public resources",
+      "description": "The resource type. Valid values:\n- PrePaid: resource quota.\n- Spot: preemptible resources.\n- PostPaid: public resources.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PipelineId",
-      "description": "The specific pipeline ID used to filter jobs.",
+      "description": "Filters jobs created by the specified pipeline ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReasonSearch",
-      "description": "",
+      "description": "Uses full-text index to retrieve the node failed reason field. Supports Chinese and English tokenization.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The resource group ID. For information about how to obtain the ID of a dedicated resource group, see [Manage resource quota](~~2651299~~).",
+      "description": "The resource group ID. For information about how to obtain the dedicated resource group ID, see [Manage resource quotas](~~2651299~~).",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ResourceIds",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceQuotaName",
-      "description": "The resource quota name used to filter jobs. Fuzzy search is supported. Wildcards are not supported. The default value null indicates that jobs are not filtered by resource quota name.",
+      "description": "The name of the resource quota, used to filter the job list. Supports fuzzy match. Wildcards are not supported. Default value: empty, which indicates no filtering by resource quota.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ShowOwn",
-      "description": "Specifies whether to query only the jobs submitted by the current user.",
+      "description": "Specifies whether to return only jobs submitted by the current user.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SortBy",
-      "description": "The sorting field. Valid values:\n\n*   DisplayName\n*   JobType\n*   Status\n*   GmtCreateTime\n*   GmtFinishTime",
+      "description": "The field by which to sort results. Valid values:\n\n- DisplayName\n- JobType\n- Status\n- GmtCreateTime\n- GmtFinishTime",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start time of the query. Use the job creation time to filter data. The default value is the current time minus seven days. In other words, if you do not configure the StartTime and EndTime parameters, the system queries the job list in the last seven days.",
+      "description": "The start time of the query range. The job creation time is used for filtering. Default value: the current time minus 7 days. If neither StartTime nor EndTime is specified, jobs created in the last 7 days are returned by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The job status. Valid values:\n\n*   Creating\n*   Queuing\n*   Bidding (only available for spot jobs that use Lingjun resources)\n*   EnvPreparing\n*   SanityChecking\n*   Running\n*   Restarting\n*   Stopping\n*   SucceededReserving\n*   FailedReserving\n*   Succeeded\n*   Failed\n*   Stopped",
+      "description": "The job status. Valid values:\n- Creating\n- Queuing\n- Bidding (currently only for Lingjun Spot jobs)\n- EnvPreparing\n- SanityChecking\n- Running\n- Restarting\n- Stopping\n- SucceededReserving\n- FailedReserving\n- Succeeded\n- Failed\n- Stopped",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags.",
+      "description": "The tags used for filtering.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateId",
-      "description": "",
+      "description": "The template ID, used to filter jobs created from the specified template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TimeRangeField",
-      "description": "",
+      "description": "The time field used for StartTime/EndTime filtering. Default value: creation time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserCommandSearch",
-      "description": "",
+      "description": "Uses full-text index to retrieve the user_command field. Supports Chinese and English tokenization.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserIdForFilter",
-      "description": "The user ID used to filter jobs.",
+      "description": "The user ID of the job submitter, used to filter the job list.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Username",
-      "description": "The username used to filter jobs. Fuzzy search is supported. Wildcards are not supported. The default value null indicates that jobs are not filtered by username.",
+      "description": "The username of the job submitter, used to filter the job list. Supports fuzzy match. Wildcards are not supported. Default value: empty, which indicates no filtering by username.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WorkspaceId",
-      "description": "The workspace ID.",
+      "description": "The workspace ID. <props=\"china\">For information about how to obtain the workspace ID, see [ListWorkspaces](~~449124~~).</props>",
       "position": "Query",
       "type": "String",
       "required": false

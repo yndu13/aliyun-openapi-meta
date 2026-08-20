@@ -1,66 +1,69 @@
 {
   "name": "DescribeImagePipelineExecutions",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ExecutionId",
-      "description": "null",
+      "description": "The ID of the image build task.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImagePipelineId",
-      "description": "The value of tag N of the image creation task. Valid values of N: 1 to 20.",
-      "position": "Query",
-      "type": "String",
-      "required": false
-    },
-    {
-      "name": "MaxResults",
-      "description": "The status of the image creation task. You can specify multiple values. Separate the values with commas (,). Example: `BUILDING,DISTRIBUTING`. Valid values:\n\n*   PREPARING: Resources, such as the intermediate instance, are being created.\n*   REPAIRING: The source image is being repaired.\n*   BUILDING: The user-defined commands are being run and an image is being created.\n*   TESTING: The user-defined test commands are being run.\n*   DISTRIBUTING: The created image is being copied and shared.\n*   RELEASING: The temporary resources generated during the image creation process are being released.\n*   SUCCESS: The image creation task is completed.\n*   PARTITION_SUCCESS: The image creation task is partially completed. The image is created, but exceptions may occur when the image was copied or shared or when temporary resources were released.\n*   FAILED: The image creation task fails.\n*   TEST_FAILED: The image is created, but the test fails.\n*   CANCELLING: The image creation task is being canceled.\n*   CANCELLED: The image creation task is canceled.\n\n>  If you leave this parameter empty, all image creation tasks are queried regardless of task status.",
-      "position": "Query",
-      "type": "Integer",
-      "required": false
-    },
-    {
-      "name": "NextToken",
-      "description": "The ID of the image creation task.",
-      "position": "Query",
-      "type": "String",
-      "required": false
-    },
-    {
-      "name": "RegionId",
-      "description": "The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
-      "position": "Query",
-      "type": "String",
-      "required": true
-    },
-    {
-      "name": "Status",
       "description": "The ID of the image template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "MaxResults",
+      "description": "The maximum number of entries per page for paging. Valid values: 1 to 500.\n\nDefault value: 50.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "NextToken",
+      "description": "The pagination token. Set this parameter to the value of NextToken returned in the previous call. You do not need to set this parameter for the first request.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Status",
+      "description": "The status of the image build task. You can specify multiple values at the same time. Separate multiple values with commas (,). Example: `BUILDING,DISTRIBUTING`. Valid values:\n\n- PREPARING: The task is being prepared. Resources such as the temporary intermediate instance are being created.\n- REPAIRING: The task is being repaired. The source image is being repaired.\n- BUILDING: The task is being built. Custom commands are being run and the image is being created.\n- TESTING: The task is being tested. Custom test commands are being run.\n- DISTRIBUTING: The task is being distributed. Image copying and sharing are being performed.\n- RELEASING: Resources are being reclaimed. Temporary resources generated during the build process are being released.\n- SUCCESS: The task succeeded.\n- PARTITION_SUCCESS: The task partially succeeded. The image was built, but exceptions may have occurred during distribution or resource cleanup.\n- FAILED: The task failed.\n- TEST_FAILED: The test failed. The image was created, but the test failed.\n- CANCELLING: The task is being canceled.\n- CANCELLED: The task was canceled.\n\n> If this parameter is empty, image build tasks in all states are queried.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Tag",
-      "description": "The tags of the image creation task.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the tag. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the tag. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false

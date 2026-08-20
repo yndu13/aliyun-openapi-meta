@@ -7,96 +7,98 @@
   "parameters": [
     {
       "name": "CallerType",
-      "description": "The type of the user account. Valid values:\n\n*   **sub**: a Resource Access Management (RAM) user.\n*   **parent**: an Alibaba Cloud account.",
+      "description": "The type of the caller.\n\n- ECR\n\n- OTHER\n\nDefault value: ECR",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "A client token to ensure the idempotence of the request.\n\nThe client token must be unique across requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run.\n*   **false** (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: sends a check request and does not modify service resources.\n\n- **false** (default): sends a normal request.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EcrId",
-      "description": "The ECR ID.",
+      "description": "The ID of the Express Connect Router instance.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the network instance.",
+      "description": "The ID of the authorized instance.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceOwnerId",
-      "description": "The ID of the Alibaba Cloud account that owns the network instance.",
+      "description": "The ID of the Alibaba Cloud account to which the authorized network instance belongs.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "InstanceRegionId",
-      "description": "The region ID of the network instance.",
+      "description": "The region where the authorized network instance is located.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The type of the network instance. Valid values:\n\n*   **VBR**\n*   **VPC**",
+      "description": "The type of the network instance. Valid values:\n\n- **VBR**: virtual border router (VBR).\n\n- **VPC**: virtual private cloud (VPC).",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to read. Valid values: 1 to 2147483647. Default value: 20.",
+      "description": "The maximum number of entries to return on each page. Valid values: 1 to 2,147,483,647. Default value: 20.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n\n*   You do not need to specify this parameter for the first request.\n*   You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The token that is used for the next query.\n\n- You do not need to specify this parameter for the first query.\n\n- For subsequent queries, set this parameter to the NextToken value returned from the previous API call.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the network instance belongs.",
+      "description": "The ID of the resource group to which the instance belongs.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TagModels",
-      "description": "The tags.",
+      "description": "The list of tags.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "TagKey",
+          "description": "The tag key. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key can be up to 128 characters in length. It cannot start with `aliyun` or `acs:` and cannot contain `http://` or `https://`.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "TagValue",
+          "description": "The tag value. You can specify up to 20 tag values. The tag value cannot be an empty string.\n\nThe tag value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:` and cannot contain `http://` or `https://`.",
           "position": "FormData",
           "type": "String",
           "required": false

@@ -1,5 +1,6 @@
 {
   "name": "CreateDefenseResource",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -20,7 +21,7 @@
     },
     {
       "name": "Detail",
-      "description": "防护对象的具体参数信息，以一系列参数构造的JSON格式转化成字符串。\n\n> 根据所指定的**云产品**（**Product**）和**防护形式**（**Pattern**）不同，具体涉及的参数有所不同。详细信息，请参见**防护对象Detail参数描述**。",
+      "description": "防护对象的具体参数信息，以一系列参数构造的JSON格式转化成字符串。\n\n> 根据所指定的**云产品**（**Product**）和**防护形式**（**Pattern**）不同，具体涉及的参数有所不同。详细信息，请参见**防护对象Detail参数描述**。\n\n><notice>当 **Product** 取值为 **ecs**、**clb4**、**clb7**、**nlb** 时，接入中国内地地域的域名必须已完成 ICP 备案。</notice>",
       "position": "Query",
       "type": "String",
       "required": true
@@ -41,7 +42,7 @@
     },
     {
       "name": "Pattern",
-      "description": "防护对象的防护形式。取值：\n\n- **domain**：表示以域名方式防护。\n\n- **multi_service**：表示以混合云服务化的方式防护。",
+      "description": "防护对象的防护形式。取值：\n\n- **domain**：表示以域名方式防护。\n\n- **multi_service**：表示以混合云服务化的方式防护。\n\n> 当前仅支持以下组合：**Product** 取值为 **alb**、**ecs**、**clb4**、**clb7**、**nlb** 时，**Pattern** 取值为 **domain**；**Product** 取值为 **waf** 时，**Pattern** 取值为 **multi_service**。",
       "position": "Query",
       "type": "String",
       "required": true
@@ -97,12 +98,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签键。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "标签值。",
           "position": "Query",
           "type": "String",
           "required": false

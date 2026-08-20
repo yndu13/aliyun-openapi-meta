@@ -6,22 +6,28 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AccountId",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Categories",
-      "description": "The types of the execution template. Valid values: Other, TimerTrigger, EventTrigger, and AlarmTrigger. You can specify only one of the Categories and Category parameters. We recommend that you specify Categories.",
+      "description": "A list of template categories. Valid values: `Other`, `TimerTrigger`, `EventTrigger`, and `AlarmTrigger`. You can specify either this parameter or `Category`, but not both. We recommend that you use `Categories`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Category",
-      "description": "The type of the execution template. Valid values: Other, TimerTrigger, EventTrigger, and AlarmTrigger.",
+      "description": "The category of the template. Valid values: `Other`, `TimerTrigger`, `EventTrigger`, and `AlarmTrigger`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Depth",
-      "description": "The depth of execution. Valid values: RootDepth and FirstChildDepth. If you set this parameter to RootDepth, only the parent execution is returned. If you set this parameter to FirstChildDepth, only the child executions at the first level are returned. You can specify only one of the Depth and IncludeChildExecution parameters. We recommend that you specify Depth.",
+      "description": "The level of execution data to return. Valid values: `RootDepth` and `FirstChildDepth`. `RootDepth` returns only parent executions. `FirstChildDepth` returns only first-level child executions. You can specify either this parameter or `IncludeChildExecution`, but not both. We recommend that you use `Depth`.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -35,21 +41,21 @@
     },
     {
       "name": "EndDateAfter",
-      "description": "The earliest end time. The executions that stop running at or later than the specified time are queried.",
+      "description": "Specifies a filter to return only executions that ended at or after this time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndDateBefore",
-      "description": "The latest end time. The executions that stop running at or earlier than the specified time are queried.",
+      "description": "Specifies a filter to return only executions that ended at or before this time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExecutedBy",
-      "description": "The executor.",
+      "description": "The user who started the execution.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,28 +69,28 @@
     },
     {
       "name": "IncludeChildExecution",
-      "description": "Specifies whether to include child executions. Default value: False.",
+      "description": "Specifies whether to include child executions in the results. The default is False.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.",
+      "description": "The number of entries to return on each page. Valid values: 10 to 100. The default is 50.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Mode",
-      "description": "The execution mode. Valid values:\n\n*   **Automatic**\n*   **Debug**",
+      "description": "The execution mode. Valid values:\n\n- **Automatic**\n\n- **Debug**",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used to retrieve the next page of results.",
+      "description": "The pagination token returned from a previous call that you can use to retrieve the next page of results.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -104,6 +110,13 @@
       "required": false
     },
     {
+      "name": "RdFolderIds",
+      "description": "The IDs of folders in Resource Directory. Use this parameter to query executions within specific folders.",
+      "position": "Query",
+      "type": "Json",
+      "required": false
+    },
+    {
       "name": "RegionId",
       "description": "The ID of the region.",
       "position": "Query",
@@ -112,70 +125,70 @@
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the instances you want to query belong.",
+      "description": "The ID of the resource group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The ID of the Elastic Compute Service (ECS) resource.",
+      "description": "The ID of the ECS resource.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceTemplateName",
-      "description": "The name of the resource template.",
+      "description": "The name of the resource's template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SortField",
-      "description": "The field that is used to sort the executions to query. Valid values:\n\n*   **StartDate**: specifies that the executions are sorted based on the time when they are created. This is the default value.\n*   **EndDate**: specifies that the executions are sorted based on the time when they stop running.\n*   **Status**: specifies that the executions are sorted based on their states.",
+      "description": "The field to use for sorting the returned executions. Valid values:\n\n- **StartDate** (default): the time when the execution was created\n\n- **EndDate**: the end time of the execution\n\n- **Status**: the status of the execution",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SortOrder",
-      "description": "The order in which you want to sort the results. Valid values:\n\n*   **Ascending**: ascending order.\n*   **Descending**: descending order. This is the default value.",
+      "description": "The sort order. Valid values:\n\n- **Ascending**: ascending order\n\n- **Descending** (default): descending order",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartDateAfter",
-      "description": "The earliest start time. The executions that start to run at or later than the specified time are queried.",
+      "description": "Specifies a filter to return only executions that started at or after this time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartDateBefore",
-      "description": "The latest start time. The executions that start to run at or earlier than the specified point in time are queried.",
+      "description": "Specifies a filter to return only executions that started at or before this time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the execution. Valid values: Running, Started, Success, Failed, Waiting, Cancelled, Pending, and Skipped.",
+      "description": "The status of the execution. Valid values: `Running`, `Started`, `Success`, `Failed`, `Waiting`, `Cancelled`, `Pending`, and `Skipped`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags for the execution.",
+      "description": "The tags attached to the execution.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateName",
-      "description": "The name of the template. All templates whose names contain the specified template name are queried.",
+      "description": "The name of the template. This parameter supports fuzzy search. The operation returns executions of templates whose names contain the value you specify.",
       "position": "Query",
       "type": "String",
       "required": false

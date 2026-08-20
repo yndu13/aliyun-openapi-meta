@@ -1,61 +1,62 @@
 {
   "name": "DescribeDcdnIpaUserDomains",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CheckDomainShow",
-      "description": "Specifies whether to display domain names that are under review, failed the review, or failed to be configured. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to display domain names that are under review, failed the review, or have failed configurations. Valid values:\n\n- **true**: Display.\n\n- **false**: Do not display.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DomainName",
-      "description": "The domain name that is used as a keyword to filter domain names. Fuzzy match is supported.",
+      "description": "Filter results by domain name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainSearchType",
-      "description": "The search method. Default value: full_match. Valid values:\n\n*   **fuzzy_match**: fuzzy match\n*   **pre_match**: prefix match\n*   **suf_match**: suffix match\n*   **full_match**: exact match",
+      "description": "The search method for the domain name. Valid values:\n\n- **full\\_match** (default): Exact match.\n\n- **fuzzy\\_match**: Fuzzy match.\n\n- **pre\\_match**: Prefix match.\n\n- **suf\\_match**: Suffix match.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainStatus",
-      "description": "The status of the domain name. Valid values:\n\n*   **online**: enabled\n*   **offline**: disabled\n*   **configuring**: configuring\n*   **configure_failed**: configuration failed\n*   **checking**: reviewing\n*   **check_failed:** review failed",
+      "description": "Filter results by domain name status. Valid values:\n\n- **online**: Enabled.\n\n- **offline**: Disabled.\n\n- **configuring**: Configuring.\n\n- **configure\\_failed**: Configuration failed.\n\n- **checking**: Under review.\n\n- **check\\_failed**: Review failed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FuncFilter",
-      "description": "The status of the feature.\n\n*   config: The feature is enabled.\n*   unconfig: The feature is not enabled.",
+      "description": "The filter for the feature.\n\n- config: The feature is enabled.\n\n- unconfig: The feature is not enabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FuncId",
-      "description": "The ID of the feature. For example, a value of 7 specifies the feature of configuring an expiration rule for a specific directory. For more information about feature IDs, see [Parameters for configuring features for domain names](~~410622~~).",
+      "description": "The ID of the feature. For example, a value of 7 specifies the path-based expiration feature. For more information about feature IDs, see [Features of DCDN domain names](~~410622~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Valid values: **1** to **100000**. Default value: **1**.",
+      "description": "The page number. Valid values: **1** to **100000**. The default value is **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of domain names per page. Default value: **20**.**** Valid values: **1** to **500**.",
+      "description": "The number of domain names to return on each page. The default value is **20**. The maximum value is **500**. Valid values: **1** to **500**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -69,19 +70,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags of the command.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of tag N. N is an integer from 1 to 20. You can call the TagDcdnResources operation to add tags to a domain name.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of tag N. N is an integer from 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false

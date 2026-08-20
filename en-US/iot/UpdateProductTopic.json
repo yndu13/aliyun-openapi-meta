@@ -1,54 +1,55 @@
 {
   "name": "UpdateProductTopic",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Codec",
-      "description": "",
+      "description": "For Standard and Enterprise instances, you can enable data compression or decompression for custom topics.\nValid values:\n\n- **compress**: compression.\n- **decompress**: decompression.\n\nFor more information about the data compression feature, see [Data compression](~~477405~~).\n\n><notice>If **TopicShortName** contains wildcards (`+` or `#`), you cannot specify **Codec** at the same time. If data compression or decompression is enabled when a wildcard topic category is created, invoking this operation to create the topic category fails.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Desc",
-      "description": "The description of the topic category. The description must be 1 to 100 characters in length.",
+      "description": "The description of the topic category. The description can be up to 100 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableProxySubscribe",
-      "description": "",
+      "description": "If **Operation** is set to **SUB** (subscribe) or **ALL** (publish and subscribe), you can enable proxy subscription.\nValid values:\n\n- **true**: enabled.\n- **false**: not enabled.\n\nAfter proxy subscription is enabled, when a device connects to IoT Platform, IoT Platform queries the topics with proxy subscription enabled and subscribes to the topics on behalf of the device.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the instance **ID** on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must configure this parameter. If you do not set this parameter, the call fails.\n>*   If your instance has no **Overview** page or ID, you do not need to set this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this parameter is available, you must specify this parameter. Otherwise, the call fails.\n- If this parameter is unavailable, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Operation",
-      "description": "The operation permissions of the device on the topic category. Valid values:\n\n*   **SUB**: Subscribe.\n*   **PUB**: Publish.\n*   **ALL**: Publish and Subscribe.",
+      "description": "The operation permissions of devices on the topic category. Valid values:\n\n- **SUB**: subscribe.\n- **PUB**: publish.\n- **ALL**: publish and subscribe.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TopicId",
-      "description": "The ID of the topic category that you want to modify.",
+      "description": "The ID of the topic category to modify.\nThis is the **TopicId** returned after you call the [CreateProductTopic](~~69649~~) operation to create a custom topic category.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TopicShortName",
-      "description": "The name of the user-defined category level that you want to set. By default, a topic category includes the following levels: \\_productkey\\_ and \\_devicename\\_. Separate the two levels with slashes (/). Format of a topic category: `productKey/deviceName/topicShortName`.\n\n>  Each level can contain letters, digits, and underscores (\\_), and cannot be empty.",
+      "description": "The custom category name of the topic category. A topic category contains the _productKey_ and _deviceName_ levels by default. Category levels are separated by forward slashes (/). The format is: `productKey/deviceName/topicShortName`.\n\n> Each category name can contain only letters, digits, and underscores (_), and cannot be empty.",
       "position": "Query",
       "type": "String",
       "required": true

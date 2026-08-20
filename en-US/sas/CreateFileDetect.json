@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "Decompress",
-      "description": "Whether to decompress or not. Valid values:\n\n- true: To decompress.\n- false: Not to decompress.",
+      "description": "Specifies whether to identify and decompress compressed files. Valid values:\n- **true**: Yes.\n- **false**: No.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DecompressMaxFileCount",
-      "description": "The maximum number of files for decompression. The minimum value is 1, and the maximum value is 1000. If the decompression level exceeds the maximum, the decompression operation will be terminated, but the detection of decompressed files will not be affected.",
+      "description": "The maximum number of files to decompress. Maximum value: 1000.\n\nThis parameter is required when Decompress is set to true.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DecompressMaxLayer",
-      "description": "The maximum level of decompression when dealing with nested compressed files with multiple levels. The minimum value is 1, and the maximum value is 5. If the decompression level exceeds the maximum, the decompression operation will be terminated, but the detection of decompressed files will not be affected.",
+      "description": "The maximum number of decompression layers when compressed files are nested within a compressed package. Maximum value: 5.\n\nThis parameter is required when Decompress is set to true.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DownloadUrl",
-      "description": "The URL that is used to download the file. You can specify this parameter to trigger file detection without the need to upload the file in advance.",
+      "description": "The download URL of the file. You can pass in a download URL (public URL) to directly trigger file detection without uploading the file in advance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HashKey",
-      "description": "The identifier of the file. Only MD5 hash values are supported.",
+      "description": "The unique identifier of the file. This parameter is required and must be the MD5 or SHA-256 hash of the file.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "OssKey",
-      "description": "The key of the file that is stored in the Object Storage Service (OSS) bucket. You can call the [CreateFileDetectUploadUrl](~~CreateFileDetectUploadUrl~~) operation to query the keys of files.",
+      "description": "The storage key of the file in the OSS bucket.\n\nIf you push the file for detection by using DownloadUrl, this parameter is not required. You can obtain this parameter by calling the [CreateFileDetectUploadUrl](~~CreateFileDetectUploadUrl~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceIp",
-      "description": "The source IP address of the request.",
+      "description": "The IP address of the access source.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the file. Valid values:\n\n*   **0**: unknown files\n*   **1**: binary files\n*   **2**: webshell files\n*   **4**: script files\n\n>  If you do not know the type of the file, set this parameter to 0.",
+      "description": "The type of file to detect. Valid values:\n\n- **0**: malicious file detection",
       "position": "Query",
       "type": "Integer",
       "required": true

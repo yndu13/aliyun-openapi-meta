@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can be up to 64 characters in length, and can contain letters, digits, hyphens (-), and underscores (\\_).\n\nFor more information, see [Ensure idempotence](~~134212~~).",
+      "description": "Ensures request idempotency. Must be client-generated and globally unique. Maximum length: 64 characters. Can contain **letters**, **digits**,**&#x20;hyphens (-)**, an&#x64;**&#x20;underscores (\\_)**.\n\n[How to ensure idempotence](~~134212~~)",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CreateOption",
-      "description": "The creation option for the stack. Valid values:\n\n*   KeepStackOnCreationComplete (default): After the stack is created, the stack and its resources are retained. The quota for the maximum number of stacks that can be created in ROS is consumed.\n*   AbandonStackOnCreationComplete: After the stack is created, the stack is deleted, but its resources are retained. The quota for the maximum number of stacks that can be created in ROS is not consumed. If the stack fails to be created, the stack is retained.\n*   AbandonStackOnCreationRollbackComplete: When the resources of the stack are rolled back after the stack fails to be created, the stack is deleted. The quota for the maximum number of stacks that can be created in ROS is not consumed. In other rollback scenarios, the stack is retained.\n*   ManuallyPay: When you create the stack, you must manually pay for the subscription resources that are used. The following resource types support manual payment: `ALIYUN::ECS::InstanceGroup`, `ALIYUN::RDS::DBInstance`, `ALIYUN::SLB::LoadBalancer`, `ALIYUN::VPC::EIP`, and `ALIYUN::VPC::VpnGateway`.\n\n>  You can specify only one of CreateOption and CreateOptions.",
+      "description": "The post-creation behavior for the stack. Valid values:\n\n- KeepStackOnCreationComplete (default): retains the stack and resources after creation. Counts toward the stack quota.\n\n- AbandonStackOnCreationComplete: deletes the stack but retains resources after creation. Does not count toward the stack quota. The stack is retained if creation fails.\n\n- AbandonStackOnCreationRollbackComplete: deletes the stack after a creation rollback. Does not count toward the stack quota. The stack is retained in other rollback scenarios.\n\n- ManuallyPay: requires manual payment for subscription resources during stack creation. Supported resource types: `ALIYUN::ECS::InstanceGroup`, `ALIYUN::RDS::DBInstance`, `ALIYUN::SLB::LoadBalancer`, `ALIYUN::VPC::EIP`, and `ALIYUN::VPC::VpnGateway`.\n\n- RetryOnNoStock: automatically retries resource creation on insufficient inventory. Supported resource type: `ALIYUN::RDS::DBInstance`.\n\n> You can specify only one of the following parameters: CreateOption or CreateOptions.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,28 +28,28 @@
     },
     {
       "name": "DeletionProtection",
-      "description": "Specifies whether to enable deletion protection for the stack. Valid values:\n\n*   Enabled.\n*   Disabled (default). If deletion protection is disabled, you can delete the stack by using the ROS console or by calling the DeleteStack operation.\n\n> The value of DeletionProtection that you specify for the root stack applies to its nested stacks.",
+      "description": "Specifies whether to enable deletion protection on the stack. Valid values:\n\n- Enabled: enables deletion protection.\n\n- Disabled (default): allows stack deletion via the ROS console or the DeleteStack API.\n\n> The deletion protection of a nested stack is the same as that of its root stack.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DisableRollback",
-      "description": "Specifies whether to disable rollback for the resources when the stack fails to be created.\n\nValid values:\n\n*   true\n*   false (default)",
+      "description": "Specifies whether to disable rollback when stack creation fails.\n\nValid values:\n\n- true: disables rollback.\n\n- false (default): enables rollback.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NotificationURLs",
-      "description": "The callback URLs that are used to receive stack events. Valid values:\n\n*   HTTP POST URL\n\nEach URL can be up to 1,024 bytes in length.\n\n*   eventbridge\n\nWhen the status of a stack changes, ROS sends notifications to the EventBridge service. You can view the event information in the [EventBridge](https://eventbridge.console.aliyun.com) console.\n\n> This feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Hong Kong), and China (Zhangjiakou) regions.\n\nMaximum value of N: 5. When the status of a stack changes, ROS sends a notification to the specified URL. When rollback is enabled for the stack, notifications are sent if the stack is in the CREATE_ROLLBACK or ROLLBACK state, but are not sent if the stack is in the CREATE_FAILED, UPDATE_FAILED, or IN_PROGRESS state.\\\nROS sends notifications regardless of whether you specify the Outputs section. The following sample code provides an example on the content of a notification:\n\n    {\n       \"Outputs\": [\n           {\n               \"Description\": \"No description given\",\n               \"OutputKey\": \"InstanceId\",\n               \"OutputValue\": \"i-xxx\"\n           }\n       ],\n       \"StackId\": \"80bd6b6c-e888-4573-ae3b-93d29113****\",\n       \"StackName\": \"test-notification-url\",\n       \"Status\": \"CREATE_COMPLETE\"\n    }",
+      "description": "The callback URL for stack events. Valid values:\n\n- HTTP POST URL. Maximum length: 1,024 bytes.\n\n- EventBridge receives stack status change notifications. View events in the [EventBridge console](https://eventbridge.console.aliyun.com).\n\n> Supported regions: China (Hangzhou), China (Shanghai), China (Beijing), China (Hong Kong), and China (Zhangjiakou).\n\nMaximum value of N: 5. ROS sends notifications on stack status changes, except for IN\\_PROGRESS events. With rollback enabled, CREATE\\_ROLLBACK and ROLLBACK events replace CREATE\\_FAILED and UPDATE\\_FAILED notifications. Notifications always include Outputs. Example notification:\n\n```\n{\n   \"Outputs\": [\n       {\n           \"Description\": \"No description given\",\n           \"OutputKey\": \"InstanceId\",\n           \"OutputValue\": \"i-xxx\"\n       }\n   ],\n   \"StackId\": \"80bd6b6c-e888-4573-ae3b-93d29113****\",\n   \"StackName\": \"test-notification-url\",\n   \"Status\": \"CREATE_COMPLETE\"\n}\n```",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Parallelism",
-      "description": "The maximum number of concurrent operations that can be performed on resources.\n\nBy default, this parameter is empty. You can set this parameter to an integer that is greater than or equal to 0.\n\n\n\n> -  If you set this parameter to an integer that is greater than 0, the integer is used. If you set this parameter to 0 or leave this parameter empty, no limit is imposed on ROS stacks. However, the default value in Terraform is used for Terraform stacks. In most cases, the default value in Terraform is 10.\n> -  If you set this parameter to a specific value, ROS associates the value with the stack. The value affects subsequent operations on the stack, such as an update operation.",
+      "description": "The maximum number of concurrent operations on resources.\n\nDefault: empty. Accepts integers greater than or equal to 0.\n\n> - If greater than 0, the specified value is used. If 0 or empty, no limit applies to ROS stacks; Terraform stacks use the Terraform default (typically 10).\n>\n> - The specified value persists with the stack and affects subsequent operations such as updates.",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -63,12 +63,14 @@
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "The name of parameter N defined in the template. If you do not specify the name and value of a parameter, ROS uses the default value in the template.\n\nThe maximum value of N is 200. The name must be 1 to 128 characters and cannot start with `aliyun` or `acs:`. The name cannot contain `http://` or `https://`.\n\n> Parameters is an optional parameter. To specify Parameters, you must specify both Parameters.N.ParameterKey and Parameters.N.ParameterValue.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "The value of parameter N defined in the template.\n\nThe maximum value of N is 200. The value must be 0 to 128 characters and cannot start with `aliyun` or `acs:`. The value cannot contain `http://` or `https://`.\n\n> Parameters is an optional parameter. To specify Parameters, you must specify both Parameters.N.ParameterKey and Parameters.N.ParameterValue.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -77,61 +79,63 @@
     },
     {
       "name": "RamRoleName",
-      "description": "The name of the RAM role. ROS assumes the RAM role to create the stack and uses the credentials of the role to call the APIs of Alibaba Cloud services.\\\nROS assumes the RAM role to perform operations on the stack. If you have permissions to perform operations on the stack but do not have permissions to use the RAM role, ROS still assumes the RAM role. You must make sure that the least privileges are granted to the RAM role.\n\nIf you do not specify this parameter, ROS assumes the existing role that is associated with the stack. If no roles are available, ROS uses a temporary credential that is generated from the credentials of your account.\n\nThe RAM role name can be up to 64 characters in length.",
+      "description": "The RAM role name. ROS assumes this role for all stack API calls, even when the user has direct permissions, ensuring least-privilege access. [Use a stack role](~~2568025~~).\n\nIf not specified, ROS uses the role associated with the stack, or a temporary credential from your account if no role exists.\n\nMaximum length: 64 characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the stack. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.",
+      "description": "The region ID of the stack. Call [DescribeRegions](~~131035~~) to query available regions.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group. If you leave this parameter empty, the stack is added to the default resource group.\n\nFor more information about resource groups, see the \"Resource group\" section of the [What is Resource Management?](~~94475~~) topic.",
+      "description": "The ID of the resource group. If not specified, the stack is added to the default resource group.\n\n[What is a resource group](~~94475~~)",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StackName",
-      "description": "The name of the stack.\\\nThe name can be up to 255 characters in length, and can contain digits, letters, hyphens (-), and underscores (\\_). It must start with a letter.",
+      "description": "The stack name. Maximum length: 255 characters. Must start with a **letter** and can contain **letters**, **digits**, **hyphens (-)**, and **underscores (\\_)**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StackPolicyBody",
-      "description": "The structure that contains the stack policy body. The policy body must be 1 to 16,384 bytes in length.\n\n> You can specify only one of StackPolicyBody and StackPolicyURL.",
+      "description": "The stack policy body. Length: 1 to 16,384 bytes.\n\n> You can specify only one of the following parameters: StackPolicyBody or StackPolicyURL.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StackPolicyURL",
-      "description": "The URL of the file that contains the stack policy. The URL must point to a policy that is located on an HTTP or HTTPS web server or in an Object Storage Service (OSS) bucket, such as oss://ros/stack-policy/demo or oss://ros/stack-policy/demo?RegionId=cn-hangzhou. The policy file can be up to 16,384 bytes in length. If you do not specify the region ID of the OSS bucket, the value of RegionId is used.\n\n> You can specify only one of StackPolicyBody and StackPolicyURL.\n\nThe URL can be up to 1,350 bytes in length.",
+      "description": "The URL of the stack policy file. Supports HTTP, HTTPS, and OSS URLs (for example, oss\\://ros/stack-policy/demo or oss\\://ros/stack-policy/demo?RegionId=cn-hangzhou). Maximum file size: 16,384 bytes. If no OSS region is specified, the RegionId value is used.\n\n> You can specify only one of the following parameters: StackPolicyBody or StackPolicyURL.\n\nMaximum URL length: 1,350 bytes.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags that you want to add to the stack.",
+      "description": "The tags of the stack.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of tag N of the stack.\n\nValid values: 1 to 20.\n\n> - Tags is an optional parameter. To specify Tags, you must specify Tags.N.Key.\n>\n> - Stack tags propagate to each resource that supports tagging. [Tag propagation](~~201421~~).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The value of tag N of the stack.\n\nValid values: 1 to 20.\n\n> Stack tags propagate to taggable resources. [Tag propagation](~~201421~~).",
           "position": "Query",
           "type": "String",
           "required": false
@@ -140,49 +144,49 @@
     },
     {
       "name": "TemplateBody",
-      "description": "The structure that contains the template body. The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend that you add parameters to the HTTP POST request body to prevent request failures caused by excessively long URLs.\n\n> You must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.",
+      "description": "The template body. Length: **1 to 524,288 bytes**. Use **HTTP POST** with **Body parameters** for large content to avoid URL length limits.\n\n> You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, or TemplateScratchId.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateId",
-      "description": "The template ID. This parameter applies to shared templates and private templates.\n\n> You must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.",
+      "description": "The template ID. This parameter applies to shared and private templates.\n\n> You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, or TemplateScratchId.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateScratchId",
-      "description": "The scenario ID.\n\nFor more information about how to query the scenario ID, see [ListTemplateScratches](~~363050~~).\n\n> You must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.",
+      "description": "The ID of the resource scenario.\n\nCall [ListTemplateScratches](~~363050~~) to query resource scenario IDs.\n\n> You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, or TemplateScratchId.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateScratchRegionId",
-      "description": "The region ID of the scenario. The default value is the same as the value of RegionId.\n\nYou can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.",
+      "description": "The region ID of the resource scenario. Default value: the value of RegionId.\n\nCall [DescribeRegions](~~131035~~) to query available regions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateURL",
-      "description": "The URL of the file that contains the template body. The URL must point to a template that is located on an HTTP or HTTPS web server or in an OSS bucket, such as oss://ros/template/demo or oss://ros/template/demo?RegionId=cn-hangzhou. The template body can be up to 524,288 bytes in length. If you do not specify the region ID of the OSS bucket, the value of RegionId is used.\n\n> You must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.",
+      "description": "The URL of the template file. Supports HTTP, HTTPS, and OSS URLs (for example, oss\\://ros/stack-policy/demo or oss\\://ros/stack-policy/demo?RegionId=cn-hangzhou). Maximum template size: 524,288 bytes. If no OSS region is specified, the RegionId value is used.\n\n> You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, or TemplateScratchId.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateVersion",
-      "description": "The version of the template. This parameter takes effect only when TemplateId is specified.",
+      "description": "The version of the template. This parameter takes effect only when you specify TemplateId.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TimeoutInMinutes",
-      "description": "The timeout period for creating the stack.\n\n*   Default value: 60.\n*   Unit: minutes.\n*   Valid values: 10 to 1440.",
+      "description": "The stack creation timeout. Unit: minutes.\n\n- Default value: 60.\n\n- Valid values: 10 to 1440.",
       "position": "Query",
       "type": "Long",
       "required": false

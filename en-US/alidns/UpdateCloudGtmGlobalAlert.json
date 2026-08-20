@@ -7,44 +7,56 @@
   "parameters": [
     {
       "name": "AcceptLanguage",
-      "description": "The language of the response. Valid values:\n\n*   zh-CN: Chinese\n*   en-US: English",
+      "description": "The language of the response. Valid values:\n\n- `zh-CN`: Chinese\n\n- `en-US`: English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AlertConfig",
-      "description": "The alert configurations.",
+      "description": "A list of alert configurations.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "DingtalkNotice",
+          "description": "Whether to send a DingTalk notification when an alert is triggered. Valid values:\n\n- `true`: A DingTalk notification is sent.\n\n- `false`: Do not send a DingTalk notification.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "EmailNotice",
+          "description": "Whether to send an email notification when an alert is triggered. Valid values:\n\n- `true`: An email notification is sent.\n\n- `false` or `null`: Do not send an email notification.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "NoticeType",
+          "description": "The alert event type. Valid values:\n\n- `addr_alert`: An address becomes unavailable.\n\n- `addr_resume`: An address becomes available.\n\n- `addr_pool_unavailable`: An address pool becomes unavailable.\n\n- `addr_pool_available`: An address pool becomes available.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
+          "name": "QpsThreshold",
+          "description": "The alert threshold for queries per second (QPS).",
+          "position": "Query",
+          "type": "Long",
+          "required": false
+        },
+        {
           "name": "SmsNotice",
+          "description": "Whether to send a text message notification when an alert is triggered. Valid values:\n\n- `true`: A text message notification is sent.\n\n- `false` or `null`: Do not send a text message notification.\n\nText message notifications are available only on the China site.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Threshold",
+          "description": "The alert threshold.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -53,14 +65,14 @@
     },
     {
       "name": "AlertGroup",
-      "description": "The alert contact groups.",
+      "description": "A list of alert notification groups.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can specify a custom value for this parameter, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client-generated token to ensure request idempotence. This token must be unique for each request, contain only ASCII characters, and be no more than 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false

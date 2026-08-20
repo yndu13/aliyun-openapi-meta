@@ -1,47 +1,48 @@
 {
   "name": "SetDeviceProperty",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DeviceName",
-      "description": "The DeviceName of the device.\n\n> If you configure this parameter, you must specify a value for the **ProductKey** parameter.",
+      "description": "The device name.\n><notice> If you specify this parameter, you must also specify **ProductKey**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotId",
-      "description": "The ID of the device. The ID is a unique identifier that is issued by IoT Platform to the device.\n\n> The IotId parameter specifies a globally unique identifier (GUID) for the device. The value of the **IotId** parameter corresponds to a combination of the values of the **ProductKey** and **DeviceName** parameters. If you specify a value for this parameter, you do not need to configure the **ProductKey** or **DeviceName** parameter. If you specify values for the **IotId**, **ProductKey**, and **DeviceName** parameters, the value of the **IotId** parameter takes precedence.",
+      "description": "The device ID. This is the unique identifier issued by IoT Platform for the device.\n><notice> **IotId** is the globally unique identifier of a device and corresponds to the combination of **ProductKey** and **DeviceName** on a one-to-one basis. If you specify this parameter, you do not need to specify **ProductKey** or **DeviceName**. If you specify **IotId** together with **ProductKey** and **DeviceName**, **IotId** takes precedence.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the elastic container instance. You can view the ID of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.****\n>*   If no **Overview** page or **ID** is generated for your instance, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this **ID** value exists, you must specify it. Otherwise, the call fails.\n- If the **Overview** page or **ID** value is not available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Items",
-      "description": "The properties that you want to specify. The properties must be in the JSON format.\n\nEach property consists of a **key-value pair in the key:value format**. Separate multiple properties with commas (,).\n\nFor example, you can configure the following properties for a smart lamp:\n\n*   A switch property whose key is **Switch** and whose data type is **BOOLEAN**. The value is **1**. The value 1 indicates that the light is on.\n*   A color property whose key is **Color** and whose data type is **STRING**. The value is **blue**.\n\nIn this case, you can specify the following properties in the JSON format:\n\n`Items={\"Switch\":1,\"Color\":\"blue\"}`\n\n>  If you specify properties for the custom module testFb, set the Items parameter to `{\"testFb:Switch\":1,\"testFb:Color\":\"blue\"}`. The testFb module is not the default module.",
+      "description": "The property information to set, in JSON format.\n\nEach property is represented as a key-value pair of the identifier and property value. Separate multiple properties with commas.\n\nFor example, to set the following two properties of a smart light:\n\n- The switch property with the identifier **Switch**, data type **Bool**, and value **1** (on).\n\n- The light color property with the identifier **Color**, data type **String**, and value **blue**.\n\nThe JSON format of the property information is as follows:\n\n`Items={\"Switch\":1,\"Color\":\"blue\"}`\n\n> To set properties of a custom module testFb (non-default module), use the following format: `Items={\"testFb:Switch\":1,\"testFb:Color\":\"blue\"}`",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs.\n\n> If you configure this parameter, you must also specify a value for the **DeviceName** parameter.",
+      "description": "The **ProductKey** of the product to which the device belongs.\n><notice> If you specify this parameter, you must also specify **DeviceName**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Qos",
-      "description": "",
+      "description": "The message delivery method when calling this operation. Valid values:\n\n- **0** (default): at most once.\n- **1**: at least once. If a QoS=1 message does not receive a PUBACK message, the message is pushed to the device again when the device reconnects.",
       "position": "Query",
       "type": "Integer",
       "required": false

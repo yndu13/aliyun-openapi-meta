@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "AutoUseCoupon",
-      "description": "",
+      "description": "Specifies whether to automatically apply a coupon. Valid values:\n\n- true (Default): A coupon is automatically applied.\n\n- false: A coupon is not applied.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. The token is case-sensitive.",
+      "description": "A client-generated token to ensure request idempotence. This token must be unique for each request and must be a case-sensitive string of up to 64 ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CloudProvider",
-      "description": "",
+      "description": "The cloud provider of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -35,19 +35,21 @@
     },
     {
       "name": "DBNode",
-      "description": "The details of the nodes.",
+      "description": "The list of cluster nodes.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "DBNodeId",
+          "description": "The ID of the cluster node.\n\n> If you specify this parameter, you must also specify DBNode.N.TargetClass. N represents the index of the node in the request, starting from 1.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TargetClass",
+          "description": "The target specifications of the node. For more information about node specifications, see [compute node specifications](~~102542~~).\n\n> If you specify this parameter, you must also specify DBNode.N.DBNodeId. N represents the index of the node in the request, starting from 1.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,42 +58,42 @@
     },
     {
       "name": "ModifyType",
-      "description": "The type of the configuration change. Valid values:\n\n*   **Upgrade**\n*   **Downgrade**",
+      "description": "The modification type. Valid values:\n\n- **Upgrade**: Upgrades the specifications.\n\n- **Downgrade**: Downgrades the specifications.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PlannedEndTime",
-      "description": "The latest start time to upgrade the specifications within the scheduled time period. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.\n\n>*   The value of this parameter must be at least 30 minutes later than the value of PlannedStartTime.\n>*   By default, if you specify `PlannedStartTime` but do not specify PlannedEndTime, the latest start time of the task is set to `Value of PlannedEndTime + 30 minutes`. For example, if you set `PlannedStartTime` to `2021-01-14T09:00:00Z` and you do not specify PlannedEndTime, the latest start time of the task is `2021-01-14T09:30:00Z`.",
+      "description": "The latest time to begin the scheduled task. Specify the time in UTC using the `YYYY-MM-DDThh:mm:ssZ` format.\n\n> - The latest start time must be at least 30 minutes later than the earliest start time.\n>\n> - If you specify `PlannedStartTime` but not this parameter, the task starts within 30 minutes of the `PlannedStartTime`. For example, if you set `PlannedStartTime` to `2021-01-14T09:00:00Z` and leave this parameter empty, the task will start by `2021-01-14T09:30:00Z`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlannedFlashingOffTime",
-      "description": "",
+      "description": "The planned time for the transient disconnection.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlannedStartTime",
-      "description": "The earliest start time to upgrade the specifications within the scheduled time period. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.\n\n> *   This parameter takes effect only when `ModifyType` is set to `Upgrade`.\n>*   The earliest start time of the task can be a point in time within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, you can specify a point in the time that ranges from `2021-01-14T09:00:00Z` to `2021-01-15T09:00:00Z`.\n>*   If this parameter is left empty, the upgrade task is immediately performed.",
+      "description": "The earliest time to begin the scheduled upgrade of the node specifications. Specify the time in UTC using the `YYYY-MM-DDThh:mm:ssZ` format.\n\n> - This parameter takes effect only when `ModifyType` is set to `Upgrade`.\n>\n> - The specified time must be within the next 24 hours.\n>\n> - If this parameter is not specified, the upgrade task runs immediately.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PromotionCode",
-      "description": "",
+      "description": "The coupon code. If you do not specify this parameter, a default coupon is applied.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubCategory",
-      "description": "The category of the cluster. Valid values:\n\n*   **normal_exclusive**: dedicated\n*   **normal_general**: genera-purpose",
+      "description": "The sub-category of the cluster. Valid values:\n\n- **normal\\_exclusive**: dedicated specifications\n\n- **normal\\_general**: general-purpose specifications",
       "position": "Query",
       "type": "String",
       "required": false

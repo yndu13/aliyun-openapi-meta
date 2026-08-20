@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "A client-generated token to ensure the idempotence of the request.\n\nThe token must be unique across requests and can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** is unique for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the endpoint group.\n\nThe description can be up to 200 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the endpoint group.\n\nThe description can be up to 200 characters long and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointConfigurations",
-      "description": "The configurations of the endpoints in the endpoint group.",
+      "description": "The configurations of the endpoints.",
       "position": "Query",
       "type": "Array",
       "required": false
@@ -35,96 +35,98 @@
     },
     {
       "name": "EndpointGroupRegion",
-      "description": "The ID of the region where the endpoint group is created.",
+      "description": "The ID of the region where the endpoint group is deployed.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndpointIpVersion",
-      "description": "",
+      "description": "Specifies the IP protocol that GA uses to communicate with endpoints. Valid values: ● **IPv4** (default): Use IPv4. ● **IPv6**: Use IPv6. ● **ProtocolAffinity**: Use the same IP protocol as the client request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointProtocolVersion",
-      "description": "The protocol version that is used by the backend service. Valid values:\n\n*   **HTTP1.1**\n*   **HTTP2**\n\n>  This parameter takes effect only when you set EndpointRequestProtocol to HTTPS.",
+      "description": "The version of the backend service protocol. Valid values:\n\n- **HTTP1.1**\n\n- **HTTP2**\n\n> You can configure this parameter only when `EndpointRequestProtocol` is set to HTTPS.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointRequestProtocol",
-      "description": "The protocol that is used by the backend service. Valid values:\n\n*   **HTTP**\n*   **HTTPS**\n\n> *   You can set this parameter only when the listener that is associated with the endpoint group uses the HTTP or HTTPS protocol.\n> *   For an HTTP listener, the backend service protocol must be HTTP.",
+      "description": "The backend service protocol. Valid values:\n\n- **HTTP**\n\n- **HTTPS**\n\n> * You can configure this parameter only for endpoint groups of HTTP or HTTPS listeners.\n>\n> * For an HTTP listener, the backend service protocol must be HTTP.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckEnabled",
-      "description": "Specifies whether to enable the health check feature. Valid values: Valid values:\n\n*   **true**: The health check feature is enabled.\n*   **false** (default)",
+      "description": "Specifies whether to enable health checks. Valid values:\n\n- **true**: Enables health checks.\n\n- **false** (default): Disables health checks.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckHost",
-      "description": "",
+      "description": "The domain name for the health check.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckIntervalSeconds",
-      "description": "The interval between two consecutive health checks. Unit: seconds. Valid values: **1** to **50**.",
+      "description": "The interval between health checks, in seconds. Valid values: **1** to **50**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckPath",
-      "description": "The path to which health check requests are sent.",
+      "description": "The path for health checks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckPort",
-      "description": "The port that is used for health checks. Valid values: **1** to **65535**.",
+      "description": "The port used for health checks. Valid values: **1** to **65535**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckProtocol",
-      "description": "The protocol over which to send health check requests. Valid values:\n\n*   **tcp** or **TCP**\n*   **http** or **HTTP**\n*   **https** or **HTTPS**",
+      "description": "The protocol for health checks. Valid values:\n\n- **tcp** or **TCP**\n\n- **http** or **HTTP**\n\n- **https** or **HTTPS**",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the endpoint group.\n\nThe name must be 1 to 128 characters in length and can contain letters, digits, periods (.), underscores (\\_), and hyphens (-). The name must start with a letter.",
+      "description": "The name of the endpoint group.\n\nThe name must be 1 to 128 characters long, start with a letter or a Chinese character, and can contain digits, periods (.), underscores (\\_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PortOverrides",
-      "description": "The port mapping.",
+      "description": "The port override settings.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "EndpointPort",
+          "description": "The endpoint port in the port override settings.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ListenerPort",
+          "description": "The listener port in the port override settings.\n\n> - For TCP listeners, virtual endpoint groups do not support port overrides. If a listener is already associated with a virtual endpoint group, you cannot configure port overrides for the default endpoint group. If the default endpoint group has port overrides configured, you cannot add a virtual endpoint group.\n>\n> - After you configure port overrides, you can change the listener protocol only between HTTP and HTTPS.\n>\n> - The updated listener port range must include all listener ports in the configured port overrides. For example, if the listener port range is 80-82 and port overrides are configured to map the ports to endpoint ports 100-102, you cannot update the listener port range to 80-81.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -140,7 +142,7 @@
     },
     {
       "name": "ThresholdCount",
-      "description": "The number of consecutive health check failures that must occur before a healthy endpoint group is considered unhealthy, or the number of consecutive health check successes that must occur before an unhealthy endpoint group is considered healthy.\n\nValid values: **2** to **10**.",
+      "description": "The number of consecutive successful or failed health checks required to change an endpoint's health status.\n\nValid values: **2** to **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false

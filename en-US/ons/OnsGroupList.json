@@ -7,40 +7,42 @@
   "parameters": [
     {
       "name": "GroupId",
-      "description": "This parameter is required only when you query specific consumer groups by using the fuzzy search method. If this parameter is not configured, the system queries all consumer groups that can be accessed by the current account.\n\nIf you set this parameter to GID_ABC, the information about the consumer groups whose IDs contain GID_ABC is returned. For example, the information about the GID_test_GID_ABC\\_123 and GID_ABC\\_356 consumer groups is returned.",
+      "description": "Specify a Group ID to perform a fuzzy query. If you leave this parameter empty, all Group IDs are queried.\n\nIf you enter GID\\_ABC, a fuzzy query is performed by matching prefixes and suffixes. All Group IDs that contain \\*GID\\_ABC\\* are returned, such as GID\\_test\\_GID\\_ABC\\_123 and GID\\_ABC\\_356.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GroupType",
-      "description": "The protocol over which the queried consumer group publishes and subscribes to messages. All clients in a consumer group communicate with the ApsaraMQ for RocketMQ broker over the same protocol. You must create different consumer groups for TCP clients and HTTP clients. Valid values:\n\n*   **tcp**: specifies that the consumer group publishes or subscribes to messages over TCP. This value is the default value.\n*   **http**: specifies that the consumer group publishes or subscribes to messages over HTTP.",
+      "description": "The protocol that the queried Group IDs support. Group IDs for the TCP protocol and the HTTP protocol cannot be shared. You must create them separately. Valid values:\n\n- **tcp**: This is the default value. It indicates that the Group ID applies only to sending and receiving messages over the TCP protocol.\n\n- **http**: Indicates that the Group ID applies only to sending and receiving messages over the HTTP protocol.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance to which the consumer group you want to query belongs.",
+      "description": "The ID of the instance to which the Group IDs belong.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The list of tags that are attached to the consumer group. A maximum of 20 tags can be included in the list.",
+      "description": "The list of tags that are attached to the Group ID. The number of elements in the list cannot exceed 20.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the Group ID. Specify both **Key** and **Value**, or leave both empty. If both are specified, the system filters for matching Group IDs. If both are left empty, all Group IDs are queried.\n\n- If you specify this parameter, its value cannot be an empty string.\n\n- The value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The tag value of the Group ID. Specify both **Key** and **Value**, or leave both empty. If both are specified, the system filters for matching Group IDs. If both are left empty, all Group IDs are queried.\n\n- If you specify this parameter, its value can be an empty string.\n\n- The value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": true

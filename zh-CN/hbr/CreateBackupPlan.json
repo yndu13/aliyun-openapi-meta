@@ -104,6 +104,13 @@
       "required": false
     },
     {
+      "name": "Edition",
+      "description": "版本类型，支持BASIC和STANDARD，默认值为STANDARD。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Exclude",
       "description": "仅当**SourceType**取值为**ECS_FILE**时，需要配置该参数。表示不需要进行备份的路径，该路径下所有文件都不备份。最多支持255个字符。",
       "position": "Body",
@@ -196,48 +203,56 @@
       "sub_parameters": [
         {
           "name": "BackupType",
+          "description": "备份类型。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DestinationRegionId",
+          "description": "异地复制地域ID。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DestinationRetention",
+          "description": "异地备份保留天数。",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "Disabled",
+          "description": "规则是否生效。",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "DoCopy",
+          "description": "是否启用异地复制。",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Retention",
+          "description": "备份保留时间。",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "RuleName",
+          "description": "规则名称。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Schedule",
+          "description": "备份策略。可选格式：I|{startTime}|{interval}。表示从{startTime}开始每隔{interval}的时间执行一次备份任务。不会执行已过去时间的备份任务。如果上一次备份任务没有完成，不会触发下一次备份任务。例如I|1631685600|P1D表示从2021-09-15 14:00:00开始每隔一天备份一次。\n\nstartTime：备份起始时间，UNIX时间，单位为秒。\ninterval： ISO8601时间间隔。例如：PT1H表示间隔一小时。P1D表示间隔一天。",
           "position": "FormData",
           "type": "String",
           "required": false

@@ -1,0 +1,165 @@
+{
+  "name": "ModifyDBInstance",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AutoUseCoupon",
+      "description": "Specifies whether to automatically use coupons. Valid values:\n* **true** (default): Automatically uses coupons.\n* **false**: Does not automatically use coupons.\n\n> After a coupon is used, the amount deducted by the coupon is not refunded if you downgrade the instance.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "BurstingEnabled",
+      "description": "Specifies whether to enable the [I/O performance burst feature for premium performance disks](~~2340501~~). Valid values:\n\n- **true**: Enabled.\n- **false**: Disabled.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Category",
+      "description": "The instance edition. Valid values:\n\n- **Basic**: Basic Edition\n- **HighAvailability**: High-availability Edition\n- **cluster**: Cluster Edition",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ColdDataEnabled",
+      "description": "<props=\"china\">Specifies whether to enable the [cold data archiving feature](~~2701832~~) for general-purpose cloud disks. Valid values:</props>\n\n- <props=\"china\">**true**: Enabled.</props>\n\n- <props=\"china\">**false**: Disabled.</props>\n\n<props=\"intl\">Reserved parameter.</props>",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "DBInstanceClass",
+      "description": "The instance type. For more information, see [Instance types](~~26312~~).",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBInstanceId",
+      "description": "The instance ID. You can call [DescribeDBInstances](~~2628785~~) to query the instance ID.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "DBInstanceStorage",
+      "description": "The [target storage capacity](~~26312~~), in GB. You can call the [DescribeAvailableClasses](~~610393~~) operation to query the available storage capacity range for the target instance type.\n\n> * You must specify at least one of this parameter and the **DBInstanceClass** parameter.\n> * You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to query the current storage capacity of the instance.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "DBInstanceStorageType",
+      "description": "The instance storage type. Valid values:\n\n* **general_essd**: premium performance disk (recommended)\n* **cloud_essd**: PL1 ESSD\n* **cloud_essd2**: PL2 ESSD\n* **cloud_essd3**: PL3 ESSD",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBNodes",
+      "description": "The node information.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "NodeId",
+          "description": "The unique identifier of the node, used to specify a node.\n> This parameter is valid only for Cluster Edition instances.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Role",
+          "description": "The node type. Valid values:\n* **Master**: primary node.\n* **Slave**: secondary node.\n\n> For Cluster Edition instances, you can leave this parameter empty and specify the NodeId parameter to identify the node.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "VSwitchId",
+          "description": "The vSwitch ID of the instance.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ZoneId",
+          "description": "The zone ID.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Direction",
+      "description": "The type of specification change for the instance. Valid values:\n\n- **Up** (default): Upgrades a subscription instance, or upgrades/downgrades a pay-as-you-go instance.\n- **Down**: Downgrades a subscription instance.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "EffectiveTime",
+      "description": "The effective period for the new configurations. Valid values:\n> **Changing some configurations may affect the instance**. Read the impact section in the [feature documentation](~~96061~~) before you configure this parameter. Perform the operation during off-peak hours.\n* **Immediate** (default): The new configurations take effect immediately.\n* **MaintainTime**: The new configurations take effect during the [maintenance window](~~610402~~).\n* **ScheduleTime**: The new configurations take effect at a specified time. The time must be at least 12 hours later than the current time. The actual switchover time follows the formula: EffectiveTime = ScheduleTime + SwitchTime. Allocate sufficient time for the switchover.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "IoAccelerationEnabled",
+      "description": "Specifies whether to enable the [Buffer Pool Extension (BPE) feature](~~2527067~~) for premium performance disks. Valid values:\n\n- **1**: enabled\n- **0**: not enabled",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ParameterGroupId",
+      "description": "The parameter template ID.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Parameters",
+      "description": "The parameters and their values. All parameter values are of the STRING type. You can call the DescribeParameterTemplates operation to query parameter names and values.\n\n> If you specify the **ParameterGroupId** parameter and both ParameterGroupId and Parameters modify the same parameter, the value specified in Parameters takes precedence.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PromotionCode",
+      "description": "The coupon code.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ResourceGroupId",
+      "description": "The resource group name.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SwitchTime",
+      "description": "The time at which the parameter modification is executed. The EffectiveTime parameter must be set to ScheduleTime. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n> The time must be later than the current time (the time when the call is made).",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetMinorVersion",
+      "description": "The [minor engine version](~~126002~~) of the PostgreSQL instance. If the specification change fails because the current minor engine version is not supported, specify the minor engine version to **upgrade the minor engine version during the specification change**.\n\nFormat: `rds_postgres_<MajorVersion>00_<MinorVersion>`. Example for version 12 with minor version 20200830: `rds_postgres_1200_20200830`.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

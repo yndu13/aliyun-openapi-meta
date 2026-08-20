@@ -7,26 +7,28 @@
   "parameters": [
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.\n\n*   The IDs of CPFS file systems must start with `cpfs-`. Example: cpfs-125487\\*\\*\\*\\*.\n*   The IDs of CPFS for Lingjun file systems must start with `bmcpfs-`. Example: bmcpfs-0015\\*\\*\\*\\*.",
+      "description": "The file system ID.\n\n- CPFS: must start with `cpfs-`, such as cpfs-125487\\*\\*\\*\\*.\n\n- CPFS for Lingjun: must start with `bmcpfs-`, such as bmcpfs-0015\\*\\*\\*\\*.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Filters",
-      "description": "The filter that is used to query dataflows.",
+      "description": "The filter keys for querying data flows.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The name of the filter key. Valid values:\n\n- DataFlowIds: filters by data flow ID.\n- FsetIds: filters by Fileset ID.\n- FileSystemPath: filters by the path of the Fileset in the CPFS file system.\n- SourceStorage: filters by the access path of the source storage.\n- ThroughputList: filters by the transmission bandwidth of the data flow.\n- Description: filters by the description of the Fileset.\n- Status: filters by data flow status.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the filter key. Wildcards are not supported for this parameter.\n\n- If Key is set to DataFlowIds, Value is set to a data flow ID or part of a data flow ID. You can specify one or more data flow IDs. A maximum of 10 data flow IDs can be specified. Example: `df-194433a5be31****` or `df-194433a512a2****,df-234533a5be31****`.\n\n- If Key is set to FsetIds, Value is set to a Fileset ID or part of a Fileset ID. You can specify one or more Fileset IDs. A maximum of 10 Fileset IDs can be specified. Example: `fset-1902718ea0ae****` or `fset-235718ea0ae****,fset-5122718ea0ae****`.\n- If Key is set to FileSystemPath, Value is set to a path or part of a path in the CPFS file system. The value must be 1 to 1024 characters in length.\n- If Key is set to SourceStorage, Value is set to the access path of the source storage. The maximum length is 1024 characters.\n- If Key is set to ThroughputList, Value is set to the transmission bandwidth of the data flow. Combined queries are supported.\n- If Key is set to Description, Value is set to the description or part of the description of the data flow.\n- If Key is set to Status, Value is set to the data flow status.\n- If Key is set to SourceStoragePath, Value is set to the access path of the source storage or part of the access path. The maximum length is 1024 characters.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -42,7 +44,7 @@
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token that is used in the next request to retrieve a new page of results. If the return results are truncated, use NextToken to obtain content starting from the truncation point.",
       "position": "Query",
       "type": "String",
       "required": false

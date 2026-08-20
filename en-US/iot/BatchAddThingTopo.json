@@ -1,69 +1,76 @@
 {
   "name": "BatchAddThingTopo",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "GwDeviceName",
-      "description": "The name of the gateway.",
+      "description": "The name of the gateway device.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GwProductKey",
-      "description": "The key of the product to which the gateway belongs.",
+      "description": "The ProductKey of the product to which the gateway device belongs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. On the **Overview** page in the IoT Platform console, you can view the ID of the instance.\n\n>*   If your instance has an ID, you must specify this parameter. Otherwise, the call fails.\n>*   If no **Overview** page or instance ID appears in the IoT Platform console, ignore this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If this parameter is available, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or </ph></props>ID is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TopoAddItem",
-      "description": "",
+      "description": "The list of device topology relationships to add.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "ClientId",
+          "description": "The device-side ID. You can use the SN or MAC address of the device. This parameter is optional. If you specify this parameter, include it in the signature calculation.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeviceName",
+          "description": "The device name of the sub-device to be connected to the gateway.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ProductKey",
+          "description": "The ProductKey of the product to which the sub-device belongs.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Sign",
+          "description": "The signature for adding the topology relationship.\nThe value of Sign is calculated by using the signature method **SignMethod(deviceSecret,content)**.\n\nIn this formula, **content** is the result of sorting all sub-device parameters (excluding Sign and SignMethod) that are submitted to the server in alphabetical order and concatenating them without delimiters.\n\nFor example, if the device parameters are **ClientId=868575026974305, DeviceName=868575026974305, ProductKey=a1PB5fp1234, SignMethod=hmacmd5, and deviceSecret=1234**, the signature is calculated as `hmacmd5(1234, clientId868575026974305deviceName868575026974305productKeya1PB5fpX1234)`. The calculation result is `C1C1606D61884C5F16C9EA6622E5****`.\n> In this example, **ClientId** is the client ID of the device, which you can customize.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "SignMethod",
+          "description": "The signature method. Valid values: **hmacSha1**, **hmacSha256**, **hmacMd5**, and **Sha256** (case-insensitive).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Timestamp",
+          "description": "The UTC timestamp. This parameter is optional. If you specify this parameter, include it in the signature calculation.",
           "position": "Query",
           "type": "String",
           "required": false

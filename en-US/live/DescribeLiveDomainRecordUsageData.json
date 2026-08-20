@@ -1,54 +1,55 @@
 {
   "name": "DescribeLiveDomainRecordUsageData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainName",
-      "description": "The main streaming domain to query.\n\n*   You can query one or more domain names. If you specify multiple domain names, separate them with commas (,).\n*   If you leave this parameter empty, the data of all domain names within your Alibaba Cloud account is returned.",
+      "description": "The streaming domain name to query.\n\n- Supports single or batch domain queries. Separate multiple domain names with commas (,).\n- If this parameter is left empty, the merged data of all live streaming domain names is returned by default.\n- When you specify DomainName, make sure that the specified domain name is a live streaming domain name and that the caller has the required permissions on the domain name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC. Value requirements:\n\n*   The end time is later than the start time.\n*   The time range between the start time and end time is up to 31 days. If the time range is more than 31 days, the request fails and an error is reported.",
+      "description": "The end time. Specify the time in the <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z format in UTC. Requirements:\n\n- The end time must be later than the start time (StartTime).\n- The maximum time span between the end time and the start time is 31 days. Requests that exceed 31 days fail and return an error.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Interval",
-      "description": "The time granularity of the query. Unit: seconds. Valid values:\n\n*   60\n*   300\n*   3600\n*   86400\n\n> If you do not specify this parameter or specify an invalid value: The time granularity of the query for a time range that is less than or equal to 31 days is 300 seconds by default. The time granularity of the query for a time range that is more than 31 days is 86400 seconds by default.",
+      "description": "The time granularity of the queried data. Unit: seconds. Valid values:\n\n- 60.\n\n- 300.\n\n- 3600.\n\n- 86400.\n\n>If this parameter is not specified or an unsupported value is specified, the default time granularity is 300 seconds for query spans within 31 days and 86400 seconds for query spans longer than 31 days.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Region",
-      "description": "The ID of the region. Valid values:\n\n*   **cn-beijing**: China (Beijing)\n*   **cn-shanghai**: China (Shanghai)\n*   **cn-shenzhen**: China (Shenzhen)\n*   **cn-qingdao**: China (Qingdao)\n*   **ap-southeast-1**: Singapore\n*   **eu-central-1**: Germany (Frankfurt)\n*   **ap-northeast-1**: Japan (Tokyo)\n*   **ap-southeast-5**: Indonesia (Jakarta)",
+      "description": "The region. Valid values:\n\n- **cn-beijing**: Beijing.\n\n- **cn-shanghai**: Shanghai.\n\n- **cn-shenzhen**: Shenzhen.\n\n- **cn-qingdao**: Qingdao.\n\n- **ap-southeast-1**: Singapore.\n\n- **eu-central-1**: Germany.\n\n- **ap-northeast-1**: Tokyo.\n\n- **ap-southeast-5**: Jakarta.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SplitBy",
-      "description": "The key that is used to group data. Valid values:\n\n*   **domain**: groups results by domain name.\n*   **record_fmt**: groups results by recording type.\n\n>  You can select one option or both. If you want to select both options, separate them with a comma (,). The default value is `domain,record_fmt`. If you leave this parameter empty or set the value to `null`, this parameter is ignored.",
+      "description": "The grouping key. Valid values:\n\n- **domain**: groups query results by domain name.\n- **record_fmt**: groups query results by recording type.\n\n> You can specify one or more values. Separate multiple values with commas (,). Default value: `domain,record_fmt`. If this parameter is set to empty or `null`, the results are not grouped by the preceding keys.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.\n\n*   The minimum data granularity is 5 minutes.\n*   If you do not specify this parameter, the data in the last 24 hours is returned.\n\n> The earliest start time that you can specify is 90 days back from the current time, accurate to seconds.",
+      "description": "The start time. Specify the time in the <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z format in UTC.\n\n- The minimum data granularity is 5 minutes.\n- If this parameter is not specified, data of the last 24 hours is returned by default.\n\n>The start time can be set to a point in time within the last 90 days from the current time, accurate to the second.",
       "position": "Query",
       "type": "String",
       "required": false

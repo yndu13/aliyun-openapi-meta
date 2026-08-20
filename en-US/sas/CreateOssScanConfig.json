@@ -1,75 +1,90 @@
 {
   "name": "CreateOssScanConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AllKeyPrefix",
-      "description": "Specifies whether to match the prefixes of all objects.",
+      "description": "Specifies whether to match all prefixes. If this parameter is set to true, the KeyPrefixList parameter does not take effect.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
+      "name": "AutoAdd",
+      "description": "Specifies whether OSS buckets are automatically added to this policy. Valid values:\n- **true**: Enabled.\n- **false**: Disabled.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "BucketNameList",
-      "description": "The names of buckets.",
+      "description": "The list of bucket names.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
+      "name": "ClientToken",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "DecompressMaxFileCount",
-      "description": "The maximum number of objects that can be extracted during decompression. Valid values: 1 to 1000. If the maximum number of objects that can be extracted is reached, the decompression operation immediately ends and the detection of extracted objects is not affected.",
+      "description": "The maximum number of files to decompress. Minimum value: 1. Maximum value: 1000. When the maximum number of decompressed files is exceeded, the decompression operation ends immediately. The detection of files that have already been decompressed is not affected.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DecompressMaxLayer",
-      "description": "The maximum number of decompression levels when multi-level packages are decompressed. Valid values: 1 to 5. If the maximum number of decompression levels is reached, the decompression operation immediately ends and the detection of extracted objects is not affected.",
+      "description": "The maximum number of decompression layers when multiple levels of nested compressed files exist. Minimum value: 1. Maximum value: 5. When the maximum number of decompression layers is exceeded, the decompression operation ends immediately. The detection of files that have already been decompressed is not affected.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DecryptionList",
-      "description": "The decryption methods.",
+      "description": "The list of decryption types.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Enable",
-      "description": "Specifies whether to enable the policy. Valid values:\n\n*   **1**: yes\n*   **0**: no",
+      "description": "Specifies whether to enable the policy. Valid values:\n- **1**: Enabled.\n- **0**: Disabled.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The time when the scan ends. The time must be in the HH:mm:ss format.",
+      "description": "The detection stop time in the HH:mm:ss format.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KeyPrefixList",
-      "description": "The prefixes of the objects.",
+      "description": "The file prefix list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "KeySuffixList",
-      "description": "The suffixes of the files to scan.",
+      "description": "The list of file suffixes to detect.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "LastModifiedStartTime",
-      "description": "The timestamp when the object was last modified. The time must be later than the timestamp that you specify. Unit: milliseconds.",
+      "description": "Specifies that only files whose last modification time is after the specified timestamp are detected. Unit: milliseconds.",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -83,21 +98,21 @@
     },
     {
       "name": "RealTimeIncr",
-      "description": "Whether to enable real-time incremental detection. When this parameter is set to true, the parameters ScanDayList, StartTime, and EndTime are not effective.",
+      "description": "Specifies whether to enable real-time incremental detection. If this parameter is set to true, the ScanDayList, StartTime, and EndTime parameters do not take effect.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ScanDayList",
-      "description": "The days on which the scan is executed in a week.",
+      "description": "The scan schedule. The number represents the day of the week.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The time when the scan starts. The time must be in the HH:mm:ss format.",
+      "description": "The detection start time in the HH:mm:ss format.",
       "position": "Query",
       "type": "String",
       "required": false

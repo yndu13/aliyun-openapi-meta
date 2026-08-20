@@ -7,31 +7,38 @@
   "parameters": [
     {
       "name": "Content",
-      "description": "BASE64编码后的页面内容。\n示例值: \"PGh0bWw+aGVsbG8gcGFnZTwvaHRtbD4=\" （表示 \"hello page\"）",
+      "description": "BASE64 编码后的页面内容，实际内容格式需与 `ContentType` 一致。\n\n**编码方式**：\n1. 先将页面原文使用 UTF-8 编码为字节串\n2. 再对字节串做标准 BASE64 编码\n\n**示例**：\n- 原文：`<html>hello page</html>`\n- BASE64：`PGh0bWw+aGVsbG8gcGFnZTwvaHRtbD4=`\n\n> 完整大小上限、支持的字符集与安全过滤规则以服务端自定义页面看靠规范为准。",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ContentType",
-      "description": "指定HTTP Header中的Content-Type字段，例如：\n* text/html\n* application/json",
+      "description": "页面内容的 MIME 类型，会作为匹配后返回给客户端的 HTTP `Content-Type` 响应头。\n\n**常用取值**：\n- `text/html`：HTML 页面（需搭配 HTML 内容，`Content` 为 UTF-8 的 HTML 文本 BASE64 编码）\n- `application/json`：JSON 响应（需搭配合法的 JSON 字符串的 BASE64 编码）\n- `text/plain`：纯文本（需搭配纯文本内容的 BASE64 编码）\n\n> 说明：完整支持的 ContentType 取值列表以服务端为准；传入与 `Content` 实际格式不匹配的 `ContentType` 可能导致客户端渲染异常。",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Description",
-      "description": "页面的描述信息。",
+      "description": "页面的描述信息，用于在控制台列表中识别页面用途。\n\n**建议内容**：使用页面的使用场景与标识信息（如\"CC 防护拦截页 - 中文版\"）；为可选字段，不传时默认空。\n\n> 字段长度上限以服务端为准。",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "自定义页面的名称。",
+      "description": "自定义页面的名称。\n\n**命名建议**：建议使用由字母、数字与下划线组成的短名称（如 `blocked_page_v1`），便于后续在规则中引用。具体字符集、长度上限、唯一性等约束**以服务端自定义页面命名规范为准**。",
       "position": "Body",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "SiteIds",
+      "description": "需要绑定本自定义页面的站点 ID 列表。\n\n- 列表中的站点 ID 可通过调用 `ListSites` 接口获取。\n- 传空列表（即不绑定任何站点）时，页面仍会创建但暂不生效，需后续调用 `UpdatePage` 报绑定。\n- 列表中包含不属于当前账号的站点 ID 会导致 `InvalidParameter` 错误。",
+      "position": "Body",
+      "type": "Json",
+      "required": false
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "name": "ApplyResourceAccessPermission",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApplyContents",
+      "description": "The list of resource permission application contents.",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "AccessTypes",
+          "description": "The list of permissions to apply for.\n\n**Note**: Different resource levels support different permission types. They are uniformly constrained by [ResourceSchema](https://help.aliyun.com/zh/dataworks/developer-reference/resourceschema-template-instructions).isValidLeaf, accessTypeRestrictions, and authMethodAccessTypes.\n\nAppendix: [ResourceSchema documentation for international site](https://www.alibabacloud.com/help/zh/dataworks/developer-reference/resourceschema-template-instructions)",
+          "position": "FormData",
+          "type": "RepeatList",
+          "required": true
+        },
+        {
+          "name": "AuthMethod",
+          "description": "The authorization method. Currently, only SEVERLESS_STARROCKS supports specifying the authorization method: ranger or starrocksManager.\n\n**Note**: Different resources support different authorization methods, which are uniformly constrained by [ResourceSchema](https://help.aliyun.com/zh/dataworks/developer-reference/resourceschema-template-instructions).authMethods.\n\nAppendix: [ResourceSchema documentation for international site](https://www.alibabacloud.com/help/zh/dataworks/developer-reference/resourceschema-template-instructions)",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ExpirationTime",
+          "description": "The permission expiration time, in milliseconds timestamp.\n",
+          "position": "FormData",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "name": "Grantee",
+          "description": "The grantee description.\n\n**Note**: The supported grantee types are constrained by [ResourceSchema](https://help.aliyun.com/zh/dataworks/developer-reference/resourceschema-template-instructions).authPrincipal.\n\nAppendix: [ResourceSchema documentation for international site](https://www.alibabacloud.com/help/zh/dataworks/developer-reference/resourceschema-template-instructions)",
+          "position": "FormData",
+          "type": "Struct",
+          "required": true
+        },
+        {
+          "name": "Resource",
+          "description": "The resource description.",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ClientToken",
+      "description": "The idempotency parameter. Used to prevent duplicate operations caused by multiple calls.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Reason",
+      "description": "The reason for the application.\n",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

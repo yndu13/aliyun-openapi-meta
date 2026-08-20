@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. **The token can contain only ASCII characters and cannot exceed 64 characters in length.** For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the security group. The description must be 2 to 256 characters in length. It cannot start with `http://` or `https://`.\n\nBy default, this parameter is left empty.",
+      "description": "The description of the security group. The description must be 2 to 256 characters in length. It cannot start with `http://` or `https://`.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the security group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the security group. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -35,14 +35,14 @@
     },
     {
       "name": "SecurityGroupName",
-      "description": "The name of the security group. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-).",
+      "description": "The name of the security group. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. The name can contain characters that are categorized as letters in Unicode, including letters in English and Chinese, and digits. The name can also contain colons (:), underscores (_), periods (.), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupType",
-      "description": "The type of the security group. Valid values:\n\n*   normal: basic security group\n*   enterprise: advanced security group For more information, see [Advanced security groups](~~120621~~).\n\nDefault value: normal.",
+      "description": "The type of the security group. Valid values:\n\n- normal: basic security group.\n- enterprise: advanced security group. For more information, see [Overview of advanced security groups](~~120621~~).\n\nDefault value: normal.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,31 +56,35 @@
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the security group. You can add up to 20 tags.",
+      "description": "The tags to add to the security group. Array length: 0 to 20.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the security group.\n\nThe tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the security group.\n\nThe tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
+          "description": "The tag key of the security group.\n\n> To improve compatibility, use the Tag.N.Key parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
+          "description": "The tag value of the security group.\n\n> To improve compatibility, use the Tag.N.Value parameter.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -89,7 +93,7 @@
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC in which you want to create the security group.\n\n> The VpcId parameter is required only if you want to create security groups of the VPC type. In regions that support the classic network, you can create security groups of the classic network type without the need to specify the VpcId parameter.",
+      "description": "The ID of the VPC to which the security group belongs.",
       "position": "Query",
       "type": "String",
       "required": false

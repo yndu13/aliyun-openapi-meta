@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "CertIdentifier",
-      "description": "The unique identifier of the certificate. You can call the [ListCert](~~455806~~) operation to obtain the unique identifier of a certificate.\n\n*   If the certificate is an SSL certificate, the value of this parameter must be in the {Certificate ID}-cn-hangzhou format.\n*   If the certificate is a private certificate, the value of this parameter must be the value of the Identifier field for the private certificate.",
+      "description": "The unique identifier of the certificate. To get this parameter, call the [ListCert](~~455806~~) operation.\n\n- The identifier for an SSL certificate is typically in the format \\`{Certificate ID}-cn-hangzhou\\`.\n\n- For a PCA certificate, this is the value of the \\`Identifier\\` field.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomIdentifier",
-      "description": "",
+      "description": "The custom identifier. This key must be unique.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Message",
-      "description": "The data for which you want to verify the signature. The value must be encoded in Base64.\\\nFor example, if the hexadecimal data that you want to verify is \\[0x31, 0x32, 0x33, 0x34], set the parameter to the Base64-encoded value MTIzNA==. If you set MessageType to RAW, the size of the data must be less than 4 KB. If the size of the data is greater than 4 KB, you can set MessageType to DIGEST and set Message to the digest of the data. The digest is also called hash value. You can compute the digest of the data on an on-premises machine. The certificate repository uses your certificate application system to compute the message digest. The message digest algorithm that is used must meet the requirements of the specified signature algorithm. The following signature algorithms require different message digest algorithms:\n\n*   If the signature algorithm is SHA256withRSA, SHA256withRSA/PSS, or SHA256withECDSA, the message digest algorithm must be SHA-256.\n*   If the signature algorithm is SM3withSM2, the message digest algorithm must be SM3.",
+      "description": "The data to verify. The data must be Base64-encoded. For example, if the hexadecimal content of the data to sign is \\`\\[0x31, 0x32, 0x33, 0x34]\\`, the Base64-encoded value is \\`MTIzNA==\\`. If you set \\`MessageType\\` to \\`RAW\\`, the data size must be less than 4 KB. If the data to sign is larger than 4 KB, set \\`MessageType\\` to \\`DIGEST\\`. Then, set \\`Message\\` to the message digest, or hash, that you calculate locally. The hashing algorithm for the digest must be compatible with the signature algorithm:<br>\n\n- The hashing algorithm for \\`SHA256withRSA\\`, \\`SHA256withRSA/PSS\\`, and \\`SHA256withECDSA\\` is SHA-256.\n\n- The hashing algorithm for \\`SM3withSM2\\` is SM3.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "MessageType",
-      "description": "The value type of the Message parameter. Valid values:\n\n*   **RAW**: the raw data. This is the default value.\n*   **DIGEST**: the message digest of the raw data.",
+      "description": "The message type. Valid values:\n\n- **RAW** (default): The raw data.\n\n- **DIGEST**: The message digest of the raw data.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SignatureValue",
-      "description": "The signature value. The value must be encoded in Base64.",
+      "description": "The signature value. The value must be Base64-encoded.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SigningAlgorithm",
-      "description": "The signature algorithm. Valid values:\n\n*   **SHA256withRSA**\n*   **SHA256withRSA/PSS**\n*   **SHA256withECDSA**\n*   **SM3withSM2**",
+      "description": "The signature algorithm. Valid values:\n\n- **SHA256withRSA**\n\n- **SHA256withRSA/PSS**\n\n- **SHA256withECDSA**\n\n- **SM3withSM2**",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "WarehouseId",
-      "description": "",
+      "description": "The ID of the repository. To get this parameter, call the [ListCertWarehouse](~~453246~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false

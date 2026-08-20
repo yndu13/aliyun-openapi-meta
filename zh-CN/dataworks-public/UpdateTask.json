@@ -28,18 +28,21 @@
       "sub_parameters": [
         {
           "name": "Type",
+          "description": "依赖类型。\n- CrossCycleDependsOnChildren：跨周期依赖一级子节点\n- CrossCycleDependsOnSelf：跨周期依赖自己\n- CrossCycleDependsOnOtherNode：跨周期依赖其他节点\n- Normal：同周期依赖",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "UpstreamOutput",
+          "description": "上游任务的输出标识符。（`同周期依赖`且设置input内容时，返回此字段）",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "UpstreamTaskId",
+          "description": "上游任务的Id。（`跨周期依赖其他节点`与`同周期依赖`未设置input内容时，返回此字段，其他情况不返回）",
           "position": "FormData",
           "type": "Long",
           "required": false
@@ -76,7 +79,7 @@
     },
     {
       "name": "InstanceMode",
-      "description": "实例生成模式。\n- T+1（第二天生成）\n- Immediately（立即生成）。注意：节点定时时间在节点发布时间点十分钟后的周期实例才会正常生成。全量转实例期间（23:30~24:00点期间）不能进行实时转实例，可以提交发布节点，但新增节点不会自动转出实例。",
+      "description": "实例生成模式。\n- T+1（第二天生成）\n- Immediately（立即生成）。注意：节点定时时间在节点发布时间点十分钟后的周期实例才会正常生成。全量转实例期间（22:00~24:00点期间）不能进行实时转实例，可以提交发布节点，但新增节点不会自动转出实例。",
       "position": "Body",
       "type": "String",
       "required": false
@@ -146,12 +149,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签键。",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "标签值。",
           "position": "FormData",
           "type": "String",
           "required": false

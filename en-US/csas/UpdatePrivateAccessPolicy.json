@@ -1,40 +1,41 @@
 {
   "name": "UpdatePrivateAccessPolicy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ApplicationIds",
-      "description": "Set of application IDs for the private access policy. A single policy supports up to 100 private access application IDs.",
+      "description": "The IDs of applications associated with the internal network access policy. A single policy supports up to 100 application IDs.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "ApplicationType",
-      "description": "Application type of the private access policy. Values:\n- **Application**: Application.\n- **Tag**: Tag.",
+      "description": "The application type for the internal network access policy. Valid values:\n\n- **Application**: Application.\n\n- **Tag**: Tag.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomUserAttributes",
-      "description": "Set of custom user attributes for the private access policy, required when the user group type is **Custom**. Mutually exclusive with the user group ID set. The total number of custom user groups is limited to 10.",
+      "description": "This parameter specifies a collection of custom user groups for the private network access policy. It is required when the user group type is **Custom**. This collection is mutually exclusive with the user group ID collection, and you can specify a maximum of 10 custom user groups.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "Description",
-      "description": "Description of the private access policy. Length should be 1 to 128 characters, supporting Chinese and English letters (both uppercase and lowercase), and can include numbers, periods (.), underscores (_), hyphens (-), and spaces.",
+      "description": "A description of the internal network access policy. The description must be 1 to 128 characters in length. It can contain Chinese characters, uppercase and lowercase letters, digits, periods (.), underscores (\\_), hyphens (-), and spaces.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DeviceAttributeAction",
-      "description": "The execution strategy for not meeting the security baseline. Values:\n\n- **Block**: Block.\n- **Observe**: Observe.",
+      "description": "The action taken when a device does not meet the security baseline. Valid values:\n\n- **Block**: Block access.\n\n- **Observe**: Monitor access.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -48,112 +49,111 @@
     },
     {
       "name": "ModifyType",
-      "description": "The modification type of the private access policy. Values:\n- **Cover** (default): Use the values of **ApplicationIds**, **UserGroupIds**, and **CustomUserAttributes** to overwrite the original application ID set, user group ID set, and custom user attribute set, respectively.\n- **Append**: Add the values provided in **ApplicationIds**, **UserGroupIds**, and **CustomUserAttributes** to the original application ID set, user group ID set, and custom user attribute set, respectively.",
+      "description": "The method used to update the internal network access policy. Valid values:\n\n- **Cover** (default): Replace the existing application IDs, user group IDs, and custom user attributes with the values specified in **ApplicationIds**, **UserGroupIds**, and **CustomUserAttributes**.\n\n- **Append**: Add the values specified in **ApplicationIds**, **UserGroupIds**, and **CustomUserAttributes** to the existing application IDs, user group IDs, and custom user attributes.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyAction",
-      "description": "Action of the private access policy. Values:\n- **Block**: Block.\n- **Allow**: Allow.",
+      "description": "The action that the internal network access policy takes. Valid values:\n\n- **Block**: Block access.\n\n- **Allow**: Allow access.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyId",
-      "description": "ID of the private access policy. Value sources:\n- [ListPrivateAccessPolicies](~~ListPrivateAccessPolicies~~): Batch query for private access policies.\n- [CreatePrivateAccessPolicy](~~CreatePrivateAccessPolicy~~): Create a private access policy.",
+      "description": "The ID of the internal network access policy. Get this value from one of the following operations:\n\n- [ListPrivateAccessPolices](~~ListPrivateAccessPolices~~): List internal network access policies in batches.\n\n- [CreatePrivateAccessPolicy](~~CreatePrivateAccessPolicy~~): Create an internal network access policy.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Priority",
-      "description": "The priority of the private access policy. The number 1 indicates the highest priority. Range: 1~1000, with the maximum value being the total number of private access policies minus one.",
+      "description": "The priority of the internal network access policy. Priority 1 is the highest. Valid values: 1 to 1000. The maximum value is the total number of internal network access policies minus 1.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the private access policy. Values:\n- **Enabled**: Enabled.\n- **Disabled**: Disabled.",
+      "description": "The status of the internal network access policy. Valid values:\n\n- **Enabled**: Enabled.\n\n- **Disabled**: Disabled.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TagIds",
-      "description": "Set of tag IDs for the private access policy. A single policy supports up to 100 private access tag IDs.",
+      "description": "The IDs of tags associated with the internal network access policy. A single policy supports up to 100 tag IDs.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "TriggerTemplateId",
-      "description": "The trigger template ID.",
+      "description": "The ID of the trigger template.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TrustedProcessGroupIds",
-      "description": "Trusted process group ID.",
+      "description": "The IDs of trusted process groups.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "TrustedProcessStatus",
-      "description": "Trusted process switch status. Values: \n\n- **Enabled**: On. \n\n- **Disabled**: Off.",
+      "description": "The status of the trusted process feature. Valid values:\n\n- **Enabled**: Enabled.\n\n- **Disabled**: Disabled.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TrustedSoftwareIds",
-      "description": "Trusted Software ID.",
+      "description": "The IDs of trusted software.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "UserGroupIds",
-      "description": "Set of user group IDs for the private access policy, required when the user group type is **Normal**. Mutually exclusive with the custom user group set. A single policy supports up to 10,000 user groups, and a maximum of 2,000 user group IDs can be modified at once.",
+      "description": "The IDs of user groups associated with the internal network access policy. This parameter is required when UserGroupMode is set to Normal. This parameter is mutually exclusive with **CustomUserAttributes**. A single policy supports up to 10,000 user groups. You can update up to 2,000 user group IDs at a time.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "UserGroupMode",
-      "description": "User group type of the private access policy. Values:\n- **Normal**: Normal user group.\n- **Custom**: Custom user group.",
+      "description": "The user group type for the internal network access policy. Valid values:\n\n- **Normal**: Regular user group.\n\n- **Custom**: Custom user group.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ValidFrom",
-      "description": "The start time when the zero trust policy takes effect, represented as a timestamp in seconds.",
+      "description": "The start time of the zero-trust policy's effective period, in seconds since the Unix epoch.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "ValidTimeStatus",
-      "description": "Switch status for effective time. Values: - **Enabled**: On. - **Disabled**: Off.",
+      "description": "The status of the effective time feature. Valid values:\n\n- **Enabled**: Enabled.\n\n- **Disabled**: Disabled.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ValidUntil",
-      "description": "The expiration time of the zero trust policy, in seconds timestamp.",
+      "description": "The end time of the zero-trust policy's effective period, in seconds since the Unix epoch.",
       "position": "Body",
       "type": "Long",
       "required": false

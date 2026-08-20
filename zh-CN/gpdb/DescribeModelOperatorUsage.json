@@ -1,0 +1,58 @@
+{
+  "name": "DescribeModelOperatorUsage",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApiKeyIds",
+      "description": "API KEY ID 列表。多个指标用英文半角“,”分隔。如果不传，默认是实例 ID 下所有的 API KEY ID。\n\n> 列表项最多 50 个。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "EndTime",
+      "description": "查询结束时间。格式为<i>YYYY-MM-DDThh:mmZ</i>（UTC时间）。\n\n> 查询结束时间需晚于开始时间，且开始时间和结束时间的时间间隔不能超过7天。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "GroupBy",
+      "description": "series 切分维度，用英文半角“,”分隔，顺序不敏感。取值如下：\n\n- model（默认值）：按模型切分。\n- api_key：按 apikey 切分。\n- model,api_key：按模型、apikey 切分。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Keys",
+      "description": "指标列表。多个指标用英文半角“,”分隔。取值如下：\n\n- request_count：请求数。\n- success_count：请求成功数。\n- error_count：请求失败数。\n- success_rate：请求成功率。\n- input_token：输入 token 数。\n- output_token：输出 token 数。\n- total_token：总 token 数。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "ModelNames",
+      "description": "模型名称列表。多个指标用英文半角“,”分隔。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "Period",
+      "description": "时间桶大小（秒）。取值在 {1, 5, 15, 60, 300, 3600} 内。\n\n>\n> - 1. 当Period 未传时，按如下规则选择默认值：\n> - - 窗口范围 ≤ 1 小时，Period = 1。\n> - - 窗口范围 ≤ 1 天，Period = 60。\n> - - 窗口范围 ≤ 7 天，Period = 60。\n> - 2. Period=1 时窗口必须 ≤1 天。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "StartTime",
+      "description": "查询开始时间。格式为<i>YYYY-MM-DDThh:mmZ</i>（UTC时间）。\n\n> 仅支持查询 30 天内的指标信息。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

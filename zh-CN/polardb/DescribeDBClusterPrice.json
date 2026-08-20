@@ -1,0 +1,172 @@
+{
+  "name": "DescribeDBClusterPrice",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "CreationCategory",
+      "description": "集群系列。取值：Normal（集群版）、Basic（单节点）、ArchiveNormal（归档版）、SENormal（标准版）、NormalMultimaster（多主集群）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBClusterId",
+      "description": "集群ID。非BUY场景必填",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBNodeClass",
+      "description": "节点规格。BUY场景必填，格式如polar.mysql.x4.large",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBNodeIds",
+      "description": "待删除节点ID列表。ModifyType为DELETE时使用",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "DBNodeNum",
+      "description": "节点数量。BUY场景有效，包含读写节点，最小值为1，默认为1",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "DBNodes",
+      "description": "异构变配节点列表。变配场景使用，指定各节点的目标规格",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "DBNodeClass",
+          "description": "目标节点规格",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DBNodeId",
+          "description": "节点ID",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "DBType",
+      "description": "数据库引擎类型。BUY场景必填，取值：MySQL、PostgreSQL、Oracle",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBVersion",
+      "description": "数据库引擎版本。BUY场景必填。MySQL取值：5.6、5.7、8.0；PostgreSQL取值：11、14；Oracle取值：11、14",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "HotStandbyCluster",
+      "description": "是否开启热备集群。取值：ON（开启）、OFF（关闭）。BUY场景和变更场景有效",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModifyType",
+      "description": "变配方向。取值：ADD（增加节点）、DELETE（删除节点）、UPGRADE（升配）、DOWNGRADE（降配）、HOT_STANDBY（热备变更）、STORAGE（存储空间变配）、STORAGE_TYPE（存储类型变配）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "OrderType",
+      "description": "订单类型。取值：BUY（新购）、CONVERT（付费类型转换）、RENEW（续费）、UPGRADE（升配/增加节点）、DOWNGRADE（降配/删除节点）",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "PayType",
+      "description": "付费类型。BUY和CONVERT场景必填。取值：Prepaid（包年包月）、Postpaid（按量付费）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Period",
+      "description": "购买周期。取值：Month（月）、Year（年）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ProvisionedIops",
+      "description": "预配置IOPS。标准版（SENormal）场景使用",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "地域ID",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ServerlessType",
+      "description": "Serverless类型。取值：AgileServerless",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageChargeType",
+      "description": "存储计费类型。取值：Prepaid（预付费）、Postpaid（按量付费）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageSpace",
+      "description": "存储空间，单位为GB。预付费存储或存储变配场景使用",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageType",
+      "description": "存储类型。取值：PSL5（高性能）、PSL4（标准）、ESSDPL0、ESSDPL1、ESSDPL2、ESSDPL3、ESSDAUTOPL",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "UsedTime",
+      "description": "购买时长。与Period配合使用，BUY/CONVERT/RENEW场景且付费类型为Prepaid时有效",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ZoneId",
+      "description": "可用区ID。BUY场景建议传入",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

@@ -7,35 +7,35 @@
   "parameters": [
     {
       "name": "AdditionType",
-      "description": "The type of additional information. Separate multiple values with commas (,). By default, only the basic information is returned. Valid values:\n\n*   **video**: video stream information\n*   **audio**: audio stream information",
+      "description": "The type of additional information. Separate multiple values with commas (,). By default, only basic information is returned. Valid values:\n\n- **video**: video stream information.\n- **audio**: audio stream information.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AuthTimeout",
-      "description": "The validity period of the mezzanine file URL. Unit: seconds. Default value: **1800**. Minimum value: **1**.\n\n*   If the OutputType parameter is set to **cdn**:\n\n    *   The mezzanine file URL has a validity period only if URL signing is enabled. Otherwise, the mezzanine file URL is permanently valid.\n    *   Minimum value: **1**.\n    *   Maximum Value: unlimited.\n    *   Default value: If you do not set this parameter, the default validity period that is specified in URL signing is used.\n\n<!---->\n\n*   If the OutputType parameter is set to **oss**:\n\n    *   The mezzanine file URL has a validity period only if the permissions on the Object Storage Service (OSS) bucket are private. Otherwise, the mezzanine file URL is permanently valid.\n    *   Minimum value: **1**.\n    *   Maximum value: **2592000** (30 days). The maximum value is limited to reduce security risks of the origin.\n    *   Default value: If you do not set this parameter, the default value is **3600**.",
+      "description": "The validity period of the signature for FileURL (source file URL). Unit: seconds. Default value: **3600**. The minimum value is **1**.\n - If OutputType is set to **cdn**:\n    - FileURL expires periodically only if URL signing is enabled. Otherwise, FileURL is permanently valid.\n    - Minimum value: **1**.\n    - Maximum value: unlimited.\n    - Default value: **3600** if this parameter is not specified.\n- If OutputType is set to **oss**:\n    - FileURL expires periodically only if the storage permission is set to private. Otherwise, FileURL is permanently valid.\n    - Minimum value: **1**.\n    - Maximum value: To reduce security risks to the origin server, the maximum value is **2592000** (30 days) when the audio or video file is stored in a bucket managed by ApsaraVideo VOD, and **129600** (36 hours) when the file is stored in your own OSS bucket.\n    - Default value: **3600** if this parameter is not specified.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "OutputType",
-      "description": "The type of the mezzanine file URL. Valid values:\n\n- **oss**: OSS URL\n- **cdn** (default): Content Delivery Network (CDN) URL\n\n> If the mezzanine file is stored in a bucket of the in type, only an OSS URL is returned.",
+      "description": "The type of the output URL. Valid values:\n\n- **oss**: back-to-origin URL.\n- **cdn** (default): CDN URL.\n\n> If the bucket type of the source file is in, only the OSS URL is returned.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReferenceId",
-      "description": "",
+      "description": "The custom ID. Only lowercase letters, uppercase letters, digits, hyphens (-), and underscores (_) are supported. The value must be 6 to 64 characters in length and is unique at the user level.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VideoId",
-      "description": "The ID of the video.",
+      "description": "The audio or video ID. You can obtain the ID by using one of the following methods:\n- For audio or video files uploaded through the console, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Media Files** > **Audio/Video** to view the video ID.\n- Obtain the video ID from the VideoId parameter returned by the [CreateUploadVideo](~~55407~~) operation when you request an upload URL and credential.\n- After the video is uploaded, call the [SearchMedia](~~86044~~) operation to query the audio or video ID, which is the value of VideoId in the response.",
       "position": "Query",
       "type": "String",
       "required": false

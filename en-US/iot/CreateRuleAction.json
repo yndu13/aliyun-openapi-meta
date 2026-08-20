@@ -1,40 +1,41 @@
 {
   "name": "CreateRuleAction",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Configuration",
-      "description": "The configurations of the rule action. You must specify a JSON string. The configurations vary based on the types of rule actions. For more information about required syntax and examples, see the following tables.",
+      "description": "The configurations of the rule action. The value is a JSON string. The content varies based on the rule action type. For specific requirements and examples, see the supplementary description of request parameters below.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ErrorActionFlag",
-      "description": "Specifies whether the rule action forwards error operation data. Error operation data is generated when the rules engine failed to forward data from the IoT Platform topic to the destination cloud service. A data forwarding failure indicates that forwarding retries also fail. Valid values:\n\n*   **true**: forwards error operation data.\n*   **false**: forwards normal data instead of error operation data.\n\nDefault value: **false**.",
+      "description": "Specifies whether the rule action forwards error operation data, which is data that fails to be forwarded to other cloud services and also fails after retries. Valid values:\n\n- **true**: The rule action forwards error operation data.\n- **false**: The rule action does not forward error operation data. Instead, it performs normal forwarding.\n\nDefault value: **false**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the instance **ID** on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must configure this parameter. If you do not set this parameter, the call fails.\n>*   If your instance has no **Overview** page or ID, you do not need to set this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, view the **ID** of the current instance.\n\n><notice>\n- If an ID value is available, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or</ph></props> ID value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleId",
-      "description": "The ID of the rule for which you want to create an action. You can log on to the IoT Platform console, and choose **Rules** > **Data Forwarding** to view the rule ID. You can also call the [ListRule](~~69486~~) operation and view the rule ID in the response.",
+      "description": "The ID of the rule for which you want to create an action. You can view the rule ID on the **Rules Engine** > **Data Forwarding** page <props=\"china\"><ph>of the corresponding instance</ph></props> in the IoT Platform console, or call [ListRule](~~69486~~) to obtain the rule ID from the response.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "Type",
-      "description": "The type of the rule action. Valid values:\n\n*   **REPUBLISH**: forwards topic data that is processed by the rules engine to another IoT Platform topic.\n*   **AMQP**: forwards data to an AMQP consumer group.\n*   **MNS**: forwards data that is processed by the rules engine to Message Service (MNS).\n*   **FC**: forwards topic data that is processed by the rules engine to Function Compute for event computing.\n*   **OTS**: forwards data that is processed by the rules engine to OTS for NoSQL data storage.\n\n>  If you set the **DataType** parameter to **BINARY**, rules are created in the binary format. These rules cannot be used to forward data to Tablestore.",
+      "description": "The type of the rule action. Valid values:\n\n- **REPUBLISH**: forwards the processed topic data to another IoT Platform topic.\n- **AMQP**: data forwarding to an AMQP consumer group.\n<props=\"china\">- **DATAHUB**: forwards the processed topic data to Alibaba Cloud DataHub for data stream processing.</props>\n<props=\"china\">- **ONS**: forwards the processed topic data to ApsaraMQ for RocketMQ for message distribution.</props>\n- **MNS**: sends the processed topic data to Alibaba Cloud Message Service for message transmission.\n- **FC**: sends the processed topic data to Alibaba Cloud Function Compute for event computing.\n- **OTS**: sends the processed topic data to Alibaba Cloud Tablestore for NoSQL data storage.\n\n> Rules whose data format is binary (the **DataType** parameter of the rule is **BINARY**) do not support forwarding data to OTS (Tablestore).",
       "position": "Query",
       "type": "String",
       "required": true

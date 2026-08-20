@@ -14,21 +14,21 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.\n\nThe token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure the idempotence?](~~25693~~)\n\n>  If you do not specify this parameter, the system automatically uses the request ID as the client token. The request ID may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests.\n\nThe token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).\n\n> If you do not specify this parameter, the system automatically uses the RequestId of the API request as the ClientToken. The RequestId may differ for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the export directory for the protocol service. The **name of the export directory** appears in the console.\n\nLimits:\n\n*   The description must be 2 to 128 characters in length.\n*   The description must start with a letter but cannot start with `http://` or `https://`.\n*   The description can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The description of the protocol service export directory. This parameter is displayed as **Export Directory Name** in the console.\n\nLimits:\n- The description must be 2 to 128 characters in length and can contain letters and Chinese characters.\n- The description must start with a letter or a Chinese character and cannot start with `http://` or `https://`.\n- The description can contain digits, colons (:), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. The dry run checks parameter validity and prerequisites. The dry run does not create an export directory or incur fees.\n\nValid values:\n\n*   true: performs a dry run. The system checks the request format, service limits, prerequisites, and whether the required parameters are specified. If the request fails the dry run, an error message is returned. If the request passes the dry run, the HTTP status code 200 is returned. No value is returned for the ExportId parameter.\n*   false (default): performs a dry run and sends the request. If the request passes the dry run, an export directory is created.",
+      "description": "Specifies whether to perform a dry run for this request. A dry run checks parameter validity, dependencies, and other conditions without actually creating the instance or incurring charges.\n\nValid values:\n- true: sends a dry run request without creating the export directory. The dry run checks whether required parameters are specified, whether the request format is valid, and whether business limit dependencies are met. If the check fails, the corresponding error is returned. If the check succeeds, HTTP status code 200 is returned, but ExportId is empty.\n\n- false (default): sends a normal request. After the check succeeds, the instance is created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -42,14 +42,14 @@
     },
     {
       "name": "FsetId",
-      "description": "The ID of the fileset that you want to export.\n\nLimits:\n\n*   The fileset already exists.\n*   You can create only one export directory for a fileset.\n*   You can specify either a fileset or a path.",
+      "description": "The ID of the fileset to export.\n\nLimits:\n- The fileset must already exist.\n- Only one export directory can be created for each fileset.\n- You must specify one and only one of FsetId and Path.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Path",
-      "description": "The path of the CPFS directory that you want to export.\n\nLimits:\n\n*   The directory already exists in the CPFS file system.\n*   You can create only one export directory for a directory.\n*   You can specify either a fileset or a path.\n\nFormat:\n\n*   The path must be 1 to 1,024 characters in length.\n*   The path must be encoded in UTF-8.\n*   The path must start and end with a forward slash (/). The root directory is `/`.",
+      "description": "The path of the CPFS directory to export.\n\nLimits:\n- The directory must already exist on the CPFS file system.\n- Only one export can be created for each directory.\n- You must specify one and only one of FsetId and Path.\n\nFormat:\n- The path must be 1 to 1,024 characters in length.\n- The path must be encoded in UTF-8.\n- The path must start and end with a forward slash (/). The root directory is `/`.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,21 +63,21 @@
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch ID of the export directory.\n\nIf the storage redundancy type of the file system is not zone-redundant (ZRS) and the VpcId is set, this field is required.",
+      "description": "The ID of the vSwitch for the protocol service export.\n\nIf the storage redundancy type of the file system is not zone-redundant storage (ZRS), this parameter is required when VpcId is specified.\n>  The vSwitch must be in the same zone as the target CPFS file system.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchIds",
-      "description": "The list of vSwitch IDs of the export directory.",
+      "description": "The list of vSwitch IDs for the protocol service export.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The VPC ID of the export directory.",
+      "description": "The ID of the VPC for the protocol service export.",
       "position": "Query",
       "type": "String",
       "required": false

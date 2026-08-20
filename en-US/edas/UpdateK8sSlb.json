@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "AppId",
-      "description": "The ID of the application. You can query the application ID by calling the ListApplication operation. For more information, see [ListApplication](~~149390~~).",
+      "description": "The ID of the application. Call [ListApplication](~~149390~~) to get this ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClusterId",
-      "description": "The ID of the cluster. You can query the cluster ID by calling the GetK8sCluster operation. For more information, see [GetK8sCluster](~~181437~~).",
+      "description": "The ID of the cluster. Call [GetK8sCluster](~~181437~~) to get this ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DisableForceOverride",
-      "description": "Specifies whether to disable listener configuration overriding.\n\n*   true: disables listener configuration overriding.\n*   false: enables listener configuration overriding.",
+      "description": "Specifies whether to disable overwriting the SLB listener configuration.\n\n- true: Disables overwriting.\n\n- false: Allows overwriting.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Port",
-      "description": "The frontend port. Valid values: 1 to 65535.",
+      "description": "The frontend port. The value ranges from 1 to 65535.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm for the SLB instance. If you do not specify this parameter, the default value rr is used. SLB supports the following scheduling algorithms: round-robin and weighted round-robin. Valid values:\n\n*   wrr: weighted round-robin scheduling. Backend servers that have higher weights receive more requests than those that have lower weights.\n*   rr: round-robin scheduling. Requests are sequentially distributed to backend servers.",
+      "description": "The scheduling algorithm of the SLB instance. If you do not set this parameter, rr is used. The supported algorithms are round-robin (rr) and weighted round-robin (wrr).\n\n- Weighted round-robin (wrr): Backend servers with higher weights receive more requests.\n\n- Round-robin (rr): Requests are distributed to backend servers in sequence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServicePortInfos",
-      "description": "The information about the ports. This parameter is required if you want to configure multi-port mappings or use a protocol other than TCP. You must set this parameter to a JSON array. Example: \\[{\"targetPort\":8080,\"port\":82,\"loadBalancerProtocol\":\"TCP\"},{\"port\":81,\"certId\":\"1362469756373809\\_16c185d6fa2\\_1914500329\\_-xxxxxxx\",\"targetPort\":8181,\"lo adBalancerProtocol\":\"HTTPS\"}]\n\n*   port: required. The frontend port. Valid values: 1 to 65535. Each port must be unique.\n*   targetPort: required. The backend port. Valid values: 1 to 65535.\n*   loadBalancerProtocol: required. Valid values: TCP and HTTPS. If the HTTP protocol is used, set this parameter to TCP.\n*   certId: the ID of the certificate. This parameter is required if the HTTPS protocol is used. You can purchase an SLB instance in the SLB console.\n*   Note: The ServicePortInfos parameter is specified to support multi-port mappings. If you want this parameter to take effect, make sure that you specify the AppId, ClusterId, Type, and SlbId parameters.",
+      "description": "This parameter is used for scenarios that involve multiple ports or protocols other than TCP. The value must be a JSON array. For example:\n\\[{\"targetPort\":8080,\"port\":82,\"loadBalancerProtocol\":\"TCP\"},{\"port\":81,\"certId\":\"1362469756373809\\_16c185d6fa2\\_1914500329\\_-xxxxxxx\",\"targetPort\":8181,\"loadBalancerProtocol\":\"HTTPS\"}]\n\n- port: Required. The frontend port. The value ranges from 1 to 65535. Each port number must be unique.\n\n- targetPort: Required. The backend port. The value ranges from 1 to 65535.\n\n- loadBalancerProtocol: Required. Only TCP and HTTPS are supported. For HTTP listeners, set this parameter to TCP.\n\n- certId: This parameter is required for HTTPS listeners. It specifies the ID of a certificate that you can purchase in the SLB console.\n\n- Note: This parameter is used to support multiple ports and must be used with the appId, clusterId, type, and slbId parameters.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,28 +56,28 @@
     },
     {
       "name": "SlbProtocol",
-      "description": "The protocol used by the SLB instance. Set the value to TCP.",
+      "description": "The protocol of the SLB instance. Currently, only TCP is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Specification",
-      "description": "The specifications of the SLB instance.\n\n*   slb.s1.small\n*   slb.s2.small\n*   slb.s2.medium\n*   slb.s3.small\n*   slb.s3.medium\n*   slb.s3.large\n\nIf you do not specify this parameter, the default value slb.s1.small is used.",
+      "description": "The specification of the SLB instance. The following specifications are supported:\n\n- slb.s1.small\n\n- slb.s2.small\n\n- slb.s2.medium\n\n- slb.s3.small\n\n- slb.s3.medium\n\n- slb.s3.large\n\nIf you do not set this parameter, the default value is slb.s1.small.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetPort",
-      "description": "The backend port, which is also the service port of the application. Valid values: 1 to 65535.",
+      "description": "The backend port, which is the service port of the application. The value ranges from 1 to 65535.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the SLB instance. Valid values:\n\n*   Internet: an Internet-facing SLB instance\n*   Intranet: an internal-facing SLB instance",
+      "description": "The type of the SLB instance.\n\n- Internet: An Internet-facing instance.\n\n- Intranet: An internal-facing instance.",
       "position": "Query",
       "type": "String",
       "required": true

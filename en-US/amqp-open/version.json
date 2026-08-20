@@ -2,29 +2,44 @@
   "version": "2019-12-12",
   "style": "rpc",
   "apis": {
+    "AddInstanceWhiteList": {
+      "title": "Add instance IP/VPCID whitelist",
+      "summary": "Adds an instance whitelist. Only new-architecture instances are supported, that is, instances whose VPC access point (or VPC PrivateLink access point) ends with mq.amqp.aliyuncs.com.",
+      "deprecated": false
+    },
     "CreateAccount": {
       "title": "CreateAccount",
-      "summary": "Creates a pair of static username and password. If you access an ApsaraMQ for RabbitMQ broker from an open source RabbitMQ client, you must use a pair of username and password for authentication. You can access the ApsaraMQ for RabbitMQ broker only after the authentication is passed. ApsaraMQ for RabbitMQ allows you to generate usernames and passwords by using AccessKey pairs provided by Alibaba Cloud Resource Access Management (RAM).",
+      "summary": "When an open-source client accesses an ApsaraMQ for RabbitMQ server, it must provide a username and password for authentication. ApsaraMQ for RabbitMQ lets you generate a username and password from an AccessKey ID and AccessKey secret provided by Resource Access Management (RAM).",
       "deprecated": false
     },
     "CreateBinding": {
       "title": "CreateBinding",
-      "summary": "Creates a binding. In ApsaraMQ for RabbitMQ, after a producer sends a message to an exchange, the exchange routes the message to a queue or another exchange based on the binding relationship and the routing rule.",
+      "summary": "A producer sends a message to an exchange, which then routes the message to a specified queue or another exchange based on the binding and routing rules.",
       "deprecated": false
     },
     "CreateExchange": {
       "title": "CreateExchange",
-      "summary": "Creates an exchange. In ApsaraMQ for RabbitMQ, an exchange is used to route a message that is received from a producer to one or more queues or to discard the message. An exchange routes a message to queues by using the routing key and binding keys.",
+      "summary": "A producer sends a message to an exchange. The exchange then routes the message to one or more queues based on the routing key and the binding key, or discards the message.",
       "deprecated": false
     },
     "CreateInstance": {
-      "title": "CreateInstance",
+      "title": "Create an instance",
       "summary": "Creates an ApsaraMQ for RabbitMQ instance.",
+      "deprecated": false
+    },
+    "CreateOpenSourceAccount": {
+      "title": "Create open-source username and password",
+      "summary": "Creates an open-source username and password.",
+      "deprecated": false
+    },
+    "CreateOpenSourcePermission": {
+      "title": "Create open source permission",
+      "summary": "Creates an open source permission.",
       "deprecated": false
     },
     "CreateQueue": {
       "title": "CreateQueue",
-      "summary": "Creates a queue. In ApsaraMQ for RabbitMQ, a queue is a message queue. All messages in ApsaraMQ for RabbitMQ are sent to a specific exchange and then routed to a bound queue by the exchange.",
+      "summary": "A queue is a buffer that stores messages. In ApsaraMQ for RabbitMQ, messages are sent to a specified exchange and then routed to a bound queue.",
       "deprecated": false
     },
     "CreateVirtualHost": {
@@ -34,17 +49,27 @@
     },
     "DeleteAccount": {
       "title": "DeleteAccount",
-      "summary": "Deletes a pair of username and password.",
+      "summary": "Deletes a static username and password.",
       "deprecated": false
     },
     "DeleteBinding": {
       "title": "DeleteBinding",
-      "summary": "Deletes a binding to unbind a queue or an exchange from a source exchange.",
+      "summary": "The DeleteBinding operation detaches a source exchange from a target queue or another exchange.",
       "deprecated": false
     },
     "DeleteExchange": {
       "title": "DeleteExchange",
       "summary": "Deletes an exchange.",
+      "deprecated": false
+    },
+    "DeleteOpenSourceAccount": {
+      "title": "Delete open-source username and password",
+      "summary": "Deletes the username and password of an open-source user.",
+      "deprecated": false
+    },
+    "DeleteOpenSourcePermission": {
+      "title": "Delete open source permission",
+      "summary": "Deletes an open source permission.",
       "deprecated": false
     },
     "DeleteQueue": {
@@ -58,73 +83,108 @@
       "deprecated": false
     },
     "GetInstance": {
-      "title": null,
-      "summary": null,
+      "title": "GetInstance",
+      "summary": "Retrieves the details of an ApsaraMQ for RabbitMQ instance.",
       "deprecated": false
     },
     "GetMetadataAmount": {
       "title": "GetMetadataAmount",
-      "summary": "Queries the maximum number of vhosts, exchanges, and queues that you can create and the number of created vhosts, exchanges, and queues on an ApsaraMQ for RabbitMQ instance.",
+      "summary": "Queries the current and maximum numbers of vhosts, exchanges, and queues for a specified ApsaraMQ for RabbitMQ instance.",
       "deprecated": false
     },
     "ListAccounts": {
       "title": "ListAccounts",
-      "summary": "Queries the static username and password of an ApsaraMQ for RabbitMQ.",
+      "summary": "Lists the usernames and passwords for a specified ApsaraMQ for RabbitMQ instance.",
       "deprecated": false
     },
     "ListBindings": {
       "title": "ListBindings",
-      "summary": "Queries all bindings of a virtual host (vhost) on an ApsaraMQ for RabbitMQ instance.",
+      "summary": "Queries all bindings that are created in a vhost of a specified ApsaraMQ for RabbitMQ instance.",
       "deprecated": false
     },
     "ListDownStreamBindings": {
       "title": "ListDownStreamBindings",
-      "summary": "Queries all exchanges or queues to which an exchange is bound.",
+      "summary": "Queries the exchanges or queues that are bound to a specified exchange.",
       "deprecated": false
     },
     "ListExchangeUpStreamBindings": {
       "title": "ListExchangeUpStreamBindings",
-      "summary": "Queries all queues or exchanges that are bound to an exchange.",
+      "summary": "Queries the queues or other exchanges that are bound to a specified exchange.",
       "deprecated": false
     },
     "ListExchanges": {
       "title": "ListExchanges",
-      "summary": "Queries all exchanges that are created in a virtual host (vhost).",
+      "summary": "Lists all exchanges in a specified vhost of an instance.",
+      "deprecated": false
+    },
+    "ListInstanceWhiteList": {
+      "title": "Query instance IP/VPC ID values",
+      "summary": "Queries the IP or VPC whitelist of an instance. Only new-architecture instances are supported, that is, instances whose VPC access point (or VPC PrivateLink access point) ends with mq.amqp.aliyuncs.com.",
       "deprecated": false
     },
     "ListInstances": {
       "title": "ListInstances",
-      "summary": "Queries all AparaMQ for RabbitMQ instances in a region. The returned data includes the basic information, endpoint, and specification limits of each instance.",
+      "summary": "Queries a list of ApsaraMQ for RabbitMQ instances in a specified region and returns basic information about each instance, such as its endpoints and specification limits.",
+      "deprecated": false
+    },
+    "ListOpenSourceAccounts": {
+      "title": "Enumerate open-source usernames and passwords",
+      "summary": "Enumerates open-source usernames and passwords.",
+      "deprecated": false
+    },
+    "ListOpenSourcePermissions": {
+      "title": "List open source permissions",
+      "summary": "Lists open source permissions.",
       "deprecated": false
     },
     "ListQueueConsumers": {
       "title": "ListQueueConsumers",
-      "summary": "Queries the online consumers of a queue.",
+      "summary": "Queries the online consumer clients of a specified queue.",
       "deprecated": false
     },
     "ListQueueUpStreamBindings": {
       "title": "ListQueueUpStreamBindings",
-      "summary": "Queries the exchanges that are bound to a queue.",
+      "summary": "Queries the exchanges that are bound to a specified queue.",
       "deprecated": false
     },
     "ListQueues": {
       "title": "ListQueues",
-      "summary": "Queries all queues in a vhost of an ApsaraMQ for RabbitMQ instance.",
+      "summary": "Queries information about all queues in a vhost on a specified ApsaraMQ for RabbitMQ instance.",
       "deprecated": false
     },
     "ListVirtualHosts": {
       "title": "ListVirtualHosts",
-      "summary": "Queries all virtual hosts (vhosts) on an ApsaraMQ for RabbitMQ instance.",
+      "summary": "Lists all vhosts in a specified ApsaraMQ for RabbitMQ instance.",
+      "deprecated": false
+    },
+    "RemoveInstanceWhiteList": {
+      "title": "Delete IP/VPCID whitelist",
+      "summary": "Deletes an IP or VPC whitelist entry for an instance. This operation supports only new-architecture instances whose VPC access points (or VPC PrivateLink access points) end with mq.amqp.aliyuncs.com.",
       "deprecated": false
     },
     "UpdateInstance": {
-      "title": "UpdateInstance",
-      "summary": "Upgrades or downgrades the configurations of an ApsaraMQ for RabbitMQ instance.",
+      "title": "Update an instance",
+      "summary": "Updates an ApsaraMQ for RabbitMQ instance to upgrade or downgrade its specifications.",
       "deprecated": false
     },
     "UpdateInstanceName": {
       "title": "UpdateInstanceName",
-      "summary": "Updates the name of an ApsaraMQ for RabbitMQ instance. After an ApsaraMQ for RabbitMQ instance is created, the ID of the instance is used as its name by default. You can specify a custom name for an instance to facilitate instance identification.",
+      "summary": "An ApsaraMQ for RabbitMQ instance is named after its instance ID by default. You can change the name for easier identification.",
+      "deprecated": false
+    },
+    "UpdateInstanceServerlessSwitch": {
+      "title": "Update the elastic switch of a serverless instance",
+      "summary": "Update serverless switch",
+      "deprecated": false
+    },
+    "UpdateOpenSourceAccount": {
+      "title": "Update open-source username and password",
+      "summary": "Updates the username and password for open-source access.",
+      "deprecated": false
+    },
+    "UpdateOpenSourcePermission": {
+      "title": "Update open source permissions",
+      "summary": "Updates open source permissions.",
       "deprecated": false
     }
   }

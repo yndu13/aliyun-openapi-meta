@@ -1,40 +1,41 @@
 {
   "name": "ListAsyncTasks",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET",
   "pathPattern": "/2023-03-30/functions/[functionName]/async-tasks",
   "parameters": [
     {
       "name": "functionName",
-      "description": "The function name.",
+      "description": "The name of the function.",
       "position": "Path",
       "type": "String",
       "required": true
     },
     {
       "name": "includePayload",
-      "description": "Specifies whether to return input parameters of the asynchronous tasks. Valid values:\n\n*   true: returns the `invocationPayload` parameter in the response.\n*   false: does not return the `invocationPayload` parameter in the response.\n\n>  The `invocationPayload` parameter indicates the input parameters of an asynchronous task.",
+      "description": "Specifies whether to return the input parameters of the asynchronous task.\n\n- true: If this parameter is set to true, the `invocationPayload` field is returned.\n\n- false: If this parameter is set to false, the `invocationPayload` field is not returned.\n\n> The `invocationPayload` field specifies the input parameters of the function for the asynchronous task.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "limit",
-      "description": "The number of asynchronous tasks to return. The default value is 20. Valid values: \\[1,100].",
+      "description": "The number of asynchronous tasks to return. The default value is 20. The value must be in the range of \\[1, 100].",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "nextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token to return more results. You do not need to provide this parameter for the first query. Obtain the token for a subsequent query from the response to the previous query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "prefix",
-      "description": "The ID prefix of asynchronous tasks. If this parameter is specified, a list of asynchronous tasks whose IDs match the prefix is returned.",
+      "description": "The prefix of the asynchronous task ID. The system returns a list of asynchronous tasks that match the prefix.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -48,28 +49,28 @@
     },
     {
       "name": "sortOrderByTime",
-      "description": "The order in which the returned asynchronous tasks are sorted.\n\n*   asc: in ascending order.\n*   desc: in descending order.",
+      "description": "The sorting order of the returned asynchronous tasks.\n\n- asc: ascending order\n\n- desc: descending order",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "startedTimeBegin",
-      "description": "The start time of the period during which the asynchronous tasks are initiated.",
+      "description": "The start of the time range when the asynchronous task was started.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "startedTimeEnd",
-      "description": "The end time of the period during which the asynchronous tasks are initiated.",
+      "description": "The end of the time range when the asynchronous task was started.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "status",
-      "description": "The state of asynchronous tasks. The following items list the states of an asynchronous task:\n\n*   Enqueued: The asynchronous invocation is enqueued and waiting to be executed.\n*   Dequeued: The asynchronous invocation is dequeued and waiting to be triggered.\n*   Running: The invocation is being executed.\n*   Succeeded: The invocation is successful.\n*   Failed: The invocation fails.\n*   Stopped: The invocation is terminated.\n*   Stopping: The invocation is being terminated.\n*   Expired: The maximum validity period of messages is specified for asynchronous invocation. The invocation is discarded and not executed because the specified maximum validity period of messages expires.\n*   Invalid: The invocation is invalid and not executed due to specific reasons. For example, the function is deleted.\n*   Retrying: The asynchronous invocation is being retried due to an execution error.",
+      "description": "The execution status of the asynchronous task.\n\n- Enqueued: The asynchronous message is enqueued and waits for processing.\n\n- Dequeued: The asynchronous message is dequeued and waits to be triggered.\n\n- Running: The invocation is in progress.\n\n- Succeeded: The invocation succeeded.\n\n- Failed: The invocation failed.\n\n- Stopped: The invocation was stopped.\n\n- Stopping: The invocation is being stopped.\n\n- Expired: The task was discarded because its configured maximum queuing duration was exceeded. The task was not executed.\n\n- Invalid: The execution is invalid because the function was deleted or for other reasons. The task was not executed.\n\n- Retrying: The asynchronous invocation is being retried because of an execution error.",
       "position": "Query",
       "type": "String",
       "required": false

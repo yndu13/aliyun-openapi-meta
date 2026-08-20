@@ -1,24 +1,27 @@
 {
   "name": "ModifyPrefixList",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AddEntry",
-      "description": "The entries to be added to the prefix list.",
+      "description": "The information about entries to add to the prefix list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Cidr",
+          "description": "The Classless Inter-Domain Routing (CIDR) block of the prefix list entry to add. Valid values of N: 0 to 200.\n\nTake note of the following items:\n- The total number of entries in the prefix list cannot exceed the maximum number of entries supported by the prefix list. You can invoke [DescribePrefixListAttributes](~~205872~~) to query the maximum number of entries supported by a specified prefix list.\n- You cannot specify duplicate CIDR block values in Settings.\n- The value of this parameter cannot be the same as the value of `RemoveEntry.N.Cidr`.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Description",
+          "description": "The description of the prefix list entry. The description must be 2 to 32 characters in length and cannot start with `http://` or `https://`. Valid values of N: 0 to 200.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -34,34 +37,35 @@
     },
     {
       "name": "PrefixListId",
-      "description": "The ID of the prefix list.",
+      "description": "The prefix list ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PrefixListName",
-      "description": "The name of the prefix list. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://`, `https://`, `com.aliyun`, or `com.alibabacloud`. The name can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-).",
+      "description": "The name of the prefix list. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. It cannot start with `http://`, `https://`, `com.aliyun`, or `com.alibabacloud`. It can contain letters, Chinese characters, digits, colons (:), underscores (_), periods (.), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the prefix list. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RemoveEntry",
-      "description": "The entries to be deleted from the prefix list.",
+      "description": "The information about entries to delete from the prefix list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Cidr",
+          "description": "The Classless Inter-Domain Routing (CIDR) block of the prefix list entry to delete. Valid values of N: 0 to 200.\n\nTake note of the following items:\n- You cannot specify duplicate CIDR block values in Settings.\n- The value of this parameter cannot be the same as the value of `AddEntry.N.Cidr`.",
           "position": "Query",
           "type": "String",
           "required": true

@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "BillingCycle",
-      "description": "",
+      "description": "The billing method for the sub-disks of the SDG. This parameter specifies the billing plan for RBD sub-disks that are created from this SDG. This parameter does not apply to standard disks. Valid values:\n\n- Hour.\n\n- Day (default).\n\n> * Metric description: A longer billing cycle results in lower costs. A service fee is charged if you release the disk before the billing cycle ends.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the SDG.\n\n>  We recommend that you specify this parameter in details for subsequent queries.",
+      "description": "The description of the SDG.\n\n> Provide a detailed description for easy reference.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskType",
-      "description": "",
+      "description": "The type of the source disk. Valid values:\n\n- standard (standard disk: default).\n\n- rbd (RBD disk).\n\n> * Limit: SDGs on RBD disks and SDGs on standard disks cannot inherit from each other.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FromSDGId",
-      "description": "The ID of the SDG from which you want to create an SDG.\n\n> \n\n*   The first time you create an SDG, the **FromSDGId** parameter is empty.\n\n*   If the value of the **FromSDGId** parameter is invalid or does not correspond to an original disk, an error is reported.\n\n*   If the value of the **FromSDGId** parameter is not empty, you have created an SDG, and the operation is performed on the existing SDG.",
+      "description": "The ID of an existing SDG.\n\n> - If you are creating an SDG for the first time, leave **FromSDGId** empty.\n>\n> - If **FromSDGId** is invalid or the corresponding source disk cannot be found, an error is reported.\n>\n> - If **FromSDGId** is not empty, you are performing an operation on an existing SDG.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the AIC instance. You can call the [DescribeARMServerInstances](~~DescribeARMServerInstances~~) operation to query the ID.",
+      "description": "The ID of the AIC instance. You can call [DescribeARMServerInstances](~~DescribeARMServerInstances~~) to obtain the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PerformanceLevel",
-      "description": "",
+      "description": "The sharing ratio of the SDG. This parameter supports disks with different maximum sharing ratios.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Size",
-      "description": "The maximum capacity of the SDG. Unit: GB.\n\n> \n\n*   To save costs, we recommend that you specify this parameter based on your business requirements.\n\n*   The first time that you create an SDG, the **Size** parameter is required.\n\n*   When the amount of data increases, you can pass a new **Size** parameter for resizing. If the value of the new **Size** parameter is greater than the value of the old **Size** parameter, the disk size of the SDG is increased to the size that is specified by the new **Size** parameter. If the value of the new **Size** parameter is empty or smaller than that of the old **Size** parameter, no operation is performed.",
+      "description": "The maximum capacity of the SDG, in GB.\n\n> - To save costs, specify the size as needed.\n>\n> - If you are creating an SDG for the first time, **Size** is a required parameter.\n>\n> - If your data volume increases, you can specify a new value for **Size** to expand the disk. If **Size** is not empty and its value is greater than the original size of the SDG, the source disk for the SDG is expanded to the new size. If **Size** is empty or its value is smaller than the original size of the SDG, the system takes no action.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,134 @@
+{
+  "name": "UpdateProcessDefinition",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApprovalNodes",
+      "description": "A list of approval nodes. This parameter does not apply to system policies.",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "AccountType",
+          "description": "The approver type for the node. Valid values:\n\n- `DataWorksProjectRole`: A workspace role.\n\n- `DataWorksProjectMember`: A workspace member.\n\n- `TableAdministrator`: A table administrator.\n\n- `TableOrProjectAdministrator`: The administrator of the table or project.\n\n- `AliyunResourceOwner`: An Alibaba Cloud account.\n\n- `MaxComputeRole`: A MaxCompute administrator.\n\n- `DLFAdmin`: A DlfLegacy administrator.\n\n- `DLFNextAdmin`: A DLFNext administrator.\n\n- `TenantRole`: A tenant role.\n\n- `EmrAdministrator`: An EMR administrator.\n\n- `LindormAdministrator`: A Lindorm administrator.\n\n- `AliyunRamUser`: A RAM user.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Assignees",
+          "description": "Specifies the approvers. The required value depends on the `AccountType`:\n\n- If `AccountType` is `DataWorksProjectMember`, this parameter specifies the user IDs of workspace members.\n\n- If `AccountType` is `DataWorksProjectRole`, this parameter specifies the codes of workspace roles.\n\n- If `AccountType` is `MaxComputeRole`, this parameter specifies the MaxCompute roles.\n\n- If `AccountType` is `TenantRole`, this parameter specifies the codes of tenant roles.\n\n- If `AccountType` is `AliyunRamUser`, this parameter specifies the user IDs of RAM users.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ExtensionProperties",
+          "description": "Additional properties that are required for specific `AccountType` values:\n\n- If `AccountType` is `DataWorksProjectMember`: The key is `projectId` and the value is the user ID of a workspace member. Use commas (,) to separate multiple user IDs.\n\n- If `AccountType` is `MaxComputeRole`: The key is the MaxCompute project name and the value is the role name in MaxCompute. Use commas (,) to separate multiple role names.",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "description": "The name of the node.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ClientToken",
+      "description": "An idempotent parameter. It ensures that retried requests do not result in duplicate operations.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Description",
+      "description": "The description of the process definition.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Id",
+      "description": "The ID of the process definition.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Name",
+      "description": "The name of the process definition.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "NotificationServices",
+      "description": "The notification service configurations.",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Channel",
+          "description": "The notification channel. Valid values:\n\n- Mail\n\n- Sms\n\n- DingRobot\n\n- Weixin",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Extension",
+          "description": "Additional information in JSON format. For example, use {\"atAll\":\"true\"} to specify whether to notify all members.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Receiver",
+          "description": "The webhook URL. This parameter is required when `Channel` is set to `DingRobot` or `Weixin`.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "RuleConditions",
+      "description": "A list of rule conditions. This parameter does not apply to system policies.",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Expression",
+          "description": "The conditional expression. Format: ((#type=='typeValue')). For example: ((#odpsProject=='PX\\_BEIJING\\_TEST')).",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Scope",
+          "description": "The phase in which the rule takes effect. Valid values:\n\n- **Deployment**: Determines whether the approval policy applies when an application is submitted.\n\n- **Running**: Determines whether to skip the approval during the approval process. This phase is supported only for MaxCompute.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "description": "The type of the condition. Valid values:\n\n- `odpsProject`\n\n- `hologresInstanceId`\n\n- `sensibleLevel`\n\n- `tableGuid`\n\n- `projectId`",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

@@ -7,83 +7,91 @@
   "parameters": [
     {
       "name": "AlignmentIndex",
-      "description": "When performing media concatenation, the index of the primary media file (which provides the default transcoding parameters for `Video` and `Audio`, including resolution, frame rate, etc.) in the concatenation list. The default value is 0 (aligning with the first media file in the concatenation list).",
+      "description": "When concatenating media files, this specifies the index of the primary file in the Sources list. The default transcoding parameters (such as resolution and frame rate from the `Video` and `Audio` objects) are taken from this primary file. The default index is 0.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "CredentialConfig",
-      "description": "**If there are no special requirements, please leave this blank.**\n\nChain authorization configuration. For more information, see [Using Chain Authorization to Access Other Entity Resources](~~465340~~).",
+      "description": "**You can leave this parameter empty if you do not have special requirements.**\n\nThe chained authorization configuration. For more information, see [Use chained authorization to access resources of other entities](~~465340~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "Notification",
-      "description": "Notification configuration. For details, click Notification. The format of asynchronous notification messages can be found in [Asynchronous Notification Message Format](~~2743997~~).",
+      "description": "The message notification settings. For more information, click Notification. For information about the format of asynchronous notifications, see [Asynchronous notification format](~~2743997~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "The name of the project. For how to obtain it, see [Creating a Project](~~478153~~).",
+      "description": "The name of the project. For more information about how to obtain the project name, see [Create a project](~~478153~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Sources",
-      "description": "A list of media files. If the list contains more than one element, it indicates that the Concat (concatenation) function is enabled. The Concat order follows the sequence of the input video file URIs.",
+      "description": "A list of media files. If you provide more than one file, they are concatenated in the order of their URIs.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "AlignMode",
+          "description": "The alignment mode for the added audio and video streams. Valid values include:\n\n- false (default): No alignment is performed.\n\n- loop: Aligns content by looping the audio or video.\n\n- pad: Aligns content by padding with silent frames or black frames.\n\n> * This parameter only takes effect if Attached is set to true.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Attached",
+          "description": "If true, adds the current source media file to the output as a synchronized audio stream or video stream. The default is false.\n\n> - You cannot set Attached to true for the source media file referenced by AlignmentIndex.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "DisableAudio",
+          "description": "Specifies whether to disable the audio from the source media file. Valid values include:\n\n- true: Disables the audio.\n\n- false (default): Includes the audio.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "DisableVideo",
+          "description": "Specifies whether to disable the video from the source media file. Valid values include:\n\n- true: Disables the video.\n\n- false (default): Includes the video.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Duration",
+          "description": "The duration of media transcoding in seconds. The default value, 0, transcodes the media until its end.",
           "position": "Query",
           "type": "Double",
           "required": false
         },
         {
           "name": "StartTime",
+          "description": "The start time of media transcoding, in seconds. Valid values include:\n\n- 0 (default): Transcoding starts from the beginning of the media file.\n\n- n (a value greater than 0): Transcoding starts n seconds into the media file.",
           "position": "Query",
           "type": "Double",
           "required": false
         },
         {
           "name": "Subtitles",
+          "description": "A list of subtitles to add.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "URI",
+          "description": "The OSS URI of the object. The URI must use the `oss://${Bucket}/${Object}` format, where `${Bucket}` is the name of an OSS bucket in the same region as the project, and `${Object}` is the full path to the object, including its file extension.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -92,68 +100,114 @@
     },
     {
       "name": "Tags",
-      "description": "Custom tags used for searching and filtering asynchronous tasks.",
+      "description": "Custom tags for searching and filtering asynchronous tasks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
-      "name": "Targets",
-      "description": "List of media processing tasks, supporting multiple task configurations.",
+      "name": "TargetGroups",
+      "description": "A list of media packaging tasks to convert and package the input media into HLS outputs. Each TargetGroup corresponds to one HLS master playlist.",
       "position": "Query",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
+          "name": "Targets",
+          "description": "A list of media packaging subtasks. Each `Target` corresponds to a variant stream (`#EXT-X-STREAM-INF`) in the HLS master playlist and generates a corresponding HLS media playlist.",
+          "position": "Query",
+          "type": "RepeatList",
+          "required": false
+        },
+        {
+          "name": "URI",
+          "description": "The OSS URI of the output HLS master playlist file for the packaging task.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Targets",
+      "description": "A list of media processing tasks.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "AttachedPicture",
+          "description": "Settings for retaining attached pictures.\n><notice>Retaining attached pictures is supported only when the `Container` parameter is set to `mp4` or `mkv`.></notice>",
+          "position": "Query",
+          "type": "Struct",
+          "required": false
+        },
+        {
           "name": "Audio",
+          "description": "The audio processing parameters.\n><notice>If this parameter is left empty, the first audio stream, if it exists, is copied directly to the output file.></notice>",
           "position": "Query",
           "type": "Json",
           "required": false
         },
         {
           "name": "Container",
+          "description": "The media container type. Valid container types include:\n\n- Audio/video containers: mp4, mkv, mov, asf, avi, mxf, ts, flv\n\n- Audio-only containers: mp3, aac, flac, oga, ac3, opus\n\n\n  ><notice>\n\n  The `Container` and `URI` parameters must be set together. To perform only subtitle extraction, frame capture, sprite generation, or animated image generation, leave both `Container` and `URI` empty. In this case, parameters such as `Segment`, `Video`, `Audio`, and `Speed` are ignored.\n\n  ></notice>",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
+          "name": "Data",
+          "description": "Settings for retaining data streams.\n><notice>Retaining data streams is supported only when the `Container` parameter is set to `mp4`.></notice>",
+          "position": "Query",
+          "type": "Struct",
+          "required": false
+        },
+        {
           "name": "Image",
+          "description": "The parameters for frame capture, sprite generation, and animated image generation.",
           "position": "Query",
           "type": "Json",
           "required": false
         },
         {
           "name": "Segment",
+          "description": "Settings for media segmentation.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Speed",
+          "description": "The playback speed of the output media. The value must be between 0.5 and 1.0, inclusive. The default value is 1.0.\n\n> This parameter specifies the default playback speed of the output file as a ratio of the source file's speed. It does not perform speed-up transcoding.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "StripMetadata",
+          "description": "If true, removes metadata such as `title` and `album` from the media file. The default is false.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Subtitle",
+          "description": "The subtitle processing parameters.\n><notice>If this parameter is left empty, the first subtitle stream, if it exists, is copied directly to the output file.></notice>",
           "position": "Query",
           "type": "Json",
           "required": false
         },
         {
           "name": "URI",
+          "description": "The OSS URI of the output file for media transcoding.\n\nThe URI must be in the `oss://${Bucket}/${Object}` format. In this format, `${Bucket}` is the name of the OSS bucket, which must be in the same region as the project, and `${Object}` is the full path to the object, including the file extension.\n\n- If the **URI** has a file extension, all output media files are saved to this **URI**. If multiple files are generated, they will overwrite each other.\n\n- If the **URI** does not have a file extension, the final output URI is generated based on the **URI**, **Container**, and **Segment** parameters. For example, if the **URI** is `oss://examplebucket/outputVideo`:\n\n  - If **Container** is `mp4` and **Segment** is empty, the OSS URI of the generated media file is `oss://examplebucket/outputVideo.mp4`.\n\n  - If **Container** is `ts` and **Format** in **Segment** is `hls`, the process generates an m3u8 file with the OSS URI `oss://examplebucket/outputVideo.m3u8` and multiple TS files prefixed with `oss://examplebucket/outputVideo`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Video",
+          "description": "The video processing parameters.\n><notice>If this parameter is left empty, the first video stream, if it exists, is copied directly to the output file.></notice>",
           "position": "Query",
           "type": "Json",
           "required": false
@@ -162,7 +216,7 @@
     },
     {
       "name": "UserData",
-      "description": "User-defined information that will be returned in asynchronous message notifications, used for convenient association and processing within your system. The maximum length is 2048 bytes.",
+      "description": "The custom user data. This data is returned in the asynchronous notification, allowing you to associate the notification with your internal system. The maximum length is 2,048 bytes.",
       "position": "Query",
       "type": "String",
       "required": false

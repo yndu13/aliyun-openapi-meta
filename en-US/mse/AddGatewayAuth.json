@@ -7,51 +7,56 @@
   "parameters": [
     {
       "name": "AcceptLanguage",
-      "description": "",
+      "description": "The language of the response. Valid values: `zh` (Chinese) and `en` (English). The default value is `zh`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AuthResourceConfig",
-      "description": "",
+      "description": "The YAML configuration for the advanced mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AuthResourceList",
-      "description": "The information about the resource to be authorized.",
+      "description": "The list of authorization rules. Multiple rules are evaluated with a logical OR. Within a single rule, multiple match conditions are evaluated with a logical AND.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "AuthResourceHeaderList",
+          "description": "A list of request header conditions to match. This parameter is applicable only to custom authentication rules.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "DomainId",
+          "description": "The ID of the domain name to which the rule applies.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "IgnoreCase",
+          "description": "Specifies whether path matching is case-sensitive. This parameter is applicable only to custom authentication rules. For other authentication methods, path matching is case-sensitive by default.\n\n- `true`: Path matching is case-insensitive.\n\n- `false`: Path matching is case-sensitive.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "MatchType",
+          "description": "The match type for the path. Valid values:\n\n- EQUAL: Exact match\n\n- PRE: Prefix match\n\n- REGEX: Regular expression match",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Path",
+          "description": "The request path to match.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -60,35 +65,35 @@
     },
     {
       "name": "AuthResourceMode",
-      "description": "",
+      "description": "The mode for configuring authorization resources. Valid values:\n\n- 0: Simple mode\n\n- 1: Advanced mode",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ClientId",
-      "description": "The application ID registered with the OIDC authentication service.",
+      "description": "The client ID of the application registered with the identity provider. This parameter is required when `Type` is `OIDC` or `IDaaS`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientSecret",
-      "description": "The application secret registered with the OIDC authentication service.",
+      "description": "The client secret of the application registered with the identity provider. This parameter is required when `Type` is `OIDC` or `IDaaS`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CookieDomain",
-      "description": "The domain name of the cookie. After the authentication is passed, the cookie is sent to the specified domain name to maintain the logon status. For example, if you set `Cookie-domain` to a.example.com, the cookie is sent to the domain name `a.example.com`. If you set `Cookie-domain` to .example.com, the cookie is sent to all subdomains of `example.com`.",
+      "description": "The cookie domain. After successful authentication, the gateway sends a cookie to this domain to keep the user signed in.\n\nFor example, if you set `Cookie-domain=a.example.com`, the cookie is sent to the `a.example.com` domain. If you set `Cookie-domain=.example.com`, the cookie is sent to `example.com` and its subdomains.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExternalAuthZJSON",
-      "description": "The information about the custom authentication service.",
+      "description": "The settings for the custom authentication service.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -102,98 +107,98 @@
     },
     {
       "name": "IsWhite",
-      "description": "Specifies whether to enable the whitelist feature.",
+      "description": "Specifies the authorization mode.\n\n- `true`: Whitelist mode. Requests that match the specified hosts and paths can bypass authentication. All other requests require authentication.\n\n- `false`: Blacklist mode. Requests that match the specified hosts and paths require authentication. All other requests can bypass authentication.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Issuer",
-      "description": "The iss value of JWT claims, which indicates the issuer. You must make sure that the value of this parameter is the same as the iss value in the payload of JWT claims.",
+      "description": "This parameter applies when `Type` is `JWT` or `OIDC`.\n\n- For JWT authentication, this specifies the issuer (`iss`) of the JWT claims.\n\n- For OIDC authentication, this specifies the issuer (`iss`) of the OIDC claims.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Jwks",
-      "description": "The JWT public key. The JSON format is supported.",
+      "description": "The JWT public key in JSON Web Key Set (JWKS) format.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoginUrl",
-      "description": "The URL that is used to log on to the IDaaS instance.",
+      "description": "The URL of the user logon page for the IDaaS instance. This parameter is required when `Type` is `IDaaS`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name.",
+      "description": "The authentication name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RedirectUrl",
-      "description": "The redirect URL.",
+      "description": "The URL to which the user is redirected after successful authentication. This parameter is required when `Type` is `OIDC` or `IDaaS`. The URL must match the redirect URL configured in the OIDC or IDaaS provider.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScopesList",
-      "description": "The OIDC scope.",
+      "description": "The OIDC scopes. This parameter is required when `Type` is `OIDC`.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status.",
+      "description": "This parameter is for internal use and should not be configured. Upon creation, an authentication rule is disabled by default.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Sub",
-      "description": "The sub value of JWT claims, which indicates the subject. You must make sure that the value of this parameter is the same as the sub value in the payload of JWT claims. If you do not set this parameter or leave it empty, the default value, which is the value of the Issuer parameter, is used.",
+      "description": "The subject (`sub`) of the JWT claims. This parameter is used when `Type` is `JWT`. Ensure that the value of this parameter matches the `sub` field in the JWT payload. If this parameter is not set or is left empty, its value defaults to the value of the `Issuer` parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TokenName",
-      "description": "The name of the parameter that is required to verify a token. By default, a token is prefixed with Bearer and stored in the authorization header. Example: `Authorization: Bearer token`.",
+      "description": "The name of the request header that contains the JWT.\n\nThe default value is `Authorization`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TokenNamePrefix",
-      "description": "The name prefix of the parameter that is required to verify a token. By default, a token is prefixed with Bearer and stored in the authorization header. Example: `Authorization: Bearer token`",
+      "description": "The prefix for the token value in the header.\n\nThe default value is `Bearer `(note the trailing space).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TokenPass",
-      "description": "Specifies whether to enable pass-through.",
+      "description": "Specifies whether to pass the token to the backend service after successful authentication.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TokenPosition",
-      "description": "The position of the parameter that is required to verify a token. By default, a token is prefixed with Bearer and stored in the authorization header. Example: `Authorization: Bearer token`.",
+      "description": "Specifies the location of the JWT. Valid value:\n\n- HEADER: The token is in a request header.\n\nBy default, the token is read from the `Authorization` header and must be prefixed with `Bearer `. For example: `Authorization: Bearer <token>`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The authentication type. JSON Web Token (JWT) authentication, OpenID Connect (OIDC) authentication, Identity as a Service (IDaaS) authentication, or custom authentication are supported.",
+      "description": "The authentication method. Valid values:\n\n- JWT\n\n- OIDC\n\n- IDaaS\n\n- ExternalAuthZ (custom authentication service)",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The **token** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,19 +21,21 @@
     },
     {
       "name": "Entry",
-      "description": "The port list entries.",
+      "description": "The array of port list entries.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Description",
+          "description": "The description of the port range. The description must be 2 to 32 characters in length and cannot start with http:// or https://. Valid values of N: 0 to 200.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PortRange",
+          "description": "The port range. Valid values of N: 0 to 200.\n\n- The number of entries cannot exceed the maximum number of entries (MaxEntries).\n\n- The PortRange values in multiple entries cannot be duplicated.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -42,21 +44,21 @@
     },
     {
       "name": "MaxEntries",
-      "description": "The maximum number of entries in the port list. The value cannot be changed after you create the port list. Valid values: 1 to 2000.\n\n>  When you reference a port list in a resource, such as a security group, the maximum number of entries (instead of the actual number of entries) in the port list counts against the rule quota for the resource. Set a proper value for MaxEntries.",
+      "description": "The maximum number of entries that the port list supports. This value cannot be changed after the port list is created. Valid values: 1 to 2000.\n\n><notice>When calculating rule quotas for resources associated with the port list (such as security groups), the maximum number of entries is used instead of the actual number of entries. Set this value appropriately.></notice>",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "PortRangeListName",
-      "description": "The name of the port list. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http://, https://, com.aliyun, or com.alibabacloud. The name can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-).",
+      "description": "The name of the port list. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. The name cannot start with http://, https://, com.aliyun, or com.alibabacloud. The name can contain letters, digits, Chinese characters, colons (:), underscores (_), periods (.), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the port list. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -70,19 +72,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the port list. You can add 0 to 20 tags to the port list.",
+      "description": "The array of tags bound to the port list. Array length: 0 to 20.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the port list.\n\nThis parameter cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the port list.\n\nThis parameter cannot be null but can be an empty string. The tag value can be up to 128 characters in length and cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false

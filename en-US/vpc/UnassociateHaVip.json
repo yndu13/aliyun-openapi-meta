@@ -1,47 +1,48 @@
 {
   "name": "UnassociateHaVip",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The `token` can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Force",
-      "description": "Specifies whether to forcefully disassociate the HAVIP from the ECS instance or ENI. Valid values:\n\n*   **True**\n*   **False** (default)\n\n>  If you set the value to **False**, you cannot disassociate the HAVIP from the primary instance.",
+      "description": "Specifies whether to forcefully disassociate HaVip from the ECS instance or network interface controller (NIC). Valid values:\n\n- **True**: forcefully disassociates the instance.\n\n- **False** (default): does not forcefully disassociate the instance.\n\n> If this parameter is set to **False**, the primary instance attached to the HaVip cannot be disassociated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HaVipId",
-      "description": "The ID of the HAVIP that you want to disassociate.",
+      "description": "The ID of the HaVip to be disassociated.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the ECS instance or ENI from which you want to disassociate the HAVIP.",
+      "description": "The ID of the ECS instance or network interface controller (NIC) to disassociate HaVip from.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceType",
-      "description": "The type of the instance from which you want to disassociate the HAVIP. Valid values:\n\n*   **EcsInstance**: an ECS instance\n*   **NetworkInterface**: an ENI\n\n>  If you want to disassociate the HAVIP from an ENI, this parameter is required.",
+      "description": "The type of the instance to disassociate HaVip from. Valid values:\n\n- **EcsInstance**: ECS instance.\n\n- **NetworkInterface**: network interface controller (NIC) instance.\n\n> This parameter is required when the instance to be disassociated is a network interface controller (NIC) instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the HAVIP.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the HaVip.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true

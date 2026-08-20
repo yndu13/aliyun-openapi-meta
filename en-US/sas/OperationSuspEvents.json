@@ -1,47 +1,48 @@
 {
   "name": "OperationSuspEvents",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "From",
-      "description": "The ID of the request source.\n\nSet the value to **sas**, which indicates that the request is sent from Security Center.",
+      "description": "The request source identifier.\n\nSet this parameter to **sas**, which indicates a request from the Security Center client.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Operation",
-      "description": "The operation that you want to perform on alerts. Valid values:\n\n*   **deal**: quarantines the source file of the malicious process.\n*   **ignore**: ignores the alerts.\n*   **mark_mis_info**: marks the alerts as false positives by adding the alerts to the whitelist.\n*   **rm_mark_mis_info**: cancels false positives by removing the alerts from the whitelist.\n*   **offline_handled**: marks the alerts as handled.",
+      "description": "The operation to perform on the alert. Valid values:\n\n- **deal**: handles the alert (quarantine).\n- **ignore**: ignores the alert.\n- **mark\\_mis_info**: marks the alert as a false positive (adds it to the whitelist).\n- **rm\\_mark\\_mis_info**: unmarks the alert as a false positive (removes it from the whitelist).\n- **offline_handled**: marks the alert as handled.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SourceIp",
-      "description": "The source IP address of the request.",
+      "description": "The IP address of the access source.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubOperation",
-      "description": "The suboperation that you want to perform when you quarantine the source file of the malicious process. Valid values:\n\n*   **killAndQuaraFileByPidAndMd5andPath**: terminates the process based on its process ID (PID) and quarantines the source file of the process.\n*   **quaraFileByMd5andPath**: quarantines the source file of the process.\n*   **killAndQuaraFileByMd5andPath**: terminates the process and quarantines the source file of the process.",
+      "description": "The sub-operation type to perform when quarantining the alert event. Valid values:\n\n- **killAndQuaraFileByPidAndMd5andPath**: terminates the process by PID and quarantines the source file of the process.\n- **quaraFileByMd5andPath**: quarantines the source file of the process.\n- **killAndQuaraFileByMd5andPath**: terminates the process and quarantines the source file of the process.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SuspiciousEventIds",
-      "description": "The IDs of alert events.\n\n> You can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to obtain the IDs of alert events from the SecurityEventIds response parameter.",
+      "description": "The list of alert event IDs.\n\n> You can call [DescribeSuspEvents](~~DescribeSuspEvents~~) to obtain alert event IDs from the SecurityEventIds response parameter.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "WarnType",
-      "description": "The type of the exceptions. Valid values:\n\n*   **alarm**: alerts\n*   **null**: exceptions",
+      "description": "The type of the exception event to handle. Valid values:\n\n- **alarm**: alert.\n- **Empty**: exception.",
       "position": "Query",
       "type": "String",
       "required": false

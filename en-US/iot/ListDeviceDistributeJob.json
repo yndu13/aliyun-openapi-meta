@@ -1,54 +1,55 @@
 {
   "name": "ListDeviceDistributeJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CurrentPage",
-      "description": "The number of the page to return. Default value: 1.\n\nThe **NextToken** or **CurrentPage** parameter specifies a condition for displaying the results. You can specify one of the two parameters. If you specify both parameters at the same time, the **NextToken parameter** is used.\n\nFor information about the **NextToken** parameter, see the description of the **NextToken** parameter.",
+      "description": "The page number to display from the returned results. Default value: 1.\n\n**NextToken** and **CurrentPage** are conditional parameters for setting the display results. You can specify either one. If both are specified, **NextToken** takes priority.\n\nFor more information about how to use the **NextToken** parameter, see the **NextToken** description.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "JobId",
-      "description": "The ID of the distribution task. The ID is globally unique.",
+      "description": "The ID of the device distribution task. This is the globally unique identifier of the task.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used to retrieve subsequent pages of the query results. The first time you perform a query operation, you do not need to specify this parameter.\n\nThe **NextToken** or **CurrentPage** parameter specifies a condition for displaying the results. You can specify one of the two parameters. If you specify both parameters at the same time, the **NextToken** parameter is used.\n\n\n\n**Important**\n\nThe offset in the number of results is obtained by using the following formula: **PageSize** × (**CurrentPage** - 1).\n\nIf the offset is greater than 10,000, you must use the token that is returned in the previous query as the value of the **NextToken** parameter to obtain the value of the **Data** parameter. Otherwise, the current request is terminated and the value of the **Data** parameter cannot be returned.",
+      "description": "The token for the next page. You do not need to specify this parameter for the first query.\n\n**NextToken** and **CurrentPage** are conditional parameters for setting the display results. You can specify either one. If both are specified, **NextToken** takes priority.\n\n><notice>\nThe offset of query results is defined as: **PageSize** × (**CurrentPage** - 1).\n\nIf the offset is greater than 10,000, you must pass in the **NextToken** value returned by the previous call to this operation to retrieve **Data**. Otherwise, the request is interrupted and **Data** is not returned.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values: 1 to 200.",
+      "description": "The number of distribution tasks to display per page. Maximum value: 200.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ProductKey",
-      "description": "The **ProductKey** of the product to which the device belongs.",
+      "description": "The ProductKey of the product to which the device belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the device distribution task.\n\n*   **0**: The task is being initialized.\n*   **1**: The task is running.\n*   **2**: The task is completed. The status indicates that the distribution task is complete but does not indicate that all products and devices are distributed. To obtain distribution results, call the [QueryDeviceDistributeDetail](~~199533~~) operation.\n*   **3**: The task is unexpectedly interrupted.",
+      "description": "The status of the device distribution task.\n\n- **0**: The task is being initialized.\n\n- **1**: The task is running.\n \n- **2**: The task is completed. This status only indicates that the distribution task has been executed. It does not indicate that all products and devices are distributed. To obtain the distribution result details, call [QueryDeviceDistributeDetail](~~199533~~).\n\n- **3**: The task is abnormally interrupted.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TargetUid",
-      "description": "The ID of the Alibaba Cloud account to which the devices are distributed.",
+      "description": "The Alibaba Cloud account ID of the destination account for device distribution.",
       "position": "Query",
       "type": "String",
       "required": false

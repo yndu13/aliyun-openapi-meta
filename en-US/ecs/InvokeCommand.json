@@ -1,108 +1,111 @@
 {
   "name": "InvokeCommand",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CommandId",
-      "description": "The command ID. You can call the [DescribeCommands](~~64843~~) operation to query all available command IDs.\n\n>  Common Cloud Assistant commands can be run based on their names. For more information, see [View and run common Cloud Assistant commands](~~429635~~).",
+      "description": "The command ID. You can call [DescribeCommands](~~64843~~) to query all available command IDs. \n\n>You can run public commands by specifying the command name. For more information, see [View and run Cloud Assistant public commands](~~429635~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ContainerId",
-      "description": "The ID of the container. Only 64-bit hexadecimal strings are supported. You can use container IDs that are prefixed with `docker://`, `containerd://`, or `cri-o://` to specify container runtimes.\n\nTake note of the following items:\n\n*   If this parameter is specified, Cloud Assistant runs the command in the specified container of the instance.\n\n*   If this parameter is specified, the command can run only on Linux instances on which Cloud Assistant Agent 2.2.3.344 or later is installed.\n\n    *   For information about how to query the version of Cloud Assistant Agent, see [Install Cloud Assistant Agent](~~64921~~).\n    *   For information about how to upgrade Cloud Assistant Agent, see [Upgrade or disable upgrades for Cloud Assistant Agent](~~134383~~).\n\n*   If this parameter is specified, the `Username` parameter that is specified in a request to call this operation and the `WorkingDir` parameter that is specified in a request to call the [CreateCommand](~~64844~~) operation do not take effect. You can run the command only in the default working directory of the container by using the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).\n\n*   If this parameter is specified, only shell scripts can be run in Linux containers. You cannot add a command in the format similar to `#!/usr/bin/python` at the beginning of a script to specify a script interpreter. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).",
+      "description": "The container ID. Only 64-bit hexadecimal strings are supported. You can use the `docker://`, `containerd://`, or `cri-o://` prefix to specify the container runtime.\n\nPrecautions:\n- If you specify this parameter, Cloud Assistant executes the script in the specified container of the instance.\n- If you specify this parameter, the command can only run on Linux instances with Cloud Assistant Agent version 2.2.3.344 or later.\n\n    - To view the Cloud Assistant Agent version, see [Install Cloud Assistant Agent](~~64921~~).\n    - To upgrade the Cloud Assistant Agent version, see [Upgrade or disable upgrades for Cloud Assistant Agent](~~134383~~).\n\n- If you specify this parameter, the `Username` parameter specified in this operation and the `WorkingDir` parameter specified in [CreateCommand](~~64844~~) do not take effect. The command can only be executed by the default user of the container in the default working directory of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).\n- If you specify this parameter, only Shell scripts can be executed in Linux containers. You cannot use a format such as `#!/usr/bin/python` at the beginning of the script to specify an interpreter. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ContainerName",
-      "description": "The name of the container.\n\nTake note of the following items:\n\n*   If this parameter is specified, Cloud Assistant runs the command in the specified container of the instance.\n\n*   If this parameter is specified, the command can run only on Linux instances on which Cloud Assistant Agent 2.2.3.344 or later is installed.\n\n    *   For information about how to query the version of Cloud Assistant Agent, see [Install Cloud Assistant Agent](~~64921~~).\n    *   For information about how to upgrade Cloud Assistant Agent, see [Upgrade or disable upgrades for Cloud Assistant Agent](~~134383~~).\n\n*   If this parameter is specified, the `Username` parameter that is specified in a request to call this operation and the `WorkingDir` parameter that is specified in a request to call the [CreateCommand](~~64844~~) operation do not take effect. You can run the command only in the default working directory of the container by using the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).\n\n*   If this parameter is specified, only shell scripts can be run in Linux containers. You cannot add a command in the format similar to `#!/usr/bin/python` at the beginning of a script to specify a script interpreter. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).",
+      "description": "The container name.\n\nPrecautions:\n- If you specify this parameter, Cloud Assistant executes the script in the specified container of the instance.\n- If you specify this parameter, the command can only run on Linux instances with Cloud Assistant Agent version 2.2.3.344 or later.\n\n    - To view the Cloud Assistant Agent version, see [Install Cloud Assistant Agent](~~64921~~).\n    - To upgrade the Cloud Assistant Agent version, see [Upgrade or disable upgrades for Cloud Assistant Agent](~~134383~~).\n- If you specify this parameter, the `Username` parameter specified in this operation and the `WorkingDir` parameter specified in [CreateCommand](~~64844~~) do not take effect. The command can only be executed by the default user of the container in the default working directory of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).\n- If you specify this parameter, only Shell scripts can be executed in Linux containers. You cannot use a format such as `#!/usr/bin/python` at the beginning of the script to specify an interpreter. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Frequency",
-      "description": "The schedule on which to run the command. You can configure a command to run at a fixed interval based on a rate expression, run only once at a specific time, or run at specific times based on a cron expression.\n\n*   To run a command at a fixed interval, use a rate expression to specify the interval. You can specify the interval in seconds, minutes, hours, or days. This option is suitable for scenarios in which tasks need to be executed at a fixed interval. Specify the interval in the following format: `rate(<Execution interval value><Execution interval unit>)`. For example, specify `rate(5m)` to run the command every 5 minutes. When you specify an interval, take note of the following limits:\n\n    *   The interval can be anywhere from 60 seconds to 7 days, but must be longer than the timeout period of the scheduled task.\n    *   The interval is the amount of time that elapses between two consecutive executions. The interval is irrelevant to the amount of time that is required to run the command once. For example, assume that you set the interval to 5 minutes and that it takes 2 minutes to run the command each time. Each time the command is run, the system waits 3 minutes before the system runs the command again.\n    *   A task is not immediately executed after the task is created. For example, assume that you set the interval to 5 minutes for a task. The task begins to be executed 5 minutes after it is created.\n\n*   To run a command only once at a specific time, specify a point in time and a time zone. Specify the point in time in the `at(yyyy-MM-dd HH:mm:ss <Time zone>)` format, which indicates `at(Year-Month-Day Hour:Minute:Second <Time zone>)`. If you do not specify a time zone, the Coordinated Universal Time (UTC) time zone is used by default. You can specify a time zone in the following forms:\n\n    *   The time zone name. Examples: `Asia/Shanghai` and `America/Los_Angeles`.\n    *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, you cannot add leading zeros to the hour value.\n    *   The time zone abbreviation. Only UTC is supported.\n\n    For example, to configure a command to run only once at 13:15:30 on June 6, 2022 (Shanghai time), set the time to `at(2022-06-06 13:15:30 Asia/Shanghai)`. To configure a command to run only once at 13:15:30 on June 6, 2022 (UTC-7), set the time to `at(2022-06-06 13:15:30 GMT-7:00)`.\n\n*   To run a command at specific times, use a cron expression to define the schedule. Specify a schedule in the `<Cron expression> <Time zone>` format. The cron expression is in the `<seconds> <minutes> <hours> <day of the month> <month> <day of the week> <year (optional)>` format. The system calculates the execution times of the command based on the specified cron expression and time zone and runs the command as scheduled. If you do not specify a time zone, the system time zone of the instance on which you want to run the command is used by default. For more information about cron expressions, see [Cron expressions](~~64769~~). You can specify a time zone in the following forms:\n\n    *   The time zone name. Examples: `Asia/Shanghai` and `America/Los_Angeles`.\n    *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, you cannot add leading zeros to the hour value.\n    *   The time zone abbreviation. Only UTC is supported. For example, to configure a command to run at 10:15:00 every day in 2022 (Shanghai time), set the schedule to `0 15 10 ? * * 2022 Asia/Shanghai`. To configure a command to run every half an hour from 10:00:00 to 11:30:00 every day in 2022 (UTC+8), set the schedule to `0 0/30 10-11 * * ? 2022 GMT+8:00`. To configure a command to run every 5 minutes from 14:00:00 to 14:55:00 every October every two years from 2022 in UTC, set the schedule to `0 0/5 14 * 10 ? 2022/2 UTC`.\n\n    **\n\n    **Note** The minimum interval must be 10 seconds or more and cannot be shorter than the timeout period of scheduled executions.",
+      "description": "The schedule on which the command is executed. Three types of scheduled execution are supported: fixed interval (based on a Rate expression), one-time execution at a specified time, and clock-based scheduling (based on a Cron expression).\n\n- Fixed interval execution: Based on a Rate expression, the command is executed at a set interval. The interval can be specified in seconds (s), minutes (m), hours (h), or days (d). This is suitable for scenarios that require execution at fixed intervals. Format: `rate(<interval value><interval unit>)`. For example, to execute every 5 minutes, use `rate(5m)`. Fixed interval execution has the following limits:\n    - The interval must not exceed 7 days or be less than 60 seconds, and must be greater than the timeout period of the scheduled task.\n    - The execution interval is based on a fixed frequency and is unrelated to the actual execution time of the task. For example, if the command is set to execute every 5 minutes and the task takes 2 minutes to complete, the next execution starts 3 minutes after the task completes.\n    - The task is not executed immediately upon creation. For example, if the command is set to execute every 5 minutes, the first execution starts 5 minutes after the task is created.\n\n- One-time execution at a specified time: The command is executed once at the specified time zone and time. Format: `at(yyyy-MM-dd HH:mm:ss <time zone>)`. If no time zone is specified, UTC is used by default. The time zone supports the following three formats:\n    - Full time zone name: For example, `Asia/Shanghai` (China/Shanghai time) or `America/Los_Angeles` (US/Los Angeles time).\n    - Time zone offset from Greenwich Mean Time: For example, `GMT+8:00` (East 8th time zone) or `GMT-7:00` (West 7th time zone). When using GMT format, leading zeros are not supported in the hour field.\n    - Time zone abbreviation: Only UTC (Coordinated Universal Time) is supported.\n\n  For example, to execute once at 13:15:30 on June 6, 2022 in China/Shanghai time, use: `at(2022-06-06 13:15:30 Asia/Shanghai)`. To execute once at 13:15:30 on June 6, 2022 in the West 7th time zone, use: `at(2022-06-06 13:15:30 GMT-7:00)`.\n\n- Clock-based scheduling (based on a Cron expression): Based on a Cron expression, the command is executed according to the scheduled task settings. Format: `<seconds> <minutes> <hours> <day of month> <month> <day of week> <year (optional)> <time zone>`, that is, `<Cron expression> <time zone>`. The scheduled task execution time is calculated based on the Cron expression in the specified time zone. If no time zone is specified, the system time zone of the instance running the scheduled task is used. For more information about Cron expressions, see [Cron expressions](~~64769~~). The time zone supports the following three formats:\n    - Full time zone name: For example, `Asia/Shanghai` (China/Shanghai time) or `America/Los_Angeles` (US/Los Angeles time).\n    - Time zone offset from Greenwich Mean Time: For example, `GMT+8:00` (East 8th time zone) or `GMT-7:00` (West 7th time zone). When using GMT format, leading zeros are not supported in the hour field.\n    - Time zone abbreviation: Only UTC (Coordinated Universal Time) is supported.\n  For example, to execute once at 10:15 every day in 2022 in China/Shanghai time, use `0 15 10 ? * * 2022 Asia/Shanghai`. To execute every 30 minutes from 10:00 to 11:30 every day in 2022 in the East 8th time zone, use `0 0/30 10-11 * * ? 2022 GMT+8:00`. To execute every 5 minutes from 14:00 to 14:55 every day in October every two years starting from 2022 in UTC, use `0 0/5 14 * 10 ? 2022/2 UTC`.\n\n    >The minimum interval must be greater than or equal to the timeout period of the scheduled task and no less than 10 seconds.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The IDs of instances on which you want to run the command. You can specify up to 100 instance IDs in each request. Valid values of N: 1 to 100.\n\nYou can apply for a quota increase in the Quota Center console. The quota name is Maximum number of instances supported for command execution.",
+      "description": "The list of instances on which to execute the command. You can specify up to 100 instance IDs. Valid values of N: 1 to 100.\n\nYou can also apply for a quota increase in Quota Center (quota name: Maximum number of instances supported for command execution).",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Launcher",
-      "description": "The launcher for script execution. The value cannot exceed 1 KB in length.",
+      "description": "The bootstrap program for script execution. The length cannot exceed 1 KB.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OssOutputDelivery",
-      "description": "",
+      "description": "The OSS delivery configuration for command execution output.\n\n- Format: oss://${BucketName}/${Prefix}, where ${BucketName} is the name of the OSS bucket to deliver to, and ${Prefix} is the directory prefix to deliver to.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Parameters",
-      "description": "The key-value pairs of custom parameters to pass in when the custom parameter feature is enabled. You can specify up to 10 custom parameters.\n\n*   Each key in a Map collection cannot be an empty string, and can be up to 64 characters in length.\n*   Each value in a Map collection can be an empty string.\n*   The size of the command after Base64 encoding, including the custom parameters and the original command content, cannot exceed 18 KB.\n*   The custom parameter names that are specified by Parameters must be included in the custom parameter names that you specified when you created the command. You can use empty strings to represent the custom parameters that are not specified.\n\nIf you want to disable the custom parameter feature, you can leave this parameter empty.",
+      "description": "The key-value pairs of custom parameters to pass in when executing the command with the custom parameter feature enabled. The number of custom parameters ranges from 0 to 10.\n\n- Map keys cannot be empty strings and can contain up to 64 characters.\n- Map values can be empty strings.\n- After Base64 encoding, the total length of custom parameters and the original command content cannot exceed 24 KB.\n- The set of custom parameter names must be a subset of the parameter set defined when the command was created. For parameters that are not passed in, you can use an empty string as a substitute.\n\nYou can disable custom parameters by not setting this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the command. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RepeatMode",
-      "description": "Specifies how to run the command. Valid values:\n\n*   Once: immediately runs the command.\n*   Period: runs the command based on a schedule. If you set this parameter to `Period`, you must also configure the `Frequency` parameter.\n*   NextRebootOnly: runs the command the next time the instance is started.\n*   EveryReboot: The command is run every time the instances start.\n*   DryRun: Specifies whether to perform only a dry run, without performing the actual request. The command does not take effect. The system checks the request, including the request parameters, instance execution environment, and Cloud Assistant Agent running status.\n\nDefault value:\n\n*   If you do not specify `Frequency`, the default value is `Once`.\n*   If you specify the `Frequency` parameter, `Period` is used as the value of RepeatMode regardless of whether RepeatMode is set to Period.\n\nTake note of the following items when you specify this property:\n\n*   You can call the [StopInvocation](~~64838~~) operation to stop the pending or scheduled executions of the command.\n*   If you set this parameter to `Period` or `EveryReboot`, you can call the [DescribeInvocationResults](~~64845~~) operation with `IncludeHistory` set to true to query the results of historical scheduled executions.",
+      "description": "The execution mode of the command. Valid values:\n\n- Once: immediately executes the command.\n- Period: executes the command on a schedule. If you set this parameter to `Period`, you must also specify the `Frequency` parameter.\n- NextRebootOnly: automatically executes the command the next time the instance starts.\n- EveryReboot: automatically executes the command every time the instance starts.\n- DryRun: only performs a dry run of the request. The command is not actually executed. The dry run checks request parameters, the instance execution environment, and the Cloud Assistant Agent running status.\n\nDefault value:\n\n- If you do not specify the `Frequency` parameter, the default value is `Once`.\n- If you specify the `Frequency` parameter, the command is executed as `Period` regardless of whether this parameter is set.\n\nPrecautions:\n\n- You can call [StopInvocation](~~64838~~) to stop a pending or scheduled command.\n- If you set this parameter to `Period` or `EveryReboot`, you can call [DescribeInvocationResults](~~64845~~) and specify `IncludeHistory=true` to view the execution history of the scheduled command.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the command executions. When you set this parameter, take note of the following items:\n\n*   The instances specified by InstanceId.N must belong to the specified resource group.\n*   After the command is run, you can call the [DescribeInvocations](~~64840~~) or [DescribeInvocationResults](~~64845~~) operation with ResourceGroupId set to query the execution results in the specified resource group.",
+      "description": "The ID of the resource group for the command execution. When you specify this parameter:\n\n- The ECS instance specified by InstanceId must belong to this resource group if the instance is not in the default resource group.\n\n- You can filter command execution results by specifying this parameter (by calling [DescribeInvocations](~~64840~~) or [DescribeInvocationResults](~~64845~~)).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceTag",
-      "description": "The tags of the instance. If you do not specify InstanceId.N, the command is run on the instances that have the specified tags.",
+      "description": "The tags used to filter instances. You can run commands in batches on instances with the same tag without specifying InstanceId.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key used to filter instances.\n\nPrecautions:\n\n- This parameter conflicts with the InstanceId parameter. You cannot specify both parameters at the same time.\n\n- Valid values of N: 1 to 10. The tag key cannot be an empty string once specified.\n\n- The number of instances with the tag cannot exceed the limit of InstanceId.N. If the number of instances exceeds the limit, control the number of instances by adding batch tags, such as batch: b1.\n\n- The tag key can be up to 64 characters in length and cannot start with aliyun or acs:, or contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value used to filter instances.\n\nPrecautions:\n\n- Valid values of N: 1 to 10.\n- The value can be an empty string.\n- The tag value can be up to 128 characters in length and cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -111,19 +114,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags of the command.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the command execution. Valid values of N: 1 to 20. The tag key cannot be an empty string once specified.\n\nIf you use a single tag to filter resources, the resource count with this tag cannot exceed 1,000. If you use multiple tags to filter resources, the resource count with all specified tags attached cannot exceed 1,000. If the resource count exceeds 1,000, execute the [ListTagResources](~~110425~~) operation to query resources.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the command execution. Valid values of N: 1 to 20. The value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -132,42 +137,42 @@
     },
     {
       "name": "TerminationMode",
-      "description": "Specifies how to stop the command task when a command execution is manually stopped or times out. Valid values:\n\n*   Process: stops the process of the command.\n*   ProcessTree: stops the process tree of the command. In this case, the process of the command and all subprocesses of the process are stopped.",
+      "description": "The mode for stopping the task (manual stop or timeout interruption). Valid values:\n- Process: stops the current script process.\n- ProcessTree: stops the current process tree (the collection of the script process and all child processes it created).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Timed",
-      "description": ">  This parameter is no longer used and does not take effect.",
+      "description": ">This parameter is deprecated and has no effect if specified.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Timeout",
-      "description": "The timeout period for the command execution. Unit: seconds.\n\n*   The timeout period cannot be less than 10 seconds.\n*   A timeout error occurs if the command cannot be run because the process slows down or because a specific module or Cloud Assistant Agent does not exist. When the specified timeout period ends, the command process is forcefully terminated.\n*   If you do not specify this parameter, the timeout period that is specified when the command is created is used.\n*   This timeout period is applicable only to this execution. The timeout period of the command is not modified.",
+      "description": "The timeout period for the command execution. Unit: seconds.\n\n- The value cannot be less than 10 seconds.\n\n- If the command cannot run due to process issues, missing modules, or missing Cloud Assistant Agent, a timeout occurs. When a timeout occurs, the command process is forcefully terminated.\n\n- If this value is not set, the timeout period specified when the command was created is used.\n\n- This value only applies as the timeout period for this command execution and does not change the timeout period of the command itself.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Username",
-      "description": "The username to use to run the command on the ECS instances. The username cannot exceed 255 characters in length.\n\n*   For Linux instances, the root username is used by default.\n*   For Windows instances, the System username is used by default.\n\nYou can also specify other usernames that already exist in the instances to run the command. For security purposes, we recommend that you run Cloud Assistant commands as a regular user. For more information, see [Run Cloud Assistant commands as a regular user](~~203771~~).",
+      "description": "The username used to execute the command on the ECS instance. The length cannot exceed 255 characters.\n\n- For Linux instances, the command is executed as the root user by default.\n- For Windows instances, the command is executed as the System user by default.\n\nYou can also specify another existing user on the instance to execute the command. Executing Cloud Assistant commands as a regular user is more secure. For more information, see [Configure a regular user to run Cloud Assistant commands](~~203771~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WindowsPasswordName",
-      "description": "The name of the password to use to run the command on a Windows instance. The name cannot exceed 255 characters in length.\n\nIf you do not want to use the default System user to run the command on Windows instances, specify both WindowsPasswordName and `Username`. To mitigate the risk of password leaks, the password is stored in plaintext in CloudOps Orchestration Service (OOS) Parameter Store, and only the name of the password is passed in by using WindowsPasswordName. For more information, see [Manage encryption parameters](~~186828~~) and [Run Cloud Assistant commands as a regular user](~~203771~~).\n\n>  If you use the root username for Linux instances or the System username for Windows instances to run the command, you do not need to specify WindowsPasswordName.",
+      "description": "The name of the password for the user who executes the command on a Windows instance. The length cannot exceed 255 characters.\n\nWhen you want to execute a command as a non-default user (System) on a Windows instance, you must specify both `Username` and this parameter. To reduce the risk of password leaks, the plaintext password must be stored in the parameter repository of CloudOps Orchestration Service. Only the password name is passed in here. For more information, see [Encryption parameters](~~186828~~) and [Settings for a regular user to run Cloud Assistant commands](~~203771~~).\n\n> This parameter is not required when you execute a command as the root user on a Linux instance or the System user on a Windows instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WorkingDir",
-      "description": "The execution path of the command on ECS instances. The value can be up to 200 characters in length.\n\n*   If you do not specify this parameter, the execution path specified when the command is created is used.\n*   This execution path is applicable only to this task. The execution path of the command is not changed.",
+      "description": "The directory in which the command is executed on the ECS instance. The length cannot exceed 200 characters.\n- If this value is not set, the working directory specified when the command was created is used.\n- This value only applies as the working directory for this command execution and does not change the working directory of the command itself.",
       "position": "Query",
       "type": "String",
       "required": false

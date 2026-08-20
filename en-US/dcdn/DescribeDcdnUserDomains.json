@@ -1,61 +1,62 @@
 {
   "name": "DescribeDcdnUserDomains",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ChangeEndTime",
-      "description": "The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.\n\n> The end time must be later than the start time.",
+      "description": "The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n> The end time must be later than the start time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ChangeStartTime",
-      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.",
+      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CheckDomainShow",
-      "description": "Specifies whether to display domain names that are under review, failed the review, or failed to be configured. Valid values:\n\n*   true: displays domain names.\n*   false: does not display detailed information.",
+      "description": "Specifies whether to display domain names that are under review, failed the review, or failed to be configured. Valid values:\n\n- true: displays the domain names.\n\n- false: does not display the domain names.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Coverage",
-      "description": "The acceleration region. By default, all acceleration regions are queried.\n\n*   **domestic**: Chinese mainland\n*   **overseas**: outside the Chinese mainland\n*   **global**: global",
+      "description": "The acceleration region. Default value: all. Valid values:\n\n- **domestic**: the Chinese mainland.\n\n- **overseas**: global (excluding the Chinese mainland).\n\n- **global**: global.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainName",
-      "description": "The accelerated domain names. If you do not set this parameter, configurations of all domain names that match the conditions are returned.",
+      "description": "The accelerated domain name. If you do not specify this parameter, all accelerated domain names under your account are returned.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainSearchType",
-      "description": "The search method. Default value: full_match. Valid values:\n\n*   **fuzzy_match**: fuzzy match\n*   **pre_match**: prefix match\n*   **suf_match**: suffix match\n*   **full_match** (default): exact match\n\n> If you specify the domain names to query but do not set the DomainSearchType parameter, the exact match mode is used.",
+      "description": "The search method for the domain name. Valid values:\n\n- **fuzzy\\_match**: fuzzy match.\n\n- **pre\\_match**: prefix match.\n\n- **suf\\_match**: suffix match.\n\n- **full\\_match** (default): exact match.\n\n> If you specify a domain name but do not set this parameter, the system performs an exact match by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainStatus",
-      "description": "The status of the domain name. Valid values:\n\n*   **online**: enabled\n*   **offline**: disabled\n*   **configuring**: configuring\n*   **configure_failed**: configuration failed\n*   **checking**: reviewing\n*   **check_failed:** review failed",
+      "description": "The status of the domain name. Valid values:\n\n- **online**: The domain name is enabled.\n\n- **offline**: The domain name is disabled.\n\n- **configuring**: The domain name is being configured.\n\n- **configure\\_failed**: The domain name failed to be configured.\n\n- **checking**: The domain name is under review.\n\n- **check\\_failed**: The domain name failed the review.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The number of returned pages. Valid values: **1** to **100000**.",
+      "description": "The page number. Valid values: **1** to **100000**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -83,12 +84,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of tag N. Valid values of N: **1** to **20**. You can call the TagDcdnResources operation to tag a domain name.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of tag N. Valid values of N: **1** to **20**.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -97,7 +100,7 @@
     },
     {
       "name": "WebSiteType",
-      "description": "The business type of the domain. Separate multiple values with commas (,). Default value: **dynamic**. To query common domains, keep the default value. To query domains of the computing business type, enter **computing_routine** or **computing_image**.",
+      "description": "The business type. You can specify multiple types and separate them with commas (,). The default value is **dynamic**, which returns standard DCDN domain names. To query domain names for the computing service, set this parameter to **computing\\_routine** or **computing\\_image**.",
       "position": "Query",
       "type": "String",
       "required": false

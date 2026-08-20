@@ -1,0 +1,79 @@
+{
+  "name": "CreateEnhancedVpnGateway",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ClientToken",
+      "description": "客户端Token，用于保证请求的幂等性。\n\n从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符。\n\n> 若您未指定，则系统自动使用API请求的**RequestId**作为**ClientToken**标识。每次API请求的**RequestId**可能不一样。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DisasterRecoveryVSwitchId",
+      "description": "指定增强型 VPN 网关实例关联的第二个交换机实例。\n\n- 本参数必填。\n- 您需要从增强型 VPN 网关实例关联的VPC实例下指定两个分布在不同可用区的交换机实例，以实现IPsec-VPN连接可用区级别的容灾。\n- 对于仅支持一个可用区的地域 ，不支持可用区级别的容灾，建议您在该可用区下指定两个不同的交换机实例以实现IPsec-VPN连接的高可用，支持指定相同的交换机实例。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "GatewayType",
+      "description": "增强型 VPN 网关类型，取值：\n- **Enhanced.SiteToSite**，增强型站点入云VPN，只覆盖IPsec功能",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Name",
+      "description": "增强型 VPN 网关的名称，默认值为增强型 VPN 网关的 ID。\n\n长度为 2～100 个字符，不能以http://或https://开头，需要以大写或小写字母开头，后面可包含大小写字母、数字、下划线（_）、短划线（-）和半角句号（.），不支持其他特殊字符。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "NetworkType",
+      "description": "VPN网关的网络类型。取值：\n\n- **public**（默认值）：公网VPN网关。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "增强型VPN网关所在的地域ID。\n\n您可以通过调用[DescribeRegions](~~36063~~)接口获取地域ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ResourceGroupId",
+      "description": "增强型 VPN 网关所属的资源组ID。\n\n- 您可以调用[ListResourceGroups](~~158855~~)接口查询资源组ID。\n- 如果您未指定资源组 ID，增强型 VPN 网关创建完成后将归属于默认资源组。\n- 增强型 VPN 网关创建完成后，如果您在增强型 VPN 网关下创建 IPsec 连接（指 IPsec 连接绑定增强型 VPN 网关的场景），则这些资源将直接归属在增强型 VPN 网关所属的资源组下，且不支持修改。如果您修改了增强型 VPN 网关所属的资源组，则上述资源所属的资源组也将一并被修改。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "VSwitchId",
+      "description": "指定增强型 VPN 网关实例关联的交换机实例。\n\n- 您必须指定一个交换机实例，同时您还要指定 **DisasterRecoveryVSwitchId** 参数的值。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "VpcId",
+      "description": "增强型VPN 网关所属的 VPC 实例 ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "VpnType",
+      "description": "增强型 VPN 网关类型。取值：\n- **Normal**（默认值）：普通型。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

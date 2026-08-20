@@ -1,82 +1,90 @@
 {
   "name": "CreateHostAccount",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "HostAccountName",
-      "description": "The name of the host account. The name can be up to 128 characters in length.",
+      "description": "The name of the host account to create. The name can be up to 128 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "HostId",
-      "description": "The ID of the host to which you want to add a host account.\n\n>  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.",
+      "description": "The ID of the host for which you want to create a host account.\n\n> You can call the [ListHosts](~~200665~~) operation to query this parameter.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "HostShareKeyId",
-      "description": "The ID of the shared key.",
+      "description": "The ID of the shared key for the host.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the bastion host in which you want to add a host account to the host.\n\n>  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.",
+      "description": "The ID of the Bastionhost instance where the host for which you want to create a host account resides.\n> You can call the [DescribeInstances](~~153281~~) operation to query the Bastionhost instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PassPhrase",
-      "description": "The passphrase for the private key of the host account.\n\n> You can configure this parameter only if ProtocolName is set to SSH. You do not need to configure this parameter if ProtocolName is set to RDP.",
+      "description": "The passphrase of the private key for the host account to create.\n\n> You can configure this parameter when ProtocolName is set to SSH. You do not need to configure this parameter when ProtocolName is set to RDP.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Password",
-      "description": "The password of the host account.",
+      "description": "The password of the host account to create.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateKey",
-      "description": "The private key of the host account. Specify a Base64-encoded string.\n\n> This parameter is valid only if ProtocolName is set to SSH. You do not need to configure this parameter if ProtocolName is set to RDP. You can configure a password and a private key for the host account at the same time. If both a password and a private key are configured for the host account, Bastionhost preferentially uses the private key for logon.",
+      "description": "The private key of the host account to create. The value is a Base64-encoded string.\n\n> This parameter takes effect only when ProtocolName is set to SSH. You do not need to configure this parameter when ProtocolName is set to RDP. You can configure both a password and a private key for the host account. When connecting to an asset, Bastionhost preferentially uses the private key.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivilegeType",
-      "description": "",
+      "description": "The privilege type of the account. Default value: Normal.\n- **Privileged**: privileged account.\n- **Normal**: standard account.\n>Only supported in V3.2.47 and later.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "ProjectId",
+      "description": "The project ID.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "ProtocolName",
-      "description": "The protocol of the host to which you want to add a host account.\n\nValid values:\n\n*   SSH\n*   RDP",
+      "description": "The protocol name of the host account to create.\n<br>Valid values:\n- SSH\n- RDP",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the bastion host in which you want to add a host account to the host.\n\n>  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
+      "description": "The region ID of the Bastionhost instance where the host for which you want to create a host account resides.\n\n> For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RotationMode",
-      "description": "",
+      "description": "The password rotation mode of the account. Default value: Self.\n- **Privileged**: uses a privileged account to rotate the password.\n- **Self**: does not use a privileged account to rotate the password.\n>Only supported in V3.2.47 and later.",
       "position": "Query",
       "type": "String",
       "required": false

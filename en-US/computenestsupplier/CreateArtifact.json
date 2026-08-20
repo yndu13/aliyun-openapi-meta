@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "ArtifactBuildProperty",
-      "description": "The build properties of the artifact, utilized for hosting and building the deployment package.",
+      "description": "The content used to build the artifact. This parameter is used for managed artifact builds.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ArtifactBuildType",
-      "description": "The type of the artifact build task. Valid values:\n\n- EcsImage: Build ECS (Elastic Container Service) image.\n\n- Dockerfile: Build container image based on Dockerfile.\n\n- Buildpacks: Build container image based on Buildpacks.\n\n- ContainerImage: Rebuild container image by renaming an existing container image.",
+      "description": "The type of the artifact to be built. Valid values:\n\n- EcsImage: builds an ECS image.\n\n- Dockerfile: builds a container image based on a Dockerfile.\n\n- Buildpacks: builds a container image based on Buildpacks.\n\n- ContainerImage: builds a container image by renaming an existing container image.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ArtifactId",
-      "description": "The ID of the deployment package.",
+      "description": "The artifact ID.\n\nThis parameter is required to create a new version of an existing artifact.\n\nYou can call the [ListArtifacts](~~469993~~) operation to obtain the artifact ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ArtifactProperty",
-      "description": "The properties of the deployment object.",
+      "description": "The content of the artifact.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ArtifactType",
-      "description": "The type of the deployment package. Valid values:\n\n*   EcsImage: Elastic Compute Service (ECS) image.\n*   AcrImage: container image.\n*   File: Object Storage Service (OSS) object.\n*   Script: script.",
+      "description": "The artifact type.\n\nValid values:\n\n- EcsImage: an ECS image artifact.\n\n- AcrImage: a container image artifact.\n\n- File: an Object Storage Service (OSS) file artifact.\n\n- Script: a script artifact.\n\n- HelmChart: a Helm chart artifact.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "Ensures the idempotence of the request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the deployment package.",
+      "description": "The description of the artifact.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the deployment package.",
+      "description": "The artifact name.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -70,7 +70,7 @@
     },
     {
       "name": "SupportRegionIds",
-      "description": "The supported regions.",
+      "description": "The regions where the image can be distributed.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -84,12 +84,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -98,7 +100,7 @@
     },
     {
       "name": "VersionName",
-      "description": "The version name of the deployment package.",
+      "description": "The name of the artifact version.",
       "position": "Query",
       "type": "String",
       "required": true

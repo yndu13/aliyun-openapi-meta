@@ -7,49 +7,42 @@
   "parameters": [
     {
       "name": "AutoCreateProxy",
-      "description": "Specifies whether to automatically create database proxies. Valid values:\n\n*   **true**: automatically creates database proxies. By default, general-purpose database proxies are created.\n*   **false**: does not automatically create database proxies.",
+      "description": "Indicates whether automatic creation of a database proxy is enabled. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoPay",
-      "description": "Specifies whether to automatically complete the payment. Valid values:\n\n1.  **true**: automatically completes the payment. Make sure that your account balance is sufficient.\n2.  **false**: does not automatically complete the payment. An unpaid order is generated.\n\n>  Default value: true. If your account balance is insufficient, you can set the AutoPay parameter to false to generate an unpaid order. Then, you can log on to the ApsaraDB RDS console to complete the payment.",
+      "description": "Specifies whether to enable automatic payment. Valid values:\n\n- **true**: Automatic payment is enabled. Make sure that your account balance is sufficient.\n- **false**: Only an order is generated, and no payment is made.\n\n\n> Default value: true. If your payment method has an insufficient balance, you can set AutoPay to false. In this case, an unpaid order is generated. You can log on to the ApsaraDB RDS console to complete the payment.\n>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable the auto-renewal feature for the read-only instance. If you set the PayType parameter to Prepaid, you must also specify this parameter. Valid values:\n\n*   **true**: enables the feature.\n*   **false**: disables the feature.\n\n> * If you set the Period parameter to Month, the auto-renewal cycle is one month.\n> * If you set the Period parameter to Year, the auto-renewal cycle is one year.",
+      "description": "Specifies whether to enable auto-renewal for the instance. This parameter takes effect only when you create a subscription instance. Valid values:\n* **true**: Enabled.\n* **false**: Not enabled.\n\n> * If you purchase the instance on a monthly basis, the auto-renewal cycle is one month.\n> * If you purchase the instance on a yearly basis, the auto-renewal cycle is one year.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to use a coupon. Valid values:\n\n*   **true**: uses a coupon.\n*   **false** (default): does not use a coupon.",
+      "description": "Specifies whether to use coupons. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
-      "name": "BpeEnabled",
-      "description": "A reserved parameter. You do not need to specify this parameter.",
-      "position": "Query",
-      "type": "String",
-      "required": false
-    },
-    {
       "name": "BurstingEnabled",
-      "description": "An invalid parameter. You do not need to specify this parameter.",
+      "description": "Specifies whether to enable the I/O burst feature for a [premium performance disk](~~2340501~~) cloud disk. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Category",
-      "description": "The RDS edition of the instance. Valid values:\n\n*   **Basic**: RDS Basic Edition\n*   **HighAvailability** (default): RDS High-availability Edition\n*   **AlwaysOn**: RDS Cluster Edition\n\n>  The read-only instances of the primary instance that run PostgreSQL and use cloud disks run RDS Basic Edition. Therefore, set this parameter to **Basic**.",
+      "description": "The instance edition. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,126 +56,126 @@
     },
     {
       "name": "CustomExtraInfo",
-      "description": "",
+      "description": "A reserved parameter. You do not need to configure this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceClass",
-      "description": "The instance type of the read-only instance. For more information, see [Read-only instance types](~~145759~~). We recommend that you specify an instance type whose specifications are higher than or equal to the specifications of the instance type of the primary instance. If the specifications of the read-only instance are lower than the specifications of the primary instance, the read-only instance may encounter issues such as high latency and heavy load.",
+      "description": "The instance type. For more information, see [Read-only instance types](~~145759~~). We recommend that the specifications of the read-only instance be equal to or higher than those of the primary instance. Otherwise, the read-only instance may experience high latency and heavy load.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBInstanceDescription",
-      "description": "The description of the read-only instance. The description must be 2 to 256 characters in length and can contain letters, digits, underscores (\\_), and hyphens (-). The value must start with a letter\n\n> The value cannot start with [http:// or https://.](http://https://。)",
+      "description": "The description of the instance. The description must be 2 to 256 characters in length and can contain letters, digits, underscores (_), and hyphens (-). It must start with a letter or a Chinese character.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "The primary instance ID. You can call the DescribeDBInstances operation to query the instance ID.",
+      "description": "The ID of the primary instance. You can call DescribeDBInstances to query the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBInstanceStorage",
-      "description": "The storage capacity of the read-only instance. The storage capacity of the read-only instance must be greater than or equal to that of the primary instance. For more information, see the **Storage capacity** column in [Read-only instance types](~~145759~~). This value must be a multiple of 5. Unit: GB.",
+      "description": "Instance storage capacity. Instance storage capacity of the read-only instance must be greater than or equal to that of the primary instance. For more information, see the **Storage capacity** column in [Read-only instance types](~~145759~~). The value is incremented in units of 5 GB. Unit: GB.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "DBInstanceStorageType",
-      "description": "The storage type of the instance. Valid values:\n\n*   **local_ssd**: local SSDs\n*   **cloud_ssd**: standard SSDs\n*   **cloud_essd**: enhanced SSDs (ESSDs) of performance level 1 (PL1)\n*   **cloud_essd2**: ESSDs of PL2\n*   **cloud_essd3**: ESSDs of PL3\n\n> *   If the primary instance runs MySQL with local disks, you must set this parameter to **local_ssd**. If the primary instance runs MySQL with cloud disks, you must set this parameter to cloud_ssd, cloud_essd, cloud_essd2, or cloud_essd3.\n> *   If the primary instance runs SQL Server, you must set this parameter to cloud_ssd, cloud_essd, cloud_essd2, or cloud_essd3.",
+      "description": "The storage type of the instance. Valid values:\n* **local_ssd**: Premium Local SSDs\n* **cloud_ssd**: standard SSDs\n* **cloud_essd**: PL1 ESSDs\n* **cloud_essd2**: PL2 ESSDs\n* **cloud_essd3**: PL3 ESSDs\n* **general_essd**: Premium ESSDs\n\n\n> * If the primary ApsaraDB RDS for MySQL instance uses Premium Local SSDs, you can set this parameter only to **local_ssd**. If the primary ApsaraDB RDS for MySQL instance uses cloud disks, you can set this parameter only to a cloud disk storage type.\n> * SQL Server supports only cloud disk storage types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DedicatedHostGroupId",
-      "description": "The ID of the dedicated cluster to which the read-only instance belongs. This parameter is valid when you create the read-only instance in a dedicated cluster.",
+      "description": "The dedicated cluster ID. This parameter is required when you create a read-only instance in a dedicated cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeletionProtection",
-      "description": "Specifies whether to enable the release protection feature for the read-only instance. Valid values:\n\n*   **true**\n*   **false** (default)\n\n>  You can enable the release protection feature for the read-only instance only when you set the **PayType** parameter to **Postpaid**.",
+      "description": "Specifies whether to enable the release protection feature for the instance. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EngineVersion",
-      "description": "The version of the database engine. The read-only instance and the primary instance must run the same major engine version.\n\n*   If the read-only instance runs MySQL, set this parameter to **5.6**, **5.7**, or **8.0**.\n*   If the read-only instance runs MySQL, set this parameter to **2017\\_ent, 2019\\_ent, or 2022\\_ent**.\n*   If the read-only instance runs PostgreSQL, set this parameter to **10.0, 11.0, 12.0, 13.0, 14.0, or 15.0**.",
+      "description": "The database engine version. The version must be the same as that of the primary instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GdnInstanceName",
-      "description": "A reserved parameter.",
+      "description": "A reserved parameter. You do not need to configure this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceNetworkType",
-      "description": "The network type of the read-only instance. Valid values:\n\n*   **VPC**\n*   **Classic**\n\nDefault value: VPC. If you set this parameter to VPC, you must also specify the **VPCId** and **VSwitchId** parameters.\n\n>  The network type of the read-only instance can be different from the network type of the primary instance.",
+      "description": "The network type of the read-only instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstructionSetArch",
-      "description": "A reserved parameter.",
+      "description": "A reserved parameter. You do not need to configure this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IoAccelerationEnabled",
-      "description": "A reserved parameter.",
+      "description": "Specifies whether to enable the [Buffer Pool Extension (BPE)](~~2527067~~) feature for a premium performance disk cloud disk. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IsAnalyticReadOnlyIns",
-      "description": "",
+      "description": "Specifies whether to create a DuckDB-based analytical instance. Valid values:\n\n- **true**: enabled.\n- **false**: disabled.\n\n> Currently, only ApsaraDB RDS for MySQL and ApsaraDB RDS for PostgreSQL support the creation of DuckDB-based analytical instances.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "The billing method of the read-only instance. Valid values:\n\n*   **Postpaid**: pay-as-you-go\n*   **Prepaid**: subscription",
+      "description": "The billing method. Valid values:\n* **Postpaid**: pay-as-you-go.\n* **Prepaid**: subscription.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Period",
-      "description": "The renewal cycle of the read-only instance. Valid values:\n\n*   **Year**\n*   **Month**",
+      "description": "Specifies whether the subscription instance is billed on a yearly or monthly basis. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Port",
-      "description": "The port that can be initialized when you create a read-only ApsaraDB RDS for MySQL instance.\n\nValid values: 1000 to 65534.",
+      "description": "The port that is initialized when you create a read-only instance for an ApsaraDB RDS for MySQL primary instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateIpAddress",
-      "description": "The private IP address of the read-only instance. The private IP address must be within the CIDR block that is supported by the specified vSwitch. The system assigns a private IP address to the read-only instance based on the values of the **VPCId** and **VSwitchId** parameters.",
+      "description": "Settings for the internal network IP address of the read-only instance. The IP address must be within the address range of the specified vSwitch. The system automatically allocates an internal network IP address based on the values of **VPCId** and **VSwitchId** by default.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -196,63 +189,63 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID. The read-only instance and the primary instance must reside in the same region. You can call the DescribeRegions operation to query the most recent region list.",
+      "description": "The region ID. The region of the read-only instance must be the same as that of the primary instance. You can call DescribeRegions to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetDedicatedHostIdForMaster",
-      "description": "The ID of the host on which the primary instance resides. This parameter is valid when you create the read-only instance in a dedicated cluster.",
+      "description": "The host ID of the primary instance. This parameter is required when you create a read-only instance in a dedicated cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TddlBizType",
-      "description": "A reserved parameter.",
+      "description": "A reserved parameter. You do not need to configure this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TddlRegionConfig",
-      "description": "A reserved parameter.",
+      "description": "A reserved parameter. You do not need to configure this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UsedTime",
-      "description": "The subscription duration of the read-only instance. Valid values:\n\n*   If you set the **Period** parameter to **Year**, the value of the **UsedTime** parameter ranges from **1** to **5**.\n*   If you set the **Period** parameter to **Month**, the value of the **UsedTime** parameter ranges from **1** to **9**.\n\n> If you set the **PayType** parameter to **Prepaid**, you must specify the UsedTime parameter.",
+      "description": "The subscription duration. Valid values:\n* If **Period** is set to **Year**, **UsedTime** can be set to **1** to **5**.\n* If **Period** is set to **Month**, **UsedTime** can be set to **1** to **9**.\n\n> This parameter is required if **PayType** is set to **Prepaid**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VPCId",
-      "description": "The virtual private cloud (VPC) ID of the read-only instance. If you leave the **InstanceNetworkType** parameter empty or set it to **VPC**, you must also specify this parameter.\n\n> * If the primary instance uses local disks, the read-only instance and the primary instance can belong to the same VPC or different VPCs.\n> * If the primary instance uses cloud disks, the read-only instance and the primary instance must belong to the same VPC.",
+      "description": "The VPC ID of the read-only instance. This parameter is required when **InstanceNetworkType** is set to empty or **VPC**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch ID of the read-only instance. If you leave the **InstanceNetworkType** parameter empty or set it to **VPC**, you must specify the VSwitchId parameter.",
+      "description": "The vSwitch ID of the read-only instance. This parameter is required when **InstanceNetworkType** is set to empty or **VPC**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID. You can call the DescribeRegions operation to query the zone ID.\n\n*   If you use the single-zone deployment method, set this parameter to the ID of one zone. Example: `cn-hangzhou-b`.\n*   If you use the multi-zone deployment method, set this parameter to the IDs of multiple zones and separate the IDs with colons (:). Example: `cn-hangzhou-b:cn-hangzhou-c`.\n*   The number of zone IDs that you specify must be less than or equal to the number of nodes created for the read-only instance. If you create a read-only instance that runs RDS Basic Edition, only one node is provisioned. If you create a read-only instance that runs RDS High-availability Edition, one primary node and one secondary node are provisioned.",
+      "description": "The zone ID. You can call DescribeRegions to query available zones.\n\n- To deploy the instance in a single zone, specify one zone ID, such as `cn-hangzhou-b`.\n- To deploy the instance across multiple zones, specify multiple zone IDs separated by colons (:), such as `cn-hangzhou-b:cn-hangzhou-c`.\n- The number of specified zones must be less than or equal to the number of nodes in the read-only instance. A Basic Edition read-only instance contains only 1 node. A high-availability series read-only instance contains 2 nodes (1 primary node and 1 secondary node).",
       "position": "Query",
       "type": "String",
       "required": true

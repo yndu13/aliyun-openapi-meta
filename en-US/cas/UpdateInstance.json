@@ -7,110 +7,112 @@
   "parameters": [
     {
       "name": "AutoReissue",
-      "description": "",
+      "description": "Whether to enable automatic management.\n\n- enable: enabled\n\n- disable: disabled",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CertificateName",
-      "description": "",
+      "description": "The name of the instance. When issuing a certificate, this value serves as the default certificate name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "City",
-      "description": "",
+      "description": "The city where the company or organization of the certificate requester is located. Required when generating a CSR for a DV certificate. Default value: Beijing.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CompanyId",
-      "description": "",
+      "description": "The company information ID. Required for OV and EV certificates. Otherwise, you cannot call ApplyCertificate to request a certificate.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ContactIdList",
-      "description": "",
+      "description": "The list of contact IDs. You must specify at least one contact. Otherwise, you cannot call ApplyCertificate to request a certificate.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "CountryCode",
-      "description": "",
+      "description": "The country or region code of the certificate organization. For example, CN represents China, and US represents the United States. Required when generating a CSR for a DV certificate. Default value: CN.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Csr",
-      "description": "",
+      "description": "The CSR content. You can generate a CSR using OpenSSL or Keytool. For more information, see [How to create a CSR file](~~42218~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Domain",
-      "description": "",
+      "description": "The domain name to bind to the certificate. Requirements are as follows:\n\n- Supports single domain names or wildcard domain names (for example, `*.aliyundoc.com`).\n\n- Supports multiple domain names. Separate multiple domain names with commas (,). The first domain determines whether a free domain is included.\n\n><notice>\n\nIf you bind multiple domain names to the certificate, this parameter is required. This parameter and the **Csr** parameter cannot both be empty. If you set both parameters, the system uses the **CN** field value from the **Csr** as the domain name for the certificate.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GenerateCsrMethod",
-      "description": "",
+      "description": "The CSR generation method. Default value: online.\n\n- online: The system generates the CSR. The Csr field is ignored.\n\n- upload: You upload the CSR. The Csr field is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "",
+      "description": "The ID of the instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "KeyAlgorithm",
-      "description": "",
+      "description": "The certificate algorithm. Default value: RSA\\_2048.\n\n- **RSA\\_2048**\n\n- **RSA\\_3072**\n\n- **RSA\\_4096**\n\n- **ECC\\_256**\n\n- **SM2**",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Province",
-      "description": "",
+      "description": "The province or region where the company is located. Required when generating a CSR for a DV certificate. Default value: Beijing.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "",
+      "description": "The ID of the resource group to which the instance belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "",
+      "description": "A list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "TagKey",
+          "description": "The tag key of the instance. Valid values for N: **1** to **20**. If you specify this value, it cannot be an empty string.\n\nIt can contain up to 64 characters. It cannot start with `aliyun` or `acs:`, and it cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TagValue",
+          "description": "The tag value of the instance. Valid values for N: **1** to **20**. If you specify this value, it can be an empty string.\n\nIt can contain up to 128 characters. It cannot start with `aliyun` or `acs:`, and it cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -119,7 +121,7 @@
     },
     {
       "name": "ValidationMethod",
-      "description": "",
+      "description": "The certificate validation method.\n\n- DNS: DNS validation using TXT or CNAME records.\n\n- HTTP: File-based validation.",
       "position": "Query",
       "type": "String",
       "required": false

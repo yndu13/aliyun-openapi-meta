@@ -7,52 +7,75 @@
   "parameters": [
     {
       "name": "AccountName",
-      "description": "The sender address configured in the console.",
+      "description": "The sender address configured in the management console.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AddressType",
-      "description": "- 0: Random account\n\n- 1: Sender address",
+      "description": "Valid values:\n- 0: random account\n- 1: sender address.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ClickTrace",
-      "description": "- 1: Enables the data tracking feature.\n\n- 0 (default): Disables the data tracking feature.",
+      "description": "Valid values:\n- 1: Enables data tracking.\n- 0 (default): Disables data tracking.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainAuth",
-      "description": "Enables domain-level authentication.\n\n- true\n\n- false\n\nUse this parameter only for domain-level authentication. Ignore it for sender address-level authentication.\n\n1\\. The console creates the address \\`domain-auth-created-by-system\\@example.com\\`. Do not change the prefix before the at sign (@). Replace the domain suffix with your own domain.\n\n2\\.\n\n**API scenario**\n\nSet \\`AccountName\\` to your domain. Recipients see \\`domain-auth-created-by-system\\@example.com\\` as the sender.\n\n**SMTP scenario**\n\na. Use the \\`ModifyPWByDomain\\` API to set a password for your domain.\n\nb. Authenticate using your domain and the password. Set the actual sender address (\\`mailfrom\\`) to a custom address, such as \\`user\\@example.com\\`. Recipients see \\`user\\@example.com\\` as the sender.",
+      "description": "Specifies whether to enable domain-level authentication.\n\nValid values:\n- true\n- false\n\nUse this parameter only for domain-level authentication. Ignore it for sender address-level authentication.\n\n1. Create the address domain-auth-created-by-system@example.com in the console. Keep the prefix before @ unchanged and replace the suffix with your own domain name.\n\n2.\n\n**API scenario**\n\nSet AccountName to the domain name. The recipient sees domain-auth-created-by-system@example.com as the sender.\n\n**SMTP scenario**\n\na. Call the ModifyPWByDomain operation to set the domain password.\n\nb. Authenticate with the domain name and the configured password. Pass a custom address such as user@example.com as the actual sender (mailfrom). The recipient sees user@example.com as the sender.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Headers",
-      "description": "Message header settings.\n\nAll fields, standard or non-standard, must follow standard header syntax. For API calls, the \\`headers\\` field supports up to 10 headers. Any headers beyond this limit are ignored. SMTP does not have a header limit.\n\n1\\. Standard fields\n\n\\`Message-ID\\`, \\`List-Unsubscribe\\`, \\`List-Unsubscribe-Post\\`\n\nStandard fields overwrite existing values in the message header.\n\n2\\. Non-standard fields\n\nCase-insensitive\n\na. Start with \\`X-User-\\`. These fields are not pushed to EventBridge or Message Service. They are required only for API calls. SMTP supports any custom header.\n\nb. Start with \\`X-User-Notify-\\`. These fields are pushed to EventBridge and Message Service. They are supported by both API and SMTP.\n\nWhen pushed to EventBridge or Message Service, these fields appear under the \\`headers\\` object.",
+      "description": "The email header settings.\n\nBoth standard and non-standard fields must comply with the syntax requirements for headers defined in the standard. A maximum of 10 headers can be passed through the headers field when sending emails via API. Headers that exceed this limit are ignored. SMTP has no such limit.\n\n1. Standard fields\n\nMessage-ID, List-Unsubscribe, List-Unsubscribe-Post\n\nStandard fields overwrite the original values in the email header.\n\n2. Non-standard fields\n\nCase-insensitive.\n\na. Fields prefixed with X-User- (not pushed to EventBridge or Message Service (MNS). This restriction applies only to API. SMTP allows any custom fields.)\n\nb. Fields prefixed with X-User-Notify- (pushed to EventBridge and Message Service (MNS). Both API and SMTP are supported.)\n\nWhen pushed to EventBridge or MNS, these fields are included under the header field.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IpPoolId",
-      "description": "The ID of the dedicated IP address pool. If you purchased dedicated IP addresses, use this parameter to specify the egress IP address for sending the email.",
+      "description": "The ID of the dedicated IP address pool. Users who have purchased dedicated IP addresses can use this parameter to specify the outbound IP address for this email sending task.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "Receivers",
+      "description": "The recipient list. The number of recipients cannot exceed 100. Specify this parameter or ReceiversName. If both Receivers and ReceiversName are specified, ReceiversName takes precedence.\n\nExample: [{\"To\":[\"Jackie@example.com\"],\"TemplateData\":{\"UserName\":\"Jackie\"}},{\"To\":[\"Tom@example.com\"],\"TemplateData\":{\"UserName\":\"Tom\"}}].",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "TemplateData",
+          "description": "The email template parameters. This parameter is of the JSON map type.",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "To",
+          "description": "The recipient list. This parameter is of the array type.",
+          "position": "FormData",
+          "type": "RepeatList",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "ReceiversName",
-      "description": "The name of a pre-created recipient list to which recipients have been uploaded.\n\nNote:\n\nThe number of recipients in the list must not exceed your remaining daily quota. Otherwise, email sending fails.\n\nDo not delete the recipient list for at least 10 minutes after triggering the task. Otherwise, email sending may fail.",
+      "description": "The name of a pre-created recipient list that has recipients uploaded.\n\nNote:\n\nThe number of recipients in the list must not exceed the remaining daily quota. Otherwise, the email sending fails.\n\nDo not delete the recipient list until at least 10 minutes after the task is triggered. Otherwise, the email sending may fail.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "ReplyAddress",
@@ -63,15 +86,22 @@
     },
     {
       "name": "ReplyAddressAlias",
-      "description": "The alias for the reply-to address.",
+      "description": "The alias of the reply-to address.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TagName",
-      "description": "The name of the email tag.",
+      "description": "The tag name of the email.",
       "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TemplateContent",
+      "description": "The custom email content. You can directly specify the content without creating a template in advance. Specify this parameter or TemplateName. If both TemplateContent and TemplateName are specified, TemplateName takes precedence.",
+      "position": "Body",
       "type": "String",
       "required": false
     },
@@ -80,18 +110,18 @@
       "description": "The name of a pre-created and approved template.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "UnSubscribeFilterLevel",
-      "description": "The filtering level. For more information, see [Unsubscribe link generation and filtering mechanism](~~2689048~~).\n\n- disabled: No filtering.\n\n- default: Uses the default policy. Batch emails are filtered at the sender address level.\n\n- mailfrom: Filters at the sender address level.\n\n- mailfrom\\_domain: Filters at the email domain level.\n\n- edm\\_id: Filters at the account level.",
+      "description": "The filtering level. For more information, see [Unsubscribe link generation and filtering mechanism](~~2689048~~).\nValid values:\n- disabled: No filtering is applied.\n- default: The default policy is used. Batch addresses are filtered at the sender address level.\n- mailfrom: Filtering at the sender address level.\n- mailfrom_domain: Filtering at the sender domain level.\n- edm_id: Filtering at the account level.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UnSubscribeLinkType",
-      "description": "The type of unsubscribe link to generate. For more information, see [Unsubscribe link generation and filtering mechanism](~~2689048~~).\n\n- disabled: Does not generate a link.\n\n- default: Uses the default policy. An unsubscribe link is generated when batch emails are sent from a sender address to specific domains, such as those containing the keywords \"gmail\", \"yahoo\", \"google\", \"aol.com\", \"hotmail\", \"outlook\", or \"ymail.com\".\n\nThe language of the unsubscribe link matches the recipient's browser language setting.",
+      "description": "The type of the generated unsubscribe link. For more information, see [Unsubscribe link generation and filtering mechanism](~~2689048~~).\nValid values:\n- disabled: No unsubscribe link is generated.\n- default: The default policy is used. An unsubscribe link is generated when emails are sent from a batch-type sender address to specific domains that contain keywords such as \"gmail\", \"yahoo\", \"google\", \"aol.com\", \"hotmail\", \"outlook\", or \"ymail.com\".\n\nThe display language is automatically determined based on the recipient's browser settings.",
       "position": "Query",
       "type": "String",
       "required": false

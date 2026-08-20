@@ -1,52 +1,55 @@
 {
   "name": "TagResources",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AcceptLanguage",
-      "description": "The language of the response. Valid values:\n\n*   zh: Chinese\n*   en: English",
+      "description": "The language of the response. Valid values:\n\n- zh: Chinese\n\n- en: English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region.",
+      "description": "The region.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceId",
-      "description": "The instance ID.\n\n> This parameter specifies the instance ID that is passed. Examples:\n\n- ResourceId.0 specifies the first instance ID that is passed.\n- ResourceId.1 specifies the second instance ID that is passed.",
+      "description": "The resource ID.\n\n- *Registration and configuration center*: the instance ID.\n\n- *Cloud-native gateway*: the unique ID of the gateway.\n\n- *Microservice administration application*: the AppID of the microservice administration application. Note that this is not the LicenseKey.\n\n> The number in the parameter name specifies the index of the instance ID. For example:\n\n- **ResourceId.0** specifies the first instance ID.\n\n- **ResourceId.1** specifies the second instance ID.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resources. Valid values:\n\n*   CLUSTER: Microservices Engine (MSE) instance\n*   GATEWAY: cloud-native gateway",
+      "description": "The resource type. Valid values:\n\n- CLUSTER: a registration and configuration center.\n\n- GATEWAY: a cloud-native gateway.\n\n- GOVERNANCEAPPLICATION: a microservice administration application.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The list of tags. You can specify a maximum of 20 tags.",
+      "description": "A list of tags. You can specify up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. The tag key cannot be an empty string. It can be up to 128 characters in length. The tag key cannot start with \\`aliyun\\` or \\`acs:\\`. The tag key cannot contain \\`http\\://\\` or \\`https\\://\\`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

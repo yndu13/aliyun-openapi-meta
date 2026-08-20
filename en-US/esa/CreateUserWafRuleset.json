@@ -14,49 +14,49 @@
     },
     {
       "name": "Expression",
-      "description": "The expression for the WAF ruleset.",
+      "description": "The match expression of the WAF ruleset. Rules in this ruleset are evaluated only when a request matches this expression.\n\nExamples:\n- `http.host eq \"example.com\"` — Only requests with the host example.com enter this ruleset.\n- `starts_with(http.uri.path, \"/api/\")` — Only requests with the /api/ prefix enter this ruleset.\n\n> The complete expression syntax and available field set are subject to the server-side wirefilter dialect.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance.",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Name",
-      "description": "The name of the WAF ruleset.",
+      "description": "The name of the WAF ruleset.\n\n**Naming suggestion**: Use a combination of letters, digits, and underscores for easy reference. The specific character set, maximum length, and uniqueness constraints are subject to the WAF ruleset service naming conventions.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Phase",
-      "description": "The execution phase of the WAF.",
+      "description": "The phase to which the WAF ruleset belongs. Valid values:\n\n- http_whitelist: whitelist rules\n- http_custom: custom rules\n- http_managed: managed rules\n- http_anti_scan: scan protection rules\n- http_ratelimit: rate limiting rules\n\n> Note: The supported fields (Expression match fields, Action values, and others) vary by phase. For more information, refer to the rule configuration documentation for the corresponding phase.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Rules",
-      "description": "A list of rule configurations in the WAF ruleset.",
+      "description": "The list of rule configurations in the WAF ruleset. Each element corresponds to a rule.\n\n- The field structure of each rule is subject to the `WafRuleConfig` data structure, which includes Expression, Action, Name, and other fields.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Shared",
-      "description": "The shared configuration for WAF batch rules.",
+      "description": "The shared fields across multiple rules in this ruleset, such as a unified Action or Name prefix.\n\n> The field structure is subject to the `WafBatchRuleShared` data structure. If you do not need to share properties, you can leave this parameter empty.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the WAF ruleset.",
+      "description": "The status of the WAF ruleset. Valid values:\n\n- on: Enabled. The rules in the ruleset participate in matching and blocking.\n- off: Disabled. The ruleset is retained but does not participate in matching.\n\n> The complete set of valid values is subject to the server-side enum.",
       "position": "Body",
       "type": "String",
       "required": true

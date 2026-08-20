@@ -1,47 +1,48 @@
 {
   "name": "ModifyBackupPolicy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Id",
-      "description": "The ID of the anti-ransomware policy that you want to modify.",
+      "description": "The ID of the anti-ransomware mitigation policy to modify.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "Name",
-      "description": "The name of the anti-ransomware policy that you want to modify.",
+      "description": "The name of the anti-ransomware mitigation policy to modify.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Policy",
-      "description": "The configurations of the anti-ransomware policy that you want to modify. The value is a JSON string that contains the following fields:\n\n*   **Source**: the directory that you want to protect. If you want to protect all directories, set this field to brackets \\[].\n\n*   **Include**: the format of the file that you want to protect. Examples: \\*.jpg and \\*.doc.\n\n*   **Exclude**: the directory that you want to exclude from the anti-ransomware policy. You can call the DescribeExcludeSystemPath operation to query all directories and then specify the directory that you want to exclude. Example: /home/user.\n\n*   **Schedule**: the start time and interval of a data backup task. We recommend that you specify a start time that begins during off-peak hours but does not start on the hour.\n\n    *   If you set this field to I|1583216092|P21D, the data backup task starts from 2020-03-03 14:14:52, and the task is executed at an interval of three weeks.\n    *   If you set this field to I|1583216092|PT24H, the data backup task starts from 2020-03-03 14:14:52, and the task is executed at an interval of 24 hours.\n\n*   **Retention**: the period during which backup data is retained. Unit: day. If you set this field to 7, backup data is retained for a week. If you set this field to 365, backup data is retained for a year. If you set this field to -1, backup data is permanently retained.\n\n*   **SpeedLimiter**: the limit on the network bandwidth for data backup tasks. If you set this field to 12:15:15360|6:12:5120, the maximum bandwidth for a data backup task is 15 Mbit/s from 12:00 to 15:00 and 5 Mbit/s from 06:00 to 12:00.\n\nIf you back up data on an Elastic Compute Service (ECS) instance that is connected over an internal network, we recommend that you leave this field empty. If this field is left empty, the bandwidth for data backup tasks is unlimited.",
+      "description": "The content of the mitigation policy to modify. The value is a JSON-format string that contains the following fields:\n\n- **Source**: The server folder to protect. To protect all folders, set this field to \\[].\n- **Include**: The file types to protect. Examples: \"\\*.jpg\" and \"\\*.doc\".\n- **Exclude**: The custom folders to exclude. For example, exclude the folder \"/home/user\". Invoke the DescribeExcludeSystemPath operation to obtain all folders, and then add the folders that you want to exclude.\n- **Schedule**: The start time and interval of the data backup task. Specify a non-hourly time during off-peak hours.\n\n    - Example 1: I|1583216092|P21D indicates that the start time is 2020-03-03 14:14:52 and the interval is 3 weeks.\n\n    - Example 2: I|1583216092|PT24H indicates that the start time is 2020-03-03 14:14:52 and the interval is 24 hours.\n\n- **Retention**: The retention period of backup data. Unit: days. 7 indicates 1 week, 365 indicates 1 year, and -1 indicates permanent retention.\n- **SpeedLimiter**: The network bandwidth throttling for backup. Example: 12:15:15360|6:12:5120 indicates 15 MB from 12:00 to 15:00 and 5 MB from 6:00 to 12:00.\nCloud-hosted servers connect through the internal network. Do not limit the backup network bandwidth. To remove the bandwidth limit, set this parameter to an empty string (\"\").",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PolicyRegionId",
-      "description": "The region ID of the server to which the anti-ransomware policy is applied.\n\nYou can call the [DescribeSupportRegion](~~DescribeSupportRegion~~) operation to query the regions in which the anti-ransomware feature is supported.",
+      "description": "The region of the server for which you want to modify the mitigation policy.\n\nYou can invoke the [DescribeSupportRegion](~~DescribeSupportRegion~~) operation to query the regions supported by the anti-ransomware feature.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyVersion",
-      "description": "The version of the anti-ransomware policy. You can call the [DescribeBackupPolicies](~~DescribeBackupPolicies~~) operation to query the versions of anti-ransomware policies.\n\n*   **1.0.0**\n*   **2.0.0**",
+      "description": "The version of the mitigation policy. You can invoke the [DescribeBackupPolicies](~~DescribeBackupPolicies~~) operation to query the version.\n\n- **1.0.0**\n- **2.0.0**",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UuidList",
-      "description": "The UUIDs of the servers to which the anti-ransomware policy is applied.",
+      "description": "The UUIDs of the servers protected by the mitigation policy.",
       "position": "Query",
       "type": "RepeatList",
       "required": true

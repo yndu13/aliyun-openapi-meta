@@ -1,68 +1,69 @@
 {
   "name": "QueryDevicePropertyData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Asc",
-      "description": "The order in which you want to sort the property records that are returned. Valid values:\n\n*   **0**: reverse chronological order\n*   **1**: chronological order",
+      "description": "The sorting order of property records in the response. Valid values:\n\n- **0**: in reverse chronological order.\n- **1**: in chronological order.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "DeviceName",
-      "description": "The name of the device.\n\n>If you specify a value for this parameter, you must also specify a value for the **ProductKey** parameter.",
+      "description": "The name of the device that you want to query.\n\n><notice>\n If you specify this parameter, you must also specify **ProductKey**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. The value of the EndTime parameter must be greater than the value of the **StartTime** parameter. The value is a timestamp in milliseconds, for example, 1579249499000.",
+      "description": "The end time of the property records to query. The value must be greater than the value of **StartTime**. The value is a UNIX timestamp in milliseconds. Example: 1579249499000.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "Identifier",
-      "description": "The identifier of the property that you want to query.\n\nYou can view the property **identifier** on the Define Feature tab of the Product Details page in the IoT Platform console. You can also call the [QueryThingModel](~~150321~~) operation and view the property identifier in the returned TSL data.\n\n>  If a property named temperature belongs to a custom module named testFb, set this parameter to **testFb:temperature**. The custom module is not the default module.",
+      "description": "The identifier of the property to query.\n\n<props=\"china\">\n- You can view the property **Identifier** of a device in the Thing Specification Language (TSL) definition of the product to which the device belongs in the IoT Platform console, or call [QueryThingModel](~~150321~~) to view it in the returned TSL data.\n- You can view the property **Identifier** of a digital twin node in the functional properties of the twin node in the Digital Twin Studio in the IoT Platform console. For more information, see [Functional properties of twin nodes](~~278729~~).\n\n</props>\n\n<props=\"intl\">You can view the property **Identifier** of a device in the Thing Specification Language (TSL) definition of the product to which the device belongs in the IoT Platform console, or call [QueryThingModel](~~150321~~) to view it in the returned TSL data.</props>\n\n> If the property is **temperature** under a custom (non-default) module **testFb**, set this parameter to **testFb:temperature**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotId",
-      "description": "The ID of the device to which the property belongs.:\n\nYou can call the [QueryDeviceInfo](~~257184~~) operation to query the **ID** of the device.\n\n>If you specify a value for this parameter, you do not need to specify a value for the **ProductKey** or **DeviceName** parameter. The **IotId** parameter specifies a globally unique identifier (GUID) for the device. The value of the IotId parameter corresponds to a combination of the values of the **ProductKey** and **DeviceName** parameters. If you specify a value for the **IotId** parameter and values for the **ProductKey** and **DeviceName** parameters, the value of the **IotId** parameter takes precedence.",
+      "description": "The ID of the device<props=\"china\"><ph> or digital twin node</ph></props> whose property you want to query:\n\n<props=\"china\">\n- Call the [QueryDeviceInfo](~~257184~~) operation to query the **IotId** of a specified device.\n- In the IoT Platform console, on the **Digital Twin Details** page, click a twin node to view the **Node ID**.\n\n</props>\n\n<props=\"intl\">Call the [QueryDeviceInfo](~~257184~~) operation to query the **IotId** of a specified device.</props>\n\n><notice>**IotId** is a globally unique identifier of a device and corresponds to a combination of **ProductKey** and **DeviceName** on a one-to-one basis. If you specify this parameter, you do not need to specify **ProductKey** or **DeviceName**. If you specify **IotId** together with **ProductKey** and **DeviceName**, **IotId** takes precedence.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the instance **ID** on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must configure this parameter. If you do not configure this parameter, the call fails.\n*   If your instance has no **Overview** page or ID, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If this ID value exists, you must specify this parameter. Otherwise, the call fails.\n- If the <props=\"intl\"><ph>**Overview** page or the </ph></props>ID value does not exist, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values: 1 to 50.",
+      "description": "The number of records per page. Maximum value: 50.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs.\n\n>If you specify a value for this parameter, you must also specify a value for the **DeviceName** parameter.",
+      "description": "The ProductKey of the product to which the device belongs.\n\n><notice>\nIf you specify this parameter, you must also specify **DeviceName**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start of the time range to query. The value of the StartTime parameter must be less than the value of the **EndTime** parameter. The value is a timestamp in milliseconds, for example, 1579249499000.",
+      "description": "The start time of the property records to query. The value must be less than the value of **EndTime**. The value is a UNIX timestamp in milliseconds. Example: 1579249499000.",
       "position": "Query",
       "type": "Long",
       "required": true

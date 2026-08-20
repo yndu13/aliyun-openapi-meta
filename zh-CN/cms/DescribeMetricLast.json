@@ -1,19 +1,20 @@
 {
   "name": "DescribeMetricLast",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Dimensions",
-      "description": "指定资源的监控维度。\n\n格式：`key:value`键值对形式的集合，例如：`{\"userId\":\"120886317861****\"}`和`{\"instanceId\":\"i-2ze2d6j5uhg20x47****\"}`。\n\n> 单次请求最多支持批量查询50个实例。",
+      "description": "指定资源的监控维度。\n\n格式：`key:value`键值对形式的集合，例如：`{\"userId\":\"120886317861****\"}`和`{\"instanceId\":\"i-2ze2d6j5uhg20x47****\"}`。\n\n> 单次请求最多支持批量查询50个实例。\n\n\n\n\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "查询监控项的结束时间。\n\n- 对于秒级数据，查询数据的起始时间是EndTime往前倒推20分钟后与startTime对比的最大值。\n\n- 对于分钟级数据，查询数据的起始时间是EndTime往前倒推2小时后与startTime对比的最大值。\n\n- 对于小时级数据，查询数据的起始时间是EndTime往前倒推2天后与startTime对比的最大值。",
+      "description": "查询监控项的结束时间。\n\n系统将根据数据精度自动限制查询的起始时间（即查询窗口大小）：\n1. 秒级数据：最大查询跨度为 20 分钟（起始时间 = Max(startTime, EndTime - 20min)）；\n2. 分钟级数据：最大查询跨度为 2 小时（起始时间 = Max(startTime, EndTime - 2h)）；\n3. 小时级数据：最大查询跨度为 2 天（起始时间 = Max(startTime, EndTime - 2d)）。\n\n>若传入的 startTime 早于上述限制时间，系统将自动使用限制时间作为实际查询起点。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -34,7 +35,7 @@
     },
     {
       "name": "MetricName",
-      "description": "云产品的监控项名称。\n\n关于监控项名称，请参见[云产品监控项](~~163515~~)。",
+      "description": "云产品的监控项名称。\n\n关于监控项名称，请参见[云产品监控项](~~163515~~)。\n\n",
       "position": "Query",
       "type": "String",
       "required": true
@@ -62,7 +63,7 @@
     },
     {
       "name": "StartTime",
-      "description": "查询监控项的开始时间。",
+      "description": "开始时间。\n\n支持两种格式：1. Unix 时间戳字符串，单位为毫秒（ms），即从 1970-01-01 00:00:00 UTC 起经过的毫秒数；2. ISO 8601 标准时间字符串，格式为 YYYY-MM-DDThh:mm:ssZ，时区为 UTC。\n\n>查询范围执行左开右闭模式，StartTime 不能等于或大于 EndTime，且两者间隔需小于等于 31 天。",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "DurationMinutes",
-      "description": "The duration of each scheduled scaling task. Unit: minutes.\n\n>  The value of this parameter must be greater than or equal to 15.",
+      "description": "The duration (unit: minutes) of a single scheduled elastic scaling task.\n\n> The value must be at least 15 minutes.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "Enable",
-      "description": "Specifies whether to enable the scheduled scaling rule. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to enable or disable the scheduled policy. Valid values:\n\n- **true**: Enabled.\n- **false**: Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FirstScheduledTime",
-      "description": "The time when the scheduled scaling task is executed.\n\nIf you set ScheduleType to at, make sure that the value of this parameter is at least 30 minutes later than the current point in time.\n\n><notice>To prevent the broker from repeatedly executing instance upgrade and downgrade tasks, make sure that the interval between two consecutive scheduled scaling tasks is at least 60 minutes.></notice>",
+      "description": "The time when the scheduled policy starts to take effect.\n\nIf the schedule type is single execution, the start time must be at least 30 minutes later than the current time.\n\n\n\n><notice>To prevent the server from continuously performing scale-up and scale-down tasks, the interval between different scheduled tasks must be at least 60 minutes.></notice>",
       "position": "Query",
       "type": "Long",
       "required": true
@@ -35,56 +35,56 @@
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the instance resides.",
+      "description": "The region ID of the instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RepeatType",
-      "description": "The frequency to execute the scheduled scaling task. This parameter is required only if you set ScheduleType to repeat. Valid values:\n\n*   Daily: The scheduled scaling task is executed every day.\n\n*   Weekly: The scheduled scaling task is executed every week.",
+      "description": "The repeat type. This parameter is required when ScheduleType is set to repeat. Valid values:\n      <li> Daily: timed scheduling every day.\n      <li> Weekly: timed scheduling every week.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReservedPubFlow",
-      "description": "The reserved production capacity for scheduled scaling. Unit: MB/s.\n\n>  You must specify a higher value than the instance specification for at least one of ReservedPubFlow and ReservedSubFlow.",
+      "description": "The reserved production specification for scheduled elastic scaling (unit: MB/s).\n\n> At least one of ReservedPubFlow and ReservedSubFlow must be higher than the current specification.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ReservedSubFlow",
-      "description": "The reserved consumption capacity for scheduled scaling. Unit: MB/s.\n\n>  You must specify a higher value than the instance specification for at least one of ReservedPubFlow and ReservedSubFlow.",
+      "description": "The reserved consumption specification for scheduled elastic scaling (unit: MB/s).\n> At least one of ReservedSubFlow and ReservedPubFlow must be higher than the current specification.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "RuleName",
-      "description": "The name of the scheduled scaling rule.\n\n>  The name of the scheduled scaling rule cannot be the same as the names of other rules for the instance.",
+      "description": "The name of the scheduled policy rule.\n\n> The name must be unique among all rules of the same instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ScheduleType",
-      "description": "The type of the scheduled scaling task. Valid values:\n\n*   at: The scheduled scaling task is executed only once.\n*   repeat: The scheduled scaling task is repeatedly executed.",
+      "description": "The schedule type. Valid values:\n\n- at: scheduled once only.\n\n- repeat: scheduled repeatedly.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TimeZone",
-      "description": "The time zone in Coordinated Universal Time (UTC).",
+      "description": "The time zone (Coordinated Universal Time).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "WeeklyTypes",
-      "description": "The day on which the scheduled scaling task is executed every week. You can specify multiple days.",
+      "description": "The days of the week. Multiple days are supported for repeated execution.",
       "position": "Query",
       "type": "Json",
       "required": false

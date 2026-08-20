@@ -1,39 +1,47 @@
 {
   "name": "CreateAutoProvisioningGroup",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AutoProvisioningGroupName",
-      "description": "The name of the auto provisioning group. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the auto provisioning group. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `http://` or `https://`. The name can contain digits, colons (:), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoProvisioningGroupType",
-      "description": "The delivery type of the auto provisioning group. Valid values:\n\n*   request: one-time asynchronous delivery. When the auto provisioning group is started, it attempts to asynchronously deliver an instance cluster that meets the target capacity only once. The group does not retry the operation regardless of whether all the instances are delivered.\n*   instant: one-time synchronous delivery. When the auto provisioning group is started, it attempts to synchronously deliver an instance cluster that meets the target capacity only once. The list of delivered instances and the causes of delivery failures are returned in the response.\n*   maintain: continuous delivery. When the auto provisioning group is started, it attempts to deliver an instance cluster that meets the target capacity, and monitors the real-time capacity. If the target capacity of the auto provisioning group is not reached, the auto provisioning group continues to create instances until the target capacity is reached.\n\nDefault value: maintain.",
+      "description": "The delivery type of the auto provisioning group. Valid values:\n\n- request: one-time asynchronous delivery. The group delivers the instance cluster asynchronously only at startup. If scheduling fails, no retry is performed.\n\n- instant: one-time synchronous delivery. The group synchronously creates instances only at startup and returns the list of successfully created instances and the causes of creation failures in the response.\n\n- maintain: continuous delivery. The group attempts to deliver the instance cluster at startup and monitors real-time capacity. If the target capacity is not reached, the group continues to create ECS instances.\n\nDefault value: maintain.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "CandidateOptions",
+      "position": "Query",
+      "type": "Struct",
+      "required": false
+    },
+    {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDiskConfig",
-      "description": "The information of data disks on the instance.",
+      "description": "The list of data disk configurations.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DiskCategory",
+          "description": "The category of the data disk. You can specify multiple candidate disk categories. The specified order determines the priority of each disk category. When a disk category is unavailable, the system automatically switches to the next category. Valid values:\n\n-   cloud_efficiency: ultra disk.\n-   cloud_ssd: standard SSD.\n-   cloud_essd: enterprise SSD (ESSD).\n-   cloud: basic disk.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -42,7 +50,7 @@
     },
     {
       "name": "DefaultTargetCapacityType",
-      "description": "The type of supplemental instances. When the sum of the `PayAsYouGoTargetCapacity` and `SpotTargetCapacity` values is smaller than the `TotalTargetCapacity` value, the auto provisioning group creates instances of the specified type to meet the total target capacity. Valid values:\n\n*   PayAsYouGo: pay-as-you-go\n*   Spot: spot instance\n\nDefault value: Spot.",
+      "description": "The billing method for the capacity difference when the sum of `PayAsYouGoTargetCapacity` and `SpotTargetCapacity` is less than `TotalTargetCapacity`. Valid values:\n\n- PayAsYouGo: pay-as-you-go instances.\n- Spot: spot instances.\n\nDefault value: Spot.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,14 +64,13 @@
     },
     {
       "name": "ExcessCapacityTerminationPolicy",
-      "description": "Specifies whether to release scaled-in instances when the real-time capacity of the auto provisioning group exceeds the target capacity and the group is triggered to scale in. Valid values:\n\n*   termination: releases the scaled-in instances in the auto provisioning group.\n*   no-termination: removes the scaled-in instances from the auto provisioning group but does not release the instances.\n\nDefault value: no-termination.",
+      "description": "Specifies whether to release instances when the real-time capacity of the auto provisioning group exceeds the target capacity and a scale-in event is triggered. Valid values:\n\n- termination: releases the scaled-in instances.\n- no-termination: only removes the scaled-in instances from the auto provisioning group.\n\nDefault value: no-termination.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExecutionMode",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
@@ -77,32 +84,35 @@
     },
     {
       "name": "LaunchConfiguration",
-      "description": "The startup parameter.",
+      "description": "The launch configuration parameters.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "LaunchConfiguration.Arn",
-      "description": ">  This parameter is in invitational preview and is not publicly available.",
+      "description": "> This parameter is in invitational preview and is not publicly available.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AssumeRoleFor",
+          "description": "> This parameter is in invitational preview and is not publicly available.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "RoleType",
+          "description": "> This parameter is in invitational preview and is not publicly available.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Rolearn",
+          "description": "> This parameter is in invitational preview and is not publicly available.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -111,105 +121,119 @@
     },
     {
       "name": "LaunchConfiguration.AutoReleaseTime",
-      "description": "The automatic release time of the pay-as-you-go instance. Specify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in Coordinated Universal Time (UTC).\n\n*   If the value of `ss` is not `00`, the start time is automatically rounded down to the nearest minute based on the value of `mm`.\n*   The specified time must be at least 30 minutes later than the current time.\n*   The specified time can be at most three years later than the current time.",
+      "description": "The automatic release time of the pay-as-you-go instance. Specify the time in the [ISO 8601](~~25696~~) standard in the UTC+0 time zone. The format is `yyyy-MM-ddTHH:mm:ssZ`.\n\n- If the value of seconds (`ss`) is not `00`, the start time of the current minute (`mm`) is used.\n\n- The earliest release time is 30 minutes after the current time.\n\n- The latest release time cannot be more than three years from the current time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.CreditSpecification",
-      "description": "The performance mode of the burstable instance. Valid values:\n\n*   Standard: the standard mode. For more information, see the \"Standard mode\" section in the [Overview of burstable instances](~~59977~~) topic.\n*   Unlimited: the unlimited mode. For more information, see the \"Unlimited mode\" section in the [Overview of burstable instances](~~59977~~) topic.\n\nThis parameter is empty by default.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The running mode of the burstable instance. Valid values:\n\n- Standard: standard mode. For more information about instance performance, see the performance constrained mode section in [Overview of burstable instances](~~59977~~).\n- Unlimited: unlimited mode. For more information about instance performance, see the unlimited mode section in [Overview of burstable instances](~~59977~~).\n\nDefault value: none.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.DataDisk",
-      "description": "The cloud disks in the extended configurations of the launch template.",
+      "description": "The list of data disk configurations in the launch configuration.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AutoSnapshotPolicyId",
+          "description": "The ID of the automatic snapshot policy applied to the data disk.\n\nTake note of the following items:\n- This parameter takes effect only when you create a one-time synchronous delivery auto provisioning group (AutoProvisioningGroupType=instant).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "BurstingEnabled",
+          "description": "Specifies whether to enable the performance burst feature. Valid values:\n\n- true: enables the feature.\n- false: disables the feature.\n\n> This parameter is supported only when DiskCategory is set to cloud_auto. For more information, see [ESSD AutoPL disks](~~368372~~).",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Category",
+          "description": "The category of data disk N. Valid values of N: 1 to 16. Valid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud: basic disk.\n\nFor I/O optimized instances, the default value is cloud_efficiency. For non-I/O optimized instances, the default value is cloud.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeleteWithInstance",
+          "description": "Specifies whether the data disk is released when the instance is released. Valid values:\n- true: the data disk is released when the instance is released.\n- false: the data disk is not released when the instance is released.\n\nDefault value: true.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Description",
+          "description": "The description of the data disk. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Device",
+          "description": "The mount point of the data disk. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskName",
+          "description": "The name of the data disk. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `http://` or `https://`. The name can contain digits, periods (.), colons (:), underscores (_), and hyphens (-).\n\nDefault value: empty.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EncryptAlgorithm",
+          "description": "> This parameter is not publicly available.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
+          "description": "Specifies whether data disk N is encrypted. Valid values:\n\n- true: encrypted.\n- false: not encrypted.\n\nDefault value: false.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KmsKeyId",
+          "description": "The ID of the KMS key for the data disk. If both a launch template and launch configuration are specified, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "The performance level of the enterprise SSD used as a data disk. The value of N must be the same as that in `LaunchConfiguration.DataDisk.N.Category`. Valid values:\n\n- PL0: up to 10,000 random read/write IOPS per disk.\n- PL1 (default): up to 50,000 random read/write IOPS per disk.\n- PL2: up to 100,000 random read/write IOPS per disk.\n- PL3: up to 1,000,000 random read/write IOPS per disk.\n\nFor information about how to select an ESSD performance level, see [ESSDs](~~122389~~).\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ProvisionedIops",
+          "description": "The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1000 × Capacity - Baseline performance}.\n\nBaseline performance = min{1,800 + 50 × Capacity, 50,000}.\n\n> This parameter is supported only when DiskCategory is set to cloud_auto. For more information, see [ESSD AutoPL disks](~~368372~~).",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "Size",
+          "description": "The size of data disk N. Valid values of N: 1 to 16. Unit: GiB. Valid values:\n\n- cloud_efficiency: 20 to 32768.\n- cloud_ssd: 20 to 32768.\n- cloud_essd: depends on the value of `LaunchConfiguration.DataDisk.N.PerformanceLevel`.\n    - PL0: 40 to 32768.\n    - PL1: 20 to 32768.\n    - PL2: 461 to 32768.\n    - PL3: 1261 to 32768.\n- cloud: 5 to 2000.\n\n> The value of this parameter must be greater than or equal to the size of the snapshot specified by `LaunchConfiguration.DataDisk.N.SnapshotId`.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
+          "description": "The ID of the snapshot used to create data disk N. Valid values of N: 1 to 16.\n\nAfter you specify this parameter, the `LaunchConfiguration.DataDisk.N.Size` parameter is ignored. The actual size of the created disk is the size of the specified snapshot. Snapshots created on or before July 15, 2013 cannot be used. Otherwise, the request is rejected.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -225,187 +249,189 @@
     },
     {
       "name": "LaunchConfiguration.HostName",
-      "description": "The instance hostname. Take note of the following items:\n\n*   The hostname cannot start or end with a period (.) or hyphen (-). The hostname cannot contain consecutive periods (.) or hyphens (-).\n*   For Windows instances, the hostname must be 2 to 15 characters in length and cannot contain periods (.) or contain only digits. It can contain letters, digits, and hyphens (-).\n*   For instances that run other operating systems such as Linux, the hostname must be 2 to 64 characters in length. You can use periods (.) to separate a hostname into multiple segments. Each segment can contain letters, digits, and hyphens (-).\n*   You cannot specify both `LaunchConfiguration.HostName` and `LaunchConfiguration.HostNames.N`. Otherwise, an error is returned.\n*   When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The hostname of the instance. Take note of the following items:\n\n- Periods (.) and hyphens (-) cannot be used as the first or last characters and cannot be used consecutively.\n- Windows instances: The hostname must be 2 to 15 characters in length and cannot contain periods (.) or consist entirely of digits. The hostname can contain letters, digits, and hyphens (-).\n- Instances that run other operating systems such as Linux: The hostname must be 2 to 64 characters in length and can contain multiple periods (.). Each segment separated by a period can contain letters, digits, and hyphens (-).\n- You cannot specify both `LaunchConfiguration.HostName` and `LaunchConfiguration.HostNames.N`. Otherwise, an error is returned.\n- If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.HostNames",
-      "description": "The hostname of instance N. You can use this parameter to specify different hostnames for multiple instances. Take note of the following items:\n\n- This parameter takes effect only when `AutoProvisioningGroupType` is set to instant. \n- The value of N indicates the number of instances. Valid values of N: 1 to 1000. The value of N must be the same as the TotalTargetCapacity value. \n- The hostname cannot start or end with a period (.) or hyphen (-). The hostname cannot contain consecutive periods (.) or hyphens (-). \n- For Windows instances, the hostname must be 2 to 15 characters in length and cannot contain periods (.) or contain only digits. The hostname can contain letters, digits, and hyphens (-). \n- For instances that run other operating systems such as Linux, the hostname must be 2 to 64 characters in length. You can use periods (.) to separate the hostname into multiple segments. Each segment can contain letters, digits, and hyphens (-). \n- You cannot specify both `LaunchConfiguration.HostName` and `LaunchConfiguration.HostNames.N`. Otherwise, an error is returned. \n- When both LaunchTemplateId and LaunchConfiguration.* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The list of hostnames for one or more instances. Take note of the following items:\n\n- This parameter takes effect only when you create a one-time synchronous delivery auto provisioning group (`AutoProvisioningGroupType=instant`).\n- N indicates the number of instances. Valid values of N: 1 to 1000. The value must be the same as the value of TotalTargetCapacity.\n- Periods (.) and hyphens (-) cannot be used as the first or last characters and cannot be used consecutively.\n- If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "LaunchConfiguration.ImageFamily",
-      "description": "The name of the image family. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `aliyun` or `acs:`. The name cannot contain `http://` or `https://`. The name can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the image family. The name must be 2 to 128 characters in length. The name must start with a letter, and cannot start with `aliyun` or `acs:`. The name cannot contain `http://` or `https://`. The name can contain digits, colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.ImageId",
-      "description": "The ID of the image to be used to create the instance. You can call the [DescribeImages](~~25534~~) operation to query available image resources. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The ID of the image used to create instances. You can call [DescribeImages](~~25534~~) to query available image resources. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.InstanceDescription",
-      "description": "The instance description. The description must be 2 to 256 characters in length. The description can contain letters and cannot start with `http://` or `https://`. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The description of the instance. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.InstanceName",
-      "description": "The instance name. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-).\n\nThe default value of this parameter is the `InstanceId` value.\n\nWhen you batch create instances, you can batch configure sequential names for the instances. For more information, see [Batch configure sequential names or hostnames for multiple instances](~~196048~~).\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The name of the instance. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `http://` or `https://`. The name can contain Chinese characters, letters, digits, colons (:), underscores (_), periods (.), and hyphens (-).\n\nDefault value: the `InstanceId` of the instance.\n\nWhen you create multiple ECS instances, you can batch configure sequential instance names. For more information, see [Batch configure sequential names or hostnames for multiple instances](~~196048~~).\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.InternetChargeType",
-      "description": "The billing method for network usage. Valid values:\n\n*   PayByBandwidth: pay-by-bandwidth\n*   PayByTraffic: pay-by-traffic\n\n>  When the pay-by-traffic billing method for network usage is used, the maximum inbound and outbound bandwidth values are used as the upper limits of bandwidth instead of guaranteed performance specifications. When demands outstrip resource supplies, the maximum bandwidths may be limited. If you want guaranteed bandwidth for your instance, use the pay-by-bandwidth billing method.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The billing method for network usage. Valid values:\n\n- PayByBandwidth: pay-by-bandwidth.\n- PayByTraffic: pay-by-traffic.\n\n> In pay-by-traffic mode, the peak inbound and outbound bandwidths are used as upper limits of bandwidths instead of guaranteed performance metrics. When resources are contended for, the peak bandwidths may be limited. If you want guaranteed bandwidth for your business, use pay-by-bandwidth.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.InternetMaxBandwidthIn",
-      "description": "The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:\n\n*   When the maximum outbound public bandwidth is less than or equal to 10 Mbit/s, the valid values of this parameter are 1 to 10 and the default value is 10.\n*   When the maximum outbound public bandwidth is greater than 10 Mbit/s, the valid values of this parameter are 1 to the value of `LaunchConfiguration.InternetMaxBandwidthOut`, and the default value is the value of `LaunchConfiguration.InternetMaxBandwidthOut`.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:\n\n- If the maximum outbound public bandwidth is less than or equal to 10 Mbit/s: 1 to 10. Default value: 10.\n- If the maximum outbound public bandwidth is greater than 10 Mbit/s: 1 to the value of `LaunchConfiguration.InternetMaxBandwidthOut`. Default value: the value of `LaunchConfiguration.InternetMaxBandwidthOut`.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LaunchConfiguration.InternetMaxBandwidthOut",
-      "description": "The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LaunchConfiguration.IoOptimized",
-      "description": "Specifies whether the instance is I/O optimized. Valid values:\n\n*   none: The instance is not I/O optimized.\n*   optimized: The instance is I/O optimized.\n\nFor instances of retired instance types, the default value is none. For instances of other instance types, the default value is optimized.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "Specifies whether the instance is I/O optimized. Valid values:\n\n- none: non-I/O optimized.\n- optimized: I/O optimized.\n\nFor retired instance types, the default value is none. For other instance types, the default value is optimized.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.KeyPairName",
-      "description": "The key pair name.\n\n*   For Windows instances, this parameter is ignored. This parameter is empty by default.\n*   By default, password-based logon is disabled for Linux instances.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The name of the key pair.\n\n-   For Windows instances, this parameter is ignored. The default value is empty.\n-   For Linux instances, password-based logon is disabled during initialization.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.Password",
-      "description": "The instance password. The password must be 8 to 30 characters in length and contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The password can contain the following special characters:\n\n``( ) ` ~ ! @ # $ % ^ & * - _ + = | { }  ``: ; ' < > , . ? /``  For Windows instances, the password cannot start with a forward slash (/). When both LaunchTemplateId and LaunchConfiguration.* parameters are specified, LaunchTemplateId takes precedence. `",
+      "description": "The password of the instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:\n\n``()`~!@#$%^&*-_+=|{}`[]`:;'<>,.?/``\n\nFor Windows instances, the password cannot start with a forward slash (/).\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.PasswordInherit",
-      "description": "Specifies whether to use the password preset in the image. Valid values:\n\n*   true: uses the password preset in the image.\n*   false: does not use the password preset in the image.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "Specifies whether to use the password preset in the image. Valid values:\n\n- true: uses the preset password.\n- false: does not use the preset password.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LaunchConfiguration.RamRoleName",
-      "description": "The name of the instance Resource Access Management (RAM) role. You can call the [ListRoles](~~28713~~) operation provided by RAM to query the instance RAM roles that you created. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The name of the instance RAM role. You can call the RAM API [ListRoles](~~28713~~) to query the instance RAM roles that you have created. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the instance. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The ID of the resource group to which the instance belongs. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SecurityEnhancementStrategy",
-      "description": "Specifies whether to enable security hardening. Valid values:\n\n*   Active: enables security hardening. This value is applicable only to public images.\n*   Deactive: disables security hardening. This value is applicable to all image types.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "Specifies whether to enable security hardening. Valid values:\n\n-   Active: enables security hardening. This value is applicable only to public images.\n-   Deactive: disables security hardening. This value is applicable to all image types.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SecurityGroupId",
-      "description": "The ID of the security group to which to assign the instance. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The ID of the security group to which the instance belongs. If both a launch template and launch configuration information are specified, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SecurityGroupIds",
-      "description": "The IDs of the security groups to which the new ECS instances belong.",
+      "description": "The list of security groups to which the instance belongs.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SystemDisk",
-      "description": "The system disk information of instances. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The system disk information of the instance. If you specify both a launch template and launch configuration information, the launch template takes precedence.\n[_single.params.LaunchConfiguration~SystemD",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SystemDiskCategory",
-      "description": "The category of the system disk. Valid values:\n\n*   cloud_efficiency: ultra disk\n*   cloud_ssd: standard SSD\n*   cloud_essd: enhanced SSD (ESSD)\n*   cloud: basic disk\n\nFor non-I/O optimized instances of retired instance types, the default value is cloud. For other instances, the default value is cloud_efficiency.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The category of the system disk. Valid values:\n\n-   cloud_efficiency: ultra disk.\n-   cloud_ssd: standard SSD.\n-   cloud_essd: enterprise SSD (ESSD).\n-   cloud: basic disk.\n\nFor retired instance types that are non-I/O optimized, the default value is cloud. For other instance types, the default value is cloud_efficiency.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SystemDiskDescription",
-      "description": "The description of the system disk. The description must be 2 to 256 characters in length. The description can contain letters and cannot start with `http://` or `https://`.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The description of the system disk. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SystemDiskName",
-      "description": "The name of the system disk. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain letters, digits, periods (.), colons (:), underscores (\\_), and hyphens (-).\n\nThis parameter is empty by default.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The name of the system disk. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `http://` or `https://`. The name can contain digits, periods (.), colons (:), underscores (_), and hyphens (-).\n\nDefault value: empty.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SystemDiskPerformanceLevel",
-      "description": "The performance level of the ESSD to be used as the system disk. Valid values:\n\n*   PL0 (default): A single ESSD can deliver up to 10,000 random read/write IOPS.\n*   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.\n*   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.\n*   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.\n\nFor more information about ESSD performance levels, see [ESSDs](~~122389~~).\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The performance level (PL) of the enterprise SSD used as the system disk. Valid values:\n\n- PL0 (default): up to 10,000 random read/write IOPS per disk.\n- PL1: up to 50,000 random read/write IOPS per disk.\n- PL2: up to 100,000 random read/write IOPS per disk.\n- PL3: up to 1,000,000 random read/write IOPS per disk.\n\nFor information about how to select an ESSD performance level, see [ESSDs](~~122389~~).\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchConfiguration.SystemDiskSize",
-      "description": "The size of the system disk. Valid values: 20 to 500. Unit: GiB. The value must be at least 20 and greater than or equal to the size of the image specified by LaunchConfiguration.ImageId.\n\nDefault value: 40 or the size of the image specified by LaunchConfiguration.ImageId, whichever is greater.\n\nWhen both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The size of the system disk. Unit: GiB. Valid values: 20 to 500. The value of this parameter must be greater than or equal to max{20, size of the image specified by LaunchConfiguration.ImageId}.\n\nDefault value: max{40, size of the image specified by LaunchConfiguration.ImageId}.\n\nIf you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LaunchConfiguration.Tag",
-      "description": "The tag in the extended configurations of the launch template.",
+      "description": "The list of tags in the launch configuration.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the instance. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with aliyun or acs:. The tag key cannot contain `http://` or `https://`. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the instance. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with acs:. The tag value cannot contain `http://` or `https://`. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -414,92 +440,105 @@
     },
     {
       "name": "LaunchConfiguration.UserData",
-      "description": "The instance user data. The user data must be encoded in Base64. The raw data can be up to 32 KB in size. When both LaunchTemplateId and LaunchConfiguration.\\* parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "Instance user data of the instance. Instance user data must be Base64-encoded. The maximum size of the raw data is 32 KB. If you specify both a launch template and launch configuration information, the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateConfig",
-      "description": "The extended configurations of the launch template.",
+      "description": "The list of extended launch templates.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Architectures",
+          "description": "The list of architecture types for instance types.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "BurstablePerformance",
+          "description": "Specifies whether to include burstable instance types. Valid values:\n\n- Exclude: excludes burstable instance types.\n- Include: includes burstable instance types.\n- Required: includes only burstable instance types.\n\nDefault value: Include.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Cores",
+          "description": "The list of vCPU core counts for instance types.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ExcludedInstanceTypes",
+          "description": "The list of instance types to exclude.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ImageId",
+          "description": "The image ID. You can use this parameter to specify the image for the current resource pool. If this parameter is not specified, the image specified by `LaunchConfiguration.ImageId` or the image configured in the launch template is used by default. You can call [DescribeImages](~~25534~~) to query available image resources.\nNote: This parameter is supported only when `AutoProvisioningGroupType = instant`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceFamilyLevel",
+          "description": "The level of the instance family, which is used to filter instance types that meet the requirements. Valid values:\n\n- EntryLevel: entry level, which refers to shared instance types. These instance types are more cost-effective but cannot guarantee stable computing performance. They are suitable for scenarios where CPU utilization is typically low. For more information, see [Shared instance families](~~108489~~).\n- EnterpriseLevel: enterprise level. These instance types provide stable performance and dedicated resources. They are suitable for scenarios that require high stability. For more information, see [Instance families](~~25378~~).\n- CreditEntryLevel: credit-based entry level, which refers to burstable instances. These instance types use CPU credits to ensure computing performance. They are suitable for scenarios where CPU utilization is typically low with occasional bursts. For more information, see [Overview of burstable instances](~~59977~~).\n\nValid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceType",
+          "description": "The instance type in the extended launch template. Valid values of N: 1 to 20. For more information, see [Instance families](~~25378~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MaxPrice",
+          "description": "The maximum price for spot instances in the extended launch template.\n\n> After you set `LaunchTemplateConfig`, `LaunchTemplateConfig.N.MaxPrice` is required.",
           "position": "Query",
           "type": "Double",
           "required": false
         },
         {
           "name": "MaxQuantity",
+          "description": "> This parameter is in invitational preview and is not publicly available.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Memories",
+          "description": "The list of memory sizes for instance types.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Priority",
+          "description": "The priority of the extended launch template. A value of 0 indicates the highest priority. Valid values: 0 to +∞.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "VSwitchId",
+          "description": "The ID of the vSwitch to which the ECS instance in the extended launch template is connected. The zone of the ECS instance created from the extended template is determined by the vSwitch.\n\n> If you specify LaunchTemplateConfig, LaunchTemplateConfig.N.VSwitchId is required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WeightedCapacity",
+          "description": "The weight of the instance type in the extended launch template. A higher value indicates that a single instance can meet more computing power requirements, which means fewer instances are required. Valid values: greater than 0.\n\nYou can calculate the weight based on the computing power of the specified instance type and the minimum computing power of a single node in the cluster. For example, if the minimum computing power of a single node is 8 vCPUs and 60 GiB:\n\n- The weight of an instance type with 8 vCPUs and 60 GiB can be set to 1.\n- The weight of an instance type with 16 vCPUs and 120 GiB can be set to 2.",
           "position": "Query",
           "type": "Double",
           "required": false
@@ -508,111 +547,112 @@
     },
     {
       "name": "LaunchTemplateId",
-      "description": "The ID of the launch template associated with the auto provisioning group. You can call the [DescribeLaunchTemplates](~~73759~~) operation to query available launch templates. When both LaunchTemplateId and `LaunchConfiguration.*` parameters are specified, LaunchTemplateId takes precedence.",
+      "description": "The ID of the instance launch template associated with the auto provisioning group. You can invoke [DescribeLaunchTemplates](~~73759~~) to query active instance launch templates. If you specify both a launch template and launch configuration information (`LaunchConfiguration.*`), the launch template takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateVersion",
-      "description": "The version of the launch template associated with the auto provisioning group. You can call the [DescribeLaunchTemplateVersions](~~73761~~) operation to query the versions of available launch templates.\n\nDefault value: the default version of the launch template.",
+      "description": "The version of the instance launch template associated with the auto provisioning group. You can invoke [DescribeLaunchTemplateVersions](~~73761~~) to query active instance launch template versions.\n\nDefault value: the default version of the launch template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxSpotPrice",
-      "description": "The maximum price of spot instances in the auto provisioning group.\n\n>  When both `MaxSpotPrice` and `LaunchTemplateConfig.N.MaxPrice` are specified, the smaller one of the two parameter values is used.",
+      "description": "The maximum price for spot instances in the auto provisioning group.\n\n> If both `MaxSpotPrice` and `LaunchTemplateConfig.N.MaxPrice` are specified, the lower value is used.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "MinTargetCapacity",
-      "description": "The minimum target capacity of the auto provisioning group. The value must be a positive integer. When you specify this parameter, take note of the following items:\n\n- This parameter takes effect only when `AutoProvisioningGroupType` is set to instant. \n- If the number of instances that can be created in the current region is smaller than the value of this parameter, the operation cannot be called and no instances are created. \n- If the number of instances that can be created in the current region is greater than the value of this parameter, instances can be created based on the specified parameters.",
+      "description": "The target minimum capacity of the auto provisioning group. Valid values: positive integers.\n\nTake note of the following items:\n- This parameter takes effect only when you create a one-time synchronous auto provisioning group (`AutoProvisioningGroupType=instant`).\n- If the instance inventory in the current region is less than this parameter value, the invoke operation fails and no instances are created.\n- If the instance inventory in the current region is greater than this parameter value, instances are created as expected based on other specified parameter values.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PayAsYouGoAllocationStrategy",
-      "description": "The policy for creating pay-as-you-go instances. Valid values:\n\n*   lowest-price: cost optimization policy. The auto provisioning group selects the lowest-priced instance type to create instances.\n*   prioritized: priority-based policy. The auto provisioning group creates instances based on the priority specified by `LaunchTemplateConfig.N.Priority`.\n\nDefault value: lowest-price.",
+      "description": "The policy for creating pay-as-you-go instances. Valid values:\n\n- lowest-price: cost optimization policy. Selects the instance type with the lowest price.\n\n- prioritized: priority-based policy. Creates instances based on the priority specified by `LaunchTemplateConfig.N.Priority`.\n\nDefault value: lowest-price.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PayAsYouGoTargetCapacity",
-      "description": "The target capacity of pay-as-you-go instances in the auto provisioning group. The value must be less than or equal to the `TotalTargetCapacity` value.",
+      "description": "The target capacity of pay-as-you-go instances in the auto provisioning group. Valid values: less than or equal to the parameter value of `TotalTargetCapacity`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrePaidOptions",
-      "description": "The capacity details of the subscription instance.",
+      "description": "The detailed capacity configuration for subscription instances.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which to create the auto provisioning group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The ID of the region in which to create the auto provisioning group. You can invoke [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the auto provisioning group.",
+      "description": "The ID of the resource group to which the auto provisioning group belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourcePoolOptions",
-      "description": "The resource pool options to use to create instances. When you specify this parameter, take note of the following items:\n\n*   This parameter takes effect only when the auto provisioning group creates pay-as-you-go instances.\n*   This parameter takes effect only if you set `AutoProvisioningGroupType` to instant.",
+      "description": "The resource pool policy used to create instances. Take note of the following items when you set this parameter:\n- This parameter takes effect only when you create pay-as-you-go instances.\n- This parameter takes effect only when you create a one-time synchronous auto provisioning group (`AutoProvisioningGroupType=instant`).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotAllocationStrategy",
-      "description": "The policy for creating spot instances. Valid values:\n\n*   lowest-price: cost optimization policy. The auto provisioning group selects the lowest-priced instance type to create instances.\n*   diversified: balanced distribution policy. The auto provisioning group creates instances in zones that are specified in extended configurations and then evenly distributes the instances across the zones.\n*   capacity-optimized: capacity-optimized distribution policy. The auto provisioning group creates instances of the optimal instance types across the optimal zones based on resource availability.\n\nDefault value: lowest-price.",
+      "description": "The policy for creating spot instances. Valid values:\n\n- lowest-price: cost optimization policy. Selects the instance type with the lowest price.\n\n- diversified: balanced zone distribution policy. Creates instances in the zones specified in the extended launch template and distributes them evenly across zones.\n\n- capacity-optimized: capacity optimization distribution policy. Selects the optimal instance type and zone based on inventory availability.\n\nDefault value: lowest-price.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotInstanceInterruptionBehavior",
-      "description": "The operation to be performed on the spot instance when it is interrupted. Valid values:\n\n*   stop: stops the spot instance.\n*   terminate: releases the spot instance.\n\nDefault value: terminate.",
+      "description": "The action to take when a spot instance is interrupted. Valid values:\n\n- stop: stops the instance.\n\n- terminate: releases the instance.\n\nDefault value: terminate.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotInstancePoolsToUseCount",
-      "description": "The number of spot instances of the lowest-priced instance type to be created by the auto provisioning group. This parameter takes effect when `SpotAllocationStrategy` is set to `lowest-price`.\n\nThe value must be smaller than the N value specified in `LaunchTemplateConfig.N`.",
+      "description": "Takes effect only when `SpotAllocationStrategy` is set to `lowest-price`. Specifies the number of instance types from which the auto provisioning group selects the lowest-priced ones to create instances.\n\nValid values: less than the value of N in `LaunchTemplateConfig.N`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SpotTargetCapacity",
-      "description": "The target capacity of spot instances in the auto provisioning group. The value must be less than or equal to the `TotalTargetCapacity` value.",
+      "description": "The target capacity of spot instances in the auto provisioning group. Valid values: less than or equal to the parameter value of `TotalTargetCapacity`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDiskConfig",
-      "description": "The information of system disks on the instance.",
+      "description": "The list of system disk configurations.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DiskCategory",
+          "description": "The category of the system disk. You can specify multiple candidate disk categories. The specified order determines the priority of each disk category. When a disk category is unavailable, the system automatically switches to the next category. Valid values:\n\n-   cloud_efficiency: ultra disk.\n-   cloud_ssd: standard SSD.\n-   cloud_essd: enterprise SSD (ESSD).\n-   cloud: basic disk.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -621,19 +661,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the auto provisioning group.",
+      "description": "The tags to attach to the auto provisioning group.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the auto provisioning group.\n\nValid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with aliyun or acs:. The tag key cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the auto provisioning group.\n\nValid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -642,35 +684,35 @@
     },
     {
       "name": "TerminateInstances",
-      "description": "Specifies whether to release instances in the auto provisioning group when the auto provisioning group is deleted. Valid values:\n\n*   true: releases the instances.\n*   false: retains the instances.\n\nDefault value: false.",
+      "description": "Specifies whether to release instances auto provisioning group when the auto-provisioning group is deleted. Valid values:\n\n- true: releases instances auto provisioning group.\n- false: retains instances auto provisioning group.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TerminateInstancesWithExpiration",
-      "description": "Specifies whether to release instances in the auto provisioning group when the group expires. Valid values:\n\n*   true: releases the instances.\n*   false: only removes the instances from the auto provisioning group but does not release them.\n\nDefault value: false.",
+      "description": "Specifies whether to release instances auto provisioning group when the auto-provisioning group expires. Valid values:\n\n- true: releases instances auto provisioning group.\n- false: only removes instances from the auto-provisioning group.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TotalTargetCapacity",
-      "description": "The total target capacity of the auto provisioning group. The value must be a positive integer.\n\nThe total target capacity of the auto provisioning group must be greater than or equal to the sum of the target capacity of pay-as-you-go instances specified by `PayAsYouGoTargetCapacity` and the target capacity of spot instances specified by `SpotTargetCapacity`.",
+      "description": "The total target capacity of the auto provisioning group. Valid values: positive integers.\n\nThe total capacity must be greater than or equal to the sum of `PayAsYouGoTargetCapacity` (the target capacity of pay-as-you-go instances) and `SpotTargetCapacity` (the target capacity of spot instances).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ValidFrom",
-      "description": "The time at which to start the auto provisioning group. The period of time between this point in time and the point in time specified by `ValidUntil` is the validity period of the auto provisioning group.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nBy default, an auto provisioning group is started immediately after it is created.",
+      "description": "The time when the auto provisioning group starts. This parameter and `ValidUntil` together determine the validity period.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nDefault value: the UNIX timestamp at which the request takes effect immediately.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ValidUntil",
-      "description": "The time at which the auto provisioning group expires. The period of time between this point in time and the point in time specified by `ValidFrom` is the validity period of the auto provisioning group.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nDefault value: 2099-12-31T23:59:59Z.",
+      "description": "The time when the auto provisioning group expires. This parameter and `ValidFrom` together determine the validity period.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nDefault value: 2099-12-31T23:59:59Z.",
       "position": "Query",
       "type": "String",
       "required": false

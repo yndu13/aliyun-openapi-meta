@@ -1,54 +1,62 @@
 {
   "name": "PutCustomMetric",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "MetricList",
-      "description": "The monitoring data.",
+      "description": "The list of monitoring data.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Dimensions",
+          "description": "The dimension map, which is used to query monitoring data of a specified resource. Valid values of N: 1 to 21.\n\nFormat: a collection of key-value pairs. A commonly used key-value pair collection is: `{\"Key\":\"Value\"}`.\n\nThe length of Key and Value is 1 to 64 characters. Characters beyond the first 64 are truncated.\n\nThe values of Key and Value can contain letters, digits, periods (.), hyphens (-), underscores (_), forward slashes (/), and backslashes (\\).\n\n> Dimensions must be passed in as a JSON string that represents the map object, and must be passed in order. ",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "GroupId",
+          "description": "The ID of the application group. Valid values of N: 1 to 21.\n\n> If the metric does not belong to any application group, enter 0.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "MetricName",
+          "description": "The name of the metric. Valid values of N: 1 to 21. For more information, see [Metrics of cloud services](~~163515~~).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Period",
+          "description": "The aggregation period. Valid values of N: 1 to 21. Unit: seconds. Valid values: 60 and 300.\n\n> If the type of the reported value is 1, you must set this parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Time",
+          "description": "The time when the metric occurred. Valid values of N: 1 to 21. The following two types of values are supported:\n- UTC time. Format: YYYY-MM-DDThh:mm:ssZ. For example: 20171012T132456.888+0800.\n- A Long-type timestamp. For example: 1508136760000.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "The type of the reported value. Valid values of N: 1 to 21. Valid values:\n\n- 0: raw data.\n- 1: aggregate data.\n\n> When you report aggregate data, we recommend that you report both data with a period of 60 seconds and data with a period of 300 seconds. Otherwise, monitoring data cannot be queried for a time span of more than 7 days.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Values",
+          "description": "The collection of metric values. Valid values of N: 1 to 21.\n\n> If the type of the reported value is 0, the raw values are reported. CloudMonitor aggregates raw values into multiple values, such as maximum, count, and sum, by period.\n",
           "position": "Query",
           "type": "String",
           "required": true

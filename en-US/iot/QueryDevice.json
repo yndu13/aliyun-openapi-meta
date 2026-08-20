@@ -1,40 +1,41 @@
 {
   "name": "QueryDevice",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CurrentPage",
-      "description": "The number of the page to return. Default value: 1.",
+      "description": "The page number of the page to return. Default value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.\n>*   If no **Overview** page or **ID** is generated for your instance, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If the ID value is available, you must specify this **ID** value. Otherwise, the call fails.\n- If the **Overview** page or **ID** value is not available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used to retrieve the next page of the query results. The first time you perform a query operation, you do not need to configure this parameter. You must specify the token that is obtained from the previous query for the **NextToken** parameter.\n\nIf the product of the value of the **PageSize** parameter and the value of the **CurrentPage** parameter is greater than 10,000, you must configure the **NextToken** parameter. Otherwise, data cannot be returned.\n\n\n>If you configure the **NextToken** parameter, the product of the value of the **PageSize** parameter and the value of the **CurrentPage** parameter must be less than 1,000,000. Otherwise, data cannot be returned.",
+      "description": "The token for the next page. You do not need to specify this parameter for the first query. For subsequent queries, use the **NextToken** value returned from the previous query.\n\n\n\nWhen the product of **PageSize** and **CurrentPage** is greater than 10,000, you must specify **NextToken**. Otherwise, no data is returned.\n\n\n><notice>\nIf you specify **NextToken**, the product of **PageSize** and **CurrentPage** must be less than 1,000,000. Otherwise, no data is returned.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values: 1 to 50. Default value: 10.",
+      "description": "The number of records per page in the response. Maximum value: 50. Default value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs.",
+      "description": "The **ProductKey** of the product to which the devices belong.",
       "position": "Query",
       "type": "String",
       "required": true

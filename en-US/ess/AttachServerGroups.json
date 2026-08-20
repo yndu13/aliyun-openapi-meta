@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that the value is unique among different requests.\n\nThe token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure the idempotence of a request](~~25965~~).",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ForceAttach",
-      "description": "Specifies whether to add the Elastic Compute Service (ECS) instances in the scaling group to the backend server group of the newly attached SLB instance. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to add the existing ECS instances or Elastic Container Instance (ECI) instances in the scaling group to the new server group. Valid values:\n\n- true: Adds the instances.\n\n- false: Does not add the instances.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -35,31 +35,35 @@
     },
     {
       "name": "ServerGroup",
-      "description": "A collection of information about a load-balanced server group.",
+      "description": "The information about the load balancing server groups.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Port",
+          "description": "The port number used by an ECS instance or ECI instance after Auto Scaling adds the instance to the server group.\n\nValid values: 1 to 65535.\n\n> This parameter is required for ALB and NLB load balancing server groups. You cannot configure this parameter in Settings for GWLB load balancing server groups, and the default value is 6081.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ServerGroupId",
+          "description": "The ID of the load balancing server group.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Type",
+          "description": "The type of the load balancing server group. Valid values:\n\n- ALB: Application Load Balancer (ALB).\n- NLB: Network Load Balancer (NLB).\n- GWLB: Gateway Load Balancer (GWLB).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Weight",
+          "description": "The weight of an ECS instance or ECI instance as a backend server after Auto Scaling adds the instance to the server group. Valid values: 0 to 100.\n\nA higher weight indicates that the instance is allocated more access requests. If the weight is 0, the instance does not receive any access requests.\n\n> This parameter is required for ALB and NLB load balancing server groups. You cannot configure this parameter in Settings for GWLB load balancing server groups.",
           "position": "Query",
           "type": "Integer",
           "required": false

@@ -1,0 +1,93 @@
+{
+  "name": "AddDataSource",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ClusterId",
+      "description": "The ID of the client group used to access the data source.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ConnectionInfo",
+      "description": "The connection information for the data source. Examples:\n\n- Local NAS data source:\n  {\n  \"dataServerAddresses\": \\[\n  {\n  \"host\": \"123.123.123.123\",\n  \"port\": \"8080\"\n  }\n  ],\n  \"sharePath\": \"/share\",\n  \"mountOptions\": \"vers=3\",\n  \"fileSystemType\": \"nfs\"\n  }\n\n- CPFS AI-Computing Edition data source:\n  {\"vpcMountTarget\":\"cpfs-010wn\\*\\*\\*wy-vpc-ta\\*\\*\\*8.cn-shanghai.cpfs.aliyuncs.com\",\"sharePath\":\"/\"}\n\n- Other large-scale file system data source:\n  {\"path\":\"/mnt\"}",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Credential",
+      "description": "The access credential for the data source. This parameter is required for local NAS (SMB) data sources and for OSS- or S3-compatible data sources. Examples:\n\n- Local NAS data source (SMB protocol):\n  {\n  \"mountUsername\": \"\\*\\*\\*\\*\\*\",\n  \"mountPassword\": \"\\*\\*\\*\\*\\*\"\n  }\n\n- OSS-compatible or S3-compatible data source:\n  {\n  \"accessKeyId\": \"\\*\\*\\*\\*\\*\",\n  \"accessKeySecret\": \"\\*\\*\\*\\*\\*\"\n  }",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DataSourceName",
+      "description": "The name of the data source.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "DataSourceType",
+      "description": "The type of the data source.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Exclude",
+      "description": "A filter that specifies the files to exclude. This parameter applies only to data source analysis with the archive feature.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Include",
+      "description": "A filter that specifies the files to include. This parameter applies only to data source analysis with the archive feature.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "IndexLevel",
+      "description": "The index level. This parameter applies only to data source analysis with the archive feature.\n\n- `OFF`: No index is created.\n\n- `META`: A metadata index is created.\n\n- `ALL`: A full-text index is created. (Deprecated)",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Options",
+      "description": "The options for data source analysis. This parameter applies only to data source analysis with the archive feature.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Path",
+      "description": "A list of paths for data source analysis. This parameter applies only to data source analysis with the archive feature.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "Schedule",
+      "description": "The execution schedule. This parameter applies only to data source analysis with the archive feature. The format `I|{startTime}|{interval}` specifies a task that runs at a defined interval starting from `{startTime}`. `{interval}` is an ISO 8601 duration. For example, `PT1H` specifies a one-hour interval, and `P1D` specifies a one-day interval.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SpeedLimit",
+      "description": "The rate limiting settings. This parameter applies only to data source analysis with the archive feature.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

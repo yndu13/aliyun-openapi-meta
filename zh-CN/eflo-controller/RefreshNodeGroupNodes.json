@@ -1,0 +1,30 @@
+{
+  "name": "RefreshNodeGroupNodes",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "MaxDisruptiveAction",
+      "description": "刷新操作允许的最大破坏性动作等级。系统对节点每个漂移属性独立评估刷新所需的动作等级，在满足指定动作等级约束的前提下执行刷新操作；若某属性所需动作等级超过指定等级，则跳过该属性。动作等级按破坏性递增：Refresh < Reboot < Reimage。\n- Refresh（默认）：仅原地刷新配置，不执行重启或重装。当前仅适用于 RamRoleName 属性。\n- Reboot（当前不支持）：允许通过重启节点以使配置生效。支持的属性包括系统盘类型、以及 Refresh 支持的所有属性。\n- Reimage（当前不支持）：允许通过重装节点以使配置生效。支持的属性包括镜像 ID、以及 Reboot 支持的所有属性。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "NodeGroupId",
+      "description": "节点组ID",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "NodeIds",
+      "description": "指定节点刷新的筛选边界，未指定时代表节点组下所有节点。<warning>若机型为超节点，这里传入TrayNode的Id，不是HyperNodeId</warning>\n",
+      "position": "Body",
+      "type": "Json",
+      "required": false
+    }
+  ]
+}

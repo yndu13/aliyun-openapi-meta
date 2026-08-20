@@ -7,139 +7,154 @@
   "parameters": [
     {
       "name": "CentralDBInstanceId",
-      "description": "The ID of the central node . You can call the DescribeGadInstances operation to query the ID.",
+      "description": "The ID of the central node . You can call the DescribeGadInstances operation to query the ID.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "CentralRdsDtsAdminAccount",
-      "description": "The username of the privileged account of the central node. You can call the DescribeAccounts operation to query the privileged account of the central node.",
+      "description": "The username of the privileged account of the central node. You can call the DescribeAccounts operation to query the privileged account of the central node.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "CentralRdsDtsAdminPassword",
-      "description": "The password of the privileged account of the central node.",
+      "description": "The password of the privileged account of the central node.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "CentralRegionId",
-      "description": "The region ID of the central node. You can call the DescribeRegions operation to query the most recent region list.",
+      "description": "The region ID of the central node. You can call the DescribeRegions operation to query the most recent region list.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBList",
-      "description": "A JSON array that consists of the information about the databases on the central node. All database information that you specify in this array is synchronized to the unit nodes of the global active database cluster. The JSON array contains the following fields:\n\n*   **name**: the name of the database.\n*   **all**: specifies whether to synchronize all data in the database or the table. Valid values: **true** and **false**.\n*   **Table**: the name of the table. If you set the **all** field to **false**, you must nest the name of the table that you want to synchronize into the JSON array.\n\nExample: `{ \"testdb\": { \"name\": \"testdb\", \"all\": false, \"Table\": { \"order\": { \"name\": \"order\", \"all\": true }, \"ordernew\": { \"name\": \"ordernew\", \"all\": true } } } }`\n\n>  For more information, see [Objects of DTS tasks](~~209545~~).",
+      "description": "A JSON array that consists of the information about the databases on the central node. All database information that you specify in this array is synchronized to the unit nodes of the global active database cluster. The JSON array contains the following fields:\n\n*   **name**: the name of the database.\n*   **all**: specifies whether to synchronize all data in the database or the table. Valid values: **true** and **false**.\n*   **Table**: the name of the table. If you set the **all** field to **false**, you must nest the name of the table that you want to synchronize into the JSON array.\n\nExample: `{ \"testdb\": { \"name\": \"testdb\", \"all\": false, \"Table\": { \"order\": { \"name\": \"order\", \"all\": true }, \"ordernew\": { \"name\": \"ordernew\", \"all\": true } } } }`\n\n>  For more information, see [Objects of DTS tasks](~~209545~~).\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GadInstanceId",
-      "description": "The ID of the global active database cluster. You can call the DescribeGadInstances operation to query the ID.",
+      "description": "The ID of the global active database cluster. You can call the DescribeGadInstances operation to query the ID.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "UnitNode",
-      "description": "The information about the unit node.",
+      "description": "The information about the unit node.\n",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "DBInstanceDescription",
+          "description": "The name of the unit node that you want to create. The name must meet the following requirements:\n\n*   The name must be **2 to 255** characters in length.\n*   The name can contain letters, digits, underscores (\\_), and hyphens (-) and must start with a letter.\n*   The name cannot start with `http://` or `https://`.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DBInstanceStorage",
+          "description": "The storage capacity of the unit node that you want to create. Unit: GB The storage capacity increases in increments of 5 GB. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~). You can also call the DescribeAvailableResource operation to query the storage capacity range that is supported by the new instance type.\n",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "DBInstanceStorageType",
+          "description": "The storage type of the instance. Valid values:\n\n*   **local_ssd**: local SSD\n*   **cloud_ssd**: standard SSD\n*   **cloud_essd**: PL1 ESSD\n*   **cloud_essd2**: PL2 ESSD\n*   **cloud_essd3**: PL3 ESSD\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DbInstanceClass",
+          "description": "The instance type of the unit node that you want to create. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~). You can call the DescribeAvailableResource operation to query the available instance types in a region.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DtsConflict",
+          "description": "The conflict resolution policy based on which Data Transmission Service (DTS) responds to primary key conflicts during data synchronization to the unit node that you want to create. Valid values:\n\n*   **overwrite**: DTS overwrites the conflicting primary key on the destination node.\n*   **interrupt**: DTS stops the synchronization task, reports an error, and then exits.\n*   **ignore**: DTS overwrites the conflicting primary key on the logger node.\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "DtsInstanceClass",
+          "description": "The specifications of the data synchronization task for the unit node that you want to create. Valid values:\n\n*   **small**\n*   **medium**\n*   **large**\n*   **micro**\n\n>  For more information, see [Specifications of data synchronization tasks](~~26605~~).\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Engine",
+          "description": "The database engine of the unit node that you want to create. Set the value to **MySQL**.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EngineVersion",
+          "description": "The database engine version of the unit node that you want to create. Valid values:\n\n*   **8.0**\n*   **5.7**\n*   **5.6**\n*   **5.5**\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RegionID",
+          "description": "The region ID of the unit node or secondary node that you want to create. You can call the DescribeRegions operation to query the most recent region list.\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "SecurityIPList",
+          "description": "The [IP address whitelist](~~43185~~) of the unit node that you want to create. If you want to add more than one entry to the IP address whitelist, separate the entries with commas (,). Each entry must be unique. The IP address whitelist can contain up to 1,000 entries. The entries in the IP address whitelist must be in one of the following formats:\n\n*   IP addresses, such as `10.10.XX.XX`.\n*   CIDR blocks, such as `10.10.XX.XX/24`. In this example, **24** indicates that the prefix of each IP address in the IP address whitelist is 24 bits in length. You can replace 24 with a value within the range of **1 to 32**.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VSwitchID",
+          "description": "The vSwitch ID of the unit node that you want to create.\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "VpcID",
+          "description": "The virtual private cloud (VPC) ID of the unit node that you want to create.\n",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ZoneID",
+          "description": "The zone ID of the unit node that you want to create. You can call the DescribeRegions operation to query the zone ID.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZoneIDSlave1",
+          "description": "The zone ID of the secondary node of the unit node that you want to create. You can call the DescribeRegions operation to query the zone ID.\n\n*   If the value of this parameter is the same as the **zone ID** of the unit node that you want to create, the single-zone deployment method is used.\n*   If the value of this parameter is different from the **zone ID** of the unit node that you want to create, the multiple-zone deployment method is used.\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZoneIDSlave2",
+          "description": "The zone ID of the logger node of the unit node that you want to create. You can call the DescribeRegions operation to query the zone ID.\n\n*   If the value of this parameter is the same as the **zone ID** of the unit node that you want to create, the single-zone deployment method is used.\n*   If the value of this parameter is different from the **zone ID** of the unit node that you want to create, the multiple-zone deployment method is used.\n",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,75 +1,76 @@
 {
   "name": "ModifyCasterComponent",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CaptionLayerContent",
-      "description": "The information about the subtitle component. The value must be a JSON string. This parameter contains the following fields:\n\n>  This parameter is required if you set ComponentType to caption.\n\n*   **SizeNormalized**: the normalized value of the font size. The value of this field equals the font size divided by the output height. Valid values: `0 to 1`. The maximum font size is 1,024, even if the font size calculated based on this field is greater than 1,024.\n*   **BorderWidthNormalized**: the normalized value of the border width. The value of this field equals the border width divided by the font size. Valid values: `0 to 1`. Default value: 0. The maximum border width is 16, even if the border width calculated based on this field is greater than 16.\n*   **FontName**: the font name. Default value: KaiTi. For more information about the valid values, see **Fonts used in a production studio**.\n*   **BorderColor**: the color of the text border. Valid values: 0x000000 to 0xffffff. By default, this parameter is left empty. In this case, the color of the text border is transparent.\n*   **LocationId**: the channel ID of the source subtitles.\n*   **SourceLan**: the source language of the subtitles in the video. Valid values: en (English), cn (Chinese), es (Spanish), and ru (Russian). Default value: cn.\n*   **TargetLan**: the target language of the subtitles in the video. If you do not specify this field, speech recognition is used. If you specify this field, translation is used. Valid values: en (English), cn (Chinese), es (Spanish), and ru (Russian).\n*   **ShowSourceLan**: specifies whether to display the source language. A value of true specifies that the source language is displayed. A value of false specifies that the source language is not displayed. Default value: false.\n*   **Truncation**: specifies whether to allow subtitle truncation. A value of true specifies that the subtitles can be truncated. A value of false specifies that the subtitles cannot be truncated. Default value: false.\n*   **SourceLanPerLineWordCount**: the number of words displayed in each line of the source language. This field takes effect only if you set Truncation to true. Default value: 20.\n*   **TargetLanPerLineWordCount**: the number of words displayed in each line of the target language. This field takes effect only if you set Truncation to true. Default value: 20.",
+      "description": "The properties of the caption layer. The value is a JSON string. The following properties are supported:\n\n><notice>\n\nThis parameter is required if you set ComponentType to caption.\n\n></notice>\n\n- **SizeNormalized**: The normalized font size. The font size is calculated using the formula: font\\_size/output\\_height. The value must be in the range of `[0,1]`. If the calculated font size is greater than 1024, the value 1024 is used.\n\n- **BorderWidthNormalized**: The normalized width of the text border. The normalized width is calculated based on the font size using the formula: BorderWidth/FontSize. The value must be in the range of `[0,1]`. If the calculated value is greater than 16, the value 16 is used. Default value: 0.\n\n- **FontName**: The font name. For more information about valid values, see **Production studio fonts**. Default value: KaiTi.\n\n- **BorderColor**: The color of the text border. Valid values are from 0x000000 to 0xffffff. The default value is an empty string, which indicates that this parameter is not used.\n\n- **LocationId**: The channel ID of the translation source.\n\n- **SourceLan**: The source language of the audio in the video source. Valid values are en (English), cn (Chinese), es (Spanish), and ru (Russian). Default value: cn.\n\n- **TargetLan**: The target language for translation. If you do not set this parameter, only speech recognition is performed. If you set this parameter, translation is also performed. Valid values are en (English), cn (Chinese), es (Spanish), and ru (Russian).\n\n- **ShowSourceLan**: Specifies whether to display the source language. Valid values are true (display) and false (do not display). Default value: false.\n\n- **Truncation**: Specifies whether to truncate the caption. Valid values are true (truncate) and false (do not truncate). Default value: false.\n\n- **SourceLanPerLineWordCount**: The number of words per line for the source language. This parameter takes effect only if Truncation is set to true. Default value: 20.\n\n- **TargetLanPerLineWordCount**: The number of words per line for the target language. This parameter takes effect only if Truncation is set to true. Default value: 20.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\n*   If the production studio was created by calling the [CreateCaster](~~2848009~~) operation, check the value of the response parameter CasterId to obtain the ID.\n*   If the production studio was created by using the ApsaraVideo Live console, obtain the ID on the **Production Studio Management** page. To go to the page, log on to the **ApsaraVideo Live console** and click **Production Studios** in the left-side navigation pane.\n\n>  You can find the ID of the production studio in the Instance ID/Name column.",
+      "description": "The ID of the production studio.\n\n- The ID is returned after you call the [CreateCaster](~~2848009~~) operation.\n\n- If you create a production studio in the LIVE console, go to the **LIVE** > **Production Studio** > **Cloud Production Studio** page to find the ID.\n\n> The name of the production studio in the list on the Cloud Production Studio page is the production studio ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ComponentId",
-      "description": "The ID of the component. If the component was added by calling the [AddCasterComponent](~~2848030~~) operation, check the value of the response parameter ComponentId to obtain the ID.",
+      "description": "The component ID. The ID is returned after you call the [AddCasterComponent](~~2848030~~) operation.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ComponentLayer",
-      "description": "The information about the component layer, such as the size and layout, The value must be a JSON string. This parameter contains the following fields:\n\n*   **HeightNormalized**: the normalized value of the height of the component layer.\n*   **WidthNormalized**: the normalized value of the width of the component layer.\n*   **PositionNormalized**: the normalized value of the position of the component layer.\n*   **PositionRefer**: the reference coordinates of the component layer.",
+      "description": "The size and layout of the layer. The value is a JSON string. The following properties are supported:\n\n- **HeightNormalized**: The normalized height.\n\n- **WidthNormalized**: The normalized width.\n\n- **PositionNormalized**: The normalized position of the layer.\n\n- **PositionRefer**: The reference point for the position of the layer.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ComponentName",
-      "description": "The name of the component. By default, the name is the ID of the component.",
+      "description": "The name of the component. The default value is the component ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ComponentType",
-      "description": "The type of the component. Valid values:\n\n*   **text**: text component. The TextLayerContent parameter is required if you set ComponentType to text.\n*   **image**: image component. The ImageLayerContent parameter is required if you set ComponentType to image.\n*   **caption**: subtitle component. The CaptionLayerContent parameter is required if you set ComponentType to caption.",
+      "description": "The type of the component. Valid values:\n\n- **text**: A text component. The TextLayerContent parameter is required only if you set ComponentType to text.\n\n- **image**: An image component. The ImageLayerContent parameter is required only if you set ComponentType to image.\n\n- **caption**: A translation caption component. The CaptionLayerContent parameter is required only if you set ComponentType to caption.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Effect",
-      "description": "The display effect for the component. Valid values:\n\n*   **none** (default)\n*   **animateH**: horizontal scrolling\n*   **animateV**: vertical scrolling",
+      "description": "The display effect of the component. Valid values:\n\n- **none** (default): no effect.\n\n- **animateH**: horizontal scroll.\n\n- **animateV**: vertical scroll.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageLayerContent",
-      "description": "The information about the image component. The value must be a JSON string.\n\n>  This parameter is required if you set ComponentType to image.\n\nThe MaterialId field specifies the ID of the material from the media asset library.",
+      "description": "The properties of the image layer. The value is a JSON string.\n\n><notice>\n\nThis parameter is required if you set ComponentType to image.\n\n></notice>\n\nMaterialId is the ID of the material in the media asset library.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TextLayerContent",
-      "description": "The information about the text component. The value must be a JSON string. This parameter contains the following fields:\n\n>  This parameter is required if you set ComponentType to text.\n\n*   **SizeNormalized**: the normalized value of the font size. The value of this field equals the font size divided by the output height. Valid values: `0 to 1`. The maximum font size is 1,024, even if the font size calculated based on this field is greater than 1,024.\n*   **BorderWidthNormalized**: the normalized value of the border width. The value of this field equals the border width divided by the font size. Valid values: `0 to 1`. Default value: 0. The maximum border width is 16, even if the border width calculated based on this field is greater than 16.\n*   **FontName**: the font name. Default value: KaiTi. For more information about the valid values, see **Fonts used in a production studio**.\n*   **BorderColor**: the color of the text border. Valid values: 0x000000 to 0xffffff. By default, this parameter is left empty. In this case, the color of the text border is transparent.\n*   **Text**: the content of the text. By default, this parameter is left empty. In this case, the text contains no content.\n*   **Color**: the color of the text. The default value is 0xff0000, which indicates that the text is in red.",
+      "description": "The properties of the text layer. The value is a JSON string. The following properties are supported:\n\n><notice>\n\nThis parameter is required if you set ComponentType to text.\n\n></notice>\n\n- **SizeNormalized**: The normalized font size. The font size is calculated using the formula: font\\_size/output\\_height. The value must be in the range of `[0,1]`. If the calculated font size is greater than 1024, the value 1024 is used.\n\n- **BorderWidthNormalized**: The normalized width of the text border. The normalized width is calculated based on the font size using the formula: BorderWidth/FontSize. The value must be in the range of `[0,1]`. If the calculated value is greater than 16, the value 16 is used. Default value: 0.\n\n- **FontName**: The font name. For more information about valid values, see **Production studio fonts**. Default value: KaiTi.\n\n- **BorderColor**: The color of the text border. Valid values are from 0x000000 to 0xffffff. The default value is an empty string, which indicates that this parameter is not used.\n\n- **Text**: The text content. The default value is an empty string.\n\n- **Color**: The color of the text. Default value: 0xff0000, which is red.",
       "position": "Query",
       "type": "String",
       "required": false

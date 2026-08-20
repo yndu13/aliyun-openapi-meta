@@ -1,0 +1,37 @@
+{
+  "name": "SwitchInstanceToTargetZone",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "InstanceId",
+      "description": "实例ID，可调用 [DescribeInstances](~~473778~~) 获取。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "NodeId",
+      "description": "集群版实例的子节点ID。\n\n> 如果不设置将切换所有分片到目标可用区。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SwitchType",
+      "description": "切换模式，取值：\n* **ReliabilityPriority (默认值)**：可靠性优先，确保主备同步无延迟时才执行主备切换，不会丢失数据。该模式在写入量较大且持续存在同步延迟的场景下，可能会造成主备切换失败。\n* **AvailablePriority**：可用性优先，不考虑主备延迟，立即执行主备切换，可能会丢失少量数据。\n\n\n> 您需要根据业务场景对数据、服务等方面的需求进行衡量，然后选取切换模式。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetZoneId",
+      "description": "目标可用区ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

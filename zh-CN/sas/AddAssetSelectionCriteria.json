@@ -1,9 +1,17 @@
 {
   "name": "AddAssetSelectionCriteria",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
+    {
+      "name": "ClientToken",
+      "description": "客户端 Token，用于保证请求幂等性。不同请求应使用不同的 Token；只支持 ASCII 字符，长度不超过 64 个字符。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
     {
       "name": "Criteria",
       "description": "设置搜索资产的条件。该参数JSON格式，输入参数时注意大小写。\n> 支持使用资产的实例ID、实例名称、所属VPC ID、地域、公网IP地址等条件搜索资产。您可以调用[DescribeCriteria](~~DescribeCriteria~~)接口查询支持的搜索条件。",
@@ -34,12 +42,14 @@
       "sub_parameters": [
         {
           "name": "Operation",
+          "description": "操作类型。取值：\n\n- **add**：增加。\n- **del**：删除。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Target",
+          "description": "资产ID。按机器选择时，取值为机器的uuid，按分组选择时，取值为分组ID，按VPC选择时，取值为VPC ID。",
           "position": "Query",
           "type": "String",
           "required": false

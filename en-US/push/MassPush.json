@@ -7,675 +7,819 @@
   "parameters": [
     {
       "name": "AppKey",
-      "description": "",
+      "description": "AppKey information.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "IdempotentToken",
-      "description": "",
+      "description": "An idempotency parameter used to prevent duplicate pushes caused by API caller retries. When calls are made with the same IdempotentToken within 15 minutes, only one push is performed, and subsequent calls return the result of the first successful push.\n\n> \n> - The parameter format is a standard 36-character UUID (8-4-4-4-12). Each valid character is a hexadecimal digit in the range 0-9 or a-f, case-insensitive.\n> - This parameter is only used to prevent duplicate pushes caused by retries and cannot prevent duplicate pushes caused by concurrent calls.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PushTask",
-      "description": "",
+      "description": "An array of independent push tasks.",
       "position": "Body",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "AndroidActivity",
+          "description": "Specify the Activity to open from the notification.\n\nOnly applicable when PushTask.N.AndroidOpenType=\"Activity\", e.g., `com.alibaba.cloudpushdemo.bizactivity`.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidBadgeAddNum",
+          "description": "Set the badge increment value. The value is added to the existing badge count. Value range: [1-99].\n> Only valid for Huawei/Honor vendor channel pushes. When both AndroidBadgeAddNum and AndroidBadgeSetNum are present, AndroidBadgeSetNum takes precedence.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidBadgeClass",
+          "description": "Full class name of the app entry Activity for badge settings.\n\n> Only valid for Huawei/Honor vendor channel pushes.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidBadgeSetNum",
+          "description": "Set the badge to a fixed number. Value range: [0-99].\n\n> For vendor channel pushes, this only takes effect on Huawei and Honor channels. For Alibaba Cloud proprietary channel pushes, this only takes effect on Huawei, Honor, and vivo devices.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidBigBody",
+          "description": "Body in long text mode. Length limit: 1,000 bytes (1 Chinese character counts as 3 bytes). Subject to specific vendor channel restrictions when sending.\n\nCurrently supported:\n- Huawei: EMUI 10 and later\n- Honor: Magic UI 4.0 and later\n- Xiaomi: MIUI 10 and later\n- OPPO: ColorOS 5.0 and later\n- Meizu: Flyme\n- Proprietary channel: Android SDK 3.6.0 and later\n\nIf this parameter is not provided in long text mode, the first non-empty value from Body and AndroidPopupBody is used.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidBigPictureUrl",
+          "description": "Image URL in big picture mode. Currently supported: Proprietary channel: Android SDK 3.6.0 and later.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidBigTitle",
+          "description": "Title in long text mode. Length limit: 200 bytes (1 Chinese character counts as 3 bytes).\n\n- Currently only supported by the Honor channel and Huawei channel EMUI 11 and later.\n\n- If this parameter is not provided in long text mode, the first non-empty value from Title and AndroidPopupTitle is used.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidExtParameters",
+          "description": "Set notification extended properties. This property does not take effect when the push type PushType is set to MESSAGE.\n\nThis parameter must be passed in JSON map format; otherwise, parsing errors will occur.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidHonorTargetUserType",
+          "description": "Set the Honor channel notification type:\n- **0**: Production notification (default).\n- **1**: Test notification.\n\n> Each application can send up to 1,000 test notifications per day, and this is not subject to the daily per-device push limit.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidHuaweiBusinessType",
+          "description": "Set the Huawei instant notification parameter:\n- **0**: Send a regular Huawei notification (default).\n- **1**: Send a Huawei instant notification.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidHuaweiLiveNotificationPayload",
+          "description": "JSON string of the Huawei Android Live Notification data structure [LiveNotificationPayload](https://developer.huawei.com/consumer/cn/doc/HMSCore-References/rest-live-0000001562939968#ZH-CN_TOPIC_0000001700850537__p195121620102511). For development integration, see [Huawei Live Notification Push Guide](https://help.aliyun.com/document_detail/2983768.html)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidHuaweiReceiptId",
+          "description": "Huawei channel receipt ID. This receipt ID can be found in the receipt parameter configuration on the Huawei channel push operations platform.\n\n> If the default receipt configuration on the Huawei channel push operations platform is set to Alibaba Cloud receipt, this is not required. If not, we recommend configuring the default Huawei channel receipt ID in the Alibaba Cloud EMAS Mobile Push console first.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidHuaweiTargetUserType",
+          "description": "Set the Huawei channel notification type:\n- **0**: Production notification (default).\n- **1**: Test notification.\n\n> Each application can send up to 500 test notifications per day, and this is not subject to the daily per-device push limit.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidImageUrl",
+          "description": "Right-side icon URL. Currently supported:\n- Huawei EMUI (only applicable in long text mode and Inbox mode)\n- Honor Magic UI (only applicable in long text mode)\n- Proprietary channel: Android SDK 3.5.0 and later",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidInboxBody",
+          "description": "Body content in Inbox mode. The content must be a valid JSON Array with no more than 5 elements. Currently supported:\n\n- Huawei: EMUI 9 and later\n- Honor: Magic UI 4.0 and later\n- Xiaomi: MIUI 10 and later\n- OPPO: ColorOS 5.0 and later\n- Proprietary channel: Android SDK 3.6.0 and later",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidMeizuNoticeMsgType",
+          "description": "Meizu message type\n\n- 0: Public message (default)\n- 1: Private message",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidMessageHuaweiCategory",
+          "description": "Purpose 1: After completing the [self-classification privilege application](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835?#section3410731125514), this is used to identify the message type, determine the [notification alert method](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#ZH-CN_TOPIC_0000001149358835__p3850133955718), and speed up delivery for specific message types. For valid values, refer to the Huawei Push official documentation's [Message Classification Standard](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section1076611477914). Use the \"Cloud notification category value\" or \"Local notification category value\" from the documentation table.\n\nPurpose 2: After [applying for special permissions](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/faq-0000001050042183#section037425218509), this is used to identify high-priority pass-through scenarios. Valid values:\n- VOIP: Audio/video calls\n- PLAY_VOICE: Voice playback\n\n> For \"Cloud notification category values\" marked as \"Not applicable\", the Alibaba Cloud proprietary channel is used. For \"Local notification category values\" marked as \"Not applicable\", the Huawei channel is used.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidMessageHuaweiUrgency",
+          "description": "Huawei channel notification delivery priority. Valid values:\n\n- HIGH\n\n- NORMAL\n\nPermission application is required. See: [Application link](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/faq-0000001050042183#section037425218509).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidMessageOppoCategory",
+          "description": "OPPO classifies messages into two categories: Communication & Service, and Content & Marketing.\n\nCommunication & Service (permission application required):\n- IM: Instant messaging, audio, and video calls\n- ACCOUNT: Personal account and asset changes\n- DEVICE_REMINDER: Personal device reminders\n- ORDER: Personal order/logistics status changes\n- TODO: Personal schedule/to-do items\n- SUBSCRIPTION: Personal subscriptions\n\nContent & Marketing:\n- NEWS: News and information\n- CONTENT: Content recommendations\n- MARKETING: Platform promotions\n- SOCIAL: Social updates\n\nFor details, see [OPUSH Message Classification Rules](https://open.oppomobile.com/new/developmentDoc/info?id=13189)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidMessageOppoNotifyLevel",
+          "description": "OPPO channel notification bar message alert level. Valid values:\n- 1: Notification bar\n- 2: Notification bar, lock screen, ringtone, and vibration (default notification level for Communication & Service messages)\n- 16: Notification bar, lock screen, ringtone, vibration, and banner (permission application required)\n\n> When using the AndroidMessageOppoNotifyLevel parameter, the AndroidMessageOppoCategory parameter must also be provided.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidMessageVivoCategory",
+          "description": "vivo classifies messages into two categories: System messages and Operational messages.\n\nSystem messages:\n- IM: Instant messages\n- ACCOUNT: Account and assets\n- TODO: Schedule and to-do items\n- DEVICE_REMINDER: Device information\n- ORDER: Orders and logistics\n- SUBSCRIPTION: Subscription reminders\n\nOperational messages:\n- NEWS: News\n- CONTENT: Content recommendations\n- MARKETING: Operational campaigns\n- SOCIAL: Social updates\n> For details, see [Classification Description](https://dev.vivo.com.cn/documentCenter/doc/359#s-ef3qugc3)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidMusic",
+          "description": "Huawei vendor channel notification sound. Specify the name of an audio file stored in the client project's app/src/main/res/raw/ directory. The file extension is not required.\n\nIf not set, the default ringtone is used.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationBarPriority",
+          "description": "Priority of the notification position in the Android notification bar. Valid values: -2, -1, 0, 1, 2.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidNotificationBarType",
+          "description": "Android custom notification bar style. Value range: 1-100.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidNotificationChannel",
+          "description": "The channelId of the Android app. Must match the channelId configured in the app.\n- Set the NotificationChannel parameter. For specific usage, see [FAQ: Notifications not received on Android 8.0+ devices](~~67398~~).\n- Since the OPPO notification private channel's channel_id is the same as the app's channelId, the channel_id takes this value when pushing through the OPPO channel.\n- For Huawei, FCM, and Alibaba Cloud proprietary channel pushes, the channel_id takes this value.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationGroup",
+          "description": "Message grouping. Messages in the same group display only the latest one and the total count of messages received in that group in the notification bar. All messages are not displayed and cannot be expanded. Currently supported:\n\n- Huawei vendor channel\n- Honor vendor channel\n- Proprietary channel: Android SDK 3.9.1 and earlier\n\n> The proprietary channel no longer supports this parameter on Android SDK 3.9.2 and later.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationHonorChannel",
+          "description": "Set the Honor notification message classification importance parameter, which determines the notification behavior on user devices. Valid values:\n\n- LOW: Information and marketing messages\n\n- NORMAL: Service and communication messages\n\nApplication is required on the Honor platform. [Application link](https://developer.honor.com/cn/docs/11002/guides/notification-class#%E8%87%AA%E5%88%86%E7%B1%BB%E6%9D%83%E7%9B%8A%E7%94%B3%E8%AF%B7).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationHuaweiChannel",
+          "description": "Set the Huawei notification message classification importance parameter, which determines the notification behavior on user devices. Valid values:\n\n- LOW: Information and marketing messages\n- NORMAL: Service and communication messages\n\n>- The Huawei channel now recommends using AndroidMessageHuaweiCategory for notification classification. AndroidNotificationHuaweiChannel is no longer required.\n>- Application is required on the Huawei platform. [Application link](https://developer.huawei.com/consumer/cn/doc/development/HMSCore-Guides/message-classification-0000001149358835#section893184112272).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationNotifyId",
+          "description": "Unique identifier for each message displayed in the notification bar. Different notification bar messages can share the same NotifyId, allowing new notifications to replace old ones.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidNotificationThreadId",
+          "description": "Message grouping. Messages in the same group are displayed collapsed in the notification bar and can be expanded. Notifications from different groups are displayed separately. Currently supported:\n\n- Proprietary channel: Android SDK 3.9.2 and later",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationVivoChannel",
+          "description": "Set the vivo notification message classification. Valid values:\n\n- 0: Operational messages (default)\n- 1: System messages\n\n>- The vivo channel now recommends using AndroidMessageVivoCategory for notification classification. AndroidNotificationVivoChannel is no longer required.\n>- Application is required on the vivo platform. See: [Application link](https://dev.vivo.com.cn/documentCenter/doc/359).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotificationXiaomiChannel",
+          "description": "Set the channelId for Xiaomi notification types. Application is required on the Xiaomi platform. See: [Application link](https://dev.mi.com/console/doc/detail?pId=2422#_4).\n>- A single application on the Xiaomi channel can apply for up to 8 channels. Please plan ahead.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidNotifyType",
+          "description": "Notification alert type. Valid values:\n\n- **VIBRATE**: Vibration (default)\n- **SOUND**: Sound\n- **BOTH**: Sound and vibration\n- **NONE**: Silent",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidOpenType",
+          "description": "Action after clicking the notification. Valid values:\n\n- APPLICATION: Open the app (default)\n- ACTIVITY: Open an Android Activity\n- URL: Open a URL\n- NONE: No navigation",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidOpenUrl",
+          "description": "The URL to open after Android receives the push. Only applicable when PushTask.N.AndroidOpenType=\"URL\".",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidOppoDeleteIntentData",
+          "description": "JSON string of the OPPO Fluid Cloud intent deletion data structure [data](https://open.oppomobile.com/documentation/page/info?id=13578). This parameter is ignored when the AndroidOppoIntelligentIntent parameter is already provided. For development integration, see [OPPO Fluid Cloud Push Guide](https://help.aliyun.com/document_detail/2997310.html)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidOppoIntelligentIntent",
+          "description": "JSON string of the OPPO Fluid Cloud intent sharing data structure [IntelligentIntent](https://open.oppomobile.com/documentation/page/info?id=13565). For development integration, see [OPPO Fluid Cloud Push Guide](https://help.aliyun.com/document_detail/2997310.html)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidOppoIntentEnv",
+          "description": "Set the OPPO Fluid Cloud push environment:\n- **0**: Production environment (default).\n- **1**: Test environment.\n\n> The OPPO Fluid Cloud test environment requires client-side setup. See [Environment Setup](https://open.oppomobile.com/documentation/page/info?id=13590).",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidOppoPrivateContentParameters",
+          "description": "OPPO private message template content parameters",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "AndroidOppoPrivateMsgTemplateId",
+          "description": "OPPO private message template ID\n\n><warning>The OPPO private message template feature is no longer supported by MaasPush. To use this feature, please use the Push, PushV2, or MassPushV2 API instead.></warning>",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidOppoPrivateTitleParameters",
+          "description": "OPPO private message template title parameters",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "AndroidPopupActivity",
+          "description": "Specify the Activity to navigate to when the notification is clicked.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidPopupBody",
+          "description": "Body content in auxiliary popup mode. Required when the AndroidPopupActivity parameter is not empty.\n\nLength limit: 200 characters (both Chinese and English characters count as one character each).\n\nWhen using vendor channels, you must also comply with the vendor channel restrictions. For details, see [Android Auxiliary Channel Push Limits](~~165253~~).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidPopupTitle",
+          "description": "Title content in auxiliary popup mode. Required when the AndroidPopupActivity parameter is not empty.\n\nLength limit: 50 characters (both Chinese and English characters count as one character each).\n\nWhen using vendor channels, you must also comply with the vendor channel restrictions. For details, see [Android Auxiliary Channel Push Limits](~~165253~~).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidRemind",
+          "description": "When the push type is message and the device is offline, this push will use the auxiliary popup feature. Defaults to false. Only takes effect when PushType=MESSAGE.\n\nIf the message-to-notification conversion push is successful, the notification displays the data set by the server's AndroidPopupTitle and AndroidPopupBody parameter values. The data obtained when clicking the notification in the auxiliary popup's onSysNoticeOpened method is the server-set Title and Body parameter values.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "AndroidRenderStyle",
+          "description": "Notification style. Valid values:\n- **0**: Standard mode (default)\n- **1**: Long text mode (supported by Huawei, Honor, Xiaomi, OPPO, Meizu, and proprietary channels)\n- **2**: Big picture mode (supported by proprietary channel, not supported on Xiaomi devices)\n- **3**: List mode (supported by Huawei, Honor, Xiaomi, OPPO, and proprietary channels)\n> This parameter is required when using non-standard modes.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidTargetUserType",
+          "description": "Set the vendor channel notification type:\n- **0**: Production notification (default).\n- **1**: Test notification.\n\n>- Configuring this parameter is equivalent to simultaneously configuring the AndroidHuaweiTargetUserType, AndroidHonorTargetUserType, AndroidVivoPushMode, and AndroidOppoIntentEnv parameters. The corresponding parameter for a specific vendor channel can override this parameter.\n>- Currently supported: Huawei channel, Honor channel, vivo channel, and OPPO Fluid Cloud.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
+          "name": "AndroidVivoLiveMessage",
+          "description": "JSON string of the vivo Atomic Island data structure [liveMessage](https://dev.vivo.com.cn/documentCenter/doc/896#s-fdagzbd4). For development integration, see [vivo Atomic Island Push Guide](https://help.aliyun.com/zh/document_detail/3030718.html)",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
           "name": "AndroidVivoPushMode",
+          "description": "Set the vivo channel notification type:\n- **0**: Production push (default).\n- **1**: Test push.\n\n> For test pushes, configure test devices in the vivo console in advance. The test device RegId can be obtained by searching for \"onReceiveRegId regId\" in the device startup logs.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AndroidVivoReceiptId",
+          "description": "vivo channel receipt ID. This receipt ID can be found in the app information section of the push service on the vivo open platform.\n\n> If the default receipt configuration on the vivo open platform is set to Alibaba Cloud receipt, this is not required. If not, we recommend configuring the default vivo channel receipt ID in the Alibaba Cloud EMAS Mobile Push console first.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidXiaoMiActivity",
+          "description": "This parameter has been deprecated. All third-party auxiliary popups are now supported by the new parameter **AndroidPopupActivity**.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidXiaoMiNotifyBody",
+          "description": "This parameter has been deprecated. All third-party auxiliary popups are now supported by the new parameter **AndroidPopupBody**.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidXiaoMiNotifyTitle",
+          "description": "This parameter has been deprecated. All third-party auxiliary popups are now supported by the new parameter **AndroidPopupTitle**.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidXiaomiBigPictureUrl",
+          "description": "This parameter has been deprecated. Since August 2023, Xiaomi has officially discontinued support for dynamically setting small icons, right-side icons, and big pictures during push on new devices/systems.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "AndroidXiaomiFocusParam",
+          "description": "JSON string of the Xiaomi Super Island data structure [miui.focus.param](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2131). For development integration, see [Xiaomi Super Island Push Guide](https://help.aliyun.com/zh/document_detail/3037956.html)",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "AndroidXiaomiFocusPics",
+          "description": "JSON string of the Xiaomi Super Island images [miui.focus.pic_xxx](https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2131). For development integration, see [Xiaomi Super Island Push Guide](https://help.aliyun.com/zh/document_detail/3037956.html)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "AndroidXiaomiImageUrl",
+          "description": "This parameter has been deprecated. Since August 2023, Xiaomi has officially discontinued support for dynamically setting small icons, right-side icons, and big pictures during push on new devices/systems.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "AndroidXiaomiTemplateId",
+          "description": "Xiaomi private message template ID",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "AndroidXiaomiTemplateParams",
+          "description": "Xiaomi private message template parameters, JSON string",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Body",
+          "description": "Content of the notification/message for Android and HarmonyOS pushes; iOS message/notification content. The push content size is limited. See [Product Limits](~~92832~~).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DeviceType",
+          "description": "Device type. Valid values:\n\n- HARMONY: HarmonyOS device\n- iOS: iOS device\n- ANDROID: Android device\n- ALL: When the AppKey is for a legacy dual-platform app, this pushes to both Android and iOS devices simultaneously. When the AppKey is for a new single-platform app, the effect is the same as specifying the device type corresponding to the app type.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "ExpireTime",
+          "description": "Expiration time of offline messages/notifications. Used together with StoreOffline. Expired messages will no longer be sent. The maximum retention period is 72 hours. The default is 72 hours.\n\nThe time format follows the ISO 8601 standard and must use UTC time in the format YYYY-MM-DDThh:mm:ssZ. The expiration time cannot be earlier than the current time or the scheduled push time plus 3 seconds (`ExpireTime > PushTime + 3 seconds`). The 3-second buffer accounts for network and system latency. We recommend at least 1 minute for unicast pushes and at least 10 minutes for broadcast and batch pushes.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyAction",
+          "description": "The action corresponding to the built-in page ability of the app.\n\n><notice>When HarmonyActionType is APP_CUSTOM_PAGE, at least one of HarmonyUri and HarmonyAction must be provided.></notice>\n\nFor details, see HarmonyOS official documentation [ClickAction.action](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section152462191216)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyActionType",
+          "description": "Action after clicking the notification. Valid values:\n\n- APP_HOME_PAGE: Open the app home page\n- APP_CUSTOM_PAGE: Open a custom app page",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyBadgeAddNum",
+          "description": "HarmonyOS app badge increment number. See [HarmonyOS badge addNum field description](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section266310382145).</br>\nSupported from HarmonyOS SDK 1.2.0.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "HarmonyBadgeSetNum",
+          "description": "HarmonyOS app badge set number. See [HarmonyOS badge setNum field description](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section266310382145).</br>\nSupported from HarmonyOS SDK 1.2.0.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "HarmonyCategory",
+          "description": "Notification message category. After completing the notification message self-classification privilege application, this is used to identify the message type. Different notification message types affect the display and alert methods. Valid values:\n\n- IM: Instant messaging\n- VOIP: Audio/video calls\n- SUBSCRIPTION: Subscriptions\n- TRAVEL: Travel\n- HEALTH: Health\n- WORK: Work task reminders\n- ACCOUNT: Account updates\n- EXPRESS: Orders & logistics\n- FINANCE: Finance\n- DEVICE_REMINDER: Device reminders\n- MAIL: Email\n- CUSTOMER_SERVICE: Customer service messages\n- MARKETING: News, content recommendations, social updates, product promotions, financial updates, lifestyle information, surveys, feature recommendations, and operational campaigns (only marks the content, does not speed up message delivery), collectively referred to as information and marketing messages\n\nFor details, see HarmonyOS official documentation [Notification.category](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section17371529101117)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyExtParameters",
+          "description": "Set notification extended properties. This property does not take effect when the push type PushType is set to MESSAGE.\n\nThis parameter must be passed in JSON map format; otherwise, parsing errors will occur.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyExtensionExtraData",
+          "description": "Extra data for notification extension messages.</br>\nValid when sending HarmonyOS notification extension messages.</br>\nConceptually equivalent to the extraData field of HarmonyOS notification extension messages. For the specific definition, see [HarmonyOS ExtensionPayload Description](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section161192514234).</br>\nSupported from HarmonyOS SDK 1.2.0.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyExtensionPush",
+          "description": "When PushType is NOTICE, whether this is a HarmonyOS notification extension message.\n\n- true: Send a notification extension message\n- false: Send a regular notification (default)\n\nNotification extension messages require permission to be applied for on the HarmonyOS side before sending. For details, see the HarmonyOS documentation [Send Notification Extension Messages](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/push-send-extend-noti-V5).</br>\nSupported from HarmonyOS SDK 1.2.0.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "HarmonyImageUrl",
+          "description": "URL for the large icon on the right side of the notification. The URL must use the HTTPS protocol.\n\n> Supported image formats: png, jpg, jpeg, heif, gif, bmp. Image dimensions must satisfy height × width < 25,000 pixels.\n\nFor details, see HarmonyOS official documentation [Notification.image](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section17371529101117)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyInboxContent",
+          "description": "Content for multi-line text style. Required when HarmonyRenderStyle is MULTI_LINE. Up to 3 content items are supported.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyLiveViewPayload",
+          "description": "JSON string of the HarmonyOS Live View data structure [LiveViewPayload](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V13/push-scenariozed-api-request-param-V13#section66881469306). For development integration, see [HarmonyOS Live View Push Guide](https://help.aliyun.com/document_detail/2982112.html)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyNotificationSlotType",
+          "description": "Use the specified type of notification slot. Only valid when the Alibaba Cloud proprietary channel is online.\n\n- SOCIAL_COMMUNICATION: Social communication.\n- SERVICE_INFORMATION: Service reminders.\n- CONTENT_INFORMATION: Content information.\n- CUSTOMER_SERVICE: Customer service messages. This type is used for customer service messages between users and merchants, and must be initiated by the user.\n- OTHER_TYPES: Others.\n\nFor details, see HarmonyOS official documentation [SlotType](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/js-apis-notificationmanager-V5#slottype)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyNotifyId",
+          "description": "Unique identifier for each message displayed in the notification. When not provided, the push service automatically generates a unique identifier for each message. Different notification messages can share the same notifyId, enabling new messages to replace old ones.\n\nFor details, see HarmonyOS official documentation [Notification.notifyId](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section17371529101117)",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "HarmonyReceiptId",
+          "description": "HarmonyOS channel receipt ID. This receipt ID can be found in the receipt parameter configuration on the HarmonyOS channel push operations platform.\n\n> If the default receipt configuration on the HarmonyOS channel push operations platform is set to Alibaba Cloud receipt, this is not required. If not, we recommend configuring the default HarmonyOS channel receipt ID in the Alibaba Cloud EMAS Mobile Push console first.\n\nFor details, see HarmonyOS official documentation [pushOptions.receiptId](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section418321011212)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyRemind",
+          "description": "When the push type is message and the device is offline, this push will use the auxiliary popup feature. Defaults to false. Only takes effect when PushType=MESSAGE.\n\nIf the message-to-notification conversion push is successful, the notification displays the data set by the server's HarmonyRemindTitle and HarmonyRemindBody parameter values.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "HarmonyRemindBody",
+          "description": "HarmonyOS notification content used when converting HarmonyOS messages to notifications. Only valid when HarmonyRemind is true.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyRemindTitle",
+          "description": "HarmonyOS notification title used when converting HarmonyOS messages to notifications. Only valid when HarmonyRemind is true.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyRenderStyle",
+          "description": "Notification message style:\n- NORMAL: Standard notification (default)\n- MULTI_LINE: Multi-line text style",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "HarmonyTestMessage",
+          "description": "Test message flag:\n\n- false: Normal message (default)\n- true: Test message\n\nFor details, see HarmonyOS official documentation [pushOptions.testMessage](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section418321011212)",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "HarmonyUri",
+          "description": "The URI corresponding to the built-in page ability of the app.\n><notice>When HarmonyActionType is APP_CUSTOM_PAGE, at least one of HarmonyUri and HarmonyAction must be provided. When multiple Abilities exist, provide different action and URI values for each Ability. The action is prioritized when looking up the corresponding built-in app page.></notice>\n\nFor details, see HarmonyOS official documentation [ClickAction.uri](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/push-scenariozed-api-request-param-V5#section152462191216)",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "JobKey",
+          "description": "Custom identifier for the push task. When JobKey is not empty, this field will be included in the receipt logs. For receipt log details, see [Receipt Logs](~~434651~~).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "PushTime",
+          "description": "Used for scheduled sending. If not set, the default is immediate sending.\n\nThe time format follows the ISO 8601 standard and must use UTC time in the format YYYY-MM-DDThh:mm:ssZ.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "PushType",
+          "description": "Push type. Valid values:\n\n- MESSAGE: indicates a message.\n- NOTICE: indicates a notification.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "SendChannels",
+          "description": "Specify sending channels. Valid values:\n\n- accs: Alibaba Cloud proprietary channel\n- huawei: Huawei channel\n- honor: Honor channel\n- xiaomi: Xiaomi channel\n- oppo: OPPO channel\n- vivo: vivo channel\n- meizu: Meizu channel\n- gcm: Google GCM channel (legacy HTTP)\n- fcm: Google Firebase channel (HTTP v1 API)\n- apns: APNs channel\n- harmony: HarmonyOS channel\n\n>- If this parameter is not configured, all channels are available.\n>- If this parameter is configured, only the specified channels are used.\n>- If the configured channels conflict with the sending strategy (e.g., iOS notifications only go through the APNs channel, but this parameter does not include apns), the push will not be sent.\n>- If gcm is configured, both Google GCM and FCM channels can be used. If fcm is configured, only the Google FCM channel can be used.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "SendSpeed",
+          "description": "This parameter has been deprecated.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "StoreOffline",
+          "description": "Whether to store offline messages/notifications. StoreOffline defaults to false.\n\nIf stored, when the user is offline during push, the message will be resent when the user comes online within the expiration time (ExpireTime). ExpireTime defaults to 72 hours. iOS notifications are delivered through the APNs channel and are not affected by StoreOffline.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Target",
+          "description": "Push target. Valid values:\n\n- DEVICE: push by device.\n- ACCOUNT: push by account.\n- ALIAS: push by alias.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "TargetValue",
+          "description": "Set based on Target. Multiple values are separated by commas. If the limit is exceeded, you need to split the push into multiple calls.\n\n- Target=DEVICE: values such as `deviceid1,deviceid2` (up to 1,000 supported).\n- Target=ACCOUNT: values such as `account1,account2` (up to 1,000 supported).\n- Target=ALIAS: values such as `alias1,alias2` (up to 1,000 supported).",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Title",
+          "description": "Title of the notification/message during push. Length limit: 200 bytes.\nRequired for Android and HarmonyOS pushes. Optional for iOS push notifications. If provided:\n* iOS 10+: the notification displays the title.\n* iOS 8.2 <= iOS version < iOS 10: replaces the notification app name.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Trim",
+          "description": "Whether to automatically truncate titles and content that are too long.\nNote: This only applies to vendor channels that explicitly limit title and content length. It does not apply to channels like APNs, Huawei, and Honor that do not limit title and content individually but only limit the total request body size.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "iOSApnsEnv",
+          "description": "iOS notifications are sent through the APNs center. You need to specify the corresponding environment information.\n\n- DEV: Development environment, applicable to apps installed and debugged directly via Xcode.\n- PRODUCT: Production environment, applicable to apps distributed through App Store, TestFlight, Ad Hoc, and enterprise distribution.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSBadge",
+          "description": "iOS app icon badge number in the upper-right corner.\n\n> If iOSBadgeAutoIncrement is set to True, this field must be empty.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "iOSBadgeAutoIncrement",
+          "description": "Whether to enable badge auto-increment. Defaults to false.\n\n> When this is set to true, iOSBadge must be empty.\n\nThe badge auto-increment feature is maintained by the push server for each device's badge count. Users must use SDK version V1.9.5 or later and actively sync the badge number to the server.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "iOSExtParameters",
+          "description": "Extended properties of iOS notifications.\n\nOn iOS 10+, you can specify the resource URL for rich media push notifications here: `{\"attachment\": \"https://xxxx.xxx/notification_pic.png\"} `. This parameter must be passed in JSON map format; otherwise, parsing errors will occur.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSInterruptionLevel",
+          "description": "Interruption level. Valid values:\n\n- passive: The system adds the notification to the notification list without lighting up the screen or playing sound.\n\n- active: The system immediately displays the notification, lights up the screen, and can play sound.\n\n- time-sensitive: The system immediately presents the notification, lights up the screen, and can play sound, but does not break through system notification controls.\n\n- critical: The system immediately displays the notification, lights up the screen, and plays sound bypassing the mute switch.\n",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSLiveActivityAttributes",
+          "description": "JSON string. Static pass-through parameters for Dynamic Island push. Contains static user-defined information such as product ID and order information.\n\n> Required when iOSLiveActivityEvent is start.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSLiveActivityAttributesType",
+          "description": "The type of Live Activity to start.\n> Required when iOSLiveActivityEvent is start.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSLiveActivityContentState",
+          "description": "Dynamic pass-through parameters for Dynamic Island push. Contains real-time update information such as price and inventory changes.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSLiveActivityDismissalDate",
+          "description": "The ended Live Activity will remain on the lock screen until the specified time, up to a maximum of 4 hours.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "iOSLiveActivityEvent",
+          "description": "Start, update, or end a Live Activity.\n\n- Enum: start | update | end",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSLiveActivityId",
+          "description": "The Live Activity ID reported by the device to the user's server. A unique identifier for the Live Activity.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSLiveActivityStaleDate",
+          "description": "Timestamp in seconds, marking the expiration time of the activity content.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "iOSMusic",
+          "description": "iOS notification sound. Specify the name of an audio file stored in the app bundle or the sandbox Library/Sounds directory. See: How to set notification sound for iOS push.\n\nIf set to an empty string (\"\"), the notification is silent. If not set, the default system alert sound is used.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSMutableContent",
+          "description": "iOS notification processing extension flag (iOS 10+). If set to true, APNs push notifications can reach the Extension for processing before being displayed. Must be set to true for silent notifications.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "iOSNotificationCategory",
+          "description": "Specify the iOS notification Category (iOS 10+).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSNotificationCollapseId",
+          "description": "When a device receives messages with the same CollapseId, they are merged into one. When the device is offline, consecutive messages with the same CollapseId will show only one notification in the notification bar. Supported on iOS 10+.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSNotificationThreadId",
+          "description": "Groups iOS remote notifications using this property, marking the group identifier for collapsed notifications. Only supported on iOS 12.0+.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSRelevanceScore",
+          "description": "Summary highlight score. Value range: a floating-point number in \\[0,1\\].",
           "position": "FormData",
           "type": "Double",
           "required": false
         },
         {
           "name": "iOSRemind",
+          "description": "When the device is offline during message push (i.e., the persistent connection channel to the Mobile Push server is disconnected), this push will be delivered as a notification through Apple's APNs channel once.\n\n> Offline message-to-notification conversion only applies to the production environment.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "iOSRemindBody",
+          "description": "iOS notification content used when converting iOS messages to notifications. Only valid when iOSApnsEnv=PRODUCT and iOSRemind is true.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "iOSSilentNotification",
+          "description": "Whether to enable iOS silent notification.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "iOSSubtitle",
+          "description": "iOS notification subtitle content (iOS 10+).",
           "position": "FormData",
           "type": "String",
           "required": false

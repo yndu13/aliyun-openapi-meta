@@ -7,69 +7,77 @@
   "parameters": [
     {
       "name": "Enabled",
-      "description": "Whether the origin address pool is enabled:\n\n- true: Enabled;\n- false: Disabled.",
+      "description": "Specifies whether the origin pool is enabled.\n\n- `true`: enabled\n\n- `false`: disabled",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the origin address pool, which must be unique within a site.",
+      "description": "The name of the origin pool. The name must be unique within a site.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Origins",
-      "description": "Information about the origins added to the origin address pool, with multiple origins passed as an array.",
+      "description": "The list of origins to add to the origin pool. Use an array to specify multiple origins.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Address",
+          "description": "The address of the origin. For example, www\\.example.com.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "AuthConf",
+          "description": "The authentication configuration for the origin. Required if the origin is an OSS or AWS S3 bucket that requires authentication.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Enabled",
+          "description": "Specifies whether the origin is enabled.\n\n- `true`: enabled\n\n- `false`: disabled",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Header",
+          "description": "The request header to include in back-to-origin requests. Only the `Host` header is supported.",
           "position": "Query",
           "type": "Any",
           "required": false
         },
         {
           "name": "IpVersionPolicy",
+          "description": "The IP protocol version for back-to-origin requests. Valid values:\n\n- `round_robin`: Default. Randomly selects an IPv4 or IPv6 origin.\n\n- `ipv4_first`: Prioritizes IPv4 origins.\n\n- `ipv6_first`: Prioritizes IPv6 origins.\n\n- `follow`: Uses the same IP protocol version as the client's request.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The name of the origin. The name must be unique within the origin pool.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "The type of the origin. Valid values:\n\n- `ip_domain`: An IP address or a domain name.\n\n- `OSS`: An Alibaba Cloud OSS bucket.\n\n- `S3`: An AWS S3 bucket.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "The weight of the origin. The value must be an integer from 0 to 100.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -78,7 +86,7 @@
     },
     {
       "name": "SiteId",
-      "description": "The site ID, which can be obtained by calling the [ListSites](~~2850189~~) API.",
+      "description": "The site ID. To obtain this ID, call the [ListSites](~~2850189~~) operation.",
       "position": "Query",
       "type": "Long",
       "required": true

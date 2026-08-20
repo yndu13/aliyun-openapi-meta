@@ -1,12 +1,13 @@
 {
   "name": "AddLiveStreamMerge",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppName",
-      "description": "The name of the application that generates the output stream. The value must be the same as the application name in the ingest URL of the output stream. Otherwise, the configuration does not take effect. You cannot set the value to an asterisk (\\*).",
+      "description": "The AppName of the output stream. For the configuration to take effect, this AppName must match the one in the ingest URL. Wildcards (`*`) are not supported.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -20,80 +21,98 @@
     },
     {
       "name": "EndTime",
-      "description": "The end time of the stream mixing.\n\nSpecify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n>  The interval between the start time and the end time must be within 7 days.",
+      "description": "The end time of the stream merge.\n\nThe time must be in UTC and specified in the ISO 8601 standard format: `yyyy-MM-ddTHH:mm:ssZ`.\n\n> The interval between `StartTime` and `EndTime` cannot exceed 7 days.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InAppName1",
-      "description": "The name of the application that generates the input primary stream. The value must be the same as the application name that is specified in the ingest URL of the primary stream. Otherwise, the configuration does not take effect.",
+      "description": "The AppName of the primary input stream. This value must match the AppName in the ingest URL for the primary stream.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InAppName2",
-      "description": "The name of the application that generates the input secondary stream. The value must be the same as the application name that is specified in the ingest URL of the secondary stream. Otherwise, the configuration does not take effect.",
+      "description": "The AppName of the backup input stream. This value must match the AppName in the ingest URL for the backup stream.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InStreamName1",
-      "description": "The name of the input primary stream. The value must be the same as the stream name that is specified in the ingest URL of the primary stream. Otherwise, the configuration does not take effect.",
+      "description": "The StreamName of the primary input stream. This value must match the StreamName in the ingest URL for the primary stream.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InStreamName2",
-      "description": "The name of the input secondary stream. The value must be the same as the stream name that is specified in the ingest URL of the secondary stream. Otherwise, the configuration does not take effect.",
+      "description": "The StreamName of the backup input stream. This value must match the StreamName in the ingest URL for the backup stream.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "LiveMerger",
-      "description": "",
+      "description": "The engine to use for stream merging.\n\n- `on`: The new liveswitch engine.\n\n- `off`: A legacy engine (such as rtmpr). This is the default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MergeParameters",
-      "description": "",
+      "description": "Parameters that define the failover conditions. A failover is triggered when one of the following conditions is met:\n\n1. An explicit stream disconnection occurs, such as an end-of-file (EOF) or network error.\n\n2. The stutter rate exceeds 60% in the last 5 seconds.\n\n3. A stream pulling timeout occurs if no frame data is received for 2 consecutive seconds.\n\n4. The average frame rate over the period specified by `ali_max_no_frame_timeout` drops below `ali_low_frame_rate_threshold`. This condition applies even if there is no stream disconnection or stuttering. If you set `ali_max_no_frame_timeout`, the timeout for Condition 3 is also updated to this value.\n\n5. If `block_all_jitter` is set to `1`, Conditions 2, 3, and 4 do not apply.\n\n- `ali_max_no_frame_timeout`: an integer from 2 to 10.<br>`ali_low_frame_rate_threshold`: an integer from 1 to 200.<br>`block_all_jitter`: `0` or `1`.<br><br>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Protocol",
-      "description": "The streaming protocol. Valid values:\n\n*   **rtmp**: This is the default value.\n*   **rtc**",
+      "description": "The live stream protocol for the input streams. Valid values:\n\n- **rtmp** (Default)\n\n- **rtc**",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SelectAppName",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SelectStreamName",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start time of the stream mixing.\n\nSpecify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The start time of the stream merge.\n\nThe time must be in UTC and specified in the ISO 8601 standard format: `yyyy-MM-ddTHH:mm:ssZ`.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StreamName",
-      "description": "The name of the output stream. The value must be the same as the stream name in the ingest URL of the output stream. Otherwise, the configuration does not take effect. You cannot set the value to an asterisk (\\*).",
+      "description": "The StreamName of the output stream. For the configuration to take effect, this StreamName must match the one in the ingest URL. Wildcards (`*`) are not supported.",
       "position": "Query",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "SwitchMode",
+      "position": "Query",
+      "type": "String",
+      "required": false
     }
   ]
 }

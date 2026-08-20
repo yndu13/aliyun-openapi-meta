@@ -1,75 +1,76 @@
 {
   "name": "QueryDeviceOriginalPropertyData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Asc",
-      "description": "The order in which you want to sort the returned property records. Valid values:\n\n*   0: descending.\n*   1: ascending.\n\n>  The **start time** must be earlier than the **end time**. The system sorts the returned records based on the specified order.",
+      "description": "The sorting order of property records by time in the response. Valid values:\n\n- 0: reverse chronological order.\n- 1: chronological order.\n\n> **StartTime** must be earlier than **EndTime**. The system automatically converts the values based on the sorting order.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "DeviceName",
-      "description": "The DeviceName of the device.\n\n> If you specify a value for this parameter, you must configure the **ProductKey** parameter.",
+      "description": "The device name that you want to query.\n\n><notice> If you specify this parameter, you must also specify **ProductKey**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. The value must be a 13-digit timestamp.",
+      "description": "The end time of the property records. The value is a 13-digit timestamp in milliseconds.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "Identifier",
-      "description": "The identifier of the property.\n\n*   If weak verification is used, you can perform the following steps to view the **Identifier** of a device property: Log on to the IoT Platform console and go to the Define Feature tab of the Product Details page. You can also call the [QueryThingModel](~~150321~~) operation and view the property identifier in the returned TSL data.\n*   If no verification is used, the value must be the same as the custom **identifier** that is submitted by the device.",
+      "description": "The identifier of the property.\n\n- For weak validation, you can view the property **Identifier** of the device in the feature definition of the product to which the device belongs in the console. You can also call [QueryThingModel](~~150321~~) to view the identifier in the returned Thing Specification Language model information.\n- For validation-free mode, the identifier must be the same as the custom **identifier** used when the device reports properties.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotId",
-      "description": "The ID of the device. The ID is a unique identifier that is issued by IoT Platform to the device.\n\n> The IotId parameter specifies a unique ID for the device. The value of the **IotId** parameter is equivalent to a combination of the values of the **ProductKey** and **DeviceName.N** parameters. If you specify the IotId parameter, you do not need to configure the **ProductKey** or **DeviceName.N** parameter. If you specify values for the **IotId**, **ProductKey**, and **DeviceName.N** parameters, the value of the **IotId** parameter takes precedence.",
+      "description": "The ID of the device that you want to query. This is the unique identifier issued by IoT Platform for the device.\n\n><notice> **IotId** is the globally unique identifier of a device and corresponds to a combination of **ProductKey** and **DeviceName**. If you specify this parameter, you do not need to specify **ProductKey** or **DeviceName**. If you specify **IotId** together with **ProductKey** and **DeviceName**, **IotId** takes precedence.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the ID of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.****\n>*   If no **Overview** page or **ID** is generated for your instance, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, view the **ID** of the current instance.\n\n><notice>\n- If the ID value is available, you must specify this parameter. Otherwise, the call fails.\n- If no **Overview** page or **ID** value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextPageToken",
-      "description": "The token that is used to retrieve the next page of the query results. If the next page exists, this parameter is returned. In this case, you must add the value of the parameter to the next request.",
+      "description": "The token for the next page. If a next page exists, the service returns this token. Include this token in the next request to retrieve the next page.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The maximum number of records that can be returned for each property. Maximum value: 100.\n\nThe number of records that are returned for an arbitrary property cannot exceed the limit.",
+      "description": "The maximum number of data records that can be returned for a single property. Maximum value: 100.\n\nThe number of data records returned for any property does not exceed this value.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs.****\n\n\n\n> If you specify a value for this parameter, you must configure the **DeviceName** parameter.",
+      "description": "The **ProductKey** of the product to which the device belongs.\n><notice> If you specify this parameter, you must also specify **DeviceName**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start of the time range to query. The value must be a 13-digit timestamp.",
+      "description": "The start time of the property records to query. The value is a timestamp in milliseconds.",
       "position": "Query",
       "type": "Long",
       "required": true

@@ -6,6 +6,13 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AuthModel",
+      "description": "鉴权模式，默认Ram鉴权模式",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "AutoRenew",
       "description": "续费方式，取值如下：\n- true：自动续费\n- false：手动续费",
       "position": "Query",
@@ -57,6 +64,13 @@
     {
       "name": "KmsKeyId",
       "description": "独享实例专属功能，当EncryptedInstance为true时需要填写此字段。 数据加密存储使用的KMS密钥ID。 对密钥有以下要求：\n\n- 不能是服务密钥；\n\n- 密钥状态必须是开启的；\n\n- 必须是对称密钥，不能是非对称密钥；\n\n- 密钥用途必须是加解密；\n\n- KMS密钥过期/删除后，数据读写不可用，RabbitMQ实例异常；",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ListenerMode",
+      "description": "指定实例是否只开通TLS加密传输端口。此参数仅在（独享）预留+弹性、铂金实例支持。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -139,10 +153,24 @@
       "required": false
     },
     {
+      "name": "SecurityGroupId",
+      "description": "指定安全组，用于创建privatelink接入点。\n\n1. 访问策略增加运行入方向写协议类型为TCP,目的地端口为5672, 5671的策略；\n\n2. 不支持托管安全组；\n\n3. 安全组需要属于指定的VPC；",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
       "name": "ServerlessChargeType",
       "description": "Serverless系列实例的计费类型，取值如下：\n- onDemand：按量累计",
       "position": "Query",
       "type": "String",
+      "required": false
+    },
+    {
+      "name": "ServerlessSwitch",
+      "description": "弹性开关",
+      "position": "Query",
+      "type": "Boolean",
       "required": false
     },
     {
@@ -175,12 +203,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "资源标签健",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "资源标签值",
           "position": "Query",
           "type": "String",
           "required": false
@@ -193,6 +223,20 @@
       "position": "Query",
       "type": "Integer",
       "required": false
+    },
+    {
+      "name": "VpcId",
+      "description": "用户指定vpcId，用于创建PVL接入点。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "VswitchIds",
+      "description": "创建实例时，用于创建privateLink接入点。\n\n1. 必须为两个，且属于不同可用区（除个别单可用区地域外）；\n\n2. vswitch需要属于指定的VPC；\n \n3. vswitch状态需要为Available；\n\n4. vswitch中可用IP个数不能少于20；\n\n5. vswitch所属可用区必须支持创建NLB；",
+      "position": "Query",
+      "type": "Json",
+      "required": true
     }
   ]
 }

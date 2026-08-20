@@ -1,96 +1,118 @@
 {
   "name": "CreateRepoSyncRule",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "InstanceId",
-      "description": "The source instance ID.",
+      "description": "The ID of the source instance.",
       "position": "Query",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "LinkId",
+      "description": "The ID of the custom synchronization link.",
+      "position": "Query",
+      "type": "String",
+      "required": false
     },
     {
       "name": "NamespaceName",
       "description": "The namespace name of the source instance.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
+    },
+    {
+      "name": "NamespaceNameFilter",
+      "description": "The instance-level namespace regex filter.\n> This parameter takes effect only when SyncScope is set to `INSTANCE`.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Priority",
+      "description": "The execution priority of the synchronization task. Synchronization tasks are executed in descending order of priority. Tasks with the same priority are executed in random order.\n\nValid values: 1 to 5.\n\nDefault value: 3.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
     },
     {
       "name": "RepoName",
-      "description": "The name of the image repository in the source instance.",
+      "description": "The repository name of the source instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepoNameFilter",
-      "description": "The regular expression that is used to filter repositories.\n\n>  This parameter is valid only when SyncScope is set to `NAMESPACE`.",
+      "description": "The repository filter rule.\n> This parameter takes effect only when SyncScope is set to `INSTANCE` or `NAMESPACE`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SyncRuleName",
-      "description": "The name of the image synchronization rule.",
+      "description": "The name of the synchronization rule.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SyncScope",
-      "description": "The synchronization scope. Valid values:\n\n*   `REPO`: synchronizes the image tags in an image repository that meet the synchronization rule.\n*   `NAMESPACE`: synchronizes the image tags in a namespace that meet the synchronization rule.",
+      "description": "The synchronization type. Valid values:\n\n- `REPO`: Synchronizes by image repository.\n\n- `NAMESPACE`: Synchronizes by namespace.\n\n- `INSTANCE`: Synchronizes by namespace regex and repository regex.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SyncTrigger",
-      "description": "The mode of triggering the synchronization rule. Valid values:\n\n*   `INITIATIVE`: manually triggers the synchronization rule.\n*   `PASSIVE`: automatically triggers the synchronization rule.",
+      "description": "The trigger for the synchronization action. Valid values:\n\n- `INITIATIVE`: Manual trigger.\n \n- `PASSIVE`: Automatic trigger.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TagFilter",
-      "description": "The regular expression that is used to filter image tags.",
+      "description": "The tag filter rule.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TargetInstanceId",
-      "description": "The destination instance ID.",
+      "description": "The ID of the target instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TargetNamespaceName",
-      "description": "The namespace name of the destination instance.",
+      "description": "The namespace name of the target instance.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "TargetRegionId",
-      "description": "The region ID of the destination instance.",
+      "description": "The region ID of the target instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TargetRepoName",
-      "description": "The name of the image repository in the destination instance.",
+      "description": "The image repository name of the target instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetUserId",
-      "description": "The user ID (UID) of the account to which the destination instance belongs.\n\n>  If you synchronize images across accounts, you must use the UID.",
+      "description": "The UID of the account to which the target instance belongs.\n\n> This parameter is required for cross-account image synchronization.",
       "position": "Query",
       "type": "String",
       "required": false

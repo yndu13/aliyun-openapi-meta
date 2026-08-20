@@ -7,24 +7,30 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.",
+      "description": "The client token used to ensure the idempotence of the request.\n\nYou can generate a token by using your client. The token must be unique across requests and contain only ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a `2xx HTTP` status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Performs a dry run to check the request's validity without deleting the Application Load Balancer instance. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\n- **false** (default): sends a normal request. After the request passes the check, an `HTTP 2xx` status code is returned and the instance is deleted.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LoadBalancerId",
-      "description": "The ALB instance ID.",
+      "description": "The ID of the Application Load Balancer instance.",
       "position": "Query",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "RetainResourceType",
+      "position": "Query",
+      "type": "Array",
+      "required": false
     }
   ]
 }

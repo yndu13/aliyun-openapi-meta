@@ -6,29 +6,50 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AssetDomainId",
+      "description": "The ID of the asset domain.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "CategoryUuid",
+      "description": "The ID of the asset category.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "DataAssetIds",
-      "description": "The data asset IDs.",
+      "description": "The list of unique data asset IDs.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "DataAssetType",
-      "description": "The type of the data asset. Valid values:\n\n*   ACS::DataWorks::Table\n*   ACS::DataWorks::Task",
+      "description": "The Asset Type of the data asset. Valid values:\n\n- ACS::DataWorks::Table: data table.\n\n- ACS::DataWorks::Task: scheduling node.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnvType",
-      "description": "The environment of the workspace to which the data asset belongs. Valid values:\n\n*   Dev: development environment\n*   Prod: production environment",
+      "description": "The workspace environment to which the data asset belongs. Valid values:\n- Dev: development environment.\n- Prod: production environment.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Name",
+      "description": "The name of the asset. Fuzzy search by name is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page 1. Default value: 1.",
+      "description": "The page number. Pages start from 1. Default value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -42,26 +63,28 @@
     },
     {
       "name": "ProjectId",
-      "description": "The DataWorks workspace ID.",
+      "description": "The ID of the workspace.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags that are added to data assets. This parameter specifies a filter condition.\n\n*   You can specify multiple tags, which are in the logical OR relation. For example, you can query the data assets that contain one of the following tags: `[\"key1:v1\", \"key2:v1\", \"key3:v1\"]`.\n*   If you do not configure this parameter, tag-based filtering is not performed.",
+      "description": "The list of tags associated with data assets. Tags are used as query filters:\n- Multiple values have an OR relationship. For example, `[\"key1:v1\", \"key2:v1\", \"key3:v1\"]` queries data assets that contain any one of the specified tags.\n- If this parameter is not specified or is left empty, no tag-based filtering is applied.",
       "position": "Query",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The custom tag key specified by the user.\n\nThe tag key can be up to 64 characters in length, cannot start with `dw:`, and supports only letters, digits, and the following special characters: `-@#*<>|[]()+=&%$!~`.",
           "position": "Query",
           "type": "String",
-          "required": true
+          "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,70 +7,70 @@
   "parameters": [
     {
       "name": "AccountDescription",
-      "description": "The description of the account. The description must meet the following requirements:\n\n*   It cannot start with `http://` or `https://`.\n*   It must be 2 to 256 characters in length.",
+      "description": "The description of the account. The description must meet the following requirements:\n\n- Cannot start with `http://` or `https://`.\n- Is 2 to 256 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AccountName",
-      "description": "The name of the account. The name must meet the following requirements:\n\n*   It must start with a lowercase letter and end with a letter or a digit.\n*   It can contain lowercase letters, digits, and underscores (\\_).\n*   It must be 2 to 16 characters in length.\n*   It cannot be root, admin, or another username that is reserved by the system.",
+      "description": "The account name. The name must meet the following requirements:\n\n* Starts with a lowercase letter and ends with a letter or digit.\n* Contains only lowercase letters, digits, or underscores (_).\n* Is 2 to 16 characters in length.\n* Cannot use certain reserved usernames such as root or admin.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AccountPassword",
-      "description": "The password of the account. The password must meet the following requirements:\n\n*   The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.\n*   The password must be 8 to 32 characters in length.\n*   Special characters include `! @ # $ % ^ & * ( ) _ + - =`",
+      "description": "The account password. The password must meet the following requirements:\n* Contains at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.\n* Is 8 to 32 characters in length.\n* Special characters include `!@#$%^&*()_+-=`.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AccountPrivilege",
-      "description": "The permissions that are granted to the account. Valid values:\n\n*   **ReadWrite**: read and write permissions.\n*   **ReadOnly**: read-only permissions.\n*   **DMLOnly**: the permissions to execute only DML statements.\n*   **DDLOnly**: the permissions to execute only DDL statements.\n*   **ReadIndex**: the read-only and index permissions.\n\n> \n\n*   `AccountPrivilege` is valid only after you specify `DBName`.\n\n*   If multiple database names are specified by the `DBName` parameter, you must grant permissions on the databases. Separate multiple permissions with commas (,), and make sure that the length of the value of `AccountPrivilege` does not exceed 900. For example, if you want to grant the account the read and write permissions on DB1 and the read-only permissions on DB2, set `DBName` to `DB1,DB2` and set `AccountPrivilege` to `ReadWrite,ReadOnly`.\n\n*   This parameter is valid only for standard accounts of PolarDB for MySQL clusters.",
+      "description": "The permissions of the account. Valid values: \n\n* **ReadWrite**: read and write\n* **ReadOnly**: read-only\n* **DMLOnly**: DML only\n* **DDLOnly**: DDL only\n* **ReadIndex**: read-only and index\n\n>* The DBName parameter must be specified for AccountPrivilege to take effect.\n>* If you specify multiple database names for the DBName parameter, you must grant the corresponding permissions to each database. Separate multiple permissions with commas (,) and make sure that the total length of the AccountPrivilege string does not exceed 900 characters. For example, to grant read and write permissions on database DB1 and read-only permissions on database DB2, set DBName to `DB1,DB2` and set AccountPrivilege to `ReadWrite,ReadOnly`.\n> * This parameter is supported only for standard accounts of PolarDB for MySQL clusters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AccountType",
-      "description": "The type of the account. Valid values:\n\n*   **Normal**: standard account\n*   **Super**: privileged account.\n\n> \n\n*   If you leave this parameter empty, the default value **Super** is used.\n\n*   You can create multiple privileged accounts for a PolarDB for PostgreSQL (Compatible with Oracle) cluster or a PolarDB for PostgreSQL cluster. A privileged account has more permissions than a standard account. For more information, see [Create a database account](~~68508~~).\n\n*   You can create only one privileged account for a PolarDB for MySQL cluster. A privileged account has more permissions than a standard account. For more information, see [Create a database account](~~68508~~).",
+      "description": "The account type. Valid values:\n\n- **Normal**: standard account. \n- **Super**: privileged account. \n- **DynamoDB**: DynamoDB account. \n\n\n \n> * If this parameter is left empty, a **Super** account is created by default.\n> * If the cluster is a PolarDB for PostgreSQL (Compatible with Oracle) or PolarDB for PostgreSQL cluster, you can create multiple privileged accounts for each cluster. Privileged accounts have more permissions than standard accounts. For more information, see [Create a database account](~~68508~~).\n> * If the cluster is a PolarDB for MySQL cluster, you can create at most one privileged account for each cluster. Privileged accounts have more permissions than standard accounts. For more information, see [Create a database account](~~68508~~).\n> * DynamoDB accounts are dedicated accounts created for the DynamoDB compatibility feature of PolarDB for PostgreSQL. For more information, see [DynamoDB usage instructions](~~2979941~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. The token is case-sensitive.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value. Make sure that the value is unique among different requests. The token is case-sensitive and cannot exceed 64 ASCII characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBClusterId",
-      "description": "The ID of cluster.",
+      "description": "The cluster ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBName",
-      "description": "The name of the database that can be accessed by the account. To enter multiple database names, separate the names with commas (,).\n\n>  This parameter is valid only for standard accounts of PolarDB for MySQL clusters.",
+      "description": "The name of the database that the account is authorized to access. You can specify multiple database names separated by commas (,).\n\n> This parameter is supported only for standard accounts of PolarDB for MySQL clusters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NodeType",
-      "description": "",
+      "description": "The node type. Valid values:\n\n- Search: required when creating an account for a PolarDB Search node",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivForAllDB",
-      "description": "",
+      "description": "Specifies whether to grant permissions on all existing databases and all new databases in the current cluster. Valid values:\n\n- **0 or empty**: does not grant permissions.\n\n- **1**: grants permissions.\n>* The AccountPrivilege parameter must be specified for this parameter to take effect.\n>* If this parameter is set to `1`, the permissions specified by AccountPrivilege are granted on all databases.",
       "position": "Query",
       "type": "String",
       "required": false

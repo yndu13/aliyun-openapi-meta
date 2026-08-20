@@ -1,40 +1,41 @@
 {
   "name": "StartPlaylist",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Offset",
-      "description": "The offset of the position where the system starts the playback. This parameter takes effect only if the input source is a video file. Unit: milliseconds.\n\nA value greater than 0 indicates an offset from the first frame.",
+      "description": "The start offset for the video file. This parameter is valid only for video files. Unit: milliseconds.\n\nA value greater than 0 specifies the start time relative to the first frame.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ProgramId",
-      "description": "The ID of the episode list. If the episode list was created by calling the [AddPlaylistItems](~~2848078~~) operation, check the value of the response parameter ProgramId to obtain the ID.",
+      "description": "The ID of the playlist. If you add items to the playlist by calling the [AddPlaylistItems](~~2848078~~) operation, use the value of the ProgramId parameter that is returned.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResumeMode",
-      "description": "The method to resume the playback of the episode list. Valid values:\n\n*   **Restart**: resumes the playback from the beginning.\n*   **Continue**: resumes the playback from the position where the previous playback stops. The **StartItemId** parameter is required only if you set **ResumeMode** to **Custom**.\n*   **Custom**: resumes the playback from a custom position.",
+      "description": "The restart mode. Valid values:\n\n- **Restart**: Starts from the beginning.\n\n- **Continue**: Resumes playback from where it was stopped. The **StartItemId** parameter is required only when you set the **ResumeMode** parameter to **Custom**.\n\n- **Custom**: Custom start point.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartItemId",
-      "description": "The ID of the first episode to play. This episode is the first to play in carousel playback.\n\n>  This parameter is required only if you set ResumeMode to Custom.",
+      "description": "The ID of the item to play first. When the carousel starts, this item is played.\n\n><notice>\n\nThis parameter is required only when you set **ResumeMode** to **Custom**.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false

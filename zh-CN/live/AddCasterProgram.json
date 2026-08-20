@@ -1,5 +1,6 @@
 {
   "name": "AddCasterProgram",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -20,42 +21,49 @@
       "sub_parameters": [
         {
           "name": "ComponentId",
+          "description": "组件列表。按照元素顺序由下而上排列。\n><notice>当Episode.N.EpisodeType为**Component**时，本参数有用且必传。\n></notice>\n\n 当节点类型为**Resource**时，表示组件与视频源绑定并同步切换。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "EndTime",
+          "description": "结束时间。格式为：<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）。必填，不填时返回 MissingParameter。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EpisodeName",
+          "description": "节目名称。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EpisodeType",
+          "description": "节点类型。 \n         \n- **Resource**：视频源。如果选择Resource类型，必须同时设置请求参数Episode.N.ResourceId和Episode.N.SwitchType。\n- **Component**：组件。 如果选择Component类型，必须同时设置请求参数Episode.N.ComponentId.N。\n\n\n> \n> - 当 选择Resource 且所引用资源包含 VodUrl（点播文件）时，EndTime - StartTime 不能超过该 VOD 文件的实际播放时长（秒级），否则返回 InvalidParameter.EndTime。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceId",
+          "description": "视频源ID。\n><notice>当Episode.N.EpisodeType为**Resource**时，本参数有用且必传。\n></notice>  \n 当Episode.N.EpisodeType为**Component**时，本参数不可用。\n\n如果您通过[AddCasterVideoResource接口](~~60250~~)添加导播台视频源，请查看AddCasterVideoResource接口调用返回的参数ResourceId值。\n     \n\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartTime",
+          "description": "起始时间。格式为：<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）。必填，不填时返回MissingParameter。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SwitchType",
+          "description": "切换策略。取值：\n><notice>当Episode.N.EpisodeType为**Resource**时，本参数才有用。\n></notice>\n         \n- **TimeFirst**：时间优先，直播类视频源只允许采用时间优先。 \n- **ContentFirst**：内容优先。\n\n",
           "position": "Query",
           "type": "String",
           "required": false

@@ -6,92 +6,99 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "Algorithm",
+      "description": "The vector index algorithm.\n\nValid values:\n- hnswflat: HNSW index without quantization compression (default).\n- novam: graph index without quantization compression, suitable for high-performance scenarios such as real-time recommendations.\n- novad: partitioned index with RaBitQ quantization, suitable for large-scale low-cost retrieval scenarios.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Collection",
-      "description": "The name of the document collection that you want to create.\n\n> The name must comply with PostgreSQL object naming restrictions.",
+      "description": "The name of the knowledge base to create.\n\n> The name must comply with PostgreSQL object naming conventions.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID.\n\n> You can call the [DescribeDBInstances](~~86911~~) API to view details of all AnalyticDB for PostgreSQL instances in the target region, including the instance ID.",
+      "description": "The instance ID.\n\n> You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a region, including instance IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Dimension",
-      "description": "",
+      "description": "The vector dimensions. The default value is the dimension supported by the embedding model.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "EmbeddingModel",
-      "description": "The vectorization algorithm.\n\n>  Supported algorithms:\n\n*   text-embedding-v1: the algorithm that produces 1536-dimensional vectors.\n\n*   text-embedding-v2: the algorithm that produces 1536-dimensional vectors.\n\n*   text2vec: the algorithm that produces 1024-dimensional vectors.\n\n*   m3e-base: the algorithm that produces 768-dimensional vectors.\n\n*   m3e-small: the algorithm that produces 512-dimensional vectors.\n\n*   clip-vit-b-32: the image vectorization algorithm that uses the Contrastive Language-Image Pre-Training (CLIP) ViT-B/32 model and produces 512-dimensional vectors.\n\n*   clip-vit-b-16: the image vectorization algorithm that uses the CLIP ViT-B/16 model and produces 512-dimensional vectors.\n\n*   clip-vit-l-14: the image vectorization algorithm that uses the CLIP ViT-L/14 model and produces 768-dimensional vectors.\n\n*   clip-vit-l-14-336px: the image vectorization algorithm that uses the CLIP ViT-L/14@336px model and produces 768-dimensional vectors.\n\n*   clip-rn50: the image vectorization algorithm that uses the CLIP RN50 model and produces 1024-dimensional vectors.\n\n*   clip-rn101: the image vectorization algorithm that uses the CLIP RN101 model and produces 512-dimensional vectors.\n\n*   clip-rn50x4: the image vectorization algorithm that uses the CLIP RN50x4 model and produces 640-dimensional vectors.\n\n*   clip-rn50x16: the image vectorization algorithm that uses the CLIP RN50x16 model and produces 768-dimensional vectors.\n\n*   clip-rn50x64: the image vectorization algorithm that uses the CLIP RN50x64 model and produces 1024-dimensional vectors.",
+      "description": "The embedding model. Default value: text-embedding-v3.\n\n> Supported models:\n> - text-embedding-v3 (recommended, default): 1024, 768, or 512 dimensions\n> - multimodal-embedding-v1 (recommended): 1024 dimensions, multimodal embedding model\n> - text-embedding-v1: 1536 dimensions\n> - text-embedding-v2: 1536 dimensions\n> - text2vec (not recommended): 1024 dimensions\n> - m3e-base (not recommended): 768 dimensions\n> - m3e-small (not recommended): 512 dimensions\n> - clip-vit-b-32 (not recommended): CLIP ViT-B/32 model, 512 dimensions, image embedding model\n> - clip-vit-b-16 (not recommended): CLIP ViT-B/16 model, 512 dimensions, image embedding model\n> - clip-vit-l-14 (not recommended): CLIP ViT-L/14 model, 768 dimensions, image embedding model\n> - clip-vit-l-14-336px (not recommended): CLIP ViT-L/14@336px model, 768 dimensions, image embedding model\n> - clip-rn50 (not recommended): CLIP RN50 model, 1024 dimensions, image embedding model\n> - clip-rn101 (not recommended): CLIP RN101 model, 512 dimensions, image embedding model\n> - clip-rn50x4 (not recommended): CLIP RN50x4 model, 640 dimensions, image embedding model\n> - clip-rn50x16 (not recommended): CLIP RN50x16 model, 768 dimensions, image embedding model\n> - clip-rn50x64 (not recommended): CLIP RN50x64 model, 1024 dimensions, image embedding model",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableGraph",
-      "description": "",
+      "description": "Specifies whether to enable knowledge graph construction. Default value: false.\n\n> Before using this parameter, upgrade the instance to a version that supports the graph engine. (During the public preview, submit a ticket to upgrade the version.)",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EntityTypes",
-      "description": "",
+      "description": "The list of entity types.\n\n> This parameter is required when knowledge graph construction is enabled.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "ExternalStorage",
-      "description": "Specifies whether to use the memory mapping technology to create HNSW indexes. Valid values: 0 and 1. Default value: 0. We recommend that you set the value to 1 in scenarios that require upload speed but not data deletion.\n\n> \n\n*   0: uses segmented paging storage to create indexes. This method uses the shared buffer of PostgreSQL for caching and supports the delete and update operations.\n\n*   1: uses the memory mapping technology to create indexes. This method does not support the delete or update operation.",
+      "description": "Specifies whether to use mmap to build the HNSW index. Default value: 0. If data does not need to be deleted and you require high upload performance, set this parameter to 1.\n\nValid values:\n- 0: uses segment-page storage to build the index. This mode uses shared_buffer in PostgreSQL as cache and supports delete and update operations.\n- 1: uses mmap to build the index. This mode does not support delete or update operations.\n\n><notice>Only version 6.0 supports the ExternalStorage parameter. Version 7.0 does not support this parameter.></notice>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "FullTextRetrievalFields",
-      "description": "The fields used for full-text search. Separate multiple fields with commas (,). These fields must be keys defined in Metadata.",
+      "description": "The fields used for full-text retrieval. Separate multiple fields with commas (,). The fields must be keys defined in Metadata.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HnswEfConstruction",
-      "description": "",
+      "description": "The candidate set size when building an index with the HNSW algorithm. The value must be >= 2*HNSW_M.\n\n> Valid values:\n>- AnalyticDB for PostgreSQL 6.0 instances: 40 to 4000.\n>- AnalyticDB for PostgreSQL 7.0 instances: 4 to 1000. Default value: 64.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HnswM",
-      "description": "The maximum number of neighbors for the Hierarchical Navigable Small World (HNSW) algorithm. Valid values: 1 to 1000. In most cases, this parameter is automatically configured based on the value of the Dimension parameter. You do not need to configure this parameter.\n\n>  We recommend that you configure this parameter based on the value of the Dimension parameter.\n\n*   If you set Dimension to a value less than or equal to 384, set the value of HnswM to 16.\n\n*   If you set Dimension to a value greater than 384 and less than or equal to 768, set the value of HnswM to 32.\n\n*   If you set Dimension to a value greater than 768 and less than or equal to 1024, set the value of HnswM to 64.\n\n*   If you set Dimension to a value greater than 1024, set the value of HnswM to 128.",
+      "description": "The maximum number of neighbors in the HNSW algorithm. This value is automatically set based on the vector dimensions. Manual configuration is generally not required.\n\n> Valid values:\n>- AnalyticDB for PostgreSQL 6.0 instances: 1 to 1000.\n>- AnalyticDB for PostgreSQL 7.0 instances: 2 to 100. Default value: 16.\n\n> Recommended values based on vector dimensions:\n>- 384 or fewer: 16\n>- Greater than 384 and up to 768: 32\n>- Greater than 768 and up to 1024: 64\n>- Greater than 1024: 128",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LLMModel",
-      "description": "",
+      "description": "The LLM model name. Valid values:\n- knowledge-extract-standard: default value.\n- knowledge-extract-mini\n> This parameter takes effect only when knowledge graph construction is enabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Language",
-      "description": "",
+      "description": "The language used for knowledge graph construction. Valid values:\n- Simplified Chinese: Simplified Chinese. Default value.\n- English: English.\n> This parameter takes effect only when knowledge graph construction is enabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ManagerAccount",
-      "description": "The name of the manager account that has the rds_superuser permission.\n\n> You can create an account through the console -> Account Management, or by using the [CreateAccount](~~2361789~~) API.",
+      "description": "The name of the management account that has the rds_superuser permission.\n\n> You can create an account in the console by navigating to Account Management, or by calling the [CreateAccount](~~2361789~~) operation.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -105,42 +112,42 @@
     },
     {
       "name": "Metadata",
-      "description": "The metadata of the vector data, which is a JSON string in the MAP format. The key specifies the field name, and the value specifies the data type.\n\n> Supported data types:\n> - For information about data types, see: [Data Types](https://www.alibabacloud.com/help/en/analyticdb/analyticdb-for-postgresql/developer-reference/data-types-1/).\n> - The money type is not supported.\n\n><warning>The fields id, vector, doc_name, content, loader_metadata, source, and to_tsvector are reserved and should not be used.></warning>",
+      "description": "The metadata of vector data, in the format of a JSON string representing a MAP. The key represents the field name, and the value represents the data type.\n\n> Supported data types:\n> - For the list of data types, see [Data types](~~424383~~).\n> - The money type is not supported.\n\n><warning>The following fields are reserved and cannot be used: id, vector, doc_name, content, loader_metadata, source, and to_tsvector.></warning>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MetadataIndices",
-      "description": "",
+      "description": "The scalar index fields. Separate multiple fields with commas (,). The fields must be keys defined in Metadata.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Metrics",
-      "description": "The method that is used to create vector indexes.\n\nValid values:\n\n*   **l2**: Euclidean distance.\n*   **ip**: inner product distance.\n*   **cosine** (default): cosine similarity.",
+      "description": "The distance metric used for building vector indexes.\n\nValid values:\n- **l2**: Euclidean distance.\n- **ip**: inner product distance.\n- **cosine** (default): cosine similarity.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Namespace",
-      "description": "The name of the namespace. Default value: public.\n\n>  You can call the [CreateNamespace](~~2401495~~) operation to create a namespace and call the [ListNamespaces](~~2401502~~) operation to query a list of namespaces.",
+      "description": "The namespace. Default value: public.\n\n> You can create a namespace by calling the [CreateNamespace](~~2401495~~) operation and query the list of namespaces by calling the [ListNamespaces](~~2401502~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Parser",
-      "description": "The analyzer that is used for full-text search. Default value: zh_cn.",
+      "description": "The tokenizer used for full-text retrieval. Default value: zh_cn.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PqEnable",
-      "description": "Specifies whether to enable the product quantization (PQ) feature for index acceleration. We recommend that you enable this feature for more than 500,000 rows of data. Valid values:\n\n*   0: no.\n*   1 (default): yes.",
+      "description": "Specifies whether to enable Product Quantization (PQ) algorithm acceleration for the index. We recommend enabling this feature when the data volume exceeds 500,000. Valid values:\n- 0: disabled.\n- 1: enabled (default).",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -154,30 +161,37 @@
     },
     {
       "name": "RelationshipTypes",
-      "description": "",
+      "description": "The list of relationship edge types.\n\n> This parameter is required when knowledge graph construction is enabled.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "SparseRetrievalFields",
-      "description": "",
+      "description": "The metadata fields used for building sparse vectors. Separate multiple fields with commas (,). The fields must be keys defined in Metadata.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SparseVectorIndexConfig",
-      "description": "",
+      "description": "The sparse vector index configuration. If specified, a sparse vector index is created.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SupportSparse",
-      "description": "",
+      "description": "Specifies whether to support sparse vectors. Default value: false.",
       "position": "Query",
       "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "VectorIndexConfig",
+      "description": "The dense vector index configuration.",
+      "position": "Query",
+      "type": "String",
       "required": false
     }
   ]

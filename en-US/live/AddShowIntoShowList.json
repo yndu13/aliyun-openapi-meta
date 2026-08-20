@@ -1,131 +1,139 @@
 {
   "name": "AddShowIntoShowList",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\n*   If the production studio was created by calling the [CreateCaster](~~2848009~~) operation, check the value of the response parameter CasterId to obtain the ID.\n*   If the production studio was created by using the ApsaraVideo Live console, obtain the ID on the **Production Studio Management** page. To go to the page, log on to the **ApsaraVideo Live console** and click **Production Studios** in the left-side navigation pane.\n\n>  You can find the ID of the production studio in the Instance ID/Name column.",
+      "description": "The production studio ID.\n\n- If you created the production studio by calling the [CreateCaster](~~2848009~~) operation, check the CasterId value returned by the CreateCaster operation.\n\n- If you created the production studio in the ApsaraVideo Live console, navigate to **ApsaraVideo Live console** > **Production Studios** > **Cloud Production Studio** to view the production studio name.\n\n> The production studio name in the production studio list on the Cloud Production Studio page of the ApsaraVideo Live console is the production studio ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Duration",
-      "description": "The duration of the episode. Unit: seconds.\n\n> You can specify only one of the **RepeatTimes** and **Duration** parameters.",
+      "description": "The playback duration of a single show. Unit: seconds.\n> - You can set only one of **RepeatTimes** and **Duration**.\n> - This parameter is required when ResourceType is set to live.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "LiveInputType",
-      "description": "The custom type label.",
+      "description": "The custom type tag.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatTimes",
-      "description": "The number of times the episode repeats after the first playback is complete. The default value is 0.\n\n> \n\n*   You can specify only one of the **RepeatTimes** and **Duration** parameters. - The RepeatTimes parameter specifies the number of repetitions. For example, if you set the value to -1, the episode is to be played for infinite times. If you set the value to 0, the episode is to be played once. If you set the value to 1, the episode is to be played twice.",
+      "description": "The number of times a single show is repeated. Default value: 0.\n> - You can set only one of **RepeatTimes** and **Duration**.- RepeatTimes specifies the number of repetitions. For example, -1 means infinite repetition, 0 means the show is repeated 0 times (played once), 1 means the show is repeated 1 time (played twice), and so on.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The ID of the resource.",
+      "description": "The VOD file ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The resource type. Valid values:\n\n*   live: live stream\n*   vod: on-demand video\n*   pic: image\n\n> \n\n*   When you select media resources from ApsaraVideo VOD, we recommend that you select resources that are stored in hosted OSS buckets. Resources stored in non-hosted OSS buckets have a validity period. Pay attention to the validity if you select resources that are stored in non-hosted OSS buckets. - You can add a live stream from ApsaraVideo Live or by using a third-party URL. - You can add an on-demand video from ApsaraVideo VOD or by using a third-party URL, or add an on-demand image.",
+      "description": "The resource type. Valid values:\n- live: live streaming resource.\n- vod: video-on-demand resource.\n- pic: image resource.\n\n>- When using video-on-demand (VOD) resources, use managed Bucket resources first. Resources in your own Bucket may expire. If you use resources in your own Bucket, check the resource validity period.\n- Live files support live streaming resources and third-party URLs.\n- VOD files support video-on-demand resources, image resources, and third-party URLs.\n- When using live streaming resources, you must also specify the Duration parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceUrl",
-      "description": "The URL of the resource.",
+      "description": "The URL of the playback file.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ShowName",
-      "description": "The name of the episode.",
+      "description": "The show name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Spot",
-      "description": "The position of the episode in the episode list. Position indexes start from 0. By default, the episode is added to the end of the episode list.",
+      "description": "The position in the playlist where the show is inserted. Positions start from 0. By default, the show is added to the end of the current playlist.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "isBatchMode",
-      "description": "Specifies whether to add multiple episodes to the episode list at a time. Valid values:\n\n*   true: adds multiple episodes to the episode list at a time.\n*   false: adds a single episode to the episode list.\n\n> If you do not specify this parameter or this parameter is left empty, a single episode is to be added to the episode list.",
+      "description": "Specifies whether to add shows to the playlist in batch. Valid values:\n\n- true: Batch addition.\n\n- false: Single addition.\n\n>If this parameter is not specified or left empty, single addition is used.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "showList",
-      "description": "The episodes that you want to add to the episode list. Each episode has a unique name and resource URL.",
+      "description": "The list of show resources to add. Each resource has independent parameters such as showName and resourceUrl.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "duration",
+          "description": "The playback duration of a single show. Unit: seconds.\n\n> - You can set only one of **repeatTimes** and **duration**.\n> - This parameter is required when resourceType is set to live.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "liveInputType",
+          "description": "The custom type tag.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "repeatTimes",
+          "description": "The number of times a single show is repeated. Default value: 0.\n\n>- You can set only one of **repeatTimes** and **duration**.\n- repeatTimes specifies the number of repetitions. For example, 0 means the show is repeated 0 times (played once), 1 means the show is repeated 1 time (played twice), and so on.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "resourceId",
+          "description": "The VOD file ID.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "resourceType",
+          "description": "The resource type. Valid values:\n\n- live: live streaming resource.\n\n- vod: video-on-demand resource.\n\n- pic: image resource.\n\n>- When using video-on-demand (VOD) resources, use managed Bucket resources first. Resources in your own Bucket may expire. If you use resources in your own Bucket, check the resource validity period.\n- Live files support live streaming resources and third-party URLs.\n- VOD files support video-on-demand resources, image resources, and third-party URLs.\n- When using live streaming resources, you must also specify the duration parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "resourceUrl",
+          "description": "The URL of the playback file.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "showName",
+          "description": "The show name.",
           "position": "Query",
           "type": "String",
           "required": false

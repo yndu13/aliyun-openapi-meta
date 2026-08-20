@@ -7,28 +7,49 @@
   "parameters": [
     {
       "name": "InstanceId",
-      "description": "The ID of the instance. You can call the [DescribeInstances](~~473778~~) operation to query the ID of the instance.",
+      "description": "The instance ID. You can call [DescribeInstances](~~473778~~) to query the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "NodeId",
-      "description": "The ID of the data shard. You can call the [DescribeRoleZoneInfo](~~473782~~) operation to obtain the value of the CustinsId parameter. Separate multiple data shard IDs with commas (,). `all` indicates that all data shards are specified.\n\n> This parameter is available and required only for read/write splitting and cluster instances.",
+      "description": "The ID of the data shard node. You can call [DescribeRoleZoneInfo](~~473782~~) to obtain the CustinsId parameter. Separate multiple data shard node IDs with commas (,). To specify all nodes, enter `all`.\n> This parameter is available and required only when the instance uses the cluster or read/write splitting architecture.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SourceNodeId",
+      "description": "The node ID of the original MASTER node in the shard.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SwitchMode",
-      "description": "The time when to perform the switchover. Default value: 0. Valid values:\n\n*   **0**: immediately performs the switchover.\n*   **1**: performs the switchover during the maintenance window.\n\n> You can call the [ModifyInstanceMaintainTime](~~473775~~) operation to modify the maintenance window of a Tair (Redis OSS-compatible) instance.",
+      "description": "The execution time. Valid values:\n* **0**: immediately. This is the default value.\n* **1**: during the maintenance window.\n\n> You can call [ModifyInstanceMaintainTime](~~473775~~) to modify the maintenance window of the instance.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SwitchType",
-      "description": "The switching mode. Valid values:\n\n*   **AvailablePriority**: immediately performs a switchover by prioritizing availability. No latency of data synchronization between the master and replica nodes is considered. This may cause data loss.\n*   **ReliabilityPriority**: performs a switchover by prioritizing reliability. Make sure that no latency of data synchronization between the master and replica nodes exists. This ensures data integrity. This mode may cause switchover failures in scenarios where a large volume of data is written and data synchronization latency consistently exists.\n\n>  You must evaluate the requirements for data and services based on your business scenarios and then select a switching mode.",
+      "description": "The switchover mode. Valid values:\n* **ReliabilityPriority (default)**: Reliability is prioritized. The primary/secondary switchover is performed only when primary/secondary synchronization has no latency, which prevents data loss. In scenarios with heavy write workloads and persistent synchronization latency, this mode may cause the primary/secondary switchover to fail.\n* **AvailablePriority**: Availability is prioritized. The primary/secondary switchover is performed immediately regardless of primary/secondary latency, which may cause minor data loss.\n\n> Evaluate your business requirements for data integrity and service availability before selecting a switchover mode.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetNodeId",
+      "description": "The node ID of the target MASTER node after the switchover.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetShardName",
+      "description": "The shard name of the instance.",
       "position": "Query",
       "type": "String",
       "required": false

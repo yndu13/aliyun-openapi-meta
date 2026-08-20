@@ -1,0 +1,44 @@
+{
+  "name": "UpdateRiskStatus",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "RiskConfirm",
+      "description": "The manually confirmed risk conclusion. This parameter is required when `Status` is set to `Processed`. Do not specify this parameter when `Status` is set to `Unprocess` or `Processing`. Valid values:\n* `Risk`: Confirmed as risky.\n* `Ignore`: Confirmed as not risky.\n* `Invalid`: Confirmed as a false positive.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RiskConfirmDesc",
+      "description": "The description of the risk event processing decision. The value must be 1 to 128 characters in length.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RiskId",
+      "description": "The risk event ID. You can obtain the value from the following operation:\n* `ListRiskItems`: Queries the list of risk events.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RiskScene",
+      "description": "The risk scenario. This parameter is optional. If not specified, the system automatically populates it based on RiskId. Valid values:\n* account_share: Account sharing.\n* account_stolen: Account stolen.\n* device_share: Device sharing.\n* remote_logon: Remote logon.\n* sensitive_data_leakage: Sensitive data leakage.\n* `compressed_archive_exfil`: Internal network data compression and exfiltration.\n* lateral_scanning: Lateral scanning.\n* ai_skill_malware: Malicious skill.\n* ai_config_check: AI configuration check.\n* openclaw_vulnerability: OpenClaw vulnerability.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "The processing status of the risk event. Valid values:\n* `Unprocess`: Unprocessed.\n* `Processing`: Being processed.\n* `Processed`: Processed.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

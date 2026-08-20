@@ -7,70 +7,70 @@
   "parameters": [
     {
       "name": "AddressId",
-      "description": "The ID of the address to which the invoice is delivered. This parameter is required if the invoice is a paper invoice. Set the ID to the value of the AddressId parameter returned by calling the QueryCustomerAddressList operation.",
+      "description": "The mailing address ID. This ID corresponds to the `ID` parameter returned by the `QueryCustomerAddressList` operation.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "ApplyUserNick",
-      "description": "The nickname of the applicant. The system does not verify the nickname.",
+      "description": "The applicant nickname. The system does not verify this value.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "CustomerId",
-      "description": "The ID of the customer. Set the ID to the value of the CustomerId parameter returned by calling the QueryInvoicingCustomerList operation.",
+      "description": "The invoicing customer ID. This ID corresponds to the `ID` parameter returned by the `QueryInvoicingCustomerList` operation.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "InvoiceAmount",
-      "description": "The amount of the invoice. Unit: Cent.",
+      "description": "The invoice amount, in cents.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "InvoiceByAmount",
-      "description": "Specifies whether to invoice by amount. A value of true indicates that the user applies for the invoice based on the InvoiceAmount parameter. A value of false indicates that the user applies for the invoice based on the total amount of the invoicing items.",
+      "description": "Specifies whether to create an invoice for a specific amount. If you set this parameter to `true`, an invoice is created for the amount specified in the `InvoiceAmount` parameter. If you set this parameter to `false`, an invoice is created for the total amount of the items specified in the `SelectedIds` parameter.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InvoicingType",
-      "description": "The type of the invoice. Valid values:\n\n*   0: paper invoice\n*   1: electronic invoice",
+      "description": "The invoice type. Valid values:\n\n- 0: special invoice\n\n- 1: general invoice",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ProcessWay",
-      "description": "The channel that is used to process the invoice. A value of 0 indicates that the invoice is processed by Alibaba Cloud. A value of 1 indicates that the invoice is processed by the tax platform. Set the value to 1.",
+      "description": "The invoicing channel. This parameter must be set to 1. The following list describes the channel types:\n\n- 0: Processed by Alibaba Cloud (Not applicable to this operation)\n\n- 1: Processed by the tax platform",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SelectedIds",
-      "description": "The IDs of the selected invoicing items. Set the IDs to the IDs returned by calling the QueryEvaluateList operation.",
+      "description": "The IDs of the items to be invoiced. These IDs correspond to the `ID` parameter returned by the `QueryEvaluateList` operation.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "UserRemark",
-      "description": "The remarks made by the user.",
+      "description": "The user's remarks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "emails",
-      "description": "",
+      "description": "The email addresses of the invoice recipient. To specify multiple addresses, separate them with commas (,). The value cannot exceed 200 characters.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AggregationInterval",
-      "description": "The sampling interval of the flow log. Unit: seconds. Valid values: **1**, **5**, and **10** (default).",
+      "description": "The sampling interval of the flow log. Unit: minutes. Valid values: **1**, **5**, and **10** (default).",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -28,28 +28,34 @@
     },
     {
       "name": "IpVersion",
-      "description": "",
+      "description": "The IP version of the traffic captured by the flow log.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "LogFormat",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LogStoreName",
-      "description": "The name of the Logstore that stores the captured traffic data.\n\n*   The name can contain only lowercase letters, digits, hyphens (-), and underscores (\\_).\n*   The name must start and end with a lowercase letter or a digit.\n*   The name must be 3 to 63 characters in length.",
+      "description": "The name of the Logstore that stores the captured traffic.\n- The Logstore name can contain only lowercase letters, digits, hyphens (-), and underscores (_).\n- The name must start and end with a lowercase letter or digit.\n- The name must be 3 to 63 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "The name of the project that stores the captured traffic data.\n\n*   The name can contain only lowercase letters, digits, and hyphens (-).\n*   The name must start and end with a lowercase letter or a digit.\n*   The name must be 3 to 63 characters in length.",
+      "description": "The name of the project that manages the captured traffic.\n- The project name can contain only lowercase letters, digits, and hyphens (-).\n- The name must start and end with a lowercase letter or digit.\n- The name must be 3 to 63 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where you want to create the flow log. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the flow log. You can call [DescribeRegions](~~448570~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -70,26 +76,28 @@
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource whose traffic you want to capture. Valid values:\n\n*   **NetworkInterface**: elastic network interface (ENI)\n*   **VSwitch**: all ENIs in a vSwitch\n*   **VPC**: all ENIs in a virtual private cloud (VPC)",
+      "description": "The type of the resource whose traffic you want to catch. Valid values:\n\n- **NetworkInterface**: network interface controller (NIC).\n  \n- **VSwitch**: all network interface controllers (NICs) in a vSwitch.\n  \n- **VPC**: all network interface controllers (NICs) in a virtual private cloud (VPC).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The tag of the resource.",
+      "description": "The tags of the resource.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. Do not specify an empty string.\n\nA tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. You can specify an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -98,14 +106,14 @@
     },
     {
       "name": "TrafficPath",
-      "description": "The scope of the traffic that you want to capture. Valid values:\n\n*   **all**: all traffic.\n*   **internetGateway**: Internet traffic.",
+      "description": "The traffic path to capture. Valid values:\n\n- **all**: captures all traffic.\n- **internetGateway**: captures Internet traffic.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "TrafficType",
-      "description": "The type of traffic that you want to capture. Valid values:\n\n*   **All**: all traffic\n*   **Allow**: traffic that is allowed\n*   **Drop**: traffic that is rejected",
+      "description": "The traffic type to collect. Valid values:\n\n- **All**: all traffic.\n  \n- **Allow**: traffic allowed by access control.\n  \n- **Drop**: traffic deny by access control.",
       "position": "Query",
       "type": "String",
       "required": true

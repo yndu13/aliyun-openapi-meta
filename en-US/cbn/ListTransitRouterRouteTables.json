@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "MaxResults",
-      "description": "The number of entries per page. Valid values: **1** to **100**. Default value: **20**.",
+      "description": "The number of entries to return on each page. Valid values: **1** to **100**. Default value: **20**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that determines the start point of the query. Valid values:\n\n*   If this is your first query or no subsequent query is to be sent, ignore this parameter.\n*   If a subsequent query is to be sent, set the value to the value of **NextToken** that is returned from the last call.",
+      "description": "The token that is used for the next query. Valid values:\n\n- If this is your first query or no next query is to be sent, do not specify this parameter.\n\n- If a next query is to be sent, set the value to the **NextToken** value returned from the last API call.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,19 +28,21 @@
     },
     {
       "name": "Tag",
-      "description": "The information about the tags.\n\nYou can specify at most 20 tags in each call.",
+      "description": "The tag.\n\nYou can specify up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\n\nThe tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https:// `.\n\nYou can specify up to 20 tag keys.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\n\nThe tag value can be an empty string or a string of up to 128 characters. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https:// `.\n\nEach tag key must have a corresponding tag value. You can specify up to 20 tag values.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,28 +58,28 @@
     },
     {
       "name": "TransitRouterRouteTableIds",
-      "description": "The ID of the route table.\n\nYou can query multiple route tables in each call. Maximum value of **N**: **20**.",
+      "description": "The ID of the route table.\n\nYou can query multiple route tables at a time. The maximum value of **N** is **20**.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "TransitRouterRouteTableNames",
-      "description": "The name of the route table.\n\nYou can query multiple route tables in each call. Maximum value of **N**: **20**.\n\n> If you set both **TransitRouterRouteTableNames.N** and **TransitRouterRouteTableIds.N**, make sure that the specified name and ID belong to the same route table.",
+      "description": "The name of the route table.\n\nYou can query multiple route tables at a time. The maximum value of **N** is **20**.\n\n> If you query route tables using both **TransitRouterRouteTableNames.N** and **TransitRouterRouteTableIds.N**, make sure that the names and IDs match.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "TransitRouterRouteTableStatus",
-      "description": "The status of the route table. Valid values:\n\n*   **Creating**: The route table is being created.\n*   **Deleting**: The route table is being deleted.\n*   **Active**: The route table is available.",
+      "description": "The status of the route table. Valid values:\n\n- **Creating**: The route table is being created.\n\n- **Deleting**: The route table is being deleted.\n\n- **Active**: The route table is available.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteTableType",
-      "description": "The type of the route table. Valid values:\n\n*   **Custom**: a custom route table\n*   **System**: the default route table",
+      "description": "The type of the route table. Valid values:\n\n- **Custom**: a custom route table.\n\n- **System**: the default route table.",
       "position": "Query",
       "type": "String",
       "required": false

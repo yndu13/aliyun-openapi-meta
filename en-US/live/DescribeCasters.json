@@ -1,12 +1,13 @@
 {
   "name": "DescribeCasters",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\n*   If the production studio was created by calling the [CreateCaster](~~2848012~~) operation, check the value of the response parameter CasterId to obtain the ID.\n*   If the production studio was created by using the ApsaraVideo Live console, obtain the ID on the **Production Studio Management** page. To go to the page, log on to the ApsaraVideo Live console and click Production Studios in the left-side navigation pane.\n\n> \n\n*   You can find the ID of the production studio in the Instance ID/Name column.\n\n*   If you leave this parameter empty, the data of all production studios is returned.",
+      "description": "The production studio ID.\n\n- If you created the production studio by calling the [CreateCaster operation](~~2848012~~), check the CasterId parameter returned by the CreateCaster operation.\n\n- If you created the production studio in the ApsaraVideo Live console, go to **ApsaraVideo Live console > Production Studios > Cloud Production Studio** to view the ID.\n\n> - The production studio name in the production studio list on the Cloud Production Studio page is the production studio ID.\n> - If this parameter is left empty, the merged data of all production studios is returned by default.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -20,89 +21,91 @@
     },
     {
       "name": "ChargeType",
-      "description": "The billing method. Valid values:\n\n*   0: the subscription billing method\n*   1: the pay-as-you-go billing method",
+      "description": "The billing method. Valid values:\n\n- 0: PrePaid (subscription).\n\n- 1: PostPaid (pay-as-you-go).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The end time. Format: yyyy-MM-ddTHH:mm:ssZ (UTC).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NormType",
-      "description": "The type of the production studio. Valid values:\n\n*   1: general mode\n*   3: lightweight carousel playback mode\n*   4: virtual studio\n*   6: playlist mode",
+      "description": "The specification type of the production studio. Valid values:\n\n- 1: general mode.\n\n- 3: lightweight playlist mode.\n\n- 4: virtual studio mode.\n\n- 6: playlist mode (new playlist mode production studio).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OrderByModifyAsc",
-      "description": "Specifies whether to sort the production studios in ascending order based on the modification time.\n\n>  If you leave this parameter empty, the default value is used. Default value: false.",
+      "description": "Specifies whether to sort the production studios in ascending order by modification time.\n\nValid values: true (ascending order by modification time) | false (descending order by modification time, which is the default value).\n\n> If this parameter is not specified, the default value is \"false\".",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNum",
-      "description": "The number of the page to return.",
+      "description": "The page number.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of templates to return on each page. If you leave this parameter empty, the default value is used. Default value: 100.",
+      "description": "The number of entries per page. Default value: 100.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The resource group ID. For more information about resource groups, see [Resource groups](~~2381067~~).",
+      "description": "The resource group ID. For more information about resource groups, see [What is a resource group](~~2381067~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The start time. Format: yyyy-MM-ddTHH:mm:ssZ (UTC).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the production studio. Valid values:\n\n*   0: idle\n*   1: streaming",
+      "description": "The status. Valid values:\n\n- 0: idle.  \n\n- 1: streaming.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,68 +1,69 @@
 {
   "name": "RegisterDevice",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppKey",
-      "description": "The AppKey of the LoRaWAN device.\n\nWhen you create a LoRaWAN device, set **LoraNodeType** to **USERDEFINED**. This parameter is required.",
+      "description": "The AppKey of the LoRa device.\n\nThis parameter is required when you create a LoRa device and **LoraNodeType** is set to **USERDEFINED**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DevEui",
-      "description": "The DevEUI of the LoRaWAN device.\n\nThis parameter is required when you create a LoRaWAN device.",
+      "description": "The DevEUI of the LoRa device.\n\nThis parameter is required when you create a LoRa device.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeviceName",
-      "description": "The DeviceName of the device. The name must be 4 to 32 characters in length, and can contain letters, digits, hyphens (-), underscores (\\_), at signs (@), periods (.), and colons (:).\n\nYou can use a combination of the DeviceName and ProductKey parameters to identify a device.\n\n>  If you do not specify this parameter, IoT Platform randomly generates a DeviceName.",
+      "description": "The name of the device to be registered. The device name must be 4 to 32 characters in length and can contain letters, digits, and the following special characters: hyphens (-), underscores (_), at signs (@), periods (.), and colons (:).\n\nDeviceName is typically used in combination with ProductKey as the device identifier.\n\n> If you do not specify this parameter, the system randomly generates a device name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the instance **ID** on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must configure this parameter. If you do not set this parameter, the call fails.\n>*   If your instance has no **Overview** page or ID, you do not need to set this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this value exists, you must specify this parameter. Otherwise, the call fails.\n- If <props=\"intl\"><ph>the **Overview** page or </ph></props>this value does not exist, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JoinEui",
-      "description": "The JoinEUI of the LoRaWAN device.\n\nWhen you create a LoRaWAN device, set **LoraNodeType** to **USERDEFINED**. This parameter is required.",
+      "description": "The JoinEui of the LoRa device.\n\nThis parameter is required when you create a LoRa device and **LoraNodeType** is set to **USERDEFINED**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoraNodeType",
-      "description": "The type of the LoRaWAN device. Valid values:\n\n*   **ALIYUNDEFINED**: The device is issued by Alibaba Cloud. You must specify **DevEui** and **PinCode**.\n*   **USERDEFINED**: The device is user-defined. You must specify **DevEui**, **JoinEui**, and **AppKey**.",
+      "description": "The type of the LoRa device. Valid values:\n\n- **ALIYUNDEFINED**: Alibaba Cloud-issued type. You must also specify **DevEui** and **PinCode**.\n- **USERDEFINED**: User-defined type. You must also specify **DevEui**, **JoinEui**, and **AppKey**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Nickname",
-      "description": "The alias of the device. The alias must be 4 to 64 characters in length, and can contain letters, digits, and underscores (\\_).\n\n>  If you do not specify this parameter, IoT Platform does not generate an alias for the device.",
+      "description": "The alias of the device to be registered. The alias must be 4 to 64 characters in length and can contain Chinese characters, letters, digits, and underscores (_). Each Chinese character counts as two characters.\n\n> If you do not specify this parameter, the system does not generate an alias for the device.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PinCode",
-      "description": "The PIN code of the LoRaWAN device. This parameter is used to verify the DevEUI.\n\nWhen you create a LoRaWAN device, set **LoraNodeType** to **ALIYUNDEFINED**. This parameter is required.",
+      "description": "The PIN Code of the LoRa device, which is used to verify the validity of the DevEUI.\n\nThis parameter is required when you create a LoRa device and **LoraNodeType** is set to **ALIYUNDEFINED**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs. A ProductKey is a GUID that is issued by IoT Platform to a product.\n\nYou can use the IoT Platform console or call the [QueryProductList](~~69271~~) operation to view the information about all products within the current account.",
+      "description": "The ProductKey of the product to which the device to be registered belongs. ProductKey is the product key issued by IoT Platform when you create a product and serves as the globally unique identifier of the product.\nYou can view the information about all products under the current account in the IoT Platform console or by calling [QueryProductList](~~69271~~).",
       "position": "Query",
       "type": "String",
       "required": true

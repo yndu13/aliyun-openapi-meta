@@ -1,46 +1,48 @@
 {
   "name": "UpdateDataQualityRule",
-  "deprecated": false,
+  "deprecated": true,
   "protocol": "HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CheckingConfig",
-      "description": "The check settings for sample data.",
+      "description": "The sample verification settings.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the rule. The description can be up to 500 characters in length.",
+      "description": "The rule description. The maximum length is 500 characters.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Enabled",
-      "description": "Specifies whether to enable the rule.",
+      "description": "Specifies whether the rule is enabled.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ErrorHandlers",
-      "description": "The operations that you can perform after the rule-based check fails.",
+      "description": "The list of issue handlers for data quality rule verification.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "ErrorDataFilter",
+          "description": "For a custom SQL rule, you must specify the SQL used to filter problematic data.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "The handler type.\n- SaveErrorData",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -56,35 +58,35 @@
     },
     {
       "name": "Name",
-      "description": "The name of the rule. The name can be up to 255 characters in length and can contain digits, letters, and punctuation marks.",
+      "description": "The rule name. The name can be a combination of digits, English letters, Chinese characters, and half-width or full-width punctuation. The maximum length is 255 characters.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectId",
-      "description": "The DataWorks workspace ID.",
+      "description": "The ID of the DataWorks workspace. You can log on to the [DataWorks console](https://workbench.data.aliyun.com/console) and go to the Workspace Settings page to obtain the workspace ID.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "SamplingConfig",
-      "description": "The sampling settings.",
+      "description": "The settings required for sample collection.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Severity",
-      "description": "The strength of the rule. Valid values:\n\n*   Normal\n*   High",
+      "description": "The severity level of the rule for the business (corresponding to strong/weak rules on the page). Valid values:\n- Normal\n- High",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateCode",
-      "description": "The ID of the template used by the rule.",
+      "description": "The unique identifier of the rule template referenced by the rule.",
       "position": "Body",
       "type": "String",
       "required": false

@@ -7,73 +7,84 @@
   "parameters": [
     {
       "name": "Permissions",
-      "description": "The security group rules.",
+      "description": "A collection of security group rule objects.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Description",
+          "description": "The description of the security group rule. It must be 2 to 256 characters long and cannot start with `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DestCidrIp",
+          "description": "The destination IPv4 CIDR block. This parameter supports CIDR notation and single IPv4 addresses.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Direction",
+          "description": "The traffic direction for the rule. Valid values:\n\n- `egress`: Outgoing traffic.\n\n- `ingress`: Incoming traffic.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "IpProtocol",
+          "description": "The protocol type. Valid values:\n\n- `TCP`\n\n- `UDP`\n\n- `ICMP`\n\n- `ICMPv6`\n\n- `ALL`: All protocols.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Ipv6DestCidrIp",
+          "description": "The destination IPv6 CIDR block. This parameter supports CIDR notation and single IPv6 addresses.\n\n> This parameter and `DestCidrIp` are mutually exclusive.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Ipv6SourceCidrIp",
+          "description": "The source IPv6 CIDR block. This parameter supports CIDR notation and single IPv6 addresses.\n\n> This parameter and `SourceCidrIp` are mutually exclusive.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Policy",
+          "description": "The access control policy. Valid values:\n\n- `Accept`: Allows matching traffic.\n\n- `Drop`: Denies matching traffic and drops the packets.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "PortRange",
+          "description": "The destination port range for the rule.\n\n- For TCP and UDP, the port range is 1 to 65535. Use a forward slash (/) to separate the start and end ports. For example, `1/200`.\n\n- For ICMP, the value must be `-1/-1`.\n\n- For ICMPv6, the value must be `-1/-1`.\n\n- If you set `IpProtocol` to `ALL`, the value must be `-1/-1`.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Priority",
+          "description": "The priority of the security group rule. A smaller value indicates a higher priority. Valid values: 1 to 100.",
           "position": "Query",
           "type": "Integer",
           "required": true
         },
         {
           "name": "SourceCidrIp",
+          "description": "The source IPv4 CIDR block. This parameter supports CIDR notation and single IPv4 addresses.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourcePortRange",
+          "description": "The source port range for the rule.\n\n- For TCP and UDP, the port range is 1 to 65535. Use a forward slash (/) to separate the start and end ports. For example, `1/200`.\n\n- For ICMP, the value must be `-1/-1`.\n\n- For ICMPv6, the value must be `-1/-1`.\n\n- If you set `IpProtocol` to `ALL`, the value must be `-1/-1`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -82,7 +93,7 @@
     },
     {
       "name": "SecurityGroupId",
-      "description": "The IDs of the security groups.",
+      "description": "The ID of the security group.",
       "position": "Query",
       "type": "String",
       "required": true

@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "DelayRuleTime",
-      "description": "The threshold for triggering an alert.\n\n*   If **Type** is set to **delay**, the threshold must be an integer in units of seconds. You can specify the threshold based on your business requirements. To prevent jitters caused by network and database overloads, we recommend that you set the threshold to more than 10 seconds.\n*   If **Type** is set to **full_timeout**, the threshold must be an integer in units of hours.\n\n> This parameter is required if **Type** is set to **delay** or **full_timeout** and **State** is set to **Y**.",
+      "description": "The threshold for triggering an alert.\n\n- If **Type** is set to **delay**, the unit is seconds and the value must be an integer. Set the threshold based on your business requirements. A value of 10 or greater is recommended to avoid alert fluctuations caused by network issues or database loads.\n\n- If **Type** is set to **full_timeout**, the unit is hours and the value must be an integer.\n\n> This parameter is required when **Type** is set to **delay** or **full_timeout** and **State** is set to **Y**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "DtsJobId",
-      "description": "The ID of the data migration, data synchronization, or change tracking task. You can call the [DescribeDtsJobs](~~209702~~) operation to query the task ID.",
+      "description": "The ID of the data migration, data synchronization, or change tracking task. You can call [DescribeDtsJobs](~~209702~~) to obtain the task ID.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -28,49 +28,49 @@
     },
     {
       "name": "Period",
-      "description": "The statistical period of the incremental data verification task. Unit: minutes.\n\n> Valid values: 1, 3, 5, and 30.",
+      "description": "The statistical period of the incremental verification task. Unit: minutes.\n\n> Valid values: 1, 5, 10, and 30.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Phone",
-      "description": "The mobile numbers that receive alert notifications. Separate multiple mobile numbers with commas (,).\n\n> \n\n*   This parameter is available only for users of the China site (aliyun.com). Only mobile numbers in the Chinese mainland are supported. You can specify up to 10 mobile numbers.\n\n*   Users of the international site (alibabacloud.com) cannot receive notifications on alerts by using mobile numbers, but can configure alert rules for DTS tasks in the CloudMonitor console. For more information, see [Configure alert rules for DTS tasks in the CloudMonitor console](~~175876~~).",
+      "description": "The mobile phone numbers of alert contacts, separated by commas (,).\n>-  This parameter is supported only on the China site (aliyun.com) and only for the Chinese mainland mobile phone numbers. A maximum of 10 mobile phone numbers can be specified.\n- The international site does not support SMS-based alerting. You can only [set alert rules for DTS tasks through the CloudMonitor monitoring platform](~~175876~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the DTS instance. For more information, see [Supported regions](~~141033~~).",
+      "description": "The region in which the DTS instance resides. For more information, see [List of supported regions](~~141033~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "Resource group ID.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "State",
-      "description": "Specifies whether to enable the alert rule. Valid values:\n\n*   **Y**: enables the alert rule.\n*   **N**: disables the alert rule.\n\nDefault value: **Y**.",
+      "description": "Specifies whether to enable the alert rule. Valid values:\n\n- **Y**: Enable the alert rule.\n- **N**: Disable the alert rule.\n\nDefault value: **Y**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Times",
-      "description": "The number of statistical periods of the incremental data verification task.",
+      "description": "The number of statistical periods for the incremental verification task.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The metric that is used to monitor the task. Valid values:\n\n*   **delay**: the **Latency** metric.\n*   **error**: the **Status** metric.\n*   **full_timeout**: the **Full Timeout** metric.\n\nDefault value: **error**. You must manually set this value.",
+      "description": "The type of the alert metric. Valid values:\n- **delay**: the **Latency** metric.\n- **error**: the **Migration Status** metric.\n- **full_timeout**: the **Full Migration Duration** metric.\n\nDefault value: **error**. This parameter must be manually specified.",
       "position": "Query",
       "type": "String",
       "required": false

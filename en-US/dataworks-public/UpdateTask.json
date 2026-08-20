@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ClientUniqueCode",
-      "description": "The unique code of the client. This code uniquely identifies a task. This parameter is used to create a task asynchronously and implement the idempotence of the task. If you do not specify this parameter when you create the task, the system automatically generates a unique code. The unique code is uniquely associated with the task ID. If you specify this parameter when you update or delete the task, the value of this parameter must be the unique code that is used to create the task.",
+      "description": "The client unique code of the node, used to uniquely identify a node. This code is used to implement asynchronous operations and idempotence. If not specified during creation, the system automatically generates one, and the code is uniquely bound to the resource ID. When updating or deleting a resource, if this parameter is specified, it must be consistent with the client unique code used during creation.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DataSource",
-      "description": "The information about the associated data source.",
+      "description": "The associated data source information.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -28,18 +28,21 @@
       "sub_parameters": [
         {
           "name": "Type",
+          "description": "The dependency type. Valid values:\n- CrossCycleDependsOnChildren: cross-cycle dependency on first-level child nodes.\n- CrossCycleDependsOnSelf: cross-cycle dependency on self.\n- CrossCycleDependsOnOtherNode: cross-cycle dependency on other nodes.\n- Normal: same-cycle dependency.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "UpstreamOutput",
+          "description": "The output identifier of the upstream node. This field is returned when the dependency type is same-cycle dependency and input content is configured.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "UpstreamTaskId",
+          "description": "The ID of the upstream node. This field is returned when the dependency type is cross-cycle dependency on other nodes, or same-cycle dependency without input content configured. It is not returned in other cases.",
           "position": "FormData",
           "type": "Long",
           "required": false
@@ -48,21 +51,21 @@
     },
     {
       "name": "Description",
-      "description": "The description of the task.",
+      "description": "The description.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "EnvType",
-      "description": "The project environment.\n\n*   Prod\n*   Dev",
+      "description": "The project environment. Valid values:\n- Prod: production.\n- Dev: development.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Id",
-      "description": "The task ID.",
+      "description": "The node ID.",
       "position": "Body",
       "type": "Long",
       "required": true
@@ -76,14 +79,14 @@
     },
     {
       "name": "InstanceMode",
-      "description": "The instance generation mode.\n\n*   T+1: the next day\n*   Immediately Note: Scheduled instances are generated only if the scheduled time is at least 10 minutes after the publish time. Real-time instance generation is unavailable during the global instance generation period (23:30 to 24:00). You can publish nodes during this period, but instances for the new nodes will not be generated automatically.",
+      "description": "The instance generation mode. Valid values:\n- T+1: The instance is generated the next day.\n- Immediately: The instance is generated immediately. Note: Only periodic instances whose scheduled time is at least ten minutes after the node publish time are generated normally. During the full instance generation period (22:00 to 24:00), real-time instance generation is not available. You can submit and publish nodes, but new nodes do not automatically generate instances.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "Name.",
+      "description": "The name.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -97,61 +100,63 @@
     },
     {
       "name": "Owner",
-      "description": "The account ID of the task owner.",
+      "description": "The account ID of the node owner.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "RerunInterval",
-      "description": "The rerun interval. Unit: milliseconds. Must not exceed 1800000.",
+      "description": "The retry time interval, in milliseconds. The value cannot exceed 1800000.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RerunMode",
-      "description": "The rerun mode. Valid values:\n\n*   AllDenied: The task cannot be rerun.\n*   FailureAllowed: The task can be rerun only after it fails.\n*   AllAllowed: The task can always be rerun.",
+      "description": "Specifies whether the node can be rerun. Valid values:\n- AllDenied: The node cannot be rerun regardless of whether it succeeds or fails.\n- FailureAllowed: The node can be rerun only when it fails.\n- AllAllowed: The node can be rerun regardless of whether it succeeds or fails.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "RerunTimes",
-      "description": "The number of times that the task is rerun. This parameter takes effect only if the RerunMode parameter is set to AllAllowed or FailureAllowed.",
+      "description": "The number of retries. This parameter takes effect when the node is configured to allow reruns.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RuntimeResource",
-      "description": "Runtime environment configurations, such as resource group information.",
+      "description": "The environment configuration, such as resource group information.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Script",
-      "description": "The run script information.",
+      "description": "The script information.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags.",
+      "description": "The list of node tags.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -160,14 +165,14 @@
     },
     {
       "name": "Timeout",
-      "description": "Task execution timeout in seconds. Must be greater than 3600.",
+      "description": "The node execution timeout period, in seconds. The value must be greater than 3600.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Trigger",
-      "description": "The triggering method.",
+      "description": "The node trigger method.",
       "position": "Body",
       "type": "String",
       "required": false

@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the generated token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID. You can call the DescribeDBInstances operation to query the ID of the instance.",
+      "description": "The instance ID. You can call DescribeDBInstances to query the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Database",
-      "description": "The name of the database. You can enter only one database name. If you specify this parameter, this operation returns the logs that are generated only for the specified database. If you do not specify this parameter, this operation returns the logs that are generated for all databases on the instance.",
+      "description": "The name of the database. The default value is all databases. You can also enter a database name to query. Only one database name can be entered at a time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. The end time must be later than the start time. The time span between the start time and the end time must be less than 15 days. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.",
+      "description": "The end time of the query. The end time must be later than the start time, and the interval between the start time and end time must be 7 days or less. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n\n> If DAS Enterprise Edition V3 is activated and you use the SQL Explorer and Audit feature it provides, you can query data within the hot data storage duration. You can call [DescribeSqlLogConfig](~~2778837~~) to query the activated Enterprise Edition information.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Form",
-      "description": "Specifies whether to generate an SQL audit log file or return SQL audit logs. Valid values:\n\n*   **File**: If you set this parameter to File, this operation generates an SQL audit log file and returns only common response parameters. After you call this operation, you must call the DescribeSQLLogFiles operation to obtain the download URL of the SQL audit log file.\n*   **Stream** (default): If you set this parameter to Stream, this operation returns SQL audit logs.\n\n>  If you set this parameter to **File**, only ApsaraDB RDS for MySQL instances that use local disks and ApsaraDB RDS for SQL Server instances are supported, and a maximum of 1 million logs are returned.",
+      "description": "Specifies whether to generate an audit file or return a list of SQL records. Valid values:\n* **File**: If this value is specified, an audit file is generated and only common parameters are returned. Call the DescribeSQLLogFiles operation to obtain the final download URL of the file.\n* **Stream**: default value. A list of SQL records is returned.\n\n> When the value is **File**, only MySQL (with Premium Local SSDs) and SQL Server instances are supported, and a maximum of 1 million log entries are recorded.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from 1.\n\nDefault value: **1**.",
+      "description": "The page number. Valid values: any value greater than 0 and not exceeding the maximum value of Integer.\n\nDefault value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -56,28 +56,28 @@
     },
     {
       "name": "QueryKeywords",
-      "description": "The keyword that is used for the query.\n\n*   When you call this operation and set the **Form** parameter to **File** to generate an audit file, you cannot filter log entries by keyword.\n*   You can specify up to 10 keywords. The keywords are evaluated by using the **AND** operator. Separate multiple keywords with spaces.\n*   If a field name in the specified SQL statement is enclosed in grave accents (\\`) and you want to use the field name as a keyword, you must enter the grave accents (\\`) as part of the field name. For example, if the field name is \\`id\\`, enter \\`id\\` instead of id.\n\n>  After you enter a keyword, the system matches the keyword based on the **Database**, **User**, and **QueryKeywords** parameters. The parameters are evaluated by using the **AND** operator.",
+      "description": "The keywords used for the query.\n\n- When an audit file is generated through the API (the **Form** request parameter is set to **File**), keyword-based filtering is not supported.\n\n- Separate multiple keywords with spaces. You can specify up to 10 keywords. The logical relationship between keywords is **and**.\n\n- If a field name in the SQL statement uses backticks (\\`), you must also include the backticks when using the field name as a keyword. For example, if the field name is \\`id\\`, enter \\`id\\` instead of id.\n\n> After you enter keywords, the system matches keywords against **Database**, **User**, and **QueryKeywords** simultaneously. The logical relationship between these three request parameters is **and**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SQLId",
-      "description": "The unique ID of the SQL statement.",
+      "description": "A reserved parameter.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. You can query data in the last 15 days before the current date. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.",
+      "description": "The start time of the query. You can query data within the last 7 days from the current date. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n\n> If DAS Enterprise Edition V3 is activated and you use the SQL Explorer and Audit feature it provides, you can query data within the hot data storage duration. You can call [DescribeSqlLogConfig](~~2778837~~) to query the activated Enterprise Edition information.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "User",
-      "description": "The username of the account. You can enter only one username. If you specify this parameter, this operation returns the logs that are generated only for the specified account. If you do not specify this parameter, this operation returns the logs that are generated for all accounts on the instance.",
+      "description": "The username. The default value is all users. You can also enter a username to query. Only one username can be entered at a time.",
       "position": "Query",
       "type": "String",
       "required": false

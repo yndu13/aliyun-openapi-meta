@@ -1,45 +1,48 @@
 {
   "name": "ModifyInstance",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests.",
+      "description": "The client token that is used to ensure the idempotence of the request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance for which you want to modify the configurations.",
+      "description": "The ID of the instance whose configuration you want to change.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModifyType",
-      "description": "The type of configuration modifications. Valid values:\n\n*   Upgrade: upgrades the configurations of the instance.\n*   Downgrade: downgrades the configurations of the instance.",
+      "description": "The type of configuration change. Valid values:\n\n- Upgrade\n\n- Downgrade",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Parameter",
-      "description": "The details about the parameters.",
+      "description": "The list of parameters. You can specify up to 100 parameters.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Code",
+          "description": "The code of the module property.\n\n> Specify only the module properties that you want to change. For example, if you have two properties, A and B, and you only want to change property A, pass only the information related to property A.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The value of the module property.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -48,21 +51,21 @@
     },
     {
       "name": "ProductCode",
-      "description": "The code of the service to which the instance belongs.",
+      "description": "The product code.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProductType",
-      "description": "The type of the service to which the instance belongs.",
+      "description": "The product type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionType",
-      "description": "The billing method. Valid values:\n\n*   Subscription: subscription\n*   PayAsYouGo: pay-as-you-go",
+      "description": "The billing method. Valid values:\n\n- Subscription: subscription.\n\n- PayAsYouGo: pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": true

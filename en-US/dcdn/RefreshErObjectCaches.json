@@ -7,35 +7,35 @@
   "parameters": [
     {
       "name": "Force",
-      "description": "Specifies whether to refresh resources in a directory if the resources requested are different from the resources on the origin server. Default value: false.\n\n*   **true**: refreshes all resources in the directory.\n*   **false**: refreshes the changed resources in the directory.",
+      "description": "Specifies whether to refresh all resources in the corresponding directory when the back-to-origin content is inconsistent with the origin server resources. Default value: false.\n- **true**: Refreshes all resources in the corresponding directory.\n- **false**: Refreshes only the changed resources in the corresponding directory.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MergeDomainName",
-      "description": "The domain names that are merged for refreshing. POPs that provide services for the domain names are refreshed.\n\n>  Separate multiple domain names with commas (,).",
+      "description": "The domain names to merge for refresh. When a refresh is performed, the scheduling node of the merged domain names is refreshed.\n>Separate multiple domain names with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ObjectPath",
-      "description": "The URL that you want to refresh.\n\n> *   Separate URLs with line feeds (\\n or \\r\\n). Each object path can be up to 1,024 characters in length.\n>*   The URLs in a request must belong to the same domain name.\n>*   You can refresh up to 1,000 URLs in each request.",
+      "description": "The URLs to refresh.\n>- Separate multiple URLs with line breaks. Each URL can be up to 1,024 characters in length.\n>- All URLs in a single request must belong to the same domain name.\n>- Each request can contain up to 1,000 URLs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ObjectType",
-      "description": "The refresh type. Valid values:\n\n*   **File** (default): refreshes content based on URLs.\n*   **Directory**: refreshes content based on directories.\n*   **Regex**: refreshes content based on regular expressions.\n*   **IgnoreParams**: removes the question mark (`?`) and parameters after the question mark (`?`) in a request URL and refreshes content. After you call this operation with the request URL submitted, the system compares the submitted URL with the URL of the cached resource without specific parameters. If the URLs match, the points of presence (POPs) refresh the cached resource.\n\n>  If you refresh the files in one or more directories, the resources in the directory that you want to refresh are marked as expired. You cannot delete the directory. If clients request resources on POPs that are marked as expired, Dynamic Content Delivery Network (DCDN) checks whether the resources on your origin server are updated. If resources are updated, DCDN retrieves the latest version of the resources and returns the resources to the clients. Otherwise, the origin server returns the 304 status code.",
+      "description": "The refresh type. Valid values:\n\n- **File** (default): URL.\n- **Directory**: directory refresh.\n- **Regex**: regular expression-based refresh.\n- **IgnoreParams**: purge by URL with parameters ignored. This refers to removing the `?` and all parameters after `?` from the request URL. When you submit a URL with parameters removed through this operation, the submitted URL is matched against cached resource URLs after their parameters are removed. If a cached resource URL matches the submitted URL after parameter removal, the point of presence (POP) executes the refresh on the cached resource.\n\n>Directory refresh marks resources as expired by default. You cannot delete a directory. Directory refresh marks the corresponding directory on POPs as expired. When a user subsequently accesses the directory, the DCDN POP performs back-to-origin validation with the origin server to check whether the directory has been updated. If updated, the POP retrieves the new version from the origin server and returns it to the user. If not updated, the origin server returns a 304 status code in the response.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RoutineId",
-      "description": "The ID of the routine, which is in the format of \"Name.Subdomain\" and is the unique identifier of a custom routine.",
+      "description": "The routine ID of the edge function script, also known as the function ID. It is composed of \"Name.Subdomain\" and serves as the unique identifier for the edge function code.\n\n>- Specify this parameter when refreshing caches written through the Cache API.\n>- Do not specify this parameter when refreshing caches written through fetch subrequests.",
       "position": "Query",
       "type": "String",
       "required": false

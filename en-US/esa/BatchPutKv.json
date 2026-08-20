@@ -7,31 +7,35 @@
   "parameters": [
     {
       "name": "KvList",
-      "description": "The key-value pairs that you want to configure at a time. The total size can be up to 2 MB (2 × 1000 × 1000).",
+      "description": "The list of key-value pairs to batch set. The total size cannot exceed 2 MB (2\\*1000\\*1000).",
       "position": "Body",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Expiration",
+          "description": "The expiration time as a UNIX timestamp in seconds. The value cannot be earlier than the current time. If both Expiration and ExpirationTtl are specified, ExpirationTtl takes precedence.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "ExpirationTtl",
+          "description": "The expiration time as a relative time in seconds. If both Expiration and ExpirationTtl are specified, ExpirationTtl takes precedence.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "Key",
+          "description": "The key name to set. The key name can be up to 512 characters in length and cannot contain spaces or backslashes (/).",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The value of the key.",
           "position": "FormData",
           "type": "String",
           "required": true
@@ -40,7 +44,7 @@
     },
     {
       "name": "Namespace",
-      "description": "The name of the namespace that you specify when you call the [CreateKvNamespace](~~2850317~~) operation.",
+      "description": "The name specified when you called [CreateKvNamespace](~~2850317~~).",
       "position": "Query",
       "type": "String",
       "required": true

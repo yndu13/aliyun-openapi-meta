@@ -7,25 +7,35 @@
   "parameters": [
     {
       "name": "BackendServers",
-      "description": "The list of backend servers that you added. You can modify the weights of up to 20 backend servers in each request.",
+      "description": "The list of backend servers to add. You can modify up to 20 backend servers in each call.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
+          "name": "Ip",
+          "description": "The IP address.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
           "name": "ServerId",
+          "description": "The instance ID of the backend server.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Type",
+          "description": "The server type of the backend server. Valid values:\n- **ens**: ENS instance.\n- **eni**: elastic network interfaces (ENIs) instance. The backend server is a network interface controller (NIC).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "The weight of the backend server. Default value: 100. Valid values: **0** to **100**.\n\n> A value of 0 indicates that no requests are forwarded to the backend server.",
           "position": "Query",
           "type": "Integer",
           "required": true
@@ -34,7 +44,7 @@
     },
     {
       "name": "LoadBalancerId",
-      "description": "The ID of the Edge Load Balancer (ELB) instance.",
+      "description": "The ID of the load balancing instance.",
       "position": "Query",
       "type": "String",
       "required": true

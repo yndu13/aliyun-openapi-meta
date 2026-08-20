@@ -7,43 +7,49 @@
   "parameters": [
     {
       "name": "body",
-      "description": "The request body.",
+      "description": "The request body parameters.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "cluster",
+          "description": "The ID of the target cluster for authorization.\n\nIf the `role_type` parameter is set to `all-clusters`, you do not need to specify this parameter.",
           "position": "Body",
           "type": "String",
           "required": false
         },
         {
           "name": "is_custom",
+          "description": "Specifies whether the authorization is a custom authorization (the `role_name` uses a custom ClusterRole name).\n\n- true: The authorized role is a custom cluster role.\n\n- false: The authorized role is a cluster preset role.",
           "position": "Body",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "is_ram_role",
+          "description": "Specifies whether the authorization is for a RAM role.\n\n- true: The authorization is for a RAM role.\n\n- false: The authorization is for a Resource Access Management (RAM) user.",
           "position": "Body",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "namespace",
+          "description": "The namespace name. This parameter is empty by default for cluster-level authorization.",
           "position": "Body",
           "type": "String",
           "required": false
         },
         {
           "name": "role_name",
+          "description": "The name of the preset role. Valid values:\n\n- `admin`: administrator.\n- `admin-view`: read-only administrator.\n- `ops`: O&M engineer.\n- `dev`: developer.\n- `restricted`: restricted user.\n- A custom ClusterRole name.\n\n\n> - `admin`, `admin-view`, `ops`: These roles cannot be granted at the **namespace** level.\n> - `admin-view`: This role cannot be granted at the **all-clusters** level.",
           "position": "Body",
           "type": "String",
           "required": false
         },
         {
           "name": "role_type",
+          "description": "The authorization type. Valid values:\n\n- `cluster`: cluster level.\n- `namespace`: namespace level.\n- `all-clusters`: all-clusters level.",
           "position": "Body",
           "type": "String",
           "required": false
@@ -52,14 +58,14 @@
     },
     {
       "name": "mode",
-      "description": "The authorization method. Valid values:\n\n*   `apply`: The global update mode. Overwrites all existing permissions of the RAM user or RAM role on the cluster. You must specify all the permissions you want to grant to the RAM user or RAM role in the request parameters when you call this operation.\n*   `delete`: The deletion mode. Revokes only the cluster permissions specified in the request, preserving other existing permissions of the RAM user or RAM role.\n*   `patch`: The incremental mode. Adds only the cluster permissions specified in the request, preserving other existing permissions of the RAM user or RAM role.\n\nDefault value: `apply`.",
+      "description": "The authorization mode. Valid values:\n\n- `apply`: full update. A full update overwrites all existing cluster permissions of the target RAM user or RAM role. The request must include all permission configurations that you want to grant to the target RAM user or RAM role.\n- `delete`: delete permissions. Only the cluster authorization information included in the request is deleted. Other cluster Resource Access Management (RAM) user or RAM role are not affected.\n- `patch`: add permissions. Only the cluster authorization information included in the request is added. Other cluster Resource Access Management (RAM) user or RAM role are not affected.\n\nDefault value: `apply`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "uid",
-      "description": "The ID of the RAM user or RAM role whose permissions you want to update.",
+      "description": "The ID of the Resource Access Management (RAM) user or RAM role.",
       "position": "Path",
       "type": "String",
       "required": false

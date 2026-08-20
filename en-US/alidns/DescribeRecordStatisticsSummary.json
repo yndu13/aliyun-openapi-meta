@@ -1,5 +1,6 @@
 {
   "name": "DescribeRecordStatisticsSummary",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,63 +14,63 @@
     },
     {
       "name": "DomainType",
-      "description": "The type of the domain name. The parameter value is not case-sensitive. Valid values:\n\n*   PUBLIC (default): hosted public domain name\n*   CACHE: cache-accelerated domain name",
+      "description": "The type of the domain name. This parameter is not case-sensitive. Valid values:\n\n- PUBLIC: authoritative domain name (default)\n\n- CACHE: proxy domain name",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndDate",
-      "description": "The end date of the query. Specify the start date in the **YYYY-MM-DD** format.\n\nThe default value is the day when you query the data.",
+      "description": "The end date of the query. The format is **YYYY-MM-DD**.\n\nThe default value is the current day.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Keyword",
-      "description": "The keyword for searches in %KeyWord% mode. The value is not case-sensitive.",
+      "description": "The keyword. The search is performed in the %KeyWord% format and is not case-sensitive.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language.",
+      "description": "The language of the response. Valid values:\n\n- zh: Chinese\n\n- en: English\n\nThe default value is en.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page **1**. Default value: **1**.",
+      "description": "The page number. The value starts from **1**. The default value is **1**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Valid values: **1 to 100**. Default value: **20**.",
+      "description": "The number of entries to return on each page. The maximum value is **100**, the minimum value is **1**, and the default value is **20**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "SearchMode",
-      "description": "The search mode of the keyword. Valid values:\n\n*   **LIKE** (default): fuzzy search\n*   **EXACT**: exact search",
+      "description": "The search mode for the keyword. Valid values:\n\n- **LIKE**: fuzzy search (default)\n\n- **EXACT**: exact match",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartDate",
-      "description": "The start date of the query. Specify the start date in the **YYYY-MM-DD** format.\n\nYou can only query the DNS records within the last 90 days.``",
+      "description": "The start date of the query. The format is **YYYY-MM-DD**.\n\nYou can query data only from the last 90 days. The value of `StartDate` must be greater than or equal to the current date minus 90 days.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Threshold",
-      "description": "The maximum number of DNS requests that you can obtain. You can obtain data about a domain name with DNS request volume less than or equal to the maximum number. For example, if you set this parameter to 100, you can query domain names with less than 100 DNS requests.",
+      "description": "The threshold for the number of DNS requests. This operation returns data for subdomains whose request count is less than or equal to this value.\n\n- If you set this parameter to 100, subdomains with a request count from 1 to 100 are returned.\n\n- If you leave this parameter empty, all subdomains that have DNS requests are returned.\n\n- If you set this parameter to 0, subdomains with no DNS requests are returned. If a domain name is added on the current day and has no requests, you can query its data on the next day.",
       "position": "Query",
       "type": "Long",
       "required": false

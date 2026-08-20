@@ -7,63 +7,70 @@
   "parameters": [
     {
       "name": "DryRun",
-      "description": "Specifies whether to only precheck the request. Valid values:\n\n*   **true**: prechecks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails to pass the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.\n*   **false** (default): sends the request. After the request passes the precheck, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n**true**: performs a dry run without creating routes. The system checks the AccessKey pair, the authorization of the Resource Access Management (RAM) user, and the required parameters. If the check fails, the corresponding error is returned. If the check passes, the `DryRunOperation` error code is returned.\n\n**false** (default): sends a Normal request. If the check passes, a 2xx HTTP status code is returned and the routes are created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the route table.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the route table.\n\nYou can call [DescribeRegions](~~36063~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteEntries",
-      "description": "The routes.",
+      "description": "The list of route entry information.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Description",
+          "description": "The description of the custom route entry. You can specify a maximum of 50 descriptions.\n\nThe description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DstCidrBlock",
+          "description": "The destination CIDR block of the custom route entry. Both IPv4 and IPv6 destination CIDR blocks are supported. You can specify a maximum of 50 destination CIDR blocks. The following requirements must be met:\n          \n- The destination CIDR block cannot point to or be contained by 100.64.0.0/10.  \n \n- The destination CIDR blocks of different route entries in the same route table must be unique.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "IpVersion",
+          "description": "The version of the IP protocol. You can specify a maximum of 50 IP protocol versions. Valid values:\n\n- **4**: IPv4.\n- **6**: IPv6.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The name of the custom route entry to add. You can specify a maximum of 50 names.\n\nThe name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "NextHop",
+          "description": "The ID of the next hop instance for the custom route entry. You can specify a maximum of 50 instance IDs.\n> If NextHopType is set to ECR, you can call [DescribeExpressConnectRouterAssociation](~~2712069~~) to obtain the AssociationId as the next hop ID.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "NextHopType",
+          "description": "The type of the next hop for the custom route entry. You can specify a maximum of 50 next hop types. Valid values: \n\n- **Instance** (default): ECS instance. Forwards traffic to an ECS instance.\n\n- **HaVip**: high-availability virtual IP address.  \n\n- **RouterInterface**: vRouter interface.\n\n- **NetworkInterface**: elastic network interfaces (ENIs).\n\n- **VpnGateway**: VPN gateway.\n\n- **IPv6Gateway**: IPv6 gateway.\n\n- **NatGateway**: NAT gateway.\n\n- **Attachment**: transit router. Forwards traffic to a transit router.\n\n- **VpcPeer**: VPC peering connection.\n- **Ipv4Gateway**: IPv4 gateway.\n- **GatewayEndpoint**: gateway endpoint.\n- **CenBasic**: CEN that does not support transit routers.\n- **Ecr**: Express Connect Router (ECR).\n- **GatewayLoadBalancerEndpoint**: Gateway Load Balancer endpoint (GWLBe).\n- **RouteTargetGroup**: routing target group.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "RouteTableId",
+          "description": "The ID of the route table to which you want to add the custom route entry. You can specify a maximum of 50 route table IDs.",
           "position": "Query",
           "type": "String",
           "required": true

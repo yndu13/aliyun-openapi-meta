@@ -1,26 +1,27 @@
 {
   "name": "CreateRule",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DataType",
-      "description": "The format of the data that is processed based on the rule. The value of this parameter must be consistent with the format of device data that you want to process. Valid values:\n\n*   **JSON**: JSON data. This is the default value.\n*   **BINARY**: binary data.\n\n>  If this parameter is set to **BINARY**, you cannot set the **TopicType** parameter to 0 and cannot forward data to Tablestore and ApsaraDB RDS.",
+      "description": "The data format processed by the rule. This value must match the data format of the device data to be processed. Valid values:\n\n- **JSON** (default): JSON data.\n- **BINARY**: binary data.\n\n> If you set this parameter to **BINARY**, **TopicType** cannot be set to 0 (basic communication topic or Thing Specification Language model communication topic), and data forwarding to <props=\"china\"><ph>time series data storage within the instance, time series databases, </ph></props>Tablestore or ApsaraDB RDS is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. On the **Overview** page in the IoT Platform console, you can view the **ID** of the instance.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.\n>*   If the **Overview** page or instance ID is not displayed in the IoT Platform console, you do not need to configure this parameter.\n\nFor more information about the instance, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If this parameter has a value, you must specify this parameter. Otherwise, the call fails.\n- If no **Overview** page exists or no ID value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the data forwarding rule. The rule name must be 1 to 30 characters in length, and can contain letters, digits, underscores (\\_), and hyphens (-).",
+      "description": "The rule name. The name can contain Chinese characters, letters, Japanese characters, digits, underscores (_), and hyphens (-). The name must be 1 to 30 characters in length. A Chinese character or Japanese character counts as 2 characters.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -34,49 +35,49 @@
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the rule is assigned. You can view the resource group information in the [Resource Management console](https://resourcemanager.console.aliyun.com/resource-groups).\n\n>You can specify a value for this parameter only if you have activated Resource Management.\n\nIf you do not specify this parameter, the rule is assigned to the default resource group.",
+      "description": "The resource group ID.\n\n><notice>\n- Currently, IoT Platform supports resource group management only at the instance level. The request parameter **ResourceGroupId** is no longer valid and does not need to be specified.\n- Resource groups previously set by calling this operation remain effective.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleDesc",
-      "description": "The description of the rule. The description can be up to 100 characters in length.",
+      "description": "The description of the rule. The description can be up to 100 characters in length. A Chinese character counts as 1 character.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Select",
-      "description": "The SQL SELECT statement that you want to execute. For more information about the syntax, see [SQL statements](~~30554~~).\n\n>  This parameter specifies the fields in SELECT statements. For example, if the SELECT statement is `SELECT a,b,c`, specify `a,b,c` for this parameter.",
+      "description": "The SQL SELECT statement to execute. For more information, see [SQL expressions](~~30554~~).\n\n> Specify only the content after SELECT. For example, if the SELECT statement is `SELECT a,b,c`, specify `a,b,c`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ShortTopic",
-      "description": "The topic to which this rule is applied. Format: `${deviceName}/topicShortName`. `${deviceName}` specifies the name of the device, and `topicShortName` specifies the custom name of the topic.\n\n*   Basic communication topics or Thing Specification Language (TSL)-based communication topics. Format: `${deviceName}/topicShortName`. You can replace `${deviceName}` with the `+` wildcard character. The wildcard character indicates that the topic applies to all devices under the product. Valid values of `topicShortName`:\n\n    *   `/thing/event/property/post`: submits the property data of a device.\n\n    *   `/thing/event/${tsl.event.identifier}/post`: submits the event data of a device. `${tsl.event.identifier}` specifies the identifier of an event in the TSL model.\n\n    *   `/thing/lifecycle`: submits device lifecycle changes.\n\n    *   `/thing/downlink/reply/message`: sends a response to a request from IoT Platform.\n\n    *   `/thing/list/found`: submits the data when a gateway detects a new sub-device.\n\n    *   `/thing/topo/lifecycle`: submits device topology changes.\n\n    *   `/thing/event/property/history/post`: submits the historical property data of a device.\n\n    *   `/thing/event/${tsl.event.identifier}/post`: submits the historical event data of a device. `${tsl.event.identifier}` specifies the identifier of an event in the TSL model.\n\n    *   `/ota/upgrade`: submits the OTA update status.\n\n    *   `/ota/version/post`: submits OTA module versions.\n\n    *   `/thing/deviceinfo/update`: submits device tag changes.\n\n    *   `/edge/driver/${driver_id}/point_post`: submits pass-through data from Link IoT Edge. `${driver_id}` specifies the ID of the driver that a device uses to access Link IoT Edge.\n\n        The `${packageId}/${jobId}/ota/job/status` topic submits the status of OTA update batches. This topic is a basic communication topic. `${packageId}` specifies the ID of the update package. `${jobId}` specifies the ID of the update batch.\n\n*   Custom topics. Example: `${deviceName}/user/get`.\n\n    You can call the [QueryProductTopic](~~69647~~) operation to view all custom topics of the product.\n\n    When you specify a custom topic, you can use the `+` and `#` wildcard characters.\n\n    *   You can replace `${deviceName}` with the `+` wildcard character. The wildcard character specifies that the topic applies to all devices in the product.\n\n    *   You can add `/user/#` after ${deviceName}. The `#` wildcard character can match all field values at the levels that follow `/user`.\n\n        For more information about how to use wildcard characters, see [Custom topics with one or more wildcard characters](~~85539~~).\n\n*   Topics that are used to submit device status changes. The topic name is in the `${deviceName}` format.\n\n    You can use the `+` wildcard character. In this case, the status changes of all devices under the product are submitted.",
+      "description": "The specific topic to which the rule applies. The format is generally: `${deviceName}/topicShortName`. `${deviceName}` is the name of the specific device, and `topicShortName` is the short name of the topic.\n\n- For basic communication topics or Thing Specification Language model communication topics, the ShortTopic format is generally: `${deviceName}/topicShortName`. `${deviceName}` can be replaced with the wildcard `+` to represent all device names under the product. Valid values of `topicShortName`:\n\n    - `/thing/event/property/post`: property messages reported by devices.\n    - `/thing/event/${tsl.event.identifier}/post`: event messages reported by devices. The value in `${}` is the event identifier in the Thing Specification Language model of the product.\n    - `/thing/lifecycle`: device lifecycle change messages.\n    - `/thing/downlink/reply/message`: result messages of device responses to cloud commands.\n    - `/thing/list/found`: messages reported by gateways about discovered sub-devices.\n    - `/thing/topo/lifecycle`: device topology relationship change messages.\n    - `/thing/event/property/history/post`: historical property messages reported by devices.\n    - `/thing/event/${tsl.event.identifier}/history/post`: historical event messages reported by devices. The value in `${}` is the event identifier in the Thing Specification Language model of the product.\n    - `/ota/upgrade`: device OTA update status notification messages.\n    - `/ota/version/post`: device OTA module version number reporting messages.\n    - `/thing/deviceinfo/update`: device tag change messages.\n    - `/edge/driver/${driver_id}/point_post`: pass-through mode topic messages of IoT Edge. The value in `${}` is the device access driver ID of IoT Edge.\n\n The OTA update batch status notification topic also belongs to basic communication topics. The ShortTopic format is: `${packageId}/${jobId}/ota/job/status`. `${packageId}` is over-the-air update package ID, and `${jobId}` is over-the-air update batch ID.\n- For custom topics, the ShortTopic format is, for example: `${deviceName}/user/get`.\n\n  Call the [QueryProductTopic](~~69647~~) operation to view all custom topic categories under the product.\n\n    When specifying a custom topic, you can use the wildcards `+` and `#`.\n    - `${deviceName}` can be replaced with the wildcard `+` to represent all devices under the product.\n    - Subsequent fields can use `/user/#`, where `#` represents all level names after the `/user` level.\n    For more information about using wildcards, see [Wildcards in topic categories](~~85539~~).\n- The ShortTopic for device status change notification topics: `${deviceName}`.\n\n You can directly use the wildcard `+` to represent status change notifications for all devices under the product.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Topic",
-      "description": "The complete topic to which the rule applies.\n\nIf you specify this parameter, you do not need to specify the **ShortTopic** and **TopicType** parameters.",
+      "description": "The complete topic to which to add a rule.\n\nIf you specify this parameter, you do not need to specify **ShortTopic** or **TopicType**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TopicType",
-      "description": "*   **0**: The topic is a basic communication topic or TSL-based communication topic. The topic that is used to submit the status of OTA update batches belongs to the basic communication topics.****\n*   **1**: a custom topic.\n*   **2**: The topic is used to submit device status changes. Format: `/as/mqtt/status/${productKey}/${deviceName}`.",
+      "description": "- **0**: a basic communication topic or Thing Specification Language model communication topic as described in the **ShortTopic** parameter, including the OTA upgrade batch status notification topic.\n- **1**: a custom topic.\n- **2**: a device status change notification topic: `/as/mqtt/status/${productKey}/${deviceName}`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Where",
-      "description": "The condition that is used to trigger the rule. For more information about the rule, see [SQL statements](~~30554~~).\n\n>  This parameter specifies the fields in the **WHERE** clause. For example, if the **WHERE** clause is `WHERE a > 10`, you must specify `a > 10` for this parameter.",
+      "description": "The trigger condition of the rule. For more information, see [SQL expressions](~~30554~~).\n\n> Specify only the content in **Where**. For example, if the **Where** statement is `Where a>10`, specify `a>10`.",
       "position": "Query",
       "type": "String",
       "required": false

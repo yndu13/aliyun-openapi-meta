@@ -1,0 +1,130 @@
+{
+  "name": "GetNisTrafficMetrics",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "BeginTime",
+      "description": "起始时间戳，单位毫秒。未指定时默认查最近1小时。",
+      "position": "Query",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "Direction",
+      "description": "基于阿里云资源的网络流量方向\n\nIn：流入目标资源的流量方向。\nOut：流出目标资源的流量方向。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "EndTime",
+      "description": "结束时间戳，单位毫秒。未指定时默认查最近1小时。只指定了BeginTime时查BeginTime之后的一小时。",
+      "position": "Query",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "Filter",
+      "description": "支持进一步指定流量的过滤条件，进行聚焦性流量分析。",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "根据 TupleDimension 字段和 TrafficScenario 字段，支持过滤的条件标签键，如下所示：\n\n- `TrafficScenario = VpcFlowLogAll` / `VpcFlowLogInternet`（VPC 流日志场景）：\n\n  - `TupleDimension` 为一元组时，支持：\n    - `FlowAction`：当流量匹配到相应规则或策略后，对该流量执行的处理动作类型(必填,对应value值不可多选）\n    - `VpcId`：VPC ID(对应value值可多选）\n    - `VSwitchId`：交换机 ID(对应value值可多选）\n    - `NetworkInterfaceId`：弹性网卡 ID(对应value值可多选）\n    - `EcsId`：云服务器 ECS ID(对应value值可多选）\n    - `CloudIp`：云端 IP(对应value值可多选）\n\n  - `TupleDimension` 为二元组时，支持：\n    - `FlowAction`：当流量匹配到相应规则或策略后，对该流量执行的处理动作类型(必填,对应value值不可多选）\n    - `VpcId`：VPC ID(对应value值可多选）\n    - `VSwitchId`：交换机 ID(对应value值可多选）\n    - `NetworkInterfaceId`：弹性网卡 ID(对应value值可多选）\n    - `EcsId`：云服务器 ECS ID(对应value值可多选）\n    - `SourceIp`：源端 IP(对应value值可多选）\n    - `DestinationIp`：目的端 IP(对应value值可多选）\n    - `TrafficPath`：流量路径(对应value值可多选）\n\n  - `TupleDimension` 为五元组时，支持：\n    - `FlowAction`：当流量匹配到相应规则或策略后，对该流量执行的处理动作类型(必填,对应value值不可多选）\n    - `VpcId`：VPC ID(对应value值可多选）\n    - `VSwitchId`：交换机 ID(对应value值可多选）\n    - `NetworkInterfaceId`：弹性网卡 ID(对应value值可多选）\n    - `EcsId`：云服务器 ECS ID(对应value值可多选）\n    - `SourceIp`：源端 IP\n    - `DestinationIp`：目的端 IP\n    - `TrafficPath`：流量路径(对应value值可多选）\n    - `SourcePort`：源端口(对应value值可多选）\n    - `DestinationPort`：目的端口(对应value值可多选）\n    - `Protocol`：网络协议(对应value值可多选）\n\n  - VPC 公网场景（`TrafficScenario = VpcFlowLogInternet`）下，按互联网位置进行过滤时，额外支持：\n    - `ClientCountry`：按国家过滤流量分析范围(对应value值可多选）\n    - `ClientCity`：按城市过滤流量分析范围(对应value值可多选）\n    - `ClientAsn`：按 ASN 过滤流量分析范围(对应value值可多选）\n    - `ClientIsp`：按客户端运营商过滤流量分析范围(对应value值可多选）\n\n  - VPC 场景下，均可按流量指标过滤：\n    - `MinBytes`：指定参与排序的最小流量，单位 Byte(对应value值不可多选）\n    - `MaxBytes`：指定参与排序的最大流量，单位 Byte(对应value值不可多选）\n    - `MinRoundTripTime`：指定参与排序的最小 RTT，单位 ms(对应value值不可多选）\n    - `MaxRoundTripTime`：指定参与排序的最大 RTT，单位 ms(对应value值不可多选）\n    - `MinPackages`：指定参与排序的最小包数，单位个(对应value值不可多选）\n    - `MaxPackages`：指定参与排序的最大包数，单位个(对应value值不可多选）\n\n---\n\n- `TrafficScenario = TRFlowlog`（TR 流日志场景）：\n\n  - 查询二元组或自适应为二元组时，支持：\n    - `TransitRouterAttachmentId`：网络实例连接 ID(必填,对应value值不可多选）\n    - `TransitRouterPairAttachmentId`：对端TR连接ID(对应value值可多选）\n    - `TransitRouterId`：转发路由器实例 ID(对应value值可多选）\n    - `SourceIp`：源端 IP(Operator= like时对应value值不可多选，Operator != like时对应value值可多选）\n    - `DestinationIp`：目的端 IP(Operator= like时对应value值不可多选，Operator != like时对应value值可多选）\n    - `Dscp`：区分服务代码点(对应value值可多选）\n\n  - 查询五元组或自适应为五元组时，在二元组支持的基础上，额外支持：\n    - `Protocol`：网络协议(对应value值可多选）\n    - `SourcePort`：源端端口(对应value值可多选）\n    - `DestinationPort`：目的端端口(对应value值可多选）\n  - `非TR跨地域场景` 下，额外支持：\n    - `TransitRouterSourceResourceId`：源网络实例 ID(对应value值可多选）\n    - `TransitRouterDestinationResourceId`：目的网络实例 ID(对应value值可多选）\n  - `VPC连接流量场景` 下，额外支持：\n    - `TransitRouterSourceNetworkInterface`：源TR ENI(对应value值可多选）\n    - `TransitRouterDestinationNetworkInterface`：目的TR ENI(对应value值可多选）\n\n  - TR 场景下，均可按流量指标过滤：\n    - `MinBytes`：指定参与排序的最小流量，单位 Byte(对应value值不可多选）\n    - `MaxBytes`：指定参与排序的最大流量，单位 Byte(对应value值不可多选）\n    - `MinPackages`：指定参与排序的最小包数，单位个(对应value值不可多选）\n    - `MaxPackages`：指定参与排序的最大包数，单位个(对应value值不可多选）\n    - `MinPacketsLostNoRoute`：最小无路由丢包数，单位个(对应value值不可多选）\n    - `MinPacketsLostBlackhole`：最小黑洞路由丢包数，单位个(对应value值不可多选）\n    - `MinPacketsLostTTLExpired`：最小 TTL 超时丢包数，单位个(对应value值不可多选）\n    - `MaxPacketsLostNoRoute`：最大无路由丢包数，单位个(对应value值不可多选）\n    - `MaxPacketsLostBlackhole`：最大黑洞路由丢包数，单位个(对应value值不可多选）\n    - `MaxPacketsLostTTLExpired`：最大 TTL 超时丢包数，单位个(对应value值不可多选）\n\n---\n\n- `TrafficScenario = CbwpMetric`（共享带宽指标分析场景）：\n\n  - 按条件过滤，支持：\n    - `PublicIpAddress`：绑定的 EIP 的公网 IP 地址(Operator= like时对应value值不可多选，Operator != like时对应value值可多选）\n    - `BindingResourceType`：EIP 所绑定的实例资源类型(对应value值可多选）\n    - `BindingResourceId`：EIP 所绑定的实例资源 ID(对应value值可多选）\n    - `CbwpId`：共享带宽包 ID(必填,对应value值不可多选）\n    - `InstanceId`：共享带宽包所绑定的 EIP ID(对应value值可多选）\n\n  - CBWP 场景下，均可按流量指标过滤：\n    - `MinBytes`：指定参与排序的最小流量，单位 Byte(对应value值不可多选）\n    - `MaxBytes`：指定参与排序的最大流量，单位 Byte(对应value值不可多选）\n    - `MinPackages`：指定参与排序的最小包数，单位个(对应value值不可多选）\n    - `MaxPackages`：指定参与排序的最大包数，单位个(对应value值不可多选）",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Operator",
+          "description": "过滤操作符。\n- TR 和共享带宽场景\n  - 未指定时默认为 in；\n  - like 为前缀匹配且只能传入一个 Value；\n- VPC 场景当前忽略该参数，统一按 IN 处理；",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "根据过滤的key类型，传入对应的过滤值。\n\n根据 `TupleDimension` 字段和 `TrafficScenario` 字段，支持情况如下：\n\n- `TrafficScenario = VpcFlowLogAll` / `VpcFlowLogInternet`（VPC 流日志场景）\n\n  - 当 key 为 `FlowAction` 时，value 枚举为：\n    - `ACCEPT`（默认传 `Accept`）：安全组和网络 ACL 允许的流量\n    - `REJECT`：安全组和网络 ACL 拒绝的流量\n\n- `TrafficScenario = TRFlowlog`（TR 流日志场景）\n\n  - key 为 `TransitRouterAttachmentId` 时为必传项，对应的 value 同为必填（指定具体的 VPC 连接 / VPN 连接 / VBR 连接 / ECR 连接 / 跨地域连接或网络实例连接 ID）。\n\n- `TrafficScenario = CbwpMetric`（共享带宽指标分析场景）\n\n  - key 为 `CbwpId` 时为必传项，对应的 value 同为必填（指定具体的共享带宽包 ID）。",
+          "position": "Query",
+          "type": "RepeatList",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "MaxResults",
+      "description": "VPC 场景作为分页大小；TR 和共享带宽场景作为 SQL 查询上限，未指定时后端默认设置为 1440。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "MetricName",
+      "description": "指标名。\n流量分析场景支持的公共参数：\n  bps：每秒比特数。\n  pps：每秒包数。\n公网场景特有参数：\n  rtt：tcp协议建立连接时的往返延迟。\n  RetransmitRate：重传率。\n区域级带宽场景特有参数：\n  RatelimitDropPps：限速丢包速率。\n  BandwidthUtilization：带宽利用率。\nNAT场景特有参数：\n  ActiveSessionCount：并发会话数。\n  NewSessionPerSecond：每秒新建会话数。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "NextToken",
+      "description": "是否拥有下一次查询的令牌（Token）。取值：第一次查询和没有下一次查询时，均无需填写。如果有下一次查询，取值为上一次API调用返回的NextToken值。仅 VPC 场景有效，TR 和共享带宽场景不使用该参数。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionNo",
+      "description": "地域ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanBy",
+      "description": "排序方式，\nTimestampAscending：按时间正向排序。\nTimestampDescending：按时间逆向排序。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StepMinutes",
+      "description": "时序数据聚合步长，单位分钟。最终查询粒度取 StepMinutes 与底层存储粒度中的较大值。按照 (EndTime-BeginTime)/StepMinutes 计算的数据点数不能超过 1440。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "StorageInterval",
+      "description": "存储桶精度属性。\n\n存储桶精度用于查询指定的存储聚合周期。支持高精度（例如1分钟）或长周期（例如1天）2种精度，具体的精度由创建或编辑流量分析器时高精度流量统计或长周期流量统计的流量分析采样间隔决定。\n\n- 流量分析器对应元组支持的存储精度为：\n  - `1`：单位分钟（1 分钟）\n  - `10`：单位分钟（10 分钟）\n  - `60`：单位分钟（60 分钟，即 1 小时）\n  - `1440`：单位分钟（1440 分钟，即 1 天）\n\n- 存储桶精度可用于两类典型用途：\n  - 高精度流量统计：如 1 分钟、10 分钟、60 分钟聚合\n  - 长周期流量统计：如 1440 分钟（1 天）聚合\n\n- 在查询时为该字段传值，即可指定要查询的存储聚合周期。例如：\n  - 传入 `10`：查询短周期、以 10 分钟为聚合粒度的数据\n  - 传入 `1440`：查询长周期、以 1 天为聚合粒度的数据",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "TrafficAnalyzerId",
+      "description": "流量分析器ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "TrafficScenario",
+      "description": "支持分析场景： \n\n- 全部VPC流日志分析\n- 公网VPC流日志分析\n- 全部TR流日志分析\n- 共享带宽指标分析",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "TupleDimension",
+      "description": "流量存储聚合维度。\n\n根据TraffficScenario场景：\n\n- VpcFlowLogAll/VpcFlowLog：必传，用于指定查询特定的存储聚合视图，和流量分析器中配置的存储聚合属性对应。\n\n- TRFlowLog/CbwpMetric：非必传，根据流量分析器存储聚合属性自适应。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

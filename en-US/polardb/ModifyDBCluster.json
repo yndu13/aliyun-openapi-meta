@@ -7,84 +7,90 @@
   "parameters": [
     {
       "name": "CompressStorage",
-      "description": "Specifies whether to enable storage compression. Set the value to **ON**.",
+      "description": "Enables storage compression. Set the value to **ON**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "ConnectionResourceQuota",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "DBClusterId",
-      "description": "The cluster ID.\n\n>  You can call the DescribeDBClusters operation to query information about all PolarDB clusters that are deployed in a specified region, such as cluster IDs.",
+      "description": "The cluster ID.\n> You can call the [DescribeDBClusters](~~173433~~) operation to query information about all clusters in the specified region, including cluster IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBNodeCrashList",
-      "description": "The list of nodes for the drill.\n\n>  You can specify only one node for a node-level disaster recovery drill. For a primary zone-level disaster recovery drill, you can either choose not to specify this parameter or specify all nodes.",
+      "description": "The list of node instance names for the disaster recovery drill.\n> Node-level drills support only a single node. For zone-level drills, you can leave this parameter empty or specify all nodes.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataSyncMode",
-      "description": "The method used to replicate data across zones. Valid values:\n\n*   **AsyncSync**: the asynchronous mode.\n*   **SemiSync**: the semi-synchronous mode.",
+      "description": "The cross-zone data replication mode of the cluster. Valid values:\n\n- **AsyncSync**: asynchronous\n- **SemiSync**: semi-synchronous",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FaultInjectionType",
-      "description": "The fault injection method. Valid values:\n\n*   0: `Crash SQL`-based fault injection.\n\nEnumerated values:\n\n*   CrashSQLInjection: CrashSQLInjection.",
+      "description": "The fault injection method. Valid values:\n\n- 0: instance fault injection based on `Crash SQL`",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FaultSimulateMode",
-      "description": "The level of the disaster recovery drill. Valid values:\n\n*   `0` or `FaultInjection`: The primary zone level.\n*   `1`: The node level.\n\n> \n\n*   In **primary zone-level disaster recovery drill** scenarios, all compute nodes in the primary zone are unavailable. Data loss occurs during failovers in the scenarios.\n\n*   In **node-level disaster recovery drill** scenarios, you can specify only one compute node for the disaster recovery drill. You can use the `DBNodeCrashList` parameter to specify the name of the compute node that you want to use for the drill.\n\nEnumerated values:\n\n*   FaultInjectToPrimaryAz\n*   FaultInjectToDbNode\n*   FaultInjection\n*   0\n*   1",
+      "description": "The dimension of the disaster recovery drill for the cluster. Valid values:\n- `0` or `FaultInjection`: primary zone-level disaster recovery drill.\n- `1`: node-level disaster recovery drill.\n> - In the **primary zone-level disaster recovery drill** scenario, all compute nodes in the primary zone become unavailable. The failover in this scenario causes service interruptions.\n> - In the **node-level disaster recovery drill** scenario, only a single compute node is supported for the drill. Specify the desired compute node name by using `DBNodeCrashList`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImciAutoIndex",
-      "description": "Specifies whether to enable automatic IMCI-based query acceleration. IMCI is short for In-Memory Column Index. Valid values:\n\n*   `ON`: enables automatic IMCI-based query acceleration.\n*   `OFF`: disables automatic IMCI-based query acceleration.\n\n> \n\n*   This parameter is supported only for PolarDB for MySQL clusters.\n\n*   For information about the cluster version limits, see [Automatic IMCI-based query acceleration](~~2854119~~).",
+      "description": "The automatic IMCI-based query acceleration feature. Valid values:\n- `ON`: enabled.\n- `OFF`: disabled.\n\n> - Only PolarDB for MySQL clusters are supported.\n> - For cluster version requirements, see [Automatic acceleration (AutoIndex)](~~2854119~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModifyRowCompression",
-      "description": "",
+      "description": "Modifies the row compression settings.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StandbyHAMode",
-      "description": "Specifies whether to enable cross-zone automatic switchover. Valid values:\n\n*   **ON**: enables cross-zone automatic switchover.\n*   **OFF**: disables cross-zone automatic switchover.",
+      "description": "The cross-zone automatic switchover mode of the cluster. Valid values:\n\n- **ON**: enables cross-zone automatic switchover.\n- **OFF**: disables cross-zone automatic switchover.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageAutoScale",
-      "description": "Specifies whether to enable automatic storage scaling for the Standard Edition cluster. Valid values:\n\n*   Enable\n*   Disable",
+      "description": "Specifies whether to enable automatic storage scaling for the Standard Edition cluster. Valid values:\n\n- Enable: enables automatic storage scaling.\n- Disable: disables automatic storage scaling.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageUpperBound",
-      "description": "The maximum storage capacity of the cluster of Standard Edition in automatic scaling. Unit: GB.\n\n>  The maximum value of this parameter is 32000.",
+      "description": "The upper limit for automatic storage scaling of the Standard Edition cluster. Unit: GB.\n\n> The maximum value is 32000.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "TableMeta",
-      "description": "",
+      "description": "The JSON string that contains the information about the databases and tables to be restored. The values of the database and table information are strings.\nExample: `[\n   {\n       \"tables\":[\n           {\n               \"name\":\"testtb\",\n               \"type\":\"table\",\n               \"newname\":\"testtb_restore\"\n           }\n       ],\n       \"name\":\"testdb\",\n       \"type\":\"db\",\n       \"newname\":\"testdb_restore\"\n   }\n]`.\n> You can call the [DescribeMetaList](~~194770~~) operation to query the names of databases and tables that can be restored, and then specify the information in the corresponding fields in the preceding example.",
       "position": "Query",
       "type": "String",
       "required": false

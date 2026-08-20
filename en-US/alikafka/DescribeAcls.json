@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "AclOperationType",
-      "description": "The types of operations allowed by the ACL. Separate multiple operation types with commas (,).\n- Valid values:\n- Write\n- Read\n- Describe: reads of transactional IDs.\n- IdempotentWrite: idempotent data writes to clusters.\n- IDEMPOTENT_WRITE: idempotent data writes to clusters. This value is available only for ApsaraMQ for Kafka V3 instances.\n- DESCRIBE_CONFIGS: queries of configurations. This value is available only for ApsaraMQ for Kafka V3 instances.\n> This parameter is available only for ApsaraMQ for Kafka V3 serverless instances.",
+      "description": "The operation type. Valid values:\n\n- **Write**\n\n- **Read**\n\n- **Describe**: reads a transactional ID.\n\n- **IdempotentWrite**: performs an idempotent write to a cluster. This value is not supported by Serverless instances. For Serverless instances, use IDEMPOTENT\\_WRITE.\n\n- **IDEMPOTENT\\_WRITE**: performs an idempotent write to a cluster. This value is available only for Serverless instances.\n\n- **DESCRIBE\\_CONFIGS**: queries configurations. This value is available only for Serverless instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclPermissionType",
-      "description": "The authorization method. Valid values:\n- DENY\n- ALLOW\n> This parameter is available only for ApsaraMQ for Kafka V3 serverless instances.",
+      "description": "The authorization method. Valid values:\n\n- DENY\n\n- ALLOW\n\n> This parameter is available only for Serverless instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclResourceName",
-      "description": "The resource name.\n\n*   The value can be the name of a topic or consumer group.\n*   You can use an asterisk (\\*) to specify the names of all topics or consumer groups.\n\n> You can query the resources on which permissions are granted only after you grant the user the required permissions on all resources.",
+      "description": "The name of the resource.\n\n- The name can be a topic name or a group name.\n\n- You can use an asterisk (\\*) to represent all topic names or group names.\n\n> * You can use an asterisk (\\*) only after you grant permissions to all resources.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AclResourcePatternType",
-      "description": "The match mode. Valid values:\n\n*   LITERAL: full-name match\n*   PREFIXED: prefix match",
+      "description": "The match mode. Valid values:\n\n- LITERAL: an exact match\n\n- PREFIXED: a prefix match",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclResourceType",
-      "description": "The resource type. Valid values:\n\n*   **Topic**\n*   **Group**",
+      "description": "The type of the resource. Valid values:\n\n- **Topic**\n\n- **Group**\n\n- **Cluster**\n\n- **TransactionalId**",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Host",
-      "description": "The source IP address.\n>-  You can specify only a specific IP address or use the asterisk (*) wildcard character to specify all IP addresses. CIDR blocks are not supported.\n> - This parameter is available only for ApsaraMQ for Kafka V3 serverless instances.",
+      "description": "The source IP address.\n\n> - You can set this parameter to a specific IP address or an asterisk (\\*). An asterisk (\\*) indicates all IP addresses. CIDR blocks are not supported.\n>\n> - This parameter is available only for Serverless instances.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,7 +63,7 @@
     },
     {
       "name": "Username",
-      "description": "The username.\n\n*   You can use an asterisk (\\*) to specify all users.\n\n> You can use an asterisk (\\*) to query the authorized users only after you grant the required permissions to all users.",
+      "description": "The username.\n\n- An asterisk (\\*) can be used to represent all users.\n\n> * A query with an asterisk (\\*) returns authorizations only if authorization has been granted to all users.",
       "position": "Query",
       "type": "String",
       "required": true

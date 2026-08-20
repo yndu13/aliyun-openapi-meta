@@ -14,145 +14,153 @@
     },
     {
       "name": "AutoPay",
-      "description": "Subscription Internet NAT gateways are no longer available for purchase. Ignore this parameter.",
+      "description": "Subscription-based Internet NAT gateways are no longer available for purchase. This parameter is no longer used.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
+      "name": "AvailabilityMode",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the NAT gateway.\n\nYou can leave this parameter empty or enter a description. If you enter a description, the description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the NAT gateway.\n\nThe description can be empty or 2 to 256 characters in length. It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Duration",
-      "description": "Subscription Internet NAT gateways are no longer available for purchase. Ignore this parameter.",
+      "description": "Subscription-based Internet NAT gateways are no longer available for purchase. This parameter is no longer used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipBindMode",
-      "description": "The mode in which the EIP is associated with the NAT gateway. Valid values:\n\n- **MULTI_BINDED**(default): the multi-EIP-to-ENI mode.\n\n- **NAT**: NAT mode, which is compatible with IPv4 addresses.\n\n> If an EIP is associated with a NAT gateway in NAT mode, the EIP occupies a private IP address of the vSwitch where the NAT gateway is deployed. Make sure that the vSwitch has sufficient private IP addresses. Otherwise, EIPs cannot be associated with the NAT gateway. In NAT mode, a maximum number of 50 EIPs can be associated with each NAT gateway.",
+      "description": "The EIP binding pattern of the NAT gateway. Valid values:\n- **MULTI_BINDED** (default): multi-EIP network interface controller (NIC)-visible pattern.\n- **NAT**: EIP normal pattern, compatible with IPv4 gateways.\n  > When the EIP binding pattern of the NAT gateway is set to EIP normal pattern, each EIP occupies a private IP address in the vSwitch to which the NAT gateway belongs. Make sure that the vSwitch has sufficient private IP addresses. If no idle private IP addresses are available in the vSwitch, new EIPs cannot be attached. In EIP normal pattern, a maximum of 50 EIPs can be attached to the NAT gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IcmpReplyEnabled",
-      "description": "Specifies whether to enable ICMP retrieval. Valid values:\n\n*   **true** (default)\n*   **false**",
+      "description": "Specifies whether to enable ICMP echo reply. Valid values:\n\n- **true** (default): Enabled.\n- **false**: Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the NAT gateway.\n\nSet the value to **PostPaid** (pay-as-you-go), which is the default value.\n\nFor more information, see [Internet NAT gateway billing](~~48126~~) and [VPC NAT gateway billing](~~270913~~).",
+      "description": "The billing method of the NAT gateway. Valid values:\n\n**PostPaid** (default): pay-as-you-go.\n          \nFor more information, see [Billing of Internet NAT gateways](~~48126~~) and [Billing of VPC NAT gateways](~~270913~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetChargeType",
-      "description": "The metering method of the NAT gateway. Set the value to **PayByLcu**, which specifies the pay-by-CU metering method.",
+      "description": "The metering method of the NAT gateway. Valid values: **PayByLcu**: pay-by-data-transfer.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv4Prefix",
-      "description": "Create an IP prefix address segment for batch creation of NAT IPs. Please use the reserved and unallocated network segments in the VSwitch where the NAT is located.",
+      "description": "The IP prefix CIDR block used to create NAT IP addresses in batches. Specify an unassigned reserved CIDR block from the vSwitch to which the NAT gateway belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the NAT gateway.\n\nThe name must be 2 to 128 characters in length and can contain letters, digits, underscores (\\_), and hyphens (-). The name must start with a letter.\n\nIf this parameter is not set, the system assigns a default name to the NAT gateway.",
+      "description": "The name of the NAT gateway.\n\nThe name must be 2 to 128 characters in length and must start with a letter or Chinese character. It can contain digits, underscores (\\_), and hyphens (-).\n\nIf you do not specify this parameter, the system assigns a default name to the NAT gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NatIp",
-      "description": "The private IP address occupied by the NAT gateway. Please use an unassigned IP from the subnet where the NAT is located. If left empty, an IP address will be randomly assigned.",
+      "description": "The private IP address occupied by the NAT gateway. Specify an unallocated IP address from the vSwitch CIDR block to which the NAT gateway belongs. If this parameter is left empty, a random IP address is allocated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NatType",
-      "description": "The type of NAT gateway. Set the value to **Enhanced**, which specifies enhanced NAT gateway.",
+      "description": "The type of the NAT gateway. Valid values: **Enhanced**: enhanced NAT gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetworkType",
-      "description": "The network type of the NAT gateway. Valid values:\n\n*   **internet**: Internet\n*   **intranet**: VPC",
+      "description": "The type of NAT gateway to create. Valid values:\n\n- **internet**: Internet NAT gateway.\n\n- **intranet**: VPC NAT gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "Subscription Internet NAT gateways are no longer available for purchase. Ignore this parameter.",
+      "description": "Subscription-based Internet NAT gateways are no longer available for purchase. This parameter is no longer used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateLinkEnabled",
-      "description": "PrivateLink is not supported by default. If you set the value to true, PrivateLink is supported.",
+      "description": "Specifies whether to enable PrivateLink. Valid values:\n\n- true: Enabled.\n\n- false (default): Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the NAT gateway.\n\nYou can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.",
+      "description": "The region ID of the NAT gateway.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SecurityProtectionEnabled",
-      "description": "Specifies whether to enable the firewall feature. Valid values:\n\n*   **false** (default)><notice>This parameter is deprecated.></notice>",
+      "description": "Specifies whether to enable the firewall feature. Valid values:\n\n- **false** (default): Disabled.\n><notice> This parameter is deprecated.></notice>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Spec",
-      "description": "Subscription Internet NAT gateways are no longer available for purchase. Ignore this parameter.",
+      "description": "Subscription-based Internet NAT gateways are no longer available for purchase. This parameter is no longer used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. Specify this parameter in the Tag.N.Key format. N is the index of the tag, with valid values from 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. Specify this parameter in the Tag.N.Value format. N is the index of the tag, with valid values from 1 to 20. The tag value cannot be an empty string. The tag value can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -161,14 +169,14 @@
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch to which the NAT gateway is attached.\n\nWhen you create a NAT gateway, you must specify a vSwitch for the NAT gateway. Then, the system assigns an idle private IP address from the vSwitch to the NAT gateway.\n\n*   To attach the NAT gateway to an existing vSwitch, make sure that the zone to which the vSwitch belongs supports NAT gateways. In addition, the vSwitch must have idle IP addresses.\n*   If no vSwitch exists in the VPC, create a vSwitch in a zone that supports NAT gateways. Then, specify the vSwitch for the NAT gateway.\n\n>  You can call the [ListEnhanhcedNatGatewayAvailableZones](~~182292~~) operation to query zones that support NAT gateways. You can call the [DescribeVSwitches](~~35748~~) operation to query idle IP addresses in a vSwitch.",
+      "description": "The ID of the vSwitch to which the NAT gateway belongs.\n\nWhen you create a NAT gateway, you must specify the vSwitch to which the NAT gateway belongs. The system allocates an available private IP address from the vSwitch to the NAT gateway.\n\n- To create a NAT gateway in an existing vSwitch, make sure that the zone to which the vSwitch belongs supports NAT gateways and the vSwitch has active IP addresses.\n\n- If you have not created a vSwitch, create a vSwitch in a zone that supports NAT gateways first, and then specify the vSwitch for the NAT gateway.\n\n> You can call the [ListEnhanhcedNatGatewayAvailableZones](~~182292~~) operation to query the zones that support NAT gateways, and call the [DescribeVSwitches](~~35748~~) operation to query the available IP address count in a vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC where you want to create the NAT gateway.",
+      "description": "The ID of the VPC in which you want to create the NAT gateway.",
       "position": "Query",
       "type": "String",
       "required": true

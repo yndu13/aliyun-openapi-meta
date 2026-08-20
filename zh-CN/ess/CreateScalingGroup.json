@@ -14,18 +14,21 @@
       "sub_parameters": [
         {
           "name": "AlbServerGroupId",
+          "description": "ALB服务器组ID。\n\nN为ALB服务器组的编号。一个伸缩组支持关联的ALB服务器组数量有限，如需查看或手动申请提升配额值，请前往[配额中心](https://quotas.console.aliyun.com/products/ess/quotas)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Port",
+          "description": "弹性伸缩将实例添加到ALB服务器组后，实例使用的端口号，取值范围：1~65535。\n\nN为ALB服务器组的编号。\n\n> 如果N相同，Port不同，系统会默认向伸缩组关联多个不同Port的该ALB服务器组。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "弹性伸缩将实例添加到ALB服务器组后，实例作为后端服务器的权重。权重越高，实例将被分配到越多的访问请求。如果权重为0，则实例不会收到访问请求。取值范围：0~100。\n\nN为ALB服务器组的编号。",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -104,18 +107,21 @@
       "sub_parameters": [
         {
           "name": "AttachMode",
+          "description": "伸缩组与数据库关联方式。取值范围：\n\n- SecurityIp ：修改IP白名单模式，通过将扩容实例自动添加到数据库IP白名单（目前仅RDS数据库支持）。\n- SecurityGroup：安全组模式，通过将伸缩配置安全组添加至数据库安全组白名单，实现安全组下实例数据库访问。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DBInstanceId",
+          "description": "数据库实例ID。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "数据库类型。取值范围：\n\n- RDS。\n- Redis。\n- MongoDB。\n\n默认值：RDS。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -131,7 +137,7 @@
     },
     {
       "name": "DefaultCooldown",
-      "description": "一次伸缩活动（添加或移出实例）结束后的一段冷却时间。取值范围：0~86400，单位：秒。\n\n冷却时间内，该伸缩组不执行其它的伸缩活动，仅针对云监控报警任务触发的伸缩活动有效。  \n\n默认值：300。",
+      "description": " 一次伸缩活动（添加或移出实例）结束后的一段冷却时间。取值范围：0~86400，单位：秒。\n\n冷却时间内，该伸缩组不执行其它的伸缩活动，仅针对云监控报警任务触发的伸缩活动有效。  \n\n默认值：300。",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -194,18 +200,21 @@
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "当您需要伸缩组按照实例规格容量进行伸缩时，请同时指定本参数和LaunchTemplateOverride.N.WeightedCapacity。\n\n本参数用于指定实例规格，会覆盖启动模板中的实例规格。您可以指定N个本参数，扩展启动模板支持N个实例规格。N的取值范围：1~20。\n> 仅当LaunchTemplateId参数指定了启动模板时，本参数生效。\n\nInstanceType的取值范围：在售的ECS实例规格，请参见[实例规格族](~~25378~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SpotPriceLimit",
+          "description": "本参数用于指定实例启动模板覆盖规格（即`LaunchTemplateOverride.N.InstanceType`）的竞价价格上限。您可以指定N个该参数，扩展启动模板支持N个实例规格。N的取值范围：1~20。\n>仅当`LaunchTemplateId`参数指定了启动模板时，该参数才生效。",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "WeightedCapacity",
+          "description": "当您需要伸缩组按照实例规格容量进行伸缩时，在指定LaunchTemplateOverride.N.InstanceType后，再指定本参数。两个参数一一对应，N需要保持一致。\n\n本参数用于指定实例规格的权重，即实例规格的单台实例在伸缩组中表示的容量大小。权重越大，满足期望容量所需的本实例规格的实例数量越少。\n\n由于每个实例规格的vCPU个数、内存大小等性能指标会有差异，您可以根据自身需求，给不同的实例规格配置不同的权重。\n\n 例如：\n\n- 当前容量：0。\n- 期望容量：6。\n- ecs.c5.xlarge规格容量：4。\n\n为满足期望容量，伸缩组将为用户扩容2台ecs.c5.xlarge实例。\n\n>扩容时伸缩组的容量不得超过最大容量（MaxSize）与实例规格的最大权重之和。\n\nWeightedCapacity的取值范围：1~500。",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -228,36 +237,42 @@
       "sub_parameters": [
         {
           "name": "DefaultResult",
+          "description": "等待状态结束后的下一步动作。取值范围：\n\n- CONTINUE：继续响应弹性扩张活动或者继续响应弹性收缩活动。\n- ABANDON：直接释放弹性扩张活动创建出来的ECS实例或者直接将弹性收缩活动中的ECS实例从伸缩组移除。\n\n当伸缩组发生弹性收缩活动（SCALE_IN）并触发多个生命周期挂钩时，DefaultResult取值为ABANDON的生命周期挂钩触发的等待状态结束时，会提前结束其它对应的等待状态。其他情况下，下一步动作均以最后一个结束等待状态的下一步动作为准。\n\n默认值：CONTINUE。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "HeartbeatTimeout",
+          "description": "生命周期挂钩为伸缩组活动设置的等待时间，等待状态超时后会执行下一步动作。取值范围：30~21600，单位：秒。\n\n创建了生命周期挂钩后，您可以调用[RecordLifecycleActionHeartbeat](~~73846~~)延长ECS实例的等待时间，也可以调用[CompleteLifecycleAction](~~73847~~)提前结束伸缩活动的等待状态。\n\n默认值：600。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LifecycleHookName",
+          "description": "生命周期挂钩名称，指定后不支持修改，未指定时默认与生命周期挂钩ID相同。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecycleTransition",
+          "description": "生命周期挂钩适用的伸缩活动类型，取值范围：\n\n- SCALE_OUT：伸缩组弹性扩张活动。\n- SCALE_IN：伸缩组弹性收缩活动。\n\n> 若伸缩组指定生命周期挂钩，此参数必选，其他相关参数可选。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "NotificationArn",
+          "description": "生命周期挂钩通知对象标识符，支持轻量消息队列（原 MNS）的队列或主题，参数取值格式：acs:ess:{region}:{account-id}:{resource-relative-id}。\n\n- region：伸缩组所在的地域。\n- account-id：阿里云账号ID。\n\n例如：\n\n- MNS队列：acs:ess:{region}:{account-id}:queue/{queuename}。\n- MNS主题：acs:ess:{region}:{account-id}:topic/{topicname}。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "NotificationMetadata",
+          "description": "伸缩活动的等待状态的固定字符串信息。参数长度不能超过128个字符。弹性伸缩每次推送消息到通知对象时，会同时发送您预先指定的NotificationMetadata参数值，便于管理和标记不同类别的通知信息。当您同时指定了NotificationArn参数时，NotificationMetadata参数方可生效。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -273,12 +288,14 @@
       "sub_parameters": [
         {
           "name": "LoadBalancerId",
+          "description": "负载均衡CLB（原SLB）实例的ID。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "弹性伸缩将实例添加到负载均衡CLB（原SLB）服务器组后，实例作为后端服务器的权重。权重越高，实例将被分配到越多的访问请求。如果权重为0，则实例不会收到访问请求。\n\n取值范围：0~100。",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -315,7 +332,7 @@
     },
     {
       "name": "MultiAZPolicy",
-      "description": "多可用区伸缩组ECS实例扩缩容策略。取值范围： \n         \n- PRIORITY：先指定的虚拟交换机（VSwitchIds.N）优先级最高。弹性伸缩优先在优先级最高的交换机所在可用区尝试扩缩容，如果无法扩缩容，则自动在下一优先级的交换机所在可用区进行扩缩容。  \n- COST_OPTIMIZED：扩容时弹性伸缩按vCPU单价从低到高尝试创建ECS实例，缩容时按vCPU单价从高到低尝试移出ECS实例。当伸缩配置设置了抢占式计费方式的多实例规格时，优先创建对应抢占式实例。您可以继续通过CompensateWithOnDemand参数指定当抢占式实例由于库存等原因无法创建时，是否自动尝试以按量付费的方式创建。 \n\n    > COST_OPTIMIZED仅在伸缩配置设置了多实例规格或者选用了抢占式实例的情况下生效。 \n- BALANCE：在伸缩组指定的多可用区之间均匀分配ECS实例。如果由于库存不足等原因可用区之间变得不平衡，您可以通过API [RebalanceInstance](~~71516~~)平衡资源。  \n- COMPOSABLE：是一种组合策略，您可以根据需要自主组合上述多可用区伸缩组ECS实例的扩缩容策略。或者进一步指定参数，对伸缩组的容量进行更精细地控制。\n\n默认值：PRIORITY。",
+      "description": " 多可用区伸缩组ECS实例扩缩容策略。取值范围： \n         \n- PRIORITY：先指定的虚拟交换机（VSwitchIds.N）优先级最高。弹性伸缩优先在优先级最高的交换机所在可用区尝试扩缩容，如果无法扩缩容，则自动在下一优先级的交换机所在可用区进行扩缩容。  \n- COST_OPTIMIZED：扩容时弹性伸缩按vCPU单价从低到高尝试创建ECS实例，缩容时按vCPU单价从高到低尝试移出ECS实例。当伸缩配置设置了抢占式计费方式的多实例规格时，优先创建对应抢占式实例。您可以继续通过CompensateWithOnDemand参数指定当抢占式实例由于库存等原因无法创建时，是否自动尝试以按量付费的方式创建。 \n\n    > COST_OPTIMIZED仅在伸缩配置设置了多实例规格或者选用了抢占式实例的情况下生效。 \n- BALANCE：在伸缩组指定的多可用区之间均匀分配ECS实例。如果由于库存不足等原因可用区之间变得不平衡，您可以通过API [RebalanceInstance](~~71516~~)平衡资源。  \n- COMPOSABLE：是一种组合策略，您可以根据需要自主组合上述多可用区伸缩组ECS实例的扩缩容策略。或者进一步指定参数，对伸缩组的容量进行更精细地控制。\n\n默认值：PRIORITY。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -336,28 +353,28 @@
     },
     {
       "name": "RegionId",
-      "description": "伸缩组所属的地域ID。更多信息，请参见[地域与可用区](~~40654~~)。",
+      "description": "伸缩组所属的地域ID。更多信息，请参见[地域与可用区](~~40654~~)。 ",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RemovalPolicy.1",
-      "description": "指定实例移出策略的第一段筛选策略。不允许与RemovalPolicy.2和RemovalPolicy.3取值相同。取值范围：\n\n- OldestInstance：移出最早加入伸缩组的ECS实例。\n- NewestInstance：移出最新加入伸缩组的ECS实例。\n- OldestScalingConfiguration：移出最早伸缩配置创建的ECS实例。\n- CustomPolicy：基于自定义缩容策略Function函数移除ECS实例。\n\nOldestScalingConfiguration中提到的伸缩配置泛指组内实例配置信息来源，包括伸缩配置和启动模板。CustomPolicy仅支持设置为首位移出策略，当指定CustomPolicy需同时指定CustomPolicyARN参数。\n\n> 伸缩组移出ECS实例还受伸缩组的扩缩容策略（MultiAZPolicy）影响。更多信息，请参见[设置移出实例的组合策略](~~254822~~)。",
+      "description": "指定实例移出策略的第一段筛选策略。不允许与RemovalPolicy.2和RemovalPolicy.3取值相同。取值范围：\n\n- OldestInstance：移出最早加入伸缩组的ECS实例。\n- NewestInstance：移出最新加入伸缩组的ECS实例。\n- OldestScalingConfiguration：移出最早伸缩配置创建的ECS实例。\n- CustomPolicy：基于自定义缩容策略Function函数移除ECS实例。\n\nOldestScalingConfiguration中提到的伸缩配置泛指组内实例配置信息来源，包括伸缩配置和启动模板。CustomPolicy仅支持设置为首位移出策略，当指定CustomPolicy需同时指定CustomPolicyARN参数。\n\n> 伸缩组移出ECS实例还受伸缩组的扩缩容策略（MultiAZPolicy）影响。更多信息，请参见[设置移出实例的组合策略](~~254822~~)。\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RemovalPolicy.2",
-      "description": "指定实例移出策略的第二段筛选策略，不允许与RemovalPolicy.1和RemovalPolicy.3取值相同。取值范围：\n\n- OldestInstance：移出最早加入伸缩组的ECS实例。\n- NewestInstance：移出最新加入伸缩组的ECS实例。\n- OldestScalingConfiguration：移出最早伸缩配置创建的ECS实例。\n\n> 伸缩组移出ECS实例还受伸缩组的扩缩容策略（MultiAZPolicy）影响。更多信息，请参见[设置移出实例的组合策略](~~254822~~)。",
+      "description": "指定实例移出策略的第二段筛选策略，不允许与RemovalPolicy.1和RemovalPolicy.3取值相同。取值范围：\n\n- OldestInstance：移出最早加入伸缩组的ECS实例。\n- NewestInstance：移出最新加入伸缩组的ECS实例。\n- OldestScalingConfiguration：移出最早伸缩配置创建的ECS实例。\n\n> 伸缩组移出ECS实例还受伸缩组的扩缩容策略（MultiAZPolicy）影响。更多信息，请参见[设置移出实例的组合策略](~~254822~~)。\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RemovalPolicy.3",
-      "description": "指定实例移出策略的第三段筛选策略，不允许与RemovalPolicy.1和RemovalPolicy.2取值相同。取值范围：\n\n- OldestInstance：移出最早加入伸缩组的ECS实例。\n- NewestInstance：移出最新加入伸缩组的ECS实例。\n- OldestScalingConfiguration：移出最早伸缩配置创建的ECS实例。\n\n> 伸缩组移出ECS实例还受伸缩组的扩缩容策略（MultiAZPolicy）影响。更多信息，请参见[设置移出实例的组合策略](~~254822~~)。",
+      "description": "指定实例移出策略的第三段筛选策略，不允许与RemovalPolicy.1和RemovalPolicy.2取值相同。取值范围：\n\n- OldestInstance：移出最早加入伸缩组的ECS实例。\n- NewestInstance：移出最新加入伸缩组的ECS实例。\n- OldestScalingConfiguration：移出最早伸缩配置创建的ECS实例。\n\n> 伸缩组移出ECS实例还受伸缩组的扩缩容策略（MultiAZPolicy）影响。更多信息，请参见[设置移出实例的组合策略](~~254822~~)。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -371,7 +388,7 @@
     },
     {
       "name": "ScalingGroupName",
-      "description": "伸缩组的名称，同一地域下伸缩组名称唯一。\n\n长度为2~64个英文或中文字符，以数字、大小写英文字母或中文开头，可以包含数字、下划线（_）、短划线（-）和半角句号（.）。\n\n默认值为ScalingGroupId的值。",
+      "description": "伸缩组的名称，同一地域下伸缩组名称唯一。\n\n长度为2~64个英文或中文字符，以数字、大小写英文字母或中文开头，可以包含数字、下划线（_）、短划线（-）和半角句号（.）。\n\n默认值为ScalingGroupId的值。 ",
       "position": "Query",
       "type": "String",
       "required": false
@@ -392,24 +409,28 @@
       "sub_parameters": [
         {
           "name": "Port",
+          "description": "弹性伸缩将实例添加到服务器组后，实例使用的端口号。取值范围：1~65535。\n\n> ALB和NLB类型负载均衡该参数为必填参数，GWLB类型负载均衡不能设置该参数且默认值为6081。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ServerGroupId",
+          "description": "服务器组的ID。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "服务器组类型。取值范围：\n\n- ALB：表示应用型负载均衡（Application Load Balancer）。\n- NLB：表示网络型负载均衡（Network Load Balancer）。\n- GWLB: 网关型负载均衡 GWLB（Gateway Load Balancer）。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "弹性伸缩将实例添加到服务器组后，实例作为后端服务器的权重。取值范围：0~100。\n\n权重越高，实例将被分配到越多的访问请求。如果权重为0，则实例不会收到访问请求。\n\n> ALB和NLB类型负载均衡该参数为必填参数，GWLB类型负载均衡不能设置该参数。",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -453,18 +474,21 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "伸缩组的标签键。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Propagate",
+          "description": "标识该标签是否为可传播标签，取值范围：\n- true：伸缩组上的标签只会传播到新创建的实例上，而不会传播到已经在伸缩组中运行的实例上。\n- false：伸缩组上的标签不会传播到实例上。\n\n默认值：false。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Value",
+          "description": "伸缩组的标签值。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -480,12 +504,14 @@
       "sub_parameters": [
         {
           "name": "LoadBalancerId",
+          "description": "虚拟服务器组所属传统型负载均衡CLB（原SLB）实例的ID。\n\n更多信息，请参见[AttachVServerGroups](~~98983~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VServerGroupAttribute",
+          "description": "后端服务器组属性。",
           "position": "Query",
           "type": "RepeatList",
           "required": false

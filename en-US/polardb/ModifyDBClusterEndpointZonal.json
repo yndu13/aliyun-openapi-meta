@@ -7,77 +7,77 @@
   "parameters": [
     {
       "name": "AutoAddNewNodes",
-      "description": "",
+      "description": "Specifies whether to automatically add new nodes to this endpoint. Valid values:\n\n- **Enable**: yes\n\n- **Disable**: no (default)",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "",
+      "description": "A client token to ensure the idempotence of the request. The client generates the value, but you must make sure that the value is unique among different requests. The token is case-sensitive and can contain up to 64 ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBClusterId",
-      "description": "",
+      "description": "The cluster ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBEndpointDescription",
-      "description": "",
+      "description": "The name of the endpoint.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBEndpointId",
-      "description": "",
+      "description": "The ID of the cluster endpoint.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndpointConfig",
-      "description": "",
+      "description": "The advanced configurations of the cluster endpoint, which are specified in the JSON format. You can set the consistency level, transaction splitting, whether the primary node accepts read requests, the connection pool, and more.\n\n- To set the load balancing policy, use the format `{\\\"LoadBalancePolicy\\\":\\\"policy\\\"}`. Valid values:\n\n  - **0**: connection-based load balancing (default)\n\n  - **1**: active request-based load balancing\n\n- To specify whether the primary node accepts read requests, use the format `{\\\"MasterAcceptReads\\\":\\\"value\\\"}`. Valid values:\n\n  - **on**: The primary node accepts read requests (default).\n\n  - **off**: The primary node does not accept read requests.\n\n- To configure transaction splitting, use the format `{\\\"DistributedTransaction\\\":\\\"value\\\"}`. Valid values:\n\n  - **on**: enables transaction splitting (default)\n\n  - **off**: disables transaction splitting\n\n- To set the consistency level, use the format `{\\\"ConsistLevel\\\":\\\"level\\\"}`. Valid values:\n\n  - **0**: eventual consistency (weak)\n\n  - **1**: session consistency (medium) (default)\n\n  - **2**: global consistency (strong)\n\n- To set the timeout period for a global consistency read, use the format `{\\\"ConsistTimeout\\\":\\\"timeout\\\"}`. Valid values: 0 to 60000. Default value: 20. Unit: ms.\n\n- To set the timeout period for a session consistency read, use the format `{\\\"ConsistSessionTimeout\\\":\\\"timeout\\\"}`. Valid values: 0 to 60000. Default value: 0. Unit: ms.\n\n- To set the policy for a global or session consistency read timeout, use the format `{\\\"ConsistTimeoutAction\\\":\\\"policy\\\"}`. Valid values:\n\n  - **0**: Sends the read request to the primary node (default).\n\n  - **1**: The proxy returns a \\`wait replication complete timeout, please retry\\` error message to the application.\n\n- To configure the connection pool, use the format `{\\\"ConnectionPersist\\\":\\\"pool_type\\\"}`. Valid values:\n\n  - **off**: disables the connection pool (default)\n\n  - **Session**: enables the session-level connection pool\n\n  - **Transaction**: enables transaction-level connection pooling\n\n- To configure parallel queries, use the format `{\\\"MaxParallelDegree\\\":\\\"value\\\"}`. Valid values:\n\n  - **on**: enables parallel queries\n\n  - **off**: disables parallel queries (default)\n\n- To configure automatic routing between row store and column store, use the format `{\\\"EnableHtapImci\\\":\\\"value\\\"}`. Valid values:\n\n  - **on**: enables automatic routing between row store and column store\n\n  - **off**: disables automatic routing between row store and column store (default)\n\n- To specify whether to enable overload protection, use the format `{\\\"EnableOverloadThrottle\\\":\\\"value\\\"}`. Valid values:\n\n  - **on**: enables overload protection\n\n  - **off**: disables overload protection (default)\n\n> * You can configure transaction splitting, specify whether the primary node accepts read requests, configure the connection pool, and enable overload protection only when the read/write mode of the cluster endpoint for PolarDB for MySQL is set to **ReadWrite** (automatic read/write splitting).\n>\n> * If the read/write mode of a cluster endpoint for PolarDB for MySQL is **ReadOnly**, both connection-based and active request-based load balancing policies are supported. If the read/write mode is **ReadWrite** (automatic read/write splitting), only the active request-based load balancing policy is supported.\n>\n> * You can configure automatic routing between row store and column store when the read/write mode of the cluster endpoint for PolarDB for MySQL is **ReadWrite** (automatic read/write splitting), or when the read/write mode is **ReadOnly** and the load balancing policy is active request-based.\n>\n> * Only PolarDB for MySQL supports the global consistency level.\n>\n> * If you set **ReadWriteMode** to **ReadOnly**, you can set the consistency level only to **0**.\n>\n> * You can set the consistency level, transaction splitting, whether the primary node accepts read requests, and the connection pool at the same time. For example: `{\\\"ConsistLevel\\\":\\\"1\\\",\\\"DistributedTransaction\\\":\\\"on\\\",\\\"ConnectionPersist\\\":\\\"Session\\\",\\\"MasterAcceptReads\\\":\\\"on\\\"}`.\n>\n> * The transaction splitting setting is constrained by the consistency level. For example, if the consistency level is **0**, you cannot enable transaction splitting. If the consistency level is **1** or **2**, you can enable transaction splitting.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Nodes",
-      "description": "",
+      "description": "The read-only nodes to add to the endpoint. Separate multiple node IDs with commas (,). If you do not specify this parameter, the original nodes are retained.\n\n> - For PolarDB for MySQL, specify the node IDs.\n>\n> - For PolarDB for PostgreSQL and PolarDB for PostgreSQL (compatible with Oracle), specify the node role names, such as `Writer,Reader1,Reader2`.\n>\n> - If you set **ReadWriteMode** to **ReadOnly**, you can attach only one node. However, if this node fails, the endpoint might be unavailable for up to one hour. Do not use this configuration in a production environment. Select at least two nodes to improve availability.\n>\n> - If you set **ReadWriteMode** to **ReadWrite**, you must select at least two nodes.\n>   \\* For PolarDB for MySQL, you can select any two nodes. If both nodes are read-only nodes, write requests are sent to the primary node.\n>   \\* For PolarDB for PostgreSQL and PolarDB for PostgreSQL (compatible with Oracle), you must include the primary node.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolarSccTimeoutAction",
-      "description": "",
+      "description": "The policy for a global consistency timeout. Valid values:\n\n- **0**: Sends the request to the primary node.\n\n- **2**: Timeout degradation. If a global consistency read times out, the query is automatically downgraded to a regular request, and the client does not receive an error message.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolarSccWaitTimeout",
-      "description": "",
+      "description": "The timeout period for global consistency.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReadWriteMode",
-      "description": "",
+      "description": "The read/write mode. Valid values:\n\n- **ReadWrite**: read-write (automatic read/write splitting)\n\n- **ReadOnly**: read-only",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SccMode",
-      "description": "",
+      "description": "Specifies whether to enable the global consistency (high-performance mode) feature for the node. Valid values:\n\n- **ON**: enables the feature\n\n- **OFF**: disables the feature",
       "position": "Query",
       "type": "String",
       "required": false

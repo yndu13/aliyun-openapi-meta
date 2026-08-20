@@ -7,68 +7,70 @@
   "parameters": [
     {
       "name": "CredentialConfig",
-      "description": "**If you have no special requirements, leave this parameter empty.**\n\nThe authorization chain settings. For more information, see [Use authorization chains to access resources of other entities](~~465340~~).",
+      "description": "**Leave this parameter empty unless you have special requirements.**\n\nThe China authorization configuration. This parameter is optional. For more information, see [Use chained authorization to access resources of other entities](~~465340~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "MasterURI",
-      "description": "The OSS path of the master playlist.\n\nThe OSS path must be in the oss://${Bucket}/${Object} format. ${Bucket} specifies the name of the OSS bucket that is in the same region as the current project. ${Object} specifies the full path of the file that is suffixed with .m3u8.\n\n>  If a playlist contains subtitles or multiple outputs, the MasterURI parameter is required and the URI of subtitle files or outputs must be in the directory specified by the MasterURI parameter or its subdirectory.",
+      "description": "The OSS URI of the Master Playlist.\n\nThe OSS URI follows the format oss://${Bucket}/${Object}, where ${Bucket} is the name of the OSS bucket in the same region as the current project, and ${Object} is the full path of the file with the \".m3u8\" extension.\n> If the playlist has subtitle input or multiple Target outputs, MasterURI is required. The subtitle URI or Target URI must be in the same directory as or a subdirectory of MasterURI.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Notification",
-      "description": "The notification settings. For information about the asynchronous notification format, see [Asynchronous message examples](~~2743997~~).",
+      "description": "The message notification configuration. Click Notification for details. For the format of asynchronous notification messages, see [Asynchronous notification message format](~~2743997~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "OverwritePolicy",
-      "description": "The overwrite policy when the media playlist exists. Valid values:\n\n*   overwrite (default): overwrites an existing media playlist.\n*   skip-existing: skips generation and retains the existing media playlist.",
+      "description": "The overwrite policy when the Media Playlist already exists. Valid values:\n\n- overwrite (default): Overwrites the existing Media Playlist.\n- skip-existing: Skips generation and retains the existing Media Playlist.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "The project name.[](~~478153~~)",
+      "description": "The project name. For information about how to obtain the project name, see [Create a project](~~478153~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SourceDuration",
-      "description": "The period of time during which the playlist is generated. Unit: seconds.\n\n*   If you set this parameter to 0 (default) or leave this parameter empty, a playlist is generated until the end time of the source video.\n*   If you set this parameter to a value greater than 0, a playlist is generated for the specified period of time from the start time that you specify.\n\n>  If you set this parameter to a value that exceeds the end time of a source video, use the default value.",
+      "description": "The duration for generating the playlist. Unit: seconds. Valid values:\n\n- 0 (default) or empty: continues until the end of the source video.\n\n- Greater than 0: continues for the specified duration from the start time of the playlist generation.\n\n> If the time point corresponding to the specified parameter exceeds the end of the source video, the default value is used.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "SourceStartTime",
-      "description": "The time when the playlist starts to generate. Unit: seconds.\n\n*   If you set this parameter to 0 (default) or leave this parameter empty, the start time of the source video is used as the time when a playlist starts to generate.\n*   If you set this parameter to a value greater than 0, the time when a playlist starts to generate is the specified point in time.\n\n>  If you use this parameter together with the **SourceDuration** parameter, a playlist can be generated based on the partial content of a source video.",
+      "description": "The start time for generating the playlist. Unit: seconds. Valid values:\n\n- 0 (default) or empty: starts from the beginning of the source video.\n\n- Greater than 0: starts from the specified time point in the source video.\n\n>You can use this parameter together with **SourceDuration** to generate a playlist for a specific portion of the source video.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "SourceSubtitles",
-      "description": "The subtitle files. By default, this parameter is left empty. Up to two subtitle files are supported.",
+      "description": "The list of subtitles to add. Default value: empty. Maximum number of subtitles: 2.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Language",
+          "description": "The subtitle language. The standard is ISO 639-2. Default value: empty.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "URI",
+          "description": "The OSS URI of the subtitle to embed.\n\nThe OSS URI follows the format oss://${Bucket}/${Object}, where ${Bucket} is the name of the OSS bucket in the same region as the current project, and ${Object} is the full path of the file.\n> The **MasterURI** parameter must not be empty, and the OSS URI `oss://${Bucket}/${Object}` of the subtitle to embed must be in the same directory as or a subdirectory of the **MasterURI** parameter.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -77,75 +79,91 @@
     },
     {
       "name": "SourceURI",
-      "description": "The OSS path of the video file.\n\nThe OSS path must be in the oss://${Bucket}/${Object} format. ${Bucket} specifies the name of the OSS bucket that is in the same region as the current project. ${Object} specifies the full path of the file that contains the file name extension.\n\n>  Only OSS buckets of the Standard storage class are supported. OSS buckets for which hotlink protection whitelists are configured are not supported.",
+      "description": "The OSS URI of the video.\n\nThe OSS URI follows the format oss://${Bucket}/${Object}, where ${Bucket} is the name of the OSS bucket in the same area (Region) as the current project, and ${Object} is the full path of the file including the file name extension.\n> Only OSS buckets with Standard storage class are supported.\n> Buckets with hotlink protection whitelist access settings are not supported.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tags",
-      "description": "The [tags](~~106678~~) that you want to add to a TS file in OSS. You can use tags to manage the lifecycles of TS files in OSS.",
+      "description": "The OSS object [tags](~~106678~~) to add to the generated TS files. You can use tags to control the lifecycle of OSS files.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Targets",
-      "description": "The array of live transcoding playlists. The maximum length of the array is 6. Each element corresponds to at most one video media playlist and one or more subtitle media playlists.\n\n>  If the array contains more than one element, the **MasterURI** parameter cannot be left empty.",
+      "description": "The array of just-in-time transcoding playlists. Maximum array length: 6. Each Target corresponds to at most one video Media Playlist and one or more subtitle Media Playlists.\n> If more than one Target is configured, the **MasterURI** parameter must not be empty.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Audio",
+          "description": "The audio processing parameter settings. An empty value (default) indicates that audio processing is disabled and the output TS files do not contain an audio stream.\n> The Audio and Subtitle fields within the same Target are mutually exclusive. If the Audio field is set, the Subtitle field is ignored. Audio and Video can be set simultaneously, where Audio represents the audio information in the output video. You can also set only Audio to generate audio-only output.",
           "position": "Query",
           "type": "Json",
           "required": false
         },
         {
+          "name": "Container",
+          "description": "The HLS segment container type. Valid values:\n \n- ts (default)\n\n- mp4",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
           "name": "Duration",
+          "description": "The playback duration of a single TS file. Unit: seconds. Default value: 10. Valid values: [5, 15].",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "InitialSegments",
+          "description": "The array of initial transcoding TS file durations. Maximum array length: 6. Default value: empty. This parameter is independent of the **Duration** parameter.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "InitialTranscode",
+          "description": "The initial transcoding duration. Unit: seconds. Default value: 30.\n\n- If the value is 0, no pre-transcoding is performed.\n- If the value is less than 0 or exceeds the source video length, the entire video is initially transcoded.\n- If the specified duration falls in the middle of a TS file, transcoding continues until the end of that TS file.\n\n> This parameter is mainly used to reduce the wait time for initial video playback and improve the playback experience. If you want to replace traditional VOD business scenarios, try initially transcoding the entire video.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "Subtitle",
+          "description": "The subtitle processing parameter settings.\n> The Subtitle field is mutually exclusive with the Video or Audio fields within the same Target. Subtitles are generated only when Subtitle is set alone.",
           "position": "Query",
           "type": "Json",
           "required": false
         },
         {
           "name": "Tags",
+          "description": "The OSS object [tags](~~106678~~) to add to the generated TS files. You can use OSS tags to control the lifecycle of OSS files.\n> The tag values at this level are merged with the Tags defined at the parent level to form the tag values for the current Target. If a tag with the same name exists, the value at this level takes precedence.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "TranscodeAhead",
+          "description": "The number of TS files to transcode ahead when just-in-time transcoding is triggered. By default, 2 minutes of video is transcoded ahead.\n\n- Example: If **Duration** is 10, the default value of **TranscodeAhead** is 12. You can specify this parameter to control the number of asynchronous ahead-of-time transcoding files. Valid values: [10, 30].",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "URI",
+          "description": "The OSS URI prefix of the just-in-time transcoding output files, including M3U8 files and TS files.\n\nThe OSS URI follows the format oss://${Bucket}/${Object}, where ${Bucket} is the name of the OSS bucket in the same region as the current project, and ${Object} is the full path prefix of the file without the file name extension.\n\n- Example: If URI is oss://test-bucket/test-object/output-video, an oss://test-bucket/test-object/output-video.m3u8 file and multiple oss://test-bucket/test-object/output-video-${token}-${index}.ts files are generated. ${token} is a unique character string generated based on the transcoding parameters and is included in the API response. ${index} is the ordinal number of the TS file starting from 0.\n\n> If the **MasterURI** parameter is not empty, the URI must be in the same directory as or a subdirectory of the **MasterURI** parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Video",
+          "description": "The video processing parameter settings. An empty value (default) indicates that video processing is disabled and the output TS files do not contain a video stream.\n> The Video and Subtitle fields within the same Target are mutually exclusive. If the Video field is set, the Subtitle field is ignored.",
           "position": "Query",
           "type": "Json",
           "required": false
@@ -154,7 +172,7 @@
     },
     {
       "name": "UserData",
-      "description": "The custom user information, which is returned in asynchronous notifications to help you handle the notifications in the system. The maximum length of a notification is 2048 bytes.",
+      "description": "The custom information that is returned in asynchronous message notifications, which helps you associate message notifications within your system. Maximum length: 2,048 bytes.",
       "position": "Query",
       "type": "String",
       "required": false

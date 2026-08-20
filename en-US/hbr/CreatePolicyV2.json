@@ -7,94 +7,112 @@
   "parameters": [
     {
       "name": "PolicyDescription",
-      "description": "The description of the backup policy.",
+      "description": "The policy description.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyName",
-      "description": "The name of the backup policy.",
+      "description": "The policy name.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyType",
-      "description": "The policy type. Valid values:\n\n*   **STANDARD**: the general backup policy. This type of policy applies to backups other than Elastic Compute Service (ECS) instance backup.\n*   **UDM_ECS_ONLY**: This type of policy applies only to ECS instance backup.\n\nIf the policy type is not specified, Cloud Backup automatically sets the policy type based on whether the backup vault is specified in the rules of the policy:\n\n*   If the backup vault is specified, Cloud Backup sets the policy type to **STANDARD**.\n*   If the backup vault is not specified, Cloud Backup sets the policy type to **UDM_ECS_ONLY**.",
+      "description": "The policy type. Valid values:\n- **STANDARD**: general backup policy. Supports backing up data sources other than ECS full-server backup.\n- **UDM_ECS_ONLY**: full-server backup policy. Supports only ECS full-server backup.\n\nIf the policy type is not specified, Cloud Backup automatically sets the policy type based on whether a backup vault is specified in the policy rules:\n- Backup vault specified in policy rules: **STANDARD**\n- Backup vault not specified in policy rules: **UDM_ECS_ONLY**",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Rules",
-      "description": "The rules in the backup policy.",
+      "description": "The list of policy rules.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
+          "name": "ArchiveDays",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which a backup is automatically moved to the archive tier. Backups must be retained in the standard tier for at least 30 days and in the archive tier for at least 60 days. Unit: days.",
+          "position": "FormData",
+          "type": "Long",
+          "required": false
+        },
+        {
           "name": "BackupType",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup type. Set the value to **COMPLETE**, which specifies full backup.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DataSourceFilters",
+          "description": "This parameter is required only when **RuleType** is set to **TAG**. The data source filter rules.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Immutable",
+          "description": "This parameter is valid only when **PolicyType** is set to **UDM_ECS_ONLY**. Specifies whether to enable backup lock.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KeepLatestSnapshots",
+          "description": "Specifies whether to retain at least one backup version. Valid values:\n- 0: do not retain.\n- 1: retain.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "ReplicationRegionId",
+          "description": "This parameter is required only when **RuleType** is set to **REPLICATION**. The ID of the destination region for replication.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Retention",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**, **TRANSITION**, or **REPLICATION**.\n- **RuleType** set to **BACKUP**: the retention period of backups. The priority is lower than the Retention value of the rule with **RuleType**=**TRANSITION**. Minimum value: 1. Maximum value: 364635. Unit: days.\n- **RuleType** set to **TRANSITION**: the retention period of backups. Minimum value: 1. Maximum value: 364635. Unit: days.\n- **RuleType** set to **REPLICATION**: the retention period of cross-region backups. Minimum value: 1. Maximum value: 364635. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "RetentionRules",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The special retention rules.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "RuleType",
+          "description": "The rule type. Each policy must have at least one **BACKUP** rule and exactly one **TRANSITION** rule. Valid values:\n- **BACKUP**: backup rule.\n- **TRANSITION**: lifecycle rule.\n- **REPLICATION**: replication rule.\n- **TAG**: tag-based resource association rule.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Schedule",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup schedule settings. Supported formats:\n- `I|{startTime}|{interval}`: specifies that a backup job is executed at the specified interval starting from the start time. For example, `I|1631685600|P1D` specifies that a backup job is executed once a day starting from 2021-09-15 14:00:00.\n\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * interval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n- `C|{startTime}|{crontab}`: specifies that a backup job is executed based on the crontab expression starting from the start time. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is executed at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * crontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs for past time periods are not compensated. If the previous backup job is not completed, the next backup job is not triggered.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "TagFilters",
+          "description": "This parameter is required only when **RuleType** is set to **TAG**. The resource tag filter rules.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "VaultId",
+          "description": "This parameter is required only when RuleType is set to BACKUP. The backup vault ID.",
           "position": "FormData",
           "type": "String",
           "required": false

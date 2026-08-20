@@ -7,91 +7,114 @@
   "parameters": [
     {
       "name": "AllowedPrefixes",
-      "description": "The allowed route prefixes.",
+      "description": "The list of allowed prefix routes.",
       "position": "Body",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "AllowedPrefixesMode",
-      "description": "The route prefix mode. Valid values:\n\n- **MatchMode**: After you distribute new route CIDR blocks to data centers, original specific routes that are distributed are withdrawn.\n\n- **IncrementalMode**: After you distribute new route CIDR blocks to data centers, the original specific routes that fall in the CIDR blocks that you configure are withdrawn, and the original specific routes that do not fall in the CIDR blocks are still distributed.",
+      "description": "The prefix route mode. Valid values:\n- MatchMode: match mode. Only the configured route CIDR blocks are advertised to the IDC, and previously advertised specific routes are withdrawn.\n- IncrementalMode: incremental mode. The configured route CIDR blocks are advertised to the IDC, and previously advertised specific routes that fall within the configured CIDR blocks are withdrawn. Specific routes that do not fall within the configured CIDR blocks remain advertised.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AssociationRegionId",
-      "description": "The region ID of the resource to be associated.",
+      "description": "The region to which the associated resource belongs.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "CenId",
-      "description": "The ID of the Cloud Enterprise Network (CEN) instance.",
+      "description": "The Cloud Enterprise Network (CEN) instance ID.\n>CenId is required when TransitRouterId is specified. Create a CEN instance by calling the CreateCen API of the Cbn(2017-09-12) product and obtain the CenId.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a parameter value from your client to ensure uniqueness across different requests. ClientToken supports only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "CreateAttachment",
-      "description": "Specifies whether to initiate an association on the TR when the ECR is associated with the TR. Valid values:\n\n*   **true**: You do not need to initiate an association on the TR.\n*   **false**: You need to initiate an association on the TR.",
+      "description": "Specifies whether to initiate the association when the ECR is associated with a TR. Valid values:\n\n- **true**: The association does not need to be initiated from the transit router side.\n- **false**: The association needs to be initiated from the transit router side.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The information about the associated resource. It must be 0 to 128 characters in length.",
+      "description": "The description of the associated resource. The description must be 0 to 128 characters in length.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run.\n*   **false** (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether this is a dry run request. Valid values:\n\n- **true**: Sends a check request without modifying EPS resources.\n\n- **false** (default): Sends a normal request.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EcrId",
-      "description": "The ECR ID.",
+      "description": "The Express Connect Router (ECR) instance ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
+      "name": "Tag",
+      "description": "The list of tags.\n\nYou can bind up to 20 tags.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "The tag key of the resource. If you specify this parameter, the value cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The tag value of the resource. The tag value can be an empty string and can be up to 128 characters in length. It cannot contain `http://` or `https://`.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "TransitRouterId",
-      "description": "The TR ID.",
+      "description": "The ID of the transit router.\n>The TransitRouterId and VpcId parameters are mutually exclusive, and one of them must be specified. Create a transit router by calling the CreateTransitRouter API of the Cbn(2017-09-12) product and obtain the TransitRouterId.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterOwnerId",
-      "description": "The ID of the Alibaba Cloud account that owns the TR. Default value: ID of the Alibaba Cloud account that logs in.\n\n>  If you want to connect to a network instance that belongs to a different account, this parameter is required.",
+      "description": "The Alibaba Cloud account ID of the account that owns the transit router instance. Default value: the Alibaba Cloud account ID of the current logon account.\n\n> This parameter is required if you want to load a cross-account network instance.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The VPC ID.",
+      "description": "The VPC-connected instance ID.\n>The VpcId and TransitRouterId parameters are mutually exclusive, and one of them must be specified.\n>Create a VPC by calling the CreateVpc API of the Vpc(2016-04-28) product and obtain the VpcId.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcOwnerId",
-      "description": "The ID of the Alibaba Cloud account that owns the VPC. Default value: ID of the Alibaba Cloud account that logs in.\n\n>  If you want to connect to a network instance that belongs to a different account, this parameter is required.",
+      "description": "The Alibaba Cloud account ID of the account that owns the VPC-connected instance. Default value: the Alibaba Cloud account ID of the current logon account.\n\n> This parameter is required if you want to load a cross-account network instance.",
       "position": "Body",
       "type": "Long",
       "required": false

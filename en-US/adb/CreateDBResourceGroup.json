@@ -7,91 +7,91 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "",
+      "description": "A client token used to ensure the idempotence of the request. The client generates this value to make sure that it is unique among different requests. The token is case-sensitive and cannot exceed 64 ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterMode",
-      "description": "The working mode of the resource group. Valid values:\n\n*   **Disable** (default)\n*   **AutoScale**",
+      "description": "The mode of the resource group. Valid values:\n\n- **Disable** (default): regular mode.\n\n- **AutoScale**: auto-scaling mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterSizeResource",
-      "description": "The resource specifications of a single compute cluster. Unit: ACU.",
+      "description": "The resource specifications of a single cluster, in ACU.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBClusterId",
-      "description": "The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.\n\n>  You can call the [DescribeDBClusters](~~129857~~) operation to query the cluster IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a specific region.",
+      "description": "The cluster ID.\n\n> Call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all Data Warehouse Edition clusters in the destination region.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Engine",
-      "description": "The engine of the resource group. Valid values:\n\n*   **AnalyticDB** (default)\n*   **SparkWarehouse**",
+      "description": "The engine of the resource group. Valid values:\n\n- **AnalyticDB** (default): the AnalyticDB for MySQL engine.\n\n- **SparkWarehouse**: the SparkWarehouse engine.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EngineParams",
-      "description": "The Spark application configuration parameters that can be applied to all Spark jobs executed in the resource group. If you want to configure parameters for a specific Spark job, you can specify values for the parameters in the code editor when you submit the job.",
+      "description": "The configuration parameters for the Spark application. These parameters apply to all Spark jobs that are executed in the resource group. To configure parameters for a specific Spark job, set the parameters in the code when you submit the job.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GroupName",
-      "description": "The name of the resource group.\n\n*   The name can be up to 255 characters in length.\n*   The name must start with an uppercase letter or a digit.\n*   The name can contain uppercase letters, digits, hyphens (-), and underscores (\\_).",
+      "description": "The name of the resource group.\n\n- The name can be up to 255 characters in length.\n\n- The name must start with a digit or an uppercase letter.\n\n- The name can contain digits, uppercase letters, hyphens (-), and underscores (\\_).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GroupType",
-      "description": "The query execution mode. Valid values:\n\n*   **interactive** (default)\n*   **batch**\n*   **job**",
+      "description": "The query type. Valid values:\n\n- **interactive** (default): interactive query mode.\n\n- **batch**: batch query mode.\n\n- **Job**: offline job mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxClusterCount",
-      "description": "The maximum number of compute clusters that are allowed in the resource group. Maximum value: 10.",
+      "description": "The maximum number of clusters that can run in the resource group. The maximum value is 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MaxComputeResource",
-      "description": "The maximum amount of reserved computing resources, which refers to the amount of resources that are not allocated in the cluster. Unit: ACU.\n\n*   When GroupType is set to interactive, set this parameter to a value in increments of 16ACU.\n*   When GroupType is set to job, set this parameter to a value in increments of 8ACU.",
+      "description": "The maximum reserved computing resources, in ACU.\n\n- If the resource group type is Interactive, the maximum reserved computing resources are the current unallocated resources of the cluster. The step size is 16 ACU.\n\n- If the resource group type is Job, the maximum reserved computing resources are the current unallocated resources of the cluster. The step size is 8 ACU.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MinClusterCount",
-      "description": "The minimum number of compute clusters that are required in the resource group. Minimum value: 1.",
+      "description": "The minimum number of clusters that must run in the resource group. The minimum value is 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MinComputeResource",
-      "description": "The minimum amount of reserved computing resources. Unit: AnalyticDB compute unit (ACU).\n\n*   When GroupType is set to interactive, set this parameter to 16ACU.\n*   When GroupType is set to job, set this parameter to 0ACU.",
+      "description": "The minimum reserved computing resources, in ACU.\n\n- If the resource group type is Interactive, the minimum reserved computing resources are 16 ACU.\n\n- If the resource group type is Job, the minimum reserved computing resources are 0 ACU.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NodeNum",
-      "description": "The number of nodes. Default value: 0.\n\n*   Each node is configured with the resources of 16 cores and 64 GB memory.\n*   Make sure that the amount of resources of the nodes (Number of nodes × 16 cores and 64 GB memory) is less than or equal to the amount of unused resources of the cluster.",
+      "description": "The number of nodes. The default value is 0.\n\n- The resources of one node are 16 cores and 64 GB.\n\n- The number of nodes cannot be too large. The value must meet the following condition: Number of nodes × (16 cores and 64 GB) ≤ Remaining available resources of the cluster.",
       "position": "Query",
       "type": "Integer",
       "required": false

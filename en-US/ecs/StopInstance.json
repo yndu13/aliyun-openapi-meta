@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ConfirmStop",
-      "description": "This parameter will be removed in the future and is retained only to ensure compatibility. We recommend that you ignore this parameter.",
+      "description": "This parameter is about to be deprecated and is retained only for compatibility purposes. Ignore this parameter when you call this operation.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, service limits, and available ECS resources. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   false: performs a dry run and performs the actual request.\n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n\n- true: performs only a dry run. The instance is not stopped. The system checks whether the required parameters are specified, whether the request format is valid, whether business restrictions are met, and whether the ECS inventory is sufficient. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n- false: performs a dry run and sends the request. The instance is stopped after the check succeeds.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ForceStop",
-      "description": "Specifies whether to forcefully stop the ECS instance. Valid values:\n\n*   true: forcefully stops the ECS instance. If you set ForceStop to true, this operation is equivalent to a power-off operation. Cache data that is not written to storage devices on the instance is lost.\n*   false: normally stops the ECS instance.\n\nDefault value: false.",
+      "description": "Specifies whether to forcefully stop the instance. Valid values:\n\n- true: forcefully stops the instance. This is equivalent to a power-off operation. All cached data that is not written to storage devices is lost.\n- false: normally stops the instance.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Hibernate",
-      "description": "> This parameter is in invitational preview and is not publicly available.",
+      "description": "> This parameter is in invitational preview and is not available for general use.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance.",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StoppedMode",
-      "description": "The stop mode of the pay-as-you-go instance. Valid values:\n\n*   StopCharging: economical mode. After an instance is stopped in economical mode:\n\n    *   Billing for the following resources of the instance stops: computing resources (vCPUs, memory, and GPUs), image licenses, and public bandwidth of the static public IP address (if any) that uses the pay-by-bandwidth metering method.\n    *   Billing for the following resources of the instance continues: system disk, data disks, and public bandwidth of the elastic IP address (EIP) (if any) that uses the pay-by-bandwidth metering method.\n    *   The instance may fail to restart due to the reclaimed computing resources or insufficient resources. Try again later or change the instance type of the instance.\n    *   If an EIP is associated with the instance before the instance is stopped, the EIP remains unchanged after the instance is restarted. If a static public IP address is associated with the instance before the instance is stopped, the static public IP address may change, but the private IP address does not change.\n\n    For more information, see [Economical mode](~~63353~~).\n\n    **\n\n    **Note** If the instance does not support the economical mode, the system stops the instance and does not report errors during the operation call. The following types of instances are not supported: classic network instances, local disks, and monthly instances.\n\n*   KeepCharging: standard mode. After the instance is stopped in standard mode, you continue to be charged for the instance.\n\nDefault value: If the conditions for [enabling the economical mode for an instance in a VPC](~~63353#default~~) are met and you have enabled this mode in the ECS console, the default value is `StopCharging`. Otherwise, the default value is `KeepCharging`.",
+      "description": "The stop mode for the pay-as-you-go ECS instance. Valid values:\n\n  - StopCharging: economical mode. After the economical mode is enabled:\n    - Billing is suspended for compute resources (vCPUs, memory, and GPUs), image license fees, and fixed bandwidth of static public IP addresses.\n    - Billing continues for system disks, data disks, and fixed bandwidth of Elastic IP Addresses (EIPs).\n    - Because compute resources are released, the instance may fail to restart due to insufficient inventory. Try again later or change the instance type.\n    - If the instance is associated with an EIP before it is stopped, the IP address remains unchanged after the instance is restarted. Otherwise, the static public IP address may change, but the private IP address remains unchanged. \n\n    For more information, see [Economical mode](~~63353~~).\n    ><notice>\nIf the instance does not support the economical mode, the API does not return an error. Stopping the instance takes priority. Instance types that do not support the economical mode include instances with local disks and subscription instances.\n    ></notice>\n\n  - KeepCharging: standard stop mode. The instance continues to be billed after it is stopped.\n\nDefault value: If you enable the economical mode for VPC-connected instances in the ECS console (for more information, see [Enable the economical mode by default](~~63353#default~~)) and the conditions are met, the default value is `StopCharging`. Otherwise, the default value is `KeepCharging`.",
       "position": "Query",
       "type": "String",
       "required": false

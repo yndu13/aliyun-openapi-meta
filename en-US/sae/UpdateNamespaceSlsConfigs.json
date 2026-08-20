@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "NameSpaceShortId",
-      "description": "The short ID of the namespace. No need to specify a region ID. We recommend configuring this parameter.",
+      "description": "The short ID of the namespace. You do not need to include the region. This parameter is recommended.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NamespaceId",
-      "description": "The namespace ID.",
+      "description": "The ID of the namespace.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlsConfigs",
-      "description": "The logging configurations of Simple Log Service.\n\n*   `[{\"logDir\":\"\",\"logType\":\"stdout\"},{\"logDir\":\"/tmp/a.log\"}]`: Simple Log Service resources automatically created by Serverless App Engine (SAE) are used.\n*   To use custom Simple Log Service resources, set this parameter to `[{\"projectName\":\"test-sls\",\"logType\":\"stdout\",\"logDir\":\"\",\"logstoreName\":\"sae\",\"logtailName\":\"\"},{\"projectName\":\"test\",\"logDir\":\"/tmp/a.log\",\"logstoreName\":\"sae\",\"logtailName\":\"\"}]`.\n\nTake note of the following subparameters:\n\n*   **projectName**: the name of the Simple Log Service project.\n*   **logDir**: the path in which logs are stored.\n*   **logType**: the log type. **stdout** indicates the standard output (stdout) logs of the container. You can specify only one stdout value for this parameter. If not specified, file logs are collected.\n*   **logstoreName**: the name of the Logstore in Simple Log Service.\n*   **logtailName**: the name of the Logtail in Simple Log Service. If not specified, a new Logtail is created.\n\nIf logging configuration changes are not needed during job template deployment, specify **SlsConfigs** only in the first request. Omit this parameter in later requests. To stop using Simple Log Service, leave **SlsConfigs** empty.\n\n> Projects automatically created by SAE for job templates are deleted when their corresponding job templates are deleted. Therefore, you should not select an existing SAE-created project for log collection.",
+      "description": "The configuration for collecting logs to SLS.\n\n- To use an SLS resource that is automatically created by SAE: `[{\"logDir\":\"\",\"logType\":\"stdout\"},{\"logDir\":\"/tmp/a.log\"}]`.\n\n- To use a custom SLS resource: `[{\"projectName\":\"test-sls\",\"logType\":\"stdout\",\"logDir\":\"\",\"logstoreName\":\"sae\",\"logtailName\":\"\"},{\"projectName\":\"test\",\"logDir\":\"/tmp/a.log\",\"logstoreName\":\"sae\",\"logtailName\":\"\"}]`.\n\nThe parameters are described as follows:\n\n- `projectName`: The name of the SLS project.\n\n- `logDir`: The log path.\n\n- `logType`: The log type. A value of `stdout` specifies container standard output logs. You can specify only one `stdout` configuration. If you do not set this parameter, file logs are collected.\n\n- `logstoreName`: The name of the SLS logstore.\n\n- `logtailName`: The name of the Logtail. If you do not specify this parameter, a new Logtail is created.\n\nIf the SLS configuration remains the same across deployments, you can omit this parameter. To disable log collection to SLS, set the value of `SlsConfigs` to an empty string (\"\").\n\n> SAE automatically deletes a project when you delete the task template used to create it. Therefore, when you select an existing project, do not select a project that was automatically created by SAE.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlsLogEnvTags",
-      "description": "",
+      "description": "The SLS log tags.",
       "position": "Query",
       "type": "String",
       "required": false

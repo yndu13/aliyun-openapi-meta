@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "CenId",
-      "description": "The ID of the Cloud Enterprise Network (CEN) instance.",
+      "description": "The Cloud Enterprise Network (CEN) instance ID.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,40 +21,42 @@
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries to return on each page. Default value: **20**.",
+      "description": "The number of entries per page for a paged query. Default value: **20**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n\n*   You do not need to specify this parameter for the first request.\n*   If a value is returned for NextToken, specify the value in the next request to retrieve a new page of results.",
+      "description": "The token that determines the start point of the query. Valid values:\n\n- If this is your first query or no subsequent queries are to be sent, ignore this parameter.\n- If a subsequent query is to be sent, set the parameter to the value of NextToken that is returned from the last call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the transit router belongs.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.",
+      "description": "The region ID of the transit router.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query region IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.\n\nYou can specify up to 20 tags in each call.",
+      "description": "The tag information.\n\nYou can specify up to 20 tags at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\n\nThe tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys at a time.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\n\nThe tag value can be an empty string and can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.\n\nEach tag key corresponds to one tag value. You can specify up to 20 tag values at a time.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -63,14 +65,14 @@
     },
     {
       "name": "TransitRouterId",
-      "description": "The transit router ID.",
+      "description": "The transit router instance ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterMulticastDomainId",
-      "description": "The multicast domain ID.",
+      "description": "The ID of the multicast domain.",
       "position": "Query",
       "type": "String",
       "required": false

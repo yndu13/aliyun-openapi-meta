@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "DiskId",
-      "description": "The ID of EBS device N. Valid values of N: 1 to 100.",
+      "description": "The block storage ID. Valid values of N: 1 to 100.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "EventId",
-      "description": "The ID of event N. Valid values of N: 1 to 100.",
+      "description": "The event ID. Valid values of N: 1 to 100.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "EventTime.End",
-      "description": "The end of the time range to query occurred events.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.",
+      "description": "The end of the time range during which to query events.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventTime.Start",
-      "description": "The beginning of the time range to query occurred events.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.",
+      "description": "The start of the time range during which to query events.\n\nSpecify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventType",
-      "description": "The event type of the EBS device. Valid values:\n\n*   Degraded: The performance of the EBS device is degraded.\n*   SeverelyDegraded: The performance of the EBS device is severely degraded.\n*   Stalled: The performance of the EBS device is severely affected.\n*   ErrorDetected: The local disk is damaged.",
+      "description": "The event type of the block storage device. Valid values: \n\n- Degraded: The block storage performance is degraded.\n- SeverelyDegraded: The block storage performance is severely degraded.\n- Stalled: The block storage performance is severely impacted.\n- ErrorDetected: A local disk is damaged.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthStatus",
-      "description": "The health status of the EBS device. Valid values:\n\n*   Impaired: The EBS device is damaged.\n*   Warning: The performance of the EBS device is degraded.\n*   Initializing: The EBS device is being initialized.\n*   InsufficientData: The status cannot be determined due to insufficient data.\n*   NotApplicable: The EBS device cannot be used.",
+      "description": "The health status of the block storage device. Valid values: \n\n- Impaired: temporarily unreadable and unwritable.\n- Warning: degraded service.\n- Initializing: being initialized.\n- InsufficientData: insufficient data.\n- NotApplicable: not applicable.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page 1. The value must be a positive integer.\n\nDefault value: 1.",
+      "description": "The page number of the query result. Valid values: positive integers.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -63,40 +63,42 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the EBS device. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the block storage device. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the EBS device belongs. If you configure this parameter to query resources, up to 1,000 resources that belong to the specified resource group can be displayed in the response.",
+      "description": "The ID of the resource group to which the block storage resource belongs. When you use this parameter to filter resources, the resource count cannot exceed 1,000.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The lifecycle status of the EBS device. For more information, see [Disk status](~~25689~~). Valid values:\n\n*   In_use: The EBS device is in use.\n*   Available: The EBS device can be attached.\n*   Attaching: The EBS device is being attached.\n*   Detaching: The EBS device is being detached.\n*   Creating: The EBS device is being created.\n*   ReIniting: The EBS device is being initialized.",
+      "description": "The lifecycle status of the block storage device. For more information, see [Disk status table](~~25689~~). Valid values: \n\n- In_use: in use.\n- Available: to be attached.\n- Attaching: being attached.\n- Detaching: being detached.\n- Creating: being created.\n- ReIniting: being initialized.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the EBS device.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key attached to the block storage resource. N specifies that you can set one or more tag keys. The value of N in this parameter corresponds to the value of N in the `Tag.N.Value` parameter to form a key-value pair. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the number of resources with the tag cannot exceed 1,000. If you use multiple tags to filter resources, the number of resources that are attached to all specified tags cannot exceed 1,000.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value attached to the block storage resource. N specifies that you can set one or more tag values. The value of N in this parameter corresponds to the value of N in the `Tag.N.Key` parameter to form a key-value pair. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false

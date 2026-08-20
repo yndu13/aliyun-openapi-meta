@@ -28,7 +28,7 @@
     },
     {
       "name": "EnableAutoGrow",
-      "description": "是否开启自动扩容。取值范围：\n- true：开启自动扩容\n- false：不开启自动扩容\n\n默认值： false",
+      "description": "是否开启自动扩容。取值范围：\n- true：开启自动扩容\n- false：不开启自动扩容\n\n默认值： false\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -77,7 +77,7 @@
     },
     {
       "name": "ImageId",
-      "description": "镜像ID。\n\n> - 如果同时设置了`Queues.N.QueueImageId`和`ImageId`时，默认使用`Queues.N.QueueImageId`。\n- 如果设置了`Queues.N.QueueImageId`或`ImageId`，以设置的参数为准。\n- 如果`Queues.N.QueueImageId`和`ImageId`都为空，则默认使用集群上次扩容的镜像，若之前没有进行过扩容，则默认使用创建集群时的镜像。",
+      "description": "镜像ID。\n\n> - 如果同时设置了`Queues.N.QueueImageId`和`ImageId`时，默认使用`Queues.N.QueueImageId`。\n- 如果设置了`Queues.N.QueueImageId`或`ImageId`，以设置的参数为准。\n- 如果`Queues.N.QueueImageId`和`ImageId`都为空，则默认使用集群上次扩容的镜像，若之前没有进行过扩容，则默认使用创建集群时的镜像。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -98,120 +98,140 @@
       "sub_parameters": [
         {
           "name": "AutoMinNodesPerCycle",
+          "description": "自动设置单轮扩容的最小节点数量。\n如果设置为true，则每次扩容的最小节点数等于作业所需的节点数量，上限是99台。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "DataDisks",
+          "description": "随节点创建的数据盘信息列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "EnableAutoGrow",
+          "description": " 队列是否允许自动扩容。取值范围：\n- true：允许自动扩容\n- false：不允许自动扩容\n\nN的取值范围：1~8\n\n默认值：false",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "EnableAutoShrink",
+          "description": "队列是否允许自动缩容。取值范围：\n- true：允许自动缩容\n- false：不允许自动缩容\n\nN的取值范围：1~8\n\n默认值：false",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "HostNamePrefix",
+          "description": " 队列中扩容的主机名前缀。方便您管理具有指定前缀的节点。\n\nN的取值范围：1~8",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "HostNameSuffix",
+          "description": " 队列中扩容的主机名后缀。方便您管理具有指定后缀的节点。\n\nN的取值范围：1~8",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceType",
+          "description": "队列中自动扩容的节点规格。N的取值范围：1~8",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceTypes",
+          "description": "队列中节点信息。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "MaxNodesInQueue",
+          "description": "队列允许扩容的最大节点数。取值范围：0~500\n\nN的取值范围：1~8\n\n默认值：100",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MaxNodesPerCycle",
+          "description": "自动伸缩每轮扩容的最大计算节点数。取值范围：0~99。\n\n默认值：0。",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "MinNodesInQueue",
+          "description": " 队列允许收缩的最小节点数。取值范围：0~50\n\nN的取值范围：1~8\n\n默认值：0",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinNodesPerCycle",
+          "description": "自动伸缩每轮扩容的最小计算节点数。取值范围：1~99。\n\n默认值：1。\n\n如果某一轮次需扩容节点数量小于所设置的最小计算节点数，自动伸缩为保证资源的正常交付，会将该轮次的最小计算节点数自动调整为当前轮次需要扩容节点数量。\n\n>该调整仅对当前轮次的最小计算节点数生效。\n\n",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "QueueImageId",
+          "description": " 扩容队列的镜像ID。N的取值范围：1~8\n\n> - 如果同时设置了`Queues.N.QueueImageId`和`ImageId`时，默认使用`Queues.N.QueueImageId`。\n- 如果设置了`Queues.N.QueueImageId`或`ImageId`，以设置的参数为准。\n- 如果`Queues.N.QueueImageId`和`ImageId`都为空，则默认使用集群上次扩容的镜像，若之前没有进行过扩容，则默认使用创建集群时的镜像。\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "QueueName",
+          "description": "队列名称。支持同时设置N个队列的名称，N的取值范围：1~8",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SortedByInventory",
+          "description": "实例是否支持乱序排列，取值范围：\n\n- true：是\n\n- false：否\n\n> 如果设置为true，自动伸缩会按照实例库存数量从多到少的顺序选择实例规格，尽力交付实例资源。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "SpotPriceLimit",
+          "description": "队列中自动扩容的计算节点的每小时最高价格，支持最多3位小数。参数`Queues.N.SpotStrategy`取值为`SpotWithPriceLimit`时生效。\n\nN的取值范围：1~8",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "SpotStrategy",
+          "description": "队列中自动扩容的计算节点的抢占策略。N的取值范围：1~8\n\n抢占策略取值范围为：\n- NoSpot：正常按量付费节点。\n- SpotWithPriceLimit：设置上限价格的抢占式节点。\n- SpotAsPriceGo：系统自动出价，跟随当前市场实际价格的抢占式节点。\n\n默认值：NoSpot",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SystemDiskCategory",
+          "description": "队列中扩容的计算节点系统盘类型。取值范围：\n\n- cloud_efficiency：高效云盘\n- cloud_ssd：SSD云盘\n- cloud_essd：ESSD云盘\n- cloud：普通云盘，已售罄\n\nN的取值范围：1~8\n\n默认值：cloud_efficiency",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SystemDiskLevel",
+          "description": "队列中扩容的计算节点系统盘性能等级。取值范围：\n\n- PL0：单盘最高随机读写IOPS 1万\n- PL1：单盘最高随机读写IOPS 5万\n- PL2：单盘最高随机读写IOPS 10万\n- PL3：单盘最高随机读写IOPS 100万\n\nN的取值范围：1~8\n\n默认值：PL1",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SystemDiskSize",
+          "description": "队列中扩容的节点系统盘大小。单位：GB\n\n取值范围：40~500\n\nN的取值范围：1~8\n\n默认值：40",
           "position": "Query",
           "type": "Integer",
           "required": false

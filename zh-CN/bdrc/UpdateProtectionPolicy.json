@@ -1,0 +1,60 @@
+{
+  "name": "UpdateProtectionPolicy",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "PATCH",
+  "pathPattern": "/api/v1/protection-policies/[ProtectionPolicyId]",
+  "parameters": [
+    {
+      "name": "BoundResourceCategoryIds",
+      "description": "关联的资源分类ID列表",
+      "position": "Body",
+      "type": "Json",
+      "required": false
+    },
+    {
+      "name": "ClientToken",
+      "description": "客户端Token，用于保证请求的幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符。说明 若您未指定，则系统自动使用API请求的RequestId作为ClientToken标识。每次API请求的RequestId可能不一样。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ProtectionPolicyId",
+      "description": "保护策略ID",
+      "position": "Path",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ProtectionPolicyName",
+      "description": "保护策略名",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SubProtectionPolicies",
+      "description": "启用的子保护策略列表",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Config",
+          "description": "子保护策略配置",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SubProtectionPolicyType",
+          "description": "子保护策略类型",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 {
   "name": "AddCasterEpisodeGroup",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CallbackUrl",
-      "description": "用户回调地址。\n\n如果您通过[DescribeCasterConfig接口](~~2848011~~)查询导播台配置信息，请查看DescribeCasterConfig接口调用返回的参数CallbackUrl值。",
+      "description": "用户回调地址。\n\n必须是符合 RFC 2396 标准的合法 URL，host必须是可被 DNS 解析的真实域名或 IP。\n\n如果您通过[DescribeCasterConfig接口](~~2848011~~)查询导播台配置信息，请查看DescribeCasterConfig接口调用返回的参数CallbackUrl值。",
       "position": "Query",
       "type": "String",
       "required": true
@@ -34,12 +35,14 @@
       "sub_parameters": [
         {
           "name": "ItemName",
+          "description": "节目名称。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VodUrl",
+          "description": "点播文件地址。\n\n如果您通过[DescribeCasterVideoResources接口](~~2848023~~)查询导播台视频源，请查看DescribeCasterVideoResources接口调用返回的参数VodUrl值。\n\n> 当且仅当资源为文件视频，且视频文件未导入素材库时使用。<br>\n支持MP4、FLV、TS格式。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -62,7 +65,7 @@
     },
     {
       "name": "SideOutputUrl",
-      "description": "用户自定义导播台旁路输出地址对应的推流地址。\n\n若该参数为空，则默认使用阿里云自动生成的输出地址对应的推流地址。",
+      "description": "用户自定义导播台旁路输出地址对应的推流地址。",
       "position": "Query",
       "type": "String",
       "required": true

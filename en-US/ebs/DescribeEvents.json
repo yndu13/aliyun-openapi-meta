@@ -2,47 +2,47 @@
   "name": "DescribeEvents",
   "deprecated": false,
   "protocol": "HTTPS",
-  "method": "POST",
+  "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventLevel",
-      "description": "The severity level of the event. Valid values:\n\n*   **INFO**\n*   **WARN**\n*   **CRITICAL**",
+      "description": "The event level. Valid values:\n\n- **INFO**: Notification\n\n- **WARN**: Warning\n\n- **CRITICAL**: Critical",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventName",
-      "description": "The name of the event. Valid values:\n\n*   NoSnapshot: indicates the event that is triggered because no snapshot is created for a disk to protect data on the disk.\n*   BurstIOTriggered: indicates the event that is triggered when a burst I/O operation is performed on a disk.\n*   CostOptimizationNeeded: indicates the event that is triggered when cost optimization is required.\n*   DiskSpecNotMatchedWithInstance: indicates the event that is triggered because the specifications of a disk do not match the instance to which the disk is attached.\n*   DiskIONo4kAligned: indicates the event that is triggered because the physical and logical sectors involved in a read or write operation are not 4K aligned.\n*   DiskIOHang: indicates the event that is triggered when an I/O hang occurs on a disk.\n*   InstanceIOPSExceedInstanceMaxLimit: indicates the event that is triggered when the number of IOPS on an instance reaches the upper limit.\n*   InstanceBPSExceedInstanceMaxLimit: indicates the event that is triggered when the number of BPS on an instance reaches the upper limit.\n*   DiskIOPSExceedInstanceMaxLimit: indicates the event that is triggered when the number of IOPS on a disk reaches the upper limit for the associated instance.\n*   DiskBPSExceedInstanceMaxLimit: indicates the event that is triggered when the number of BPS on a disk reaches the upper limit for the associated instance.\n*   DiskIOPSExceedDiskMaxLimit: indicates the event that is triggered when the number of IOPS on a disk reaches the upper limit for the disk.\n*   DiskBPSExceedDiskMaxLimit: indicates the event that is triggered when the number of BPS on a disk reaches the upper limit for the disk.",
+      "description": "The event name. Valid values:\n\n- NoSnapshot: Data protection\n\n- BurstIOTriggered: Burst IO\n\n- CostOptimizationNeeded: Cost optimization\n\n- DiskSpecNotMatchedWithInstance: The disk specifications do not match the instance type.\n\n- DiskIONo4kAligned: Read/write operations are not 4K-aligned.\n\n- DiskIOHang: An I/O hang event occurred on the disk.\n\n- InstanceIOPSExceedInstanceMaxLimit: The IOPS of the instance reached the upper limit.\n\n- InstanceBPSExceedInstanceMaxLimit: The BPS of the instance reached the upper limit.\n\n- DiskIOPSExceedInstanceMaxLimit: The IOPS of the disk reached the upper limit of the instance.\n\n- DiskBPSExceedInstanceMaxLimit: The BPS of the disk reached the upper limit of the instance.\n\n- DiskIOPSExceedDiskMaxLimit: The IOPS of the disk reached the upper limit of the disk.\n\n- DiskBPSExceedDiskMaxLimit: The BPS of the disk reached the upper limit of the disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries to return on each page. If you specify MaxResults, `MaxResults` and `NextToken` are used for a paged query.\n\nValid values: 1 to 100.\n\nDefault value: 10",
+      "description": "The maximum number of entries to return on each page. If you set this parameter, you must use it with the `NextToken` parameter to perform a paged query.\n\nValid values: 1 to 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "A pagination token. It can be used in the next request to retrieve a new page of results.",
+      "description": "The query token. Set it to the NextToken value returned from the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions supported.",
+      "description": "The region ID. Call DescribeRegions to query the list of regions where EBS Lens is supported.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -56,21 +56,21 @@
     },
     {
       "name": "ResourceType",
-      "description": "The type of resource. Valid values:\n\n*   disk.\n\nDefault value: disk.",
+      "description": "The resource type. Valid values:\n\n- disk: disk",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of event. Valid values:\n\n- WillExecute\n- Executing\n- Executed\n- Ignore\n- Expired\n- Deleted",
+      "description": "The event status. Valid values:\n\n- WillExecute: Pending\n\n- Executing: In progress\n\n- Executed: Processed\n\n- Ignore: Ignored\n\n- Expired: Expired\n\n- Deleted: Deleted",
       "position": "Query",
       "type": "String",
       "required": false

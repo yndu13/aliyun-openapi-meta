@@ -7,38 +7,42 @@
   "parameters": [
     {
       "name": "AcceptLanguage",
-      "description": "The language of the response. Valid values:\n\n*   zh-CN: Chinese\n*   en-US (default): English",
+      "description": "The language of the response. Valid values:\n\n- zh-CN: Chinese\n\n- en-US (default): English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AddressPools",
-      "description": "The address pools.",
+      "description": "A list of address pools.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "AddressPoolId",
+          "description": "The unique ID of the address pool.\n\n- If you specify this parameter, the existing address pools associated with the target instance are deleted and replaced with the address pools that you specify.\n\n- If you leave this parameter empty, all address pools associated with the target instance are deleted.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RequestSource",
+          "description": "A list of request sources.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SerialNumber",
+          "description": "The ordinal number. For DNS requests from any source, address pools with smaller ordinal numbers are returned first. A smaller ordinal number indicates a higher priority. This parameter takes effect for the updated address pools.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "WeightValue",
+          "description": "The weight of the address pool. Valid values are integers from 1 to 100. You can set a different weight for each address pool. DNS queries are resolved based on the specified weights. This parameter takes effect for the updated address pools.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -47,21 +51,21 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client-generated token that you use to ensure the idempotence of the request. Make sure that the token is unique among different requests. The token can contain a maximum of 64 ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConfigId",
-      "description": "The configuration ID of the access domain name. Two configuration IDs exist when the access domain name is bound to the same GTM instance but an A record and an AAAA record are configured for the access domain name. The configuration ID uniquely identifies a configuration.\n\nYou can call the [ListCloudGtmInstanceConfigs](~~ListCloudGtmInstanceConfigs~~) operation to query the configuration ID of the access domain name.",
+      "description": "The ID of the instance configuration. For the same access domain name and GTM instance, you can configure both A and AAAA records. In this case, the GTM instance has two instance configurations. The ConfigId parameter uniquely identifies an instance configuration.\n\nCall the [ListCloudGtmInstanceConfigs](~~2797349~~) operation to query the ConfigId of the instance configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the GTM 3.0 instance for which you want to change address pools.",
+      "description": "The ID of the GTM 3.0 instance for which you want to replace address pools.",
       "position": "Query",
       "type": "String",
       "required": false

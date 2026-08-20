@@ -7,119 +7,119 @@
   "parameters": [
     {
       "name": "AccountId",
-      "description": "The ID of the Alibaba Cloud account. You do not need to specify this parameter because this parameter is about to be discontinued.",
+      "description": "The ID of the Alibaba Cloud account. You do not need to specify this parameter because it will be deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The ID of the region where the change tracking instance resides. For more information, see [Supported regions](~~141033~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "资源组ID。",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.DatabaseName",
-      "description": "The name of the source database.",
+      "description": "待订阅的数据库名称。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.IP",
-      "description": "The endpoint of the source database.\n\n> This parameter is available and required only if the source database is a self-managed database.",
+      "description": "源数据库的连接地址。\n> 当源数据库为自建数据库时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.InstanceID",
-      "description": "The ID of the source instance.\n\n> This parameter is available and required only if the source instance is an ApsaraDB RDS for MySQL instance, a PolarDB-X 1.0 instance, or a PolarDB for MySQL cluster.",
+      "description": "源实例ID。\n> 源数据库的实例类型为RDS MySQL、PolarDB-X 1.0、PolarDB MySQL时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.InstanceType",
-      "description": "The type of the source instance. Valid values:\n\n*   **RDS**: ApsaraDB RDS for MySQL instance\n*   **PolarDB**: PolarDB for MySQL cluster.\n*   **LocalInstance**: self-managed database with a public IP address\n*   **ECS**: self-managed database hosted on an Elastic Compute Service (ECS) instance\n*   **Express**: self-managed database connected over Express Connect\n*   **CEN**: self-managed database connected over Cloud Enterprise Network (CEN)\n*   **dg**: self-managed database connected over Database Gateway\n\n> The engine of a self-managed database can be MySQL or Oracle. You must specify the engine type when you call the [CreateSubscriptionInstance](~~49436~~) operation.",
+      "description": "源数据库的实例类型，取值：\n- **RDS**：RDS MySQL。\n- **PolarDB**：PolarDB MySQL。\n- **LocalInstance**：有公网IP的自建数据库。\n- **ECS**：ECS上的自建数据库。\n- **Express**：通过专线接入的自建数据库。\n- **CEN**：通过云企业网CEN接入的自建数据库。\n- **dg**：通过数据库网关接入的自建数据库。\n\n> 支持自建数据库的数据库类型为MySQL、Oracle，您需要提前调用[CreateSubscriptionInstance](~~49436~~)设置。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.OracleSID",
-      "description": "The system ID (SID) of the Oracle database.\n\n> This parameter is available and required only if the source database is a self-managed Oracle database and the Oracle database is deployed in a non-RAC architecture.",
+      "description": "Oracle数据库的SID信息。\n> 当源数据库为自建Oracle时，且Oracle数据库为非RAC实例时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.OwnerID",
-      "description": "The ID of the Alibaba Cloud account to which the source database belongs.\n\n> This parameter is available and required only if you track data changes across different Alibaba Cloud accounts.",
+      "description": "源实例所属的阿里云账号ID。\n> 仅在配置跨阿里云账号的数据订阅时本参数才可用，且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.Password",
-      "description": "The password of the account that is used to connect to the source database.",
+      "description": "源实例的数据库账号密码。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.Port",
-      "description": "The service port number of the source database.\n\n> This parameter is available and required only if the source database is a self-managed database.",
+      "description": "源数据库的服务端口。\n> 当源数据库为自建数据库时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.Role",
-      "description": "The RAM role that is authorized to access the source database. This parameter is required if the source database does not belong to the Alibaba Cloud account that you use to configure the change tracking task. In this case, you must authorize the Alibaba Cloud account to access the source database by using a RAM role.\n\n> For more information about the permissions that are required for the RAM role and how to grant permissions to the RAM role, see [Configure RAM authorization for cross-account data migration and synchronization](~~48468~~).",
+      "description": "源实例的授权角色。当源实例与配置订阅任务所属阿里云账号不同时，需传入该参数，来指定源实例的授权角色，以允许配置订阅任务所属阿里云账号访问源实例的实例信息。\n> 角色所需的权限及授权方式，请参见[跨阿里云账号数据迁移或同步时如何配置RAM授权](~~48468~~)。\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.UserName",
-      "description": "The username of the account that is used to connect to the source database.\n\n> The permissions that are required for the database account vary based on change tracking scenarios. For more information, see [Overview of change tracking scenarios](~~145715~~).",
+      "description": "源实例的数据库账号。\n> 订阅不同的数据库所需的权限有所差异，详情请参见[DTS数据订阅方案概览](~~145715~~)中对应的配置案例。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionDataType.DDL",
-      "description": "Specifies whether to track DDL statements. Default value: true. Valid values:\n\n*   **true**: tracks DDL statements.\n*   **false**: does not track DDL statements.",
+      "description": "是否订阅DDL类型的数据，取值：\n\n- **true**：是，为默认值。\n- **false**：否。",
       "position": "Query",
       "type": "Boolean",
       "required": true
     },
     {
       "name": "SubscriptionDataType.DML",
-      "description": "Specifies whether to track DML statements. Default value: true. Valid values:\n\n*   **true**: tracks DML statements.\n*   **false**: does not track DML statements.",
+      "description": "是否订阅DML类型的数据，取值：\n- **true**：是，为默认值。\n- **false**：否。",
       "position": "Query",
       "type": "Boolean",
       "required": true
     },
     {
       "name": "SubscriptionInstance.VPCId",
-      "description": "The ID of the VPC in which the change tracking instance is deployed.\n\n> This parameter is available and required only if the **SubscriptionInstanceNetworkType** parameter is set to **vpc**.",
+      "description": "订阅实例的专有网络ID。\n> 当**SubscriptionInstanceNetworkType**取值为**vpc**时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionInstance.VSwitchId",
-      "description": "The ID of the vSwitch in the specified VPC.\n\n> This parameter is available and required only if the **SubscriptionInstanceNetworkType** parameter is set to **vpc**.",
+      "description": "订阅实例的虚拟交换机ID。\n> 当**SubscriptionInstanceNetworkType**取值为**vpc**时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -133,21 +133,21 @@
     },
     {
       "name": "SubscriptionInstanceName",
-      "description": "The name of the change tracking instance.\n\n> We recommend that you specify a descriptive name for easy identification. You do not need to use a unique name.",
+      "description": "The name of the change tracking instance.\n> Specify a descriptive name for easy identification. The name does not need to be unique.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionInstanceNetworkType",
-      "description": "The network type of the change tracking instance. Set the value to **vpc**, which specifies the Virtual Private Cloud (VPC) network type.\n\n> \n\n*   To use the new version of the change tracking feature, you must specify the SubscriptionInstanceNetworkType parameter. You must also specify the **SubscriptionInstance.VPCId** and **SubscriptionInstance.VSwitchID** parameters. If you do not specify the SubscriptionInstanceNetworkType parameter, the previous version of the change tracking feature is used.\n\n*   The previous version of the change tracking feature supports self-managed MySQL databases, ApsaraDB RDS for MySQL instances, and PolarDB-X 1.0 instances. The new version of the change tracking feature supports self-managed MySQL databases, ApsaraDB RDS for MySQL instances, PolarDB for MySQL clusters, and Oracle databases.",
+      "description": "The network type of the change tracking instance. The only valid value is **vpc**, which indicates a virtual private cloud (VPC).\n\n> - If you specify this parameter, the change tracking instance is defined as the new version. You must also correctly set the **SubscriptionInstance.VPCId** and **SubscriptionInstance.VSwitchID** parameters. If you do not specify this parameter, the change tracking instance is defined as the legacy version.\n> - The legacy version supports change tracking for self-managed MySQL, ApsaraDB RDS for MySQL, and DRDS. The new version supports change tracking for self-managed MySQL, ApsaraDB RDS for MySQL, PolarDB for MySQL, and Oracle.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionObject",
-      "description": "The objects for which you want to track data changes. The value is a JSON string and can contain regular expressions. For more information, see [SubscriptionObjects](~~141902~~).",
+      "description": "The objects to be subscribed to. The value is a JSON string that supports regular expressions. For more information, see [Subscription object configuration](~~141902~~).",
       "position": "Body",
       "type": "String",
       "required": true

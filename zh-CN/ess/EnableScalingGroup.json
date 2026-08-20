@@ -35,12 +35,14 @@
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "当您需要伸缩组按照实例规格容量进行伸缩时，请同时指定本参数和LaunchTemplateOverride.N.WeightedCapacity。\n\n本参数用于指定实例规格，会覆盖启动模板中的实例规格。您可以指定N个本参数，扩展启动模板支持N个实例规格。N的取值范围：1~10。\n> 仅当LaunchTemplateId参数指定了启动模板时，本参数生效。\n\nInstanceType的取值范围：在售的ECS实例规格，请参见[实例规格族](~~25378~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WeightedCapacity",
+          "description": "当您需要伸缩组按照实例规格容量进行伸缩时，在指定LaunchTemplateOverride.N.InstanceType后，再指定本参数。两个参数一一对应，N需要保持一致。\n\n本参数用于指定实例规格的权重，即实例规格的单台实例在伸缩组中表示的容量大小。权重越大，满足期望容量所需的本实例规格的实例数量越少。\n\n由于每个实例规格的vCPU个数、内存大小等性能指标会有差异，您可以根据自身需求，给不同的实例规格配置不同的权重。\n\n 例如：\n\n- 当前容量：0。\n- 期望容量：6。\n- ecs.c5.xlarge规格容量：4。\n\n为满足期望容量，伸缩组将为用户扩容2台ecs.c5.xlarge实例。\n\n>扩容时伸缩组的容量不得超过最大容量（MaxSize）与实例规格的最大权重之和。\n\nWeightedCapacity的取值范围：1~500。",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -49,7 +51,7 @@
     },
     {
       "name": "LaunchTemplateVersion",
-      "description": "实例启动模板的版本。取值范围： \n\n- 固定的模板版本号。\n- Default：始终使用模板默认版本。\n- Latest：始终使用模板最新版本。",
+      "description": "实例启动模板的版本。取值范围： \n\n- 固定的模板版本号。\n- Default：始终使用模板默认版本。\n- Latest：始终使用模板最新版本。\n         ",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,54 +1,55 @@
 {
   "name": "CancelOTATaskByJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CancelInProgressTask",
-      "description": "Specifies whether to cancel the update tasks that are in the **IN_PROGRESS** state in an update batch. Default value: false. Valid values:\n\n*   **true**: cancel the update tasks that are in the IN_PROGRESS state.\n*   **false**: do not cancel the update tasks that are in the IN_PROGRESS state.",
+      "description": "Specifies whether to cancel all device upgrade jobs in the **IN_PROGRESS** (upgrading) state in the batch. Valid values:\n\n- **true**: Cancel.\n- **false** (default): Do not cancel.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "CancelNotifiedTask",
-      "description": "Specifies whether to cancel the update tasks that are in the **NOTIFIED** state in an update batch. Default value: false. Valid values:\n\n*   **true**: cancel the update tasks that are in the NOTIFIED state.\n*   **false**: do not cancel the update tasks that are in the NOTIFIED state.",
+      "description": "Specifies whether to cancel all device upgrade jobs in the **NOTIFIED** (pushed) state in the batch. Valid values:\n\n- **true**: Cancel.\n- **false** (default): Do not cancel.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "CancelQueuedTask",
-      "description": "Specifies whether to cancel the update tasks that are in the **QUEUED** state in an update batch. Default value: false. Valid values:\n\n*   **true**: cancel the update tasks that are in the NOTIFIED state.\n*   **false**: do not cancel the update tasks that are in the NOTIFIED state.\n\n> If you set this parameter to **true** and specify the **CancelUnconfirmedTask** parameter, only the update tasks that are in the QUEUED state are canceled. If you do not specify the **CancelUnconfirmedTask** parameter, the update tasks that are in the QUEUED or CONFIRM state are canceled.",
+      "description": "Specifies whether to cancel all device upgrade jobs in the **QUEUED** (pending push) state in the batch. Valid values:\n\n- **true**: Cancel.\n- **false** (default): Do not cancel.\n\n><notice>If this parameter is set to **true** and the **CancelUnconfirmedTask** parameter is specified, only device upgrade jobs in the pending push state are canceled. If this parameter is set to **true** and the **CancelUnconfirmedTask** parameter is not specified, device upgrade jobs in both the pending confirmation and pending push states are canceled.\n></notice>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "CancelScheduledTask",
-      "description": "Specifies whether to cancel update tasks of a scheduled update batch. If you specify the **ScheduleTime** parameter when you call the [CreateOTAStaticUpgradeJob](~~147496~~) operation, a scheduled update batch is created. Default value: false. Valid values:\n\n*   **true**: cancel update tasks of a scheduled update batch.\n*   **false**: do not cancel update tasks of a scheduled update batch.",
+      "description": "Specifies whether to cancel device upgrade jobs in a scheduled upgrade batch. A scheduled upgrade batch is created by calling [CreateOTAStaticUpgradeJob](~~147496~~) with the **ScheduleTime** parameter specified. Valid values:\n\n- **true**: Cancel.\n- **false** (default): Do not cancel.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "CancelUnconfirmedTask",
-      "description": "Specifies whether to cancel the update tasks that are in the **CONFIRM** state in an update batch. Default value: false. Valid values:\n\n*   **true**: cancel the update tasks that are in the CONFIRM state.\n*   **false**: do not cancel the update tasks that are in the CONFIRM state.\n\nThis parameter is empty by default.\n\n> If you do not specify this parameter and set the **CancelQueuedTask** parameter to **true**, the update tasks that are in the CONFIRM state are canceled. If you set the **CancelQueuedTask** parameter to **false**, the update tasks that are in the CONFIRM state are not canceled.",
+      "description": "\nSpecifies whether to cancel all device upgrade jobs in the **CONFIRM** (pending confirmation) state in the batch. Valid values:\n\n- **true**: Cancel.\n- **false**: Do not cancel.\n\nDefault value: empty.\n\n><notice>If this parameter is not specified and **CancelQueuedTask** is set to **true**, device upgrade jobs in the pending confirmation state are also canceled. If this parameter is not specified and **CancelQueuedTask** is set to **false**, device upgrade jobs in the pending confirmation state are not canceled.\n></notice>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can obtain the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify this parameter. Otherwise, the call fails.\n>*   If the **Overview** page or an instance ID is not displayed in the IoT Platform console, ignore this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If this parameter is available, you must specify this parameter. Otherwise, the call fails.\n- If <props=\"intl\"><ph>the **Overview** page or </ph></props>this parameter is not available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobId",
-      "description": "The ID of the update batch.\n\nUse the value that is returned for the **JobId** parameter contained in the response of the [CreateOTAStaticUpgradeJob](~~147496~~) or [CreateOTADynamicUpgradeJob](~~147887~~) operation. You can also obtain the batch ID on the **Firmware Details** page of the IoT Platform console.",
+      "description": "The ID of the upgrade batch.\n\nThis is the **JobId** returned when you called [CreateOTAStaticUpgradeJob](~~147496~~) or [CreateOTADynamicUpgradeJob](~~147887~~) to create the batch. You can also view this value on the **Firmware Details** page in the IoT Platform console.",
       "position": "Query",
       "type": "String",
       "required": true

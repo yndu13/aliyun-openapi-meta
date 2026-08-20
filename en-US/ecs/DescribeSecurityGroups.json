@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks your AccessKey pair, the permissions of the RAM user, and the required parameters. If the request passes the dry run, the DryRunOperation error code is returned. Otherwise, an error message is returned.\n*   false: performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.\n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n         \n- true: performs only a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized Resource Access Management (RAM) users, and missing parameter values. If the request fails the dry run, an error message is returned. If the request passes the dry run, the DryRunOperation error code is returned.\n- false: performs a dry run and sends the Normal request. If the request passes the dry run, a 2XX HTTP status code is returned and the authorization is verified.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -21,56 +21,56 @@
     },
     {
       "name": "IsQueryEcsCount",
-      "description": "Specifies whether to query the capacity of the security group. If you set this parameter to True, the `EcsCount` and `AvailableInstanceAmount` values in the response are valid.\n\n>  This parameter is deprecated.",
+      "description": "Specifies whether to query the capacity information of the security group. If you set this parameter to True, the `EcsCount` and `AvailableInstanceAmount` values in the response are valid.\n> This parameter is deprecated.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries per page. If you specify this parameter, both `MaxResults` and `NextToken` are used for a paged query.\n\nMaximum value: 100.\n\nDefault value: 10.",
+      "description": "The maximum number of entries per page for a paged query. Settings this parameter indicates that the `MaxResults` and `NextToken` combination is used for paging.\n\nMaximum value: 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NetworkType",
-      "description": "The network type of the security group. Valid values:\n\n*   vpc\n*   classic",
+      "description": "The network type of the security group. Valid values:\n\n- vpc: VPC.\n- classic: classic network. The classic network is deprecated. For more information, see [Deprecation notice](~~2833134~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Set this parameter to the NextToken value returned in the previous call. You do not need to set this parameter for the first request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": ">  This parameter will be removed in the future. We recommend that you use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter will be offline soon. Use NextToken and MaxResults for paged query and paging operations.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": ">  This parameter will be removed in the future. We recommend that you use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter will be offline soon. Use NextToken and MaxResults for paged query and paging operations.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the security group belongs. If this parameter is specified to query resources, up to 1,000 resources that belong to the specified resource group can be displayed in the response. You can call the [ListResourceGroups](~~158855~~) operation to query the most recent resource group list.\n\n> Resources in the default resource group are displayed in the response regardless of how this parameter is configured.",
+      "description": "The ID of the resource group to which the security group belongs. When you use this parameter to filter resources, the resource count cannot exceed 1,000. You can invoke [ListResourceGroups](~~158855~~) to query resource groups.\n\n> Filtering by the default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -84,7 +84,7 @@
     },
     {
       "name": "SecurityGroupIds",
-      "description": "The security group IDs. Set this parameter to a JSON array that consists of up to 100 security group IDs. Separate the security group IDs with commas (,).",
+      "description": "The IDs of security groups. You can specify up to 100 security group IDs. Separate multiple IDs with commas (,) in a JSON array format.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -98,45 +98,49 @@
     },
     {
       "name": "SecurityGroupType",
-      "description": "The type of the security group. Valid values:\n\n*   normal: basic security group\n*   enterprise: advanced security group\n\n> If you do not specify this parameter, both basic and advanced security groups are queried.",
+      "description": "The type of the security group. Valid values:\n- normal: basic security group.\n- enterprise: advanced security group.\n\n> If you do not specify this parameter, security groups of all types are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServiceManaged",
-      "description": "Specifies whether to query managed security groups. Valid values:\n\n*   true\n*   false",
+      "description": "Specifies whether managed security group is managed. Valid values:\n\n- true: Managed security group is managed.\n- false: Managed security group is not managed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the security groups.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the security group. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with the specified tag cannot exceed 1,000. If you use multiple tags to filter resources, the resource count that have all specified tags attached cannot exceed 1,000. If the resource count exceeds 1,000, call [ListTagResources](~~110425~~) to query resources.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the security group. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
+          "description": "The tag key of the security group.\n\n> For better compatibility, use the Tag.N.Key parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
+          "description": "The tag value of the security group.\n\n> For better compatibility, use the Tag.N.Value parameter.",
           "position": "Query",
           "type": "String",
           "required": false

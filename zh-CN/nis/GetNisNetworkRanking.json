@@ -1,0 +1,109 @@
+{
+  "name": "GetNisNetworkRanking",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AccountIds",
+      "description": "显式传递子账号ID。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "BeginTime",
+      "description": "起始时间戳，单位**ms**。未指定时默认查最近1小时。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Direction",
+      "description": "基于阿里云资源的网络流量方向，取值：\n\n- in：流入资源的流量方向。\n- out：流出资源的流量方向。\n\n><notice>跨域流量分析因只采集出向流量，所以传入in也以out处理。\n地域内性能观测和地域间性能观测因需在Filter内指定源或目的，所以指定Direction无效。></notice>",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "EndTime",
+      "description": "结束时间戳，单位**ms**。未指定时默认查最近1小时。只指定了BeginTime时查BeginTime之后的1小时。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Filter",
+      "description": "支持进一步指定流量的过滤条件，进行聚焦性流量分析。",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Name",
+          "description": "过滤条件的名字。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "过滤条件的值。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "GroupBy",
+      "description": "指定指标排名的维度，各场景取值：\n <br>完整流数据排名分析：\n\n- Tuple1：表示一元组，提供云端IP粒度完整流数据排名分析。 \n- Tuple2：表示二元组，提供源和目的IP粒度完整流数据排名分析。 \n- Tuple5：表示五元组，提供源和目的IP、端口、协议粒度完整流数据排名分析。\n\n 流量统计排名分析： \n\n- Protocol：按协议类型统计流量。\n- SourcePort：按源端口统计流量。\n- DestinationPort：按目的端口统计流量。\n- InstanceId：按云上资源ID统计流量。\n- IpPair：按源和目的IP对统计流量。\n- Country：按客户端国家来源统计流量。\n- Province：指定客户端省份来源统计流量。\n- City：按客户端城市来源统计流量。\n- ISP：按客户端运营商来源统计流量。\n- ASN：按客户端运营商ASN来源统计流量。\n- CityASN：按客户端城市和运营商ASN来源统计流量。\n- RegionPair：按云企业网跨地域访问统计流量。\n\n网络访问性能排名分析： \n\n- CountryIsp：指定Region访问互联网国家和运营商性能排名。 \n- Province：指定Region访问国内省份性能排名。\n- ProvinceIsp：指定Region访问国内省份和运营商性能排名。\n- RegionPair：阿里云跨地域互访性能排名。 \n- ZonePair：指定地域内可用区互访性能排名。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "OrderBy",
+      "description": "指定公网流量进行排名的指标。大小写敏感，取值：\n  \n- bps：每秒比特数。\n-   pps：每秒包数。\n-   ByteCount：累计字节数。\n-   PacketCount：累计包数。\n-   rtt：tcp协议建立连接时的往返延迟。\n-   RetransmitRate：重传率。\n-   RatelimitDropPps：限速丢包速率。\n-   ActiveSessionCount：并发会话数。\n-   NewSessionPerSecond：每秒新建会话数。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "RegionNo",
+      "description": "资源所在地域。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ResourceType",
+      "description": "按流量转发所使用的阿里云网络资源类型进行分析，取值：\n- AccessInternetIpV4：所有阿里云公网类型IPv4。\n- AccessInternetIpV4Limited：所有受地域限速的阿里云公网类型IPv4。\n- ElasticIP：弹性公网EIP（IPv4）。\n- PublicIpEcs：绑定在ECS的固定公网IP（IPv4）。\n- PublicIpClb：绑定在CLB的固定公网IP（IPv4）。\n- NAT：通过SNAT的访问公网流量。\n- TR：流经云企业网转发路由器的流量。\n- TRAttachment：流经云企业网连接实例的流量，包括地域内连接和跨地域连接。\n- VBR：流经边界路由器的流量。\n- GA：流经全球加速的流量。\n- InternetProbing：公网探测质量数据。\n- IntranetProbing：内网探测质量数据。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Sort",
+      "description": "排序方式，默认desc，取值：\n\n- asc：按正序排序。\n- desc：按逆序排序。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TopN",
+      "description": "展示排序靠前的数据。默认值：**10**。表示默认展示排序前 10 的数据。最大值：**100**。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "UseCrossAccount",
+      "description": "是否使用多账号访问模式，保留参数，目前不支持。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    }
+  ]
+}

@@ -6,64 +6,78 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "Affinity",
+      "description": "The affinity level of the deployment set. Instances in the deployment set are distributed based on this affinity level. Valid values: 1 to 10. Default value: 1.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "ClientToken",
-      "description": "The description of the deployment set. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests.\n\nClientToken supports only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeploymentSetName",
-      "description": "The name of the deployment set. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain digits, letters, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the deployment set. The name must be 2 to 128 characters in length and must start with a letter. It cannot start with `http://` or `https://`. The name can contain digits, colons (:), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The emergency solution to use in the situation where instances in the deployment set cannot be evenly distributed to different zones due to resource insufficiency after the instances failover. Valid values:\n\n*   CancelMembershipAndStart: removes the instances from the deployment set and starts the instances immediately after they are failed over.\n*   KeepStopped: leaves the instances in the Stopped state and starts them after resources are replenished.\n\nDefault value: CancelMembershipAndStart.",
+      "description": "The description of the deployment set. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Domain",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Granularity",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GroupCount",
-      "description": "The deployment strategy. Valid values:\n\n*   Availability: high availability strategy.\n*   AvailabilityGroup: high availability group strategy.\n\nDefault value: Availability.",
+      "description": "The number of groups for the high availability group strategy. Valid values: 1 to 7.\n\nDefault value: 3.\n\n> This parameter takes effect only when `Strategy=AvailabilityGroup`.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "OnUnableToRedeployFailedInstance",
-      "description": "The region ID of the deployment set. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.",
+      "description": "The emergency solution to use when an instance in the deployment set cannot be evenly distributed to available inventory after a failover. Valid values: \n         \n- CancelMembershipAndStart: Removes the instance from the deployment set and starts the instance immediately after the failover.\n- KeepStopped: Keeps the deployment set attributes of the instance and leaves the instance in the Stopped state.\n\nDefault value: CancelMembershipAndStart.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "Creates a deployment set in a specific region.",
+      "description": "The region ID of the deployment set. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Strategy",
-      "description": "The deployment strategy. Valid values:\n\n*   Availability: high availability strategy\n*   AvailabilityGroup: high availability group strategy\n*   LowLatency: low latency strategy\n\nDefault value: Availability.",
+      "description": "The deployment strategy. Valid values:\n- Availability: High availability strategy.\n- AvailabilityGroup: High availability group strategy.\n- LowLatency: Low network latency strategy.\n\nDefault value: Availability.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Type",
+      "description": "The deployment type. Valid values:\n- host: physical server\n- sw: vSwitch\n- rack: rack\n\nDefault value: host.",
       "position": "Query",
       "type": "String",
       "required": false

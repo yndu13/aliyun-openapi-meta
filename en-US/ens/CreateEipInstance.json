@@ -7,89 +7,91 @@
   "parameters": [
     {
       "name": "Bandwidth",
-      "description": "The maximum bandwidth of the EIP. Default value: 5. Valid values: 5 to 10000. Unit: Mbit/s.",
+      "description": "The peak bandwidth of the EIP. Default value: 5. Unit: Mbit/s. Valid values: 5 to 10000.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. This prevents repeated operations caused by multiple retries.\n\n*   You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.\n*   If you use a ClientToken that has been used and other request parameters remain unchanged in a repeated request, the client will receive the same result as the first request. This does not affect the status of your server.\n*   You can initiate a retry when the operation times out or the error code is PROCESSING. The idempotence is valid. If HTTP status code 200 is returned, the client receives the same result as the last request. However, your server status is not affected. If HTTP status code 4xx is returned and error code is not PROCESSING, the idempotence is invalid.\n*   A client token is valid for 10 minutes.",
+      "description": "A client-generated token that ensures the idempotence of the request. This prevents duplicate operations if you retry the request.\n\n- You can generate a unique, case-sensitive string that contains only ASCII characters and is no more than 64 characters in length.\n\n- If you use a previously used client token with the same request parameters, the server returns the same result as the original request without changing its state.\n\n- You can safely retry requests that time out or return a `PROCESSING` error code. Idempotence is guaranteed if the original request was successful (HTTP status code `200`). However, it is not guaranteed if the original request failed with an HTTP `4xx` error code other than `PROCESSING`.\n\n- The token is valid for 10 minutes.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the EIP.",
+      "description": "The description.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnsRegionId",
-      "description": "The ID of the Edge Node Service (ENS) node.",
+      "description": "The ID of the edge node.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the EIP. Set the value to **PostPaid**.",
+      "description": "The billing method of the EIP. The value is set to **PostPaid**, which is the pay-as-you-go billing method.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "",
+      "description": "The ID of the EIP instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetChargeType",
-      "description": "The metering method of the EIP. Set the value to **95BandwidthByMonth**.",
+      "description": "The metering method of the EIP. The value is set to **95BandwidthByMonth**, which indicates the monthly 95th percentile bandwidth metering method.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IpAddress",
-      "description": "",
+      "description": "The IP address. If you do not specify this parameter, the system automatically allocates an available IP address.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Isp",
-      "description": "The Internet service provider. Valid values:\n\n*   **cmcc**: China Mobile.\n*   **unicom**: China Unicom.\n*   **telecom**: China Telecom.",
+      "description": "The ISP. Valid values:\n\n- **cmcc**: China Mobile\n\n- **unicom**: China Unicom\n\n- **telecom**: China Telecom",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the EIP.",
+      "description": "The name of the EIP instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The resource tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of tag N that is added to the instance. Valid values of N: **1** to **20**.\n\n- The tag key cannot start with `aliyun`, `acs:`, `http://`, or `https://`.\n\n- The tag key can be up to 64 characters in length.\n\n- The tag key cannot be an empty string.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. The value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

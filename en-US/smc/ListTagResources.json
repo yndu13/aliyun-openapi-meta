@@ -7,40 +7,42 @@
   "parameters": [
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results.",
+      "description": "The token to start the next query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The IDs of SMC resources. SMC resources include migration sources and migration jobs. You can specify a maximum of 50 SMC resource IDs.",
+      "description": "A list of SMC resource IDs. SMC resources include migration sources and migration tasks. The list can contain a maximum of 50 IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The type of the SMC resource. Valid values:\n\n*   sourceserver: migration source.\n*   replicationjob: migration job.",
+      "description": "The SMC resource type. Valid values:\n\n- sourceserver: a migration source\n\n- replicationjob: a migration task",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The tags that are attached to SMC resources.",
+      "description": "A list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the SMC resource. The tag key can be 1 to 64 characters in length. N indicates the serial number of the tag. Valid values of N: 1 to 20.\n\nTag.N is a key-value pair that is used to filter SMC resources.\n\n- Tag keys and tag values are case-sensitive.\n\n- If you specify only Tag.N.Key, all resources that have this tag key are returned.\n\n- If you specify only Tag.N.Value, an InvalidParameter.TagValue error is returned.\n\n- If you specify multiple tags, only the SMC resources that have all these tags are returned.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the SMC resource. The tag value can be 1 to 64 characters in length. N indicates the serial number of the tag. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false

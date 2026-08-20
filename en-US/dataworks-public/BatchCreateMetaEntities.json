@@ -1,0 +1,53 @@
+{
+  "name": "BatchCreateMetaEntities",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "Entities",
+      "description": "The list of entities. A maximum of five entities are supported. All entities in the same batch must have the same entityType.",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "Attributes",
+          "description": "The entity attributes. Complex values must be serialized as JSON strings.",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "Comment",
+          "description": "The comment.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "CustomAttributes",
+          "description": "The custom attribute values. The key is the custom attribute identifier, and the value currently supports only a single value.\n<notice>The custom attributes used here must be created in advance by calling the CreateCustomAttribute operation. For example, after you call the API to create a custom attribute with the ID `custom-attribute:owner_name`, you can configure {'owner_name': ['Bob']} here to complete the custom attribute configuration.</notice>",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "EntityType",
+          "description": "The entity type. All entities in the same batch must have the same type. The following types are supported:\n- Custom entity types, such as custom_entity-biz_api.\n- Extension table types. If the metadata entity type custom_dw-table is registered, you can create objects of the corresponding database type custom_dw-database and table type custom_dw-table.",
+          "position": "FormData",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "Name",
+          "description": "The entity name. The name can contain uppercase letters, lowercase letters, digits, and underscores (_). It must start with a letter and can be up to 64 characters in length.",
+          "position": "FormData",
+          "type": "String",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

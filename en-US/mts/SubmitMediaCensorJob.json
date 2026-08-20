@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "Barrages",
-      "description": "The live comments.",
+      "description": "The barrage comments, provided as a string.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CoverImages",
-      "description": "The OSS URL of the image file that is used as the thumbnail. To view the OSS URL of the image file, you can log on to the **MPS console** and choose **Media Management** > **Media List** in the left-side navigation pane. You can specify up to five thumbnails in a JSON array.\n\n*   Bucket: the name of the OSS bucket that stores the input file.\n\n*   Location: the OSS region. The OSS region must be the same as the region in which your MPS service is activated.\n\n*   Object: the OSS object to be moderated.\n\n    **\n\n    **Note**The name of the object cannot start with a forward slash (/). Otherwise, the operation fails to be called.",
+      "description": "The OSS URLs of the cover images. You can obtain the URLs from the **MPS console** under **Media Management** > **Media List**. You can specify up to five cover images. Specify the URLs as a JSON array.\n\n- Bucket: The name of the input file's OSS bucket.\n\n- Location: The OSS region. This must match the region of your MPS service.\n\n- Object: The OSS object to scan.\n\n  > The object name cannot start with a forward slash (/). Otherwise, the API call fails.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the video. The value can be up to 128 bytes in size.",
+      "description": "The description of the video. The maximum length is 128 bytes.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -35,35 +35,35 @@
     },
     {
       "name": "Input",
-      "description": "The Object Storage Service (OSS) URL of the media file to be moderated. To view the OSS URL of the media file, you can log on to the **MPS console** and choose **Media Management** > **Media List** in the left-side navigation pane. To moderate an image file, use the `CoverImage` parameter to specify the OSS URL of the image file. The value is a JSON object. For more information, see the \"Input\" section of the [Parameter details](~~29253~~) topic.\n\n*   Bucket: the name of the OSS bucket that stores the input file.\n\n*   Location: the OSS region. The OSS region must be the same as the region in which your MPS service is activated.\n\n*   Object: the OSS object to be moderated.\n\n    **\n\n    **Note**The name of the object cannot start with a forward slash (/). Otherwise, the operation fails to be called.",
+      "description": "The OSS URL of the media file to censor. Video and audio files are supported. You can obtain the URL from the **MPS console** under **Media Management** > **Media List**. To censor an image file, use the `CoverImage` parameter. Specify this parameter as a JSON object. For details, see the [Input details](~~29253~~).\n\n- Bucket: The name of the input file's OSS bucket.\n\n- Location: The OSS region. This must match the region of your MPS service.\n\n- Object: The OSS object to scan.\n\n  > The object name cannot start with a forward slash (/). Otherwise, the API call fails.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PipelineId",
-      "description": "The ID of the MPS queue. This ID can be used to associate the job with a notification method. To view the ID of the MPS queue, you can log on to the **MPS console** and choose **Global Settings** > **Pipelines** in the left-side navigation pane. An empty string (\"\") indicates that the default MPS queue is used to run the job. By default, an MPS queue can process a maximum of 10 concurrent content moderation jobs. To increase the limit, [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.12246746.top-nav.ditem-sub.35da7bbcitpQnr#/ticket/createIndex).\n\n> MPS queues are automatically created by the system. For more information about how to query and update MPS queues, see the [UpdatePipeline](~~188374~~) topic.",
+      "description": "The ID of the pipeline that is used for message notifications. You can obtain the ID from the **MPS console** under **Global Settings** > **Pipelines**. If you do not specify this parameter, the default pipeline is used. The default pipeline has a concurrency of 10. To increase the concurrency, submit a <props=\"china\">[ticket](https://selfservice.console.aliyun.com/ticket/category/mts/recommend/1186)</props><props=\"intl\">[ticket](https://workorder-intl.console.aliyun.com/?spm=5176.12246746.top-nav.ditem-sub.35da7bbcitpQnr#/ticket/createIndex)</props>.\n\n> Currently, pipelines can only be created on the backend. To query and update pipelines, see [Update a pipeline](~~188374~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Title",
-      "description": "The title of the video. The value can be up to 64 bytes in size.",
+      "description": "The title of the video. The maximum length is 64 bytes.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserData",
-      "description": "The custom data. The value can be up to 128 bytes in size.",
+      "description": "Custom user data. The maximum length is 128 bytes.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VideoCensorConfig",
-      "description": "The video moderation configurations and the OSS URLs of the output snapshots. To view the OSS URL of the media file, you can log on to the **MPS console** and choose **Media Management** > **Media List** in the left-side navigation pane.\n\nThe value is a JSON object.\n\n*   OutputFile:\n\n    *   Bucket: the name of the OSS bucket that stores the output file.\n    *   Location: the OSS region. The OSS region must be the same as the region in which your MPS service is activated.\n    *   Object: the OSS object to be generated. In the value, {Count} indicates the sequence number of the frame snapshot.\n\n*   StoreVideoTimeline: specifies whether to generate the `{jobId}.video_timeline` file. The file is stored in OSS. A value of true indicates that the file is generated. A value of false indicates that the file is not generated. If you do not specify this parameter, the file is not generated by default. For more information about the format of the file, see the \"VideoTimelines\" parameter in the [QueryMediaCensorJobDetail](~~91779~~) topic.\n\n*   SaveType: the output mode. A value of abnormal indicates that snapshots are generated only for illegal frames. A value of all indicates that snapshots are generated for all frames.\n\n*   Biztype: the moderation template. If you do not specify this parameter or set the value to common, the default template is used. You can submit a ticket to create a custom moderation template. Then, set this parameter to your user ID to use the custom moderation template.\n\n*   Scenes: the moderation scenarios. You can specify the moderation scenarios that you want to use. If you do not specify this parameter, the terrorism and porn moderation scenarios are used by default. Valid values:\n\n    *   porn: pornographic content detection\n    *   terrorism: terrorist content detection\n    *   ad: ad violation detection\n    *   live: undesirable scene detection\n    *   logo: special logo detection\n    *   audio: audio anti-spam\n\n> If the input file contains audio tracks and the audio moderation scenario is specified, the audio tracks are moderated. If the input file does not contain audio tracks, you do not need to specify the audio moderation scenario.",
+      "description": "The video censorship configuration and the OSS URL for output snapshots. You can obtain the URL from the **MPS console** under **Media Management** > **Media List**.\n\nThis parameter is a JSON object.\n\n- OutputFile:\n\n  - Bucket: The name of the output OSS bucket.\n\n  - Location: The OSS region. This must be the same as the region where the MPS service resides.\n\n  - Object: The OSS object for the output. The {Count} placeholder is replaced with the sequence number of the snapshot.\n\n  The detailed censorship results are saved in a file named {jobId}.output in the same directory as the OutputFile. For information about the fields in the output file, see [Fields in the media censorship result file](~~609186~~).\n\n- StoreVideoTimeline: Specifies whether to generate a `{jobId}.video_timeline` file and store it in OSS. Set the value to `true` to generate the file. If you set the value to `false` or omit the parameter, the system does not generate the file. For details about the file format, see [Query a media job (videoTimeline example)](~~91779~~).\n\n- SaveType: The output mode. `abnormal` saves only snapshots of problematic content. `all` saves all snapshots.\n\n- Biztype: The censorship template. The default value is `common`. To use a custom censorship template, you must submit a ticket. After your custom template is configured, set this parameter to your user ID (UID).\n\n- Scene: The detection scenes. You can select one or more scenes. If you do not specify this parameter, the system defaults to the `porn` and `terrorism` scenes. Valid scenes:\n\n  - `porn`: pornographic content\n\n  - `terrorism`: terrorist content\n\n  - `ad`: text-image policy violations\n\n  - `live`: undesirable scenes\n\n  - `logo`: logos\n\n  - `audio`: audio anti-spam\n\n> For input files that have an audio track, the `audio` scene performs audio censorship. Do not specify the `audio` scene for input files that do not have an audio track.",
       "position": "Query",
       "type": "String",
       "required": true

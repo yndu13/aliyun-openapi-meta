@@ -14,7 +14,7 @@
     },
     {
       "name": "AppSource",
-      "description": "The SAE application type. Valid values:\n\n- **micro_service**\n- **web**\n- **job**",
+      "description": "The Serverless App Engine (SAE) application type.\n\n- **micro_service.**\n- **web.**\n- **job.**",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,21 +28,21 @@
     },
     {
       "name": "FieldType",
-      "description": "Set the filtering criteria for applications. The value options are as follows:\n\n- appName: Application name.\n- appIds: Application IDs.\n- slbIps: SLB IP addresses.\n- instanceIps: Instance IP addresses.",
+      "description": "The dimension by which to filter applications. Valid values:\n\n- **appName**: application name.\n- **appIds**: application ID.\n- **slbIps**: SLB IP address.\n- **instanceIps**: instance IP address.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FieldValue",
-      "description": "The name, ID, SLB IP, or instance IP of the target application.",
+      "description": "The application name, application ID, SLB IP address, or instance IP address of the target application.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IsStateful",
-      "description": "",
+      "description": "Specifies whether the application is stateful.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,35 +56,41 @@
     },
     {
       "name": "NewSaeVersion",
-      "description": "",
+      "description": "The application version. Valid values:\n\n- lite: Lite Edition\n- std: Standard Edition\n- pro: Professional Edition",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OrderBy",
-      "description": "Specifies how applications are sorted. Valid values:\n\n*   **running**: The applications are sorted based on the number of running instances.\n*   **instances**: The applications are sorted based on the number of destination instances.",
+      "description": "The field by which to sort applications. Valid values:\n\n- **runnings**: sorts by the current number target instances.\n- **instances**: sorts by the target number target instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of records in each page. Value range: [0,10000]",
+      "description": "The number of entries per page in a paging query. Valid values: \\[0,10000].",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "ProgrammingLanguage",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Reverse",
-      "description": "Sort by the running status of application instances. If the statuses are the same, sort by instance ID. The value options are as follows:\n\n- true: Sort in ascending order. Instances are arranged according to the startup process, for example: to ultimately reach the running state, an instance must first go through steps such as starting containers, pulling images, and initializing the instance.\n- false: Sort in descending order.",
+      "description": "Specifies whether to sort application instances by running status. If instances have the same status, they are sorted by instance ID. Valid values:\n  - **true**: sorts in ascending order. Instances are arranged based on the startup sequence. For example, to reach the running state, an instance must go through steps such as starting the container, pulling the image, and initializing the instance.\n  - **false**: sorts in descending order.\n\nThe ascending order of instances is as follows:\n\n1. **Error**: an error occurred during instance startup.\n2. **CrashLoopBackOff**: the container failed to start, encountered an error during startup, and encountered an error again after restart.\n3. **ErrImagePull**: an error occurred while pulling the container image for the instance.\n4. **ImagePullBackOff**: the container image cannot be obtained.\n5. **Pending**: the instance is waiting to be scheduled.\n6. **Unknown**: an unknown exception occurred.\n7. **Terminating**: the instance is being terminated.\n8. **NotFound**: the instance cannot be found.\n9. **PodInitializing**: the instance is being initialized.\n10. **Init:0/1**: the instance is initializing.\n11. **Running**: the instance is running.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tag in the format of a key-value pair.\n*   **key**: the tag key. It cannot exceed 128 characters in length.\n*   **value**: the tag value. It cannot exceed 128 characters in length.\n\nTag keys and tag values are case-sensitive. If you specify multiple tags, the system adds all the tags to the specified resources. Each tag key on a resource can have only one tag value. If you create a tag that has the same key as an existing tag, the value of the existing tag is overwritten.\n\nTag keys and tag values cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
+      "description": "The tag key-value pairs. Valid values:\n- **key**: the tag key. The length must be in the range of \\[1,128].\n- **value**: the tag value. The length must be in the range of \\[1,128].\n\nTags are case-sensitive. If you specify multiple tags, all specified tags are created and attached to the resource. Each tag key on the same resource can have only one tag value. If you add a tag key that already exists, the corresponding tag value is updated to the new value.\n\nTags cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false

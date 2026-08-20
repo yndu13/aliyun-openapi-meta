@@ -1,19 +1,20 @@
 {
   "name": "SetDcdnDomainStagingConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainName",
-      "description": "The accelerated domain name. Separate multiple accelerated domain names with commas (,).",
+      "description": "The accelerated domain name. Separate multiple domain names with commas (,).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Functions",
-      "description": "The list of features. Format: `[{\"functionArgs\":[{\"argName\":\"parameter key\",\"argValue\":\"parameter value\"},{\"argName\":\"xx\",\"argValue\":\"xx\"}],\"functionName\": feature name\"}]`\n\n> Separate multiple parameters with commas (,).",
+      "description": "A list of features. The format is as follows:\n\n- functionName (feature name, required): For a list of configurable features, see [Feature list](~~410622~~).\n- argName (parameter name, required): A parameter for functionName. You can specify multiple parameters.\n- argValue (parameter value, required): The value of the parameter for functionName.\n- parentId (conditional rule ID, optional): You can create conditional rules using the condition function of the rules engine. These rules match and filter user requests based on request parameters. Each conditional rule has a unique [configid](~~410558~~). You can use this configid as the ParentId parameter to reference the rule in other functions. This lets you combine conditional rules with feature configurations for more flexibility. For more information, see [Parameters for domain name configuration features](~~410622~~).\n\nIf you set parentId to -1, the existing conditional rule in the configuration is deleted.\n\n```\n\"functionArgs\": [{\n   \"argName\": \"Feature Parameter A\", \n   \"argValue\": \"Value of Feature Parameter A\"\n  }, \n{\n  \"argName\": \"Feature Parameter B\", \n  \"argValue\": \"Value of Feature Parameter B\"\n   }], \n```\n\n\"functionName\": \"Feature Name\", \"parentId\": Optional. Corresponds to the configid of the referenced conditional rule. }]\n\nExample configuration without using parentId: The following request parameters show how to use the origin\\_request\\_header function to add a header to origin requests:\n\n```\n\"functionArgs\": [{\n           \"argName\": \"header_operation_type\",\n           \"argValue\": \"add\"\n       }, {\n           \"argName\": \"header_name\",\n           \"argValue\": \"Accept-Encoding\"\n       }, {\n           \"argName\": \"header_value\",\n           \"argValue\": \"gzip\"\n       }, {\n           \"argName\": \"duplicate\",\n           \"argValue\": \"off\"\n       }],\n       \"functionName\": \"origin_request_header\"\n}]\n```\n\nExample configuration using parentId: The following request parameters show how to use the origin\\_request\\_header function to add a header to origin requests by referencing the conditional rule with configid=222728944812032:\n\n```\n        \"functionArgs\": [{\n            \"argName\": \"header_operation_type\",\n            \"argValue\": \"add\"\n        }, {\n            \"argName\": \"header_name\",\n            \"argValue\": \"Accept-Encoding\"\n        }, {\n            \"argName\": \"header_value\",\n            \"argValue\": \"gzip\"\n        }, {\n            \"argName\": \"duplicate\",\n            \"argValue\": \"off\"\n        }],\n        \"functionName\": \"origin_request_header\",\n        \"parentId\": 222728944812032\n}]\n```\n\nExample of deleting a parentId reference from a feature configuration: The origin\\_request\\_header function already references the conditional rule with configid=222728944812032. To delete the reference, use the following request parameters:\n\n```\n        \"functionArgs\": [{\n            \"argName\": \"header_operation_type\",\n            \"argValue\": \"add\"\n        }, {\n            \"argName\": \"header_name\",\n            \"argValue\": \"Accept-Encoding\"\n        }, {\n            \"argName\": \"header_value\",\n            \"argValue\": \"gzip\"\n        }, {\n            \"argName\": \"duplicate\",\n            \"argValue\": \"off\"\n        }],\n        \"functionName\": \"origin_request_header\",\n        \"parentId\": -1\n}]\n```",
       "position": "Query",
       "type": "String",
       "required": true

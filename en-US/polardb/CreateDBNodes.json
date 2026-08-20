@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "AutoUseCoupon",
-      "description": "",
+      "description": "Specifies whether to automatically use coupons. Valid values:\n* true (default): Use coupons.\n* false: Do not use coupons.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. The token is case-sensitive.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value. Make sure that the value is unique among different requests. The token is case-sensitive and can contain only ASCII characters. The token can be up to 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CloudProvider",
-      "description": "",
+      "description": "The cloud service provider to which the node belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBClusterId",
-      "description": "The ID of the cluster.",
+      "description": "The cluster ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBNode",
-      "description": "The details of the read-only node.",
+      "description": "The information about the new node.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "TargetClass",
+          "description": "The specification of the new node. The specification must be the same as that of the existing nodes. For more information, see the following topics:\n* PolarDB for MySQL: [Compute node specifications](~~102542~~). \n* PolarDB for PostgreSQL (Compatible with Oracle): [Compute node specifications](~~207921~~).\n* PolarDB for PostgreSQL: [Compute node specifications](~~209380~~).\n>* You must specify at least one of DBNode.N.ZoneId and DBNode.N.TargetClass. N is an integer that starts from 1. Maximum value of N = 16 - current number of nodes.\n>* Only PolarDB for MySQL clusters support adding multiple read-only nodes at a time. You can add up to 15 read-only nodes.\n>* This parameter is required for PolarDB for PostgreSQL (Compatible with Oracle) or PolarDB for PostgreSQL clusters. This parameter is optional for PolarDB for MySQL clusters.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZoneId",
+          "description": "The zone of the new node. The zone must be the same as that of the existing nodes. You can call the [DescribeRegions](~~98041~~) operation to query zone IDs.\n\n>* You must specify at least one of DBNode.N.ZoneId and DBNode.N.TargetClass. N is an integer that starts from 1. Maximum value of N = 16 - current number of nodes. \n>* Only PolarDB for MySQL clusters support adding multiple read-only nodes at a time. You can add up to 15 read-only nodes.\n>* This parameter is required for PolarDB for PostgreSQL (Compatible with Oracle) or PolarDB for PostgreSQL clusters. This parameter is optional for PolarDB for MySQL clusters.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,49 +58,49 @@
     },
     {
       "name": "DBNodeType",
-      "description": "The node type. Valid values:\n\n*   RO\n*   STANDBY\n*   DLNode\n\nEnumerated values:\n\n*   DLNode: AI node\n*   STANDBY: standby node\n*   RO: read-only node",
+      "description": "The node type. Valid values:\n- RO\n- STANDBY\n- DLNode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointBindList",
-      "description": "The ID of the cluster endpoint to which the read-only node is added. If you want to add the read-only node to multiple endpoints at the same time, separate the endpoint IDs with commas (,).\n> - You can call the [DescribeDBClusterEndpoints](~~98205~~) operation to query the details of cluster endpoints, including endpoint IDs.\n>- You can enter the ID of the default cluster endpoint or a custom cluster endpoint.\n>- If you leave this parameter empty, the read-only node is added to all cluster endpoints for which the **Automatically Associate New Nodes** feature is enabled. If you set `AutoAddNewNodes` to `Enable`, the Automatically Associate New Nodes feature is enabled.",
+      "description": "The ID of the cluster endpoint to which you want to add the new node. If you want to add the node to multiple endpoints, separate the endpoint IDs with commas (,).\n> * You can call the [DescribeDBClusterEndpoints](~~98205~~) operation to query the details of cluster endpoints, including endpoint IDs.\n>* You can specify the IDs of the default cluster endpoint and custom cluster endpoints.\n>* If you leave this parameter empty, the new node is added to all cluster endpoints that have the **Automatically Associate New Nodes** feature enabled (the value of `AutoAddNewNodes` is `Enable`).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImciSwitch",
-      "description": "Specifies whether to enable the In-Memory Column Index (IMCI) feature. Default value: OFF. Valid values:\n\n*   **ON**\n*   **OFF**\n\n> This parameter is invalid for a PolarDB for Oracle or PolarDB for PostgreSQL cluster.",
+      "description": "Specifies whether to enable In-Memory Column Index (IMCI). Valid values:\n\n- **ON**: enabled.\n\n- **OFF**: disabled. This is the default value.\n\n> PolarDB for PostgreSQL (Compatible with Oracle) and PolarDB for PostgreSQL do not support this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlannedEndTime",
-      "description": "The latest start time for upgrading the specifications within the scheduled time period. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.\n\n>- The value of this parameter must be at least 30 minutes later than the value of PlannedStartTime.\n>- If you specify `PlannedStartTime` but do not specify PlannedEndTime, the latest start time of the task is set to a value that is calculated by using the following formula: `PlannedEndTime value + 30 minutes`. For example, if you set `PlannedStartTime` to `2021-01-14T09:00:00Z` and you do not specify PlannedEndTime, the latest start time of the task is set to `2021-01-14T09:30:00Z`.",
+      "description": "The latest time to start running the scheduled task. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format (UTC).\n> * The latest time must be at least 30 minutes later than the start time.\n>* If you specify `PlannedStartTime` but leave this parameter empty, the latest time defaults to `start time + 30 minutes`. For example, if you set `PlannedStartTime` to `2021-01-14T09:00:00Z` and leave this parameter empty, the task starts no later than `2021-01-14T09:30:00Z`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlannedStartTime",
-      "description": "The earliest start time of the scheduled task for adding the read-only node. The scheduled task specifies that the task is run in the required period. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.\n\n>- The earliest start time of the scheduled task can be a point in time within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, you can specify a point in time between `2021-01-14T09:00:00Z` and `2021-01-15T09:00:00Z`.\n>- If you leave this parameter empty, the task for adding the read-only node is immediately run by default.",
+      "description": "The earliest time to start running the scheduled task for adding nodes. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format (UTC).\n> * The start time must be within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, you can specify a start time within the range of `2021-01-14T09:00:00Z` to `2021-01-15T09:00:00Z`.\n>* If you leave this parameter empty, the task for adding nodes is immediately run.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PromotionCode",
-      "description": "",
+      "description": "The coupon code. If you do not specify this parameter, the default coupon is used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false

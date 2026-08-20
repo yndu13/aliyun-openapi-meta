@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "BackupMethod",
-      "description": "The backup type of the instance. Valid values:\n\n*   **Logical**: logical backup\n*   **Physical**: physical backup\n*   **Snapshot**: snapshot backup\n\nDefault value: **Physical**.\n\n> *   You can perform a logical backup only when databases are created on the instance.\n> *   When you perform a snapshot backup on an ApsaraDB RDS for MariaDB instance, you must set this parameter to **Physical**.\n> *   For more information about the supported backup types, see [Use the data backup feature](~~98818~~).\n> *   When you perform a snapshot backup on an ApsaraDB RDS for SQL Server instance that uses cloud disks, you must set this parameter to **Snapshot**.",
+      "description": "The backup method. Valid values:\n\n- **Logical**: logical backup. This method is applicable only to MySQL instances that use local disks.\n\n- **Physical**: physical backup. This method is applicable to MySQL instances that use local disks, and to SQL Server and PostgreSQL instances.\n\n- **Snapshot**: snapshot backup. This method is applicable to MySQL instances that use cloud disks, and to SQL Server, PostgreSQL, and MariaDB instances.\n\nDefault value: **Physical**.\n\n> - For logical backups, the database cannot be empty.\n>\n> - MariaDB instances support only snapshot backups. However, you must set this parameter to **Physical**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupRetentionPeriod",
-      "description": "",
+      "description": "- For **SQL Server** instances, you can specify the retention period for a backup set if **BackupStrategy** is set to **db**, **BackupMethod** is set to **Physical**, and **BackupType** is set to **FullBackup**. The value must be an integer from 7 to 730. A value of -1 specifies long-term retention.\n\n- **MySQL**: The retention period for backup sets can be 7 to 730 days, or -1 for long-term retention.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "BackupStrategy",
-      "description": "The backup policy. Valid values:\n\n*   **db**: a database-level backup.\n*   **instance**: an instance-level backup.\n\n> You can specify this parameter when you perform a logical backup on an ApsaraDB RDS for MySQL instance. You can also specify this parameter when you perform a full physical backup on an ApsaraDB RDS for SQL Server instance.",
+      "description": "The backup strategy. Valid values:\n\n- **db**: database backup\n\n- **instance**: instance backup\n\n> This parameter applies only in the following cases:\n>\n> - For a MySQL instance, this parameter applies when the **BackupMethod** parameter is set to **Logical**.\n>\n> - For a SQL Server instance, this parameter applies when the **BackupType** parameter is set to **FullBackup**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupType",
-      "description": "The backup method. Valid values:\n\n*   **Auto**: full or incremental backup that is automatically selected\n*   **FullBackup**: full backup\n\nDefault value: **Auto**.\n\n> *   You must set this parameter only when the instance runs SQL Server.\n> *   This parameter is valid only when you set the **BackupMethod** parameter to **Physical**.",
+      "description": "The backup type for a SQL Server instance. Valid values:\n\n- **Auto** (default): The system automatically selects between a full backup and an incremental backup.\n\n- **FullBackup**: full backup\n\n> This parameter takes effect only when **BackupMethod** is set to **Physical**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID. You can call the DescribeDBInstances operation to query the instance ID.",
+      "description": "The instance ID. You can call the DescribeDBInstances operation to obtain the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBName",
-      "description": "The names of the databases whose data you want to back up. Separate the names of the databases with commas (,).\n\n> You can specify this parameter when you perform a logical backup on individual databases of an ApsaraDB RDS for MySQL instance. You can also specify this parameter when you perform a full physical backup on individual databases of an ApsaraDB RDS for SQL Server instance.",
+      "description": "The names of the databases that you want to back up. Separate multiple database names with commas (,).\n\n> This parameter applies only when the **BackupStrategy** parameter is set to **db**.",
       "position": "Query",
       "type": "String",
       "required": false

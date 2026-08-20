@@ -1,30 +1,34 @@
 {
   "name": "ModifyCasterLayout",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AudioLayer",
-      "description": "The audio layers.",
+      "description": "The audio information.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "FixedDelayDuration",
+          "description": "The fixed delay for the audio. This can be used for subtitle synchronization. Unit: milliseconds. Default value: **0**. Valid values: **0 to 5000**.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ValidChannel",
+          "description": "The audio channels that can be used as volume input. Valid values:\n- **leftChannel**: left channel.\n- **rightChannel**: right channel.\n- **all** (default): both channels.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VolumeRate",
+          "description": "The normalized height ratio of the Layer element. The width of the element is proportionally scaled based on this height. \n\nDefault value: **0**, which indicates that the element is displayed at its original size.",
           "position": "Query",
           "type": "Float",
           "required": false
@@ -33,78 +37,84 @@
     },
     {
       "name": "BlendList",
-      "description": "The location IDs of the video layers, which are in the same order as the video layers.\n\nFor more information, see [AddCasterVideoResource](~~2848020~~).",
+      "description": "The location ID (LocationId) of the video resource element.\n\nFor the LocationId, see [Add a video source](~~2848020~~). The elements correspond to the VideoLayers elements in order.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\n*   If the production studio was created by calling the [CreateCaster](~~2848009~~) operation, check the value of the response parameter CasterId to obtain the ID.\n*   If the production studio was created by using the ApsaraVideo Live console, obtain the ID on the **Production Studio Management** page. To go to the page, log on to the **ApsaraVideo Live console** and click **Production Studios** in the left-side navigation pane.\n\n>  You can find the ID of the production studio in the Instance ID/Name column.",
+      "description": "The production studio ID.\n\n- If you created the production studio by calling the [CreateCaster operation](~~2848009~~), check the CasterId parameter returned by the CreateCaster operation.\n\n- If you created the production studio in the ApsaraVideo Live console, go to **ApsaraVideo Live console** > **Production Studio** > **Cloud Production Studio** to view the ID.\n\n> The production studio name in the production studio list on the Cloud Production Studio page of the ApsaraVideo Live console is the production studio ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "LayoutId",
-      "description": "The ID of the layout. If the layout was added by calling the [AddCasterLayout](~~2848025~~) operation, check the value of the response parameter LayoutId to obtain the ID.",
+      "description": "The layout ID. If you added the production studio layout by calling the [AddCasterLayout operation](~~2848025~~), check the LayoutId parameter returned by the AddCasterLayout operation.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "MixList",
-      "description": "The location IDs of the audio layers, which are in the same order as the audio layers.\n\nFor more information, see [AddCasterVideoResource](~~2848020~~).",
+      "description": "The location ID (LocationId) of the audio resource element.\n\nFor the LocationId, see [Add a video source](~~2848020~~). The elements correspond to the AudioLayers elements in order.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VideoLayer",
-      "description": "The video layers.",
+      "description": "The video information.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "FillMode",
+          "description": "The element fill mode. \n\n- **none** (default): no fill. The Layer settings are configured with the image as the target.\n- **fit**: adaptive. The Layer settings are configured with the fill area (box) as the target. The image is scaled based on the original aspect ratio and centered within the fill area (box) using a long-edge alignment method. If the aspect ratio of the fill area does not match the image, the short edges are not filled (the lower Layer image is displayed. If no lower Layer is configured, the default black background is displayed).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FixedDelayDuration",
+          "description": "The fixed delay for the video. This can be used for subtitle synchronization. Unit: milliseconds. Default value: **0**. Valid values: **0 to 5000**.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "HeightNormalized",
+          "description": "The normalized height ratio of the Layer element. \n          \n- If the no-fill mode is used, the width of the element is proportionally scaled based on this height. Default value: **0**, which indicates that the image is displayed at its original size.\n- If the adaptive mode is used, this field is required and must be greater than **0**. It specifies the normalized height ratio of the fill area (box).",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "PositionNormalized",
+          "description": "The normalized position values `[x,y]` of the Layer element. Default value: `[0,0]`.\n\n>Note: The x and y values must be normalized.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "PositionRefer",
+          "description": "The reference coordinate for the position of the element. Valid values:\n- **topLeft** (default): top-left.\n- **topRight**: top-right.\n- **bottomLeft**: bottom-left.\n- **bottomRight**: bottom-right.\n- **center**: center.\n- **topCenter**: top-center.\n- **bottomCenter**: bottom-center.\n- **leftCenter**: left-center.\n- **rightCenter**: right-center.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WidthNormalized",
+          "description": "The normalized width ratio of the Layer element. \n\n- If the no-fill mode is used, the height of the element is proportionally scaled based on this width. Default value: **0**, which indicates that the image is displayed at its original size.\n- If the adaptive mode is used, this field is required and must be greater than **0**. It specifies the normalized width ratio of the fill area (box).",
           "position": "Query",
           "type": "Float",
           "required": false

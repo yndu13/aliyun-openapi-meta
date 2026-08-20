@@ -7,103 +7,105 @@
   "parameters": [
     {
       "name": "CommandId",
-      "description": "$.parameters[11].schema.example",
+      "description": "The command ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ContentEncoding",
-      "description": "<DescribeInvocationResultsResponse>\n    <RequestId>473469C7-AA6F-4DC5-B3DB-A3DC0DE*****</RequestId>\n    <Invocation>\n        <InvocationResults>\n            <InvocationResult>\n                <Dropped>0</Dropped>\n                <InvocationStatus>Success</InvocationStatus>\n                <InstanceId>i-bp1i7gg30r52z2em****</InstanceId>\n                <ExitCode>0</ExitCode>\n                <ErrorInfo>the specified instance does not exists</ErrorInfo>\n                <StartTime>2019-12-20T06:15:55Z</StartTime>\n                <Repeats>0</Repeats>\n                <InvokeRecordStatus>Running</InvokeRecordStatus>\n                <FinishedTime>2019-12-20T06:15:56Z</FinishedTime>\n                <Output>MTU6MzA6MDEK</Output>\n                <CommandId>c-hz0jdfwcsr****</CommandId>\n                <ErrorCode>InstanceNotExists</ErrorCode>\n                <InvokeId>t-hz0jdfwd9f****</InvokeId>\n                <StopTime>2020-01-19T09:15:47Z</StopTime>\n                <ContainerId>ab141ddfbacfe02d9dbc25966ed971536124527097398d419a6746873fea****</ContainerId>\n                <ContainerName>test-container</ContainerName>\n                <Tags>\n                    <TagKey>owner</TagKey>\n                    <TagValue>zhangsan</TagValue>\n                </Tags>\n            </InvocationResult>\n        </InvocationResults>\n        <TotalCount>1</TotalCount>\n        <PageSize>1</PageSize>\n        <PageNumber>1</PageNumber>\n    </Invocation>\n</DescribeInvocationResultsResponse>",
+      "description": "The encoding method for the `CommandContent` and `Output` fields in the response. Valid values:\n- PlainText: Returns the original command content and output.\n- Base64: Returns Base64-encoded command content and output.\n\nDefault value: Base64.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IncludeHistory",
-      "description": "{\n  \"RequestId\" : \"473469C7-AA6F-4DC5-B3DB-A3DC0DE*****\",\n  \"Invocation\" : {\n    \"InvocationResults\" : {\n      \"InvocationResult\" : [ {\n        \"Dropped\" : 0,\n        \"InvocationStatus\" : \"Success\",\n        \"InstanceId\" : \"i-bp1i7gg30r52z2em****\",\n        \"ExitCode\" : 0,\n        \"ErrorInfo\" : \"the specified instance does not exists\",\n        \"StartTime\" : \"2019-12-20T06:15:55Z\",\n        \"Repeats\" : 0,\n        \"InvokeRecordStatus\" : \"Running\",\n        \"FinishedTime\" : \"2019-12-20T06:15:56Z\",\n        \"Output\" : \"MTU6MzA6MDEK\",\n        \"CommandId\" : \"c-hz0jdfwcsr****\",\n        \"ErrorCode\" : \"InstanceNotExists\",\n        \"InvokeId\" : \"t-hz0jdfwd9f****\",\n        \"StopTime\" : \"2020-01-19T09:15:47Z\",\n        \"ContainerId\":\"ab141ddfbacfe02d9dbc25966ed971536124527097398d419a6746873fea****\",\n        \"ContainerName\":\"test-container\",      \n        \"Tags\": [\n                    {\n                        \"TagKey\": \"owner\",\n                        \"TagValue\": \"zhangsan\"\n                    }\n                ]\n      } ]\n    },\n    \"TotalCount\" : 1,\n    \"PageSize\" : 1,\n    \"PageNumber\" : 1\n  }\n}",
+      "description": "Specifies whether to return the execution history of scheduled commands. Valid values:\n\n - true: Returns the execution results of scheduled commands. When this parameter is set to true, the InvokeId parameter cannot be empty and must be the execution ID of a scheduled command (RepeatMode is Period) or a command that runs on each system startup (RepeatMode is EveryReboot).\n - false: Does not return the execution history.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "$.parameters[11].schema.description",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InvokeId",
-      "description": "$.parameters[11].schema.items.enumValueTitles",
+      "description": "The command execution ID. You can call [DescribeInvocations](~~64840~~) to query the InvokeId.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InvokeRecordStatus",
-      "description": "$.parameters[11].schema.enumValueTitles",
+      "description": "The command execution status. Valid values:\n\n- Running: The command is running.\n    - Scheduled execution: The execution status remains running until you manually stop the scheduled command.\n    - One-time execution: The overall execution status is running as long as any command process is in progress.\n- Finished: The execution is complete.\n    - Scheduled execution: The command process cannot have a status of finished.\n    - One-time execution: All instances have completed execution, or you manually stopped the command process on some instances and the remaining instances have completed execution.\n- Success:\n    - One-time execution: The command execution is complete and the exit code is 0.\n    - Scheduled execution: The last execution succeeded with an exit code of 0, and the specified execution time has ended.\n- Failed: The execution failed.\n    - Scheduled execution: The command process cannot have a status of failed.\n    - One-time execution: All instances failed to execute the command.\n- PartialFailed: The execution partially failed.\n    - Scheduled execution: The command process cannot have a status of partially failed.\n    - One-time execution: Some instances have failed command processes, so the overall execution status is partially failed.\n- Stopped: The command execution has been stopped.\n- Stopping: The command execution is being stopped.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "FEATUREecsXZ3H4M",
+      "description": "The maximum number of entries per page in a paging query.\n\nMaximum value: 50.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "dubbo",
+      "description": "The pagination token. Set this to the NextToken value returned by the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "acs:ecs:{#regionId}:{#accountId}:command/*",
+      "description": "> This parameter is about to be deprecated. Use NextToken and MaxResults to perform paging query operations.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "acs:ecs:{#regionId}:{#accountId}:instance/*",
+      "description": "> This parameter is about to be deprecated. Use NextToken and MaxResults to perform paging query operations.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "$.parameters[11].schema.items.description",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "$.parameters[11].schema.items.example",
+      "description": "The resource group ID for command execution. After you specify this parameter, you must also specify ResourceGroupId when running the command. This parameter filters the corresponding command execution results.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The region ID of the command. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the command execution. Valid values of N: 1 to 20. The tag key cannot be an empty string.\n\nIf you use a single tag to filter resources, the number of resources with this tag cannot exceed 1,000. If you use multiple tags to filter resources, the number of resources with all specified tags attached cannot exceed 1,000. If the resource count exceeds 1,000, use the [ListTagResources](~~110425~~) operation to execute the query.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the command execution. Valid values of N: 1 to 20. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

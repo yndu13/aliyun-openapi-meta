@@ -6,162 +6,348 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AdvancedDataPolicies",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ActionType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "BakType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestRegion",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "FilterKey",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "FilterType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "FilterValue",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "OnlyPreserveOneEachDay",
+          "position": "Query",
+          "type": "Boolean",
+          "required": false
+        },
+        {
+          "name": "OnlyPreserveOneEachHour",
+          "position": "Query",
+          "type": "Boolean",
+          "required": false
+        },
+        {
+          "name": "RetentionType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "RetentionValue",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "SrcRegion",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "StrategyId",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "AdvancedLogPolicies",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ActionType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestRegion",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "EnableLogBackup",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "FilterKey",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "FilterValue",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "LogRetentionType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "LogRetentionValue",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "SrcRegion",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcType",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "StrategyId",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "ArchiveBackupKeepCount",
-      "description": "The number of archived backup files that are retained. Default value: **1**. Valid values:\n\n*   Valid values when **ArchiveBackupKeepPolicy** is set to **ByMonth**: **1** to **31**.\n*   Valid values when **ArchiveBackupKeepPolicy** is set to **ByWeek**: **1** to **7**.\n\n> *   You do not need to specify this parameter when **ArchiveBackupKeepPolicy** is set to **KeepAll**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The number of archived backups to retain. Default value: **1**. Valid values:\n* If **ArchiveBackupKeepPolicy** is set to **ByMonth**, the value ranges from **1** to **31**.\n* If **ArchiveBackupKeepPolicy** is set to **ByWeek**, the value ranges from **1** to **7**.\n\n> * If **ArchiveBackupKeepPolicy** is set to **KeepAll**, you do not need to specify this parameter.\n> * This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ArchiveBackupKeepPolicy",
-      "description": "The retention period of archived backup files. The number of archived backup files that can be retained within the specified retention period is specified by **ArchiveBackupKeepCount**. Default value: **0**. Valid values:\n\n*   **ByMonth**\n*   **ByWeek**\n*   **KeepAll**\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The retention cycle for archived backups. The number of backups that can be retained within this cycle is determined by **ArchiveBackupKeepCount**. Default value: **0**. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ArchiveBackupRetentionPeriod",
-      "description": "The number of days for which the archived backup is retained. The default value **0** specifies that the backup archiving feature is disabled. Valid values: **30** to **1095**.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The number of days for which archived backup files are retained. Default value: **0**, which indicates that archived backup is disabled. Valid values: **30** to **1095**.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupInterval",
-      "description": "The frequency at which you want to perform a snapshot backup on the instance. Valid values:\n\n*   **-1**: No backup frequencies are specified.\n*   **30**: A snapshot backup is performed every 30 minutes.\n*   **60**: A snapshot backup is performed every 60 minutes.\n*   **120**: A snapshot backup is performed every 120 minutes.\n*   **240**: A snapshot backup is performed every 240 minutes.\n*   **480**: A snapshot backup is performed every 480 minutes.\n\n> *   You can configure a backup policy by using this parameter and the **PreferredBackupPeriod** parameter. For example, if you set **PreferredBackupPeriod** to Saturday,Sunday and BackupInterval to \\*\\*-1\\*\\*, a snapshot backup is performed on every Saturday and Sunday.\n> *   If the instance runs PostgreSQL, BackupInterval is supported only when the instance is equipped with cloud disks.\n> *   If the instance runs SQL Server, BackupInterval is supported only when the snapshot backup feature is enabled for the instance. For more information, see [Enable snapshot backups for an ApsaraDB RDS for SQL Server instance](~~211143~~).\n> *   If **Category** is set to **Flash**, BackupInterval is invalid.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The snapshot backup frequency. Valid values:\n* **15**: 15 minutes.\n* **30**: 30 minutes.\n* **60**: 60 minutes.\n* **120**: 120 minutes.\n* **180**: 180 minutes.\n* **240**: 240 minutes.\n* **360**: 360 minutes.\n* **480**: 480 minutes.\n* **720**: 720 minutes.\n\n> * This parameter works together with the **PreferredBackupPeriod** parameter to determine the backup policy.\n> * The MySQL instance must be a High-availability Edition or Cluster Edition instance that uses cloud disks and runs MySQL 5.7 or 8.0.\n> * The PostgreSQL instance must be a cloud disk instance.\n> * The SQL Server instance must have [**snapshot backup**](~~211143~~) **enabled**.\n> * This parameter is invalid when the **Category** parameter is set to **Flash**.\n> * This parameter takes effect only when the **BackupPolicyMode** parameter is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupLog",
-      "description": "Specifies whether to enable the log backup feature. Valid values:\n\n*   **Enable**: enables the feature.\n*   **Disabled**: disables the feature.\n\n> *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "Specifies whether to enable log backup. Valid values:\n\n* **Enable**: Enabled.\n* **Disabled**: Disabled.\n\n**For ApsaraDB RDS for SQL Server instances**, log backup is enabled by default and cannot be disabled. However, you can modify the log backup frequency as follows:\n\n- Log backup frequency of **every 5 minutes**: Set BackupLog to Enable and leave LogBackupFrequency empty (no value required). For more information, see [5-minute log backup](~~2861729~~). **This configuration is not supported when a preferred secondary database for backup is specified (BackupPriority is set to 1). Otherwise, an error is returned.**\n- Log backup frequency of **every 30 minutes**: Leave BackupLog empty (no value required) and set LogBackupFrequency to LogInterval.\n- Log backup frequency **consistent with data backup**: Leave BackupLog empty (no value required) and leave LogBackupFrequency empty (no value required).\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy** and is used to enable or disable log backup.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupMethod",
-      "description": "The backup method of the instance. Valid values:\n\n*   **Physical**: physical backup\n*   **Snapshot**: snapshot backup\n\nDefault value: **Physical**.\n\n> *   This parameter takes effect only on instances that run SQL Server with cloud disks.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The backup method for **SQL Server instances with cloud disks**. Valid values:\n* **Physical** (default): physical backup.\n* **Snapshot**: snapshot backup.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupPolicyMode",
-      "description": "The type of the backup. Valid values:\n\n*   **DataBackupPolicy**: data backup\n*   **LogBackupPolicy**: log backup",
+      "description": "The backup type. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupPriority",
-      "description": "Specifies whether the backup settings of a secondary instance are configured. Valid values:\n\n*   **1**: secondary instance preferred\n*   **2**: primary instance preferred\n\n> *   This parameter is suitable only for instances that run SQL Server on RDS Cluster Edition.\n> *   This parameter takes effect only when **BackupMethod** is set to **Physical**. If **BackupMethod** is set to **Snapshot**, backups are forcefully performed on the primary instance that runs SQL Server on RDS Cluster Edition.",
+      "description": "The setting for [secondary instance backup](~~95717~~) of **SQL Server Cluster Edition** instances. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "BackupRetentionPeriod",
-      "description": "The number of days for which you want to retain data backup files. Valid values: **7 to 730**.\n\n> *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The number of days for which data backups are retained. Valid values: **7 to 730**.\n\n> * This parameter is required when **BackupPolicyMode** is set to **DataBackupPolicy**.\n> * This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Category",
-      "description": "Specifies whether to enable the single-digit second backup feature. Valid values:\n\n*   **Flash**: enables the feature.\n*   **Standard**: disables the feature.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "Specifies whether to enable backup within seconds. Valid values:\n* **Flash**: Enabled.\n* **Standard**: Disabled.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CompressType",
-      "description": "The format that is used to compress backup data. Valid values:\n\n*   **0**: Backups are not compressed.\n*   **1**: The zlib tool is used to compress backups into .tar.gz files.\n*   **2**: The zlib tool is used to compress backups in parallel.\n*   **4**: The QuickLZ tool is used to compress backups into .xb.gz files. This compression format is supported for instances that run MySQL 5.6 or MySQL 5.7. Backups in this compression format can be used to restore individual databases and tables. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).\n*   **8**: The QuickLZ tool is used to compress backups into .xb.gz files. This compression format is supported only for instances that run MySQL 8.0. Backups in this compression format cannot be used to restore individual databases and tables.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The backup compression method. Valid values:\n* **0**: No compression.\n* **1**: zlib compression. The backup file is in the tar.gz format.\n* **2**: Parallel zlib compression.\n* **4**: quicklz compression. The backup file is in the xb.gz format. This value is applicable only to MySQL 5.6 and MySQL 5.7. This compression method can be used for [individual database and table restoration](~~103175~~).\n* **8**: quicklz compression. The backup file is in the xb.gz format. This value is applicable only to MySQL 8.0. Individual database and table restoration is not supported.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID. You can call the DescribeDBInstances operation to query the instance ID.",
+      "description": "The instance ID. You can call DescribeDBInstances to obtain the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "EnableAdvancedBackupPolicy",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "EnableBackupLog",
-      "description": "Specifies whether to enable the log backup feature. Valid values:\n\n*   **True** or **1**: enables the log backup feature.\n*   **False** or **0**: disables the log backup feature.\n\n> \n\n*   You must specify this parameter when you set the **BackupPolicyMode** parameter to **LogBackupPolicy**.\n\n*   This parameter takes effect only when you set the **BackupPolicyMode** parameter to **LogBackupPolicy**.",
+      "description": "Specifies whether to enable log backup for **MySQL**, **PostgreSQL**, and **MariaDB** instances. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableIncrementDataBackup",
-      "description": "Specifies whether to enable incremental backup. Valid values:\n\n*   **false** (default): disables the feature.\n*   **true**: enables the feature.\n\n> *   This parameter takes effect only on instances that run SQL Server with cloud disks.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "Specifies whether to enable incremental backup for **SQL Server instances with cloud disks or MySQL instances with local disks**. Valid values:",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "EnablePitrProtection",
+      "description": "Specifies whether to enable point-in-time recovery for a **MySQL** instance. Valid values:\n- **True**: Enabled.\n- **False**: Disabled.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy** and **BackupLog** is set to **Enable**. For more information, see [Configure a point-in-time recovery policy](~~2666046~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HighSpaceUsageProtection",
-      "description": "Specifies whether to forcefully delete log backup files from the instance when the storage usage of the instance exceeds 80% or the amount of remaining storage on the instance is less than 5 GB. Valid values: **Enable and Disable**. You can retain the default value.\n\n> *   You must specify this parameter when you set the **BackupPolicyMode** parameter to **LogBackupPolicy**.\n> *   This parameter takes effect only when you set the **BackupPolicyMode** parameter to **LogBackupPolicy**.",
+      "description": "Specifies whether to unconditionally delete binary logs when the storage usage of a **MySQL** instance exceeds 80% or the remaining storage is less than 5 GB. Valid values: **Enable | Disable**. By default, this parameter is not modified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "IncBackupInterval",
+      "description": "The high-frequency incremental backup frequency for **MySQL instances with local disks**. Valid values:",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "LocalLogRetentionHours",
-      "description": "The number of hours for which you want to retain log backup files on the instance. Valid values: **0 to 168**. The value 0 specifies that log backup files are not retained on the instance. The value 168 is calculated based on the following formula: 7 × 24.\n\n> *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.",
+      "description": "The number of hours for which binary logs are retained on the **MySQL** instance. Valid values: **0 to 7×24**. A value of 0 indicates that binary logs are not retained locally.\n\n> This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**. In this case, this parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LocalLogRetentionSpace",
-      "description": "The maximum storage usage that is allowed for log backup files on the instance. If the storage usage for log backup files on the instance exceeds the value of this parameter, the system deletes earlier log backup files until the storage usage falls below the value of this parameter. Valid values:**0 to 50**. You can retain the default value.\n\n> *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.",
+      "description": "The maximum usage of the local log storage space for a **MySQL** instance. If the usage exceeds this value, the system starts to delete binary logs from the earliest one until the usage drops below this value. Valid values: **0 to 50**. By default, this parameter is not modified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LogBackupFrequency",
-      "description": "The frequency at which you want to back up the logs of the instance. Valid values:\n\n*   **LogInterval**: A log backup is performed every 30 minutes.\n*   The default value is the same as the data backup frequency.\n\n> *   The value **LogInterval** is supported only for instances that run SQL Server.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The log backup frequency of an **SQL Server** instance. Valid values:\n* **LogInterval**: every 30 minutes.\n* **Empty** (no value required): every 5 minutes or consistent with the data backup frequency.\n\n> This parameter takes effect only when the **BackupPolicyMode** parameter is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LogBackupLocalRetentionNumber",
-      "description": "The number of binary log files that you want to retain on the instance. Default value: **60**. Valid values: **6** to **100**.\n\n> \n\n*   This parameter takes effect only when you set the **BackupPolicyMode** parameter to **LogBackupPolicy**.\n\n*   If the instance runs MySQL, you can set this parameter to \\*\\*-1\\*\\*. The value \\*\\*-1\\*\\* specifies that an unlimited number of binary log files can be retained on the instance.",
+      "description": "The number of binary log files retained locally. Default value: **60**. Valid values: **6** to **100**.\n\n> * This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.\n> * If the instance type is MySQL, you can set this parameter to -1 to retain an unlimited number of local binary log files.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LogBackupRetentionPeriod",
-      "description": "The number of days for which the log backup is retained. Valid values: **7 to 730**. The log backup retention period cannot be longer than the data backup retention period.\n\n> *   If you enable the log backup feature, you can specify the log backup retention period. This parameter is supported for instances that run MySQL and PostgreSQL.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy** or **LogBackupPolicy**.",
+      "description": "The number of days for which log backups are retained. Valid values: **7 to 730**. The value cannot be greater than the number of days for which data backups are retained.\n\n> * When log backup is enabled, you can specify the retention period of log backup files. Currently, only MySQL and PostgreSQL instances support this parameter.\n> * This parameter takes effect when **BackupPolicyMode** is set to **DataBackupPolicy** or **LogBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PreferredBackupPeriod",
-      "description": "The backup cycle. Specify at least two days of the week and separate the days with commas (,). Valid values:\n\n*   **Monday**\n*   **Tuesday**\n*   **Wednesday**\n*   **Thursday**\n*   **Friday**\n*   **Saturday**\n*   **Sunday**\n\n> *   You can configure a backup policy by using this parameter and the **BackupInterval** parameter. For example, if you set this parameter to Saturday,Sunday and the **BackupInterval** parameter to 30, a backup is performed every 30 minutes on every Saturday and Sunday.\n> *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The backup cycle. You must specify at least two days. Separate multiple values with commas (,). Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PreferredBackupTime",
-      "description": "The time at which you want to perform a backup. Specify the time in the ISO 8601 standard in the *HH:mm*Z-*HH:mm*Z format. The time must be in UTC.\n\n> *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.\n> *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
+      "description": "The time at which to perform the backup task. Format: <i>HH:mm</i>Z-<i>HH:mm</i>Z (UTC).\n\n> * This parameter is required when **BackupPolicyMode** is set to **DataBackupPolicy**.\n> * This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReleasedKeepPolicy",
-      "description": "The policy that is used to retain archived backup files if the instance is released. Valid values:\n\n*   **None**: No archived backup files are retained.\n*   **Lastest**: Only the last archived backup file is retained.\n*   **All**: All archived backup files are retained.\n\n> *   This parameter takes effect only when you set the **BackupPolicyMode** parameter to **DataBackupPolicy**.\n> *   If the instance uses cloud disks and was created on or after February 1, 2024, this parameter is automatically set to **Lastest**. If the instance uses local disks in the same scenario, this parameter is automatically set to **None**. For more information, see [Backup for deleted instances](~~2836955~~).",
+      "description": "The data retention policy for archived backups of deleted **MySQL** instances. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false

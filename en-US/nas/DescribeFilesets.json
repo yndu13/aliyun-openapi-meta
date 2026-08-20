@@ -7,26 +7,28 @@
   "parameters": [
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.\n\n*   The IDs of CPFS file systems must start with `cpfs-`. Example: cpfs-099394bd928c\\*\\*\\*\\*.\n*   The IDs of CPFS for LINGJUN file systems must start with `bmcpfs-`. Example: bmcpfs-290w65p03ok64ya\\*\\*\\*\\*.",
+      "description": "The file system ID.\n\n- CPFS: The ID must start with `cpfs-`, such as cpfs-099394bd928c****.\n\n- CPFS for Lingjun: The ID must start with `bmcpfs-`, such as bmcpfs-290w65p03ok64ya****.\n> This operation supports only CPFS file systems (with ID prefixes cpfs-* or bmcpfs-*). General-purpose NAS and Extreme NAS file systems are not supported.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Filters",
-      "description": "The filter that is used to query filesets.",
+      "description": "The filter key information for the filesets to query.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The name of the filter key. Valid values:\n\n- FsetIds: filters by fileset ID.\n- FileSystemPath: filters by the path of the fileset in the CPFS file system.\n- Description: filters by the description of the fileset.\n- QuotaExists: filters by whether a quota exists.\n> Only CPFS for Lingjun 2.7.0 and later support filtering by the QuotaExists parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the filter key. Wildcards are not supported for this parameter.\n\n- If Key is set to FsetIds, Value is set to a fileset ID. You can specify one or more fileset IDs, up to a maximum of 10. Separate multiple values with commas (,). Example: `fset-1902718ea0ae****` or `fset-1902718ea0ae****,fset-3212718ea0ae****`.\n- If Key is set to FileSystemPath, Value is set to the path or a partial path of the fileset in the CPFS file system. The value must be 2 to 1,024 characters in length and encoded in UTF-8.\n- If Key is set to Description, Value is set to the description or a partial description of the fileset.\n- If Key is set to QuotaExists, Value is set to true or false. If this parameter is left empty, all filesets are returned.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -42,21 +44,21 @@
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token that is used in the next request to retrieve a new page of results. If the return results are truncated, use NextToken to initiate a new request to retrieve the content after the truncation point.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OrderByField",
-      "description": "The condition by which the results are sorted. Valid values:\n\n*   FileCountLimit: the file quantity quota\n*   SizeLimit: the capacity quota\n*   FileCountUsage: the usage of the file quantity quota\n*   SpaceUsage: the capacity usage",
+      "description": "The field used for sorting.\n\n- FileCountLimit: the quota file count limit.\n- SizeLimit: the quota capacity limit.\n- FileCountUsage: the file count usage.\n- SpaceUsage: the capacity usage.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SortOrder",
-      "description": "The order in which you want to sort the results. Valid values:\n\n*   asc (default): ascending order\n*   desc: descending order\n\n>  This parameter takes effect only if you specify the OrderByField parameter.",
+      "description": "The sort order.\n\n- asc (default): ascending order, which sorts results from smallest to largest.\n- desc: descending order, which sorts results from largest to smallest.\n> This field takes effect only when the OrderByField parameter is specified.",
       "position": "Query",
       "type": "String",
       "required": false

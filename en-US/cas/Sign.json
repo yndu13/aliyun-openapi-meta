@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "CertIdentifier",
-      "description": "The unique identifier of the certificate. You can call the [ListCert](~~455806~~) operation to obtain the identifier.\n\n*   If the certificate is an SSL certificate, the value of this parameter must be in the {Certificate ID}-cn-hangzhou format.\n*   If the certificate is a private certificate, the value of this parameter must be the value of the Identifier field for the private certificate.",
+      "description": "The unique identifier of the certificate. You can get this value by calling the [ListCert](~~455806~~) operation.\n\n- The identifier of an SSL certificate is typically in the format '{Certificate ID}-cn-hangzhou'.\n\n- For a PCA certificate, this is the Identifier from the corresponding private certificate.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomIdentifier",
-      "description": "",
+      "description": "A unique, user-defined identifier.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Message",
-      "description": "The data to sign. The value must be encoded in Base64.\\\nFor example, if the hexadecimal data that you want to sign is \\[0x31, 0x32, 0x33, 0x34], set the parameter to the Base64-encoded value MTIzNA==. If you set MessageType to RAW, the size of the data must be less than 4 KB. If the size of the data is greater than 4 KB, you can set MessageType to DIGEST and set Message to the digest of the data. The digest is a hash value. You can compute the digest of the data on an on-premises machine. The certificate application repository uses the digest that you compute in your own certificate application system. The message digest algorithm that you use must match the specified signature algorithm. The following items describe the details:\n\n*   If the signature algorithm is SHA256withRSA, SHA256withRSA/PSS, or SHA256withECDSA, the message digest algorithm must be SHA-256.\n*   If the signature algorithm is SM3withSM2, the message digest algorithm must be SM3.",
+      "description": "The data to sign. The MessageType parameter determines the format of this data. If MessageType is set to RAW, Message is the raw data. If MessageType is set to BASE64, Message is the Base64-encoded raw data. If MessageType is set to DIGEST, Message is the message digest (hash value). If MessageType is set to BLIND, Message is the Base64-encoded blinded message.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "MessageType",
-      "description": "The value type of the Message parameter. Valid values:\n\n*   RAW: the raw data. This is the default value.\n*   DIGEST: the message digest (hash value) of the raw data.",
+      "description": "The message type. Valid values:\n\n- `RAW` (default): The raw data.\n\n- `DIGEST`: The message digest (hash value) of the raw data.\n\n- `BASE64`: The Base64-encoded raw data.\n\n- `BLIND`: Enables blind signing. This is supported only for certificates that use an RSA algorithm.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SigningAlgorithm",
-      "description": "The signature algorithm. Valid values:\n\n*   SHA256withRSA\n*   SHA256withRSA/PSS\n*   SHA256withECDSA\n*   SM3withSM2",
+      "description": "The signature algorithm. Valid values:\n\n- `SHA256withRSA`\n\n- `SHA256withRSA/PSS`\n\n- `SHA256withECDSA`\n\n- `SM3withSM2`\n\n- `SHA256withRSA/P7`",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "WarehouseId",
-      "description": "",
+      "description": "The repository ID.\n\n> You can get this ID by calling the [ListCertWarehouse](~~455805~~) operation.",
       "position": "Query",
       "type": "Long",
       "required": false

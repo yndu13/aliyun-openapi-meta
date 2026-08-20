@@ -7,32 +7,35 @@
   "parameters": [
     {
       "name": "Edition",
-      "description": "",
+      "description": "The edition. Valid values: `BASIC` and `STANDARD`. Default value: `STANDARD`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Filters",
-      "description": "The keys in the filter.",
+      "description": "The filter conditions.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The filter key. Valid values:\n\n- **RegionId**: region ID\n\n- **PlanId**: backup plan ID\n\n- **JobId**: backup job ID\n\n- **VaultId**: vault ID\n\n- **InstanceId**: ECS instance ID\n\n- **Bucket**: OSS bucket name\n\n- **FileSystemId**: file system ID\n\n- **Status**: job status\n\n- **CompleteTime**: completion time",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Operator",
+          "description": "The matching method. The default value is IN. Valid values:\n\n- **EQUAL**: Equal to\n\n- **NOT\\_EQUAL**: Not equal to\n\n- **GREATER\\_THAN**: Greater than\n\n- **GREATER\\_THAN\\_OR\\_EQUAL**: Greater than or equal to\n\n- **LESS\\_THAN**: Less than\n\n- **LESS\\_THAN\\_OR\\_EQUAL**: Less than or equal to\n\n- **BETWEEN**: The value is within a specified range. The `Values` parameter must be a JSON array in the `[min, max]` format.\n\n- **IN**: The value is in a specified set. The `Values` parameter must be an array.\n\n> The IN operator is not supported when `Key` is **CompleteTime**.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Values",
+          "description": "An array of values for the specified filter key.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -41,7 +44,7 @@
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page 1. Default value: 1.",
+      "description": "The page number. Pages start from 1. Default value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -55,7 +58,7 @@
     },
     {
       "name": "RestoreType",
-      "description": "The type of the data source. Valid values:\n\n*   **ECS_FILE**: Elastic Compute Service (ECS) files\n*   **OSS**: Object Storage Service (OSS) buckets\n*   **NAS**: Apsara File Storage NAS file systems\n*   **OTS_TABLE**: Tablestore instances\n*   **UDM_ECS_ROLLBACK**: ECS instances",
+      "description": "The data source type. Valid values:\n\n- **ECS\\_FILE**: Restores ECS files.\n\n- **OSS**: Restores OSS objects.\n\n- **NAS**: Restores NAS files.\n\n- **COMMON\\_FILE\\_SYSTEM**: Restores data to a CPFS file system.\n\n- **OTS\\_TABLE**: Restores an OTS table.\n\n- **UDM\\_ECS\\_ROLLBACK**: Restores an entire ECS instance.",
       "position": "Query",
       "type": "String",
       "required": false

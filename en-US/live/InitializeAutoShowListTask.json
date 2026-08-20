@@ -1,5 +1,6 @@
 {
   "name": "InitializeAutoShowListTask",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "CasterConfig",
-      "description": "The configurations of the production studio. The following configurations are involved:\n\n*   CasterTemplate: required. The output resolution.\n*   LiveTemplate: optional. The templates to be used for transcoding.\n\n>  Set the value to a JSON string. Use upper camel case for fields of the string.",
+      "description": "The production studio configuration. This includes:\n\n- (Required) CasterTemplate: the output resolution of the production studio.\n\n- (Optional) LiveTemplate: the list of output transcoding tasks.\n\n>A JSON-formatted string. Use upper camel case (PascalCase) for the field names within the struct.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -34,14 +35,14 @@
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceIds",
-      "description": "The IDs of on-demand media asset files in the playlist. Only on-demand video files are supported. You can specify up to three video files in the playlist. The video files in the playlist are automatically played in sequence. The playback stops at the point in time specified by the EndTime parameter.\n\n> \n\n*   You can obtain the ID of a video file in the ApsaraVideo Live console or by calling an API operation. For more information, see [Media asset management](~~86057~~) or [CreateUploadVideo](~~55407~~). - If the video files are all played before the time specified by EndTime, the final frame of the final video file is played until the time specified by EndTime arrives.",
+      "description": "The list of video-on-demand media asset file IDs in the playlist. Currently, only MP4 video files from the video-on-demand platform are supported.\n\nA maximum of three programs are supported. Each program is played in the order of the list until EndTime, at which point playback automatically ends. This parameter is required. If it is missing, a MissingParameter error is returned.\n>- You can obtain the video file ID from the console or from the response parameters of an API operation. For more information, see [Media asset management](~~86057~~) or [Obtain the upload URL and credential for audio and video files](~~55407~~).- If all programs finish playing before EndTime, the last frame of the last program is displayed until the scheduled end time.",
       "position": "Query",
       "type": "String",
       "required": false

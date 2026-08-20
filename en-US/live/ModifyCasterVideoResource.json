@@ -1,96 +1,97 @@
 {
   "name": "ModifyCasterVideoResource",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "BeginOffset",
-      "description": "The offset of the position where the system starts to read the video resource.\n\nThis parameter takes effect only when the video resource is a video file. Unit: milliseconds.\n\n>  A value greater than 0 indicates an offset from the first frame.",
+      "description": "The start offset of the video file. Unit: milliseconds.\n\n><notice>\n\nThis parameter is valid only if the video source is a video file.\n\n></notice>\n\n> A value greater than 0 specifies the start time to read the file. The time is an offset from the first frame.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\nIf you create a production studio through the [CreateCaster](~~69338#doc-api-live-CreateCaster~~ \"Creates a production studio.\") interface, check the value of the CasterId parameter in the response.\n\nIf you create a production studio through the ApsaraVideo Live Console, log in to the console, then check the ID of the production studio through the following path:\n\nProduction Studios > Production Studio Management\n\n>  The CasterId is reflected in the Name column on the Production Studio Management page.",
+      "description": "The ID of the production studio.\n\n- If you create a production studio by calling the [CreateCaster](~~2848009~~) operation, use the CasterId returned in the response.\n\n- If you create a production studio in the console, find the ID on the **Cloud Production Studio** page. To go to this page, choose **LIVE Console** > **Production Studio**.\n\n> The name of the production studio in the list on the Cloud Production Studio page is its ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndOffset",
-      "description": "This parameter takes effect only when the video resource is a video file. Unit: milliseconds.\n\n*   A value greater than **0** indicates an offset from the first frame.\n*   A value smaller than **0** indicates an offset from the last frame.",
+      "description": "This parameter is valid only for video files. Unit: milliseconds.\n\n- If the value is greater than **0**, it specifies the end time to read the file. The time is an offset from the first frame.\n\n- If the value is less than **0**, it specifies the end time to read the file. The time is an offset from the last frame.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ImageId",
-      "description": "ID of the media library image material.\n> This parameter is only available and must be provided when the video source type is an image.",
+      "description": "The ID of the image material in the media asset library.\n\n> This parameter is required only if the video source is an image.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageUrl",
-      "description": "Image material URL. \n>This parameter is only available when the video source type is an image and the image file has not been imported into the material library. Supports uploading images in jpg, png formats, with a maximum file size of 10MB.",
+      "description": "The URL of the image material.\n\n> This parameter is available only if the video source is an image that has not been imported to the material library. The image must be in JPG or PNG format, and its size cannot exceed 10 MB.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LiveStreamUrl",
-      "description": "The URL of the live stream.\n\nThis parameter takes effect and is required only when the video resource is a live stream.",
+      "description": "The URL of the live stream.\n\n><notice>\n\nThis parameter is required only if the video source is a live stream.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaterialId",
-      "description": "The ID of the material.",
+      "description": "The material ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PtsCallbackInterval",
-      "description": "The interval between presentation timestamp (PTS) callbacks. Unit: milliseconds. This parameter takes effect only when the video resource is a VOD file.",
+      "description": "The Presentation Time Stamp (PTS) callback interval. Unit: milliseconds. This parameter is valid only for VOD materials.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatNum",
-      "description": "The number of playback times after the first playback is complete. This parameter takes effect only when the video resource is a file. Valid values:\n\n*   **0**: indicates that the video is played only once. This is the default value.\n*   **-1**: indicates that the video is played in loop mode.",
+      "description": "This parameter is valid only for video files. It specifies the number of times to loop the video after playback is complete.\n\n- **0** (default): The video does not loop.\n\n- **-1**: The video loops indefinitely.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The ID of the video resource. It is reflected in the ResourceId parameter when you call the [AddCasterVideoResource](~~60250#doc-api-live-AddCasterVideoResource~~ \"Adds a video resource to a production studio.\") operation.",
+      "description": "The resource ID. If you add a video source to the production studio by calling the [AddCasterVideoResource](~~2848020~~) operation, use the ResourceId returned in the response.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceName",
-      "description": "The name of the video resource.",
+      "description": "The name of the video source.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VodUrl",
-      "description": "The URL of the video-on-demand (VOD) file. This parameter takes effect only when the video resource is a video file that is not from the media library.\n\n>  The VOD file must be in the MP4, FLV, or TS format.",
+      "description": "The URL of the video on demand (VOD) file.\n\n><notice>\n\nThis parameter is available only if the video source is a video file that has not been imported to the material library.\n\n></notice>\n\n> VOD files must be in MP4, FLV, or TS format.",
       "position": "Query",
       "type": "String",
       "required": false

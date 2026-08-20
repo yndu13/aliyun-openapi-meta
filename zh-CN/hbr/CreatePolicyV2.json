@@ -34,67 +34,85 @@
       "required": false,
       "sub_parameters": [
         {
+          "name": "ArchiveDays",
+          "description": "仅当**RuleType**=**TRANSITION**时，需要配置该参数。备份完成多少天后自动转入归档层，备份在标准层至少保留30天，转入归档层后至少保留60天。单位：天。",
+          "position": "FormData",
+          "type": "Long",
+          "required": false
+        },
+        {
           "name": "BackupType",
+          "description": "仅当**RuleType**取值为**BACKUP**时，需要配置该参数。备份类型。取值为**COMPLETE**，表示全量备份。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DataSourceFilters",
+          "description": "仅当**RuleType**取值为**TAG**时，需要配置该参数。数据源过滤规则。",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Immutable",
+          "description": "仅当**PolicyType**为**UDM_ECS_ONLY**时，该字段有效。表示是否开启备份锁定。",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KeepLatestSnapshots",
+          "description": "是否开启保留至少一个备份版本。\n- 0 - 不保留\n- 1 - 保留",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "ReplicationRegionId",
+          "description": "仅当**RuleType**取值为**REPLICATION**时，需要配置该参数。复制的目标地域ID。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Retention",
+          "description": "仅当**RuleType**取值为**BACKUP**，**TRANSITION**或**REPLICATION**时，需要配置该参数。\n- **RuleType**取值为**BACKUP**：备份保留时间，优先级低于**RuleType**=**TRANSITION**的规则的Retention，最小值为1，最大值为364635，单位为天。\n- **RuleType**取值为**TRANSITION**：备份保留时间，最小值为1，最大值为364635，单位为天。\n- **RuleType**取值为**REPLICATION**：异地备份保留时间，最小值为1，最大值为364635，单位为天。",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "RetentionRules",
+          "description": "仅当**RuleType**取值为**TRANSITION**时，需要配置该参数。特殊保留规则。",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "RuleType",
+          "description": "规则类型，每一个策略需要至少有一个**BACKUP**类型规则，有且仅有一个**TRANSITION**类型规则：\n- **BACKUP**：备份规则。\n- **TRANSITION**：生命周期规则。\n- **REPLICATION**：复制规则。\n- **TAG**: 标签关联资源规则。",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Schedule",
+          "description": "仅当**RuleType**取值为**BACKUP**时，需要配置该参数。备份定时设置。可选格式：\n- `I|{startTime}|{interval}`：表示从{startTime}开始每隔{interval}的时间执行一次备份任务。例如`I|1631685600|P1D`表示从2021-09-15 14:00:00开始每隔一天备份一次。\n\n  * startTime：备份起始时间，UNIX时间，单位为秒。\n  * interval： ISO8601时间间隔。例如：`PT1H`表示间隔一小时。`P1D`表示间隔一天。\n- `C|{startTime}|{crontab}`：表示从{startTime}开始根据{crontab}表达式执行备份任务。例如`C|1631685600|0 0 2 ? * 3,5,7`表示从2021-09-15 14:00:00开始每周二, 周四和周六的02:00:00执行备份。\n  * startTime：备份起始时间，UNIX时间，单位为秒。\n  * crontab： crontab表达式。例如：`0 0 2 ? * 3,5,7`表示每周二, 周四和周六的02:00:00。\n\n不会补偿已过去时间的备份任务。如果上一次备份任务没有完成，不会触发下一次备份任务。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "TagFilters",
+          "description": "仅当**RuleType**取值为**TAG**时，需要配置该参数。资源标签过滤规则。",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "VaultId",
+          "description": "仅当RuleType取值为BACKUP时，需要配置该参数。备份库ID。",
           "position": "FormData",
           "type": "String",
           "required": false

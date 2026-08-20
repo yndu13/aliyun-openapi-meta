@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "AuthConf",
-      "description": "The origin authentication information of the CNAME record.",
+      "description": "The origin authentication information for the CNAME record.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BizName",
-      "description": "The business scenario of the record for acceleration. Leave the parameter empty if your record is not proxied. Valid values:\n\n*   **image_video**: video and image.\n*   **api**: API.\n*   **web**: web page.",
+      "description": "Used to tag the business scenario of the DNS record. This parameter is required when proxy acceleration is enabled for the DNS record (i.e., when the proxied parameter is set to true), and is not required when proxy acceleration is disabled (i.e., when the proxied parameter is set to false). Valid values:\n- **image_video**: Image and video.\n- **api**: API.\n- **web**: Web page.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Comment",
-      "description": "The comment of the record. The maximum length is 100 characters.",
+      "description": "The comment for the record, with a maximum length of 100 characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Data",
-      "description": "The DNS record information. The format of this field varies based on the record type. For more information, see [References](https://www.alibabacloud.com/help/doc-detail/2708761.html) .",
+      "description": "The DNS information of the record. Different types of records require different content for this field. For more information, see\n<props=\"china\">[Documentation](~~2708761~~)</props><props=\"intl\">[Documentation](https://www.alibabacloud.com/help/doc-detail/2708761.html)</props>\n.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "HostPolicy",
-      "description": "The origin host policy. This policy takes effect when the record type is CNAME. You can set the policy in two modes:\n\n*   follow_hostname: Follow the host record.\n*   follow_origin_domain: match the origin's domain name.",
+      "description": "The origin host policy. This takes effect when the record type is CNAME. It specifies the host policy for back-to-origin requests. Two modes are available:\n\n- **follow_hostname**: Follow the request host.\n- **follow_origin_domain**: Follow the origin domain.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Proxied",
-      "description": "Specifies whether to proxy the record. Only CNAME and A/AAAA records can be proxied. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to enable proxy acceleration for the record. Only CNAME records or A/AAAA records (i.e., when the type parameter is set to A/AAAA or CNAME) can enable proxy acceleration. Valid values:\n- **true**: Enable proxy acceleration.\n- **false**: Disable proxy acceleration.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -56,28 +56,28 @@
     },
     {
       "name": "SiteId",
-      "description": "The website ID, which can be obtained by calling the [ListSites](~~2850189~~) operation.",
+      "description": "The site ID, which can be obtained by calling the [ListSites](~~2850189~~) API.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "SourceType",
-      "description": "The origin type for the CNAME record. This parameter is required when you add a CNAME record. Valid values:\n\n*   **OSS**: OSS bucket.\n*   **S3**: S3 bucket.\n*   **LB**: load balancer.\n*   **OP**: origin pool.\n*   **Domain**: domain name.\n\nIf you do not pass this parameter or if you leave its value empty, Domain is used by default.",
+      "description": "The origin type of the CNAME record. This parameter is required when adding a CNAME record (i.e., when the type parameter is set to CNAME). Valid values:\n\n- **OSS**: OSS origin.\n- **S3**: S3 origin.\n- **LB**: Load balancer origin.\n- **OP**: Origin pool origin.\n- **Domain**: Standard domain origin.\n\nIf this parameter is not specified or is left empty, it defaults to Domain, which is the standard domain origin type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ttl",
-      "description": "The TTL of the record. Unit: seconds. If the value is 1, the TTL of the record is determined by the system.",
+      "description": "The time-to-live (TTL) of the record, in seconds. When set to 1, the TTL is automatic.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "Type",
-      "description": "The type of the DNS record. For example, A/AAAA, TXT, MX, or CNAME.",
+      "description": "The DNS type of the record, such as **A/AAAA**, **CNAME**, **TXT**, etc.",
       "position": "Query",
       "type": "String",
       "required": true

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a parameter value from your client to ensure uniqueness across different requests. ClientToken supports only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,28 +21,28 @@
     },
     {
       "name": "NetworkAclName",
-      "description": "The name of the network ACL.\n\nThe name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.",
+      "description": "The name of the network ACL.\n\nThe name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Default value: **1**.",
+      "description": "The page number of the list. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Maximum value: **50**. Default value: **10**.",
+      "description": "The number of entries per page in a paged query. Maximum value: **50**. Default value: **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the network ACL.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the network ACL. \n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -56,26 +56,28 @@
     },
     {
       "name": "ResourceType",
-      "description": "The type of the associated instance. Set the value to **VSwitch**.\n\nThis parameter is valid only if **ResourceType** and **ResourceId** are both specified.",
+      "description": "The type of the associated instance. Valid values: **VSwitch**: virtual switch.\n\nThe **ResourceType** and **ResourceId** parameters must be specified together to take effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tag list.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nA tag key can be up to 128 characters in length. It cannot start with `aliyun` or `acs:` and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:` and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -84,7 +86,7 @@
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC to which the network ACL belongs.",
+      "description": "The ID of the VPC associated with the network ACL.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,75 +1,76 @@
 {
   "name": "CreateVpnRouteEntry",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the destination-based route.\n\nThe description must be **1** to **100** characters in length, and cannot start with `http://` or `https://`.",
+      "description": "The description of the destination route.\n\nThe description must be **1** to **100** characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run without creating the route. The system checks the required parameters, request syntax, and business restrictions. If the check fails, the corresponding error is returned. If the check passes, the error code `DryRunOperation` is returned.\n- **false** (default): performs a dry run and sends the request. If the check passes, an HTTP 2xx status code is returned and the operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NextHop",
-      "description": "The next hop of the destination-based route.",
+      "description": "The next hop of the destination route.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "OverlayMode",
-      "description": "The tunneling protocol. The value is set to **Ipsec**, which indicates the IPsec tunneling protocol.",
+      "description": "The tunneling protocol. Set the value to **Ipsec** (IPsec tunneling).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublishVpc",
-      "description": "Specifies whether to advertise the destination-based route to a virtual private cloud (VPC) route table. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to publish the destination route to the VPC route table. Valid values:\n\n- **true**: Publishes the destination route to the VPC route table. The system publishes the route only to the VPC system route table, not to VPC custom route tables.\n\n  If you want the VPC custom route table to contain this route, manually add the route. For more information, see [CreateRouteEntry](~~448722~~).\n- **false**: Does not publish the destination route to the VPC route table.\n\n  You must manually add a destination route whose next hop points to the VPN gateway instance in both the VPC system route table and custom route tables. Otherwise, the VPC cannot access resources in the destination CIDR block through the IPsec-VPN connection.",
       "position": "Query",
       "type": "Boolean",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the VPN gateway is created.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the VPN gateway instance.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteDest",
-      "description": "The destination CIDR block of the destination-based route.",
+      "description": "The destination CIDR block of the destination route.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VpnGatewayId",
-      "description": "The ID of the VPN gateway.",
+      "description": "The instance ID of the VPN gateway.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Weight",
-      "description": "The weight of the destination-based route. Valid values:\n\n*   **100**: a high priority\n*   **0**: a low priority",
+      "description": "The weight of the destination route.\n\nIf you use the same VPN gateway instance to establish active/standby IPsec-VPN connections, you can specify the active and standby links by configuring the weight of the destination routing. A destination route with a weight of 100 is the active link by default, and a destination route with a weight of 0 is the standby link by default.\n\nYou can configure health checks for the IPsec-VPN connection to automatically detect the connectivity of the link. If the active link is unavailable, the system automatically switches traffic to the standby link, which ensures high availability of the cloud connection. For more information, see [CreateVpnConnection](~~120391~~).\n\n- **100**: The IPsec-VPN connection associated with the destination route serves as the active link.\n- **0**: The IPsec-VPN connection associated with the destination route serves as the standby link.\n\n> - When you specify active and standby links, the active and standby destination routes must have the same destination CIDR block, different next hops, and different weights.\n> - For VPN gateway instances that support dual-tunnel pattern IPsec-VPN connections, you do not need to configure this parameter. A dual-tunnel pattern IPsec-VPN connection contains two tunnels that automatically form active/standby links. You do not need to specify active/standby links by using the parameter settings. If you configure this parameter, the parameter settings do not take effect.",
       "position": "Query",
       "type": "Integer",
       "required": true

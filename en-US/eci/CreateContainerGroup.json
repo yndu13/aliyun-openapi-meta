@@ -7,43 +7,49 @@
   "parameters": [
     {
       "name": "AcrRegistryInfo",
-      "description": "The information about the Container Registry Enterprise Edition instance that provides the image for the creation of the elastic container instance. For more information, see [Pull images from a Container Registry Enterprise Edition instance without using a secret](~~194250~~).",
+      "description": "The list of ACR Enterprise Edition instance information. For more information, see [Pull images from ACR without a password](~~194250~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ArnService",
+          "description": "The ARN of the RAM role under the account that owns the ECI instance and other resources.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ArnUser",
+          "description": "The ARN of the RAM role under the account that owns the ACR instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Domain",
+          "description": "The domains of the ACR Enterprise Edition instance. By default, all domains of the instance are used. You can specify individual domains, separated by commas.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "InstanceId",
+          "description": "The ID of the ACR Enterprise Edition instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceName",
+          "description": "The name of the ACR Enterprise Edition instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RegionId",
+          "description": "The region of the ACR Enterprise Edition instance.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -52,14 +58,14 @@
     },
     {
       "name": "ActiveDeadlineSeconds",
-      "description": "The active period of the elastic container instance. After this period expires, the instance is forced to exit. Unit: seconds.",
+      "description": "The validity period of the ECI instance. The instance is forcibly terminated after this period expires. Unit: seconds.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "AutoCreateEip",
-      "description": "Specifies whether to automatically create an EIP and associate it with the elastic container instance.",
+      "description": "Specifies whether to automatically create an EIP and bind it to the ECI instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -73,381 +79,441 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotency](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ComputeCategory",
-      "description": "The compute category of the instance. For more information, see [Specify a compute category to create an elastic container instance](~~2638061~~).",
+      "description": "The compute categories. For more information, see [Create instances by specifying compute categories](~~2638061~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Container",
-      "description": "The information about the container.",
+      "description": "The container information.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Arg",
+          "description": "The arguments for the container startup command. Maximum: 10.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Command",
+          "description": "The container startup commands. Maximum: 20. Each command can contain up to 256 characters.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Cpu",
+          "description": "The vCPU size of the container. Unit: cores.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "EnvironmentVar",
+          "description": "The environment variables of the container.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "EnvironmentVarHide",
+          "description": "Specifies whether to hide environment variable information when querying ECI instance details. Valid values:\n\n- false (default): environment variable information is returned when querying ECI instance details.\n- true: environment variable information is not returned when querying ECI instance details. Setting this to true improves security when environment variables contain sensitive information.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Gpu",
+          "description": "The number of GPUs assigned to the container.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Image",
+          "description": "The container image.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ImagePullPolicy",
+          "description": "The image pull policy. Valid values:\n\n- Always: always pull. Pulls the image every time.\n- IfNotPresent: pull on demand. Uses the local image first. Pulls the image if no local image is available.\n- Never: never pull. Uses the local image only.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerExec",
+          "description": "The commands executed in the container when using the command method to set the postStart callback function.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerHttpGetHost",
+          "description": "The host address that receives the HTTP Get request when using the HTTP request method to set the postStart callback function.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerHttpGetHttpHeader",
+          "description": "The HTTP request header parameters.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerHttpGetPath",
+          "description": "The HTTP Get request path when using the HTTP request method to set the postStart callback function.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerHttpGetPort",
+          "description": "The HTTP Get request port number when using the HTTP request method to set the postStart callback function.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerHttpGetScheme",
+          "description": "The protocol type for the HTTP Get request when using the HTTP request method to set the postStart callback function. Valid values:\n\n- HTTP\n- HTTPS",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerTcpSocketHost",
+          "description": "The host address for TCP Socket detection when using the TCP Socket method to set the postStart callback function.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePostStartHandlerTcpSocketPort",
+          "description": "The TCP Socket port for the postStart callback function when using the TCPSocket method.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerExec",
+          "description": "The commands executed in the container when using the command method to set the preStop callback function.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerHttpGetHost",
+          "description": "The host address that receives the HTTP Get request when using the HTTP request method to set the preStop callback function.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerHttpGetHttpHeader",
+          "description": "The HTTP request header parameters.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerHttpGetPath",
+          "description": "The HTTP Get request path when using the HTTP request method to set the preStop callback function.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerHttpGetPort",
+          "description": "The HTTP Get request port number when using the HTTP request method to set the preStop callback function.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerHttpGetScheme",
+          "description": "The protocol type for the HTTP Get request when using the HTTP request method to set the preStop callback function. Valid values:\n\n- HTTP\n- HTTPS",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerTcpSocketHost",
+          "description": "The host address for TCP Socket detection when using the TCP Socket method to set the preStop callback function.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LifecyclePreStopHandlerTcpSocketPort",
+          "description": "The TCP Socket port for the preStop callback function when using the TCPSocket method.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.Exec.Command",
+          "description": "The commands executed in the container for command-based health checks.\n\n> When setting LivenessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "LivenessProbe.FailureThreshold",
+          "description": "The minimum number of consecutive failures required to consider the check failed after a success. Default value: 3.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.HttpGet.Path",
+          "description": "The path for HTTP Get request health checks.\n\n> When setting LivenessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LivenessProbe.HttpGet.Port",
+          "description": "The port number for HTTP Get request health checks.\n\n> When setting LivenessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.HttpGet.Scheme",
+          "description": "The protocol type for HTTP request health checks. Valid values:\n- HTTP\n- HTTPS\n\n> When setting LivenessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LivenessProbe.InitialDelaySeconds",
+          "description": "The time to start the check, calculated from when the container finishes starting.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.PeriodSeconds",
+          "description": "The interval at which the check is performed. Default value: 10 seconds. Minimum value: 1 second.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.SuccessThreshold",
+          "description": "The minimum number of consecutive successes required to consider the check successful after a failure. Default value: 1. Must be 1.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.TcpSocket.Port",
+          "description": "The port for TCP Socket health checks.\n\n> When setting LivenessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "LivenessProbe.TimeoutSeconds",
+          "description": "The timeout period for the check. Default value: 1 second. Minimum value: 1 second.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Memory",
+          "description": "The memory size of the container. Unit: GiB.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The container name.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Port",
+          "description": "The port numbers.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ReadinessProbe.Exec.Command",
+          "description": "The commands executed in the container for command-based health checks.\n\n> When setting ReadinessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ReadinessProbe.FailureThreshold",
+          "description": "The minimum number of consecutive failures required to consider the check failed after a success. Default value: 3.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ReadinessProbe.HttpGet.Path",
+          "description": "The path for HTTP Get request health checks.\n\n> When setting ReadinessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ReadinessProbe.HttpGet.Port",
+          "description": "The port number for HTTP Get request health checks.\n\n> When setting ReadinessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ReadinessProbe.HttpGet.Scheme",
+          "description": "The protocol type for HTTP request health checks. Valid values:\n- HTTP\n- HTTPS\n\n> When setting ReadinessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ReadinessProbe.InitialDelaySeconds",
+          "description": "The time to start the check, calculated from when the container finishes starting.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ReadinessProbe.PeriodSeconds",
+          "description": "The interval at which the check is performed. Default value: 10 seconds. Minimum value: 1 second.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ReadinessProbe.SuccessThreshold",
+          "description": "The minimum number of consecutive successes required to consider the check successful after a failure. Default value: 1. Must be 1.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ReadinessProbe.TcpSocket.Port",
+          "description": "The port for TCP Socket health checks.\n\n> When setting ReadinessProbe parameters, only one of the three check methods (HttpGet, Exec, and TcpSocket) can be selected.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ReadinessProbe.TimeoutSeconds",
+          "description": "The timeout period for the check. Default value: 1 second. Minimum value: 1 second.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SecurityContext.Capability.Add",
+          "description": "The permissions granted to processes in the container. Currently, only NET_ADMIN and NET_RAW are supported.\n\n> NET_RAW is not supported by default and requires a ticket submission.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SecurityContext.ReadOnlyRootFilesystem",
+          "description": "Specifies whether the root file system of the container is read-only. Currently, only true is supported.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "SecurityContext.RunAsUser",
+          "description": "The user ID used to run the container.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "SecurityContextPrivileged",
+          "description": "Specifies whether to enable privilege mode for the container. Valid values:\n- true: enable privilege mode.\n- false (default): disable privilege mode.\n\n> The privileged container feature is in beta. To use it, submit a ticket.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "SecurityContextRunAsGroup",
+          "description": "The user group ID used to run the container.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "SecurityContextRunAsNonRoot",
+          "description": "Specifies whether to run the container in non-root mode. Valid values:\n- true: non-root mode.\n- false (default): root mode.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Stdin",
+          "description": "Specifies whether this container should allocate a buffer for standard input in the container runtime. If not set, reads from standard input in the container will result in EOF. Default value: false.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "StdinOnce",
+          "description": "Specifies whether the standard input stream remains open across multiple attach sessions when standard input is set to true.\nIf StdinOnce is set to true, standard input is opened when the container starts, remains empty until the first client attaches to standard input, then stays open and accepts data until the client disconnects. Standard input is then closed and remains closed until the container restarts.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "TerminationMessagePath",
+          "description": "The path for the container error message.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TerminationMessagePolicy",
+          "description": "The message notification policy. Default value: empty. Currently, only lightweight message queue notification is supported.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Tty",
+          "description": "Specifies whether to enable interaction. Default value: false.\n\nWhen Command is /bin/bash, this must be set to true.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "VolumeMount",
+          "description": "The volume mount information.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "WorkingDir",
+          "description": "The working directory of the container.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -456,110 +522,112 @@
     },
     {
       "name": "ContainerGroupName",
-      "description": "The name of the elastic container instance (container group). The name must meet the following requirements:\n\n*   The name must be 2 to 128 characters in length.\n*   The name can contain lowercase letters, digits, and hyphens (-). It cannot start or end with a hyphen (-).",
+      "description": "The name of the ECI instance (container group). Format requirements:\n\n- The name must be 2 to 128 characters in length.\n- The name can contain lowercase letters, digits, and hyphens (-). It cannot start or end with a hyphen.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ContainerResourceView",
-      "description": "Specifies whether to enable container resource view. Container resource view displays the actual container resource data instead of data of the host. If the specifications of the generated elastic container instance are larger than the specifications that you request for when you create the instance, you can enable the ContainerResourceView feature to ensure that the resources that you view in the container are the same as the resources that you request for.",
+      "description": "When the ECI specification is larger than the requested specification, you can enable this setting to ensure that the resources visible inside the container are consistent with the requested resources.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "CorePattern",
-      "description": "The path to core dump files. For more information, see [Save core files to volumes](~~167801~~).\n\n>  The path cannot start with |. You cannot use core dump files to configure executable programs.``",
+      "description": "Custom directory for saving core dump files generated by coredump. For more information, see [Save core files to a data volume](~~167801~~).\n\n> The configured path cannot start with `|`, which means you cannot configure executable programs through core dump.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Cpu",
-      "description": "The number of vCPUs that you want to allocate to the instance.",
+      "description": "The instance-level vCPU size. Unit: cores.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "CpuArchitecture",
-      "description": "The CPU architecture of the instance. Default value: AMD64. Valid values:\n\n*   AMD64\n*   ARM64",
+      "description": "The CPU architecture of the ECI instance. Valid values:\n\n- AMD64 (default)\n- ARM64",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CpuOptionsCore",
-      "description": "The number of physical CPU cores. You can specify this parameter for only specific ECS instance types.",
+      "description": "The number of physical CPU cores. Only some instance types support custom settings.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "CpuOptionsNuma",
-      "description": "This parameter is not available.",
+      "description": "This parameter is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CpuOptionsThreadsPerCore",
-      "description": "The number of threads per core. You can specify this parameter for only specific ECS instance types. A value of 1 specifies that Hyper-Threading is disabled.",
+      "description": "The number of threads per core. Only some instance types support custom settings. Setting this to 1 disables hyper-threading.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DataCacheBucket",
-      "description": "The bucket that stores the data cache.",
+      "description": "The data cache bucket.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataCacheBurstingEnabled",
-      "description": "Specifies whether to enable the performance burst feature when ESSDs AutoPL are used to store data caches. For more information, see [ESSDs AutoPL](~~368372~~).",
+      "description": "Specifies whether to enable burst performance when the data cache uses ESSD AutoPL cloud disks. For more information, see [ESSD AutoPL cloud disks](~~368372~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DataCachePL",
-      "description": "The performance level (PL) of the disk that you want to use to store data caches.\\\nEnhanced SSDs (ESSDs) are preferentially used to store data caches. The default performance level is PL1.",
+      "description": "The performance level of the cloud disk used by the data cache.\nESSDs are used preferentially, and the default performance level is PL1.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataCacheProvisionedIops",
-      "description": "The input/output operations per second (IOPS) provisioned for ESSDs AutoPL when ESSDs AutoPL are used to store data caches.\\\nValid values: 0 to min{50000, 1000 × Storage capacity - Baseline IOPS}. Baseline IOPS = min{1,800 + 50 × Storage capacity, 50,000}.\\\nFor more information, see [ESSDs AutoPL](~~368372~~).",
+      "description": "The provisioned read/write IOPS when the data cache uses ESSD AutoPL cloud disks.\nValid values: 0 to min{50000, 1000 * capacity - baseline performance}. Baseline performance = min{1800 + 50 * capacity, 50000}.\nFor more information, see [ESSD AutoPL cloud disks](~~368372~~).",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "DnsConfig.NameServer",
-      "description": "The IP addresses of DNS servers.",
+      "description": "The list of IP addresses of DNS servers.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "DnsConfig.Option",
-      "description": "Configuration options of the DNS server.",
+      "description": "The list of options.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The name of the option.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the option.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -568,49 +636,49 @@
     },
     {
       "name": "DnsConfig.Search",
-      "description": "The search domains of DNS servers.",
+      "description": "The list of DNS search domains.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "DnsPolicy",
-      "description": "The Domain Name System (DNS) policy. Valid values:\n\n*   None: uses the DNS that is specified by DnsConfig.\n*   Default: uses the DNS that is specified for the runtime environment.",
+      "description": "The DNS policy. Valid values:\n\n- None: uses the DNS configured by the DnsConfig field.\n- Default: inherits the DNS settings of the runtime environment.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, service limits, and available resources. If the request passes the dry run, the DryRunOperation error code is returned. Otherwise, an error message is returned.\n*   false (default): performs a dry run and performs the actual request. If the request passes the dry run, the elastic container instance is created.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- true: performs a dry run without creating an ECI instance. The system checks required parameters, request format, service limits, and inventory. If the check fails, the corresponding error is returned. If the check passes, the error code DryRun.Success is returned.\n- false (default): sends a normal request. After the check passes, the ECI instance is created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EgressBandwidth",
-      "description": "The maximum outbound bandwidth. Unit: bit/s.",
+      "description": "The outbound bandwidth limit. Unit: Bps.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "EipBandwidth",
-      "description": "The maximum bandwidth value for the EIP. Unit: Mbit/s. Default value: 5.\\\nThis parameter is valid only when AutoCreateEip is set to true.",
+      "description": "The bandwidth of the EIP. Default value: 5 Mbps.\nThis parameter can be set when AutoCreateEip is set to true.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "EipCommonBandwidthPackage",
-      "description": "The EIP bandwidth plan that you want to associate with the instance.",
+      "description": "The ID of an existing shared bandwidth package to associate.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipISP",
-      "description": "The line type of the EIP. Default value: BGP. Valid values:\n\n*   BGP: BGP (Multi-ISP) line\n*   BGP_PRO: BGP (Multi-ISP) Pro line",
+      "description": "The line type of the EIP. Valid values:\n\n- BGP (default): BGP (multi-ISP) line.\n- BGP_PRO: BGP (multi-ISP) premium line.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -624,47 +692,49 @@
     },
     {
       "name": "EphemeralStorage",
-      "description": "The increased capacity of the temporary storage space. Unit: GiB.\\\nFor more information, see [Increase the size of the temporary storage space](~~204066~~).",
+      "description": "The size of the additional temporary storage space. Unit: GiB.\nFor more information, see [Customize the size of temporary storage](~~204066~~).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "FixedIp",
-      "description": "Specifies whether to configure the instance to use a fixed IP address. For more information, see [Configure an elastic container instance to use a fixed IP address](~~2381086~~).",
+      "description": "Set to true to enable fixed IP addresses for the instance. For details, see [Configure ECI instances to use fixed IP addresses](~~2381086~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FixedIpRetainHour",
-      "description": "The retention period of the fixed IP address after the original instance is released and the fixed IP address becomes idle. Unit: hours. Default value: 48.",
+      "description": "The retention period of the fixed IP address after it becomes idle, i.e., the retention period after the instance with the fixed IP address is released. Unit: hours. Default value: 48.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "GpuDriverVersion",
-      "description": "The version of the GPU driver. Default value: tesla=470.82.01. Valid values:\n\n*   tesla=470.82.01\n*   tesla=525.85.12\n\n>  You can switch the GPU driver version only for a few Elastic Compute Service (ECS) instance types. For more information, see [Specify GPU-accelerated ECS instance types to create an elastic container instance](~~2579486~~).",
+      "description": "The GPU driver version.\n\n> Only some instance types support switching GPU driver versions. For more information, see [Create instances by specifying GPU specifications](~~2579486~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HostAliase",
-      "description": "The alias of the elastic container instance.",
+      "description": "The host aliases for the ECI instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Hostname",
+          "description": "The host names to add.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Ip",
+          "description": "The IP address to add.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -673,26 +743,28 @@
     },
     {
       "name": "HostName",
-      "description": "The hostname.",
+      "description": "The host name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HostSecurityContext.Sysctl",
-      "description": "Configure a security context to modify unsafe sysctls. For more information, see [Configure a security context](~~462313~~).",
+      "description": "Modifies unsafe sysctl parameters through the security context. For more information, see [Configure Security Context](~~462313~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The name of the unsafe sysctl parameter when modifying sysctl parameters through the security context. Valid values:\n\n- kernel.shm* (except kernel.shm_rmid_forced)\n- kernel.msg*\n- kernel.sem\n- fs.mqueue.*\n- net.* (except net.ipv4.tcp_syncookies, net.ipv4.ping_group_range, and net.ipv4.ip_unprivileged_port_start)",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the unsafe sysctl parameter when modifying sysctl parameters through the security context.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -701,32 +773,35 @@
     },
     {
       "name": "ImageAccelerateMode",
-      "description": "The image acceleration mode. Valid values:\n\n*   nydus: uses Nydus to accelerate image pulling. The images must support Nydus.\n*   dadi: uses DADI to accelerate image pulling. The images must support DADI.\n*   p2p: uses P2P to accelerate image pulling. The images must support p2p.\n*   imc: uses image caches to accelerate image pulling.",
+      "description": "The image acceleration mode. Valid values:\n\n- nydus: uses Nydus acceleration. The image must support it.\n- dadi: uses DADI acceleration. The image must support it.\n- p2p: uses P2P acceleration. The image must support it.\n- imc: uses image cache acceleration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageRegistryCredential",
-      "description": "The information about the logon credentials.",
+      "description": "The image repository credentials.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Password",
+          "description": "The password of the image repository.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Server",
+          "description": "The address of the image repository registry.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "UserName",
+          "description": "The username of the image repository.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -735,123 +810,140 @@
     },
     {
       "name": "ImageSnapshotId",
-      "description": "The ID of the image cache. For more information, see [Use image caches to accelerate the creation of instances](~~141281~~).",
+      "description": "The image cache ID. For more information, see [Use image caches to accelerate instance creation](~~141281~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IngressBandwidth",
-      "description": "The maximum inbound bandwidth. Unit: bit/s.",
+      "description": "The inbound bandwidth limit. Unit: Bps.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "InitContainer",
-      "description": "The information about the init containers.",
+      "description": "The list of init containers.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Arg",
+          "description": "The container startup arguments.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Command",
+          "description": "The container startup commands.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Cpu",
+          "description": "The vCPU size of the container. Unit: cores.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "EnvironmentVar",
+          "description": "The list of container environment variables.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Gpu",
+          "description": "The number of GPUs assigned to the container.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Image",
+          "description": "The image used by the container.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ImagePullPolicy",
+          "description": "The image pull policy. Valid values:\n- Always: always pull. Pulls the image every time.\n- IfNotPresent: pull on demand. Uses the local image first. Pulls the image if no local image is available.\n- Never: never pull. Uses the local image only.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Memory",
+          "description": "The memory size of the container. Unit: GiB.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The container name.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Port",
+          "description": "The init container port numbers.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SecurityContext.Capability.Add",
+          "description": "The permissions granted to processes in the container. Currently, only NET_ADMIN and NET_RAW are supported.\n\n> NET_RAW is not supported by default and requires a ticket submission.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SecurityContext.ReadOnlyRootFilesystem",
+          "description": "Specifies whether the root file system of the container is read-only. Currently, only true is supported.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "SecurityContext.RunAsUser",
+          "description": "The user ID used to run the container.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "TerminationMessagePath",
+          "description": "The source of the container exit message. When the container exits, the termination message is retrieved from the specified termination message file.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TerminationMessagePolicy",
+          "description": "The mount information. Default value: empty.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VolumeMount",
+          "description": "The list of volume mount information.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "WorkingDir",
+          "description": "The working directory.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -860,131 +952,132 @@
     },
     {
       "name": "InsecureRegistry",
-      "description": "The address of the self-managed image repository. When you create an elastic container instance by using an image in a self-managed image repository that uses a self-signed certificate, you must specify this parameter to skip the certificate authentication. This prevents image pull failures caused by certificate authentication failures.",
+      "description": "The address of a self-managed image repository. When creating ECI instances using images from a self-managed image repository that uses self-signed certificates, configure this parameter to skip certificate verification, avoiding image pull failures caused by certificate verification failure.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The ECS instance types that you specify to create the elastic container instance. Multiple instance types are supported. For more information, see [Specify ECS instance types to create an elastic container instance](~~114664~~).",
+      "description": "The specified ECS instance type. Multiple instance types are supported. For more information, see [Create an instance by specifying an ECS instance type](~~114664~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6AddressCount",
-      "description": "The number of IPv6 addresses that are assigned to the instance. Set the value to 1. You can assign only one IPv6 address to an elastic container instance.",
+      "description": "The number of IPv6 addresses. The value is fixed at 1, meaning an ECI instance supports binding one IPv6 address.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Ipv6GatewayBandwidth",
-      "description": "The maximum IPv6 Internet bandwidth when you set Ipv6GatewayBandwidthEnable to true. Valid values:\n\n*   If the billing method for IPv6 network usage is pay-by-bandwidth, the maximum IPv6 Internet bandwidth ranges from 1 to 2,000 Mbit/s.\n\n*   If the billing method for IPv6 network usage is pay-by-traffic, the maximum IPv6 Internet bandwidth varies based on the edition of the IPv6 gateway.\n\n    *   If the IPv6 gateway is of Free Edition, the maximum IPv6 Internet bandwidth ranges from 1 to 200 Mbit/s.\n    *   If the IPv6 gateway is of Enterprise Edition, the maximum IPv6 Internet bandwidth ranges from 1 to 500 Mbit/s.\n    *   If the IPv6 gateway is of Enhanced Enterprise Edition, the maximum IPv6 Internet bandwidth ranges from 1 to 1000 Mbit/s.\n\nThe default value is the maximum value in the Internet bandwidth range of the IPv6 gateway.",
+      "description": "When Ipv6GatewayBandwidthEnable is set to true, specifies the peak public bandwidth for the IPv6 address. Valid values:\n\n- When the IPv6 gateway uses pay-by-fixed-bandwidth billing, the IPv6 public bandwidth range is 1 to 2000 Mbps.\n- When the IPv6 gateway uses pay-by-traffic billing, the IPv6 public bandwidth range depends on the gateway specification:\n    - Free edition: 1 to 200 Mbps.\n    - Enterprise edition: 1 to 500 Mbps.\n    - Enhanced enterprise edition: 1 to 1000 Mbps.\n\nDefault value: the maximum value within the corresponding bandwidth range of the gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6GatewayBandwidthEnable",
-      "description": "Specifies whether to enable Internet access to the elastic container instance over IPv6 addresses.",
+      "description": "Specifies whether to enable IPv6 public network communication for the ECI instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxPendingMinute",
-      "description": "",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Memory",
-      "description": "The memory size that you want to allocate to the instance. Unit: GiB.",
+      "description": "The instance-level memory size. Unit: GiB.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "NtpServer",
-      "description": "The endpoints of the Network Time Protocol (NTP) servers.",
+      "description": "The NTP servers.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "OsType",
-      "description": "The operating system of the elastic container instance. Default value: Linux. Valid values:\n\n*   Linux\n*   Windows\n\n>  Windows instances are in invitational preview. To use the operating system, submit a ticket.",
+      "description": "The operating system of the ECI instance. Valid values:\n\n- Linux (default)\n- Windows\n\n> Windows instances are in beta. To use them, submit a ticket.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlainHttpRegistry",
-      "description": "The address of the self-managed image repository. When you create an elastic container instance by using an image in a self-managed image repository that uses the HTTP protocol, you must specify this parameter. This way, Elastic Container Instance pulls the image over the HTTP protocol instead of the default HTTPS protocol. This prevents image pull failures caused by different protocols.",
+      "description": "The address of a self-managed image repository. When creating ECI instances using images from a self-managed image repository that uses the HTTP protocol, configure this parameter so that ECI uses the HTTP protocol to pull images, avoiding image pull failures caused by protocol mismatch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateIpAddress",
-      "description": "The private IP address of the elastic container instance. Only IPv4 addresses are supported. Make sure that the IP address is idle.",
+      "description": "The private IP address of the ECI instance. Currently, only IPv4 addresses are supported. Make sure that the IP address is not already in use.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RamRoleName",
-      "description": "The name of the instance Resource Access Management (RAM) role. You can use the same RAM role to access elastic container instances and ECS instances. For more information, see [Use an instance RAM role by calling API operations](~~61178~~).",
+      "description": "The name of the instance RAM role. ECI and ECS share instance RAM roles. For more information, see [Use an instance RAM role by calling API operations](~~61178~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RestartPolicy",
-      "description": "The restart policy of the instance. Valid values:\n\n*   Always: Always restarts the instance if a container in the instance exits upon termination.\n*   Never: Never restarts the instance if a container in the instance exits upon termination.\n*   OnFailure: Restarts the instance only if a container in the instance exists upon failure with a status code of non-zero.\n\nDefault value: Always.",
+      "description": "The restart policy of the instance. Valid values:\n\n- Always: always restart.\n- Never: never restart.\n- OnFailure: restart upon failure.\n\nDefault value: Always.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScheduleStrategy",
-      "description": "The resource scheduling policy when you specify multiple zones to create an elastic container instance. To specify multiple zones, you can use the VSwitchId to specify multiple vSwitches. Valid values:\n\n*   VSwitchOrdered: The system schedules resources in the sequence of the vSwitches.\n*   VSwitchRandom: The system schedules resources at random.\n\nFor more information, see [Specify multiple zones to create an elastic container instance](~~157290~~).",
+      "description": "The scheduling strategy for the ECI instance when multiple zones are configured (by specifying multiple vSwitches via the VSwitchId parameter). Valid values:\n\n- VSwitchOrdered: scheduled in order.\n- VSwitchRandom: optimally scheduled by Alibaba Cloud.\n\nFor more information, see [Create instances across multiple zones](~~157290~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityContext.Sysctl",
-      "description": "Configure a security context to modify safe sysctls. For more information, see [Configure a security context](~~462313~~).",
+      "description": "Modifies safe sysctl parameters through the security context. For more information, see [Configure Security Context](~~462313~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The name of the safe sysctl parameter when modifying sysctl parameters through the security context. Valid values:\n\n- net.ipv4.ping_group_range\n- net.ipv4.ip_unprivileged_port_start",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the safe sysctl parameter when modifying sysctl parameters through the security context.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -993,7 +1086,7 @@
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group to which the instance belongs. Instances in the same security group can access each other.\n\nIf you do not specify a security group, the system automatically uses the default security group in the region that you selected. Make sure that the inbound rules of the security group contain the container protocols and port numbers that you want to expose. If you do not have a default security group in the region, the system creates a default security group, and then adds the container protocols and port numbers that you specified to the inbound rules of the security group.",
+      "description": "The ID of the security group to which the instance belongs. Instances in the same security group can access each other.\n\nIf no security group is specified, the system automatically uses the default security group in the region that you selected. Make sure that the inbound rules of the security group contain the protocols and port numbers of the containers that you want to expose. If you do not have a default security group in the region, the system creates a default security group and adds the declared container protocols and port numbers to the inbound rules of the security group.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -1007,47 +1100,49 @@
     },
     {
       "name": "SpotDuration",
-      "description": "The protection period of the preemptible elastic container instance. Unit: hours. Default value: 1. A value of 0 indicates no protection period.",
+      "description": "The protection period of the preemptible instance. Unit: hours. Default value: 1. Set this to 0 for no protection period.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "SpotPriceLimit",
-      "description": "The maximum hourly price of the preemptible elastic container instance. The value can be accurate to three decimal places.\n\nIf you set SpotStrategy to SpotWithPriceLimit, you must specify the SpotPriceLimit parameter.",
+      "description": "The maximum hourly price of the preemptible instance. The value can be accurate to three decimal places.\n\nThis parameter is required when SpotStrategy is set to SpotWithPriceLimit.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "SpotStrategy",
-      "description": "The bid policy for the instance. Valid values:\n\n*   NoSpot: The instance is created as a pay-as-you-go instance.\n*   SpotWithPriceLimit: The instance is created as a preemptible instance for which you specify the maximum hourly price.\n*   SpotAsPriceGo: The instance is created as a preemptible instance for which the market price at the time of purchase is automatically used as the bid price.\n\nDefault value: NoSpot.",
+      "description": "The bidding strategy for the instance. Valid values:\n\n- NoSpot: a pay-as-you-go instance.\n- SpotWithPriceLimit: a preemptible instance with a maximum price limit.\n- SpotAsPriceGo: a preemptible instance that is billed based on the actual market price.\n\nDefault value: NoSpot.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StrictSpot",
-      "description": "Specifies whether to enable periodical execution.\n\n*   true: enables periodical execution.\n*   false: disables periodical execution.",
+      "description": "Specifies whether to execute periodically:\n\n- true: execute periodically.\n- false: do not execute periodically.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags that you want to add to the instance. You can bind a maximum of 20 tags. For more information, see [Use tags to manage elastic container instances](~~146608~~).",
+      "description": "The list of tags. A maximum of 20 tags can be bound. For more information, see [Use tags to manage instances](~~146608~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. This value cannot be an empty string and cannot be duplicate. The tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. This value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -1056,123 +1151,140 @@
     },
     {
       "name": "TerminationGracePeriodSeconds",
-      "description": "The buffer period of time during which the program handles operations before the program is stopped. Unit: seconds.",
+      "description": "The buffer period for the program to handle operations before shutdown. Unit: seconds.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The IDs of the vSwitches that connect to the instance. You can specify up to 10 vSwitch IDs at a time. Separate multiple vSwitch IDs with commas (,). Example: `vsw-***,vsw-***`.\n\nIf you do not specify a vSwitch, the system automatically uses the default vSwitch in the default VPC in the region that you selected. If you do not have a default VPC or a default vSwitch in the region, the system automatically creates a default VPC and a default vSwitch.\n\n>  The number of IP addresses in the vSwitch CIDR block determines the maximum number of elastic container instances that you can create for the vSwitch. Before you create elastic container instances, you must plan the CIDR block of the vSwitch.",
+      "description": "The ID of the vSwitch to which the instance is connected. You can specify up to 10 vSwitch IDs at a time, separated by commas (,), for example, `vsw-***,vsw-***`.\n\nIf no vSwitch is specified, the system automatically uses the default vSwitch in the default VPC of the region that you selected. If you do not have a default VPC and a default vSwitch in the region, the system creates a default VPC and a default vSwitch.\n\n> The number of IP addresses in the vSwitch CIDR block determines the maximum number of ECI instances that can be created in the vSwitch. Plan the CIDR block in advance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Volume",
-      "description": "The information about the volume that you want to mount to the container.",
+      "description": "The volume information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ConfigFileVolume.ConfigFileToPath",
+          "description": "The ConfigFile volume information.\n\nIf multiple ConfigFileToPath entries are configured, the total length of all corresponding Content values cannot exceed 60 KB.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ConfigFileVolume.DefaultMode",
+          "description": "The default permissions of the ConfigFileVolume.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "DiskVolume.DiskId",
+          "description": "The ID of the DiskVolume.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskVolume.DiskSize",
+          "description": "The size of the DiskVolume. Unit: GiB.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "DiskVolume.FsType",
+          "description": "The file system type of the DiskVolume.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EmptyDirVolume.Medium",
+          "description": "The storage medium for the EmptyDirVolume. Default value: empty, which uses the node file system. The value memory is supported, indicating the use of memory.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EmptyDirVolume.SizeLimit",
+          "description": "The size of the EmptyDirVolume. Unit: GiB.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FlexVolume.Driver",
+          "description": "The driver type when using the FlexVolume plugin to mount volumes. Valid values:\n\n- alicloud/disk: mount a cloud disk.\n- alicloud/nas: mount NAS.\n- alicloud/oss: mount OSS.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FlexVolume.FsType",
+          "description": "The file system type to mount. Default value depends on the FlexVolume script.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FlexVolume.Options",
+          "description": "The FlexVolume option list. This is in key-value format and passed as JSON.\n\nFor example, when mounting a cloud disk via FlexVolume, Options represents the cloud disk configuration parameters. The configurable parameters are as follows:\n\n- volumeId: the ID of an existing cloud disk.\n- volumeSize: the size of the cloud disk. Unit: GiB. Valid values: 20 to 32768.\n- performanceLevel: the performance level of the cloud disk. For more information, see [Cloud disk performance levels](~~25382~~).\n- deleteWithInstance: specifies whether to release the disk with the instance. Default value: false.\n- encrypted: specifies whether to encrypt the cloud disk. Default value: false. For more information, see [Encryption overview](~~59643~~).\n- kmsKeyId: the KMS key ID used for cloud disk encryption.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "HostPathVolume.Path",
+          "description": "The directory path of the HostPath volume on the host.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "HostPathVolume.Type",
+          "description": "The type of the HostPath volume. Valid values:\n\n- Directory: a directory.\n- File: a file.\n\n> HostPath volumes are available only to allowlisted users.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "NFSVolume.Path",
+          "description": "The NFS volume path.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "NFSVolume.ReadOnly",
+          "description": "Specifies whether the NFS volume is read-only. Default value: false.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "NFSVolume.Server",
+          "description": "The NFS server address.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The volume name.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "The volume type. Valid values:\n\n- EmptyDirVolume: an EmptyDir volume, which represents an empty directory.\n- NFSVolume: an NFS volume, which represents a Network File System.\n- ConfigFileVolume: a ConfigFile volume, which represents a configuration file.\n- FlexVolume: uses the FlexVolume plugin to extend storage types. Supports mounting cloud disks.\n- HostPathVolume: a HostPath volume, which represents a file or directory on the host node. This type is available only to allowlisted users.\n- DiskVolume (not recommended): a cloud disk volume. We recommend that you use FlexVolume to mount cloud disks.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -1181,7 +1293,7 @@
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the instance. If you do not specify this parameter, the system selects a zone.\n\nThis parameter is empty by default.",
+      "description": "The zone of the instance. If the value is empty, the system automatically selects a zone.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false

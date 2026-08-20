@@ -7,185 +7,189 @@
   "parameters": [
     {
       "name": "Category",
-      "description": "The category of the snapshot. Valid values:\n\n*   Standard: standard snapshot.\n\n*   Flash: local snapshot. This value will be deprecated. The local snapshot feature is replaced by the instant access feature. When you specify this parameter, take note of the following items:\n\n    *   If you have used local snapshots before December 14, 2020, you can use this parameter.\n    *   If you have not used local snapshots before December 14, 2020, you cannot use this parameter.\n\n*   archive: archive snapshot.",
+      "description": "The snapshot type. Valid values:\n- Standard: Normal snapshot.\n- Flash: local snapshot. This value is about to be deprecated. Local snapshots have been replaced by the snapshot instant access feature. The metric description is as follows:\n  - If you used local snapshots before December 14, 2020, you can use this parameter as it is active.\n  - If you did not use local snapshots before December 14, 2020, you cannot use this parameter.\n- archive: archive snapshot.\n\n\n\n<props=\"china\">For more information, see [Chinese notice on Alibaba Cloud snapshot service upgrade and new billing items on December 14](https://help.aliyun.com/noticelist/articleid/1060755542.html).</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskId",
-      "description": "The disk ID.",
+      "description": "The ID of the disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks your AccessKey pair, the permissions of the RAM user, and the required parameters. If the request passes the dry run, the DryRunOperation error code is returned. Otherwise, an error message is returned.\n*   false (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n\n- true: performs only a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized RAM users, and missing parameter values. If the request fails the dry run, an error message is returned. If the request passes the dry run, the DryRunOperation error code is returned.\n- false (default): performs a dry run and sends the request. If the request passes the dry run, a 2XX HTTP status code is returned and the resource status is queried.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Encrypted",
-      "description": "Specifies whether the snapshot is encrypted. Default value: false.",
+      "description": "Specifies whether to filter encrypted snapshots. Default value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Filter.1.Key",
-      "description": "The key of filter 1 that is used to query resources. Set the value to `CreationStartTime`. You can specify a time by configuring both `Filter.1.Key` and `Filter.1.Value` to query resources that were created after the time.",
+      "description": "The filter key used to query resources. Set the value to `CreationStartTime`. When you specify both `Filter.1.Key` and `Filter.1.Value`, you can query resources created after the specified point in time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Filter.1.Value",
-      "description": "The value of filter 1 that is used to query resources. Set the value to a time. If you configure this parameter, you must also configure `Filter.1.Key`. Specify the time in the `yyyy-MM-ddTHH:mmZ` format. The time must be in UTC.",
+      "description": "The filter value used to query resources. When you specify this parameter, you must also specify `Filter.1.Key`. Specify the time in the `yyyy-MM-ddTHH:mmZ` format in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Filter.2.Key",
-      "description": "The key of filter 2 that is used to query resources. Set the value to `CreationEndTime`. You can specify a time by configuring both `Filter.2.Key` and `Filter.2.Value` to query resources that were created before the time.",
+      "description": "The filter key used to query resources. Set the value to `CreationEndTime`. When you specify both `Filter.2.Key` and `Filter.2.Value`, you can query resources created before the specified point in time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Filter.2.Value",
-      "description": "The value of filter 2 that is used to query resources. Set the value to a time. If you configure this parameter, you must also configure `Filter.2.Key`. Specify the time in the `yyyy-MM-ddTHH:mmZ` format. The time must be in UTC.",
+      "description": "The filter value used to query resources. When you specify this parameter, you must also specify `Filter.2.Key`. Specify the time in the `yyyy-MM-ddTHH:mmZ` format in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance whose cloud disk snapshots you want to query.",
+      "description": "The instance ID. Specify this parameter to query snapshot information of disks attached to the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KMSKeyId",
-      "description": "The ID of the Key Management Service (KMS) key that is used for the data disk.",
+      "description": "The Key Management Service (KMS) key ID for the data disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries per page. Maximum value: 100\n\nDefault value: 10.",
+      "description": "The maximum number of entries per page for paging query. Maximum value: 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Obtained from the response of the previous request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": ">  This parameter will be removed in the future. We recommend that you use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter is about to be deprecated. Use NextToken and MaxResults to complete paging query operations.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": ">  This parameter will be removed in the future. We recommend that you use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter is about to be deprecated. Use NextToken and MaxResults to complete paging query operations.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the disk. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the disk. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The resource group ID. If you configure this parameter to query resources, up to 1,000 resources that belong to the specified resource group can be displayed in the response.\n\n> Resources in the default resource group are displayed in the response regardless of whether you configure this parameter.",
+      "description": "The resource group ID. When you use this parameter to filter resources, the resource count cannot exceed 1000.\n\n> Filtering by default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotIds",
-      "description": "The IDs of snapshots. You can specify a JSON array that consists of up to 100 snapshot IDs. Separate the snapshot IDs with commas (,).",
+      "description": "The snapshot IDs. The value is a JSON array that consists of up to 100 snapshot IDs. Separate the IDs with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotLinkId",
-      "description": "The snapshot chain ID. You can specify a JSON array that contains up to 100 snapshot chain IDs. Separate the snapshot chain IDs with commas (,).",
+      "description": "The snapshot chain ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotName",
-      "description": "The name of the snapshot.",
+      "description": "The snapshot name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotType",
-      "description": "The type of the snapshot. Valid values:\n\n*   auto: automatic snapshot\n*   user: manual snapshot\n*   all (default): all snapshot types",
+      "description": "The automatic creation type. Valid values: \n         \n- auto: automatic snapshot.\n- user: manual snapshot.\n- all (default): all automatic creation types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceDiskType",
-      "description": "The source disk type of the snapshot. Valid values:\n\n*   system: system disk.\n*   data: data disk.\n\n>  The value of this parameter is case-insensitive.",
+      "description": "The type of the source disk. Valid values: \n     \n- system: system disk.\n- data: data disk.\n\n> The values are case-insensitive.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the snapshot. Valid values:\n\n*   progressing: The snapshot is being created.\n*   accomplished: The snapshot is created.\n*   failed: The snapshot fails to be created.\n*   all (default): This value indicates all snapshot states.",
+      "description": "The snapshot status. Valid values: \n         \n- progressing: The snapshot is being created.\n- accomplished: The snapshot is created.\n- failed: The snapshot failed to be created.\n- all (default): all snapshot statuses.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags of the snapshot.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the snapshot. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with the tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count with all the specified tags attached cannot exceed 1000. If the resource count exceeds 1000, call the [ListTagResources](~~110425~~) operation.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the snapshot. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
+          "description": "The tag key of the resource.\n\n> For better compatibility, use Tag.N.Key instead.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
+          "description": "The tag value of the resource.\n\n> For better compatibility, use Tag.N.Value instead.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -194,7 +198,7 @@
     },
     {
       "name": "Usage",
-      "description": "Specifies whether the snapshot has been used to create custom images or disks. Valid values:\n\n*   image: The snapshot has been used to create custom images.\n*   disk: The snapshot has been used to create disks.\n*   image_disk: The snapshot has been used to create both custom images and data disks.\n*   none: The snapshot has not been used to create custom images or disks.",
+      "description": "Specifies whether the snapshot has been used to create images or disks. Valid values: \n\n- image: The snapshot has been used to create custom images.\n- disk: The snapshot has been used to create disks.\n- image_disk: The snapshot has been used to create both data disks and custom images.\n- none: The snapshot has not been used.",
       "position": "Query",
       "type": "String",
       "required": false

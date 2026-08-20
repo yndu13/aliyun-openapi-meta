@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "NextToken",
-      "description": "A maximum of 50 entries can be returned for a query. If a query generates more than 50 entries, the NextToken parameter is returned with the first 50 entries. You can use the NextToken parameter value to retrieve the subsequent entries that are not returned in the current query result.",
+      "description": "A query can return a maximum of 50 results. If the number of results exceeds this limit, the response includes a NextToken. To retrieve the next page of results, pass this token in your next request.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,21 +21,21 @@
     },
     {
       "name": "ResourceIds",
-      "description": "The resource ID. Separate multiple resource IDs with comma (,). This parameter is required if you do not specify the **Tags** parameter.",
+      "description": "The resource IDs, specified as a JSON array of strings. This parameter is required if the **Tags** parameter is not specified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource. Set the value to `application`.",
+      "description": "The resource type. Only `application` is supported.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tags",
-      "description": "The tag in the format of a key-value pair. This parameter is required if you do not specify the **ResourceIds** parameter. The following parameters are involved:\n\n*   **key**: the tag key. It cannot exceed 128 characters in length.\n*   **value**: the tag value. It cannot exceed 128 characters in length.\n\nTag keys and tag values are case-sensitive. If you specify multiple tags, the system adds all the tags to the specified resources. Each tag key on a resource can have only one tag value. If you create a tag that has the same key as an existing tag, the value of the existing tag is overwritten.\n\nTag keys and tag values cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
+      "description": "The tags used to filter resources. This parameter is required if the **ResourceIds** parameter is not specified. A tag is a key-value pair.\n\n- **key**: The tag key. The key can be 1 to 128 characters in length.\n\n- **value**: The tag value. The value can be 1 to 128 characters in length.\n\nTag keys and tag values are case-sensitive. If you specify multiple tags, the operation returns only resources that have all the specified tags.\n\nA tag key cannot start with `aliyun` or `acs:` and cannot contain `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false

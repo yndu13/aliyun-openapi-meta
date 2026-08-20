@@ -1,5 +1,6 @@
 {
   "name": "DescribeRuleHitsTopRuleId",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,21 +14,21 @@
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the Web Application Firewall (WAF) instance.\n\n>  You can call the [DescribeInstance](~~433756~~) operation to query the ID of the WAF instance.",
+      "description": "The ID of the WAF instance.\n\n> You can call [DescribeInstance](~~433756~~) to query the ID of the current WAF instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IsGroupResource",
-      "description": "Specifies whether protected objects that trigger protection rules are returned in the response. Valid values\n\n- **true**: returns only the number of times each protection rule is triggered. If you set IsGroupResource to true, Resource is left empty.\n- **false**: returns the number of times each protection rule is triggered by each protected object.",
+      "description": "Specifies whether to aggregate rule hits by protected object.\n\n- **true (default)**: Aggregates rule hits by protected object. In this case, rule hits are counted based on individual rules only, and the Resource value in the response is empty.\n- **false**: Does not aggregate rule hits by protected object. In this case, rule hits are counted based on both protected objects and rules.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region where the WAF instance resides. Valid values:\n\n*   **cn-hangzhou:** the Chinese mainland.\n*   **ap-southeast-1:** outside the Chinese mainland.",
+      "description": "The region where the WAF instance is deployed. Valid values:\n\n- **cn-hangzhou**: the Chinese mainland.\n\n- **ap-southeast-1**: outside the Chinese mainland.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,14 +42,14 @@
     },
     {
       "name": "ResourceManagerResourceGroupId",
-      "description": "The ID of the Alibaba Cloud resource group.",
+      "description": "The Alibaba Cloud resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleType",
-      "description": "The type of rules that are triggered by the protected object. By default, this parameter is not specified and all types of rules are queried.\n\n*   **blacklist:** IP address blacklist rules.\n*   **custom:** custom rules.\n*   **antiscan:** scan protection rules.\n*   **cc_system:** HTTP flood protection rules.\n*   **region_block:** region blacklist rules.",
+      "description": "The type of rule hit by the protected object. By default, this parameter is not specified, which indicates that all rules are displayed.\n\n- **blacklist**: IP blacklist.\n\n- **custom**: Custom rule.\n\n- **antiscan**: Scan protection rule.\n\n- **cc_system**: HTTP flood mitigation rule.\n\n- **region_block**: Location blacklist.",
       "position": "Query",
       "type": "String",
       "required": false

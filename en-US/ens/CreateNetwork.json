@@ -7,47 +7,61 @@
   "parameters": [
     {
       "name": "CidrBlock",
-      "description": "The CIDR block of the network. You can use one of the following CIDR blocks or their subnets as the CIDR block of the network:\n\n*   10.0.0.0/8 (default)\n*   172.16.0.0/12\n*   192.168.0.0/16",
+      "description": "The CIDR block of the network. You can use one of the following CIDR blocks or their subsets:\n\n- 10.0.0.0/8 (default).\n\n- 172.16.0.0/12.\n\n- 192.168.0.0/16.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Description",
-      "description": "The description of the network.\n\nThe description must be 2 to 256 characters in length. It must start with a letter but cannot start with http:// or https://.",
+      "description": "A description of the network.\n\nMust be 2 to 256 characters long, start with a letter or a Chinese character, and cannot start with http\\:// or https\\://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "EnableIpv6",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "EnsRegionId",
-      "description": "The ID of the edge node.",
+      "description": "The node ID of ENS.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "Ipv6Isp",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "NetworkName",
-      "description": "The name of the network. The name must meet the following requirements:\n\n*   The name must be 2 to 128 characters in length.\n*   The name must start with a letter but cannot start with http:// or https://.\n*   The name can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The network name. Follow these naming rules:\n\n- Must be 2 to 128 characters long, using English or Chinese characters.\n\n- Must start with a letter or a Chinese character. Cannot start with http\\:// or https\\://.\n\n- Can contain digits, colons (:), underscores (\\_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The resource tags.",
+      "description": "Resource tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key for the instance. N ranges from **1** to **20**.\n\n- Cannot start with `aliyun`, `acs:`, `http://`, or `https://`.\n\n- Supports up to 64 characters.\n\n- Cannot be an empty string.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value for the resource. N ranges from 1 to 20. This value can be an empty string once provided. It supports up to 128 characters, cannot start with acs:, and cannot contain http\\:// or https\\://.",
           "position": "Query",
           "type": "String",
           "required": false

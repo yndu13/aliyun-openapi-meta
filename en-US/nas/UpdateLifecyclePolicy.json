@@ -1,0 +1,113 @@
+{
+  "name": "UpdateLifecyclePolicy",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "DeleteRules",
+      "description": "The file data expiration and deletion rules.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Attribute",
+          "description": "The attribute of the rule.\n\nValid values:\n- Atime: the access time of the file.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Threshold",
+          "description": "The threshold of the rule.\n\nValid values:\n- If Attribute is set to Atime, the value specifies the number of days since the file was last accessed. Valid values: 1 to 365.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "description": "The description of the lifecycle policy.\n\nFormat:\nThe description must be 3 to 64 characters in length, start with a letter, and can contain letters, digits, underscores (_), or hyphens (-).\n> Only CPFS for Lingjun is supported.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FileSystemId",
+      "description": "The file system ID. The ID starts with bmcpfs-, such as bmcpfs-290w65p03ok64ya****.\n> This parameter is supported only when LifecyclePolicyType is set to OnDemand in the lifecycle management policy of a CPFS for Lingjun file system.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "LifecyclePolicyId",
+      "description": "The ID of the lifecycle policy.\n> This parameter is required for CPFS for Lingjun file systems.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Paths",
+      "description": "The absolute paths of the directories associated with the lifecycle management policy.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "RetrieveRules",
+      "description": "The file data retrieval rules. You can configure up to one rule.\n> Only CPFS for Lingjun file systems are supported.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Attribute",
+          "description": "The attribute of the rule.\n\nValid values:\n- RetrieveType: the retrieval method.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Threshold",
+          "description": "The threshold of the rule.\n\nValid values:\n- RetrieveType\n    - AfterVisit: supported when LifecyclePolicyType is set to Auto. Indicates best-effort recall on visit.\n    - All: supported when LifecyclePolicyType is set to OnDemand. Indicates retrieval of all data.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "StorageType",
+      "description": "The tiered storage type.\n\nValid values:\n- InfrequentAccess: IA storage class. This is the default value.\n- Archive: Archive storage.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TransitRules",
+      "description": "The file data transit rules. You can configure up to one rule.\n\n> This parameter is supported only when LifecyclePolicyType is set to Auto for a CPFS for Lingjun file system.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Attribute",
+          "description": "The attribute of the rule.\n\nValid values:\n- Atime: the access time of the file.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Threshold",
+          "description": "The threshold of the rule.\n\nValid values:\n- If Attribute is set to Atime, the value specifies the number of days since the file was last accessed. Valid values: 1 to 365.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

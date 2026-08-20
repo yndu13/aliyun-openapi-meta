@@ -6,11 +6,41 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "GenerateOptions",
+      "description": "GenerateOptions 用于控制模板权限策略的生成方式。该参数为列表类型，可指定是否解析模板参数以及生成策略的权限范围： \n**ResolveParameters** 表示根据传入的 Parameters 或参数默认值解析条件和资源后生成策略\n\n**IgnoreParameters**  表示不解析参数并按兼容旧逻辑生成策略\n\n**MandatoryPolicy**  表示仅生成模板执行所需的必要权限\n\n**FullPolicy**  表示生成完整权限策略\n\nResolveParameters 与 IgnoreParameters 互斥，MandatoryPolicy 与 FullPolicy 互斥，且 MandatoryPolicy 必须与 ResolveParameters 一起使用。\n\n未指定时，若传入 Parameters 默认使用 ResolveParameters + FullPolicy，否则默认使用 IgnoreParameters + FullPolicy。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "OperationTypes",
       "description": "需要生成策略信息的操作类型。",
       "position": "Query",
       "type": "RepeatList",
       "required": false
+    },
+    {
+      "name": "Parameters",
+      "description": "输入参数。 输入参数中，定义了通过此模板创建资源栈时需要指定的参数，这些参数用来指定每次资源栈创建的细节，例如：用户名、密码、环境相关的ECS规格等。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ParameterKey",
+          "description": "参数的名称。如果未指定模板中定义的参数名称和参数值，ROS将使用模板中指定的默认值。  \nN的最大值为：200。\n取值示例：\n\n- Parameters.1.ParameterKey：`Name`。\n\n- Parameters.2.ParameterKey：`Netmode`。\n\n\n> Parameters为可选参数。如果需要指定Parameters，则Parameters.N.ParameterKey和Parameters.N.ParameterValue必须同时指定。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ParameterValue",
+          "description": "模板中已定义的参数的取值。N的最大值为200。  \n\n> Parameters为可选参数。若指定了Parameters，则Parameters.N.ParameterValue为必选参数。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
     },
     {
       "name": "TemplateBody",

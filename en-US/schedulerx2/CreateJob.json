@@ -1,64 +1,69 @@
 {
   "name": "CreateJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AttemptInterval",
-      "description": "The time interval between retry attempts in case of a job failure. Unit: seconds. Default value: 30.",
+      "description": "The retry interval on failure. Unit: seconds. Default value: 30.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Calendar",
-      "description": "If you set TimeType to 1 (cron), you can specify calendar days.",
+      "description": "The custom calendar. This parameter is available for the cron time type.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ClassName",
-      "description": "The full path of the job interface class.\n\nThis parameter is available only when you set JobType to java. You must enter a full path.",
+      "description": "The full path of the node interface class.\n\nThis field is required only when you select the Java node type. Specify the full path.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ConsumerSize",
-      "description": "The number of threads that a single worker triggers simultaneously. You can specify this parameter for MapReduce jobs. Default value: 5.",
+      "description": "The advanced configuration for parallel grid nodes. The number of threads triggered for a single execution on a single machine. Default value: 5.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ContactInfo",
-      "description": "The information about the alert contact.",
+      "description": "The node contact information.\n\n><notice>This field is deprecated.</notice>",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Ding",
+          "description": "The webhook URL of the DingTalk chatbot for the alert contact's DingTalk group. References: [DingTalk development documentation](https://open.dingtalk.com/document/org/application-types).",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "UserMail",
+          "description": "The email address of the alert contact.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "UserName",
+          "description": "The name of the alert contact.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "UserPhone",
+          "description": "The mobile phone number of the alert recipient.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -67,133 +72,133 @@
     },
     {
       "name": "Content",
-      "description": "The script content. This parameter is required when you set JobType to python, shell, go, or k8s.",
+      "description": "- If the node type is python, shell, or k8s, specify the corresponding script content.\n- If the node type is golang, the content format example is {\"jobName\":\"HelloWorld\"}.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DataOffset",
-      "description": "If you set TimeType to 1 (cron), you can specify a time offset. Unit: seconds.",
+      "description": "The time offset. Unit: seconds. This parameter is available for the cron time type.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The job description.",
+      "description": "The node description.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DispatcherSize",
-      "description": "The number of task distribution threads. This parameter is an advanced configuration item of the MapReduce job. Default value: 5.",
+      "description": "The advanced configuration for parallel grid nodes. The number of subtask dispatch threads. Default value: 5.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ExecuteMode",
-      "description": "The execution mode of the job. Valid values:\n\n*   **Stand-alone operation**\n*   **Broadcast run**\n*   **Visual MapReduce**\n*   **MapReduce**\n*   **Shard run**",
+      "description": "The node execution mode. The following execution modes are supported:\n\n- **Standalone**: standalone\n- **Broadcast**: broadcast\n- **Visual MapReduce**: parallel\n- **MapReduce**: batch\n- **Sharding**: sharding",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "FailEnable",
-      "description": "Specifies whether to trigger an alert when a job fails. Valid values:\n\n*   **true**: triggers an alert when a job fails.\n*   **false**: does not trigger an alert when a job fails.",
+      "description": "Specifies whether to enable the failure alert. Valid values:\n\n- **true**: Enables the failure alert.\n- **false**: Disables the failure alert.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FailTimes",
-      "description": "The maximum number of consecutive failures before an alert is triggered. An alert will be triggered if the number of consecutive failures reaches the value of this parameter.",
+      "description": "The number of consecutive failures before an alert is triggered.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "GroupId",
-      "description": "The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.",
+      "description": "The application ID. You can obtain the application ID on the Application Management page in the console.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "JobType",
-      "description": "The job type. Valid values:\n\n*   java\n*   python\n*   shell\n*   go\n*   http\n*   xxljob\n*   dataworks\n*   k8s\n*   springschedule",
+      "description": "The node type. The following node types are supported:\n\n- java\n- python\n- shell\n- go\n- http\n- xxljob\n- dataworks\n- k8s\n- springschedule",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "MaxAttempt",
-      "description": "The maximum number of retry attempts in case of a job failure. Specify this parameter based on your business requirements. Default value: 0.",
+      "description": "The maximum number of retries on failure. Set this parameter based on your business requirements. Default value: 0.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MaxConcurrency",
-      "description": "The maximum number of concurrent instances. By default, only one instance can run at a time. When an instance is running, the next instance is not triggered even if the scheduled start time arrives.",
+      "description": "The maximum number of concurrently running instances. Default value: 1. This means that if the previous trigger has not finished running, the next trigger is not performed even if the scheduled time arrives.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MissWorkerEnable",
-      "description": "Specifies whether to generate an alert if no machines are available to run the job. Valid values:\n\n*   **true**: generates an alert if no machines are available to run the job.\n*   **false**: does not generate an alert if no machines are available to run the job.",
+      "description": "Specifies whether to enable the no-available-machine alert. Valid values:\n- **true**: Enables the no-available-machine alert.\n- **false**: Disables the no-available-machine alert.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The job name.",
+      "description": "The node name.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Namespace",
-      "description": "The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.",
+      "description": "The namespace ID. You can obtain the namespace ID on the Namespace page in the console.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "NamespaceSource",
-      "description": "The source of the namespace. You must specify this parameter only if the namespace is provided by a third party.",
+      "description": "This parameter is required only for special third-party users.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. You can specify this parameter for MapReduce jobs. Default value: 100.",
+      "description": "The advanced configuration for parallel grid nodes. The number of subtasks pulled in a single request. Default value: 100.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Parameters",
-      "description": "The user-defined parameters that you can obtain when the job is running.",
+      "description": "The user-defined parameters that can be obtained at runtime.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Priority",
-      "description": "",
+      "description": "The node priority. Valid values:\n- **1**: low\n- **5**: medium\n- **10**: high\n- **15**: very high",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "QueueSize",
-      "description": "The maximum capacity of the task queue. You can specify this parameter for MapReduce jobs. Default value: 10000.",
+      "description": "The advanced configuration for parallel grid nodes. The maximum cache size of the subtask queue. Default value: 10000.",
       "position": "Body",
       "type": "Integer",
       "required": false
@@ -207,49 +212,55 @@
     },
     {
       "name": "SendChannel",
-      "description": "The method that is used to send alerts. Set the value to sms. Default value: sms.",
+      "description": "The alert notification channel.\n\n- Use the default channel of the application group: default.\n- Specify a notification channel for the node: sms, mail, phone, or webhook.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
+      "name": "StartTime",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "Status",
-      "description": "Specifies whether to enable the job. If this parameter is set to 0, the job is disabled. If this parameter is set to 1, the job is enabled. Default value: 1.",
+      "description": "The node status. Valid values: 0: disabled. 1: enabled. Default value: 1 (enabled).",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SuccessNoticeEnable",
-      "description": "Specifies whether to send notifications for successfully running the job.",
+      "description": "Specifies whether to enable the success notification.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TaskAttemptInterval",
-      "description": "The time interval between retry attempts in case of a job failure. This parameter is an advanced configuration item of the MapReduce job. Default value: 0.",
+      "description": "The advanced configuration for parallel grid nodes. The retry interval for a failed subtask. Default value: 0.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TaskMaxAttempt",
-      "description": "The maximum number of retry attempts in case of a job failure. This parameter is an advanced configuration item of the MapReduce job. Default value: 0.",
+      "description": "The advanced configuration for parallel grid nodes. The number of retries for a failed subtask. Default value: 0.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TimeExpression",
-      "description": "The time expression. Specify the time expression based on the value of TimeType:\n\n*   If you set TimeType to **1** (cron), specify this parameter to a standard CRON expression.\n*   If you set TimeType to **100** (api), no time expression is required.\n*   If you set TimeType to **3** (fixed_rate), specify this parameter to a fixed frequency in seconds. For example, if you set this parameter to 30, the system triggers a job every 30 seconds.\n*   If you set TimeType to **4** (second_delay), specify this parameter to a fixed delay after which the job is triggered. Valid values: 1 to 60. Unit: seconds.\n*   If you set TimeType to **5** (one_time), specify this parameter to a specific time point at which the job is triggered. The time is in the format of yyyy-MM-dd HH:mm:ss, such as 2022-10-10 10:10:00, or a timestamp in milliseconds.",
+      "description": "The time expression. Set the time expression based on the selected time type.\n\n- **cron**: Specify a standard cron expression. Online verification is supported.\n- **api**: No time expression is required.\n- **fixed_rate**: Specify a fixed frequency value in seconds. For example, 30 indicates that the node is triggered every 30 seconds.\n- **second_delay**: Specify a fixed delay in seconds before each execution (1s to 60s).\n- **one_time**: Specify a time in the format of yyyy-MM-dd HH:mm:ss or a timestamp in milliseconds. For example, \"2022-10-10 10:10:00\".",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TimeType",
-      "description": "The time type. Valid values:\n\n*   **1**: cron\n*   **3**: fixed_rate\n*   **4**: second_delay\n*   **5**: one_time\n*   **100**: api",
+      "description": "The time type. The following time types are supported:\n\n- **cron**: 1\n- **fixed_rate**: 3\n- **second_delay**: 4\n- **one_time**: 5 \n- **api**: 100\n- **none**: -1",
       "position": "Body",
       "type": "Integer",
       "required": true
@@ -263,28 +274,28 @@
     },
     {
       "name": "TimeoutEnable",
-      "description": "Specifies whether to enable the timeout alert feature. If the feature is enabled, an alert will be triggered upon a timeout. Valid values:\n\n*   **true**: enables the timeout alert feature.\n*   **false**: disables the timeout alert feature.",
+      "description": "Specifies whether to enable the timeout alert. Valid values:\n\n- **true**: Enables the timeout alert.\n- **false**: Disables the timeout alert.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TimeoutKillEnable",
-      "description": "Specifies whether to enable the timeout termination feature. If the feature is enabled, a job will automatically be terminated if it times out. Valid values:\n\n*   **true**: enables the timeout termination feature.\n*   **false**: disables the timeout termination feature.",
+      "description": "Specifies whether to enable timeout termination. Valid values:\n\n- **true**: Enables timeout termination.\n- **false**: Disables timeout termination.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Timezone",
-      "description": "Time zone.",
+      "description": "The time zone.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "XAttrs",
-      "description": "The extended attributes. If you set JobType to k8s, this parameter is required. For a job whose resource type is Job-YAML, set this parameter to {\"resource\":\"job\"}. For a job whose resource type is Shell-Script, set this parameter to {\"image\":\"busybox\",\"resource\":\"shell\"}.",
+      "description": "If the node type is k8s, configure this parameter.\nJob task: {\"resource\":\"job\"}\nShell task: {\"image\":\"busybox\",\"resource\":\"shell\"}",
       "position": "Body",
       "type": "String",
       "required": false

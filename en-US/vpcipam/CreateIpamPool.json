@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "AllocationDefaultCidrMask",
-      "description": "The default network mask for the allocations in the IPAM address pool.\n\n> The network mask for an IPv4 address pool must be an integer from 0 to 32. The network mask for an IPv6 address pool must be an integer from **0** to **128**.",
+      "description": "The default CIDR mask for allocations from the IPAM address pool.\n\n> The IPv4 CIDR mask ranges from **0** to **32** bits. The IPv6 CIDR mask ranges from **0** to **128** bits.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AllocationMaxCidrMask",
-      "description": "The maximum network mask for the allocations in the IPAM address pool.\n\n> The network mask for an IPv4 address pool must be an integer from 0 to 32. The network mask for an IPv6 address pool must be an integer from **0** to **128**.",
+      "description": "The maximum CIDR mask for allocations from the IPAM address pool.\n\n> The IPv4 CIDR mask ranges from **0** to **32** bits. The IPv6 CIDR mask ranges from **0** to **128** bits.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AllocationMinCidrMask",
-      "description": "The minimum network mask for the allocations in the IPAM address pool.\n\n> The network mask for an IPv4 address pool must be an integer from 0 to 32. The network mask for an IPv6 address pool must be an integer from **0** to **128**.",
+      "description": "The minimum CIDR mask for allocations from the IPAM address pool.\n\n> The IPv4 CIDR mask ranges from **0** to **32** bits. The IPv6 CIDR mask ranges from **0** to **128** bits.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AutoImport",
-      "description": "Specifies whether to enable the auto import feature for the address pool.",
+      "description": "Specifies whether to enable the auto-import feature for the address pool.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the RequestId of the request as the ClientToken. The RequestId may be different for each request.",
+      "description": "The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the RequestId of the API request as the ClientToken. The RequestId may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: sends a check request without creating the IPAM address pool. The system checks the required parameters, the request format, and the instance status. If the check fails, the corresponding error is returned. If the check passes, the \\`DryRunOperation\\` error code is returned.\n\n- **false** (default): sends a normal request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n- **true**: performs only a dry run. The system checks the request for potential issues, including missing required parameters, request format, and instance status. If the request fails the dry run, an error message is returned. If the request passes the dry run, DryRunOperation is returned.\n- **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, an HTTP 2xx status code is returned and the operation is directly performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IpVersion",
-      "description": "The IP version. Valid values:\n\n- **IPv4**: IPv4.\n\n- **IPv6**: IPv6.",
+      "description": "The IP address protocol version. Valid values:\n\n- **IPv4**: IPv4.\n\n- **IPv6**: IPv6.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IpamPoolDescription",
-      "description": "The description of the IPAM address pool.\n\nThe description must be 1 to 256 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. If you do not specify this parameter, the description is empty.",
+      "description": "The description of the IPAM address pool.\n\nThe description must be 1 to 256 characters in length and must start with an uppercase or lowercase English letter or a Chinese character. It cannot start with `http://` or `https://`. If this parameter is not specified, the description is empty by default.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -70,61 +70,63 @@
     },
     {
       "name": "IpamScopeId",
-      "description": "The ID of the IPAM scope.",
+      "description": "The instance ID of the IPAM scope.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Ipv6Isp",
-      "description": "The line type of the IPv6 CIDR block. This parameter is valid only for public IPv6 address pools. Valid values:\n\n- **BGP** (default): Alibaba Cloud BGP IPv6.\n\n- **ChinaMobile**: China Mobile (single line).\n\n- **ChinaUnicom**: China Unicom (single line).\n\n- **ChinaTelecom**: China Telecom (single line).\n\n> If you are a user on the single-line bandwidth whitelist, you can set this parameter to **ChinaTelecom**, **ChinaUnicom**, or **ChinaMobile**.",
+      "description": "The type of IPv6 CIDR block. This parameter takes effect only for public IPv6 address pools. Valid values:\n\n- **BGP** (default): Alibaba Cloud BGP IPv6.\n- **ChinaMobile**: China Mobile (single-line).\n- **ChinaUnicom**: China Unicom (single-line).\n- **ChinaTelecom**: China Telecom (single-line).\n\n> If you are a user who has activated the single-line bandwidth whitelist, this field can be set to **ChinaTelecom** (China Telecom), **ChinaUnicom** (China Unicom), or **ChinaMobile** (China Mobile).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PoolRegionId",
-      "description": "The region where the IPAM address pool is available.",
+      "description": "The region where the IPAM address pool takes effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the IPAM is managed. Call the [DescribeRegions](~~36063~~) operation to obtain the region ID.",
+      "description": "The region ID of the IPAM. You can call the [DescribeRegions](~~36063~~) API to obtain the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the IPAM address pool belongs.",
+      "description": "The resource group ID of the IPAM address pool.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceIpamPoolId",
-      "description": "The ID of the source IPAM address pool.\n\n> If you do not specify this parameter, a parent address pool is created.",
+      "description": "The instance ID of the source IPAM address pool.\n\n> If this parameter is not specified, the created address pool is a parent address pool.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The tag list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. A maximum of 20 tag keys are supported. Once this value is specified, it cannot be an empty string.\n\nThe tag key can be up to 64 characters in length and must start with a letter or Chinese character. It can contain digits, periods (.), underscores (_), and hyphens (-). It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.\n\n> You must specify at least one of the **ResourceId.N** and **Tag.N** (**Tag.N.Key** and **Tag.N.Value**) parameters.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. A maximum of 20 tag values are supported. Once this value is specified, it can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.\n\n> You must specify at least one of the **ResourceId.N** and **Tag.N** (**Tag.N.Key** and **Tag.N.Value**) parameters.",
           "position": "Query",
           "type": "String",
           "required": false

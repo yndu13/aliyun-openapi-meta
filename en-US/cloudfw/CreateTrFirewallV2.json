@@ -7,7 +7,14 @@
   "parameters": [
     {
       "name": "CenId",
-      "description": "The ID of the Cloud Enterprise Network (CEN) instance.",
+      "description": "The ID of the CEN instance. This parameter is required. Create a CEN instance in the CEN console before calling this operation, and ensure that an Enterprise Edition transit router has been created.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallAttachmentZone",
+      "description": "The zone ID used by the firewall connection.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,91 +28,112 @@
     },
     {
       "name": "FirewallName",
-      "description": "The name of the firewall.",
+      "description": "The name of the Cloud Firewall instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "FirewallServiceMode",
+      "description": "The deployment mode of the firewall service. Valid values:\n\n- **PrimaryStandby**: Primary/standby mode.\n- **MultiPrimary**: Active-active mode.\n\n> If this parameter is not specified, the system automatically selects a deployment mode based on the capabilities of the transit router. If an invalid value is specified, the error ErrorFwServiceMode (-360437) is returned. MultiPrimary mode does not support specifying zones.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallServiceZones",
+      "description": "The list of zone IDs used by the firewall service.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "FirewallSubnetCidr",
-      "description": "The subnet CIDR block of the VPC in which the ENI of the firewall is stored in automatic mode.",
+      "description": "The subnet CIDR block used to store the firewall ENI in the firewall VPC in automatic mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FirewallVpcCidr",
-      "description": "The CIDR block that is allocated to the VPC created for the VPC firewall in automatic mode.",
+      "description": "The CIDR block of the firewall VPC in automatic mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FirewallVpcId",
-      "description": "The ID of the VPC in which the ENI associated with the VPC firewall is created in manual mode.",
+      "description": "The ID of the VPC in which the firewall ENI is created in manual mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FirewallVswitchId",
-      "description": "The ID of the vSwitch that is used to create the ENI in manual mode.",
+      "description": "The ID of the vSwitch in which the firewall ENI is created in manual mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language of the content within the response. Valid values:\n\n*   **zh**: Chinese (default)\n*   **en**: English",
+      "description": "The language of the response. Valid values:\n\n- **zh** (default): Chinese\n- **en**: English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionNo",
-      "description": "The region ID of the route router.",
+      "description": "The region ID of the Enterprise Edition transit router. This parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteMode",
-      "description": "The routing mode of the VPC firewall. Valid values:\n\n*   **managed**: automatic mode\n*   **manual**: manual mode",
+      "description": "The routing mode. This parameter is required. Valid values: managed (automatic mode) and manual (manual mode). In managed mode, you must specify FirewallVpcCidr, FirewallSubnetCidr, TrAttachmentSlaveCidr, and TrAttachmentMasterCidr. In manual mode, you must specify FirewallVpcId, FirewallVswitchId, TrAttachmentSlaveZone, and TrAttachmentMasterZone.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrAttachmentMasterCidr",
-      "description": "The primary subnet CIDR block that the VPC uses to connect to the transit router in automatic mode.",
+      "description": "The primary subnet CIDR block used to connect to the TR in the firewall VPC in automatic mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrAttachmentMasterZone",
-      "description": "The primary zone for the vSwitch.",
+      "description": "The primary zone of the vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrAttachmentSlaveCidr",
-      "description": "The secondary subnet CIDR block that the VPC uses to connect to the transit router in automatic mode.",
+      "description": "The secondary subnet CIDR block used to connect to the TR in the firewall VPC in automatic mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrAttachmentSlaveZone",
-      "description": "The secondary zone for the vSwitch.",
+      "description": "The secondary zone of the vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "TrAttachmentZones",
+      "description": "The list of zone IDs used by the TR connection.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "TransitRouterId",
-      "description": "The ID of the transit router.",
+      "description": "The ID of the Enterprise Edition transit router instance. This parameter is required. The transit router must belong to the CEN instance specified by CenId.",
       "position": "Query",
       "type": "String",
       "required": false

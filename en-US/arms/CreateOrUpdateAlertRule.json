@@ -7,145 +7,147 @@
   "parameters": [
     {
       "name": "AlertCheckType",
-      "description": "The alert check type of the Prometheus alert rule. Valid values:\n\n*   STATIC: a static threshold value. If you set the parameter to STATIC, you must specify the **MetricsKey** parameter. For more information, see the **Correspondence between AlertGroup and MetricsKey for Prometheus Service** table.\n*   CUSTOM: a custom PromQL statement. If you set the parameter to CUSTOM, you must specify the **PromQL**, **Duration**, and **Message** parameters to create a Prometheus alert rule.",
+      "description": "The check type for a Prometheus monitoring alert rule.\n\n- `STATIC`: A static threshold. The **MetricsKey** parameter is required. For more information, see the description of the **MetricsKey** parameter below.\n\n- `CUSTOM`: A custom PromQL query. The **PromQL**, **Duration**, and **Message** parameters are required.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AlertGroup",
-      "description": "The alert contact group ID of the Prometheus alert rule. Valid values:\n\n*   \\-1: custom PromQL\n*   1: Kubernetes load\n*   15: Kubernetes node",
+      "description": "The alert group ID for the Prometheus alert rule. Valid values:\n\n- `-1`: Custom PromQL\n\n- `1`: Kubernetes workloads\n\n- `15`: Kubernetes nodes",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "AlertId",
-      "description": "The ID of the alert rule.\n\n*   If you do not specify this parameter, a new alert rule is created.\n*   If you specify this parameter, the specified alert rule is modified.",
+      "description": "The ID of the alert rule.\n\n- Omit this parameter to create a new alert rule.\n\n- Specify an ID to modify an existing alert rule.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "AlertName",
-      "description": "The name of the alert rule.",
+      "description": "The alert rule name.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "AlertPiplines",
-      "description": "The configuration of the alert sending channel. This parameter is used to be compatible with the old version of the rule.",
+      "description": "The alert pipeline configuration. Used for compatibility with legacy alert rules.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AlertRuleContent",
-      "description": "The content of the Application Monitoring or Browser Monitoring alert rule. The following code provides an example of the **AlertRuleContent** parameter. For more information about the meaning of each field, see the supplementary description.\n\n```json\n{ \n    \"Condition\": \"OR\",\n     \"AlertRuleItems\": [\n             { \"Operator\": \"CURRENT_LTE\",\n                 \"MetricKey\": \"appstat.jvm.threadcount\",\n                 \"Value\": 1000,\n                 \"Aggregate\": \"AVG\",\n                  \"N\": 10,\n                  \"Tolerability\": 169\n            } \n       ]  \n  }\n```\n\n>  The filter conditions specified by the **AlertRuleItems.MetricKey** field depends on the value of the **MetricsType** parameter. For more information about the types of metrics supported by Application Monitoring and Browser Monitoring and the alert rule fields corresponding to each metric, see the supplementary description.",
+      "description": "The content of the alert rule for application monitoring or browser monitoring. The following is a template for the **AlertRuleContent** parameter. For a description of the fields in the template, see the supplementary information below this table.\n\n```json\n{ \n    \"Condition\": \"OR\",\n     \"AlertRuleItems\": [\n             { \"Operator\": \"CURRENT_LTE\",\n                 \"MetricKey\": \"appstat.jvm.threadcount\",\n                 \"Value\": 1000,\n                 \"Aggregate\": \"AVG\",\n                  \"N\": 10,\n                  \"Tolerability\": 169\n            } \n       ]  \n  }\n```\n\n> The available fields for **AlertRuleItems.MetricKey** depend on the **MetricsType** value. For information about the metric types supported by application monitoring and browser monitoring and their corresponding alert rule fields, see the supplementary information below this table.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AlertStatus",
-      "description": "The status of the alert rule. Valid values:\n\n*   RUNNING (default)\n*   STOPPED",
+      "description": "The status of the alert rule. Valid values:\n\n- `RUNNING`: The alert rule is running. (Default)\n\n- `STOPPED`: The alert rule is stopped.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AlertType",
-      "description": "The type of the alert rule. Valid values:\n\n*   APPLICATION_MONITORING_ALERT_RULE: an alert rule for Application Monitoring.\n*   BROWSER_MONITORING_ALERT_RULE: an alert rule for Browser Monitoring.\n*   PROMETHEUS_MONITORING_ALERT_RULE: an alert rule for Managed Service for Prometheus.\n*   XTRACE_MONITORING_ALERT_RULE: an alert rule for Managed Service for OpenTelemetry.\n*   EBPF_MONITORING_ALERT_RULE: an alert rule for Application Monitoring eBPF Edition.\n*   RUM_MONITORING_ALERT_RULE: an alert rule for Real User Monitoring.\n\nValid values:\n\n*   PROMETHEUS_MONITORING_ALERT_RULE\n*   APPLICATION_MONITORING_ALERT_RULE\n*   BROWSER_MONITORING_ALERT_RULE\n*   prometheus monitoring alert\n*   application monitoring alert\n*   browser monitoring alert\n*   XTRACE_MONITORING_ALERT_RULE\n*   EBPF_MONITORING_ALERT_RULE\n*   RUM_MONITORING_ALERT_RULE",
+      "description": "The type of the alert rule. Valid values:\n\n- `APPLICATION_MONITORING_ALERT_RULE`: For application monitoring.\n\n- `BROWSER_MONITORING_ALERT_RULE`: For browser monitoring.\n\n- `PROMETHEUS_MONITORING_ALERT_RULE`: For Prometheus monitoring.\n\n- `XTRACE_MONITORING_ALERT_RULE`: For Tracing Analysis (OpenTelemetry edition).\n\n- `EBPF_MONITORING_ALERT_RULE`: For eBPF monitoring.\n\n- `RUM_MONITORING_ALERT_RULE`: For real user monitoring (RUM).",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Annotations",
-      "description": "The annotations of the Prometheus alert rule.",
+      "description": "Annotations to add to the Prometheus alert rule. Specify as a JSON string representing an array of objects, each with Name and Value keys.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoAddNewApplication",
-      "description": "Specifies whether to apply the alert rule to new applications that are created in Application Monitoring or Browser Monitoring. Valid values:\n\n*   `true`: enables the health check feature.\n*   `false`: disables the automatic backup feature.",
+      "description": "Determines whether to automatically apply this alert rule to new applications. This applies only to application monitoring and browser monitoring rules.\n\n- `true`: enables the feature.\n\n- `false`: disables the feature.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoAddTargetConfig",
-      "description": "The configurations that are automatically appended to monitor the application based on the specified alert rule.\n\n*   autoAddMatchType:\n\n    the matching mode. Valid values: REGULAR and NOT_REGULAR.\n\n*   autoAddMatchExp: the regular expression",
+      "description": "The configuration for automatically adding applications to an application monitoring alert rule. Specify this parameter as a JSON string with the following fields:\n\n- `autoAddMatchType`: The matching method. Can be `REGULAR` (matches the regular expression) or `NOT_REGULAR` (does not match the regular expression).\n\n  Match type: Regular expression match (REGULAR) / Not a regular expression match (NOT\\_REGULAR)\n\n- `autoAddMatchExp`: The regular expression.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "CheckCycle",
-      "description": "The interval for checking the alerts in Managed Service for Prometheus.",
+      "description": "The check interval for the Prometheus alert rule.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "ClusterId",
-      "description": "The ID of the monitored cluster.",
+      "description": "The cluster ID for the Prometheus monitoring alert rule.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DataConfig",
-      "description": "Data Configuration. The dataRevision field specifies the data repair method when there is no data for the metric.\n\n- Fill with zero: 0\n- Fill with one: 1\n- Fill with null: 2 (default, does not trigger an alarm)",
+      "description": "The data configuration. The dataRevision field specifies how to handle missing metric data.\n\n- `0`: Fills the data with 0.\n\n- `1`: Fills the data with 1.\n\n- `2`: Fills the data with null. This is the default and does not trigger an alert.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Duration",
-      "description": "The duration of the Prometheus alert rule, in minutes, in the range of [0,1440].",
+      "description": "The period, in minutes, that a condition must be true before a Prometheus alert is triggered. Valid values: 0 to 1440.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "Filters",
-      "description": "The filter conditions of the Application Monitoring or Browser Monitoring alert rule. Format:\n\n    \"DimFilters\": [ \n    { \n     \"FilterOpt\": \"ALL\",\n    \"FilterValues\": [],         //The value of the filter condition.\n    \"FilterKey\": \"rootIp\"     //The key of the filter condition.\n    }\n    ]\n\nValid values of **FilterOpt**:\n\n*   STATIC: matches the value of the specified dimension.\n*   ALL: traverses all dimension values. Dynamic thresholds do not support traversal.\n*   DISABLE: aggregates the values of all dimensions.",
+      "description": "The filters for an application monitoring or browser monitoring alert rule.\nSpecify this parameter as a JSON string in the following format:\n\n```\n\"DimFilters\": [ \n{ \n \"FilterOpt\": \"ALL\",\n \"FilterValues\": [],         // The filter value.\n \"FilterKey\": \"rootIp\"     // The filter key.\n}\n]\n```\n\nValid values for **FilterOpt**:\n\n- `STATIC`: Matches a fixed dimension value.\n\n- `ALL`: Iterates over all dimension values. Note: This option is not supported for range detection.\n\n- `DISABLE`: Aggregates all dimension values by summing them.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Labels",
-      "description": "The tags of the Prometheus alert rule.",
+      "description": "Labels to add to the Prometheus alert rule. Specify as a JSON string representing an array of objects, each with Name and Value keys.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Level",
-      "description": "The severity level of the Prometheus alert rule.\n\n*   P1: Alert notifications are sent for major issues that affect the availability of core business, have a huge impact, and may lead to serious consequences.\n*   P2: Alert notifications are sent for service errors that affect the system availability with relatively limited impact.\n*   P3: Alert notifications are sent for issues that may cause service errors or negative effects, or alert notifications for services that are relatively less important.\n*   P4: Alert notifications are sent for low-priority issues that do not affect your business.\n*   Default: Alert notifications are sent regardless of alert levels.",
+      "description": "The severity level for the Prometheus alert rule.\n\n- `P1`: Critical. For major issues that affect core business availability with a wide impact and severe consequences.\n\n- `P2`: Warning. For issues that cause partial service failures or affect system availability with a limited scope.\n\n- `P3`: Info. For potential issues or alerts from non-critical services.\n\n- `P4`: Low priority. Used for informational alerts that require attention but do not affect services.\n\n- `Default`: The default level, used when no specific severity is required.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MarkTags",
-      "description": "Application Tags. Used for application monitoring alert rules, to filter applications associated with alert rules.",
+      "description": "Application tags used to filter applications in application monitoring alert rules.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -154,63 +156,63 @@
     },
     {
       "name": "Message",
-      "description": "The alert message of the Prometheus alert rule.",
+      "description": "The alert message for the Prometheus alert rule.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MetricsKey",
-      "description": "The alert metrics. If you set the **AlertCheckType** parameter to **STATIC** when you create a Prometheus alert rule, you must specify the **MetricsKey** parameter.\n\n> Alert metrics vary depending on the value of the **AlertGroup** parameter. For more information about the correspondence between **AlertGroup** and **MetricsKey**, see the supplementary description.",
+      "description": "The alert metric. This parameter is required for Prometheus alert rules when **AlertCheckType** is **STATIC**.\n\n> The available alert metrics vary based on the value of **AlertGroup**. For information about the mapping between **AlertGroup** and **MetricsKey**, see the supplementary information below this table.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MetricsType",
-      "description": "The metric type of the Application Monitoring or Browser Monitoring alert rule. For more information, see the following table.",
+      "description": "The alert metric type for application monitoring or browser monitoring alert rules. For more information, see the table below.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Notice",
-      "description": "The effective time and notification time. This parameter is used to be compatible with the old version of the rule.",
+      "description": "The effective time and notification time. Used for compatibility with legacy alert rules.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "NotifyMode",
-      "description": "The notification mode. You can specify normal mode or simple mode.\n\n*   DIRECTED_MODE\n*   NORMAL_MODE",
+      "description": "The notification mode. Valid values:\n\n- `DIRECTED_MODE`: Directed mode.\n\n- `NORMAL_MODE`: Normal mode.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "NotifyStrategy",
-      "description": "The notification policy.\n\n*   If you set this parameter to null, no notification policy is specified. After you create an alert rule, you can create a notification policy and specify match rules and match conditions. For example, you can specify the name of the alert rule as the match condition. When the alert rule is triggered, an alert event is generated and an alert notification is sent to the contacts or contact groups that are specified in the notification policy.\n*   To specify a notification policy, set this parameter to the ID of the notification policy. Application Real-Time Monitoring Service (ARMS) automatically adds a match rule to the notification policy and specifies the ID of the alert rule as the match condition. The name of the alert rule is also displayed. This way, the alert events that are generated based on the alert rule can be matched by the specified notification policy.",
+      "description": "The notification policy.\n\n- `null`: Does not associate the alert rule with a notification policy. You can associate them later by creating a notification policy with a matching rule, for example, based on the alert rule's name. When the alert rule is triggered, alert events are sent to the contacts or contact groups specified in the matching notification policy.\n\n- A notification policy ID: Associates the alert rule with a specific notification policy. ARMS automatically adds a matching rule to the policy that uses the alert rule's ID. This ensures that alert events from this rule are always processed by the specified policy.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Pids",
-      "description": "The process ID (PID) that is associated with the Application Monitoring or Browser Monitoring alert rule.",
+      "description": "The PIDs of applications for an application monitoring or browser monitoring alert rule. Specify as a JSON array of strings.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Product",
-      "description": "The product code. If you specify this parameter when you create a Prometheus alert rule, the backend checks whether the product exists.",
+      "description": "Required for Prometheus alert rules. Used to filter by cloud service. The specified product name must be valid.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PromQL",
-      "description": "The PromQL statement of the Prometheus alert rule.",
+      "description": "The PromQL expression to evaluate.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -224,19 +226,21 @@
     },
     {
       "name": "Tags",
-      "description": "The list of tags.",
+      "description": "The tags to add to the alert rule. These are standard Alibaba Cloud resource tags.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -245,7 +249,7 @@
     },
     {
       "name": "aliyunLang",
-      "description": "",
+      "description": "The language of the response.",
       "position": "Body",
       "type": "String",
       "required": false

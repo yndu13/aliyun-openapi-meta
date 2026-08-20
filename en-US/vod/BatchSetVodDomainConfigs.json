@@ -1,19 +1,20 @@
 {
   "name": "BatchSetVodDomainConfigs",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainNames",
-      "description": "The domain name for CDN. Separate multiple domain names with commas (,).",
+      "description": "The accelerated domain names for ApsaraVideo VOD. Separate multiple domain names with commas (,). You can configure up to 50 domain names at a time.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Functions",
-      "description": "The features to configure.\n\n*   Set this parameter in the following format: `[{\"functionArgs\":[{\"argName\":\"domain_name\",\"argValue\":\"www.example.com\"}],\"functionName\":\"set_req_host_header\"}]`.\n*   Specific features, such as filetype_based_ttl_set, support more than one configuration record. To update one of the configuration records, use the configId field to specify the record. `[{\"functionArgs\":[{\"argName\":\"file_type\",\"argValue\":\"jpg\"},{\"argName\":\"ttl\",\"argValue\":\"18\"},{\"argName\":\"weight\",\"argValue\":\"30\"}],\"functionName\":\"filetype_based_ttl_set\",\"configId\":5068995}]`\n*   For more information, see the **Feature description** section.",
+      "description": "The list of features.\n- functionName (feature name, required): For the features that can be configured and their feature name parameters, see [Domain name configuration features](~~2411639~~).\n- argName (parameter name, required): The configuration items of functionName. You can configure multiple configuration items.\n- argValue (parameter value, required): The values of the configuration items of functionName.\n\nFor detailed information about the features that can be configured for accelerated domain names, including feature names and parameter names, see [Domain name configuration features](~~2411639~~).\n\n> Some features, such as filetype_based_ttl_set (file expiration time), support multiple configuration rules. To update a specific configuration rule, specify the configId of that rule. Example:\n`[{\"functionArgs\":[{\"argName\":\"file_type\",\"argValue\":\"jpg\"},{\"argName\":\"ttl\",\"argValue\":\"18\"},{\"argName\":\"weight\",\"argValue\":\"30\"}],\"functionName\":\"filetype_based_ttl_set\",\"configId\":5068995}]`",
       "position": "Query",
       "type": "String",
       "required": true

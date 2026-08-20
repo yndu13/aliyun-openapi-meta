@@ -1,5 +1,6 @@
 {
   "name": "DescribePropertyScaDetail",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "BizType",
-      "description": "要查询的中间件、数据库或Web服务的类型。取值：  \n- **system_service**：系统服务\n- **software_library**：软件库\n- **docker_component**：容器组件\n- **database**：数据库\n- **web_container**：Web容器\n- **jar**：Jar包\n- **web_framework**：Web框架",
+      "description": "要查询的中间件、数据库或Web服务的类型。取值：  \n- **system_service**：系统服务\n- **software_library**：软件库\n- **docker_component**：容器组件\n- **database**：数据库\n- **web_container**：Web容器\n- **jar**：Jar包\n- **web_framework**：Web框架\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -48,7 +49,7 @@
     },
     {
       "name": "PageSize",
-      "description": "设置分页查询时，每页显示的资产指纹信息的数量。默认值为**10**，表示每页显示10条资产指纹信息。\n> 建议PageSize取值不要为空。",
+      "description": "设置分页查询时，每页显示的资产指纹信息的数量。默认值为**10**，表示每页显示10条资产指纹信息。\n> 建议PageSize取值不要为空。\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -89,6 +90,12 @@
       "required": false
     },
     {
+      "name": "ResourceDirectoryAccountId",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "ScaName",
       "description": "要查询的资产指纹的名称。",
       "position": "Query",
@@ -118,12 +125,14 @@
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "搜索条件名称",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "搜索条件过滤值",
           "position": "Query",
           "type": "String",
           "required": false
@@ -132,14 +141,14 @@
     },
     {
       "name": "SearchInfo",
-      "description": "要查询的内容。根据**SearchItem**取值的不同，您需要输入不同的查询内容：\n- **SearchItem**取值为**name**时，您需要输入的查询条件为资产指纹的名称。\n- **SearchItem**取值为**type**时，您需要选择要查询的资产指纹的类型。可选以下取值：   \n    - **system_service**：系统服务\n    - **software_library**：软件库\n    - **docker_component**：容器组件\n    - **database**：数据库\n    - **web_container**：Web容器\n    - **jar**：Jar包\n    - **web_framework**：Web框架  \n\n> **SearchItem**和**SearchInfo**这两个参数配合使用，通过同时设置这两个参数（设置一个无效），您可以按照资产指纹的名称或类型查看指定名称或类型资产指纹的所有数据。",
+      "description": "要查询的内容。根据**SearchItem**取值的不同，您需要输入不同的查询内容：\n- **SearchItem**取值为**name**时，您需要输入的查询条件为资产指纹的名称。\n- **SearchItem**取值为**type**时，您需要选择要查询的资产指纹的类型。可选以下取值：   \n    - **system_service**：系统服务\n    - **software_library**：软件库\n    - **docker_component**：容器组件\n    - **database**：数据库\n    - **web_container**：Web容器\n    - **jar**：Jar包\n    - **web_framework**：Web框架  \n\n> **SearchItem**和**SearchInfo**这两个参数配合使用，通过同时设置这两个参数（设置一个无效），您可以按照资产指纹的名称或类型查看指定名称或类型资产指纹的所有数据。\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SearchInfoSub",
-      "description": "子查询条件的内容。根据**SearchItemSub**取值的不同，您需要输入不同的查询内容：\n- **SearchItemSub**取值为**port**时，您需要输入的子查询条件为端口。\n- **SearchItemSub**取值为**pid**时，您需要输入的子查询条件为进程ID。\n- **SearchItemSub**取值为**version**时，您需要输入的子查询条件为中间件、数据库或Web服务版本。\n- **SearchItemSub**取值为**user**时，您需要输入的子查询条件为用户名称。\n\n> 子查询条件可以帮助您搜索具体的中间件、数据库或Web服务的数据列表。",
+      "description": "子查询条件的内容。根据**SearchItemSub**取值的不同，您需要输入不同的查询内容：\n- **SearchItemSub**取值为**port**时，您需要输入的子查询条件为端口。\n- **SearchItemSub**取值为**pid**时，您需要输入的子查询条件为进程ID。\n- **SearchItemSub**取值为**version**时，您需要输入的子查询条件为中间件、数据库或Web服务版本。\n- **SearchItemSub**取值为**user**时，您需要输入的子查询条件为用户名称。\n\n> 子查询条件可以帮助您搜索具体的中间件、数据库或Web服务的数据列表。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -153,7 +162,7 @@
     },
     {
       "name": "SearchItemSub",
-      "description": "子查询条件的类型。取值：\n- **port**：端口\n- **pid**：进程ID\n- **version**：版本\n- **user**：用户",
+      "description": "子查询条件的类型。取值：\n- **port**：端口\n- **pid**：进程ID\n- **version**：版本\n- **user**：用户\n",
       "position": "Query",
       "type": "String",
       "required": false

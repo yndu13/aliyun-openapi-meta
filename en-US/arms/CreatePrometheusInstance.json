@@ -7,103 +7,105 @@
   "parameters": [
     {
       "name": "AllSubClustersSuccess",
-      "description": "Does it require all child instances to be verified successfully before creating a GlobalView instance. The default is false, which means partial success is possible.",
+      "description": "Specifies whether all sub-instances must pass validation before the GlobalView instance is created. Default value: false, which indicates that partial success is allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ArchiveDuration",
-      "description": "The number of days for which data is automatically archived after the storage expires. Valid values: 60, 90, 180, and 365. 0 indicates that the data is not archived.",
+      "description": "The number of days to automatically archive data after the storage period expires. Valid values: 60, 90, 180, and 365. A value of 0 indicates that data is not archived.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ClusterId",
-      "description": "The ID of the ACK cluster. This parameter is required if you set the ClusterType parameter to aliyun-cs.",
+      "description": "The Container Service cluster ID. This parameter is required when ClusterType is set to aliyun-cs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterName",
-      "description": "The name of the created cluster. This parameter is required if you set the ClusterType parameter to remote-write or ecs.",
+      "description": "The name of the cluster to create. This parameter is required when ClusterType is set to remote-write, ecs, or global-view.\n\nFor ecs instances, the ClusterName must follow the format \"name-vpc-id\", and the name part cannot exceed 24 characters. Example: \"mytest1-vpc-xxxxxxxxxxx\".",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterType",
-      "description": "The type of the Prometheus instance. Valid values:\n\n*   remote-write: Prometheus instance for Remote Write\n*   ecs (unavailable): Prometheus instance for ECS\n*   global-view: Prometheus instance for GlobalView\n*   aliyun-cs: Prometheus instance for Container Service\n*   cloud-product (unavailable): Prometheus instance for Alibaba Cloud services\n*   cloud-monitor (unavailable): Prometheus instance for Hybrid Cloud Monitoring\n*   flink (unavailable): Prometheus instance for Flink",
+      "description": "The instance type. Valid values: \n-  remote-write: Prometheus for Remote Write.\n-  ecs (no longer supported): Prometheus for ECS.\n-  global-view: Prometheus for GlobalView.\n-  aliyun-cs (no longer supported): Prometheus for Container Service.\n- cloud-product (no longer supported): Prometheus for Cloud Service.\n- cloud-monitor (no longer supported): Prometheus for Hybrid Cloud Monitoring.\n- flink (no longer supported): Prometheus for Flink.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Duration",
-      "description": "The data storage duration. Unit: days.",
+      "description": "The data storage duration, in days.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "GrafanaInstanceId",
-      "description": "The ID of the Grafana dedicated instance. This parameter is available if you set the ClusterType parameter to ecs.",
+      "description": "The ID of the bound Grafana workspace. Set this parameter to \"free\" when you use the shared Grafana edition.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PaymentType",
-      "description": "The billing mode. Valid values: POSTPAY: charges fees based on the amount of reported metric data. POSTPAY_GB: charges fees based on the amount of written metric data. Empty: The user-defined default billing mode is used. If you do not specify a default value, you are charged based on the amount of reported metric data.",
+      "description": "The Billable methods. Valid values:\nPOSTPAY: pay-as-you-go based on the number of reported metrics.\nPOSTPAY_GB: pay-as-you-go based on the volume of written metrics.\nEmpty: uses the default billing method configured by the user. If no default is configured, the system defaults to billing based on the number of reported metrics.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region. If you use a Prometheus instance to monitor an Alibaba Cloud service in China, this parameter must be set to cn-shanghai.",
+      "description": "The actual region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the custom resource group. You can configure this parameter to bind the instance to the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group. This parameter is required if you set the ClusterType parameter to ecs.",
+      "description": "The Network Security group ID. This parameter is required when ClusterType is set to ecs or aliyun-cs for a managed ASK cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubClustersJson",
-      "description": "JSON string for child instances of the globalView instance.",
+      "description": "The JSON string of sub-instances for the GlobalView instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags of the instance. You can configure this parameter to manage tags for the instance.",
+      "description": "The custom tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -112,14 +114,14 @@
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch. This parameter is required if you set the ClusterType parameter to ecs.",
+      "description": "The vSwitch ID. This parameter is required when ClusterType is set to ecs or aliyun-cs for a managed ASK cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of virtual private cloud (VPC). This parameter is required if you set the ClusterType parameter to ecs.",
+      "description": "The VPC ID. This parameter is required when ClusterType is set to ecs or aliyun-cs for a managed ASK cluster.",
       "position": "Query",
       "type": "String",
       "required": false

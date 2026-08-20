@@ -1,5 +1,6 @@
 {
   "name": "ModifyElasticityAssurance",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -48,24 +49,28 @@
       "sub_parameters": [
         {
           "name": "EndHour",
+          "description": "分时保障结束时间，取值必须为整点。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "RecurrenceType",
+          "description": "重复规则的策略类型。取值范围：\n-  Daily：按天重复。\n- Weekly：按周重复。\n- Monthly：按月重复。\n\n> 必须同时指定`RecurrenceType`和`RecurrenceValue`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RecurrenceValue",
+          "description": "重复规则执行数值。\n\n- `RecurrenceType`为`Daily`时，只能填一个值，取值范围：1~31。表示每几天执行一次。\n- `RecurrenceType`为`Weekly`时，可以填入多个值，多个值间使用半角逗号（,）隔开。周日、周一、周二、周三、周四、周五、周六的值依次为：0,1,2,3,4,5,6。例如`1,2`表示周一和周二执行。\n- `RecurrenceType`为`Monthly`时，格式为`A-B`。A、B的取值范围为1~31，并且B必须大于等于A。例如：`1-5`表示每月的1~5日重复执行。\n\n> 必须同时指定`RecurrenceType`和`RecurrenceValue`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartHour",
+          "description": "分时保障生效时间，取值必须为整点。\n\n> 同时指定`StartHour`和`EndHour`，且两者至少需要相差4小时。",
           "position": "Query",
           "type": "Integer",
           "required": false

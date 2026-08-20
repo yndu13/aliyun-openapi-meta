@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the gateway route table.\n\nThe description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.",
+      "description": "The description of the gateway route table.\n\nThe description must be 2 to 256 characters in length and must start with a letter or Chinese character. It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationCidrBlock",
-      "description": "The destination CIDR block of the route entry in the gateway route table.",
+      "description": "The destination CIDR block of the route in the gateway route table.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to precheck only this request. Valid values:\n\n*   **true**: prechecks the request without modifying the gateway route table. The system checks the required parameters, request format, and service limits. If the request fails to pass the precheck, an error code is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.\n*   **false**: sends the request. This is the default value. If the request passes the precheck, a 2xx HTTP status code is returned and the gateway route table is modified.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run without modifying the gateway route table. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, an HTTP 2xx status code is returned and the gateway route table is modified.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -49,28 +49,28 @@
     },
     {
       "name": "Name",
-      "description": "The name of the gateway route table.\n\nThe name must be 2 to 128 characters in length and can contain letter, digits, periods (.), underscores (\\_), and hyphens (-). The name must start with a letter.",
+      "description": "The name of the gateway route table.\n\nThe name must be 2 to 128 characters in length and must start with a letter or Chinese character. It can contain digits, periods (.), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextHopId",
-      "description": "The new next hop ID of the route entry.\n\n*   If you set **NextHopType** to **Instance**, specify an ECS instance ID for **NextHopId**.\n*   If you set **NextHopType** to **NetworkInterface**, specify an ENI ID for **NextHopId**.\n*   If you set **NextHopType** to **Local**, leave **NextHopId** empty. This indicates a local next hop.\n\n>  If the value of NextHopType is **Instance** or **NetworkInterface**, and you want to modify the next hop, you must set **NextHopType** to **Local** first. Then, set **NextHopType** to **Instance** or **NetworkInterface** and specify **NextHopId** based on your requirements. If the next hop type of a route entry is Instance or NetworkInterface, you cannot directly specify a different ENI ID or ECS instance ID for the NextHopId parameter.",
+      "description": "The instance ID of the next hop that you want to modify.\n\n- If **NextHopType** is set to **Instance**, set **NextHopId** to the ID of an ECS instance.\n- If **NextHopType** is set to **NetworkInterface**, set **NextHopId** to the ID of an elastic network interface controller (NIC) instance.\n- If **NextHopType** is set to **Local**, leave **NextHopId** empty, which indicates a local next hop.\n\n> If the next hop type of the route is **Instance** or **NetworkInterface** and you want to modify the next hop, you must first change **NextHopType** to **Local**, and then change **NextHopType** to **Instance** or **NetworkInterface** and specify a new **NextHopId**. You cannot directly change the next hop from one network interface controller (NIC) or ECS instance to another network interface controller (NIC) or ECS instance when the next hop type is network interface controller (NIC) or ECS instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextHopType",
-      "description": "The new next hop type of the route. Valid values:\n\n*   **Instance**: Elastic Compute Service (ECS) instance\n*   **NetworkInterface**: elastic network interface (ENI)\n*   **Local**: local next hop",
+      "description": "The next hop type of the route that you want to modify. Valid values:\n\n- **Instance**: ECS instance.\n- **NetworkInterface**: elastic network interface controller (NIC) instance.\n\n- **Local**: local.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the gateway route table that you want to modify belongs.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the gateway route table that you want to modify.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true

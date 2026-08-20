@@ -1,30 +1,34 @@
 {
   "name": "AddCasterLayout",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AudioLayer",
-      "description": "Audio layout.",
+      "description": "The audio layouts.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "FixedDelayDuration",
+          "description": "The fixed latency for the audio layer. Use this parameter to synchronize the audio with captions. Unit: milliseconds. Default value: 0. Valid values: **0** to **5000**.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ValidChannel",
+          "description": "The sound channels that are used for audio input. Valid values:\n\n- **leftChannel**: Left channel.\n\n- **rightChannel**: Right channel.\n\n- **all** (default): Both channels.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VolumeRate",
+          "description": "The volume multiplication factor for the audio stream. Valid values: 0 to **10.0**.\n\n- **1.0** (default): The original volume is used.\n\n- A value less than **1** decreases the volume.\n\n- A value greater than **1** increases the volume.",
           "position": "Query",
           "type": "Float",
           "required": false
@@ -33,71 +37,77 @@
     },
     {
       "name": "BlendList",
-      "description": "The element represents the location ID of the video resource, i.e., LocationId. Refer to [Adding Video Source](~~60250~~) for LocationId, which corresponds in order with the VideoLayers elements.",
+      "description": "The location IDs of the video sources. The order of the location IDs corresponds to the order of the video layers specified in the **VideoLayer** parameter. For more information about location IDs, see [AddCasterVideoResource](~~2848020~~).\n\nFor LocationId, see [Add a video source](~~2848020~~). This ID corresponds to the order of the VideoLayers elements.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\nIf you create a production studio through the [CreateCaster](~~69338#doc-api-live-CreateCaster~~ \"Creates a production studio.\") interface, check the value of the CasterId parameter in the response.\n\nIf you create a production studio through the ApsaraVideo Live Console, log in to the console, then check the ID of the production studio through the following path:\n\nProduction Studios > Production Studio Management\n\n>  The CasterId is reflected in the Name column on the Production Studio Management page.",
+      "description": "The ID of the production studio.\n\n- If you create a production studio by calling the [CreateCaster](~~2848009~~) operation, the CasterId is returned in the response.\n\n- If you create a production studio in the LIVE console, go to **Production Studio** > **Cloud Production Studio** to view the name of the production studio.\n\n> The name of the production studio on the Cloud Production Studio page is the ID of the production studio.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "MixList",
-      "description": "The element represents the location ID of the audio resource, i.e., LocationId.\nLocationId is referred to in [Adding Video Source](~~60250~~), and corresponds in order with the AudioLayers elements.",
+      "description": "The location IDs of the audio sources. The order of the location IDs corresponds to the order of the audio layers specified in the **AudioLayer** parameter. For more information about location IDs, see [AddCasterVideoResource](~~2848020~~).\n\nFor \\`LocationId\\`, see [Add a video source](~~2848020~~). It corresponds to the order of the \\`AudioLayers\\` elements.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VideoLayer",
-      "description": "Video layout.",
+      "description": "The video layouts.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "FillMode",
+          "description": "The fill mode of the element. Valid values:\n\n- **none** (default): No scaling. The video is displayed in its original size.\n\n- **fit**: The video is scaled to fit the fill area while maintaining its aspect ratio. The video is centered in the fill area. If the aspect ratio of the fill area is different from that of the video, the area along the shorter edge is not filled. This area displays the video of the underlying layer. If no underlying layer is configured, this area is black.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FixedDelayDuration",
+          "description": "The fixed latency for the video layer. Use this parameter to synchronize the video with captions. Unit: milliseconds. Default value: 0. Valid values: **0** to **5000**.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "HeightNormalized",
+          "description": "The normalized height of the layer.\n\n- If you set FillMode to none, the width of the layer is scaled in proportion to the height. The default value is **0**. A value of 0 indicates that the video is displayed in its original size.\n\n- If you set FillMode to fit, this parameter is required and its value must be greater than **0**. The value specifies the normalized height of the fill area.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "PositionNormalized",
+          "description": "The position of the video layer. The value is a normalized coordinate `[x,y]`. Default value: `[0,0]`.\n\nNote: The x and y coordinates must be normalized.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "PositionRefer",
+          "description": "The reference point for the position of the layer. Valid values:\n\n- **topLeft** (default): Top-left.\n\n- **topRight**: Top-right.\n\n- **bottomLeft**: Bottom-left.\n\n- **bottomRight**: Bottom-right.\n\n- **center**: Center.\n\n- **topCenter**: Top-center.\n\n- **bottomCenter**: Bottom-center.\n\n- **leftCenter**: Left-center.\n\n- **rightCenter**: Right-center.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WidthNormalized",
+          "description": "The normalized width of the layer.\n\n- If you set FillMode to none, the height of the layer is scaled in proportion to the width. The default value is **0**. A value of 0 indicates that the video is displayed in its original size.\n\n- If you set FillMode to fit, this parameter is required and its value must be greater than **0**. The value specifies the normalized width of the fill area.",
           "position": "Query",
           "type": "Float",
           "required": false

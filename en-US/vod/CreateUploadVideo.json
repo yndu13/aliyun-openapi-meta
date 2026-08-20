@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "AppId",
-      "description": "The ID of the application. Default value: **app-1000000**. For more information, see [Overview](~~113600~~).",
+      "description": "The application ID. Default value: **app-1000000**. For more information, see [Multi-application](~~113600~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CateId",
-      "description": "The ID of the category. You can use one of the following methods to obtain the ID:\n\n*   Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Management** > **Categories** to view the category ID of the media file.\n*   Obtain the value of CateId from the response to the [AddCategory](~~AddCategory~~) operation.\n*   Obtain the value of CateId from the response to the [GetCategories](~~GetCategories~~) operation.",
+      "description": "The category ID. You can obtain the category ID by using one of the following methods:\n\n- Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Configuration Management** > **Media Management Configuration** > **Category Management** to view the category ID.\n- When you create a category by calling the [AddCategory](~~AddCategory~~) operation, the category ID is the value of the CateId parameter in the response.\n- When you query categories by calling the [GetCategories](~~GetCategories~~) operation, the category ID is the value of the CateId parameter in the response.",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -28,70 +28,82 @@
     },
     {
       "name": "Description",
-      "description": "The description of the audio or video file.\n\n*   The value can be up to 1,024 characters in length.\n*   The value must be encoded in UTF-8.",
+      "description": "The description of the audio or video file displayed in ApsaraVideo VOD after the upload is complete.\n\n- The description can be up to 1024 characters in length.\n- The value is encoded in UTF-8.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "EnableFirstFrameCover",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "FileName",
-      "description": "The name of the source file.\n\n*   The name must contain a file name extension, which is not case-sensitive.\n*   For more information about file name extensions supported by ApsaraVideo VOD, see [Overview](~~55396~~).",
+      "description": "The address of the audio or video source file to be uploaded.\n\n- The file name extension is required and is not case-sensitive.\n- For supported file name extensions, see [Upload overview](~~55396~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FileSize",
-      "description": "The size of the source file. Unit: bytes.",
+      "description": "The size of the audio or video source file to be uploaded. Unit: bytes.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
+      "name": "GenerateThumbnail",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "ReferenceId",
-      "description": "",
+      "description": "The custom ID. Only lowercase letters, uppercase letters, digits, hyphens, and underscores are supported. The length is 6 to 64 characters. The ID is unique at the user level.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageLocation",
-      "description": "The storage address. Perform the following operations to obtain the storage address: Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Management** > **Storage**. On the Storage page, view the storage address.\n\n>  If you leave this parameter empty, audio and video files are uploaded to the default storage address. If you specify a storage address, audio and video files are uploaded to the specified address.",
+      "description": "The storage address. You can obtain the storage address by using the following method:\nLog on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Configuration Management** > **Media Management Configuration** > **Storage Management** to view the storage address.\n\n> If this parameter is not specified, the audio or video file is uploaded to the default storage address. If no default storage address exists, the file is uploaded to the first storage address in the storage list. If this parameter is specified, the audio or video file is uploaded to the specified storage address.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags of the audio or video file.\n\n*   You can specify a maximum of 16 tags.\n*   If you want to specify multiple tags, separate the tags with commas (,).\n*   Each tag can be up to 32 characters in length.\n*   The value must be encoded in UTF-8.",
+      "description": "The tags of the audio or video file.\n\n- You can specify up to 16 tags.\n- To specify multiple tags, separate them with commas (,).\n- Each tag can be up to 32 characters in length.\n- The value is encoded in UTF-8.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateGroupId",
-      "description": "The ID of the transcoding template group. You can use one of the following methods to obtain the ID:\n\n*   Log on to the ApsaraVideo VOD console. In the left-side navigation pane, choose Configuration Management > Media Processing > Transcoding Template Groups. On the Transcoding Template Groups page, you can view the ID of the transcoding template group.[](https://vod.console.aliyun.com)************\n*   Obtain the value of the TranscodeTemplateGroupId parameter from the response to the [AddTranscodeTemplateGroup](~~102665~~) operation that you called to create a transcoding template group.\n*   Obtain the value of the TranscodeTemplateGroupId parameter from the response to the [ListTranscodeTemplateGroup](~~102669~~) operation that you called to query transcoding template groups.\n\n> *   If you specify both WorkflowId and TemplateGroupId, the value of the WorkflowId parameter takes effect.\n> *   If this parameter is not specified, transcoding is performed based on the default transcoding template group. If the transcoding template group ID is specified, transcoding is performed based on the specified template group.\n> *   If the **No Transcoding** template group is used, only the [FileUploadComplete](~~55630~~) event notification is returned after a video is uploaded. The [StreamTranscodeComplete](~~55636~~) event notification is not returned.\n> *   If you use the **No Transcoding** template group to upload videos, only videos in the format of MP4, FLV, MP3, M3U8, or WebM can be played. Videos in other formats can only be stored in ApsaraVideo VOD. You can view the file name extension to obtain the video format. If you want to use ApsaraVideo Player, make sure that the version of the player is V3.1.0 or later.",
+      "description": "The ID of the transcoding template group. You can obtain the ID by using one of the following methods:\n- Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Configuration Management** > **Media Processing Configuration** > **Transcoding Template Groups** to view the transcoding template group ID.\n- When you create a transcoding template group by calling the [Create a transcoding template group](~~102665~~) operation, the transcoding template group ID is the value of the TranscodeTemplateGroupId parameter in the response.\n- When you query transcoding template groups by calling the [Query transcoding configurations](~~102669~~) operation, the transcoding template group ID is the value of the TranscodeTemplateGroupId parameter in the response.\n\n>- If both WorkflowId and TemplateGroupId are specified, WorkflowId takes precedence.\n>- If this parameter is not specified, the default transcoding template group is used for transcoding. If a transcoding template group ID is specified, the specified template group is used for transcoding.\n>- If this parameter is set to the built-in **No Transcoding** template group, only the [Video Upload Complete](~~55630~~) event notification is sent after the audio or video file is uploaded. The [Transcode Complete for a Single Definition](~~55636~~) event notification is not sent.\n> - This parameter triggers an [asynchronous task](~~3027551~~). After submission, the task is not immediately completed and is queued for asynchronous execution in the background.\n>- To ensure normal playback, when the built-in **No Transcoding** template group is used, only the following formats support direct playback without transcoding after the audio or video file is uploaded: MP4, FLV, MP3, M3U8, and WEBM. Other formats support storage only (check the file name extension of FileName). If you use ApsaraVideo Player, the player version must be 3.1.0 or later.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Title",
-      "description": "The title of the audio or video file.\n\n*   The title can be up to 128 characters in length.\n*   The value must be encoded in UTF-8.",
+      "description": "The title of the audio or video file displayed in ApsaraVideo VOD after the upload is complete.\n\n- The title can be up to 128 characters in length.\n- The value is encoded in UTF-8.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "UserData",
-      "description": "The custom configurations such as callback configurations and upload acceleration configurations. The value must be a JSON string. For more information, see [Request parameters](~~86952~~).\n\n> *   The callback configurations take effect only after you specify the HTTP callback URL and select specific callback events in the ApsaraVideo VOD console. For more information about how to configure HTTP callback settings in the ApsaraVideo VOD console, see [Configure callback settings](~~86071~~).\n>*   If you want to enable the upload acceleration feature, [submit a request on Yida](https://yida.alibaba-inc.com/o/ticketapply). For more information, see [Overview](~~55396~~).",
+      "description": "The custom settings in a JSON string. The settings support message callbacks, upload acceleration, and other configurations. For more information, see [UserData](~~86952~~).\n\n> - To use the message callback in this parameter, you must configure an HTTP callback URL and select the corresponding callback event types in the console. Otherwise, the callback settings do not take effect. If no callback URL is specified for subsequent tasks, callbacks are sent to this address by default. To configure HTTP callbacks in the console, see [Callback settings](~~86071~~).\n> - To use the upload acceleration feature, you must [submit a Yida form](https://yida.alibaba-inc.com/o/ticketapply) to apply for activation. For more information, see [Upload instructions](~~55396~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WorkflowId",
-      "description": "The ID of the workflow. To view the ID of the workflow, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Workflows**.\n\n> If you specify the WorkflowId and TemplateGroupId parameters, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).",
+      "description": "The workflow ID. Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Configuration Management** > **Media Processing Configuration** > **Workflow Management** to view the workflow ID.\n\n> - If both WorkflowId and TemplateGroupId are specified, WorkflowId takes precedence. For more information, see [Workflows](~~115347~~).\n> - This parameter triggers an [asynchronous task](~~3027551~~). After submission, the task is not immediately completed and is queued for asynchronous execution in the background.",
       "position": "Query",
       "type": "String",
       "required": false

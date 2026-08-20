@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "DBClusterId",
-      "description": "The ID of the cluster.\n\n> You can call the [DescribeDBClusters](~~98094~~) operation to query the details of the clusters that belong to your Alibaba Cloud account, such as cluster IDs.",
+      "description": "The cluster ID.\n\n> You can call the [DescribeDBClusters](~~98094~~) operation to query the details of all clusters in your account, including cluster IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DefaultAlgo",
-      "description": "",
+      "description": "The default algorithm.\n\n> You must specify either MaskingAlgo or DefaultAIgo.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Enable",
-      "description": "Specifies whether to enable the specified masking rule. Valid values:\n\n*   **true**\n*   **false**\n\n> This parameter is valid only when the `RuleNameList` parameter is specfied.",
+      "description": "Enables or disables the specified data masking rules. Valid values:\n\n- **true**: enables the specified rules.\n\n- **false**: disables the specified rules.\n\n> This parameter applies only when the `RuleNameList` parameter is specified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InterfaceVersion",
-      "description": "",
+      "description": "The type of rule to modify. Valid values:\n\nv1: Modifies a data masking rule.\nv2: Modifies an encryption rule.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaskingAlgo",
-      "description": "",
+      "description": "The masking algorithm. Specify one or more algorithms and their parameters. Format: `[{ \"name\": \"algorithm_name\", \"params\": {\"key\": \"value\"} }]`",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleConfig",
-      "description": "The parameter that is used to specify the masking rule that you want to modify and the value in the JSON format. All parameter values are of the string type. Example: `{\"auto\": {\"databases\": [\"db1\"], \"tables\": [\"tb1\"], \"columns\": [\"c1,c2\"] }, \"description\": \"This rule will be applied to the columns c1 and c2 in table t1\", \"enabled\": true, \"applies_to\": [\"user\"]}`. Where,\n\n*   `\"auto\"`: specifies that the dynamic masking algorithm is supported. This parameter is required.\n*   `\"databases\"`: Optional. The names of databases to which the masking rule is applied. Separate the names with commas (,). If you leave this parameter empty, the masking rule applies to all databases in the cluster.\n*   `\"tables\"`: Optional. The names of tables to which the masking rule is applied. Separate the names with commas (,). If you leave this parameter empty, the rule applies to all tables in the cluster.\n*   `\"columns\"`: Required. The names of fields to which the masking rule is applied. Separate the names with commas (,).\n*   `\"description\"`: Optional. The description of the masking rule. The description is up to 64 characters in length.\n*   `\"enabled\"`: Required. Specifies whether to enable the masking rule. Valid values: **true** (enable) and **false** (disable).\n*   `\"applies_to\"`: The names of database accounts to which the masking rule is applied. Separate the names with commas (,).\n*   `\"exempted\"`: The names of database accounts to which the masking rule is not applied. Separate the names with commas (,).\n\n> \n\n*   If you specify `RuleName`, `RuleConfig` parameter is required.\n\n*   You need to select either `\"applies_to\"` or `\"exempted\"`.",
+      "description": "A JSON string that specifies the rule configuration. Example: `{\"auto\": {\"databases\": [\"db1\"], \"tables\": [\"tb1\"], \"columns\": [\"c1,c2\"] }, \"description\": \"This rule will be applied to the columns c1 and c2 in table t1\", \"enabled\": true, \"applies_to\": [\"user\"]}`. The JSON string includes the following fields:\n\n- `\"auto\"`: Required. The object that contains the configuration for the dynamic data masking algorithm.\n\n- `\"databases\"`: Optional. The databases to which the rule applies. Separate multiple database names with a comma (,). If this parameter is omitted, the rule applies to all databases in the cluster.\n\n- `\"tables\"`: Optional. The tables to which the rule applies. Separate multiple table names with a comma (,). If this parameter is omitted, the rule applies to all tables in the cluster.\n\n- `\"columns\"`: Required. The columns to which the rule applies. Separate multiple column names with a comma (,).\n\n- `\"description\"`: Optional. The rule description, up to 64 characters in length.\n\n- `\"enabled\"`: Required. Specifies whether the data masking rule is enabled. Valid values: **true** (enabled) and **false** (disabled).\n\n- `\"applies_to\"`: The database accounts to which the rule applies. Separate multiple account names with a comma (,).\n\n- `\"exempted\"`: The database accounts that are exempt from the rule. Separate multiple account names with a comma (,).\n\n> * If you specify the `RuleName` parameter, you must also specify the `RuleConfig` parameter.\n>\n> * You must specify either `\"applies_to\"` or `\"exempted\"`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleName",
-      "description": "The name of the data masking rule. You can specify only one rule name at a time.\n\n> \n\n*   You can call the [DescribeMaskingRules](~~212573~~) operation to query the details of all masking rules for a specified cluster, such as the names of the masking rules.\n\n*   If the rule name does not exist in the cluster, the system automatically creates a masking rule based on the name and the value of `RuleConfig`.",
+      "description": "The name of the data masking rule. You can specify only one rule name at a time.\n\n> - You can call the [DescribeMaskingRules](~~212573~~) operation to query the details of all data masking rules in the target cluster, including rule names.\n>\n> - If a rule with the specified name does not exist, the system creates a new one based on the provided `RuleConfig`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleNameList",
-      "description": "The list of masking rule names. You can specify one or more masking rules at a time. Separate the masking rule names with commas (,).\n\n> You must specify either the `RuleName` or `RuleNameList` parameter.",
+      "description": "A comma-separated list of data masking rule names.\n\n> You must specify either the `RuleName` or `RuleNameList` parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleVersion",
-      "description": "The version of the masking rule. Default value: v1. Valid values:\n\n*   v1\n*   v2",
+      "description": "The version of the data masking rule. Valid values:\n\n- v1 (default)\n\n- v2",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,12 +1,13 @@
 {
   "name": "DescribeDcdnDomainCcActivityLog",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainName",
-      "description": "The accelerated domain name. You can specify one or more domain names. Separate multiple domain names with commas (,).\n\nIf you leave this parameter empty, the data of all domain names is queried.",
+      "description": "The accelerated domain name to query. You can specify multiple domain names separated by commas (,).\n\nIf you leave this parameter empty, data for all your accelerated domain names is returned.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -20,7 +21,7 @@
     },
     {
       "name": "PageNumber",
-      "description": "The page number of the page returned. Default value: **1**.",
+      "description": "The page number. Default value: **1**.",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -34,28 +35,28 @@
     },
     {
       "name": "RuleName",
-      "description": "The name of the defense rule.\n\n*   default_normal in normal mode\n*   default_attack in emergency mode\n*   A custom rule name in custom mode. Example: test2.\n\nIf you leave this parameter empty, events that triggered rate limiting based on all rules are queried.",
+      "description": "The name of the rule.\n\n- Normal mode: default\\_normal\n\n- Emergency mode: default\\_attack\n\n- Custom mode: a custom rule name, such as test2.\n\nIf you leave this parameter empty, all block events are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nThe resolution of the queried data is 5 minutes.\n\nIf you leave this parameter empty, the data collected over the last 24 hours is queried.",
+      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nThe minimum data granularity is 5 minutes.\n\nIf you do not specify this parameter, data from the last 24 hours is returned.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TriggerObject",
-      "description": "The trigger of rate limiting by which you want to query data.\n\nIf you leave this parameter empty, all events that triggered rate limiting are queried.",
+      "description": "The object that triggers the rate limiting rule.\n\nIf you leave this parameter empty, all block events are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Value",
-      "description": "The value of the object that triggered rate limiting.\n\nIf you leave this parameter empty, events that triggered rate limiting based on all rules are queried.",
+      "description": "The value of the trigger object.\n\nIf you leave this parameter empty, all block events are queried.",
       "position": "Query",
       "type": "String",
       "required": false

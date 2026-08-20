@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AdditionalCacheablePorts",
-      "description": "在指定端口上开启缓存功能。取值范围：8880、2052、2082、2086、2095、2053、2083、2087、2096。",
+      "description": "- 在指定端口上开启缓存功能。\n- 取值范围：8880、2052、2082、2086、2095、2053、2083、2087、2096\n- 支持配置多个端口，不同端口间使用英文逗号分隔。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,14 +49,14 @@
     },
     {
       "name": "CheckPresenceCookie",
-      "description": "生成缓存键的时候，检查cookie是否存在，如果存在，则在缓存键中加入cookie名称（cookie名称不区分大小写）。支持输入多个cookie名称，多个值之间用空格分隔。",
+      "description": "生成缓存键的时候，检查指定的cookie是否存在，如果存在，则在缓存键中加入cookie名称（cookie名称不区分大小写）。支持输入多个cookie名称，多个值之间用空格分隔。cookie名称支持以下字符类型：\n- 符号：! # $ % & ' * + - . ^ _ ` | ~\n- 数字：0-9\n- 字母：小写英文字母a-z",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CheckPresenceHeader",
-      "description": "生成缓存键的时候，检查header是否存在，如果存在，则在缓存键中加入header名称（header名称不区分大小写）。支持输入多个header名称，多个值之间用空格分隔。",
+      "description": "生成缓存键的时候，检查指定的标头是否存在，如果存在，则在缓存键中加入标头名称（标头名称不区分大小写）。支持输入多个标头名称，多个值之间用空格分隔。标头名称支持以下字符类型：\n- 符号：! # $ % & ' * + - . ^ _ ` | ~\n- 数字：0-9\n- 字母：小写英文字母a-z",
       "position": "Query",
       "type": "String",
       "required": false
@@ -84,35 +84,35 @@
     },
     {
       "name": "EdgeStatusCodeCacheTtl",
-      "description": "状态码缓存过期时间，单位是秒。\n- 支持对指定状态码设置缓存过期时间，例如：404=10，表示对404状态码缓存10秒。\n- 支持对4xx、5xx系列状态码设置缓存过期时间，例如：4xx=10，表示对400系列的所有状态码都缓存10秒。",
+      "description": "状态码缓存过期时间，单位是秒。\n- 支持对指定状态码设置缓存过期时间，例如：404=10，表示对404状态码缓存10秒。\n- 支持对4xx、5xx系列状态码设置缓存过期时间，例如：4xx=10，表示对400系列的所有状态码都缓存10秒。\n- 支持对多个状态码设置缓存过期时间，状态码之间用英文逗号分隔。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IncludeCookie",
-      "description": "生成缓存键的时候，包括指定的cookie名称及其值，支持输入多个值，多个值之间用空格分隔。",
+      "description": "生成缓存键的时候，加入指定的cookie名称（cookie名称不区分大小写）及其值，多个值用空格分隔。cookie名称支持以下字符类型：\n- 符号：! # $ % & ' * + - . ^ _ ` | ~\n- 数字：0-9\n- 字母：小写英文字母a-z",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IncludeHeader",
-      "description": "生成缓存键的时候，包括指定的标头名称及其值，支持输入多个值，多个值之间用空格分隔。",
+      "description": "生成缓存键的时候，加入指定标头的名称（标头名称不区分大小写）及其值，支持输入多个值，多个值之间用空格分隔。标头名称支持以下字符类型：\n- 符号：! # $ % & ' * + - . ^ _ ` | ~\n- 数字：0-9\n- 字母：小写英文字母a-z",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PostBodyCacheKey",
-      "description": "缓存键的处理模式。",
+      "description": "Post缓存对缓存键的处理模式，支持以下两种模式：\n- md5：先对 Body 内容取 MD5，然后将 MD5 值加入缓存键\n- ignore：在缓存键中忽略 Body 内容",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PostBodySizeLimit",
-      "description": "Body大小限制，值为数字，单位是KB，支持1～8KB大小的Body，值为空的时候，默认按8KB生效。",
+      "description": "Post缓存对Body大小限制，值为数字，单位是KB，支持1～8KB大小的Body，值为空的时候，默认按8KB生效。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -126,7 +126,7 @@
     },
     {
       "name": "QueryString",
-      "description": "需要保留或者删除的查询字符串，支持输入多个值，多个值之间用空格分隔。",
+      "description": "生成缓存键的时候，需要保留或者删除的查询字符串，支持输入多个值，多个值之间用空格分隔。",
       "position": "Query",
       "type": "String",
       "required": false

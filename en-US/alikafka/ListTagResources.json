@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "NextToken",
-      "description": "The token that determines the start point of the next query.",
+      "description": "The token for the next query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which the resource is deployed.",
+      "description": "The region ID of the resource.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceId",
-      "description": "The ID of the resource whose tags you want to query. The resource ID follows the following rules:\n\n*   Instance ID: instanceId\n*   Topic ID: Kafka_alikafka_instanceId_topic\n*   Group ID: Kafka_alikafka_instanceId_consumerGroup\n\nFor example, if the instance ID is alikafka_post-cn-v0h1fgs2xxxx, the topic name is test-topic, and the group name is test-consumer-group, the resource IDs are alikafka_post-cn-v0h1fgs2xxxx, Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-topic, and Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-consumer-group, respectively.\n\n>  You must configure one of **ResourceId** and **Tag** to query the tags that are bound to a resource. Otherwise, the request fails.",
+      "description": "The ID of the resource to be tagged. Resource ID rules:\n\n- Instance: instanceId\n\n- Topic: Kafka\\_alikafka\\_instanceId\\_topic\n\n- Group: Kafka\\_alikafka\\_instanceId\\_consumerGroup\n\nFor example: If the instance ID is alikafka\\_post-cn-v0h1fgs2xxxx, the Topic name is test-topic, and the Group name is test-consumer-group, the resource IDs are alikafka\\_post-cn-v0h1fgs2xxxx, Kafka\\_alikafka\\_post-cn-v0h1fgs2xxxx\\_test-topic, and Kafka\\_alikafka\\_post-cn-v0h1fgs2xxxx\\_test-consumer-group respectively.\n\n> Either the **ResourceId** or **Tag** parameter must be configured to query the tag list bound to resources. Otherwise, the API call fails.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource whose tags you want to query. The value is an enumerated value. Valid values:\n\n*   **INSTANCE**\n*   **TOPIC**\n*   **CONSUMERGROUP**",
+      "description": "The resource type. Enumeration type. Valid values:\n\n- **INSTANCE**: instance.\n\n- **TOPIC**: topic.\n\n- **CONSUMERGROUP**: consumer group.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The tag list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource.\n\n- If this parameter is empty, all tag keys are matched.\n\n- The tag key can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http\\:// or https\\://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource.\n\n- If the tag key is empty, this parameter must be empty. If this parameter is empty, all tag values are matched.\n\n- The tag value can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http\\:// or https\\://.",
           "position": "Query",
           "type": "String",
           "required": false

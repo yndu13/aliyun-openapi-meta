@@ -1,19 +1,20 @@
 {
   "name": "RenewInstance",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The **token** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExpectedRenewDay",
-      "description": "Specifies the [unified expiration date](~~63396~~). Valid values: 1 to 28.\n\nTo use this parameter, you must [specify a unified expiration date for the ECS instance](~~63396#694cb636c0rp6~~). The value of this parameter must be the same as the specified unified expiration date. Otherwise, the call fails.\n\n>  You must specify the renewal period-related parameter pair (`Period` and `PeriodUnit`) or `ExpectedRenewDay`, but not both.",
+      "description": "The day on which to renew the instance to a [unified expiration date](~~63396~~). Valid values: 1 to 28.\n\nTo use this parameter, you must first [set a unified expiration date for ECS instances](~~63396#694cb636c0rp6~~). The value of this parameter must match the unified expiration date that you have set. Otherwise, the call fails.\n\n> You must specify either the renewal period parameters (Period and PeriodUnit) or the unified expiration date parameter (ExpectedRenewDay), but not both.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -27,14 +28,14 @@
     },
     {
       "name": "Period",
-      "description": "The renewal period of the subscription instance. If `DedicatedHostId` is specified, the value of Period cannot exceed the subscription period of the specified dedicated host.\n\nValid values when PeriodUnit is set to Month: 1, 2, 3, 4, 5, 6, 7, 8, 9, and 12.\n\n> The renewal period-related parameter pair (`Period` and `PeriodUnit`) and `ExpectedRenewDay` are mutually exclusive.",
+      "description": "The renewal period for the subscription instance. If you specify DedicatedHostId, the value of Period cannot exceed the remaining subscription period of the dedicated host. Valid values:\n\n<props=\"china\">\n- If you set PeriodUnit to Week, valid values of Period are 1, 2, 3, and 4.\n- If you set PeriodUnit to Month, valid values of Period are 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 24, 36, 48, and 60.\n\n</props>\n\n<props=\"intl\">If you set PeriodUnit to Month, valid values of Period are 1, 2, 3, 4, 5, 6, 7, 8, 9, and 12.</props>\n\n> You must specify either the renewal period parameters (Period and PeriodUnit) or the unified expiration date parameter (ExpectedRenewDay), but not both.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the renewal period. Valid values:\n\nMonth\n\nDefault value: Month.",
+      "description": "The unit of the renewal period. This parameter specifies the unit for the Period parameter. Valid values:\n\n<props=\"china\">\n- Week.\n- Month.\n\n</props>\n\n<props=\"intl\">Month.</props>\n\nDefault value: Month.",
       "position": "Query",
       "type": "String",
       "required": false

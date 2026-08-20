@@ -1,5 +1,6 @@
 {
   "name": "SubmitSnapshotJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,70 +14,70 @@
     },
     {
       "name": "Height",
-      "description": "The height of each snapshot. Valid values: `[8,4096]`. By default, the height of the video source is used. Unit: pixels.",
+      "description": "The snapshot height. Valid values: `[8,4096]`. Default value: the source video height. Unit: px.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Interval",
-      "description": "The snapshot interval. The value must be **greater than or equal to 0**.\n\n*   Unit: seconds.\n*   Default value: **1**.\n*   If you set this parameter to **0**, snapshots are captured at even intervals based on the video duration divided by the value of the Count parameter.",
+      "description": "The snapshot interval. The value must be **greater than or equal to 0**.\n- Unit: seconds.\n- Default value: **1**.\n- If Interval is set to **0**, snapshots are evenly captured based on the value of Count and the video duration.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ReferenceId",
-      "description": "",
+      "description": "The custom ID. Only lowercase letters, uppercase letters, digits, hyphens, and underscores are supported. Length: 6 to 64 characters. The value must be unique at the user level.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotTemplateId",
-      "description": "The ID of the snapshot template.\n\n*   We recommend that you create a snapshot template before you specify the template ID. For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).\n*   If you set the SnapshotTemplateId parameter, all the other request parameters except the Action and VideoId parameters are ignored.",
+      "description": "The snapshot template ID.\n- We recommend that you create a snapshot template first and then pass the snapshot template ID. For more information about how to create a snapshot template, see [Add a snapshot template](~~99406~~).\n- If you pass the snapshot template ID, all request parameters except Action and VideoId are ignored.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpecifiedOffsetTime",
-      "description": "The point in time when the first snapshot is captured.\n\n*   Unit: milliseconds.\n*   Default value: **0**.",
+      "description": "The start time for the snapshot.\n\n- Unit: milliseconds.\n- Default value: **0**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "SpecifiedOffsetTimes",
-      "description": "The playback positions at which you want to capture snapshots. Unit: milliseconds. You can specify up to 30 playback positions in a request.",
+      "description": "The points in time at which snapshots are captured. Unit: milliseconds. You can specify up to 30 points in time at a time.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "SpriteSnapshotConfig",
-      "description": "The sprite snapshot configuration. If you set this parameter, sprite snapshots are generated. For more information, see [SpriteSnapshotConfig](~~86952~~).",
+      "description": "The sprite configuration. If this parameter is not empty, a sprite is generated. For more information about the parameter structure, see [SpriteSnapshotConfig](~~86952~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserData",
-      "description": "The custom configurations including the configuration of transparent data transmission and callback configurations. The value must be a JSON string. For more information, see [UserData](~~86952~~).\n\n>  To use the message callback feature, you must specify an HTTP callback URL and the callback events in the ApsaraVideo VOD console. Otherwise, the callback settings do not take effect.",
+      "description": "The custom settings. Only JSON strings are supported. You can use this parameter to pass through custom data and specify callback URL settings. For more information about the parameter structure, see [UserData](~~86952~~).\n\n> To use the message callback in this parameter, configure the HTTP callback URL and select the corresponding callback event types in the console. Otherwise, the callback settings do not take effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VideoId",
-      "description": "The ID of the video. You can use one of the following methods to obtain the ID:\n\n*   After you upload a video in the ApsaraVideo VOD console, you can log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Media Files** > **Audio/Video** to view the ID of the video.\n*   Obtain the video ID from the response to the [CreateUploadVideo](~~55407~~) operation that you called to obtain the upload URL and credential.\n*   Obtain the video ID from the response to the [SearchMedia](~~86044~~) operation that you called to query media information after the audio or video file is uploaded.",
+      "description": "The video ID. You can obtain the video ID by using one of the following methods:\n- For videos uploaded through the console, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com) and choose **Media Files** > **Audio/Video** to view the video ID.\n- Obtain the video ID from the value of the VideoId response parameter when you call the [CreateUploadVideo](~~55407~~) operation to obtain the upload URL and credential.\n- After the video is uploaded, call the [SearchMedia](~~86044~~) operation to query the video ID, which is the value of the VideoId response parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Width",
-      "description": "The width of each snapshot. Valid values: `[8,4096]`. By default, the width of the video source is used. Unit: pixels.",
+      "description": "The snapshot width. Valid values: `[8,4096]`. Default value: the source video width. Unit: px.",
       "position": "Query",
       "type": "String",
       "required": false

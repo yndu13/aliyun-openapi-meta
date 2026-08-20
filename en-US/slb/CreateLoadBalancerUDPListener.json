@@ -14,14 +14,14 @@
     },
     {
       "name": "AclStatus",
-      "description": "Specifies whether to enable access control. Valid values:\n\n*   **on**: yes\n*   **off** (default): no",
+      "description": "Specifies whether to enable access control. Valid values:\n\n- **on**: yes\n\n- **off** (default): no",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclType",
-      "description": "The type of the network ACL. Valid values:\n\n*   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specific IP addresses to access an application. After a whitelist is configured, only IP addresses in the whitelist can access the CLB listener. Risks may arise if the whitelist is improperly set.\n\n    If a whitelist is configured but no IP address is added to the whitelist, the listener forwards all requests.\n\n*   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are blocked. Blacklists apply to scenarios in which you want to deny access from specific IP addresses to an application.\n\n    If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.\n\nIf **AclStatus** is set to **on**, this parameter is required.",
+      "description": "The type of the network ACL. Valid values:\n\n- **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specific IP addresses to access an application. After a whitelist is configured, only IP addresses in the whitelist can access the CLB listener. Risks may arise if the whitelist is improperly set.\n\n  If a whitelist is configured but no IP address is added to the whitelist, the listener forwards all requests.\n\n- **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are blocked. Blacklists apply to scenarios in which you want to deny access from specific IP addresses to an application.\n\n  If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.\n\nIf **AclStatus** is set to **on**, this parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,7 +63,7 @@
     },
     {
       "name": "HealthCheckSwitch",
-      "description": "Specifies whether to enable the health check feature. Valid values:\n\n*   **on** (default): yes\n*   **off**: no",
+      "description": "Specifies whether to enable the health check feature. Valid values:\n\n- **on** (default): yes\n\n- **off**: no",
       "position": "Query",
       "type": "String",
       "required": false
@@ -91,14 +91,14 @@
     },
     {
       "name": "MasterSlaveServerGroupId",
-      "description": "The ID of the primary/secondary server group.\n\n>  You can set only one of the VServerGroupId and MasterSlaveServerGroupId parameters.",
+      "description": "The ID of the primary/secondary server group.\n\n> You can set only one of the VServerGroupId and MasterSlaveServerGroupId parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProxyProtocolV2Enabled",
-      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n*   **true**: yes\n*   **false** (default): no",
+      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n- **true**: yes\n\n- **false** (default): no",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -112,7 +112,7 @@
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **wrr** (default): Backend servers with higher weights receive more requests than those with lower weights.\n*   **rr**: Requests are distributed to backend servers in sequence.\n*   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.\n*   **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.\n*   **qch**: specifies consistent hashing that is based on QUIC connection IDs. Requests that contain the same QUIC connection ID are distributed to the same backend server.\n\nOnly high-performance CLB instances support the sch, tch, and qch consistent hashing algorithms.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **wrr** (default): Backend servers with higher weights receive more requests than those with lower weights.\n\n- **rr**: Requests are distributed to backend servers in sequence.\n\n- **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.\n\n- **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.\n\n- **qch**: specifies consistent hashing that is based on QUIC connection IDs. Requests that contain the same QUIC connection ID are distributed to the same backend server.\n\nOnly high-performance CLB instances support the sch, tch, and qch consistent hashing algorithms.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -126,12 +126,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. Valid values of N: **1 to 20**. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

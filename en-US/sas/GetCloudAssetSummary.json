@@ -1,30 +1,34 @@
 {
   "name": "GetCloudAssetSummary",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CloudAssetTypes",
-      "description": "List of asset type information for cloud assets",
+      "description": "The list of asset type information for cloud assets.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AssetSubType",
+          "description": "The subtype of the cloud service. The value is in the format of asset type - subtype. Valid values:\n\n- **0**: Elastic Compute Service (ECS) server\n    *  **1**: cloud disk (storage)\n    *  **2**: security group\n    *  **100**: instance\n- **1**: load balancing\n    *  **0**: load balancing\n    *  **1**: Application Load Balancer (ALB)\n- **3**: ApsaraDB RDS database\n    *  **0**: instance\n- **4**: ApsaraDB for MongoDB database\n    *  **0**: instance\n- **5**: Tair (Redis® OSS-Compatible) database\n    *  **0**: instance\n- **6**: Container Registry\n    *  **1**: Enterprise Edition\n    *  **2**: Personal Edition\n- **8**: Container Service for Kubernetes (ACK)\n    *  **0**: cluster\n- **9**: Virtual Private Cloud (VPC)\n    *  **0**: NAT gateway\n    *  **1**: EIP\n    *  **2**: VPN\n    *  **3**: FLOW_LOG\n- **11**: ActionTrail\n    *  **0**: trail\n- **12**: CDN\n    *  **0**: instance\n- **13**: Certificate Management Service (formerly SSL Certificates Service)\n    *  **0**: certificate\n- **14**: Apsara Devops\n    *  **0**: organization\n- **16**: Anti-DDoS\n    *  **0**: instance\n- **17**: Web Application Firewall (WAF)\n    *  **0**: domain name\n- **18**: Object Storage Service (OSS)\n    *  **0**: Bucket\n- **19**: cloud-native relational database PolarDB\n    *  **0**: cluster\n- **20**: ApsaraDB RDS for PostgreSQL database\n    *  **0**: instance\n- **21**: Microservices Engine (MSE)\n    *  **0**: cluster\n- **22**: Apsara File Storage NAS\n    *  **0**: file system\n- **23**: Data Security Center (DSC)\n    *  **0**: instance\n- **24**: Elastic IP Address (EIP)\n    *  **0**: Anycast EIP\n- **25**: Alibaba Cloud IDaaS EIAM\n    *  **0**: instance\n- **26**: PolarDB-X\n    *  **0**: instance\n- **27**: Elasticsearch\n    *  **0**: instance",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AssetType",
+          "description": "The type of the asset. Valid values:\n\n- **0**: Elastic Compute Service (ECS) server\n- **1**: load balancing\n- **3**: ApsaraDB RDS database\n- **4**: ApsaraDB for MongoDB database\n- **5**: Tair (Redis® OSS-Compatible) database\n- **6**: Container Registry\n- **8**: Container Service for Kubernetes (ACK)\n- **9**: Virtual Private Cloud (VPC)\n- **11**: ActionTrail\n- **12**: CDN\n- **13**: Certificate Management Service (formerly SSL Certificates Service)\n- **14**: Apsara Devops\n- **16**: Anti-DDoS\n- **17**: Web Application Firewall (WAF)\n- **18**: Object Storage Service (OSS)\n- **19**: cloud-native relational database PolarDB\n- **20**: ApsaraDB RDS for PostgreSQL database\n- **21**: Microservices Engine (MSE)\n- **22**: Apsara File Storage NAS\n- **23**: Data Security Center (DSC)\n- **24**: Elastic IP Address (EIP)\n- **25**: Alibaba Cloud IDaaS EIAM\n- **26**: PolarDB-X\n- **27**: Elasticsearch",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Vendor",
+          "description": "The server vendor. Valid values:\n\n- **0**: Alibaba Cloud asset\n- **1**: non-cloud asset\n- **2**: IDC asset\n- **3**, **4**, **5**, **7**: third-party cloud asset\n- **8**: lightweight asset",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -32,8 +36,15 @@
       ]
     },
     {
+      "name": "IsSaleData",
+      "description": "Specifies whether to return sale-related data. Valid values:\n- **true**: Returns sale-related data.\n- **false**: Does not return sale-related data.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "Vendors",
-      "description": "List of cloud vendors to be queried.",
+      "description": "The list of cloud vendors to query.",
       "position": "Query",
       "type": "RepeatList",
       "required": false

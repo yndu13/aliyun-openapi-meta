@@ -14,63 +14,63 @@
     },
     {
       "name": "DataSourceId",
-      "description": "The ID of the data source.",
+      "description": "The data source ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Disabled",
-      "description": "Specifies whether to disable the backup policy for the data source. Valid values:\n\n*   true: disables the backup policy for the data source\n*   false: enables the backup policy for the data source",
+      "description": "Specifies whether the policy is suspended for the data source.\n- true: Suspended.\n- false: Not suspended.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Exclude",
-      "description": "This parameter is required only if you set the **SourceType** parameter to **ECS_FILE** or **File**. This parameter specifies the type of files that do not need to be backed up. No files of the specified type are backed up. The value can be up to 255 characters in length.",
+      "description": "This parameter is valid only when **SourceType** is set to **ECS_FILE**, **File**, **NAS**, **COMMON_NAS**, or **COMMON_FILE_SYSTEM**. Specifies the file types to back up. All files of these types are backed up. The value can be up to 255 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Include",
-      "description": "This parameter is required only if you set the **SourceType** parameter to **ECS_FILE** or **File**. This parameter specifies the type of files to be backed up. All files of the specified type are backed up. The value can be up to 255 characters in length.",
+      "description": "This parameter is valid only when **SourceType** is set to **ECS_FILE**, **File**, **NAS**, **COMMON_NAS**, or **COMMON_FILE_SYSTEM**. Specifies the file types to back up. All files of these types are backed up. The value can be up to 255 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyBindingDescription",
-      "description": "The description of the association.",
+      "description": "The description of the policy binding.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyId",
-      "description": "The ID of the backup policy.",
+      "description": "The policy ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Source",
-      "description": "*   If the SourceType parameter is set to **OSS**, set the Source parameter to the prefix of the path to the folder that you want to back up. If you do not specify the Source parameter, the entire bucket (root directory) is backed up.\n*   If the SourceType parameter is set to **ECS_FILE** or **File**, set the Source parameter to the path to the files that you want to back up. If you do not specify the Source parameter, all paths backed up.",
+      "description": "The meaning varies depending on the SourceType value:\n- **OSS**: The prefix to back up. If not specified, the entire root directory of the bucket is backed up. Only a single prefix is supported. To back up /backup, set this parameter to /backup.\n- **ECS_FILE**: The file directories to back up. If not specified, all directories are backed up. Multiple directories are supported. To back up files in /a and /b, set this parameter to [\"/a\", \"/b\"].\n- **File**: The file directories to back up. If not specified, all directories are backed up. Multiple directories are supported. To back up files in /a and /b, set this parameter to [\"/a\", \"/b\"].\n- **COMMON_FILE_SYSTEM**: Required. The source paths to back up. Multiple paths are supported. To back up /a and /b, set this parameter to [\"/a\", \"/b\"]. To back up the root path, set this parameter to [\"/\"].\n- **COMMON_NAS**: Required. The source path to back up. Only a single path is supported. To back up /a, set this parameter to [\"/a\"]. To back up the root path, set this parameter to [\"/\"].\n- **OTS**: The list of data tables to back up. If not specified, all data tables are backed up. Multiple data tables are supported. To back up data tables a and b, set this parameter to [\"a\", \"b\"].",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceType",
-      "description": "The type of the data source. Valid values:\n\n*   **UDM_ECS**: ECS instance backup",
+      "description": "The data source type. Valid values:\n- **UDM_ECS**: ECS instance backup.\n- **OSS**: OSS backup.\n- **NAS**: Alibaba Cloud NAS backup.\n- **COMMON_NAS**: On-premises NAS backup.\n- **ECS_FILE**: ECS File Backup Essential Edition.\n- **File**: On-premises file backup.\n- **COMMON_FILE_SYSTEM**: CPFS backup.\n- **OTS**: Tablestore backup.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SpeedLimit",
-      "description": "This parameter is required only if you set the **SourceType** parameter to **ECS_FILE** or **File**. This parameter specifies the throttling rules. Format: `{start}{end}{bandwidth}`. Separate multiple throttling rules with vertical bars (|). The time ranges of the throttling rules cannot overlap.\n\n*   **start**: the start hour.\n*   **end**: the end hour.\n*   **bandwidth**: the bandwidth. Unit: KB/s.",
+      "description": "This parameter is required only when **SourceType** is set to **ECS_FILE** or **File**. Specifies the backup traffic control. The format is `{start}{end}{bandwidth}`. Multiple traffic control configurations are separated by delimiters, and the time ranges cannot overlap.\n\n- **start**: The start hour.\n- **end**: The end hour.\n- **bandwidth**: The rate limit, in KB/s.",
       "position": "Query",
       "type": "String",
       "required": false

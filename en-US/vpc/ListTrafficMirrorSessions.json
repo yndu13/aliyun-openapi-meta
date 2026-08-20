@@ -7,61 +7,63 @@
   "parameters": [
     {
       "name": "Enabled",
-      "description": "Specifies whether to enable the traffic mirror session. Valid values:\n\n*   **false**: does not enable the traffic mirror session.\n*   **true**: enables the traffic mirror session.",
+      "description": "Specifies whether the traffic mirror session is enabled. Valid values:\n\n- **false** (default): The traffic mirror session is not enabled.\n\n- **true**: The traffic mirror session is enabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to return. Valid values: **1** to **100**. Default value: **10**.",
+      "description": "The maximum number of entries to return in this query. Valid values: **1** to **100**. Default value: **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used for the next query. Valid values:\n\n*   If this is your first query and no next queries are to be sent, ignore this parameter.\n*   If a next query is to be sent, set the value to the value of NextToken that is returned from the last call.",
+      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n- You do not need to specify this parameter for the first request or if no next query exists.\n- If a next query exists, set the value to the NextToken value returned in the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Priority",
-      "description": "The priority of the traffic mirror session. Valid values: **1** to **32766**.\n\nA smaller value indicates a higher priority. You cannot specify identical priorities for traffic mirror sessions that are created in the same region by using the same account.",
+      "description": "The priority of traffic mirror session. Valid values: **1** to **32766**.\n\nA smaller value indicates a higher priority. The priority of traffic mirror session created by the same account in the same region must be unique.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirror, see [Overview of traffic mirror](~~207513~~).",
+      "description": "The region ID of the traffic mirror session. You can call the [DescribeRegions](~~36063~~) operation to query the region ID. For information about the regions that support traffic mirroring, see [Traffic mirroring overview](~~207513~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the mirrored traffic belongs.",
+      "description": "The ID of the resource group to which the traffic mirroring session belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags of the resource.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -70,42 +72,42 @@
     },
     {
       "name": "TrafficMirrorFilterId",
-      "description": "The ID of the traffic mirror filter.",
+      "description": "The instance ID of the traffic mirror filter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrafficMirrorSessionIds",
-      "description": "The IDs of the traffic mirror session. The maximum value of N is 100, which indicates that you can query up to 100 traffic mirror sessions at a time.",
+      "description": "The instance IDs of traffic mirror sessions. The maximum value of **N** is **100**, which means you can query up to 100 traffic mirror sessions.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "TrafficMirrorSessionName",
-      "description": "The name of the traffic mirror session.\n\nThe name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.",
+      "description": "The name of the traffic mirror session.\n\nThe name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrafficMirrorSourceId",
-      "description": "The ID of the traffic mirror source. You can specify only an elastic network interface (ENI) as the mirror source.",
+      "description": "The instance ID of the traffic mirror source. Currently, elastic network interfaces (ENIs) are supported as traffic mirror sources.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrafficMirrorTargetId",
-      "description": "The ID of the traffic mirror destination. You can specify only an ENI or a Server Load Balancer (SLB) instance as a traffic mirror destination.",
+      "description": "The instance ID of the traffic mirror destination. Currently, elastic network interfaces (ENIs) and internal-facing SLB instances are supported as traffic mirror destinations. Elastic network interfaces are also referred to as network interface controllers (NICs).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VirtualNetworkId",
-      "description": "The VXLAN network identifier (VNI) that is used to distinguish different mirrored traffic. Valid values: **0** to **16777215**. You can use VNIs to identify mirrored traffic from different sessions at the traffic mirror destination. You can specify a custom VNI or use a random VNI that is allocated by the system. If you want the system to randomly allocate a VNI, ignore this parameter.",
+      "description": "The Virtual Network Identifier (VNI) used to distinguish different mirrored data. Valid values: **0** to **16777215**. You can use the VNI to identify mirrored data from different sessions at the traffic mirror destination. You can specify a custom VNI value or let the system randomly assign one. To let the system randomly assign a value, do not specify this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false

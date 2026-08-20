@@ -1,5 +1,6 @@
 {
   "name": "DescribeDedicatedHosts",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "DedicatedHostIds",
-      "description": "The list of DDH IDs. You can specify up to 100 deployment set IDs in each request. Separate the deployment set IDs with commas (,).",
+      "description": "The list of dedicated host IDs. You can specify up to 100 IDs, separated by commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -27,96 +28,97 @@
     },
     {
       "name": "DedicatedHostType",
-      "description": "The type of the DDH. You can call the [DescribeDedicatedHostTypes](~~134240~~) operation to query the most recent list of DDH types.",
+      "description": "The type of the dedicated host. You can call [DescribeDedicatedHostTypes](~~134240~~) to query the most recent list of dedicated host types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LockReason",
-      "description": "The reason why the dedicated host is locked. Valid values:\n\n*   financial: The dedicated host is locked due to overdue payments.\n*   security: The dedicated host is locked due to security reasons.",
+      "description": "The reason why the dedicated host is locked. Valid values:\n- financial: The dedicated host is locked due to an overdue payment.\n- security: The dedicated host is locked for security reasons.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries per page. If you specify this parameter, both MaxResults and NextToken are used for a paged query.\n\nValid values: 1 to 100.\n\nDefault value: 10.",
+      "description": "The maximum number of entries per page for a paging query. If you set this parameter, it indicates that you are using the MaxResults and NextToken paging method.\n\nMaximum value: 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Set this parameter to the NextToken value returned in the previous call. You do not need to set this parameter for the first request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": ">  This parameter will be removed in the future. You can use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter is about to go offline. Use NextToken and MaxResults to perform paging query operations.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": ">  This parameter will be removed in the future. You can use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter is about to go offline. Use NextToken and MaxResults to perform paging query operations.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "QueryInventory",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the dedicated host. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the dedicated host. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the dedicated host belongs. When this parameter is specified to query resources, up to 1,000 resources that belong to the specified resource group can be displayed in the response.\n\n> Resources in the default resource group are displayed in the response regardless of how this parameter is set.",
+      "description": "The ID of the resource group to which the dedicated host belongs. When you use this parameter to filter resources, the resource count cannot exceed 1000.\n\n> Filtering by the default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SocketDetails",
-      "description": "Specifies whether to display socket information. You can view the remaining resources (vCPUs, memory usage, remaining resources, and total resources) based on the capacity information of the socket dimension. Then you can determine whether ECS instances of the corresponding specifications can be created. Valid values:\n\n*   true Only some DDHs support the information about resources in the socket dimension. For more information, see [View and export information about DDHs](~~68989~~).\n*   false\n\n>  Each DDH generally has two CPUs, and each CPU corresponds to Socket 0 and Socket 1. To maximize the performance of an ECS instance on a DDH, ECS instances are not created across sockets.\n\n*   If one socket has available computing resources for creating the ECS instance, creation succeeds.\n\n*   If not, creation fails even if the combined available resources of both sockets are sufficient. Although the remaining resources of the two sockets on the DDH are larger than the ECS instance type, the ECS instance cannot be created.",
+      "description": "Specifies whether to display socket-level capacity information. You can use socket-level capacity information to view remaining resources (vCPU, memory usage, remaining capacity, and total capacity) to determine whether an ECS instance of a specific instance type can be created. Valid values:\n\n- true: Display socket-level capacity information. Only specific dedicated host types support displaying socket-level resource information. For more information, see [View and export DDH information](~~68989~~).\n- false: Do not display socket-level capacity information.\n\n><notice>\n\nEach dedicated host typically has two CPUs, numbered Socket 0 and Socket 1. On a dedicated host, ECS instances are not created across sockets to ensure maximum performance. An ECS instance is created based on a single socket only.\n\n- If the remaining computing resources of one socket are greater than or equal to the instance type to be created, the ECS instance is created.\n- If the remaining computing resources of each socket are less than the instance type to be created, the ECS instance fails to be created, even if the combined remaining resources of both sockets exceed the instance type requirements.\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The service state of the dedicated host. Valid values:\n\n*   Available: The dedicated host is running normally.\n*   UnderAssessment: The dedicated host is available but has potential risks that may cause the ECS instances on the dedicated host to fail.\n*   PermanentFailure: The dedicated host encounters permanent failures and is unavailable.\n*   TempUnavailable: The dedicated host is temporarily unavailable.\n*   Redeploying: The dedicated host is being restored.\n\nDefault value: Available.",
+      "description": "The usage status of the dedicated host. Valid values:\n\n- Available: The dedicated host is running normally.\n\n- UnderAssessment: The physical machine is at risk. The physical machine is available but may cause issues for ECS instances on the dedicated host.\n\n- PermanentFailure: The dedicated host has a permanent failure and is unavailable.\n\n- TempUnavailable: The dedicated host is temporarily unavailable.\n\n- Redeploying: The dedicated host is being restored.\n\nDefault value: Available.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The list of tags. The list length ranges from 0 to 20.",
+      "description": "The list of tags. Valid values of N: 0 to 20.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the dedicated host. If you specify this parameter, the value cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the dedicated host. If you specify this parameter, the value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -125,7 +127,7 @@
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the dedicated host. You can call the [DescribeZones](~~25610~~) operation to query the most recent zone list.",
+      "description": "The zone ID. You can call [DescribeZones](~~25610~~) to query the most recent zone list.",
       "position": "Query",
       "type": "String",
       "required": false

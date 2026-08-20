@@ -1,5 +1,6 @@
 {
   "name": "SetLiveDomainCertificate",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,42 +14,49 @@
     },
     {
       "name": "CertType",
-      "description": "The certificate type. Valid values:\n\n*   **upload**: a custom certificate\n*   **cas**: a certificate that is purchased from Certificate Management Service\n*   **free**: a free certificate (for testing)",
+      "description": "The certificate type. Valid values:\n\n- **upload**: an uploaded certificate.\n- **cas**: a certificate from SSL Certificates Service.\n- **free**: a personal test certificate (Free Edition).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainName",
-      "description": "The domain name that is secured by the certificate. The domain name uses `HTTPS`-based acceleration.",
+      "description": "The accelerated domain name to which the certificate belongs. The domain name is of the `https` acceleration type.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "DryRun",
+      "description": "Specifies whether to perform only a dry run, without actually executing the operation. Valid values:\n\n- true: sends a dry run request. If the request passes the check, the operation is not actually executed.\n- false (default): sends a normal request. If the request passes the check, the operation is actually executed.\n\nThe dry run checks parameter validity, RAM permissions, and resource status. If the dry run fails, the corresponding error code is returned. If the dry run succeeds, the operation is not actually executed.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "ForceSet",
-      "description": "Specifies whether to check the certificate name for duplicates. A value of 1 indicates that the system does not perform the check and overwrites the information about the certificate that has the same name. Set the value to **1**.",
+      "description": "Ignores the check for duplicate certificate names and overwrites the existing certificate information with the same name. Fixed value: **1**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SSLPri",
-      "description": "The private key.\n\n>  This parameter is required only if you set the SSLProtocol parameter to on.",
+      "description": "The private key content.\n\n> This parameter is required only when SSLProtocol is set to on.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SSLProtocol",
-      "description": "Specifies whether to enable the HTTPS certificate. Valid values:\n\n*   **on**. If you set this parameter to **on**, you must also specify the SSLPub and SSLPri parameters.\n*   **off**. This is the default value.",
+      "description": "Specifies whether to enable the HTTPS certificate. Valid values: \n- **on**: enabled. If the value is **on**, you must also set the SSLPub and SSLPri request parameters.\n- **off** (default): disabled.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SSLPub",
-      "description": "The public key.\n\n>  This parameter is required only if you set the SSLProtocol parameter to on.",
+      "description": "The public key content.\n\n> This parameter is required only when SSLProtocol is set to on.",
       "position": "Query",
       "type": "String",
       "required": false

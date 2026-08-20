@@ -1,0 +1,81 @@
+{
+  "name": "HandleObjectScanEvent",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "BatchType",
+      "description": "批量处理同类告警，取值：\n\n- **sha256**：按文件内容\n- **eventName**：按告警名称",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "EventId",
+      "description": "事件ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "EventIdList",
+      "description": "指定事件ID列表。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "Lang",
+      "description": "设置请求和接收消息的语言类型。默认值为**zh**。取值：\n- **zh**：中文\n- **en**：英文",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Remark",
+      "description": "备注信息。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RuleConditionList",
+      "description": "加白规则列表，仅当加白时有效。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "加白字段。取值：\n\n- **ossKey**: 文件路径\n- **bucketName**: Bucket名称\n- **md5**: 文件MD5\n- **sha256**: 文件SHA-256",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Operate",
+          "description": "操作符。取值：\n\n- **contains**：包含\n- **not_contains**：不包含\n- **str_equal**：等于\n- **str_not_equal**：不等于\n- **regex**：正则",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "需要匹配的值。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "description": "目标状态，取值：\n\n- **0**: 未处理\n- **1**: 我已手动处理\n- **2**: 已加白\n- **3**: 已忽略\n- **4**: 禁止访问",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    }
+  ]
+}

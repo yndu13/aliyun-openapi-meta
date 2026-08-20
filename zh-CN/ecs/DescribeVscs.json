@@ -1,0 +1,81 @@
+{
+  "name": "DescribeVscs",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "InstanceId",
+      "description": "云盘或本地盘挂载的实例ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "MaxResults",
+      "description": "返回的最大数。取值范围：10~500。默认值：当不设置值或者设置的值小于10，默认值为10。当设置的值大于500时，默认值为500。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "NextToken",
+      "description": "本次调用返回的查询凭证值。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "所属的地域ID。您可以调用[DescribeRegions](~~25609~~)查看最新的阿里云地域列表。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ResourceGroupId",
+      "description": "实例所在的企业资源组ID。使用该参数过滤资源时，资源数量不能超过1000个。说明 不支持默认资源组过滤。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "查询指定状态的VSC，如果不配置此参数，会返回所有状态的VSC。取值范围：\n\n- In_use：使用中。\n- Attaching：挂载中。\n- Detaching：卸载中。\n- AttachFailed：挂载失败。\n- DetachFailed：卸载失败。\n- All（默认）：所有状态\n\n默认值：All。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Tag",
+      "description": "标签列表。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "命令的标签键。N的取值范围为1~20。一旦传入该值，则不允许为空字符串。\n\n使用一个标签过滤资源，查询到该标签下的资源数量不能超过1000个；使用多个标签过滤资源，查询到同时绑定了多个标签的资源数量不能超过1000个。如果资源数量超过1000个，您需要使用[ListTagResources](~~110425~~)接口进行查询。\n\n最多支持64个字符，不能以`aliyun`或`acs:`开头，不能包含`http://`或`https://`。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "资源的标签值。N的取值范围：1~20。一旦传入该值，可以为空字符串。最多支持128个字符，不能以aliyun和acs:开头，不能包含http://或者https://。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "VscIds",
+      "description": "待查询的VSC ID。\n\n建议添加不超过100个VSC ID。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    }
+  ]
+}

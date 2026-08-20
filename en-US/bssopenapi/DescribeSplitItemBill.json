@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "BillOwnerId",
-      "description": "The ID of the member. If you specify this parameter, the bills of the member are queried. If you do not specify this parameter, the bills of the current account are queried by default.",
+      "description": "The ID of the account that owns the resource. The account that owns the resource is the account that actually uses the resource.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "BillingCycle",
-      "description": "The billing cycle. Specify the parameter in the YYYY-MM format.",
+      "description": "The billing cycle. Format: YYYY-MM.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -28,7 +28,7 @@
     },
     {
       "name": "Granularity",
-      "description": "The granularity at which bills are queried. Valid values:\n\n*   MONTHLY: queries bills on a monthly basis. The data that you query is the same as the data that is queried by billing cycles in the Split Bill module of the User Center console.\n*   DAILY: queries bills on a daily basis. The data that you query is the same as the data that is queried by days in the Split Bill module of the User Center console.\n\nIf you specify DAILY for this parameter, the BillingDate parameter is required.",
+      "description": "The granularity to query bills. Valid values:\n\n- MONTHLY: queries bills by month. The data is consistent with the data on the Billing Cycle tab of the Split Bill page in User Center.\n\n- DAILY: queries bills by day. The data is consistent with the data on the By Day tab of the Split Bill page in User Center.\n\n> If you set this parameter to DAILY, you must specify the BillingDate parameter.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -42,42 +42,42 @@
     },
     {
       "name": "IsHideZeroCharge",
-      "description": "Specifies whether to filter bills if both the pretax gross amount and pretax amount are 0. Valid values:\n\n*   false: does not filter bills.\n*   true: filters bills.",
+      "description": "Specifies whether to filter out bills for which the PretaxGrossAmount and PretaxAmount are both 0. Valid values:\n\n- false\n\n- true",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to query. Default value: 20. Maximum value: 300.",
+      "description": "The maximum number of entries to return. Default value: 20. Maximum value: 300.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used for the next query. The parameter must be left empty or set to the value of the NextToken parameter returned in the last call. Otherwise, an error is returned. If the parameter is left empty, the data is queried from the first entry.",
+      "description": "The token that is used to retrieve the next page of results. You do not need to specify this parameter for the first request. The value is the NextToken value that is returned in the previous API call. If a value is specified, the new query starts from the next page. If you leave this parameter empty, the query starts from the beginning.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PipCode",
-      "description": "The code of the service. The code is the same as that in Cost Center.",
+      "description": "The code of the product. This code is consistent with the product code on the bill in User Center.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductCode",
-      "description": "The code of the service.",
+      "description": "The code of the product.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductType",
-      "description": "The type of the service.",
+      "description": "The type of the product.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -91,26 +91,28 @@
     },
     {
       "name": "SubscriptionType",
-      "description": "The billing method. Valid values: Subscription: the subscription billing method. PayAsYouGo: the pay-as-you-go billing method. This parameter must be used with the ProductCode parameter.",
+      "description": "The billing method. Valid values:\n\n- Subscription: subscription.\n\n- PayAsYouGo: pay-as-you-go.\n\n> This parameter must be used with the ProductCode parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TagFilter",
-      "description": "The tags that are used to filter split bills. You can specify multiple tag values. If you specify multiple tag values, split bills that match one of the tag values are queried.",
+      "description": "The tag filter. You can specify multiple tag values for the TagValues parameter. The relationship between multiple tag values is OR.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "TagKey",
+          "description": "Specifies the tag key for filtering cost allocation or billing data.\n\n- Valid range for N: 1 to 20 (you can define up to 20 tag filters).\n\n- Length: 1 to 128 characters.\n\nBehavior:\n\n- If you specify only TagKey (without TagValue), the system returns bills for all resources that have that tag key assigned (regardless of value).\n\n- If you specify multiple TagKey+TagValue pairs, the system uses OR logic: bills are returned if any of the key-value pairs match.\n\n- Billing data reflects the tags as they existed during the billing period. If a tag is removed or changed, past bills are not re-evaluated.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TagValues",
+          "description": "The tag values. A list of strings. TagValues.N can be 1 to 20, and 1 to 128 characters in length.\n\n- If you specify the TagValues.N parameter, you must also specify TagFilter.N.TagKey. Otherwise, an InvalidParameter.TagValues error is reported.\n\n- If you specify multiple tag values, bills that match any of the tag values are queried.",
           "position": "Query",
           "type": "RepeatList",
           "required": false

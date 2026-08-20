@@ -7,70 +7,70 @@
   "parameters": [
     {
       "name": "AlpnEnabled",
-      "description": "Specifies whether to enable Application-Layer Protocol Negotiation (ALPN). Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable Application-Layer Protocol Negotiation (ALPN). Valid values:\n\n- **true**\n\n- **false** (default)",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AlpnPolicy",
-      "description": "The ALPN policy. Valid values:\n\n*   **HTTP1Only**: uses only HTTP 1.x. The priority of HTTP 1.1 is higher than that of HTTP 1.0.\n*   **HTTP2Only**: uses only HTTP 2.0.\n*   **HTTP2Optional**: preferentially uses HTTP 1.x over HTTP 2.0. The priority of HTTP 1.1 is higher than that of HTTP 1.0, and the priority of HTTP 1.0 is higher than that of HTTP 2.0.\n*   **HTTP2Preferred**: preferentially uses HTTP 2.0 over HTTP 1.x. The priority of HTTP 2.0 is higher than that of HTTP 1.1, and the priority of HTTP 1.1 is higher than that of HTTP 1.0.\n\n>  This parameter is required if **AlpnEnabled** is set to true.",
+      "description": "The ALPN policy. Valid values:\n\n- **HTTP1Only**: uses only HTTP 1.x. The priority is HTTP 1.1 > HTTP 1.0.\n\n- **HTTP2Only**: uses only HTTP 2.0.\n\n- **HTTP2Optional**: prefers HTTP 1.x, but also supports HTTP 2.0. The priority is HTTP 1.1 > HTTP 1.0 > HTTP 2.0.\n\n- **HTTP2Preferred**: prefers HTTP 2.0, but also supports HTTP 1.x. The priority is HTTP 2.0 > HTTP 1.1 > HTTP 1.0.\n\n> This parameter is required if AlpnEnabled is set to **true**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "CaCertificateIds",
-      "description": "The certificate authority (CA) certificate. This parameter is supported only by TCLSSL listeners.\n\n>  You can specify only one CA certificate.",
+      "description": "The CA certificates. This parameter takes effect only for TCP/SSL listeners.\n\n> You can specify only one CA certificate.",
       "position": "Body",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "CaEnabled",
-      "description": "Specifies whether to enable mutual authentication. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable mutual authentication. Valid values:\n\n- **true**\n\n- **false** (default)",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "CertificateIds",
-      "description": "The server certificate. This parameter is supported only by TCLSSL listeners.\n\n>  You can specify only one server certificate.",
+      "description": "The server certificates. This parameter takes effect only for TCP/SSL listeners.\n\n> You can specify only one server certificate.",
       "position": "Body",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token used to ensure the idempotence of the request.\n\nYou can use the client to generate the token. Ensure that the token is unique among different requests. Only ASCII characters are allowed.\n\n>  If you do not set this parameter, the value of **RequestId** is used.**** The value of **RequestId** is different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can create a client token to make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. The **RequestId** may be different for each request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Cps",
-      "description": "The maximum number of new connections per second supported by the listener in each zone (virtual IP address). Valid values: **0** to **1000000**. **0** indicates that the number of connections is unlimited.",
+      "description": "The maximum number of new connections that can be created per second on the listener in each zone (VIP). Valid values: **0** to **1000000**. **0** indicates that the number of new connections is unlimited.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run, without sending the actual request. Valid values:\n\n*   **true**: validates the request without performing the operation. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the validation, the corresponding error message is returned. If the request passes the validation, the `DryRunOperation` error code is returned.\n*   **false** (default): validates the request and performs the operation. If the request passes the validation, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\n- **false** (default): performs a regular request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EndPort",
-      "description": "The last port in the listener port range. Valid values: **0** to **65535**. The port number of the last port must be greater than the port number of the first port.\n\n>  This parameter is required when **ListenerPort** is set to **0**.",
+      "description": "The end port for the listener port range. Valid values: **1** to **65535**. The value of the end port must be greater than the value of the start port.\n\n> This parameter is required if **ListenerPort** is set to **0**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IdleTimeout",
-      "description": "The timeout period for idle connections. Unit: seconds.\n\n*   If you set **ListenerProtocol** to **TCP** or **TCPSSL**, this parameter can be set to a value ranging from **10** to **900**. Default value: **900**.\n*   If **ListenerProtocol** is set to **UDP**, this parameter can be set to a value ranging from **10** to **20**. Default value: **20**.",
+      "description": "The timeout period of an idle connection. Unit: seconds.\n\n- If **ListenerProtocol** is set to **TCP** or **TCPSSL**, the value must be in the range of **10** to **900**. Default value: **900**.\n\n- If **ListenerProtocol** is set to **UDP**, the value must be in the range of **10** to **90**. Default value: **90**.",
       "position": "Body",
       "type": "Integer",
       "required": false
@@ -84,7 +84,7 @@
     },
     {
       "name": "ListenerPort",
-      "description": "The listener port. Valid values: **0** to **65535**.\n\nIf you set this parameter to **0**, the listener listens by port range. If you set this parameter to **0**, you must also set the **StartPort** and **EndPort** parameters.",
+      "description": "The listener port. Valid values: **0** to **65535**.\n\nA value of **0** specifies that all ports are used. If you set the value to **0**, you must also specify **StartPort** and **EndPort**.",
       "position": "Body",
       "type": "Integer",
       "required": true
@@ -105,21 +105,21 @@
     },
     {
       "name": "Mss",
-      "description": "The size of the largest TCP packet segment. Unit: bytes. Valid values: **0** to **1500**. **0** indicates that the maximum segment size (MSS) value of TCP packets remains unchanged.\n\n>  This parameter takes effect only for TCP and TCPSSL listeners.",
+      "description": "The maximum segment size (MSS) of TCP packets. Unit: bytes. Valid values: **0** to **1500**. **0** indicates that the MSS value of TCP packets is not modified.\n\n> This parameter is available only for listeners that use TCP or TCP/SSL.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ProxyProtocolEnabled",
-      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n- **true**\n\n- **false** (default)",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ProxyProtocolV2Config",
-      "description": "Specifies whether to use the Proxy protocol to pass the VpcId, PrivateLinkEpId, and PrivateLinkEpsId parameters to backend servers.",
+      "description": "The configuration of the Proxy protocol to carry the VpcId, PrivateLinkEpId, and PrivateLinkEpsId information to backend servers.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -133,28 +133,28 @@
     },
     {
       "name": "SecSensorEnabled",
-      "description": "Specifies whether to enable fine-grained monitoring. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable fine-grained monitoring. Valid values:\n\n- **true**\n\n- **false** (default)",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SecurityPolicyId",
-      "description": "The ID of the security policy. System security policies and custom security policies are supported.\n\n*   Valid values for system security policies: **tls_cipher_policy\\_1\\_0** (default), **tls_cipher_policy\\_1\\_1**, **tls_cipher_policy\\_1\\_2**, **tls_cipher_policy\\_1\\_2\\_strict**, and **tls_cipher_policy\\_1\\_2\\_strict_with\\_1\\_3**.\n\n*   For a custom security policy, enter the policy ID.\n\n    *   For information about creating a custom security policy, see [CreateSecurityPolicy](~~445901~~).\n    *   For information about querying security policies, see [ListSecurityPolicy](~~445900~~).\n\n>  This parameter takes effect only for TCPSSL listeners.",
+      "description": "The ID of the security policy. System security policies and custom security policies are supported.\n\n- Valid values for system policies: **tls\\_cipher\\_policy\\_1\\_0** (default), **tls\\_cipher\\_policy\\_1\\_1**, **tls\\_cipher\\_policy\\_1\\_2**, **tls\\_cipher\\_policy\\_1\\_2\\_strict**, and **tls\\_cipher\\_policy\\_1\\_2\\_strict\\_with\\_1\\_3**.\n\n- Custom security policies: the ID of the custom security policy.\n\n  - For more information about how to create a custom policy, see [CreateSecurityPolicy](~~445901~~).\n\n  - For more information about how to query security policies, see [ListSecurityPolicy](~~445900~~).\n\n> This parameter takes effect only for TCP/SSL listeners.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerGroupId",
-      "description": "The server group ID.\n\n>  *   If you set **ListenerProtocol** to **TCP**, you can associate the listener with server groups whose backend protocol is **TCP** or **TCP_UDP**. You cannot associate the listener with server groups whose backend protocol is **UDP**.\n>  *   If you set **ListenerProtocol** to **UDP**, you can associate the listener with server groups whose backend protocol is **UDP** or **TCP_UDP**. You cannot associate the listener with server groups whose backend protocol is **TCP**.\n>  *   If you set **ListenerProtocol** to **TCPSSL**, you can associate the listener with server groups whose backend protocol is **TCP** and have **client IP preservation disabled**. You cannot associate the listener with server groups whose backend protocol is **TCP** and have **client IP preservation enabled** or server groups whose backend protocol is **UDP** or **TCP_UDP**.",
+      "description": "The ID of the server group.\n\n> - If **TCP** is selected for **ListenerProtocol**, you can select a server group whose backend protocol is **TCP** or **TCP\\_UDP**. You cannot select a server group whose backend protocol is **UDP**.\n>\n> - If **UDP** is selected for **ListenerProtocol**, you can select a server group whose backend protocol is **UDP** or **TCP\\_UDP**. You cannot select a server group whose backend protocol is **TCP**.\n>\n> - If **TCPSSL** is selected for **ListenerProtocol**, you can select a server group whose backend protocol is **TCP** and for which the client IP address retention feature is **disabled**. You cannot select a server group whose backend protocol is **TCP** and for which the client IP address retention feature is **enabled**, or a server group whose backend protocol is **UDP** or **TCP\\_UDP**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "StartPort",
-      "description": "The first port in the listener port range. Valid values: **0** to **65535**.\n\n>  This parameter is required when **ListenerPort** is set to **0**.",
+      "description": "The start port for the listener port range. Valid values: **1** to **65535**.\n\n> This parameter is required if **ListenerPort** is set to **0**.",
       "position": "Body",
       "type": "Integer",
       "required": false
@@ -168,12 +168,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. The tag key can be up to 64 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. It can contain letters, digits, underscores (\\_), periods (.), colons (:), forward slashes (/), equal signs (=), plus signs (+), hyphens (-), and at signs (@).\n\nYou can specify up to 20 tags in each call.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. The tag value can be up to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. It can contain letters, digits, underscores (\\_), periods (.), colons (:), forward slashes (/), equal signs (=), plus signs (+), hyphens (-), and at signs (@).\n\nYou can specify up to 20 tags in each call.",
           "position": "FormData",
           "type": "String",
           "required": false

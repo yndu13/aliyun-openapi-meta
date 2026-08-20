@@ -7,33 +7,35 @@
   "parameters": [
     {
       "name": "DryRun",
-      "description": "Indicates whether to perform a dry run of this request. Values:\n\n- **true**: Sends a check request without publishing the route. The checks include whether the AccessKey is valid, the authorization status of the RAM user, and if all required parameters are filled out. If the check fails, the corresponding error is returned. If the check passes, the `DryRunOperation` error code is returned.\n\n- **false** (default): Sends a normal request. After passing the check, it returns a 2xx HTTP status code and directly queries the resource status.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run without publishing route entries. The system checks the AccessKey pair, the authorization of the Resource Access Management (RAM) user, and the required parameters. If the check fails, the corresponding error is returned. If the check succeeds, the error code `DryRunOperation` is returned.\n\n- **false** (default): sends a normal request. If the check succeeds, a 2xx HTTP status code is returned and the resource status is queried.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the instance is located. You can obtain the region ID by calling the DescribeRegions interface.",
+      "description": "The region ID of the instance. You can call the DescribeRegions operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteEntries",
-      "description": "List of route entries to be published, supporting up to 50 routes at most.",
+      "description": "The list of route entries to publish. You can specify up to 50 routes.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DestinationCidrBlock",
+          "description": "The destination CIDR block of the route entry.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "RouteTableId",
+          "description": "The route table ID of the route entry.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -42,14 +44,14 @@
     },
     {
       "name": "TargetInstanceId",
-      "description": "The ID of the target instance for route publication.",
+      "description": "The publish route entry target instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TargetType",
-      "description": "The type of the target for route publication.",
+      "description": "The type of the route publish target.",
       "position": "Query",
       "type": "String",
       "required": true

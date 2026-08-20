@@ -7,168 +7,175 @@
   "parameters": [
     {
       "name": "Collection",
-      "description": "Document collection name.\n\n> Created by the [CreateDocumentCollection](~~2618448~~) API. You can use the [ListDocumentCollections](~~2618452~~) API to view the list of created document collections.",
+      "description": "The name of the document collection.\n\n> The document collection is created by calling the [CreateDocumentCollection](~~2618448~~) operation. You can call the [ListDocumentCollections](~~2618452~~) operation to query existing document collections.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Content",
-      "description": "Text content for retrieval.",
+      "description": "The text content used for retrieval.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "Instance ID.\n\n> You can call the [DescribeDBInstances](~~86911~~) API to view details of all AnalyticDB for PostgreSQL instances in the target region, including the instance ID.",
+      "description": "The instance ID.\n\n> You can call the [DescribeDBInstances](~~86911~~) operation to query the details of all AnalyticDB for PostgreSQL instances in a region, including instance IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FileName",
-      "description": "In image search scenarios, the source file name of the image to be searched.\n\n> The image file must have a file extension. Currently supported image extensions: bmp, jpg, jpeg, png, tiff.",
+      "description": "The name of the source image file to search in image-to-image search scenarios.\n\n> The image file must have a file extension. Currently supported image extensions: bmp, jpg, jpeg, png, and tiff.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FileUrl",
-      "description": "In image search scenarios, the publicly accessible URL of the image file.\n\n> The image file must have a file extension. Currently supported image extensions: bmp, jpg, jpeg, png, tiff.",
+      "description": "The publicly accessible URL of the image file in image-to-image search scenarios.\n\n> The image file must have a file extension. Currently supported image extensions: bmp, jpg, jpeg, png, and tiff.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Filter",
-      "description": "Filter condition for the data to be queried, in SQL WHERE format. It is an expression that returns a boolean value (true or false). The conditions can be simple comparison operators such as equal (=), not equal (<> or !=), greater than (>), less than (<), greater than or equal to (>=), less than or equal to (<=), or more complex expressions combined with logical operators (AND, OR, NOT), and conditions using keywords like IN, BETWEEN, LIKE, etc.\n\n> \n> - For detailed syntax, refer to: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/",
+      "description": "The filter condition for the data to query, in SQL WHERE clause format. The expression returns a Boolean value (true or false). Conditions can be simple comparison operators such as equal to (=), not equal to (<> or !=), greater than (>), less than (<), greater than or equal to (>=), and less than or equal to (<=). Conditions can also be more complex expressions combined with logical operators (AND, OR, NOT), as well as conditions using IN, BETWEEN, and LIKE keywords.\n\n> \n> - For detailed syntax, refer to: https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GraphEnhance",
-      "description": "Whether to enable knowledge graph enhancement. Default value: false.",
+      "description": "Specifies whether to enable knowledge graph enhancement. Default value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "GraphSearchArgs",
-      "description": "The search parameters of the knowledge graph.",
+      "description": "The knowledge graph retrieval parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HybridSearch",
-      "description": "Dual recall algorithm, default is empty (i.e., directly compare and sort the scores of vectors and full text).\n\nAvailable values:\n\n- RRF: Reciprocal rank fusion, with a parameter k controlling the fusion effect. See HybridSearchArgs configuration for details;\n- Weight: Weighted ranking, using a parameter alpha to control the weight of vector and full-text scores, then sorting. See HybridSearchArgs configuration for details;\n- Cascaded: Perform full-text retrieval first, then vector retrieval on top of it;",
+      "description": "The multi-channel recall algorithm. Default value: empty (scores from dense vectors and full-text retrieve are directly compared and sorting is performed).\n\nValid values:\n\n- RRF: Reciprocal rank fusion. A parameter k controls the fusion effect. For more information, see the HybridSearchArgs configuration.\n- Weight: Weighted sorting. Parameters control the score weights of vector retrieve and full-text retrieve results before sorting. For more information, see the HybridSearchArgs configuration.\n- Cascaded: Full-text retrieve is performed first, followed by vector retrieve on the full-text retrieve results.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HybridSearchArgs",
-      "description": "The parameters of the two-way retrieval algorithm. The following parameters are supported:\n\n*   When HybridSearch is set to RRF, the scores are calculated by using the `1/(k+rank_i)` formula. The constant k is a positive integer that is greater than 1.\n\n<!---->\n\n    { \n       \"RRF\": {\n        \"k\": 60\n       }\n    }\n\n*   When HybridSearch is set to Weight, the scores are calculated by using the `alpha * vector_score + (1-alpha) * text_score` formula. The alpha parameter specifies the proportion of the vector search score and the full-text search score and ranges from 0 to 1. A value of 0 specifies full-text search and a value of 1 specifies vector search.\n\n<!---->\n\n    { \n       \"Weight\": {\n        \"alpha\": 0.5\n       }\n    }",
+      "description": "The algorithm parameters for multi-channel recall. Currently, RRF and Weight are supported. HybridPathsSetting specifies the recall paths: dense vectors (dense), sparse vectors (sparse), and full-text retrieve (fulltext). If the value is empty, dense vectors (dense) and full-text retrieve (fulltext) are recalled by default.\n\n- RRF: Specifies the k constant in the score calculation formula `1/(k+rank_i)`. The value must be a positive integer greater than 1. Format:\n```\n{\n  \"HybridPathsSetting\": {\n    \"paths\": \"dense,fulltext\"\n  },\n  \"RRF\": {\n    \"k\": 60\n  }\n}\n```\n\n- Weight: \n   - Dual-path recall (without specifying HybridPathsSetting, only specifying alpha):\n      - Formula: alpha * dense_score + (1-alpha) * fulltext_score. The alpha parameter specifies the score weight between dense vectors and full-text retrieve. Valid values: 0 to 1, where 0 indicates full-text retrieve only and 1 indicates dense vectors only:\n```\n{ \n   \"Weight\": {\n    \"alpha\": 0.5\n   }\n}\n```\n  - Three-path recall pattern:\n     - Formula: normalized_dense * dense_score + normalized_sparse * sparse_score + normalized_fulltext * fulltext_score. The dense, sparse, and fulltext parameters represent the weights of dense vectors, sparse vectors, and full-text retrieve respectively. Valid values: greater than or equal to 0. The system automatically performs normalization on the weights to 0–1 (normalized_x = x / (dense + sparse + fulltext)).\n```\n{\n  \"HybridPathsSetting\": {\n     \"paths\": \"dense,sparse,fulltext\"\n   },\n  \"Weight\": {\n    \"dense\": 0.5,\n    \"sparse\": 0.3,\n    \"fulltext\": 0.2\n  }\n}\n```",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IncludeFileUrl",
-      "description": "Specifies whether to return the URL of the document. Default value: false.",
+      "description": "Specifies whether to synchronously return the URL of the document. By default, the URL is not returned.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IncludeMetadataFields",
-      "description": "The metadata fields to be returned. Separate multiple fields with commas (,). This parameter is empty by default.",
+      "description": "The metadata fields to return, separated by commas. Default value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IncludeVector",
-      "description": "Whether to return vectors. Default is false.\n> - **false**: Do not return vectors.\n> - **true**: Return vectors.",
+      "description": "Specifies whether to return vectors. Default value: false.\n> - **false**: Does not return vectors.\n> - **true**: Returns vectors.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Metrics",
-      "description": "Similarity algorithm used during retrieval. If this value is empty, the algorithm specified at the time of knowledge base creation is used. It is recommended not to set this unless there is a specific need.\n\n> Value description:\n> - **l2**: Euclidean distance.\n> - **ip**: Inner product (dot product) distance.\n> - **cosine**: Cosine similarity.",
+      "description": "The similarity algorithm used during retrieval. If this value is empty, the algorithm specified when the knowledge base was created is used. Leave this parameter empty unless you have specific requirements.\n\n> Valid values:\n> - **l2**: Euclidean distance.\n> - **ip**: inner product distance.\n> - **cosine**: cosine similarity.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Namespace",
-      "description": "Namespace, default is public.\n\n> You can create a namespace using the [CreateNamespace](~~2401495~~) API and view the list of namespaces using the [ListNamespaces](~~2401502~~) API.",
+      "description": "The namespace. Default value: public.\n\n> You can create a namespace by calling the [CreateNamespace](~~2401495~~) operation and query the list of namespaces by calling the [ListNamespaces](~~2401502~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NamespacePassword",
-      "description": "Password for the namespace.\n\n> This value is specified in the [CreateNamespace](~~2401495~~) API.",
+      "description": "The password of the namespace.\n\n> This value is specified by the [CreateNamespace](~~2401495~~) operation.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Offset",
-      "description": "Offset, used for paginated queries.",
+      "description": "The offset for paging query.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "OrderBy",
-      "description": "The fields by which to sort the results. This parameter is empty by default.\n\nThe field must be either a metadata field or a default field in the table (e.g., id). Supported formats include:\n\nSingle field, such as chunk_id. Multiple fields that are separated by commas (,), such as block_id,chunk_id. Descending order is supported, e.g., block_id DESC, chunk_id DESC.",
+      "description": "The field used for sorting. Default value: empty.\n\nThe field must belong to metadata or a default field in the table such as id. Supported formats:\n\nSingle field, such as chunk_id.\nMultiple fields separated by commas, such as block_id, chunk_id.\nDescending order, such as block_id DESC, chunk_id DESC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RecallWindow",
-      "description": "Recall window. When this value is not empty, it adds context to the returned search results. The format is an array of 2 elements: List<A, B>, where -10 <= A <= 0 and 0 <= B <= 10.\n> - Recommended when documents are fragmented and retrieval may lose contextual information.\n> - Re-ranking takes precedence over windowing, i.e., re-rank first, then apply windowing.",
+      "description": "The recall window. When this value is not empty, the context of the retrieval results is also returned. The format is a 2-element array: List<A, B>, where -10<=A<=0 and 0<=B<=10.\n> - Use this parameter when documents are split into overly small chunks and retrieval may lose contextual information.\n> - Reranking takes priority over windowing, meaning reranking is performed first, followed by windowing.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID where the instance is located.",
+      "description": "The region ID of the instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RerankFactor",
-      "description": "Re-ranking factor. When this value is not empty, it will re-rank the vector search results. The value range is 1 < RerankFactor <= 5.\n> - Re-ranking is slower when documents are sparsely split.\n> - It is recommended that the re-ranked count (TopK * Factor, rounded up) does not exceed 50.",
+      "description": "The reranking factor. When this value is not empty, the vector retrieve results are reranked. Valid values: 1 < RerankFactor <= 5.\n> - Reranking is slower when documents are sparsely chunked.\n> - The total number of items to rerank (TopK × Factor, rounded up) should not exceed 50.",
       "position": "Query",
       "type": "Double",
       "required": false
     },
     {
+      "name": "RerankModel",
+      "description": "The rerank model parameters.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "TopK",
-      "description": "The number of the returned top results.",
+      "description": "The number of top results to return.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "UrlExpiration",
-      "description": "The validity period of the returned image URL.\n\n>  Value Description\n\n*   Supported units are seconds (s) and days (d). For example, 300s specifies that the URL is valid for 300 seconds, and 60d specifies that the URL is valid for 60 days.\n\n*   Valid values: 60s to 365d.\n\n*   Default value: 7200s, that is, 2 hours.",
+      "description": "The validity period of the returned image URL.\n\n> Valid values:\n> - Supports seconds (s) and days (d) as units. For example, 300s indicates a validity period of 300 seconds, and 60d indicates a validity period of 60 days.\n> - Valid values: 60s to 365d.\n> - Default value: 7200s (2 hours).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UseFullTextRetrieval",
-      "description": "Whether to use full-text retrieval (dual recall). Default is false, which means only vector retrieval is used.",
+      "description": "**[Deprecated]** Specifies whether to use full-text retrieve (dual-path recall). Default value: false, which indicates that only vector retrieve is used.",
       "position": "Query",
       "type": "Boolean",
       "required": false

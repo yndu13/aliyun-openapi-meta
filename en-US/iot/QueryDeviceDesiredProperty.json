@@ -1,47 +1,48 @@
 {
   "name": "QueryDeviceDesiredProperty",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DeviceName",
-      "description": "The DeviceName of the device.\n\n>  If you specify a value for this parameter, you must configure the **ProductKey** parameter.",
+      "description": "The device name to query.\n> If you specify this parameter, you must also specify **ProductKey**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FunctionBlockId",
-      "description": "The identifier of the custom TSL module. Each identifier is unique in a product.\n\nIf you do not configure this parameter, the system queries the data of the default module.",
+      "description": "The identifier of the custom module in the Thing Specification Language model. The identifier is unique within the product.\n\nIf you do not specify this parameter, the data of the default module is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Identifier",
-      "description": "",
+      "description": "The list of identifiers of the properties whose desired values you want to query.\n\nYou can view the property identifiers in the feature definition of the product to which the device belongs in the console.\n\n- You can specify up to 10 identifiers in a single call.\n- You cannot specify duplicate property identifiers.\n- If you do not specify this parameter, the desired values of all properties of the device are returned.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "IotId",
-      "description": "The ID of the device. The ID is a unique identifier that is issued by IoT Platform to the device.\n\n>  If you specify a value for this parameter, you do not need to configure the **ProductKey** or **DeviceName** parameter. The **IotId** parameter specifies a GUID for the device. The value of the IotId parameter is equivalent to a combination of the values of the **ProductKey** and **DeviceName** parameters. If you specify values for the **IotId**, **ProductKey**, and **DeviceName** parameters, the value of the **IotId** parameter takes precedence.",
+      "description": "The device ID. The globally unique identifier issued by IoT Platform for the device.\n> If you specify this parameter, you do not need to specify **ProductKey** or **DeviceName**. **IotId** is a globally unique identifier of a device, and corresponds to a combination of **ProductKey** and **DeviceName**. If you specify both **IotId** and the combination of **ProductKey** and **DeviceName**, **IotId** takes precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.\n>*   If no **Overview** page or ID is generated for your instance, you do not need configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this ID value exists, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or </ph></props>ID value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs.\n\n>  If you specify a value for this parameter, you must configure the **DeviceName** parameter.",
+      "description": "The ProductKey of the product to which the device belongs.\n> If you specify this parameter, you must also specify **DeviceName**.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,10 +7,10 @@
   "parameters": [
     {
       "name": "AccessGroup",
-      "description": "The name of the permission group.\n\nThis parameter is required for a General-purpose File Storage NAS (NAS) file system.\n\nThe default permission group for virtual private clouds (VPCs) is named DEFAULT_VPC_GROUP_NAME.",
+      "description": "The name of the permission group.\n\nThis parameter is required if the file system is a General-purpose NAS file system.\n\nDefault permission group: DEFAULT_VPC_GROUP_NAME (the default permission group for VPCs).\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "AccessPointName",
@@ -20,83 +20,92 @@
       "required": false
     },
     {
+      "name": "AgenticSpaceId",
+      "description": "The AgenticSpace ID.\n>This parameter is required for Agentic file systems.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "EnabledRam",
-      "description": "Specifies whether to enable the RAM policy. Valid values:\n\n*   true: The RAM policy is enabled.\n*   false (default): The RAM policy is disabled.\n\n>  After the RAM policy is enabled for access points, no RAM user is allowed to use access points to mount and access data by default. To use access points to mount and access data as a RAM user, you must grant the related access permissions to the RAM user. If the RAM policy is disabled, access points can be anonymously mounted. For more information about how to configure permissions on access points, see [Configure a policy for the access point](~~2545998~~).",
+      "description": "Specifies whether to enable access point policy.\nValid values:\n\n- true: enabled.\n- false (default): not enabled.\n\n> After you enable access point policy for the access point, all Resource Access Management (RAM) users are denied access to mount and access data through the access point by default. You must grant the corresponding access permissions through authorization and then mount and access the file system through the access point. After you disable access point policy, the access point allows anonymity mounting. For more information about how to configure access point permissions, see [Configure access point policies](~~2545998~~).\n\n>For Agentic file systems, this parameter must be set to true.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.",
+      "description": "The file system ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "OwnerGroupId",
-      "description": "The ID of the owner group.\n\nThis parameter is required if the RootDirectory directory does not exist.",
+      "description": "The owner group ID.\n\nThis parameter is required if the RootDirectory directory does not exist.\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "OwnerUserId",
-      "description": "The owner ID.\n\nThis parameter is required if the RootDirectory directory does not exist.",
+      "description": "The owner user ID.\n\nThis parameter is required if the RootDirectory directory does not exist.\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Permission",
-      "description": "The Portable Operating System Interface for UNIX (POSIX) permission. Default value: 0777.\n\nThis field takes effect only if you specify the OwnerUserId and OwnerGroupId parameters.",
+      "description": "The POSIX permission. Default value: \"0755\". The value must be a four-digit octal number that starts with 0.\n\nThis parameter takes effect only after you specify the OwnerUserId and OwnerGroupId parameters.\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PosixGroupId",
-      "description": "The ID of the POSIX user group.",
+      "description": "The POSIX group ID.\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PosixSecondaryGroupIds",
-      "description": "The secondary user group. Separate multiple user group IDs with commas (,).",
+      "description": "The secondary group IDs. Separate multiple group IDs with commas (,).\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PosixUserId",
-      "description": "The ID of the POSIX user.",
+      "description": "The POSIX user ID.\n>Not supported for Agentic file systems.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RootDirectory",
-      "description": "The root directory of the access point. The default value is /. If the directory does not exist, you must also specify the OwnerUserId and OwnerGroupId parameters.",
+      "description": "The root directory of the access point.\nDefault value: \"/\". If the access point directory does not exist, you must also specify the OwnerUserId and OwnerGroupId parameters.\n>Supported only for Agentic file systems.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags of the access point.",
+      "description": "The list of access point tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\nLimits:\n\n- Cannot be empty or an empty string.\n- Can be up to 128 characters in length.\n- Cannot start with aliyun or acs:.\n- Cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\nLimits:\n\n- Cannot be empty or an empty string.\n- Can be up to 128 characters in length.\n- Cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -105,7 +114,7 @@
     },
     {
       "name": "VpcId",
-      "description": "The VPC ID.",
+      "description": "The virtual private cloud (VPC) ID.",
       "position": "Query",
       "type": "String",
       "required": true

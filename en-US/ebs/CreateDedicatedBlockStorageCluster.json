@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "Azone",
-      "description": "The ID of the zone in which to create the dedicated block storage cluster. You can call the [DescribeZones](~~25610~~) operation to query the most recent zone list.",
+      "description": "The zone ID of the dedicated block storage cluster. You can call [DescribeZones](~~25610~~) to query the zone list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Capacity",
-      "description": "The capacity of the dedicated block storage cluster. Valid values: 61440 to 2334720. Unit: GiB. 2,334,720 GiB is equal to 2,280 TiB. The capacity increases in a minimum increment of 12,288 GiB.\n\n>  If the capacity of a dedicated block storage cluster is less than 576 TiB, the maximum throughput per TiB cannot exceed 52 MB/s. If the capacity of a dedicated block storage cluster is greater than 576 TiB, the maximum throughput per TiB cannot exceed 26 MB/s.",
+      "description": "The capacity of the dedicated block storage cluster. Valid values: 61440 to 2334720 GiB (2280 TiB). Minimum increment: 12288 GiB.\n\n> When the capacity of the dedicated block storage cluster is less than 576 TiB, the maximum throughput per TiB does not exceed 52 MB/s. When the capacity of the dedicated block storage cluster is greater than 576 TiB, the maximum throughput per TiB does not exceed 26 MB/s.",
       "position": "Query",
       "type": "Long",
       "required": true
@@ -35,47 +35,49 @@
     },
     {
       "name": "Period",
-      "description": "The subscription duration of the dedicated block storage cluster. Valid values: 6, 7, 8, 9, 10, 11, 12, 24, and 36.",
+      "description": "The subscription duration of the instance. Valid values: 6, 7, 8, 9, 10, 11, 12, 24, and 36.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the subscription duration specified by `Period`. Set the value to Month.",
+      "description": "The unit of the subscription duration specified by the `Period` parameter. Only Month is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which to create the dedicated block storage cluster. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the dedicated block storage cluster. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the dedicated block storage cluster.",
+      "description": "The ID of the resource group to which the dedicated block storage cluster belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the dedicated block storage cluster. You can specify up to 20 tags.",
+      "description": "The list of tags. A maximum of 20 tags can be specified.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the dedicated block storage cluster.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The tag value of the dedicated block storage cluster.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -84,7 +86,7 @@
     },
     {
       "name": "Type",
-      "description": "The type of the dedicated block storage cluster. Valid values:\n\n*   Standard: basic dedicated block storage cluster. Enterprise SSDs (ESSDs) at performance level 0 (PL0 ESSDs) can be created in basic dedicated block storage clusters.\n*   Premium: performance dedicated block storage cluster. ESSDs at performance level 1 (PL1 ESSDs) can be created in performance dedicated block storage clusters.\n\nDefault value: Premium.\n\nFor more information about ESSDs, see [ESSDs](~~122389~~).",
+      "description": "The performance type of the dedicated block storage cluster. Valid values:\n\n- Standard: basic. You can create PL0 ESSDs in this type of dedicated block storage cluster.\n- Premium: performance. You can create PL1 ESSDs in this type of dedicated block storage cluster.\n\nDefault value: Premium.\n\nFor more information about standard SSDs, see [ESSDs](~~122389~~).",
       "position": "Query",
       "type": "String",
       "required": true

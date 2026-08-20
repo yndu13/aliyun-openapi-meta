@@ -14,25 +14,28 @@
     },
     {
       "name": "Arn",
-      "description": ">该参数正在邀测中，暂不支持使用。",
+      "description": ">该参数正在邀测中，暂不支持使用。\n",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AssumeRoleFor",
+          "description": ">该参数正在邀测中，暂不支持使用。\n",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "RoleType",
+          "description": ">该参数正在邀测中，暂不支持使用。\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Rolearn",
+          "description": ">该参数正在邀测中，暂不支持使用。\n",
           "position": "Query",
           "type": "String",
           "required": false
@@ -48,7 +51,7 @@
     },
     {
       "name": "AutoRenewPeriod",
-      "description": "每次自动续费的时长，当参数AutoRenew取值True时，该参数为必填参数。\n\n<props=\"china\">PeriodUnit为Week时，AutoRenewPeriod取值：1、2、3。</props>\n\nPeriodUnit为Month时，AutoRenewPeriod取值：1、2、3、6、12。",
+      "description": "每次自动续费的时长，当参数AutoRenew取值True时，该参数为必填参数。\n\n<props=\"china\">PeriodUnit为Week时，AutoRenewPeriod取值：1、2、3。</props>\n\nPeriodUnit为Month时，AutoRenewPeriod取值：1、2、3、6、12。\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -83,72 +86,84 @@
       "sub_parameters": [
         {
           "name": "Category",
+          "description": "数据盘N的云盘种类。取值范围：\n\n- cloud_efficiency：高效云盘。\n- cloud_ssd：SSD云盘。\n- cloud_essd：ESSD云盘。\n- cloud：普通云盘。\n- cloud_auto：ESSD AutoPL云盘。\n- cloud_essd_entry：ESSD Entry云盘。\n  >仅当`InstanceType`设置为`ecs.u1`或`ecs.e`规格族时，该参数支持`cloud_essd_entry`。\n- elastic_ephemeral_disk_standard：弹性临时盘-标准版。\n- elastic_ephemeral_disk_premium：弹性临时盘-高级版。\n\nI/O优化实例的默认值为cloud_efficiency，非I/O优化实例的默认值为cloud。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeleteWithInstance",
+          "description": "数据盘是否随实例释放。\n\n- true：是。\n- false：否。\n\n默认值为true。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Description",
+          "description": "数据盘描述。长度为2~256个英文或中文字符，不能以`http://`或`https://`开头。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Device",
+          "description": "数据盘的挂载点。\n\n>该参数仅用于全镜像（整机镜像）场景。您可以通过将此参数设置为全镜像中数据盘对应的挂载点，并修改对应的`DataDisk.N.Size`和`DataDisk.N.Category`参数，达到修改全镜像中数据盘磁盘种类和大小的目的。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskName",
+          "description": "数据盘名称。长度为2~128个字符，支持Unicode中letter分类下的字符（其中包括英文、中文和数字等）。可以包含半角冒号（:）、下划线（_）、半角句号（.）或者短划线（-）。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EncryptAlgorithm",
+          "description": ">该参数暂未开放使用。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
+          "description": "数据盘N是否加密。\n\n- true：是。\n\n- false：否。\n\n默认值为false。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KMSKeyId",
+          "description": "云盘使用的KMS密钥ID。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "创建ESSD云盘作为数据盘使用时，设置云盘的性能等级。N的取值必须和`DataDisk.N.Category=cloud_essd`中的N保持一致。取值范围：\n\n- PL0：单盘最高随机读写IOPS 1万。\n- PL1（默认）：单盘最高随机读写IOPS 5万。\n- PL2：单盘最高随机读写IOPS 10万。\n- PL3：单盘最高随机读写IOPS 100万。\n\n有关如何选择ESSD性能等级，请参见[ESSD云盘](~~122389~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "第n个数据盘的容量大小，N的取值范围为1~16，内存单位为GiB。取值范围：\n\n-   cloud_efficiency：20~32768。\n-   cloud_ssd：20~32768。\n-   cloud_essd：具体取值范围与 `DataDisk.N.PerformanceLevel`的取值有关。\n    - PL0：1~65,536。\n    - PL1：20~65,536。\n    - PL2：461~65,536。\n    - PL3：1261~65,536。\n-   cloud：5~2000。\n\n>该参数的取值必须大于等于参数`SnapshotId`指定的快照的大小。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
+          "description": "创建数据盘N使用的快照。N的取值范围为1~16。\n\n- 指定参数`DataDisk.N.SnapshotId`后，参数`DataDisk.N.Size`会被忽略，实际创建的云盘大小为指定的快照的大小。\n\n- 不能使用早于2013年7月15日（含）创建的快照，请求会报错被拒绝。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StorageClusterId",
+          "description": "专属块存储集群ID。如果您在创建ECS实例时，需要使用专属块存储集群中的云盘资源作为数据盘，请设置该参数。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -213,7 +228,7 @@
     },
     {
       "name": "HpcClusterId",
-      "description": "实例所属的HPC集群ID。",
+      "description": "实例所属的HPC集群ID。 ",
       "position": "Query",
       "type": "String",
       "required": false
@@ -318,7 +333,7 @@
     },
     {
       "name": "NodeControllerId",
-      "description": ">该参数正在邀测中，暂不支持使用。",
+      "description": ">该参数正在邀测中，暂不支持使用。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -339,7 +354,7 @@
     },
     {
       "name": "Period",
-      "description": "购买资源的时长，单位由`PeriodUnit`指定。当参数`InstanceChargeType`取值为`PrePaid`时才生效且为必选值。一旦指定了`DedicatedHostId`，则取值范围不能超过专有宿主机的订阅时长。取值范围：\n\n<props=\"china\">\n- PeriodUnit=Week时，Period取值：1、2、3、4。\n- PeriodUnit=Month时，Period取值：1、2、3、4、5、6、7、8、9、12、24、36、48、60。\n\n</props>\n\n<props=\"intl\">PeriodUnit=Month时，Period取值：1、2、3、6、12。</props>\n\n<props=\"partner\">PeriodUnit=Month时，Period取值：1、2、3、6、12。</props>",
+      "description": "购买资源的时长，单位由`PeriodUnit`指定。当参数`InstanceChargeType`取值为`PrePaid`时才生效且为必选值。一旦指定了`DedicatedHostId`，则取值范围不能超过专有宿主机的订阅时长。取值范围：\n\n<props=\"china\">\n- PeriodUnit=Week时，Period取值：1、2、3、4。\n- PeriodUnit=Month时，Period取值：1、2、3、4、5、6、7、8、9、12、24、36、48、60。\n\n</props>\n\n<props=\"intl\">PeriodUnit=Month时，Period取值：1、2、3、6、12。</props>\n\n<props=\"partner\">PeriodUnit=Month时，Period取值：1、2、3、6、12。</props>\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -367,7 +382,7 @@
     },
     {
       "name": "PrivatePoolOptions.MatchCriteria",
-      "description": "实例启动的私有池容量选项。弹性保障服务或容量预定服务在生效后会生成私有池容量，供实例启动时选择。取值范围：\n\n- Open：开放模式。将自动匹配开放类型的私有池容量。如果没有符合条件的私有池容量，则使用公共池资源启动。该模式下无需设置`PrivatePoolOptions.Id`参数。\n- Target：指定模式。使用指定的私有池容量启动实例，如果该私有池容量不可用，则实例会启动失败。该模式下必须指定私有池ID，即`PrivatePoolOptions.Id`参数为必填项。\n- None：不使用模式。实例启动将不使用私有池容量。\n\n默认值为None。\n\n以下任一场景，实例启动的私有池容量选项只能取值`None`或不传值。\n- 创建抢占式实例。\n- 创建经典网络类型的ECS实例。\n- 在专有宿主机DDH上创建ECS实例。",
+      "description": "实例启动的私有池容量选项。弹性保障服务或容量预定服务在生效后会生成私有池容量，供实例启动时选择。取值范围：\n\n- Open：开放模式。将自动匹配开放类型的私有池容量。如果没有符合条件的私有池容量，则使用公共池资源启动。该模式下无需设置`PrivatePoolOptions.Id`参数。\n- Target：指定模式。使用指定的私有池容量启动实例，如果该私有池容量不可用，则实例会启动失败。该模式下必须指定私有池ID，即`PrivatePoolOptions.Id`参数为必填项。\n- None：不使用模式。实例启动将不使用私有池容量。\n\n默认值为None。\n\n以下任一场景，实例启动的私有池容量选项只能取值`None`或不传值。\n- 创建抢占式实例。\n- 在专有宿主机DDH上创建ECS实例。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -500,24 +515,28 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "实例、云盘和主网卡的标签键。N的取值范围：1~20。一旦传入该值，则不允许为空字符串。最多支持128个字符，不能以`aliyun`或`acs:`开头，不能包含`http://`或`https://`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "实例、云盘和主网卡的标签值。N的取值范围：1~20。一旦传入该值，可以为空字符串。最多支持128个字符，不能包含`http://`或者`https://`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
+          "description": "标签键。\n\n> 为提高兼容性，建议您尽量使用Tag.N.Key参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
+          "description": "标签值。\n\n> 为提高兼容性，建议您尽量使用Tag.N.Value参数。",
           "position": "Query",
           "type": "String",
           "required": false

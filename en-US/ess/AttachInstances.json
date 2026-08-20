@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Entrusted",
-      "description": "Specifies whether the scaling group manages the lifecycle of instances that are manually added to the scaling group. Valid values:\n\n*   true: The scaling group manages the lifecycle of instances that are manually added in a similar manner in which the scaling group manages the lifecycle of automatically created instances. When the instances are removed from the scaling group, the instances are automatically released. However, if you call the DetachInstances operation to remove the instances from the scaling group, the instances are not released.\n*   false: The scaling group does not manage the lifecycle of instances that are manually added. After the instances are removed from the scaling group, the instances are not released.\n\n>  This parameter is unavailable for subscription instances.\n\nDefault value: false.",
+      "description": "Specifies whether to entrust the lifecycle of the instance to the scaling group when you manually add an existing instance to the scaling group. Valid values:\n\n- true: The lifecycle of the instance is managed by Auto Scaling, consistent with instances that are created through automatic creation by the scaling group. The instance is subject to automatic release when it is removed from the scaling group, except when it is removed by invoking the `DetachInstances` operation.\n- false: The lifecycle of the instance is not managed by the scaling group. The instance is not released when it is removed from the scaling group.\n\n> Settings for this parameter are not supported for subscription instances, managed instances, or instances in the economy mode (stopped) state within the scaling group.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IgnoreInvalidInstance",
-      "description": "",
+      "description": "Specifies whether to ignore invalid instances when adding a batch of instances to the scaling group. Valid values:\n\n- true: Invalid instances are ignored when a batch of instances is added to the scaling group. If invalid instances exist and valid instances are successfully added, the scaling activity status is displayed as Warning. You can view the invalid instances in the scaling activity details.\n\n- false: Invalid instances are not ignored when a batch of instances is added to the scaling group. If any invalid instance exists in the batch, the request returns an error.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of instance N that you want to add. Valid values of N: 1 to 20.\n\nExamples:\n\n*   The ID of the ECS instance that you want to add is `i-28wt4****`.\n*   The ID of the elastic container instance that you want to add is `eci-bp17gw49eu09yiwm****`.",
+      "description": "Instance ID of the ECS instance, ECI instance, managed instance, or instance in the economy mode (stopped) state within the scaling group that you want to add. Valid values of N: 1 to 20.\n\nExamples:\n\n- Instance ID of the ECS instance to add: `i-28wt4****`.\n- Instance ID of the ECI instance to add: `eci-bp17gw49eu09yiwm****`.\n- Instance ID of the managed instance to add: `mi-2cx*****`.\n- Instance ID of the instance in the economy mode (stopped) state within the scaling group to restart: `i-2cd2f****`.\n\n> Only one type of instance can be processed in a single request.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "LifecycleHook",
-      "description": "Specifies whether to trigger a lifecycle hook for the scaling group to which instances are being added. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to trigger a scale-out lifecycle hook when instances are added to the scaling group. Valid values:\n- true: triggers the lifecycle hook.\n- false: does not trigger the lifecycle hook.\n\n> This parameter is not supported for managed instances or instances in the economy mode (stopped) state within the scaling group.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LoadBalancerWeight",
-      "description": "The weight of instance N as a backend server of the Server Load Balancer (SLB) instance that is associated with the scaling group to which you want to add instance N. Valid values of N: 1 to 20. Valid values of this parameter: 1 to 100.\n\nDefault value: 50.",
+      "description": "The weight of the ECS instance or ECI instance as a backend server of the load balancing instance.\n> Settings for this parameter are not supported for managed instances or instances in the economy mode (stopped) state within the scaling group.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the scaling group resides.",
+      "description": "The region ID of the scaling group.",
       "position": "Query",
       "type": "String",
       "required": false

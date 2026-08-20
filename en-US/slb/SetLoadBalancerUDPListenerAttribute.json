@@ -7,70 +7,76 @@
   "parameters": [
     {
       "name": "AclId",
-      "description": "The ID of the network access control list (ACL) that is associated with the listener.\n\n>  If **AclStatus** is set to **on**, this parameter is required.",
+      "description": "The ID of the network access control list (ACL) that is associated with the listener.\n\n> This parameter is required if the **AclStatus** parameter is set to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclStatus",
-      "description": "Specifies whether to enable access control. Valid values:\n\n*   **on**: yes\n*   **off**: no",
+      "description": "Specifies whether to enable access control. Valid values:\n\n- **on**: yes\n\n- **off**: no",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclType",
-      "description": "The type of the network ACL. Valid values:\n\n*   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the whitelist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.\n\n    If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.\n\n*   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are denied. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.\n\n    If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.\n\n>  If **AclStatus** is set to **on**, this parameter is required.",
+      "description": "The type of the network ACL. Valid values:\n\n- **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists are suitable for scenarios where you want to allow access from only specific IP addresses. If you enable a whitelist, but do not add an IP address to the network ACL, the CLB listener forwards all requests.\n\n  If whitelist access is enabled but no IP addresses are added to the access control list, the load balancer listener forwards all requests.\n\n- **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are denied. Blacklists are suitable for scenarios where you want to deny access from specific IP addresses. If you enable a blacklist, but do not add an IP address to the network ACL, the CLB listener forwards all requests.\n\n  If blacklist access control is enabled but no IP addresses are added to the access control list, the load balancer listener forwards all requests.\n\n> This parameter is valid only when the **AclStatus** parameter is set to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:\n\n*   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**. This way, the bandwidth of the listener is unlimited.\n*   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of bandwidth limits that you set for all listeners cannot exceed the maximum bandwidth of the CLB instance.",
+      "description": "The peak bandwidth of the listener. Unit: Mbit/s. Valid values:\n\n- **-1**: For an Internet-facing pay-by-traffic CLB instance, set the value to -1. This specifies that the bandwidth of the listener is unlimited.\n\n- **1** to **5120**: For an Internet-facing pay-by-bandwidth CLB instance, you can specify the peak bandwidth for each listener. The sum of the peak bandwidth values of all listeners cannot exceed the peak bandwidth of the CLB instance.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The name of the listener.\n\nThe name must be 1 to 256 characters in length and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\\_).",
+      "description": "The name of the listener.\n\nThe name must be 1 to 256 characters in length, and can contain letters, digits, Chinese characters, and the following special characters: `- / . _`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "DryRun",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "HealthCheckConnectPort",
-      "description": "The port that is used for health checks.\n\nValid values: **1** to **65535**.",
+      "description": "The port used for health checks.\n\nValid values: **1** to **65535**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckConnectTimeout",
-      "description": "The timeout period of a health check. If a backend server, such as an Elastic Compute Service (ECS) instance, does not return a health check response within the specified timeout period, the server fails the health check. Unit: seconds.\n\nValid values: **1** to **300**.\n\n>  If the value of the **HealthCheckConnectTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HealthCheckConnectTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.",
+      "description": "The timeout period of a health check response. If a backend ECS instance does not send an expected response within the specified timeout period, the health check fails. Unit: seconds.\n\nValid values: **1** to **300**.\n\n> If the value of the **HealthCheckConnectTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the **HealthCheckConnectTimeout** parameter is invalid and the timeout period is specified by the **HealthCheckInterval** parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckInterval",
-      "description": "The interval at which health checks are performed. Unit: seconds.\n\nValid values: **1** to **50**.",
+      "description": "The interval between two consecutive health checks. Unit: seconds.\n\nValid values: **1** to **50**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckSwitch",
-      "description": "Specifies whether to enable the health check feature. Valid values:\n\n*   **on** (default): yes\n*   **off**: no",
+      "description": "Specifies whether to enable health checks. Valid values:\n\n- **on** (default): Enabled.\n\n- **off**: Disabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthyThreshold",
-      "description": "The number of times that an unhealthy backend server must consecutively pass health checks before it can be declared healthy (from **fail** to **success**).\n\nValid values: **1** to **10**.",
+      "description": "The number of consecutive successful health checks that must occur before a backend server can be declared **healthy** (from **unhealthy**).\n\nValid values: **1** to **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -91,49 +97,49 @@
     },
     {
       "name": "MasterSlaveServerGroup",
-      "description": "Specifies whether to use a primary/secondary server group. Valid values:\n\n*   **on**: yes\n*   **off**: no\n\n>  You cannot set **VserverGroup** and **MasterSlaveServerGroup** both to **on**.",
+      "description": "Specifies whether to use a primary/secondary server group. Valid values:\n\n- **on**: yes\n\n- **off**: no\n\n> You can set the value to **on** for only one of the **VserverGroup** and **MasterSlaveServerGroup** parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MasterSlaveServerGroupId",
-      "description": "The ID of the primary/secondary server group.\n\n>  You cannot specify both VServerGroupId and MasterSlaveServerGroupId.",
+      "description": "The ID of the primary/secondary server group.\n\n> You can specify only one of **VServerGroupId** and **MasterSlaveServerGroupId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProxyProtocolV2Enabled",
-      "description": "Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:\n\n*   **true**: yes\n*   **false** (default): no",
+      "description": "Specifies whether to use the Proxy Protocol to pass client IP addresses to backend servers. Valid values:\n\n- **true**: yes\n\n- **false** (default): no",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the CLB instance.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the Classic Load Balancer (CLB) instance.\n\nYou can find the region ID by calling the [DescribeRegions](~~36063~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **wrr**: Backend servers with higher weights receive more requests than those with lower weights.\n\n    If two backend servers have the same weight, the backend server that has fewer connections is expected to receive more requests.\n\n*   **rr**: Requests are distributed to backend servers in sequence.\n\n*   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.\n\n*   **tch**: specifies consistent hashing that is based on the following parameters: source IP address, destination IP address, source port, and destination port. Requests that contain the same preceding information are distributed to the same backend server.\n\n*   **qch**: specifies consistent hashing that is based on QUIC connection IDs. Requests that contain the same QUIC connection ID are distributed to the same backend server.\n\n> *   Only high-performance CLB instances support **sch**, **tch**, and **qch**.\n> *   You cannot switch the algorithm used by a CLB instance from **wrr** or **rr** to consistent hashing or from consistent hashing to weighted round robin or round robin.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **wrr**: Backend servers with higher weights receive more requests than those with lower weights. If backend servers have the same weight, the backend server that has fewer connections receives more requests.\n\n- **rr**: Requests are distributed to backend servers in sequence.\n\n- **sch**: Source IP hashing. Requests from the same source IP address are distributed to the same backend server.\n\n- **tch**: Four-tuple hashing. Requests from the same four-tuple (source IP address, destination IP address, source port, and destination port) are distributed to the same backend server.\n\n- **qch**: QUIC ID hashing. Requests that have the same QUIC ID are distributed to the same backend server.\n\n> * Only performance-guaranteed instances support the **sch**, **tch**, and **qch** scheduling algorithms.\n>\n> * You cannot change the scheduling algorithm from **wrr** or **rr** to a consistent hashing algorithm. You also cannot change a consistent hashing algorithm to another one.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UnhealthyThreshold",
-      "description": "The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.\n\nValid values: **1** to **10**.",
+      "description": "The number of consecutive failed health checks that must occur before a backend server can be declared **unhealthy** (from **healthy**).\n\nValid values: **1** to **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "VServerGroup",
-      "description": "Specifies whether to use a vServer group. Valid values:\n\n*   **on**: yes\n*   **off**: no\n\n>  You cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.",
+      "description": "Specifies whether to use a vServer group. Valid values:\n\n- **on**: yes\n\n- **off**: no\n\n> You can set the value of this parameter to **on** for only one of the **VserverGroup** and **MasterSlaveServerGroup** parameters.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -147,14 +153,14 @@
     },
     {
       "name": "healthCheckExp",
-      "description": "The response string for UDP listener health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.",
+      "description": "The response string for UDP health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "healthCheckReq",
-      "description": "The request string for UDP listener health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.",
+      "description": "The request string for UDP health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.",
       "position": "Query",
       "type": "String",
       "required": false

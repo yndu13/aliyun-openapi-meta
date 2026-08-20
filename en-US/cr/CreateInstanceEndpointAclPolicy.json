@@ -1,5 +1,6 @@
 {
   "name": "CreateInstanceEndpointAclPolicy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,28 +14,34 @@
     },
     {
       "name": "EndpointType",
-      "description": "The type of the endpoint. Set the value to Internet.",
+      "description": "The endpoint type. Only Internet is supported.",
       "position": "Query",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "Entries",
+      "position": "Query",
+      "type": "Json",
+      "required": false
     },
     {
       "name": "Entry",
-      "description": "The CIDR block that is accessible.",
+      "description": "The IP address range that is allowed to access the instance.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance.",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ModuleName",
-      "description": "The name of the module that you want to access. Valid values:\n\n*   `Registry`: the image repository.\n*   `Chart`: a Helm chart.",
+      "description": "The module for which you want to set the access policy. Valid values:\n\n- `Registry`: access the image repository\n\n- `Chart`: access Helm Chart",
       "position": "Query",
       "type": "String",
       "required": false

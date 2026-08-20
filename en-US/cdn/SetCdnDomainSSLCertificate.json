@@ -1,33 +1,34 @@
 {
   "name": "SetCdnDomainSSLCertificate",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CertId",
-      "description": "The ID of the certificate.",
+      "description": "The ID of the certificate. This parameter is required if you set CertType to cas.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "CertName",
-      "description": "The name of the SSL certificate. You can specify only one certificate name.",
+      "description": "The name of the certificate. You can specify only one certificate name. This parameter is optional if you set CertType to upload.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CertRegion",
-      "description": "The region ID of the certificate. Valid values: **cn-hangzhou** and **ap-southeast-1**. Default value: **cn-hangzhou**.",
+      "description": "The region of the certificate. This parameter takes effect only when **CertType is set to cas**. Valid values: **cn-hangzhou** and **ap-southeast-1**. Default value: **cn-hangzhou**. **ap-southeast-1** is recommended for users on the International site.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CertType",
-      "description": "The type of the certificate.\n\n*   **upload**: a user-uploaded SSL certificate.\n*   **cas**: a certificate that is acquired through Certificate Management Service.",
+      "description": "The type of the certificate. Valid values:\n\n- **upload**: custom certificate\n\n- **cas**: a certificate that is acquired through Certificate Management Service.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,21 +42,21 @@
     },
     {
       "name": "SSLPri",
-      "description": "The private key. Specify the private key only if you want to enable the SSL certificate.",
+      "description": "The private key. Specify the private key only if you want to enable the certificate.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SSLProtocol",
-      "description": "Specifies whether to enable the SSL certificate.\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to enable the SSL certificate.\n\n- **on**\n\n- **off**",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SSLPub",
-      "description": "The content of the SSL certificate. Specify the content of the SSL certificate only if you want to enable the SSL certificate.",
+      "description": "The certificate content. Specify the certificate content only if you want to enable the certificate.",
       "position": "Query",
       "type": "String",
       "required": false

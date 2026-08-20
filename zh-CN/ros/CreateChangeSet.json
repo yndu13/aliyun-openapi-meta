@@ -49,7 +49,7 @@
     },
     {
       "name": "Parallelism",
-      "description": "资源最大并发数。默认为空，用户可以输入大于等于零的整数。设置资源最大并发数后，将与资源栈进行关联，影响资源栈的后续操作。\n\n该参数仅在更改集类型为CREATE或UPDATE时生效，取值：\n\n- 当更改集类型为CREATE时\n  - 设置为大于零的整数：使用整数值。\n  - 设置为零或者不设置：对于ROS类型资源栈不限制，Terraform类型资源栈使用Terraform默认值（通常为10）。\n\n- 当更改集类型为UPDATE时\n  - 设置为大于零的整数：使用整数值。\n  - 设置为零：对于ROS类型资源栈不限制，Terraform类型资源栈使用Terraform默认值（通常为10）。\n  - 不设置：使用上次操作时设置的值。如果上次操作时未设置该参数，对于ROS类型资源栈不限制，Terraform类型资源栈使用Terraform默认值（通常为10）。",
+      "description": "资源最大并发数。默认为空，用户可以输入大于等于零的整数。设置资源最大并发数后，将与资源栈进行关联，影响资源栈的后续操作。\n\n该参数仅在更改集类型为CREATE或UPDATE时生效，取值：\n\n- 当更改集类型为CREATE时\n  - 设置为大于零的整数：使用整数值。\n  - 设置为零或者不设置：对于ROS类型资源栈不限制，Terraform类型资源栈使用Terraform默认值（通常为10）。\n\n- 当更改集类型为UPDATE时\n  - 设置为大于零的整数：使用整数值。\n  - 设置为零：对于ROS类型资源栈不限制，Terraform类型资源栈使用Terraform默认值（通常为10）。\n  - 不设置：使用上次操作时设置的值。如果上次操作时未设置该参数，对于ROS类型资源栈不限制，Terraform类型资源栈使用Terraform默认值（通常为10）。\n",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -63,12 +63,14 @@
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "模板中已定义的参数的名称。如果未指定特定参数的名称和取值，则ROS将使用模板中指定的默认值。N的最大值为200。  \n\n> Parameters为可选参数。若指定了Parameters，则Parameters.N.ParameterKey为必选参数。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "模板中已定义的参数的取值。N的最大值为200。  \n\n> Parameters为可选参数。若指定了Parameters，则Parameters.N.ParameterValue为必选参数。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -112,18 +114,21 @@
       "sub_parameters": [
         {
           "name": "LogicalResourceId",
+          "description": "资源逻辑ID，即模板中资源的名称。\n\n> 该参数仅在更改集类型为IMPORT时生效。ResourcesToImport为可选参数。若指定了ResourcesToImport，则ResourcesToImport.N.LogicalResourceId为必选参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceIdentifier",
+          "description": "字符串到字符串的键值映射。取值是JSON格式的字符串，用来标识要导入的资源。  \n键是资源的标识符属性（例如：ALIYUN::ECS::VPC资源的VpcId），值是属性的取值（例如：`vpc-2zevx9ios****`）。\n\n资源的标识符属性可以通过[GetTemplateSummary](~~172485~~)接口获取。\n\n> 该参数仅在更改集类型为IMPORT时生效。ResourcesToImport为可选参数。若指定了ResourcesToImport，则ResourcesToImport.N.ResourceIdentifier为必选参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceType",
+          "description": "资源的类型，需要与模板中定义的类型一致。\n\n> 该参数仅在更改集类型为IMPORT时生效。ResourcesToImport为可选参数。若指定了ResourcesToImport，则ResourcesToImport.N.ResourceType为必选参数。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -181,12 +186,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "资源栈的标签键。\n\nN的取值范围为1~20。  \n>- Tags为可选参数。如果需要指定Tags，则Tags.N.Key必须指定。\n>- 此标签会传递到资源栈中每个支持标签的资源中。更多信息，请参见[标签传递](~~201421~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "资源栈的标签值。\n\nN的取值范围为1~20。\n\n> 此标签会传递到资源栈中每个支持标签的资源中。更多信息，请参见[标签传递](~~201421~~)。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -244,7 +251,7 @@
     },
     {
       "name": "UsePreviousParameters",
-      "description": "对于未传递的参数，是否使用上次传递的值。取值：\n\n- true\n- false（默认值）\n\n> 该参数仅在更改集类型为UPDATE或IMPORT时生效。",
+      "description": "对于未传递的参数，是否使用上次传递的值。取值：\n\n- true\n- false（默认值）\n\n> 该参数仅在更改集类型为UPDATE或IMPORT时生效。\n",
       "position": "Query",
       "type": "Boolean",
       "required": false

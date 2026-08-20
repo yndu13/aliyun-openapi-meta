@@ -84,7 +84,7 @@
     },
     {
       "name": "ConfigMapMountDesc",
-      "description": "**ConfigMap**挂载描述。使用在命名空间配置项页面创建的配置项来向容器中注入配置信息。参数说明如下：\n\n- **configMapId**：ConfigMap实例ID。可通过调用[ListNamespacedConfigMaps](~~176917~~)接口获取。\n- **key**：键值。\n\n> 可通过传递`sae-sys-configmap-all`参数挂载所有键。\n\n- **mountPath**：挂载路径。",
+      "description": "**ConfigMap**挂载描述。使用在命名空间配置项页面创建的配置项来向容器中注入配置信息。参数说明如下：\n\n- **configMapId**：ConfigMap实例ID。可通过调用[ListNamespacedConfigMaps](~~176917~~)接口获取。\n- **key**：键值。\n\n> 可通过传递`sae-sys-configmap-all`参数挂载所有键。\n\n- **mountPath**：挂载路径。\n",
       "position": "Body",
       "type": "String",
       "required": false
@@ -203,7 +203,6 @@
     },
     {
       "name": "GpuConfig",
-      "description": "Gpu配置",
       "position": "Query",
       "type": "String",
       "required": false
@@ -280,21 +279,19 @@
     },
     {
       "name": "Labels",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Liveness",
-      "description": "容器健康检查，健康检查失败的容器将被关闭并恢复。支持方式如下：\n\n- **exec**：例如 `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"cat/home/admin/start.sh\"]},\"initialDelaySeconds\":30,\"periodSeconds\":30,\"timeoutSeconds\":2}`\n- **httpGet**：例如`{\"httpGet\":{\"path\":\"/\",\"port\":18091,\"scheme\":\"HTTP\",\"isContainKeyWord\":true,\"keyWord\":\"SAE\"},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n- **tcpSocket**：例如`{\"tcpSocket\":{\"port\":18091},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n\n> 只能选择一种方式进行健康检查。\n\n参数说明如下：\n\n- **exec.command**：设置健康检查命令。\n- **httpGet.path**：访问路径。\n- **httpGet.scheme**：**HTTP**或**HTTPS**。\n- **httpGet.isContainKeyWord**：**true**表示包含关键字，**false**表示不包含关键字，缺失该字段表示不使用高级功能。\n- **httpGet.keyWord**：自定义的关键字，使用时不能缺失**isContainKeyWord**字段。\n- **tcpSocket.port**：tcp连接检测的端口 。\n- **initialDelaySeconds**：设置健康检查延迟检测时间，默认为10，单位为秒。\n- **periodSeconds**：设置健康检查周期，默认为30，单位为秒。\n- **timeoutSeconds**：设置健康检查超时等待时间，默认为1，单位为秒。如果设置为0或不设置，默认超时等待时间为1秒。",
+      "description": "容器健康检查，健康检查失败的容器将被关闭并恢复。支持方式如下：\n\n- **exec**：例如 `{\"exec\":{\"command\":\\[\"sh\",\"-c\",\"cat/home/admin/start.sh\"]},\"initialDelaySeconds\":30,\"periodSeconds\":30,\"timeoutSeconds\":2}`\n- **httpGet**：例如`{\"httpGet\":{\"path\":\"/\",\"port\":18091,\"scheme\":\"HTTP\",\"isContainKeyWord\":true,\"keyWord\":\"SAE\"},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n- **tcpSocket**：例如`{\"tcpSocket\":{\"port\":18091},\"initialDelaySeconds\":11,\"periodSeconds\":10,\"timeoutSeconds\":1}`\n\n> 只能选择一种方式进行健康检查。\n\n参数说明如下：\n\n- **exec.command**：设置健康检查命令。\n- **httpGet.path**：访问路径。\n- **httpGet.scheme**：**HTTP**或**HTTPS**。\n- **httpGet.isContainKeyWord**：**true**表示包含关键字，**false**表示不包含关键字，缺失该字段表示不使用高级功能。\n- **httpGet.keyWord**：自定义的关键字，使用时不能缺失**isContainKeyWord**字段。\n- **tcpSocket.port**：tcp连接检测的端口 。\n- **initialDelaySeconds**：设置健康检查延迟检测时间，默认为10，单位为秒。\n- **periodSeconds**：设置健康检查周期，默认为30，单位为秒。\n- **timeoutSeconds**：设置健康检查超时等待时间，默认为1，单位为秒。如果设置为0或不设置，默认超时等待时间为1秒。\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LokiConfigs",
-      "description": "LokiConfigs",
       "position": "Query",
       "type": "String",
       "required": false
@@ -489,6 +486,12 @@
       "required": false
     },
     {
+      "name": "RaspConfig",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Readiness",
       "description": "应用启动状态检查，多次健康检查失败的容器将被关闭并重启。不通过健康检查的容器将不会有SLB流量进入。支持**exec**、**httpGet**和**tcpSocket**方式。具体示例，请参见**Liveness**参数。\n\n> 只能选择一种方式进行健康检查。",
       "position": "Query",
@@ -581,7 +584,7 @@
     },
     {
       "name": "TomcatConfig",
-      "description": "Tomcat文件配置，设置为\"\"或\"{}\"表示删除配置：\n\n- **port**：端口范围为1024~65535，小于1024的端口需要Root权限才能操作。因为容器配置的是Admin权限，所以请填写大于1024的端口。如果不配置，则默认为8080。\n- **contextPath**：访问路径，默认为根目录\"/\"。\n- **maxThreads**：配置连接池的连接数大小，默认大小为400。\n- **uriEncoding**：Tomcat的编码格式，包括**UTF-8**、**ISO-8859-1**、**GBK和GB2312**。如果不设置，则默认为**ISO-8859-1**。\n- **useBodyEncodingForUri**：是否使用**BodyEncoding for URL**，默认为**true**。",
+      "description": "Tomcat文件配置，设置为\"\"或\"{}\"表示删除配置：\n\n- **port**：端口范围为1024~65535，小于1024的端口需要Root权限才能操作。因为容器配置的是Admin权限，所以请填写大于1024的端口。如果不配置，则默认为8080。\n- **contextPath**：访问路径，默认为根目录\"/\"。\n- **maxThreads**：配置连接池的连接数大小，默认大小为400。\n- **uriEncoding**：Tomcat的编码格式，包括**UTF-8**、**ISO-8859-1**、**GBK和GB2312**。如果不设置，则默认为**ISO-8859-1**。\n- **useBodyEncodingForUri**：是否使用**BodyEncoding for URL**，默认为**true**。\n",
       "position": "Query",
       "type": "String",
       "required": false

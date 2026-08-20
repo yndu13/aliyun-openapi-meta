@@ -1,26 +1,27 @@
 {
   "name": "RecordLifecycleActionHeartbeat",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "RegionId",
-      "description": "The ID of the region where the scaling group resides.",
+      "description": "The region ID of the scaling group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "heartbeatTimeout",
-      "description": "The timeout period of the lifecycle hook. When the lifecycle hook times out, Auto Scaling performs the default action. Unit: seconds. Valid values: 30 to 21600.\n\nAfter you create a lifecycle hook, you can call the RecordLifecycleActionHeartbeat operation to extend the timeout period of the lifecycle hook. You can also call the [CompleteLifecycleAction](~~73847~~) operation to end the timeout period of the lifecycle hook in advance.\n\nDefault value: 600.",
+      "description": "The wait time that the lifecycle hook sets for the scaling group activity. After the wait state times out, the default policy is executed. Valid values: 30 to 21600. Unit: seconds.\n\nAfter a lifecycle hook is created, you can call this operation to extend the wait time of the ECS instance, or call [CompleteLifecycleAction](~~73847~~) to end the wait state of the scaling activity in advance.\n\nDefault value: 600.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "lifecycleActionToken",
-      "description": "The token that indicates the pending state of a scaling activity. You can obtain this token by using a Message Service (MNS) queue or an MNS topic that is specified for the lifecycle hook.",
+      "description": "The token that indicates the wait state of the scaling activity. You can obtain this token from the details of the message received from the Simple Message Queue (formerly MNS) queue specified by the lifecycle hook when the instance is in the suspended state.\n\nYou can also call [DescribeLifecycleActions](~~202473~~) to obtain this token.\n\nAlternatively, you can obtain this value from the Simple Message Queue (formerly MNS) topic specified by the lifecycle hook.",
       "position": "Query",
       "type": "String",
       "required": true

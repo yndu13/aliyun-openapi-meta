@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "Definition",
-      "description": "The definition of the workflow. The definition must comply with the flow definition language (FDL) syntax. Considering compatibility, the system supports two flow definition specifications.\n\n>  In the preceding flow definition example, Name:my_flow_name is the workflow name, which must be consistent with the input parameter Name",
+      "description": "The definition of the flow. It must comply with the Flow Definition Language (FDL) syntax. For forward compatibility, the system supports two versions of the flow definition specification.\n\n> In the example flow definitions, Name: my\\_flow\\_name refers to the flow name and must be the same as the Name input parameter.",
       "position": "Body",
       "type": "String",
       "required": true
@@ -21,42 +21,48 @@
     },
     {
       "name": "Environment",
-      "description": "",
+      "description": "The environment context that the flow can access during execution.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ExecutionMode",
-      "description": "The execution mode. Valid values: Express and Standard. Considering compatibility, an empty string is equivalent to the Standard execution mode.",
+      "description": "The execution mode. This is an enumeration type. Valid values are Express and Standard. For forward compatibility, an empty string is treated as the Standard execution mode.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ExternalStorageLocation",
-      "description": "The path of the external storage.",
+      "description": "The external storage location.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the flow. The name is unique within the same region and cannot be modified after the flow is created. Set this parameter based on the following rules:\n\n*   The name can contain letters, digits, underscores (\\_), and hyphens (-).\n*   The name must start with a letter or an underscore (\\_).\n*   The name is case-sensitive.\n*   The name must be 1 to 128 characters in length.",
+      "description": "The name of the flow. The name must be unique within the same region and cannot be changed after the flow is created. The name must meet the following requirements:\n\n- It can contain letters (a to z and A to Z), digits (0 to 9), underscores (\\_), and hyphens (-).\n\n- It must start with a letter or an underscore (\\_).\n\n- It is case-sensitive.\n\n- It must be 1 to 128 characters in length.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
+      "name": "ResourceGroupId",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "RoleArn",
-      "description": "The Alibaba Cloud resource name (ARN) of the authorized role on which the execution of the flow relies. During the execution of the flow, CloudFlow assumes the role to call API operations of relevant services.",
+      "description": "The resource descriptor for the role that the flow relies on for execution. When the flow runs, Serverless Workflow assumes this role (AssumeRole) to operate on related flow resources.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the flow. Set this parameter to **FDL**.",
+      "description": "The type of the flow. The value must be **FDL**.",
       "position": "Body",
       "type": "String",
       "required": true

@@ -1,5 +1,6 @@
 {
   "name": "ExportVul",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -7,6 +8,13 @@
     {
       "name": "AliasName",
       "description": "漏洞名称。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AssetType",
+      "description": "漏洞所在资产类型。多个类型使用半角逗号（,）分隔。取值：\n- **ECS**：主机资产\n- **CONTAINER**：容器资产",
       "position": "Query",
       "type": "String",
       "required": false
@@ -96,8 +104,15 @@
       "required": false
     },
     {
+      "name": "ResourceDirectoryAccountId",
+      "description": "资源目录账户ID",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "SearchTags",
-      "description": "按照标签过滤。取值：\n\n<props=\"china\">\n- 需要重启\n- 远程利用\n- 存在EXP\n- 可被利用\n- 本地提权\n- 代码执行\n</props>\n\n<props=\"intl\">\n- **Restart required**\n- **Remote utilization**\n- **EXP exists**\n- **Available**\n- **Elevation of Privilege**\n- **Code Execution**\n\n</props>",
+      "description": "按照标签过滤。取值：\n\n<props=\"china\">\n- 需要重启\n- 远程利用\n- 存在EXP\n- 可被利用\n- 本地提权\n- 代码执行\n</props>\n\n<props=\"intl\">\n- **Restart required**\n- **Remote utilization**\n- **EXP exists**\n- **Available**\n- **Elevation of Privilege**\n- **Code Execution**\n\n</props>\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -132,12 +147,14 @@
       "sub_parameters": [
         {
           "name": "EntityName",
+          "description": "组件名称",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EntityVersion",
+          "description": "组件版本",
           "position": "Query",
           "type": "String",
           "required": false

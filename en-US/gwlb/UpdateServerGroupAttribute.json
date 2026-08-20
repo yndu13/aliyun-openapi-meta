@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate a token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. The **RequestId** may be different for each request.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -21,28 +21,28 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckConfig",
-      "description": "The health check configuration.",
+      "description": "The configurations of health checks.",
       "position": "Body",
       "type": "Struct",
       "required": false
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **5TCH**: specifies consistent hashing that is based on the following factors: source IP address, destination IP address, source port, protocol, and destination port. Requests that contain the same information based on the preceding factors are forwarded to the same backend server.\n*   **3TCH**: indicates consistent hashing that is based on the following factors: source IP address, destination IP address, and protocol. Requests that contain the same information based on the preceding factors are forwarded to the same backend server.\n*   **2TCH**: specifies consistent hashing that is based on the following factors: source IP address and destination IP address. Requests that contain the same information based on the preceding factors are forwarded to the same backend server.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **5TCH**: 5-tuple hashing. Packets are distributed to backend servers based on a 5-tuple hash of the source IP address, destination IP address, source port, destination port, and protocol. This ensures that the same stream is always scheduled to the same backend server.\n\n- **3TCH**: 3-tuple hashing. Packets are distributed to backend servers based on a 3-tuple hash of the source IP address, destination IP address, and protocol. This ensures that the same stream is always scheduled to the same backend server.\n\n- **2TCH**: 2-tuple hashing. Packets are distributed to backend servers based on a 2-tuple hash of the source IP address and destination IP address. This ensures that the same stream is always scheduled to the same backend server.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerFailoverMode",
-      "description": "Specifies how GWLB processes requests over existing connections when a backend server is not running as expected. Valid values:\n\n*   **NoRebalance**: GWLB continues to forward requests over existing connections to the unavailable backend server.\n*   **Rebalance**: GWLB forwards requests over existing connections to the remaining healthy backend servers.",
+      "description": "The method that is used to handle existing connections when a backend server is exceptional. Valid values:\n\n- **NoRebalance**: Existing connections are not rebalanced.\n\n- **Rebalance**: Existing connections are rebalanced.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -56,7 +56,7 @@
     },
     {
       "name": "ServerGroupName",
-      "description": "The server group name.\n\nThe name must be 2 to 128 characters in length, and can contain digits, periods (.), underscores (\\_), and hyphens (-). It must start with a letter.",
+      "description": "The name of the server group.\n\nThe name must be 2 to 128 characters in length, start with a letter or a Chinese character, and can contain digits, periods (.), underscores (\\_), and hyphens (-).",
       "position": "Body",
       "type": "String",
       "required": false

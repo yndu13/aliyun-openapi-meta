@@ -1,0 +1,30 @@
+{
+  "name": "ModifySlsDispatchConfig",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "DetailConfig",
+      "description": "The detailed configuration to modify.\n<details>\n<summary>Format for version 1</summary>\n{\"global\":{\"slsRegionId\":\"ap-southeast-1\",\"logTime\":180,\"logStorage\":1000}}\n</details>\n\n<details>\n<summary>Format for version 2</summary>\n{\"cn\":{\"slsRegionId\":\"ap-southeast-1\",\"logTime\":180,\"logStorage\":3000},\"intl\":{\"slsRegionId\":\"ap-southeast-1\",\"logTime\":180,\"logStorage\":2000}}\n</details>\nThe fields are described as follows:\n\n- slsRegionId: The region ID to which logs are delivered.\n- logTime: The storage duration of logs. Unit: days.\n- logStorage: The log storage capacity. Unit: GB. The total capacity specified must not exceed the total capacity purchased by the user.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "LogVersion",
+      "description": "The log version. A value of 1 indicates one Logstore. A value of 2 indicates two Logstores.\n\n\n><notice>If ModifyType is set to version, set LogVersion to the target version. If ModifyType is set to config, set LogVersion to the current version of the user.></notice>",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "ModifyType",
+      "description": "The modification type. Valid values:\n\n- version: The version is changed. For example, the version is changed from 1 (logs are delivered to one Logstore) to 2 (logs are delivered to two Logstores).\n\n- config: The configuration is changed. For example, the log delivery region or the storage duration of logs is modified.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

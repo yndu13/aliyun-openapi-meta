@@ -1,5 +1,6 @@
 {
   "name": "RefreshObjectCaches",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "ObjectPath",
-      "description": "- 单次提交多个URL或多个目录时，使用换行符（\\n）或（\\r\\n）分隔。\n- 单次提交的任务中所有URL的域名个数总和需要在10个以内。",
+      "description": "- 单次提交多个URL或多个目录时，使用换行符分隔。\n- 单次提交的任务中所有URL的域名个数总和需要在10个以内。",
       "position": "Body",
       "type": "String",
       "required": true
@@ -21,6 +22,13 @@
     {
       "name": "ObjectType",
       "description": "刷新类型。取值范围：\n\n- **File**（默认值）：URL。\n- **Directory**：目录。\n- **Regex**：正则刷新。\n- **IgnoreParams**：去参数刷新。去参数指的是去除请求URL中`?`及`?`之后的参数，去参数刷新指的是用户先通过接口提交去参数后的URL，然后用户提交的待刷新URL将会与已缓存资源的URL进行去参数匹配，如果已缓存资源的URL去参数以后与待刷新URL匹配，那么CDN节点将对缓存资源执行刷新处理。\n\n> - URL刷新和目录刷新的功能说明请参考[刷新和预热资源](~~64936~~)。\n>- 文件刷新将直接删除节点上的资源，当有新请求时回源拉取新资源。其它刷新类型默认只刷新发生变更的资源，需要强制刷新请配置Force参数为true，详见Force参数说明。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ReplicaTag",
+      "description": "参数暂不可用。",
       "position": "Body",
       "type": "String",
       "required": false

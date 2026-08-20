@@ -1,12 +1,13 @@
 {
   "name": "ModifyHostAccount",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "HostAccountId",
-      "description": "The ID of the host account whose information you want to modify.\n\n> You can call the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.",
+      "description": "The ID of the host account to modify.\n\n> You can call the [ListHostAccounts](~~204372~~) operation to obtain this parameter.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -20,21 +21,21 @@
     },
     {
       "name": "HostShareKeyId",
-      "description": "The ID of the shared key that is associated with the host.\n\n>  You can call the [ListHostShareKeys](~~462973~~) operation to query the shared key ID.",
+      "description": "The ID of the shared key for the host.\n> You can call the [ListHostShareKeys](~~462973~~) operation to obtain this ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the bastion host in which you want to modify the information about the host account.\n\n> You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.",
+      "description": "The ID of the bastion host instance where the host account to modify resides.\n\n> You can call the [DescribeInstances](~~153281~~) operation to obtain the bastion host instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PassPhrase",
-      "description": "The passphrase for the new private key of the host account.\n\n>  This parameter is valid only if the protocol used by the host is SSH. You do not need to configure this parameter if the protocol used by the host is Remote Desktop Protocol (RDP).",
+      "description": "The new passphrase of the private key for the host account.\n\n> This parameter takes effect only when the protocol of the host account is SSH. If the protocol is RDP, you do not need to configure this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -48,28 +49,35 @@
     },
     {
       "name": "PrivateKey",
-      "description": "The new private key of the host account. Specify a Base64-encoded string.\n\n>  This parameter takes effect only if the protocol used by the host is SSH. You do not need to configure this parameter if the protocol used by the host is Remote Desktop Protocol (RDP). You can call the [GetHostAccount](~~204391~~) operation to query the protocol used by the host. You can configure a password and a private key for the host account at the same time. If both a password and a private key are configured for the host account, Bastionhost preferentially uses the private key for logon.",
+      "description": "The new private key of the host account. The private key is a Base64-encoded string.\n\n> This parameter takes effect only when the protocol of the host account is SSH. If the protocol is RDP, you do not need to configure this parameter. You can call the [GetHostAccount](~~204391~~) operation to query the protocol used by the host account. You can configure both a password and a private key for the host account. When connecting to an asset, the bastion host preferentially uses the private key.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivilegeType",
-      "description": "",
+      "description": "The privilege type of the account. Valid values:\n- **Privileged**: privileged account.\n- **Normal**: standard account.\n>Only supported in V3.2.47 and later.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "ProjectId",
+      "description": "The ID of the project to which the host of the host account belongs.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "RegionId",
-      "description": "The region ID of the bastion host in which you want to query the details of the host account.\n\n> For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
+      "description": "The region ID of the bastion host instance where the host account to query resides.\n\n> For the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RotationMode",
-      "description": "",
+      "description": "The password rotation mode of the account. Valid values:\n- **Privileged**: uses a privileged account to rotate the password.\n- **Self**: does not use a privileged account to rotate the password.\n>Only supported in V3.2.47 and later.",
       "position": "Query",
       "type": "String",
       "required": false

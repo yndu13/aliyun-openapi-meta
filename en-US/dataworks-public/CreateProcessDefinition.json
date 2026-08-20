@@ -1,0 +1,148 @@
+{
+  "name": "CreateProcessDefinition",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApprovalNodes",
+      "description": "The list of approval nodes.\n",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "AccountType",
+          "description": "The type of approver for the node:\n- DataWorksProjectRole: workspace role.\n- DataWorksProjectMember: workspace member.\n- TableAdministrator: table owner.\n- TableOrProjectAdministrator: table or workspace administrator.\n- AliyunResourceOwner: Alibaba Cloud account.\n- MaxComputeRole: MaxCompute administrator.\n- DLFAdmin: DLF Legacy administrator.\n- DLFNextAdmin: DLF Next administrator.\n- TenantRole: tenant role.\n- EmrAdministrator: EMR administrator.\n- LindormAdministrator: Lindorm administrator.\n- AliyunRamUser: RAM user.\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Assignees",
+          "description": "The semantics of this parameter varies based on the value of `AccountType`:\n- DataWorksProjectMember: the user ID of the workspace member.\n- DataWorksProjectRole: the code of the workspace role. If a custom workspace role is required, set this parameter to \"custom-role\" and further configure the role in ExtensionProperties.\n- MaxComputeRole: the MaxCompute role.\n- TenantRole: the code of the tenant role.\n- AliyunRamUser: the RAM user ID.",
+          "position": "FormData",
+          "type": "RepeatList",
+          "required": false
+        },
+        {
+          "name": "ExtensionProperties",
+          "description": "The additional declarations required based on the value of `AccountType`:\n\n- DataWorksProjectMember: specify different workspace member user IDs. The key is the workspace ID, and the value is the user ID of the workspace member. Separate multiple user IDs with commas (,).\n\n- DataWorksProjectRole: specify different custom workspace role codes. The key is the workspace ID, and the value is the custom workspace role code. Separate multiple role codes with commas (,).\n\n- MaxComputeRole: specify the roles under a MaxCompute project. The key is the MaxCompute project name, and the value is the role name in MaxCompute. Separate multiple role names with commas (,).",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "description": "The name of the node.\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ClientToken",
+      "description": "The idempotency token. We recommend that you use a UUID.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Description",
+      "description": "The description of the process definition.\n",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Enabled",
+      "description": "Specifies whether to enable the process definition.\n",
+      "position": "Body",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Name",
+      "description": "The name of the process definition.\n",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "NotificationServices",
+      "description": "The notification service declarations.",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Channel",
+          "description": "The notification channel. Valid values:\n\n- Mail\n- Sms\n- DingRobot\n- Weixin",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Extension",
+          "description": "The extension information in JSON format. Example: `{\"atAll\":\"true\"}`, which specifies whether to mention all members.\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Receiver",
+          "description": "The WebhookUrl that must be specified when Channel is set to DingRobot or Weixin.\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "RuleConditions",
+      "description": "The list of condition rules.\n",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "Expression",
+          "description": "The condition expression in the format of ((#type=='typeValue')). Example: ((#odpsProject=='PX_BEIJING_TEST')).",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Scope",
+          "description": "The stage at which the rule takes effect:\n- `Deployment`: used to determine whether the approval policy matches when a request is submitted.\n- `Running`: used to determine whether approval is exempted during the execution of the approval process. This value is supported only for the MaxCompute type.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "description": "The condition type. Valid values:\n\n- `odpsProject`\n- `hologresInstanceId`\n- `sensibleLevel`\n- `tableGuid`\n- `projectId`",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "SubType",
+      "description": "The subtype. Valid values:\n\n- Table\n- Column\n- Database\n- Schema\n- Default",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Type",
+      "description": "The type of the process definition. Valid values:\n\n1. MaxCompute\n2. DataService\n3. Extension\n4. Hologres",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

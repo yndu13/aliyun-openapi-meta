@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "AccountName",
-      "description": "The account of the database.\n\n>  You can specify multiple database accounts that are separated by spaces. Example: `user1 user2 user3`.",
+      "description": "The database account.\n\n> You can specify multiple database accounts. Separate multiple accounts with a space. For example: `user1 user2 user3`.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ChildDBInstanceIDs",
-      "description": "The node ID.\n\n>  This parameter must be specified if the database instance is a PolarDB for MySQL cluster.",
+      "description": "The node ID.\n\n> This parameter is required if the database instance is a PolarDB for MySQL cluster.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DBName",
-      "description": "The name of the database.\n\n>  You can specify multiple database names that are separated by spaces. Example: `DB1 DB2 DB3`.",
+      "description": "The database name.\n\n> You can specify multiple database names. Separate multiple names with a space. For example: `DB1 DB2 DB3`.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "End",
-      "description": "The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.\n\n>  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.",
+      "description": "The end of the time range to query. This value must be a Unix timestamp in milliseconds.\n\n> The end time must be later than the start time. The time range cannot exceed one day.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "Fail",
-      "description": "The error code of SQL execution. You can call the [GetAsyncErrorRequestStatByCode](~~409804~~) operation to query MySQL error codes in SQL Explorer data.",
+      "description": "The SQL execution error code. You can call the [GetAsyncErrorRequestStatByCode](~~409804~~) operation to obtain the error code.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "HostAddress",
-      "description": "The IP address of the client.\n\n>  You can specify multiple IP addresses that are separated by spaces. Example: `IP1 IP2 IP3`.",
+      "description": "The client IP address.\n\n> You can specify multiple client IP addresses. Separate multiple IP addresses with a space. For example: `IP1 IP2 IP3`.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -56,14 +56,14 @@
     },
     {
       "name": "LogicalOperator",
-      "description": "The logical relationship among multiple keywords.\n\n*   **or**\n*   **and**",
+      "description": "The logical operator to use with multiple keywords. Valid values:\n\n- **or**\n\n- **and**",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxLatancy",
-      "description": "The maximum execution duration. Unit: microseconds. You can specify this parameter to query the SQL statements whose execution duration is smaller than the value of this parameter.",
+      "description": "The maximum execution time in microseconds. Returns SQL statements that have an execution time less than this value.",
       "position": "Body",
       "type": "Long",
       "required": false
@@ -77,119 +77,119 @@
     },
     {
       "name": "MaxRows",
-      "description": "The reserved parameter. This parameter is not supported.",
+      "description": "A reserved parameter.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "MaxScanRows",
-      "description": "The maximum number of scanned rows. You can specify this parameter to query the SQL statements that scan a smaller number of rows than the value of this parameter.",
+      "description": "The maximum number of scanned rows. Returns SQL statements that scanned fewer than this number of rows.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "MaxSpillCnt",
-      "description": "The reserved parameter. This parameter is not supported.",
+      "description": "A reserved parameter.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "MinLatancy",
-      "description": "The minimum execution duration. Unit: microseconds. You can specify this parameter to query the SQL statements whose execution duration is greater than or equal to the value of this parameter.",
+      "description": "The minimum execution time in microseconds. Returns SQL statements with an execution time greater than or equal to this value.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "MinRows",
-      "description": "The reserved parameter. This parameter is not supported.",
+      "description": "A reserved parameter.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "MinScanRows",
-      "description": "The minimum number of scanned rows. You can specify this parameter to query the SQL statements that scan a larger or an equal number of rows than the value of this parameter.",
+      "description": "The minimum number of scanned rows. Returns SQL statements that scanned at least this number of rows.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "MinSpillCnt",
-      "description": "The reserved parameter. This parameter is not supported.",
+      "description": "A reserved parameter.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "PageNumbers",
-      "description": "The page number. Pages start from page 1. Default value: 1.",
+      "description": "The page number to return. Pages start from 1. The default value is 1.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "QueryKeyword",
-      "description": "The keyword that is used for the query.\n\n>  Fuzzy search is not supported. You can query data by using multiple keywords. Separate keywords with spaces.",
+      "description": "The query keyword.\n\n> Fuzzy search is supported. You can specify up to 10 keywords. Separate multiple keywords with a space. For example: a1 b2 c3.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Role",
-      "description": "The reserved parameter. This parameter is not supported.",
+      "description": "A reserved parameter.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SortKey",
-      "description": "The basis on which you want to sort the query results.\n\n*   **SCAN_ROWS**: the number of scanned rows.\n*   **UPDATE_ROWS**: the number of updated rows.\n*   **CONSUME**: the time consumed.\n*   **ORIGIN_TIME**: the execution duration.",
+      "description": "The sort key. Valid values:\n\n- **ScanRows**: scanned rows.\n\n- **UpdateRows**: updated rows.\n\n- **Consume**: execution time.\n\n- **OriginTime**: The execution start time.\n\n- **ReturnRows**: returned rows.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SortMethod",
-      "description": "The order in which you want to sort the query results.\n\n*   **ase**: ascending order.\n*   **desc**: descending order.",
+      "description": "The sort order. Valid values:\n\n- **ASC**: ascending\n\n- **DESC**: descending",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SqlType",
-      "description": "The type of the SQL statement. Valid values:\n\n*   **SELECT**\n*   **UPDATE**\n*   **DELETE**",
+      "description": "The SQL type.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Start",
-      "description": "The beginning of the time range to query. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.\n\n>  The beginning of the time range to query must be later than the time when DAS Enterprise Edition is enabled, and can be up to seven days earlier than the current time.",
+      "description": "The start of the time range to query. This value must be a Unix timestamp in milliseconds.\n\n> You can query only data that is generated after you enable DAS Enterprise Edition. The start time cannot be earlier than seven days before the current time.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "State",
-      "description": "The execution results. You can specify **0** to query the SQL statements that are successfully executed. You can also specify an error code to query the corresponding SQL statements that fail to be executed.",
+      "description": "The execution state. Set this parameter to **0** to query for successfully executed SQL statements. You can also specify an error code to query for the corresponding SQL statements.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ThreadID",
-      "description": "The thread ID.\n\n>  You can specify multiple thread IDs that are separated by spaces. Example: `Thread ID1 Thread ID2 Thread ID3`.",
+      "description": "The thread ID.\n\n> You can specify multiple thread IDs. Separate multiple IDs with a space. For example: `657 658 659`.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TraceId",
-      "description": "The reserved parameter. This parameter is not supported.",
+      "description": "A reserved parameter.",
       "position": "Body",
       "type": "String",
       "required": false

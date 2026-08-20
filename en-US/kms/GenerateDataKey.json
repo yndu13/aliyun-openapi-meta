@@ -7,44 +7,37 @@
   "parameters": [
     {
       "name": "DryRun",
-      "description": "",
+      "description": "Specifies whether to enable the DryRun mode.\n\n- true: enables the DryRun mode.\n\n- false (default): disables the DryRun mode.\n\nThe DryRun mode is used to test the API call. It verifies whether you have the permissions to access the specified resources and whether the request parameters are valid. If you enable the DryRun mode, KMS always returns a failure response and a failure reason. The failure reasons include the following:\n\n- DryRunOperationError: The request succeeds if the DryRun parameter is not specified.\n\n- ValidationError: The parameters specified in the request are invalid.\n\n- AccessDeniedError: You are not authorized to perform this operation on the KMS resource.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EncryptionContext",
-      "description": "The JSON string that consists of key-value pairs.\n\nIf you specify this parameter, an equivalent value is required when you call the [Decrypt](~~28950~~) operation. For more information, see [EncryptionContext](~~42975~~).",
+      "description": "A JSON string that consists of key-value pairs.\n\nIf you specify this parameter, you must also specify the same parameter when you call the [Decrypt](~~28950~~) operation. For more information, see [EncryptionContext](~~42975~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KeyId",
-      "description": "The ID of the CMK. The ID must be globally unique.\n\nYou can also set this parameter to an alias that is bound to the CMK. For more information, see [Alias overview](~~68522~~).",
+      "description": "The ID of the key. You can also specify the alias or the key resource name (ARN) of the key. For more information about aliases, see [Manage aliases](~~480655~~).\n\n> When you access a key in another Alibaba Cloud account, you must enter the ARN of the key. The key ARN is in the format of `acs:kms:${region}:${account}:key/${keyid}`.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "KeySpec",
-      "description": "The type of the data key that you want to generate. Valid values:\n\n*   AES\\_256: a 256-bit symmetric key\n*   AES\\_128: a 128-bit symmetric key\n\n>  We recommend that you use the KeySpec or NumberOfBytes parameter to specify the length of a data key. If none of the parameters are specified, KMS generates a 256-bit data key. If both parameters are specified, KMS ignores the KeySpec parameter.",
+      "description": "The length of the data key to be generated. Valid values:\n\n- AES\\_256: a 256-bit symmetric key.\n\n- AES\\_128: a 128-bit symmetric key.\n\n> We recommend that you use the KeySpec or NumberOfBytes parameter to specify the length of a data key. If you do not specify either of the parameters, KMS generates a 256-bit data key. If you specify both parameters, KMS ignores the KeySpec parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NumberOfBytes",
-      "description": "The length of the data key that you want to generate. Unit: bytes.\n\nValid values: 1 to 1024.\n\nDefault value:\n\n*   If the KeySpec parameter is set to AES\\_256, set the value of the NumberOfBytes parameter to 32.\n*   If the KeySpec parameter is set to AES\\_128, set the value of the NumberOfBytes parameter to 16.",
+      "description": "The length of the data key that you want to generate. Unit: bytes.\n\nValid values: 1 to 1024.\n\nDefault values:\n\n- If you set KeySpec to AES\\_256, the default value of NumberOfBytes is 32.\n\n- If you set KeySpec to AES\\_128, the default value of NumberOfBytes is 16.",
       "position": "Query",
       "type": "Integer",
-      "required": false
-    },
-    {
-      "name": "Recipient",
-      "description": "",
-      "position": "Query",
-      "type": "String",
       "required": false
     }
   ]

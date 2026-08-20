@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "AclAction",
-      "description": "The action that Cloud Firewall performs on the traffic.\n\nValid values:\n\n*   **accept**: allows the traffic.\n*   **drop**: denies the traffic.\n*   **log**: monitors the traffic.",
+      "description": "The action that Cloud Firewall performs on traffic that matches the access control policy.\n\nValid values:\n\n- **accept**: Allows the traffic.\n\n- **drop**: Drops the traffic.\n\n- **log**: Logs the traffic.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ApplicationNameList",
-      "description": "The application types supported by the access control policy.",
+      "description": "The list of applications to which the access control policy applies.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
@@ -28,147 +28,147 @@
     },
     {
       "name": "DestPort",
-      "description": "The destination port in the access control policy. Valid values:\n\n*   If Proto is set to ICMP, DestPort is automatically left empty.\n\n> If Proto is set to ICMP, access control does not take effect on the destination port.\n\n*   If Proto is set to TCP, UDP, or ANY and DestPortType is set to group, DestPort is empty.\n\n> If DestPortType is set to group, you do not need to specify the destination port number. All ports on which the access control policy takes effect are included in the destination port address book.\n\n*   If Proto is set to TCP, UDP, or ANY and DestPortType is set to port, the value of DestPort is the destination port number.",
+      "description": "The destination port for the traffic. The value of this parameter depends on the `Proto` and `DestPortType` parameters.\n\n- If `Proto` is `ICMP`, leave this parameter empty.\n\n> Access control cannot be configured based on the destination port for ICMP traffic.\n\n- If the destination port type (`DestPortType`) is `group`, leave this parameter empty.\n\n> If `DestPortType` is set to `group`, you do not need to specify a destination port because the required ports are defined in the selected port address book.\n\n- If the protocol is TCP, UDP, or ANY and the destination port type (`DestPortType`) is `port`, specify the destination port number.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestPortGroup",
-      "description": "The name of the destination port address book in the access control policy.\n\n> If DestPortType is set to group, you must specify the name of the destination port address book.",
+      "description": "The name of the destination port address book.\n\n> This parameter is required if `DestPortType` is set to `group`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestPortType",
-      "description": "The type of the destination port in the access control policy. Valid values:\n\n*   **port**: port\n*   **group**: port address book",
+      "description": "The type of the destination port.\n\n- **port**: Port or port range\n\n- **group**: Port address book",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Destination",
-      "description": "The destination address in the access control policy.\n\nValid values:\n\n*   If DestinationType is set to net, the value of this parameter is a CIDR block.\n\n    Example: 1.2.XX.XX/24\n\n*   If DestinationType is set to group, the value of this parameter is an address book.\n\n    Example: db_group\n\n*   If DestinationType is set to domain, the value of this parameter is a domain name.\n\n    Example: \\*.aliyuncs.com\n\n*   If DestinationType is set to location, the value of this parameter is a location.\n\n    Example: \\[\"BJ11\", \"ZB\"]",
+      "description": "The destination address in the access control policy.\n\nThe value of this parameter varies based on the value of `DestinationType`:\n\n- If `DestinationType` is `net`, set this parameter to the destination CIDR.\n\n  Example: `1.2.XX.XX/24`\n\n- If `DestinationType` is `group`, set this parameter to the name of the destination address book.\n\n  Example: `db_group`\n\n- If `DestinationType` is `domain`, set this parameter to the destination domain.\n\n  Example: \\*.aliyuncs.com\n\n- If `DestinationType` is `location`, set this parameter to the destination location.\n\n  Example: \\[\"BJ11\", \"ZB\"]",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DestinationType",
-      "description": "The type of the destination address in the access control policy.\n\nValid values:\n\n*   **net**: CIDR block\n*   **group**: address book\n*   **domain**: domain name",
+      "description": "The type of the destination address in the access control policy.\n\nValid values:\n\n- **net**: Destination CIDR\n\n- **group**: Destination address book\n\n- **domain**: Destination domain",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Direction",
-      "description": "The direction of the traffic to which the access control policy applies. Valid value:\n\n*   **out**: outbound.",
+      "description": "The traffic direction for the access control policy. Valid values:\n\n- **out**: outbound traffic",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DomainResolveType",
-      "description": "The domain name resolution method of the access control policy. Valid values:\n\n*   **0**: fully qualified domain name (FQDN)-based resolution\n*   **1**: Domain Name System (DNS)-based dynamic resolution\n*   **2**: FQDN and DNS-based dynamic resolution",
+      "description": "The domain name resolution method. Valid values:\n\n- **0**: FQDN-based resolution\n\n- **1**: Dynamic DNS-based resolution\n\n- **2**: FQDN-based and dynamic DNS-based resolution\n\n> If the resolution method includes FQDN, you can set the protocol only to TCP. The supported applications are HTTP, HTTPS, SMTP, SMTPS, and SSL.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The time when the access control policy stops taking effect. The value is a UNIX timestamp. Unit: seconds. The value must be on the hour or on the half hour, and at least 30 minutes later than the value of StartTime.\n\n>  If RepeatType is set to Permanent, EndTime is left empty. If RepeatType is set to None, Daily, Weekly, or Monthly, this parameter must be specified.",
+      "description": "The end time of the policy's validity period, specified as a Unix timestamp. The time must be on the hour or half-hour and be at least 30 minutes after the start time.\n\n> This parameter is required if `RepeatType` is `None`, `Daily`, `Weekly`, or `Monthly`. If `RepeatType` is `Permanent`, leave this parameter empty.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "IpVersion",
-      "description": "The IP version supported by the access control policy. Valid values:\n\n*   **4**: IPv4 (default)",
+      "description": "The IP version for the access control policy. Valid values:\n\n- **4** (default): IPv4",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language of the content within the response.\n\nValid values:\n\n*   **zh**: Chinese (default)\n*   **en**: English",
+      "description": "The language of the response messages.\n\nValid values:\n\n- **zh**: Chinese (default)\n\n- **en**: English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NatGatewayId",
-      "description": "The ID of the NAT gateway.",
+      "description": "The instance ID of the NAT Gateway.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "NewOrder",
-      "description": "The priority of the access control policy. The priority value starts from 1. A small priority value indicates a high priority.",
+      "description": "The priority of the access control policy. Values start from 1. A smaller value indicates a higher priority.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Proto",
-      "description": "The protocol type in the access control policy.\n\nValid values:\n\n*   ANY: all types of protocols.\n*   TCP\n*   UDP\n*   ICMP\n\n>  If the destination address is a threat intelligence address book of the domain name type or a cloud service address book, you can set Proto only to TCP and set ApplicationNameList to HTTP, HTTPS, SMTP, SMTPS, or SSL.",
+      "description": "The protocol for the traffic in the access control policy.\n\nValid values:\n\n- ANY: all protocols\n\n- TCP\n\n- UDP\n\n- ICMP\n\n> If the destination is a domain, a threat intelligence address book, or a cloud service address book, you can only set this parameter to `TCP`. The supported application types are HTTP, HTTPS, SMTP, SMTPS, and SSL.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Release",
-      "description": "Specifies whether to enable the access control policy. By default, an access control policy is enabled after it is created. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether the access control policy is enabled. By default, policies are enabled upon creation. Valid values:\n\n- **true**: Enables the policy.\n\n- **false**: Disables the policy.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatDays",
-      "description": "The days of a week or of a month on which the access control policy takes effect.\n\n*   If RepeatType is set to `Permanent`, `None`, or `Daily`, RepeatDays is left empty. Example: \\[].\n*   If RepeatType is set to Weekly, RepeatDays must be specified. Example: \\[0, 6].\n\n>  If RepeatType is set to Weekly, the fields in the value of RepeatDays cannot be repeated.\n\n*   If RepeatType is set to `Monthly`, RepeatDays must be specified. Example: \\[1, 31].\n\n>  If RepeatType is set to Monthly, the fields in the value of RepeatDays cannot be repeated.",
+      "description": "The days of the week or month on which the policy recurs.\n\n- If `RepeatType` is set to `Permanent`, `None`, or `Daily`, leave this parameter empty. Example: `[]`\n\n- If `RepeatType` is `Weekly`, this parameter is required. Example: `[0, 6]`\n\n> If `RepeatType` is `Weekly`, the values in `RepeatDays` must be unique.\n\n- If `RepeatType` is `Monthly`, this parameter is required. Example: `[1, 31]`\n\n> If `RepeatType` is `Monthly`, the values in `RepeatDays` must be unique.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "RepeatEndTime",
-      "description": "The point in time when the recurrence ends. Example: 23:30. The value must be on the hour or on the half hour, and at least 30 minutes later than the value of RepeatStartTime.\n\n>  If RepeatType is set to Permanent or None, RepeatEndTime is left empty. If RepeatType is set to Daily, Weekly, or Monthly, this parameter must be specified.",
+      "description": "The end time of the recurrence. The time must be on the hour or half-hour, and must be at least 30 minutes later than the start time.\n\n> This parameter is required if `RepeatType` is set to `Daily`, `Weekly`, or `Monthly`. If `RepeatType` is `Permanent` or `None`, leave this parameter empty.\n> The time is in the HH:mm format (24-hour). For example, `08:00` or `23:30`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatStartTime",
-      "description": "The point in time when the recurrence starts. Example: 08:00. The value must be on the hour or on the half hour, and at least 30 minutes earlier than the value of RepeatEndTime.\n\n>  If RepeatType is set to Permanent or None, RepeatStartTime is left empty. If RepeatType is set to Daily, Weekly, or Monthly, this parameter must be specified.",
+      "description": "The start time of the recurrence. The time must be on the hour or half-hour, and must be at least 30 minutes earlier than the end time.\n\n> This parameter is required if `RepeatType` is set to `Daily`, `Weekly`, or `Monthly`. If `RepeatType` is `Permanent` or `None`, leave this parameter empty.\n> The time is in the HH:mm format (24-hour). For example, `08:00` or `23:30`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatType",
-      "description": "The recurrence type for the access control policy to take effect. Valid values:\n\n*   **Permanent** (default): The policy always takes effect.\n*   **None**: The policy takes effect for only once.\n*   **Daily**: The policy takes effect on a daily basis.\n*   **Weekly**: The policy takes effect on a weekly basis.\n*   **Monthly**: The policy takes effect on a monthly basis.",
+      "description": "The recurrence type for the policy validity period. Valid values:\n\n- **Permanent** (default): The policy is always active.\n\n- **None**: The policy runs once for a specified duration.\n\n- **Daily**: The policy recurs daily.\n\n- **Weekly**: The policy recurs weekly within a specified time range.\n\n- **Monthly**: The policy recurs monthly within a specified time range.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Source",
-      "description": "The source address in the access control policy.\n\nValid values:\n\n*   If **SourceType** is set to `net`, the value of Source is a CIDR block.\n\n    Example: 10.2.4.0/24\n\n*   If **SourceType** is set to `group`, the value of this parameter must be an address book name.\n\n    Example: db_group",
+      "description": "The source address in the access control policy.\n\nThe value of this parameter varies based on the value of `SourceType`:\n\n- If **SourceType** is `net`, set this parameter to the source CIDR.\n\n  Example: 10.2.4.0/24\n\n- If **SourceType** is `group`, set this parameter to the name of the source address book.\n\n  Example: db\\_group",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SourceType",
-      "description": "The type of the source address in the access control policy.\n\nValid values:\n\n*   **net**: source CIDR block\n*   **group**: source address book",
+      "description": "The type of the source address in the access control policy.\n\nValid values:\n\n- **net**: Source CIDR\n\n- **group**: Source address book",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StartTime",
-      "description": "The time when the access control policy starts to take effect. The value is a UNIX timestamp. Unit: seconds. The value must be on the hour or on the half hour, and at least 30 minutes earlier than the value of EndTime.\n\n>  If RepeatType is set to Permanent, StartTime is left empty. If RepeatType is set to None, Daily, Weekly, or Monthly, this parameter must be specified.",
+      "description": "The start time of the policy's validity period, specified as a Unix timestamp. The time must be on the hour or half-hour and be at least 30 minutes before the end time.\n\n> This parameter is required if `RepeatType` is `None`, `Daily`, `Weekly`, or `Monthly`. If `RepeatType` is `Permanent`, leave this parameter empty.",
       "position": "Query",
       "type": "Long",
       "required": false

@@ -34,6 +34,12 @@
       "required": false
     },
     {
+      "name": "EnableFirstFrameCover",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "FileName",
       "description": "待上传的音/视频源文件地址。\n\n- 必须带扩展名，且扩展名不区分大小写。\n- 支持的扩展名，请参见[上传概述](~~55396~~)。",
       "position": "Query",
@@ -45,6 +51,12 @@
       "description": "待上传的音/视频源文件的大小。单位：字节。",
       "position": "Query",
       "type": "Long",
+      "required": false
+    },
+    {
+      "name": "GenerateThumbnail",
+      "position": "Query",
+      "type": "Boolean",
       "required": false
     },
     {
@@ -70,7 +82,7 @@
     },
     {
       "name": "TemplateGroupId",
-      "description": "转码模板组ID。可通过以下方式获取：\n- 登录[点播控制台](https://vod.console.aliyun.com)，选择**配置管理** > **媒体处理配置** > **转码模板组**查看转码模板组ID。\n- 通过[创建转码模板组](~~102665~~)接口创建转码模板组时，转码模板组ID为返回参数TranscodeTemplateGroupId的值。\n- 通过[查询转码配置列表](~~102669~~)接口查询转码模板组时，为请求后返回参数TranscodeTemplateGroupId的值。\n\n>- 如果同时传递了WorkflowId和TemplateGroupId，以WorkflowId为准。\n>- 若不传入本参数，则按默认的转码模板组进行转码；若传入了转码模板组ID时，则按指定的模板组进行转码。\n>- 若设置为系统内置的**不转码**模板组，则音视频上传后，仅有[视频上传完成 ](~~55630~~)的事件通知，没有[单个清晰度转码完成](~~55636~~)的事件通知。\n>- 为确保正常播放，当设置为系统内置的**不转码**模板组，则视音频上传完成后，仅以下格式支持不转码直接播放：MP4、FLV、MP3、M3U8、WEBM，其他格式仅支持存储（关注FileName的扩展名）；若使用阿里云播放器播放，则版本须为3.1.0或以上。",
+      "description": "转码模板组ID。可通过以下方式获取：\n- 登录[点播控制台](https://vod.console.aliyun.com)，选择**配置管理** > **媒体处理配置** > **转码模板组**查看转码模板组ID。\n- 通过[创建转码模板组](~~102665~~)接口创建转码模板组时，转码模板组ID为返回参数TranscodeTemplateGroupId的值。\n- 通过[查询转码配置列表](~~102669~~)接口查询转码模板组时，为请求后返回参数TranscodeTemplateGroupId的值。\n\n>- 如果同时传递了WorkflowId和TemplateGroupId，以WorkflowId为准。\n>- 若不传入本参数，则按默认的转码模板组进行转码；若传入了转码模板组ID时，则按指定的模板组进行转码。\n>- 若设置为系统内置的**不转码**模板组，则音视频上传后，仅有[视频上传完成 ](~~55630~~)的事件通知，没有[单个清晰度转码完成](~~55636~~)的事件通知。\n> - 该参数任务为[异步任务](~~3027551~~)，提交后任务尚未完成，任务将进入后台排队异步执行。\n>- 为确保正常播放，当设置为系统内置的**不转码**模板组，则视音频上传完成后，仅以下格式支持不转码直接播放：MP4、FLV、MP3、M3U8、WEBM，其他格式仅支持存储（关注FileName的扩展名）；若使用阿里云播放器播放，则版本须为3.1.0或以上。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -84,14 +96,14 @@
     },
     {
       "name": "UserData",
-      "description": "自定义设置。为JSON字符串，支持消息回调、上传加速等设置。更多信息，请参见[UserData](~~86952~~)。\n\n> - 此参数中消息回调的使用前提是需要在控制台配置HTTP回调地址和勾选对应的回调事件类型才能使用，否则回调设置不生效。控制台配置HTTP回调的操作，请参考[回调设置](~~86071~~)。\n> - 如需使用上传加速功能，您需要[填写宜搭信息](https://yida.alibaba-inc.com/o/ticketapply)申请开通，更多信息，请参见[上传相关说明](~~55396~~)。",
+      "description": "自定义设置。为JSON字符串，支持消息回调、上传加速等设置。更多信息，请参见[UserData](~~86952~~)。\n\n> - 此参数中消息回调的使用前提是需要在控制台配置HTTP回调地址和勾选对应的回调事件类型才能使用，否则回调设置不生效。同时后续任务未指定回调地址时，均默认推送至此地址。控制台配置HTTP回调的操作，请参考[回调设置](~~86071~~)。\n> - 如需使用上传加速功能，您需要[填写宜搭信息](https://yida.alibaba-inc.com/o/ticketapply)申请开通，更多信息，请参见[上传相关说明](~~55396~~)。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WorkflowId",
-      "description": "工作流ID。可登录[点播控制台](https://vod.console.aliyun.com)，选择**配置管理** > **媒体处理配置** > **工作流管理**查看工作流ID。\n\n> 如果同时传递了WorkflowId和TemplateGroupId，以WorkflowId为准。使用说明，请参见[工作流](~~115347~~)。",
+      "description": "工作流ID。可登录[点播控制台](https://vod.console.aliyun.com)，选择**配置管理** > **媒体处理配置** > **工作流管理**查看工作流ID。\n\n> - 如果同时传递了WorkflowId和TemplateGroupId，以WorkflowId为准。使用说明，请参见[工作流](~~115347~~)。\n> - 该参数任务为[异步任务](~~3027551~~)，提交后任务尚未完成，任务将进入后台排队异步执行。",
       "position": "Query",
       "type": "String",
       "required": false

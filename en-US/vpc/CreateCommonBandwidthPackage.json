@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "Bandwidth",
-      "description": "The maximum bandwidth of the Internet Shared Bandwidth instance. Unit: Mbit/s.\n\nValid values: **1** to **1000**. Default value: **1**.",
+      "description": "The maximum bandwidth of the Internet Shared Bandwidth instance. Unit: Mbit/s. \n\n<props=\"intl\"><ph>Default value range: **1** to **1000**. Default value: **1**.</ph></props>\n\n<props=\"china\">\n\n- If **InternetChargeType** is set to **PayByBandwidth**, which indicates that the billing method of the Internet Shared Bandwidth instance is pay-by-bandwidth, the default value range of **Bandwidth** is **2** to **20000**.\n- If **InternetChargeType** is set to **PayBy95**, which indicates that the billing method of the Internet Shared Bandwidth instance is enhanced 95th percentile billing, the default value range of **Bandwidth** is **200** to **20000**.\n- If **InternetChargeType** is set to **PayByDominantTraffic**, which indicates that the billing method of the Internet Shared Bandwidth instance is pay-by-dominant-traffic, the default value range of **Bandwidth** is **1** to **2000**.\n\n Default value: **1000**.\n</props>",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,14 +28,14 @@
     },
     {
       "name": "ISP",
-      "description": "The line type. Valid values:\n\n*   **BGP** (default) All regions support BGP (Multi-ISP).\n*   **BGP_PRO** BGP (Multi-ISP) Pro lines are available in the China (Hong Kong), Singapore, Japan (Tokyo), Philippines (Manila), Malaysia (Kuala Lumpur), Indonesia (Jakarta), and Thailand (Bangkok) regions.\n\nIf you are allowed to use single-ISP bandwidth, you can also use one of the following values:\n\n*   **ChinaTelecom**\n*   **ChinaUnicom**\n*   **ChinaMobile**\n*   **ChinaTelecom_L2**\n*   **ChinaUnicom_L2**\n*   **ChinaMobile_L2**\n\nIf your services are deployed in China East 1 Finance, this parameter is required and you must set the value to **BGP_FinanceCloud**.",
+      "description": "The line type. Valid values:\n- **BGP** (default): BGP (multi-ISP) lines. BGP (multi-ISP) lines are supported in all regions.\n- **BGP_PRO**: BGP (multi-ISP) premium lines. Currently, BGP (multi-ISP) premium Internet Shared Bandwidth instances are supported only in the Hong Kong (China), Singapore, Japan (Tokyo), Philippines (Manila), Malaysia (Kuala Lumpur), Indonesia (Jakarta), and Thailand (Bangkok) regions.\n\nIf you are a single-ISP bandwidth whitelist user, you can also select the following types:\n- **ChinaTelecom**: China Telecom\n- **ChinaUnicom**: China Unicom\n- **ChinaMobile**: China Mobile\n- **ChinaTelecom_L2**: China Telecom L2\n- **ChinaUnicom_L2**: China Unicom L2\n- **ChinaMobile_L2**: China Mobile L2\n\nIf you are an Alibaba Finance Cloud user in Hangzhou, this parameter is required. Set the value to **BGP_FinanceCloud**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetChargeType",
-      "description": "The billing method of the Internet Shared Bandwidth instance. Set the value to **PayByTraffic**, which specifies the pay-by-data-transfer billing method.",
+      "description": "The billing method of the Internet Shared Bandwidth instance. Valid values:\n</props><props=\"intl\">**PayByTraffic** (pay-by-data-transfer).</props>\n\n<props=\"china\">\n\n- **PayByBandwidth** (default): pay-by-bandwidth.\n- **PayBy95**: pay-by-enhanced-95th-percentile.\n- **PayByDominantTraffic**: pay-by-dominant-traffic.\n</props>",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,7 +49,7 @@
     },
     {
       "name": "Ratio",
-      "description": "The percentage of the minimum bandwidth commitment. Set the parameter to **20**.\n\n> This parameter is available only on the Alibaba Cloud China site.",
+      "description": "The minimum bandwidth commitment percentage of the Internet Shared Bandwidth instance. Set the value to **20**.\n\n <props=\"china\"><ph>This parameter is required when **InternetChargeType** is set to **PayBy95**.</ph></props>\n>This parameter is supported only on the China site.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -63,33 +63,35 @@
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityProtectionTypes",
-      "description": "",
+      "description": "The edition of Anti-DDoS.\n\n- If you leave this parameter empty, Anti-DDoS Origin Basic is used by default.\n\n- If you set this parameter to **AntiDDoS_Enhanced**, Anti-DDoS Origin Enhanced is used.\n\n<props=\"china\"><ph>You can set this parameter when **InternetChargeType** is set to **PayBy95**.</ph></props>\n\nYou can add up to 10 security protection levels.\n\n> This parameter is deprecated.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The list of tags for the Internet Shared Bandwidth instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nA tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -98,7 +100,7 @@
     },
     {
       "name": "Zone",
-      "description": "The zone of the Internet Shared Bandwidth instance. This parameter is required if you create an Internet Shared Bandwidth instance for a cloud box.",
+      "description": "The zone of the Internet Shared Bandwidth instance.\nThis parameter is required when you create an Internet Shared Bandwidth instance for a cloud box.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -21,7 +21,14 @@
     },
     {
       "name": "Ipv6",
-      "description": "Ipv6开关。",
+      "description": "Ipv6开关，默认关闭。取值范围：\n- on：开启。\n- off：关闭。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "KeepAliveProtection",
+      "description": "是否开启连接保持防护，默认关闭。取值范围：\n\n- on: 开启。\n- off: 关闭。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -42,42 +49,49 @@
       "sub_parameters": [
         {
           "name": "ClientIPPassThroughMode",
+          "description": "客户端IP传递协议，支持：\n- **off**: 不传递。\n- **PPv1**: PROXY Protocol v1协议，支持TCP协议的客户端IP传递。\n- **PPv2**: PROXY Protocol v2协议，支持TCP和UDP协议的客户端IP传递。\n- **SPP**: Simple Proxy Protocol协议，支持UDP协议的客户端IP传递。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Comment",
+          "description": "规则的备注信息（可选）。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EdgePort",
+          "description": "边缘端口。支持：\n\n- 单个端口，例如80。\n- 端口范围，例如 81-85，代表端口 81、82、83、84、85。\n- 端口和端口范围组合，端口、端口范围之间用逗号分隔，例如80,81-85,90，代表端口80、81、82、83、84、85、90。\n\n单个规则的边缘端口以及多个规则之间的边缘端口不允许重叠。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Protocol",
+          "description": "转发规则协议，取值：\n\n- TCP：TCP协议。\n- UDP：UDP协议。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Source",
+          "description": "源站具体的值，需要与源站类型相匹配。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "SourcePort",
+          "description": "源站端口。支持：\n\n- 单个端口，当源站端口为单个端口时，支持任意合法的边缘端口组合。\n- 端口范围，仅当边缘端口为端口段时，源站端口才允许设置为端口范围且范围大小需要与边缘端口一致。例如边缘端口若为90-93，则不允许将源站端口设置为81-85，因为源站端口范围为5，边缘端口范围为3，两者不一致。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "SourceType",
+          "description": "源站类型，支持：\n- **ip**: IP。\n- **domain**: 域名。\n- **OP**: 源地址池。\n- **LB**: 负载均衡器。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -86,14 +100,14 @@
     },
     {
       "name": "SiteId",
-      "description": "站点ID，可通过调用[ListSites](~~ListSites~~)接口获取。",
+      "description": "站点ID，可通过调用[ListSites](~~ListSites~~)接口获取。需要注意的是站点必须是已激活的站点。",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "StaticIp",
-      "description": "",
+      "description": "是否开启固定IP，默认关闭。取值范围：\n\n- on: 开启。\n- off: 关闭。",
       "position": "Query",
       "type": "String",
       "required": false

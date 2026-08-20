@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "CustomHeaders",
-      "description": "The key-value pair of the custom header. The key specifies the header name, and the value specifies the header value. You can specify up to five key-value pairs. The key-value pairs can be up to 200 characters in length.\n\nTake note of the following items:\n\n*   Do not use the following default HTTP headers:\n\n    *   X-Forwarded-ClientSrcPort: This header is used to obtain the source ports of clients that access Anti-DDoS Proxy (a Layer 7 proxy).\n    *   X-Forwarded-ProxyPort: This header is used to obtain the ports of listeners that access Anti-DDoS Proxy (a Layer 7 proxy).\n    *   X-Forwarded-For: This header is used to obtain the IP addresses of clients that access Anti-DDoS Proxy (a Layer 7 proxy).\n\n*   Do not use standard HTTP headers or specific widely used custom HTTP headers. The standard HTTP headers include Host, User-Agent, Connection, and Upgrade, and the widely used custom HTTP headers include X-Real-IP, X-True-IP, X-Client-IP, Web-Server-Type, WL-Proxy-Client-IP, eEagleEye-RpcID, EagleEye-TraceID, X-Forwarded-Cluster, and X-Forwarded-Proto. If the preceding headers are used, the original content of the headers is overwritten.\n\n>  If you specify a key of X-Forwarded-ClientSrcPort, the system obtains the originating ports of clients that access Anti-DDoS Proxy (a Layer 7 proxy). In this case, the value is an empty string.",
+      "description": "The custom header, specified as a key-value pair. The key is the header name and the value is the header value. You can specify up to 5 key-value pairs. The total length cannot exceed 200 characters.\n\nImportant:\n\n- - X-Forwarded-ClientSrcPort: Used by default to retrieve the client port that accesses the Layer 7 engine of Anti-DDoS Pro.\n\n  - X-Forwarded-ProxyPort: Used by default to retrieve the listening port of the Layer 7 engine of Anti-DDoS Pro.\n\n  - X-Forwarded-For: Used by default to retrieve the client IP address that accesses the Layer 7 engine of Anti-DDoS Pro.\n\n- Do not use standard HTTP header fields (such as `host`, `user-agent`, `connection`, and `upgrade`) or common custom HTTP header fields (such as `x-real-ip`, `x-true-ip`, `x-client-ip`, `web-server-type`, `wl-proxy-client-ip`, `eagleeye-rpcid`, `eagleeye-traceid`, `x-forwarded-cluster`, and `x-forwarded-proto`) as they will overwrite the original header values in requests.\n\n> To use the `X-Forwarded-ClientSrcPort` key to retrieve the client port that accesses the Layer 7 engine of Anti-DDoS Pro, set the value to `\"\"`.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Domain",
-      "description": "The domain name of the website.\n\n> A forwarding rule must be configured for the domain name. You can call the [DescribeDomains](~~91724~~) operation to query all domain names.",
+      "description": "The domain of the website.\n\n> A website service forwarding rule must be configured for the domain. You can call the [DescribeDomains](~~91724~~) operation to query all your domains.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EmbeddedHeaders",
-      "description": "",
+      "description": "The forwarding configuration for request headers. This parameter is a JSON string of key-value pairs where the key is the header field name and the value is a boolean. Set the value to `true` to enable forwarding or `false` to disable it.\n\nField description:\n\n`X-Client-IP`: Forwards the client's real IP address.\n\n`X-True-IP`: Forwards the client's connection IP address.\n\n`Web-Server-Type`: Informs the back-end server about the type of front-end web server or proxy that is handling the request.\n\n`WL-Proxy-Client-IP`: A request header specific to Oracle WebLogic Server that provides the same functionality as `X-Client-IP`.\n\n`X-Forwarded-Proto`: Indicates the protocol used for the connection between the client and the first proxy.\n\nImportant:\n\n- **Supported Headers**: The configuration supports only the five preset header fields listed above.\n\n- **Default settings**: All the listed header fields are enabled by default. To make changes, you must explicitly set the corresponding value to `false`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the instance belongs.\n\n> \n\n*   You can query resource group IDs in the Anti-DDoS Pro or Anti-DDoS Premium console or by calling the [ListResourceGroups](~~158855~~) operation. For more information, see [View basic information of a resource group](~~151181~~).\n\n*   Before you modify the resource group to which an instance belongs, you can call the [ListResources](~~158866~~) operation to view the current resource group of the instance.",
+      "description": "The ID of the resource group.\n\n> - You can call the [ListResourceGroups](~~158855~~) operation or use the console to obtain a list of resource group IDs. For more information, see [View basic information about a resource group](~~151181~~).\n\n- To find the current resource group of an instance before changing it, call the [ListResources](~~158866~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false

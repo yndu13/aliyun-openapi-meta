@@ -7,47 +7,56 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run, without performing the actual request. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n- **true**: sends a check request without creating the reserved CIDR block for a vSwitch. The system checks whether the required parameters are specified, the request format is valid, and the service limits are not exceeded. If the check fails, the corresponding error message is returned. If the check passes, the `DryRunOperation` error code is returned.\n- **false** (default): sends a Normal request. After the check passes, an HTTP 2xx status code is returned and the vSwitch reserved CIDR block for a vSwitch is created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
+      "name": "IpPrefixNumber",
+      "description": "The expected number of IP prefixes to reserve. Valid values: 1 to 32.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "IpVersion",
-      "description": "The IP version of the reserved CIDR block. Valid values:\n\n*   **IPv4** (default)\n*   **IPv6**",
+      "description": "The IP version of the reserved CIDR block for a vSwitch. Valid values:\n\n- **IPv4** (default)\n- **IPv6**\n\n> You do not need to specify this parameter when creating an IPv4 reserved CIDR block for a vSwitch. This parameter is required when creating an IPv6 reserved CIDR block for a vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the vSwitch is deployed.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the vSwitch.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "Resource tags",
+      "description": "The resource tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. If you specify this parameter, the value cannot be an empty string.\n\nA tag key can be up to 128 characters in length. It cannot start with aliyun or acs: and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. If you specify this parameter, the value can be an empty string.\n\nThe tag value can be up to 128 characters in length. It cannot start with aliyun or acs: and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,42 +65,42 @@
     },
     {
       "name": "VSwitchCidrReservationCidr",
-      "description": "The reserved CIDR block of the vSwitch.\n\n*   When **IpVersion** is set to **IPv4**, the reserved CIDR block must be a proper subset of the IPv4 CIDR block of the vSwitch and the subnet mask length of the reserved CIDR block cannot be greater than 28.\n*   When **IpVersion** is set to **IPv6**, the reserved CIDR block must be a proper subset of the IPv6 CIDR block of the vSwitch and the subnet mask length of the reserved CIDR block cannot be greater than 80.\n\n>  You must specify one of **VSwitchCidrReservationMask** and **VSwitchCidrReservationCidr**.",
+      "description": "The reserved CIDR block for a vSwitch.\n\n- If **IpVersion** is set to **IPv4**, the reserved CIDR block for a vSwitch must be a proper subset of the IPv4 CIDR block of the vSwitch, and the mask length cannot exceed 28.\n- If **IpVersion** is set to **IPv6**, the reserved CIDR block for a vSwitch must be a proper subset of the IPv6 CIDR block of the vSwitch, and the mask length cannot exceed 80.\n\n> - You must specify either the **VSwitchCidrReservationMask** parameter or the **VSwitchCidrReservationCidr** parameter.\n> - The reserved CIDR block cannot contain the system reserved IP addresses of the vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchCidrReservationDescription",
-      "description": "The description of the reserved CIDR block. This parameter is empty by default.\n\nThe description must be 2 to 256 characters in length. It must start with a letter and cannot start with `http://` or `https://`.",
+      "description": "The description of the reserved CIDR block for a vSwitch. If you leave this parameter empty, the default value is empty.\n\nThe description must be 1 to 256 characters in length and must start with a letter or Chinese character. It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchCidrReservationMask",
-      "description": "The subnet mask of the reserved CIDR block.\n\n*   When **IpVersion** is set to **IPv4**, the subnet mask length of the CIDR block must be greater than the IPv4 subnet mask length of the vSwitch and cannot be greater than 28.\n*   When **IpVersion** is set to **IPv6**, the subnet mask length of the CIDR block must be greater than the IPv6 subnet mask length of the vSwitch and cannot be greater than 80.\n\n>  You must specify one of **VSwitchCidrReservationMask** and **VSwitchCidrReservationCidr**.",
+      "description": "The mask of the reserved CIDR block for a vSwitch.\n\n- If **IpVersion** is set to **IPv4**, the mask length of the reserved CIDR block must be at least 2 bits longer than the IPv4 CIDR block mask of the vSwitch and cannot exceed 28.\n- If **IpVersion** is set to **IPv6**, the mask length of the reserved CIDR block must be longer than the IPv6 CIDR block mask of the vSwitch and cannot exceed 80.\n\n> - You must specify either the **VSwitchCidrReservationMask** parameter or the **VSwitchCidrReservationCidr** parameter.\n> - The reserved CIDR block cannot contain the system reserved IP addresses of the vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchCidrReservationName",
-      "description": "The name of the reserved CIDR block.\n\nThe name must be 2 to 128 characters in length and can contain digits, underscores (\\_), and hyphens (-). It must start with a letter.",
+      "description": "The name of the reserved CIDR block for a vSwitch.\n\nThe name must be 1 to 128 characters in length and must start with a letter or Chinese character. It can contain digits, underscores (\\_), and hyphens (-). It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchCidrReservationType",
-      "description": "The type of reserved CIDR block. Set the value to **prefix**.\n\n>  When a user or a cloud service allocates a CIDR block to an elastic network interface (ENI), the CIDR block must be allocated from the reserved CIDR block. If the reserved CIDR block is exhausted, an error is returned.",
+      "description": "The type of the reserved CIDR block for a vSwitch. Valid values: **prefix**, which indicates that IP addresses are allocated by CIDR block.\n\n> When users or cloud services automatically assign CIDR blocks to elastic network interfaces (ENIs), the CIDR blocks must be allocated from the reserved CIDR block for a vSwitch. If the IP addresses in the reserved CIDR block for a vSwitch are exhausted, the system returns an error.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch to which the reserved CIDR block belongs.",
+      "description": "The ID of the vSwitch for which you want to create a reserved CIDR block for a vSwitch.",
       "position": "Query",
       "type": "String",
       "required": true

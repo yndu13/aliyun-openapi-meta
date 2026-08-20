@@ -1,33 +1,34 @@
 {
   "name": "DescribeManagedInstances",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ActivationId",
-      "description": "The ID of the activation code.",
+      "description": "The activation code ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Connected",
-      "description": "",
+      "description": "Specifies whether the managed instance is connected.\n\ntrue: The managed instance is connected. You can manage the managed instance by using Cloud Assistant.\n\nfalse: The managed instance is not connected. The server may be shut down or Cloud Assistant Agent may not be properly installed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of managed instance N. Valid values of N: 1 to 50.",
+      "description": "The ID of the managed instance. Valid values of N: 1 to 50.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "InstanceIp",
-      "description": "The internal or public IP address of the managed instance.",
+      "description": "The internal IP address or public IP address of the managed instance.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,49 +42,49 @@
     },
     {
       "name": "MachineId",
-      "description": "The value of the MachineId parameter that you specify when you register a managed instance. A maximum of 36 characters are allowed. Sample registration script:\n\n    aliyun-service --register \\\n      --RegionId=cn-hangznou \\\n      --ActivationId=xxxxxxxxxxx \\\n      --ActivationCode=xxxxxxxxx \\\n    --MachineId=xxxxxx \\ # Optional. The unique identifier of the machine.\n      --ForceResue                 \n\n*   If the MachineId and ForceResult parameters are specified during registration, the Cloud Assistant generates a fixed managed instance ID for this MachineId.\n*   If the MachineId parameter is not explicitly specified, the Cloud Assistant will automatically generate a MachineId value based on the hardware information of the machine.\n*   We recommend that you explicitly specify the MachineId and ForceResult parameters to mark the mapping between a managed instance and an on-premises machine.",
+      "description": "The value of the MachineId parameter specified when registering the managed instance. A maximum of 36 characters are allowed.\nExample registration script:\n```\naliyun-service --register \\\n  --RegionId=ap-southeast-1 \\\n  --ActivationId=xxxxxxxxxxx \\\n  --ActivationCode=xxxxxxxxx \\\n  --MachineId=xxxxxx \\ # Optional parameter that specifies the unique identifier of the machine\n  --ForceResue                 \n```\n\n- If MachineId and ForceResult are specified during registration, Cloud Assistant generates a fixed managed instance ID for this MachineId.\n- If MachineId is not explicitly specified, Cloud Assistant automatically generates a MachineId value based on the hardware information of the machine.\n- Recommendation: Explicitly specify MachineId and ForceResult to mark the mapping between managed instances and on-premises machines.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries per page.\n\nValid values: 1 to 50.\n\nDefault value: 10.",
+      "description": "The maximum number of entries per page for a paging query.\n\nMaximum value: 50.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Set this parameter to the NextToken value returned in the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OsType",
-      "description": "The operating system type of the managed instance. Valid values:\n\n*   windows\n*   linux\n*   FreeBSD",
+      "description": "The operating system type of the managed instance. Valid values:\n\n- windows\n- linux\n- FreeBSD",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": ">  This parameter will be removed in the future. We recommend that you use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter is about to be deprecated. Use NextToken and MaxResults to complete paging query operations.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": ">  This parameter will be removed in the future. We recommend that you use NextToken and MaxResults for a paged query.",
+      "description": "> This parameter is about to be deprecated. Use NextToken and MaxResults to complete paging query operations.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID. Supported regions: China (Qingdao), China (Beijing), China (Zhangjiakou), China (Hohhot), China (Ulanqab), China (Hangzhou), China (Shanghai), China (Shenzhen), China (Heyuan), China (Guangzhou), China (Chengdu), China (Hong Kong), Singapore, Japan (Tokyo), US (Silicon Valley), and US (Virginia).\n\nYou can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. Currently supported regions: China (Qingdao), China (Beijing), China (Zhangjiakou), China (Hohhot), China (Ulanqab), China (Hangzhou), China (Shanghai), China (Shenzhen), China (Heyuan), China (Guangzhou), China (Chengdu), Hong Kong (China), Singapore, Japan (Tokyo), US (Silicon Valley), and US (Virginia).\n\nYou can call [DescribeRegions](~~25609~~) to query region IDs and other information.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -97,19 +98,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags of the managed instance.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the managed instance. Valid values of N: 1 to 20. The tag key cannot be an empty string.\n\nIf you use a single tag to filter resources, the resource count with this tag cannot exceed 1,000. If you use multiple tags to filter resources, the resource count of resources that have all specified tags attached cannot exceed 1,000. If the resource count exceeds 1,000, call the [ListTagResources](~~110425~~) operation to query resources.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the managed instance. Valid values of N: 1 to 20. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

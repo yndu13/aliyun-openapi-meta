@@ -7,14 +7,13 @@
   "parameters": [
     {
       "name": "AutoUseCoupon",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value. Make sure that the value is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client token to ensure the idempotence of the request. Generate a unique token for each request. The token is case-sensitive and can be up to 64 ASCII characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,19 +27,21 @@
     },
     {
       "name": "DBNode",
-      "description": "The information about the scaled/added node.",
+      "description": "The information about the nodes to upgrade or add.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "TargetClass",
+          "description": "The specifications of the node to upgrade or add.\n\n> - When you add a node, the node specifications must be the same as the specifications of the existing nodes.\n>\n> - For more information about the specifications of existing cluster nodes, see [DescribeDBClusters](~~98094~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZoneId",
+          "description": "The zone for the new node. The zone must be the same as the zone of the existing nodes.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -49,28 +50,27 @@
     },
     {
       "name": "ModifyType",
-      "description": "The type of configuration change. Set the value to **TempUpgrade**.",
+      "description": "The modification type. The value is fixed to **TempUpgrade**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "OperationType",
-      "description": "The operation type. Valid values:\n\n*   **Modify**: temporarily upgrades the configuration of the cluster.",
+      "description": "The operation type. Valid values:\n\n- **Modify**: temporary upgrade\n\n- **Add**: temporarily add a node",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PromotionCode",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RestoreTime",
-      "description": "The rollback time of the configuration for the temporary upgrade. Specify the time in the ISO 8601 standard in the YYYY-MM-DD hh:mm:ss format.\n\n>  The rollback time cannot be 1 hour earlier than the current time and cannot be later than one day before the time when the cluster expires.",
+      "description": "The time to revert the temporary upgrade. The format is YYYY-MM-DD hh:mm:ss.\n\n> The revert time must be at least 1 hour later than the current time. It must also be at least 1 day before the cluster expires.",
       "position": "Query",
       "type": "String",
       "required": true

@@ -7,68 +7,70 @@
   "parameters": [
     {
       "name": "AccountIds",
-      "description": "The IDs of the execution accounts within which you want to deploy stacks in self-managed mode. You can specify up to 20 execution account IDs.\n\n> You must specify one of the following parameters: `AccountIds` and `DeploymentTargets`.",
+      "description": "The IDs of the destination accounts where you want to create stacks using self-managed permissions. You can specify up to 50 account IDs.\n\n> You can specify only one of the `AccountIds` and `DeploymentTargets` parameters.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.\\\nThe token can contain letters, digits, hyphens (-), and underscores (\\_), and cannot exceed 64 characters in length.\\\nFor more information, see [How to ensure idempotence](~~134212~~).",
+      "description": "A client token that is used to ensure the idempotence of the request. The client generates the token, which must be globally unique.<br>The token can be up to 64 characters in length and can contain letters, digits, hyphens (-), and underscores (\\_).<br>For more information, see [How to ensure idempotence](~~134212~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeploymentOptions",
-      "description": "",
+      "description": "The deployment options for deploying stacks in service-managed permission mode. You can specify up to one deployment option.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "DeploymentTargets",
-      "description": "The folders in which ROS deploy stacks in service-managed permission model.\n\n> You must specify one of the following parameters: `AccountIds` and `DeploymentTargets`.",
+      "description": "The deployment targets for deploying stacks in service-managed permission mode.\n\n> You can specify only one of the `AccountIds` and `DeploymentTargets` parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DisableRollback",
-      "description": "Specifies whether to disable rollback when the stack fails to be created.\n\nValid values:\n\n*   true\n*   false (default)",
+      "description": "Indicates whether to disable rollback when a stack fails to be created.\n\nValid values:\n\n- true: Disables rollback.\n\n- false (default): Enables rollback.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "OperationDescription",
-      "description": "The description of the stack creation operation.\n\nThe description must be 1 to 256 characters in length.",
+      "description": "The description of the operation to create the stacks.\n\nThe description must be 1 to 256 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OperationPreferences",
-      "description": "The preference settings of the stack creation operation.\n\nThe following parameters are available:\n\n-  {\"FailureToleranceCount\": N}\n\n    The number of accounts within which stack operation failures are allowed in each region. If the value of this parameter is exceeded in a region, Resource Orchestration Service (ROS) stops the operation in the region. If ROS stops the operation in one region, ROS stops the operation in other regions.\n\n    Valid values of N: 0 to 20.\n\n    If you do not specify FailureToleranceCount, 0 is used as the default value.\n\n-  {\"FailureTolerancePercentage\": N}\n\n    The percentage of the number of accounts within which stack operation failures are allowed to the total number of accounts in each region. If the value of this parameter is exceeded, ROS stops the operation in the region.\n\n    Valid values of N: 0 to 100. If the numeric value in the percentage is not an integer, ROS rounds the value down to the nearest integer.\n\n    If you do not specify FailureTolerancePercentage, 0 is used as the default value.\n\n-  {\"MaxConcurrentCount\": N}\n\n   The maximum number of accounts within which multiple stacks are deployed at the same time in each region.\n\n   Valid values of N: 1 to 20.\n\n   If you do not specify MaxConcurrentCount, 1 is used as the default value.\n\n-  {\"MaxConcurrentPercentage\": N}\n\n    The percentage of the maximum number of accounts within which multiple stacks are deployed at the same time to the total number of accounts in each region.\n\n    Valid values: 1 to 100. If the numeric value in the percentage is not an integer, ROS rounds the number down to the nearest integer.\n\n    If you do not specify MaxConcurrentPercentage, 1 is used as the default value.\n\n-  {\"RegionConcurrencyType\": N}\\\n    The mode that you want to use to deploy stacks across regions. Valid values: \n   - SEQUENTIAL (default): deploys stacks in each specified region based on the specified sequence of regions. ROS deploys stacks in one region at a time. \n   - PARALLEL: deploys stacks in parallel across all specified regions.\n\nSeparate multiple parameters with commas (,).\n\n>-  You can specify only one of the following parameters: MaxConcurrentCount and MaxConcurrentPercentage.\n>-  You can specify only one of the following parameters: FailureToleranceCount and FailureTolerancePercentage.",
+      "description": "The preferences for the operation.\n\nThe following parameters are available:\n\n- {\"FailureToleranceCount\": N}\n\n  The number of accounts per region in which the operation can fail. If the number of failed operations in a region exceeds this value, Resource Orchestration Service (ROS) stops the operation in that region. If the operation is stopped in a region, the operation is not performed in other regions.\n\n  The value of N can be an integer from 0 to 20.\n\n  If you do not specify this parameter, the default value is 0.\n\n- {\"FailureTolerancePercentage\": N}\n\n  The percentage of accounts per region in which the operation can fail, relative to the total number of accounts. If the percentage of failed operations in a region exceeds this value, ROS stops the operation in that region.\n\n  The value of N can be an integer from 0 to 100. If the percentage is not an integer, ROS rounds down the value.\n\n  If you do not specify this parameter, the default value is 0.\n\n- {\"MaxConcurrentCount\": N}\n\n  The maximum number of accounts in each region where stacks can be deployed at the same time.\n\n  The value of N can be an integer from 1 to 20.\n\n  If you do not specify this parameter, the default value is 1.\n\n- {\"MaxConcurrentPercentage\": N}\n\n  The percentage of accounts in each region where stacks can be deployed at the same time, relative to the total number of accounts.\n\n  The value of N can be an integer from 1 to 100. If the percentage is not an integer, ROS rounds down the value.\n\n  If you do not specify this parameter, the default value is 1.\n\n- {\"RegionConcurrencyType\": N}<br>The concurrency type of deployment regions. Valid values:\n\n  - SEQUENTIAL (default): Deploys stacks in the specified regions one by one. Stacks are deployed in only one region at a time.\n\n  - PARALLEL: Deploys stacks in all specified regions at the same time.\n\nSeparate multiple parameters with commas (,).\n\n> - You cannot specify MaxConcurrentCount and MaxConcurrentPercentage at the same time.\n>\n> - You cannot specify FailureToleranceCount and FailureTolerancePercentage at the same time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ParameterOverrides",
-      "description": "The parameters that are used to override specific parameters.",
+      "description": "A list of parameters that overwrite the template parameters.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "The name of the parameter to overwrite. If you do not specify this parameter, ROS uses the parameter name that was specified when the stack group was created.\n\nYou can specify up to 200 parameters.\n\n> - ParameterOverrides is optional.\n>\n> - If you specify ParameterOverrides, you must specify both ParameterOverrides.N.ParameterKey and ParameterOverrides.N.ParameterValue.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "The value of the parameter to overwrite. If you do not specify this parameter, ROS uses the parameter value that was specified when the stack group was created.\n\nYou can specify up to 200 parameters.\n\n> - ParameterOverrides is optional.\n>\n> - If you specify ParameterOverrides, you must specify both ParameterOverrides.N.ParameterKey and ParameterOverrides.N.ParameterValue.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -77,28 +79,28 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the stack group. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.",
+      "description": "The region ID of the stack group.\n\nYou can call the [DescribeRegions](~~131035~~) operation to query the latest list of Alibaba Cloud regions.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionIds",
-      "description": "The IDs of the regions where you want to create the stacks. You can specify up to 20 region IDs.",
+      "description": "The IDs of the destination regions. You can specify up to 20 region IDs.",
       "position": "Query",
       "type": "Json",
       "required": true
     },
     {
       "name": "StackGroupName",
-      "description": "The name of the stack group. The name must be unique within a region.\\\nThe name can be up to 255 characters in length and can contain digits, letters, hyphens (-), and underscores (\\_). It must start with a digit or a letter.",
+      "description": "The name of the stack group. The name must be unique within a region.<br>The name can be up to 255 characters in length. It must start with a letter or a digit and can contain letters, digits, hyphens (-), and underscores (\\_).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TimeoutInMinutes",
-      "description": "The timeout period within which you can create the stack.\n\n*   Default value: 60.\n*   Unit: minutes.",
+      "description": "The timeout period for creating the stacks.\n\n- Default value: 60.\n\n- Unit: minutes.",
       "position": "Query",
       "type": "Long",
       "required": false

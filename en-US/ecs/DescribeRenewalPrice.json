@@ -1,47 +1,48 @@
 {
   "name": "DescribeRenewalPrice",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ExpectedRenewDay",
-      "description": "The synchronized expiration date. If you specify this parameter, the price for renewing a specified instance to the specified synchronized expiration date is queried. Valid values: 1 to 28.\n\nFor information about how to synchronize the expiration dates of instances, see [Synchronize the expiration dates of instances](~~108486~~).\n\n> The renewal period-related parameter pair (`Period` and `PeriodUnit`) and the `ExpectedRenewDay` parameter are mutually exclusive.",
+      "description": "The unified expiration date. After you specify this parameter, the price for renewing the instance to the unified expiration date is queried. Valid values: 1 to 28.\n\nFor more information about the unified expiration date feature, see [Synchronize the expiration dates of instances](~~108486~~).\n\n> The renewal duration parameters (Period and PeriodUnit) and the unified expiration date parameter (ExpectedRenewDay) cannot be set at the same time.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The renewal period. Valid values:\n\n*   Valid values when the `PriceUnit` parameter is set to `Month`: 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n*   Valid values when the `PriceUnit` parameter is set to `Year`: 1, 2, 3.\n\nDefault value: 1.\n\n> The renewal period-related parameter pair (`Period` and `PeriodUnit`) and the `ExpectedRenewDay` parameter are mutually exclusive.",
+      "description": "The renewal duration. Valid values:\n\n- When PriceUnit is set to Month: 1 to 9.\n- When PriceUnit is set to Year: 1 to 3.\n\nDefault value: 1.\n\n> The renewal duration parameters (Period and PeriodUnit) and the unified expiration date parameter (ExpectedRenewDay) cannot be set at the same time.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PriceUnit",
-      "description": "The unit of the renewal period. Valid values:\n\n*   Month\n*   Year\n\nDefault value: Month.",
+      "description": "The unit of the renewal duration. Valid values:\n\n- Month: The renewal duration is measured in months.\n- Year: The renewal duration is measured in years.\n\nDefault value: Month.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.",
+      "description": "The region ID of the instance. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceId",
-      "description": "The ID of the resource. If the `ResourceType` parameter is set to`  instance `, the value of the `ResourceId` parameter is the ID of the specified instance.``",
+      "description": "The ID of the resource whose renewal price you want to query. When ResourceType is set to instance, ResourceId is equivalent to InstanceId.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource. Set the value to instance.\n\nDefault value: instance.",
+      "description": "The type of the resource whose renewal price you want to query. Valid values: instance.\n\nDefault value: instance.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,59 +1,62 @@
 {
   "name": "ListStackGroups",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "PageNumber",
-      "description": "The number of the page to return.\n\n*   Pages start from page 1.\n*   Default value: 1.",
+      "description": "The page number.\n\n- Starts from 1.\n\n- Default value: 1.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page.\n\n*   Valid values: 1 to 50.\n*   Default value: 10.",
+      "description": "The number of entries to return on each page.\n\n- Valid values: 1 to 50.\n\n- Default value: 10.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the stack group. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.",
+      "description": "The region ID of the stack group. Call [DescribeRegions](~~131035~~) to query available regions.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group. If you do not specify this parameter, the stack groups in all the resource groups are queried.\n\n> To obtain the resource group ID, go to the **Resource Group** page in the **Resource Management** console. For more information, see [View the basic information about a resource group](~~151181~~).",
+      "description": "The ID of the resource group. If not specified, stack groups in all resource groups are returned.\n\n> You can find the resource group ID on the **Resource Groups** page in the **Resource Management** console. [View the basic information of a resource group](~~151181~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The state of the stack group. If you do not specify this parameter, the stack groups in all states in the specified region are queried.\n\nValid values:\n\n*   ACTIVE\n*   DELETED",
+      "description": "The status of the stack group. If not specified, stack groups in all states are returned.\n\nValid values:\n\n- ACTIVE: The stack group is active.\n\n- DELETED: The stack group is deleted.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags that are added to the stack group.",
+      "description": "The tags of the stack group.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the stack group.\n\n> Tags is optional. If you specify Tags, Tags.N.Key is required.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The tag value of the stack group.",
           "position": "Query",
           "type": "String",
           "required": false

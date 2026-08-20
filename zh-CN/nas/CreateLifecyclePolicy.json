@@ -6,6 +6,29 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "DeleteRules",
+      "description": "文件数据过期删除规则，最多配置 1 个。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Attribute",
+          "description": "规则的属性。\n\n取值：\n- Atime: 文件的访问时间。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Threshold",
+          "description": "规则的阈值。\n\n取值：\n- 当 Attribute 为 Atime 时，表示多少天未访问的文件，取值范围[1,365]。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "Description",
       "description": "生命周期策略描述。\n\n格式：\n长度为3-64个字符，必须以字母开头，可以包含英文字母、数字、下划线（_）或者短划线（-）。\n>仅 CPFS 智算版支持。",
       "position": "Query",
@@ -56,19 +79,21 @@
     },
     {
       "name": "RetrieveRules",
-      "description": "文件数据取回规则，最多配置 1 个。\n>仅 CPFS 智算版文件系统支持。",
+      "description": "文件数据取回规则，最多配置 1 个。\n>仅 CPFS 智算版文件系统支持。\n\n>LifecyclePolicyType为OnDemand，主动沉降（TransitRules）/取回规则（RetrieveRules）必须至少选填一个。",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Attribute",
+          "description": "规则的属性，取值：\n- RetrieveType:  取回方式",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Threshold",
+          "description": "规则的阈值，取值：\n- RetrieveType\n    - AfterVisit： LifecyclePolicyType=Auto 支持，代表尽力 recall on visit\n    - All:  LifecyclePolicyType=OnDemand 支持，代表取回所有",
           "position": "Query",
           "type": "String",
           "required": false
@@ -91,12 +116,14 @@
       "sub_parameters": [
         {
           "name": "Attribute",
+          "description": "规则的属性。\n\n取值：\n- Atime: 文件的访问时间。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Threshold",
+          "description": "规则的阈值。\n\n取值：\n- 当 Attribute 为 Atime 时，表示多少天未访问的文件，取值范围[0,365]。",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,5 +1,6 @@
 {
   "name": "AddShowIntoShowList",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "Duration",
-      "description": "单个节目播放时间长度，单位：秒。\n>**RepeatTimes**和**Duration**两者只允许设置其中一个。",
+      "description": "单个节目播放时间长度，单位：秒。\n> - **RepeatTimes**和**Duration**两者只允许设置其中一个。\n> - ResourceType设置为live时本参数必填。",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -48,7 +49,7 @@
     },
     {
       "name": "ResourceType",
-      "description": "素材类型。取值：\n- live：直播素材。\n- vod：点播素材。\n- pic：图片素材。\n\n>- 使用视频点播（VOD）资源，可优先选择托管Bucket资源，自有Bucket资源存在过期风险，如果您选用自有Bucket资源，需注意资源的有效期时间。- 直播文件可支持直播素材和第三方URL。- 点播文件可支持点播素材、图片素材和第三方URL。",
+      "description": "素材类型。取值：\n- live：直播素材。\n- vod：点播素材。\n- pic：图片素材。\n\n>- 使用视频点播（VOD）资源，可优先选择托管Bucket资源，自有Bucket资源存在过期风险，如果您选用自有Bucket资源，需注意资源的有效期时间。\n- 直播文件可支持直播素材和第三方URL。\n- 点播文件可支持点播素材、图片素材和第三方URL。\n- 使用直播素材时必须同时传入duration参数。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -90,42 +91,49 @@
       "sub_parameters": [
         {
           "name": "duration",
+          "description": "单个节目播放时间长度，单位：秒。\n\n> - **repeatTimes**和**duration**两者只允许设置其中一个。\n> - resourceType设置为live时本参数必填。",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "liveInputType",
+          "description": "自定义的类型标记。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "repeatTimes",
+          "description": "单个节目播放循环次数，默认为0。\n\n>- **repeatTimes**和**duration**两者只允许设置其中一个。\n- repeatTimes为重复次数，示例：0表示重复0次（实际播放1次），1表示重复1次（实际播放2次），以此类推。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "resourceId",
+          "description": "点播文件ID。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "resourceType",
+          "description": "素材类型。取值：\n\n- live：直播素材。\n\n- vod：点播素材。\n\n- pic：图片素材。\n\n>- 使用视频点播（VOD）资源，可优先选择托管Bucket资源，自有Bucket资源存在过期风险，如果您选用自有Bucket资源，需注意资源的有效期时间。\n- 直播文件可支持直播素材和第三方URL。\n- 点播文件可支持点播素材、图片素材和第三方URL。\n- 使用直播素材时必须同时传入duration参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "resourceUrl",
+          "description": "播放文件URL。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "showName",
+          "description": "节目名称。",
           "position": "Query",
           "type": "String",
           "required": false

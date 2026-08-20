@@ -7,82 +7,84 @@
   "parameters": [
     {
       "name": "Category",
-      "description": "The category of the disk. Valid values:\n\n*   cloud_efficiency: ultra disk.\n*   cloud_ssd: all-flash disk.",
+      "description": "The type of the cloud disk. Valid values:",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DiskName",
-      "description": "The name of the disk.",
+      "description": "The name of the cloud disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Encrypted",
-      "description": "Specifies whether to encrypt the new system disk. Valid values:\n\n*   **true**\n*   **false** (default): no",
+      "description": "Specifies whether to encrypt the cloud disk. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnsRegionId",
-      "description": "The ID of the edge node.",
+      "description": "The edge zone ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceBillingCycle",
-      "description": "",
+      "description": "The billing cycle of the instance. Valid values: Hour, Day, Month.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the instance. Set the value to **PostPaid**.",
+      "description": "The billing method of the instance. Currently, only **PostPaid** (pay-as-you-go) is supported.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "KMSKeyId",
-      "description": "The ID of the Key Management Service (KMS) key that is used by the cloud disk.\n\n>  If you set the **Encrypted** parameter to **true**, the default service key is used when the **KMSKeyId** parameter is empty.",
+      "description": "The ID of the KMS key used by the cloud disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Size",
-      "description": "The size of the disk. Unit: GiB.",
+      "description": "The size of the cloud disk. Unit: GiB.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotId",
-      "description": "The ID of the snapshot that you want to use to create the disk.\n\nThe following limits apply to the **SnapshotId** and **Size** parameters:\n\n*   If the size of the snapshot specified by **SnapshotId** is greater than the specified **Size** value, the size of the created disk is equal to the specified snapshot size.\n*   If the size of the snapshot specified by **SnapshotId** is smaller than the specified **Size** value, the size of the created disk is equal to the specified **Size** value.",
+      "description": "The snapshot used to create the cloud disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags of the instance. You can specify at most 20 tags in each call.",
+      "description": "The list of tags. You can add up to 20 tags in a single call.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the instance. Valid values of N: **1** to **20**.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the topic. **Key** and **Value** must be specified or left empty at the same time. If both are specified, topics are filtered by the tag. If neither is specified, all topics are queried.",
           "position": "Query",
           "type": "String",
           "required": false

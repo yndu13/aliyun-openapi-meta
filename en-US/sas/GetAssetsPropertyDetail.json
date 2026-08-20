@@ -1,73 +1,76 @@
 {
   "name": "GetAssetsPropertyDetail",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Biz",
-      "description": "The type of asset fingerprint to be queried, with a default value of **sca**. Values:\n\n- **lkm**: Kernel module\n- **autorun**: Startup item\n- **web_server**: Web site",
+      "description": "The type of Asset Fingerprints to query. Default value: **sca**. Valid values:\n\n- **lkm**: kernel module\n- **autorun**: startup item\n- **web_server**: web site.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "CurrentPage",
-      "description": "Set the page number from which to start displaying the query results. The default value is **1**, indicating that the display starts from the first page.",
+      "description": "The page number of the page to return. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ItemName",
-      "description": "The aggregated item name of the asset fingerprint to be queried.\n> Call the [GetAssetsPropertyItem](~~GetAssetsPropertyItem~~) API to obtain this parameter.",
+      "description": "The aggregation item name of the Asset Fingerprints to query.\n> Call the [GetAssetsPropertyItem](~~GetAssetsPropertyItem~~) operation to obtain this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language type for the request and response. Values:\n- **zh**: Chinese\n- **en**: English",
+      "description": "The language type of the request and response messages. Valid values:\n- **zh**: Chinese\n- **en**: English.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "Used to mark the current read position. Leave it empty to start from the beginning.\n> Do not fill in for the first call; the response will include the NextToken for the second call. Each subsequent call's response will contain the NextToken for the next call.",
+      "description": "The token that marks the starting position for the query. Leave this parameter empty to query from the beginning.\n\n> Do not specify this parameter for the first call. The response includes the NextToken value for the next call. Each subsequent response contains the NextToken value for the following call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "Specify the maximum number of data entries per page in a paginated query. The default number of data entries per page is 20. If the PageSize parameter is empty, 20 data entries will be returned by default.\n> It is recommended that the PageSize value is not empty.",
+      "description": "The maximum number of entries per page for a paging query. Default value: 20. If you leave this parameter empty, 20 entries are returned per page by default.\n> Do not leave PageSize empty.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Remark",
-      "description": "Server name or IP.",
+      "description": "The server name or IP address.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SearchCriteriaList",
-      "description": "A set of conditions for querying asset fingerprint details.",
+      "description": "The collection of search criteria for querying Asset Fingerprints details.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The name of the search criterion. Valid values:\n- **remarkItemName**: the aggregation item name of Asset Fingerprints. Fuzzy match is supported.\n\n\n>-   - When **Biz** is set to **web_server**, **remarkItemName** indicates the domain name.\n>-   - When **Biz** is set to **lkm**, **remarkItemName** indicates the module name.\n>-   - When **Biz** is set to **autorun**, **remarkItemName** indicates the startup item path.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the search criterion.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -76,14 +79,14 @@
     },
     {
       "name": "UseNextToken",
-      "description": "Whether to use the NextToken method to fetch the list of vulnerabilities. If this parameter is used, TotalCount will not be returned. Values:\n\n- **true**: Use the NextToken method.\n- **false**: Do not use the NextToken method.",
+      "description": "Specifies whether to use the NextToken method to retrieve the vulnerability list. If this parameter is used, TotalCount is no longer returned. Valid values:\n\n- **true**: Use the NextToken method.\n- **false**: Do not use the NextToken method.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Uuid",
-      "description": "The UUID of the asset to be queried.\n> Call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) API to obtain this parameter.",
+      "description": "The UUID of the asset to query.\n> Call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to obtain this parameter.",
       "position": "Query",
       "type": "String",
       "required": false

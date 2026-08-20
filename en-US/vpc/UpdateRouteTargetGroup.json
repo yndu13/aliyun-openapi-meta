@@ -7,60 +7,63 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "Client Token, used to ensure the idempotence of requests. Generate a unique value for this parameter from your client for each request. ClientToken supports only ASCII characters. Note that if you do not specify this, the system will automatically use the RequestId of the API request as the ClientToken identifier. The RequestId may differ for each API request.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The ClientToken value can contain only ASCII characters. If you do not specify this parameter, the system uses the RequestId of the API request as the ClientToken. The RequestId may differ for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the route target group instance belongs. You can obtain the region ID by calling the [DescribeRegions](~~36063~~) interface.",
+      "description": "The region ID of the route target group instance. You can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteTargetGroupDescription",
-      "description": "Description of the route target group. \n\nThe description length should be between 1 to 256 characters and must not start with http:// or https://.",
+      "description": "The description of the route target group. \n\nThe description must be 1 to 256 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteTargetGroupId",
-      "description": "The ID of the route target group instance.",
+      "description": "The routing target group instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteTargetGroupName",
-      "description": "The name of the route target group.\n\nThe name length should be between 1 and 128 characters, and cannot start with http:// or https://.",
+      "description": "The name of the route target group.\n\nThe name must be 1 to 128 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteTargetMemberList",
-      "description": "List of members in the route target group.\nUnder the primary-standby mode, there are the following restrictions on the members of the route target group:\n1. The number of members in the route target group must be 2. \n2. The members of the route target group must belong to different availability zones.",
+      "description": "The member list of the route target group.\n\nIn active/standby mode, the following limits apply to route target group members:\n\n1. The number of route target group members must be 2.\n2. The route target group members must belong to different zones.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "MemberId",
+          "description": "The instance ID of the route target group member.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MemberType",
+          "description": "The member type of the route target group.\n\nCurrently supported type:\n\n- **GatewayLoadBalancerEndpoint**\n\nIn active/standby mode, all members of the route target group must be of the same type.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "The weight of the route target group member. Valid values:\n\n- 100: The member is the active instance.\n- 0: The member is the standby instance.\n\nThe weight can only be set during creation and cannot be modified.",
           "position": "Query",
           "type": "Integer",
           "required": false

@@ -1,5 +1,6 @@
 {
   "name": "AddLiveAppRecordConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -62,30 +63,35 @@
       "sub_parameters": [
         {
           "name": "CycleDuration",
+          "description": "周期录制时长。单位：秒。\n\n> - 若不填则取默认值，不同录制格式的默认值不同：m3u8、cmaf 格式默认6小时，flv、mp4格式默认1小时。\n> -  如果在一个录制周期内，直播流发生了断流，但是在断流拼接时长内，该直播流又正常推流，那么仍会在同一个录制文件中继续录制。\n>- 一条直播流必须断流超过断流拼接时长，才会生成录制文件。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Format",
+          "description": "格式。目前支持M3U8、FLV、MP4、CMAF。取值：\n\n><notice>RecordFormat和TranscodeRecordFormat两者至少需要设置一个。如果选择m3u8或cmaf格式，必须同时设置请求参数RecordFormat.N.SliceOssObjectPrefix和RecordFormat.N.SliceDuration。\n></notice>\n\n- m3u8。\n- flv。\n- mp4。\n- cmaf。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OssObjectPrefix",
+          "description": "OSS存储的录制文件名。\n\n- 文件名小于256字节，支持变量匹配，包含 {AppName}、{StreamName}、{Sequence}、{StartTime}、{EndTime}、{EscapedStartTime}、{EscapedEndTime}。\n- 参数值必须要有{StartTime}或{EscapedStartTime}和{EndTime}或{EscapedEndTime}。\n\n\n\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SliceDuration",
+          "description": "单个切片时长。单位：秒。\n\n><notice>当RecordFormat.N.Format（格式）设为m3u8或cmaf时，本参数才有效。\n></notice>\n\n不填则默认为30秒。取值范围：5s~30s。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SliceOssObjectPrefix",
+          "description": "切片名称。\n\n><notice>当RecordFormat.N.Format（格式）设为m3u8或cmaf时，本参数才需要配置。\n></notice>\n\n- 默认30秒一片，小于256字节，支持变量匹配，包含{AppName}、{StreamName}、{UnixTimestamp}、{Sequence}。\n- 参数值必须包含{UnixTimestamp}和{Sequence}变量。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -115,30 +121,35 @@
       "sub_parameters": [
         {
           "name": "CycleDuration",
+          "description": "转码流录制周期录制时长。单位：秒。\n> 若不填则取默认值，不同录制格式的默认值不同：m3u8、cmaf 格式默认6小时，flv、mp4格式默认1小时。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Format",
+          "description": "转码流录制格式。目前支持M3U8、FLV、MP4、CMAF。取值：\n><notice>如果选择m3u8或cmaf格式，必须同时设置请求参数TranscodeRecordFormat.N.SliceOssObjectPrefix和TranscodeRecordFormat.N.SliceDuration。\n></notice>\n\n- m3u8。\n- flv。\n- mp4。\n- cmaf。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OssObjectPrefix",
+          "description": "转码流录制OSS存储的录制文件名。\n- 文件名小于256字节，支持变量匹配，包含 {AppName}、{StreamName}、{Sequence}、{StartTime}、{EndTime}、{EscapedStartTime}、{EscapedEndTime}。\n- 参数值必须要有{StartTime}或{EscapedStartTime}和{EndTime}或{EscapedEndTime}。\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SliceDuration",
+          "description": "转码流录制单个切片时长，单位：秒。\n\n><notice>当TranscodeRecordFormat.N.Format（转码流录制格式）设为m3u8或cmaf时，本参数才生效。\n></notice>\n\n不填则默认为30秒。取值范围：5s~30s。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SliceOssObjectPrefix",
+          "description": "转码流录制切片名称。\n\n><notice>当TranscodeRecordFormat.N.Format（转码流录制格式）设为m3u8或cmaf时，本参数才需要配置。\n></notice>\n\n- 默认30秒一片，小于256字节，支持变量匹配，包含{AppName}、{StreamName}、{UnixTimestamp}、{Sequence}。\n- 参数值必须包含{UnixTimestamp}和{Sequence}变量。",
           "position": "Query",
           "type": "String",
           "required": false

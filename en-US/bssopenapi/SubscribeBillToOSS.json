@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "BeginBillingCycle",
-      "description": "The initial billing cycle from which bills start to be pushed. After you subscribe to the bills, the system automatically pushes the data that is generated from the initial billing cycle to the current time. If the SubscribeType parameter is set to MonthBill, this parameter is invalid. Historical data is not pushed again. The data generated within the last year can be pushed.",
+      "description": "The initial billing cycle from which bills are pushed. After you subscribe to the bills, the system automatically pushes the data from the initial billing cycle to the current time. This parameter is invalid for monthly bill subscriptions in PDF format. Historical data is not repushed. You can push data generated within the last year.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BucketOwnerId",
-      "description": "The owner ID of the OSS bucket that stores the bills. This parameter is required if you are a bidder or reseller and want to push data to an OSS bucket of a member account. In this case, you must specify this account as the account used to call this operation and grant the AliyunConsumeDump2OSSRole permission to this account. If you are a regular user, you do not need to set this parameter. By default, your account is used to call this operation.",
+      "description": "The UID of the OSS bucket owner. This parameter is required only when a distributor subscribes to bills and saves them to an OSS bucket of a sub-account. In this case, the sub-account must be a sub-account of the distributor's account and granted the AliyunConsumeDump2OSSRole permission.\nRegular users do not need to specify this parameter. By default, the UID of the current account is used.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "BucketPath",
-      "description": "The path of the OSS bucket.",
+      "description": "The specified folder in the bucket to which you subscribe.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MultAccountRelSubscribe",
-      "description": "The type of the account whose bills are to be pushed if multi-tier accounts are involved. Valid values:\n\n*   MA: the master account and a non-managed member account in Finance Cloud\n*   ACP1: a member account of a virtual network operator (VNO)\n\nDefault value: MA.",
+      "description": "The type of bill to which you want to subscribe. This parameter is available only for multi-tier accounts. Valid values:\n\n- MA: Pushes the bills of the Alibaba Cloud account and the bills of non-trusteeship linked accounts.\n\n- ACP1: Pushes the bills of sub-accounts of a virtual dealer.\n\nDefault: MA.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RowLimitPerFile",
-      "description": "The upper limit of the number of lines in a single file. When the bill file exceeds the upper limit, it will be split into multiple files and merged into a compressed package.",
+      "description": "The maximum number of rows in a single file. If a bill file exceeds this limit, it is split into multiple files. The files are then merged and compressed into a ZIP package.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SubscribeBucket",
-      "description": "The OSS bucket that stores the bills to which you want to subscribe.",
+      "description": "The name of the OSS bucket where the subscribed bill files are stored.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SubscribeType",
-      "description": "The type of the bill to which you want to subscribe. Valid values:\n\n*   BillingItemDetailForBillingPeriod: detailed bills of billable items\n*   InstanceDetailForBillingPeriod: detailed bills of instances\n*   BillingItemDetailMonthly: billable item-based bills summarized by billing cycle\n*   InstanceDetailMonthly: instance-based bills summarized by billing cycle\n*   SplitItemDetailDaily: split bills summarized by day\n*   MonthBill: monthly bills in the PDF format. You can subscribe to the monthly PDF bills only of the master account.",
+      "description": "The subscription type. Valid values:\n\n- BillingItemDetailForBillingPeriod: bill details by billing item.\n\n- InstanceDetailForBillingPeriod: bill details by instance.\n\n- BillingItemDetailMonthly: monthly bill summary by billing item.\n\n- InstanceDetailMonthly: monthly bill summary by instance.\n\n- SplitItemDetailDaily: daily summary of split bills.\n\n- MonthBill: monthly bill in PDF format. You can subscribe to monthly bills only for an Alibaba Cloud account.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UsingSsl",
-      "description": "Whether to protect network communications through the SSL (Secure Sockets Layer) encryption protocol. When this parameter is set to true, it means that SSL encryption is enabled to ensure the security and integrity of data transmission.",
+      "description": "Specifies whether to use Secure Sockets Layer (SSL) to protect network communications. Valid values:\n\n- true: Enables SSL encryption to ensure data security and integrity during transmission.\n\n- false (default): Disables SSL encryption.",
       "position": "Query",
       "type": "String",
       "required": false

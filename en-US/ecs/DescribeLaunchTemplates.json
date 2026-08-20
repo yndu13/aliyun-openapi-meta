@@ -7,61 +7,63 @@
   "parameters": [
     {
       "name": "LaunchTemplateId",
-      "description": "The IDs of launch templates.\n\n*   You can query up to 100 launch templates.\n*   You must specify LaunchTemplateId or LaunchTemplateName to specify a launch template.",
+      "description": "The IDs of one or more launch templates.\n\n- You can query up to 100 launch templates at a time.\n\n- You must specify LaunchTemplateId or LaunchTemplateName to determine the template.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "LaunchTemplateName",
-      "description": "The names of launch templates.\n\n*   You can query up to 100 launch templates.\n*   You must specify LaunchTemplateId or LaunchTemplateName to specify a launch template.",
+      "description": "The names of one or more launch templates.\n\n- You can query up to 100 launch templates at a time.\n\n- You must specify LaunchTemplateId or LaunchTemplateName to determine the template.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Page starts from page 1.\n\nDefault value: 1.",
+      "description": "The page number of the launch template list. Minimum value: 1.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page.\n\nDefault value: 10.",
+      "description": "The number of entries per page for a paged query.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the launch template. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TemplateResourceGroupId",
-      "description": "The ID of the resource group to which the launch template belongs. If you specify this parameter to query resources, up to 1,000 resources that belong to the specified resource group can be returned.\n\n>  The default resource group is not supported.",
+      "description": "The ID of the resource group to which the launch template belongs. When you use this parameter to filter resources, the resource count cannot exceed 1000.\n\n> Filtering by the default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateTag",
-      "description": "The tags of the launch template.\n\n>  You can only call API operations to add tags to and query the tags of a launch template. You cannot add tags to or view the tags of a launch template in the ECS console.",
+      "description": "The list of tag key-value pairs of the launch template itself.\n> Currently, you can create and query tags of launch templates only by calling API operations. You cannot create or view tags in the console.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the launch template. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with the specified tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count of resources that have all specified tags attached cannot exceed 1000. If the resource count exceeds 1000, call the [ListTagResources](~~110425~~) operation to query resources.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the launch template. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false

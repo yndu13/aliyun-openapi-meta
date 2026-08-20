@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "AllowExternalTargets",
-      "description": "Specifies whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:\n\n*   false (default): Resources in the resource share can be shared only with accounts in the resource directory.\n*   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.",
+      "description": "Specifies whether to allow sharing with accounts outside your resource directory. Valid values:\n\n- `false` (default): Resources can be shared only with accounts within your resource directory.\n\n- `true`: Resources can be shared with any Alibaba Cloud account.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PermissionNames",
-      "description": "The information about the permissions. If you do not configure this parameter, the system automatically associates the default permission for the specified resource type with the resource share. For more information, see [Permission library](~~465474~~).",
+      "description": "The name of the permission. If unspecified, the system attaches the default permission for the resource type. For details, see [Permission Library](~~465474~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceArns",
-      "description": "",
+      "description": "The Alibaba Cloud Resource Names (ARNs) of the shared resources.\n\nYou can add up to five shared resources at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The resource group ID.",
+      "description": "The ID of the resource group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceProperties",
-      "description": "",
+      "description": "A list of resource properties.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Property",
+          "description": "The resource property.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceArn",
+          "description": "The ARN of the resource.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,26 +58,28 @@
     },
     {
       "name": "ResourceShareName",
-      "description": "The name of the resource share.\n\nThe name must be 1 to 50 characters in length.\n\nThe name can contain letters, digits, periods (.), underscores (\\_), and hyphens (-).",
+      "description": "The name of the resource share.\n\nThe name must be 1 to 50 characters in length.\n\nIt can contain letters, digits, Chinese characters, periods (.), underscores (\\_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Resources",
-      "description": "The information about the shared resources.",
+      "description": "A list of shared resources.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ResourceId",
+          "description": "The ID of the shared resource.\n\nYou can add up to five shared resources at a time.\n\n> Specify the `Resources.N.ResourceId` and `Resources.N.ResourceType` parameters in pairs.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceType",
+          "description": "The type of the shared resource.\n\nYou can add up to five shared resources at a time.\n\nFor a list of supported resource types, see [Services that work with Resource Sharing](~~450526~~).\n\n> Specify the `Resources.N.ResourceId` and `Resources.N.ResourceType` parameters in pairs.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -84,19 +88,21 @@
     },
     {
       "name": "Tag",
-      "description": "The tags. You can specify up to 20 tags.",
+      "description": "The tags of the resource share. You can add a maximum of 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\n\n> The tag key can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\n\n> The tag value can be up to 128 characters in length. It cannot start with `acs:` and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -105,14 +111,14 @@
     },
     {
       "name": "TargetProperties",
-      "description": "The properties of the principal.\n\n>  This parameter is available only when you specify an Alibaba Cloud service as a principal.",
+      "description": "The properties of the principal.\n\n> This parameter is available only when the principal is an Alibaba Cloud service.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "Targets",
-      "description": "The information about the principals.",
+      "description": "A list of principals.",
       "position": "Query",
       "type": "RepeatList",
       "required": false

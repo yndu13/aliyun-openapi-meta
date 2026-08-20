@@ -1,67 +1,76 @@
 {
   "name": "UpdateDataQualityEvaluationTask",
-  "deprecated": false,
+  "deprecated": true,
   "protocol": "HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DataQualityRules",
-      "description": "The list of monitoring rules that are associated with the monitor.",
+      "description": "List of data quality rules associated with the data quality monitoring.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "CheckingConfig",
+          "description": "Sample validation settings",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Description",
+          "description": "Description of the data quality rule.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Enabled",
+          "description": "Whether the data quality rule is enabled.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "ErrorHandlers",
+          "description": "Quality rule validation issue handler",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Id",
+          "description": "ID of the validation rule. You can call the [ListQualityRules](~~173995~~) operation to obtain the rule ID.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "Name",
+          "description": "Name of the data quality rule.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "SamplingConfig",
+          "description": "Parameters required for sample collection",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Severity",
+          "description": "Severity level of the rule for the business (corresponds to strong/weak rules on the page). Optional enum values:\n- Normal\n- High",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "TemplateCode",
+          "description": "Unique identifier of the rule template referenced by the rule.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -70,33 +79,35 @@
     },
     {
       "name": "DataSourceId",
-      "description": "The data source ID. You can call the [ListDataSources](~~211431~~) operation to query the ID.",
+      "description": "Data source ID. You can call [ListDataSources](~~211431~~) to obtain the data source ID.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the monitor.",
+      "description": "Description of the quality monitoring task",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Hooks",
-      "description": "The hook.",
+      "description": "Callback settings",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Condition",
+          "description": "Hook trigger condition. When this condition is met, the hook action is triggered. Currently, only two types of condition expressions are supported:\n\n- Specify a single group of rule severity type and rule validation status, such as `${severity} == \"High\" AND ${status} == \"Critical\"`. This means the condition is met when any executed rule with severity High has a validation result of Critical.\n- Specify multiple groups of rule severity type and rule validation status, such as `(${severity} == \"High\" AND ${status} == \"Critical\") OR (${severity} == \"Normal\" AND ${status} == \"Critical\") OR (${severity} == \"Normal\" AND ${status} == \"Error\")`. This means the condition is met when any executed rule satisfies one of the following: severity High with validation result Critical, severity Normal with validation result Critical, or severity Normal with validation result Error. The severity enum in the condition expression is consistent with the severity enum in DataQualityRule, and the status enum is consistent with the status in DataQualityResult.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "Hook actions executed after data quality validation completes.\n\n- BlockTaskInstance: Block the scheduling task.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -105,49 +116,49 @@
     },
     {
       "name": "Id",
-      "description": "The ID of the monitor.",
+      "description": "Data quality monitoring ID.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "Name",
-      "description": "The name of the monitor.",
+      "description": "Name of the quality monitoring task",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Notifications",
-      "description": "The configurations of alert notifications.",
+      "description": "Notification subscription configuration",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectId",
-      "description": "The ID of the DataWorks workspace.",
+      "description": "Workspace ID",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "RuntimeConf",
-      "description": "The extended configurations in JSON-formatted strings. You can use this parameter only for monitors that are used to monitor the quality of E-MapReduce (EMR) data.\n\n*   queue: The Yarn queue used when a monitor checks the quality of EMR data. By default, the queue configured for the current workspace is used.\n\n*   sqlEngine: The SQL engine used when a monitor checks the quality of EMR data.\n\n    *   HIVE_SQL\n    *   SPARK_SQL",
+      "description": "Extended configuration. A JSON-formatted string. Takes effect only for EMR-type data quality monitoring.\n\n- queue: The YARN queue used when executing EMR data quality validation. Defaults to the queue configured for the current project.\n- sqlEngine: The SQL engine used when executing EMR data validation.\n  + HIVE_SQL\n  + SPARK_SQL",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Target",
-      "description": "The monitored object of the data quality monitoring task.",
+      "description": "Data quality monitoring object",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Trigger",
-      "description": "The trigger configuration of the monitor.",
+      "description": "Trigger configuration of the data quality validation task",
       "position": "Body",
       "type": "String",
       "required": false

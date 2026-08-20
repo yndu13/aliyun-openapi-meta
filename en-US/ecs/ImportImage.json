@@ -7,78 +7,84 @@
   "parameters": [
     {
       "name": "Architecture",
-      "description": "The system architecture. Valid values:\n\n*   i386\n*   x86\\_64\n*   arm64\n\nDefault value: x86\\_64.",
+      "description": "The system architecture. Valid values: \n\n- i386.\n- x86_64.\n- arm64.\n\nDefault value: x86_64.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BootMode",
-      "description": "The boot mode of the image. Valid values:\n\n*   BIOS\n*   UEFI\n\nDefault value: BIOS. If you set `Architecture` to arm64, set this parameter to UEFI.\n\n> Make sure that you are aware of the boot modes supported by the specified image, as thehe modified boot mode needs to be supported by the image. This way, instances that use this image can start.",
+      "description": "The boot mode of the image. Valid values:\n\n- BIOS: Basic Input/Output System (BIOS) boot mode.\n- UEFI: Unified Extensible Firmware Interface (UEFI) boot mode.\n\nDefault value: BIOS. If `Architecture=arm64`, the default value is UEFI, and only UEFI can be specified.\n\n<notice>\n\nTo prevent instances from failing to start due to an unsupported boot mode, make sure that you understand the boot mode supported by the target image before you specify this parameter. For more information about image boot modes, see [Image boot modes](~~2244655#b9caa9b8bb1wf~~).\n\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. **The token can contain only ASCII characters and cannot exceed 64 characters in length.** For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The image description. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the image. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DetectionStrategy",
-      "description": "The mode in which to check the image. If you do not specify this parameter, the image is not checked. Only the standard check mode is supported.\n\n>  This parameter is supported for most Linux and Windows operating system versions. For more information about image check items and operating system limits for image check, see [Overview](~~439819~~) and [Operating system limits for image check](~~475800~~).",
+      "description": "The image detection strategy. If this parameter is not specified, detection is not triggered. Only the Standard detection mode is supported.\n\n>Most Linux/Windows versions are supported. For more information about image detection items and operating system limitations, see [Overview of image detection](~~439819~~) and [Operating system limitations for image detection](~~475800~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskDeviceMapping",
-      "description": "Details about the custom images.",
+      "description": "The information list of the custom image to create.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Device",
+          "description": "The device name of DiskDeviceMapping.N.Device in the custom image.\n\n> This parameter will be deprecated. For better code compatibility, do not use this parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskImSize",
+          "description": "The size of the custom image. Unit: GiB.\n\nThe space consists of the system disk and data disks. Make sure that the system disk space is greater than or equal to the size of the imported image file. Valid values:\n\n- When N=1, the value indicates the system disk. Valid values: 1 GiB to 2048 GiB.\n- When N=2 to 17, the value indicates a data disk. Valid values: 1 GiB to 2048 GiB.\n\nAfter you upload the source image file to OSS, you can view the image file size in the OSS bucket.\n\n>This parameter will be deprecated. For better compatibility, use `DiskDeviceMapping.N.DiskImageSize` instead.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "DiskImageSize",
+          "description": "The space size of the custom image after the image is imported.\n\nThe space consists of the system disk and data disks. Make sure that the system disk space is greater than or equal to the size of the imported image file. Valid values:\n\n- When N=1, the value indicates the system disk. Valid values: 1 GiB to 2048 GiB.\n- When N=2 to 17, the value indicates a data disk. Valid values: 1 GiB to 2048 GiB.\n\nAfter you upload the source image file to OSS, you can view the image file size in the OSS bucket.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Format",
+          "description": "The image format. Valid values:\n\n- RAW.\n- VHD.\n- QCOW2.\n- VMDK (in invitational preview).\n\nDefault value: empty, which indicates that Alibaba Cloud automatically detects the image format and uses the detected format.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OSSBucket",
+          "description": "The OSS bucket where the image file is stored.\n\n> Before importing an image to this OSS bucket for the first time, add the RAM authorization policy as described in the **Operation description** section of this topic. Otherwise, the `NoSetRoletoECSServiceAccount` error is reported.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OSSObject",
+          "description": "The name (key) of the image file stored in the OSS bucket after the image is uploaded to OSS.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -87,56 +93,56 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized RAM users, and missing parameter values. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   false: performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.\n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n\n- true: performs only a dry run. The system checks the request for potential issues, including the AccessKey validity, the authorization of the Resource Access Management (RAM) user, and required parameters. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n- false: performs a dry run and sends the Normal request. If the check succeeds, a 2XX HTTP status code is returned and the operation is performed.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Features",
-      "description": "The attributes of the image.",
+      "description": "The image feature-related properties.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "ImageName",
-      "description": "The image name. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `acs:` or `aliyun`. The name cannot contain `http://` or `https://`. The name can contain letters, digits, periods (.), colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The image name. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. It can contain digits, periods (.), colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LicenseType",
-      "description": "The type of the license used to activate the operating system after the image is imported. Valid values:\n\n*   Auto: ECS checks the operating system of the image and allocates a license to the operating system. ECS first checks whether the operating system distribution specified by `Platform` has a license allocated through an official Alibaba Cloud channel. If yes, the allocated license is used. If no, the license that comes with the source operating system is used.\n*   Aliyun: The license allocated through an official Alibaba Cloud channel is used for the operating system distribution specified by `Platform`.\n*   BYOL: The license that comes with the source operating system is used. In this case, make sure that your license key is eligible for use in Alibaba Cloud.\n\nDefault value: Auto.",
+      "description": "The license type. This parameter specifies the authorization mode when instances are created by calling [RunInstances](~~2679677~~) with this image. This value takes effect only for Windows Server images. Valid values:\n- Aliyun: Uses the Alibaba Cloud official license. After the instance starts, the system attempts to automatically connect to the Alibaba Cloud KMS server for activation. The billing for the instance includes the Windows Server license fee.\n- BYOL: Bring Your Own License. After the instance starts, Alibaba Cloud does not automatically activate it. You must manually activate it by using your own valid license key. The billing for the instance does not include the Windows Server license fee.\n\nDefault value: Aliyun.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OSType",
-      "description": "The operating system platform. Valid values:\n\n*   windows\n*   linux\n\nDefault value: linux.",
+      "description": "The operating system type. Valid values: \n\n- windows. You must also set `LicenseType`.\n- linux.\n\nDefault value: linux.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Platform",
-      "description": "The operating system distribution. Valid values:\n\n*   Aliyun\n*   Anolis\n*   CentOS\n*   Ubuntu\n*   CoreOS\n*   SUSE\n*   Debian\n*   OpenSUSE\n*   FreeBSD\n*   RedHat\n*   Kylin\n*   UOS\n*   Fedora\n*   Fedora CoreOS\n*   CentOS Stream\n*   AlmaLinux\n*   Rocky Linux\n*   Gentoo\n*   Customized Linux\n*   Others Linux\n*   Windows Server 2022\n*   Windows Server 2019\n*   Windows Server 2016\n*   Windows Server 2012\n*   Windows Server 2008\n*   Windows Server 2003\n\nDefault value: Others Linux.",
+      "description": "The operating system distribution. Valid values: \n- Aliyun\n- Anolis\n- CentOS\n- Ubuntu\n- CoreOS\n- SUSE\n- Debian\n- OpenSUSE\n- FreeBSD\n- RedHat\n- Kylin\n- UOS\n- Fedora\n- Fedora CoreOS\n- CentOS Stream\n- AlmaLinux\n- Rocky Linux\n- Gentoo\n- Customized Linux\n- Others Linux\n- Windows Server 2022\n- Windows Server 2019\n- Windows Server 2016\n- Windows Server 2012\n- Windows Server 2008\n- Windows Server 2003\n- Other Windows\n\nDefault value: Others Linux.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the source image. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the source custom image. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the image.",
+      "description": "The ID of the enterprise resource group to which the imported image belongs.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -150,26 +156,28 @@
     },
     {
       "name": "StorageLocationArn",
-      "description": "The Alibaba Cloud Resource Name (ARN) of the cloud box, which is used to uniquely identify a storage location in the cloud.\n\n>  Specify this parameter only if you import an image from OSS on CloudBox. Otherwise, you do not need to specify this parameter. For more information, see [What is OSS on CloudBox?](~~430190~~)\n\nThe ARN must be in the following format: `arn:acs:cloudbox:{RegionId}:{AliUid}:cloudbox/{CloudBoxId}`. Replace `{RegionId}` with the region ID of the cloud box, `{AliUid}` with the ID of the Alibaba Cloud account to which the cloud box belongs, and `{CloudBoxId}` with the ID of the cloud box.",
+      "description": "The Alibaba Cloud Resource Name (ARN) of the CloudBox, which uniquely identifies the cloud storage location.\n\n>You need to specify this parameter only when you import an image file from OSS on CloudBox. If you are not using OSS on CloudBox, do not set this parameter. For more information, see [What is OSS on CloudBox](~~430190~~).\n\nThe correct ARN format is: `arn:acs:cloudbox:{RegionId}:{AliUid}:cloudbox/{CloudBoxId}`, where `{RegionId}` is the region ID where the CloudBox resides, `{AliUid}` is the Alibaba Cloud account ID, and `{CloudBoxId}` is the CloudBox ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The image tags.",
+      "description": "The tag list of the image.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the image. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the image. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,103 +1,104 @@
 {
   "name": "DescribePropertyScaDetail",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Biz",
-      "description": "The type of the asset fingerprint that you want to query. Default value: **sca**. Valid values:\n\n*   **sca**: middleware\n*   **sca_database**: database\n*   **sca_web**: web service\n\n>  If you do not specify this parameter, the default value **sca** is used, which indicates that middleware fingerprints are queried.",
+      "description": "The type of Asset Fingerprints to query. Default value: **sca**. Valid values:\n\n- **sca**: middleware\n- **sca_database**: database\n- **sca_web**: web service\n\n> If you do not settings this parameter, the default value **sca** is used, which indicates that middleware Asset Fingerprints information is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BizType",
-      "description": "The type of the middleware, database, or web service that you want to query. Valid values:\n\n*   **system_service**: system service\n*   **software_library**: software library\n*   **docker_component**: container component\n*   **database**: database\n*   **web_container**: web container\n*   **jar**: JAR package\n*   **web_framework**: web framework",
+      "description": "The type of the middleware, database, or web service to query. Valid values:  \n- **system_service**: system service\n- **software_library**: software library\n- **docker_component**: container component\n- **database**: database\n- **web_container**: web container\n- **jar**: JAR package\n- **web_framework**: web framework",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CurrentPage",
-      "description": "The number of the page to return. Default value: **1**.",
+      "description": "The page number of the page to return in the query results. Default value: **1**, which indicates that the results start from page 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language of the content within the request and response. Default value: **zh**. Valid values:\n\n*   **zh**: Chinese\n*   **en**: English",
+      "description": "The language type for the request and response messages. Default value: **zh**. Valid values:\n\n- **zh**: Chinese\n- **en**: English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the middleware, database, or web service.\n\n>  This parameter is deprecated. You can ignore it.",
+      "description": "The name of the middleware, database, or web service.\n> This parameter is deprecated. You do not need to configure it.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The value of NextToken that is returned when the NextToken method is used. You do not need to specify this parameter for the first request.",
+      "description": "The token that marks the current position from which to start reading. Leave this parameter empty to start from the beginning.\n\n> You do not need to set this parameter for the first call. The response includes the NextToken value for the next call. Each subsequent response contains the NextToken value for the following call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Default value: **10**.\n\n>  We recommend that you do not leave this parameter empty.",
+      "description": "Settings the number of entries per page in a paged query for Asset Fingerprints information. Default value: **10**, which indicates that 10 entries of Asset Fingerprints information are displayed per page.\n> Do not leave PageSize empty.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Pid",
-      "description": "The PID.",
+      "description": "The process ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Port",
-      "description": "The port that the process monitors.",
+      "description": "The port on which the process listens.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProcessStartedEnd",
-      "description": "The timestamp when the process ends. Unit: milliseconds.",
+      "description": "The end of the time range to query for process startup timestamps. Unit: seconds.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ProcessStartedStart",
-      "description": "The timestamp when the process starts. Unit: milliseconds.",
+      "description": "The start of the time range to query for process startup timestamps. Unit: seconds.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Remark",
-      "description": "The search condition, such as a server name or a server IP address.\n\n>  Fuzzy match is supported.",
+      "description": "The search condition (server name or IP address).\n> Fuzzy match is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScaName",
-      "description": "The name of the asset fingerprint that you want to query.",
+      "description": "The name of the Asset Fingerprints to query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScaNamePattern",
-      "description": "The name of the process.",
+      "description": "The process name.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -111,19 +112,21 @@
     },
     {
       "name": "SearchCriteriaList",
-      "description": "",
+      "description": "The list of search criteria.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The name of the search criterion.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The filter value of the search criterion.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -132,49 +135,49 @@
     },
     {
       "name": "SearchInfo",
-      "description": "The search keyword. You must specify this parameter based on the value of the **SearchItem** parameter.\n\n*   If the **SearchItem** parameter is set to **name**, you must enter the name of an asset fingerprint.\n\n*   If the **SearchItem** parameter is set to **type**, you must enter the type of an asset fingerprint. Valid values:\n\n    *   **system_service**: system service\n    *   **software_library**: software library\n    *   **docker_component**: container component\n    *   **database**: database\n    *   **web_container**: web container\n    *   **jar**: JAR package\n    *   **web_framework**: web framework\n\n>  You must specify both the **SearchItem** and **SearchInfo** parameters before you can query the asset fingerprints based on the specified name or type.",
+      "description": "The content to query. The content varies based on the value of **SearchItem**:\n- If **SearchItem** is settings to **name**, enter the name of the Asset Fingerprints.\n- If **SearchItem** is settings to **type**, select the type of the Asset Fingerprints. Valid values:   \n    - **system_service**: system service\n    - **software_library**: software library\n    - **docker_component**: container component\n    - **database**: database\n    - **web_container**: web container\n    - **jar**: JAR package\n    - **web_framework**: web framework  \n\n> The **SearchItem** and **SearchInfo** parameters must be used together. You must settings both parameters for the query to take effect (settings only one is invalid). This allows you to view all data of the specified Asset Fingerprints by name or type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SearchInfoSub",
-      "description": "The keyword of the subquery. You must specify this parameter based on the value of the **SearchItemSub** parameter.\n\n*   If the **SearchItemSub** parameter is set to **port**, you must enter a port number.\n*   If the **SearchItemSub** parameter is set to **pid**, you must enter a process ID (PID).\n*   If the **SearchItemSub** parameter is set to **version**, you must enter the version of a database, middleware, or web service.\n*   If the **SearchItemSub** parameter is set to **user**, you must enter a username.\n\n>  The subquery is used to search for data of a specified database, middleware, or web service.",
+      "description": "The content of the sub-query condition. The content varies based on the value of **SearchItemSub**:\n- If **SearchItemSub** is set to **port**, enter the port number.\n- If **SearchItemSub** is set to **pid**, enter the process ID.\n- If **SearchItemSub** is set to **version**, enter the version of the middleware, database, or web service.\n- If **SearchItemSub** is set to **user**, enter the username.\n\n> Sub-query conditions help you search for the data list of a specific middleware, database, or web service.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SearchItem",
-      "description": "The type of the search condition. Valid values:\n\n*   **name**: the name of a database, middleware, or web service\n*   **type**: the type of a database, middleware, or web service\n\n>  You must specify both the **SearchItem** and **SearchInfo** parameters before you can query the asset fingerprints based on the specified name or type.",
+      "description": "Settings the type of the conditional query. Valid values:\n- **name**: the name of the middleware, database, or web service.\n- **type**: the type of the middleware, database, or web service.\n\n> The **SearchItem** and **SearchInfo** parameters must be used together. You must settings both parameters for the query to take effect (settings only one is invalid). This allows you to view all data of the specified Asset Fingerprints by name or type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SearchItemSub",
-      "description": "The type of the subquery. Valid values:\n\n*   **port**\n*   **pid**\n*   **version**\n*   **user**",
+      "description": "The type of the sub-query condition. Valid values:\n- **port**: port\n- **pid**: process ID\n- **version**: version\n- **user**: user",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UseNextToken",
-      "description": "Specifies whether to use the NextToken method to retrieve a new page of results. If you set UseNextToken to true, the value of TotalCount is not returned. Valid values:\n\n- **true**: The NextToken method is used.\n- **false**: The NextToken method is not used.",
+      "description": "Specifies whether to use the NextToken method to retrieve asset list data. If this parameter is used, TotalCount is no longer returned. Valid values:\n\n- **true**: Use the NextToken method.\n- **false**: Do not use the NextToken method.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "User",
-      "description": "The user who runs the process.",
+      "description": "The user that runs the process.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Uuid",
-      "description": "The UUID of the server on which the middleware, database, or web service is run.",
+      "description": "The UUID of the server on which the middleware, database, or web service is deployed.",
       "position": "Query",
       "type": "String",
       "required": false

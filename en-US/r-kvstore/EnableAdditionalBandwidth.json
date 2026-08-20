@@ -7,42 +7,41 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Default value: true. Valid values:\n\n*   **true**: enables automatic payment. Make sure that you have sufficient balance within your account.\n*   **false**: disables automatic payment. If automatic payment is disabled, you must perform the following steps to complete the payment in the Tair (Redis OSS-compatible) console: In the top navigation bar, choose **Expenses** > **Renewal Management**. In the left-side navigation pane, click **Orders**. On the **Orders** page, find the order and complete the payment.",
+      "description": "Specifies whether to enable auto-payment. Valid values:\n\n- **true**: Enables auto-payment. This is the default. Ensure that your account has a sufficient balance.\n\n- **false**: Disables auto-payment. You must manually complete the payment.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n*   **true**: enables auto-renewal.\n*   **false**: disables auto-renewal. This is the default value.",
+      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n- **true**: Enables auto-renewal.\n\n- **false**: Disables auto-renewal. This is the default.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenewPeriod",
-      "description": "The auto-renewal cycle based on which Tair (Redis OSS-compatible) automatically renews the purchased bandwidth. Unit: months. Valid values: **1**, **2**, **3**, **4**, **5**, **6**, **7**, **8**, **9**, **12**, **24**, **36**, and **60**.\n\n> * This parameter takes effect and must be specified only when you set the **AutoRenew** parameter to **true**.\n> * You cannot query the auto-renewal cycle by calling an API operation. To obtain the auto-renewal cycle, you can perform the following procedure: In the top navigation bar of the Tair (Redis OSS-compatible) console, choose **Expenses** > **Renewal Management**. On the page that appears, enter the ID of the instance and the `-bw` suffix in the **Instance ID** field. Example: r-bp1zxszhcgatnx****-bw.",
+      "description": "The auto-renewal period, in months. Valid values: **1**, **2**, **3**, **4**, **5**, **6**, **7**, **8**, **9**, **12**, **24**, **36**, and **60**.\n\n> - This parameter is required only when **AutoRenew** is set to **true**.\n>\n> - After you set this parameter, you cannot query its value by calling API operations. To check this setting, go to the console. In the top navigation bar, choose **Billing** > **Renewal Management**. Then, in the **Instance ID** field, enter the instance ID followed by the `-bw` suffix (for example, r-bp1zxszhcgatnx\\*\\*\\*\\*-bw).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "BandWidthBurst",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "The amount of extra bandwidth that you want to purchase. Unit: Mbit/s. The value must be an integer greater than or equal to **0**. The maximum value can be up to six times the default bandwidth of the instance or a single shard, but cannot exceed 192 Mbit/s. For example, if the default bandwidth of an instance is 10 Mbit/s, the value range of this parameter is **0** to **60**.\n\n> *   You can call the [DescribeRoleZoneInfo](~~473782~~) operation to obtain the default maximum bandwidth returned by the **DefaultBandWidth** response parameter. For more information about instance types, see [Overview](~~26350~~).\n> -   If you specify multiple data shard IDs in the **NodeId** parameter, you must specify the amount of bandwidth that you want to purchase for each specified data shard in the Bandwidth parameter. The bandwidth values that you specify in the Bandwidth parameter must be in the same sequence as the data shard IDs that you specify in the NodeId parameter. In addition, you must separate the bandwidth values with commas (,).",
+      "description": "The amount of bandwidth to add, in MB/s. The value must be an integer greater than or equal to **0**. The maximum value is six times the default bandwidth of the instance type or a single data shard, with an upper limit of 192 MB/s. For example, if the default bandwidth of an instance is 10 MB/s, the valid values for this parameter are **0** to **60**.\n\n> - You can call the [DescribeRoleZoneInfo](~~473782~~) operation and check the value of the **DefaultBandWidth** parameter in the response to get the default maximum bandwidth. For more information about instance types, see [Instance types](~~26350~~).\n>\n> - If you specified multiple data shard IDs for the **NodeId** parameter, the bandwidth values that you specify for this parameter must correspond to the order of the data shard IDs. Separate multiple bandwidth values with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ChargeType",
-      "description": "The billing method of the bandwidth instance. Default value: PostPaid. Valid values:\n\n- PrePaid: subscription\n- PostPaid: pay-as-you-go",
+      "description": "The billing method for the additional bandwidth. Valid values:\n\n- **PrePaid**: subscription.\n\n- **PostPaid**: pay-as-you-go. This is the only supported billing method.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,28 +55,28 @@
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance. You can call the [DescribeInstances](~~473778~~) operation to query the IDs of instances.",
+      "description": "The instance ID. You can call the [DescribeInstances](~~473778~~) operation to query the instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "NodeId",
-      "description": "The ID of the data shard for which you want to purchase a specific amount of bandwidth. You can call the [DescribeLogicInstanceTopology](~~473786~~) operation to query the IDs of the data shards in an instance. If you specify multiple data shard IDs, separate the data shard IDs with commas (,). You can also set this parameter to **All**, which specifies all the data shards of the instance.\n\n>  This parameter is valid and required only if the instance is a [cluster](~~52228~~) instance or [read/write splitting](~~62870~~) instance.",
+      "description": "The ID of the data shard. You can call the [DescribeLogicInstanceTopology](~~473786~~) operation to query data shard IDs. Separate multiple data shard IDs with commas (,). You can also set this parameter to **All** to specify all data shards.\n\n> This parameter is required only when the instance uses the [cluster architecture](~~52228~~) or the [read/write splitting architecture](~~62870~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OrderTimeLength",
-      "description": "The validity period of the bandwidth that you purchase. Unit: day. Valid values: **1**, **2**, **3**, **7**, **14**, **30**, **60**, **90**, **180**, **365**, **730**, **1095**, and **1825**.\n\n> If you want to continue using the purchased bandwidth after the specified period of time elapses, you must call the [RenewAdditionalBandwidth](~~473804~~) operation to submit a renewal order.",
+      "description": "The subscription duration, in days. Valid values: **1**, **2**, **3**, **7**, **14**, **30**, **60**, **90**, **180**, **365**, **730**, **1095**, and **1825**.\n\n> To continue using the purchased bandwidth, you must call the [RenewAdditionalBandwidth](~~473804~~) operation to renew the bandwidth before it expires.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceBiz",
-      "description": "The source of the operation. This parameter is used only for internal maintenance. You do not need to specify this parameter.",
+      "description": "The source of the call. This parameter is used for internal maintenance. Do not specify it.",
       "position": "Query",
       "type": "String",
       "required": false

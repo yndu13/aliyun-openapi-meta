@@ -1,47 +1,48 @@
 {
   "name": "ModifyDefenseResourceXff",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AcwCookieStatus",
-      "description": "The status of the tracking cookie.\n\n*   **0**: disabled\n*   **1**: enabled. This is the default value.",
+      "description": "The status of the tracking cookie.\n\n- **0**: Disabled.\n\n- **1 (default)**: Enabled.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AcwSecureStatus",
-      "description": "The status of the secure attribute of the tracking cookie.\n\n*   **0**: disabled. This is the default value.\n*   **1**: enabled.",
+      "description": "The status of the secure attribute of the tracking cookie.\n\n- **0 (default)**: Disabled.\n\n- **1**: Enabled.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AcwV3SecureStatus",
-      "description": "The status of the secure attribute of the slider CAPTCHA cookie.\n\n*   **0**: disabled. This is the default value.\n*   **1**: enabled.",
+      "description": "The status of the secure attribute of the slider CAPTCHA cookie.\n\n- **0 (default)**: Disabled.\n\n- **1**: Enabled.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "CustomHeaders",
-      "description": "The custom header fields.\n\n>  The first IP address in the specified custom header field is used as the originating IP address of the client to prevent X-Forwarded-For forgery. If you specify multiple header fields, WAF reads the values of the header fields in sequence until the originating IP address is obtained. If the originating IP address cannot be obtained, the first IP address in the X-Forwarded-For header is used as the originating IP address of the client.",
+      "description": "The custom header fields.\n\n> The first IP address in the specified header field is used as the client source IP address to prevent X-Forwarded-For (XFF) spoofing. If multiple headers are specified, they are tried in sequence to obtain the source IP address. If the first header does not contain an IP address, the system tries the second header, and so on. If no IP address is found in any of the specified headers, the system uses the first IP address in the X-Forwarded-For header.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the Web Application Firewall (WAF) instance.\n\n>  You can call the [DescribeInstance](~~433756~~) operation to query the ID of the WAF instance.",
+      "description": "The ID of the WAF instance.\n\n> You can call the [DescribeInstance](~~433756~~) operation to query the ID of the current WAF instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region in which the WAF instance is deployed. Valid values:\n\n*   **cn-hangzhou**: Chinese mainland.\n*   **ap-southeast-1**: outside the Chinese mainland.",
+      "description": "The region of the WAF instance. Valid values:\n\n- **cn-hangzhou**: The Chinese mainland.\n\n- **ap-southeast-1**: Outside the Chinese mainland.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -62,19 +63,21 @@
     },
     {
       "name": "ResponseHeaders",
-      "description": "The response header.",
+      "description": "The response header parameters.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "Specifies the key for a custom response header.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "Specifies the value for a custom response header.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -83,7 +86,7 @@
     },
     {
       "name": "XffStatus",
-      "description": "Specifies whether a Layer 7 proxy is deployed in front of WAF. Layer 7 proxies include Anti-DDoS Proxy and Alibaba Cloud CDN. Valid values:\n\n*   **0**: No Layer 7 proxies are deployed. This is the default value.\n*   **1**: A Layer 7 proxy is deployed.",
+      "description": "Specifies whether a Layer 7 proxy is deployed in front of WAF. Layer 7 proxies include Anti-DDoS Proxy and Alibaba Cloud CDN. Valid values:\n\n- **0 (default)**: No.\n\n- **1**: Yes.",
       "position": "Query",
       "type": "Integer",
       "required": true

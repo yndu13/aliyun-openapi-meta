@@ -1,12 +1,13 @@
 {
   "name": "DescribeDcdnDomainIpaBpsData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainName",
-      "description": "The accelerated domain name.\n\nSeparate multiple domain names with commas (,). If you leave this parameter empty, all accelerated domain names are queried.",
+      "description": "The accelerated domain name.\n\nYou can specify multiple domain names and separate them with commas (,). If you leave this parameter empty, data for all accelerated domain names is queried.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -20,28 +21,28 @@
     },
     {
       "name": "FixTimeGap",
-      "description": "Specifies whether to implement padding with zeros. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to pad data with zeros. Valid values:\n\n- **true**: Pads data with zeros.\n\n- **false**: Does not pad data with zeros.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Interval",
-      "description": "The time granularity of data entries. Unit: seconds.\n\nThe time granularity varies with the time range specified by **StartTime** and **EndTime**.\n\n*   If the time range between StartTime and EndTime is less than 3 days, the valid values are **300**, **3600**, and **86400**. If you leave this parameter empty, **300** is used.\n*   If the time range between StartTime and EndTime is greater than or equal to 3 days and less than 31 days, the valid values are **3600** and **86400**. Default value: **3600**.\n*   If the time range between StartTime and EndTime is 31 days or longer, the valid value is **86400**. Default value: **86400**.",
+      "description": "The time granularity of the data to query, in seconds.\n\nThe valid values for this parameter depend on the time span between **StartTime** and **EndTime**:\n\n- If the time span is less than 3 days: **300**, **3600**, and **86400** are supported. The default value is **300**.\n\n- If the time span is from 3 to 31 days (exclusive): **3600** and **86400** are supported. The default value is **3600**.\n\n- If the time span is 31 days or more: **86400** is supported. The default value is **86400**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IspNameEn",
-      "description": "The name of the Internet service provider (ISP).\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query ISPs.",
+      "description": "The English name of the carrier. You can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query the English name. If you do not specify this parameter, data for all carriers is queried.\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation, which queries all carriers by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LocationNameEn",
-      "description": "The name of the region.\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query regions.",
+      "description": "The English name of the region. You can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query the English name. If you do not specify this parameter, data for all regions is queried.\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation. By default, all regions are queried.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -55,7 +56,7 @@
     },
     {
       "name": "TimeMerge",
-      "description": "Specifies whether to automatically set the interval. If you set **TimeMerge** to **1**, the value of the **Interval** parameter is automatically assigned based on the **startTime** and **endTime** parameters. You can specify either this parameter or the **Interval** parameter.",
+      "description": "Specifies whether to automatically adjust the time granularity. If you set this parameter to **1**, an appropriate value for the **Interval** parameter is used based on the specified **StartTime** and **EndTime**. You can specify either this parameter or the **Interval** parameter.",
       "position": "Query",
       "type": "String",
       "required": false

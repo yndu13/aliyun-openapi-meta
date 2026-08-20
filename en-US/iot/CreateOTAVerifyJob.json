@@ -1,66 +1,69 @@
 {
   "name": "CreateOTAVerifyJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DownloadProtocol",
-      "description": "The download protocol of the update package. Valid values: **HTTPS** and **MQTT**. Default value: HTTPS. After the device receives the update package information pushed by IoT Platform, this protocol is used to download the update package.\n\n> If you want to download the update package over MQTT, take note of the following items:\n>*   The following regions are supported: China (Shanghai), China (Beijing), and China (Shenzhen).\n>*   The OTA update package can contain only one file and the size of the file cannot exceed 16 MB.\n>*   You must use the latest version of Link SDK for C to develop the device features to perform OTA updates and download files over MQTT. For more information, see [Sample code](~~330985~~).",
+      "description": "The protocol used to download over-the-air update package. Valid values: **HTTPS** (default) and **MQTT**. After the device receives over-the-air update package download information pushed by IoT Platform, the device uses this protocol to download over-the-air update package.\n\n><notice>To use the MQTT protocol to download update packages, the following conditions must be met:\n- Supported regions: China (Shanghai), China (Beijing), and China (Shenzhen) only.\n- OTA update package: contains only one file, and the file size does not exceed 16 MB.\n- Device SDK: You must use the latest version of the C language Link SDK provided by IoT Platform to develop OTA update and MQTT file download capabilities. For more information, see [OTA update code sample for downloading update packages over MQTT](~~330985~~).\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FirmwareId",
-      "description": "The ID of the update package.\n\nThe **FirmwareId** parameter is returned when you call the [CreateOTAFirmware](~~147311~~) operation to create an OTA update package.\n\nYou can also call the [ListOTAFirmware](~~147450~~) operation to obtain the ID.",
+      "description": "The ID of the OTA upgrade package. This is the unique identifier of the upgrade package.\n\n**FirmwareId** is one of the parameters returned when you call [CreateOTAFirmware](~~147311~~) to create an OTA upgrade package.\n\nYou can also call [ListOTAFirmware](~~147450~~) to obtain the ID from the response.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the ID of an instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.****\n>*   If no **Overview** page or **ID** is generated for your instance, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this parameter is available, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or </ph></props>ID is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NeedConfirm",
-      "description": "Specifies whether to control the update by using a mobile app. You must develop the mobile app as needed.\n\n*   **false** (default): no. A device obtains the information about the OTA update task based on the **NeedPush** parameter.\n*   **true**: yes To perform an OTA update on a device, you must confirm the update by using your mobile app. Then, the device can obtain the information about the OTA update task based on the **NeedPush** parameter.",
+      "description": "Specifies whether device OTA upgrades require confirmation from a mobile app. You must develop the mobile app on your own.\n\n\n- **false** (default): No confirmation is required. OTA upgrade task information is obtained based on the **NeedPush** parameter.\n- **true**: Confirmation is required. The device cannot obtain OTA upgrade task information until the app confirms the OTA upgrade. Then, the device obtains OTA upgrade task information based on the **NeedPush** parameter.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NeedPush",
-      "description": "Specifies whether to automatically push update tasks from IoT Platform to devices.\n\n*   **true** (default): yes. After an update batch is created, IoT Platform automatically pushes update tasks to the specified online devices.\n\n    In this case, a device can still initiate a request to obtain the information about the over-the-air (OTA) update task from IoT Platform.\n\n*   **false**: no. A device must initiate a request to obtain the information about the OTA update task from IoT Platform.",
+      "description": "Specifies whether IoT Platform proactively pushes over-the-air update task to the device.\n\n- **true** (default): IoT Platform proactively pushes over-the-air update task to online devices within over-the-air update scope after the batch task is created.\n    \n    In this case, the device can still proactively send a request to IoT Platform to obtain OTA update task information.\n\n- **false**: The device must send a request to IoT Platform to obtain OTA update task information.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the OTA update package belongs.",
+      "description": "The ProductKey of the product to which the OTA upgrade package belongs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the batch tag. The key can contain only letters, digits, and periods (.). The key must be 1 to 30 characters in length. You can add up to 10 batch tags.\n\nBatch tags are sent to the device when IoT Platform pushes the update notification to the device.\n\n> Batch tags are optional. The **Required** field is set to **Yes** because if you specify a batch tag, you must specify both **Tag.N.Value** and **Tag.N.Key** as a pair.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The value of the batch tag. The value must be 1 to 1024 characters in length. You can add up to 10 batch tags. The total length of all batch tag keys and values cannot exceed 4096 characters.\n\n> Batch tags are optional. The **Required** field is set to **Yes** because if you specify a batch tag, you must specify both **Tag.N.Value** and **Tag.N.Key** as a pair.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -69,14 +72,14 @@
     },
     {
       "name": "TargetDeviceName",
-      "description": "",
+      "description": "The devices to authenticate for the OTA upgrade.\n\n> - The product to which the device belongs must be the same as the product to which the OTA upgrade package belongs.\n- Device names cannot be duplicate.\n- You can specify up to 10 device names.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "TimeoutInMinutes",
-      "description": "The timeout period for a device to update the firmware. Unit: minutes. Valid values: 1 to 1440.",
+      "description": "The timeout period for the device update. Unit: minutes. Valid values: 1 to 1440.",
       "position": "Query",
       "type": "Integer",
       "required": false

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "DryRun",
-      "description": "此次请求是否只进行检验。取值：\n\n- true：只做校验，不会实际执行。\n- false（默认）：会实际执行，继续创建资源栈。",
+      "description": "此次请求是否只进行检验。取值：\n\n- true：只做校验，不会实际执行。\n- false（默认）：会实际执行，继续创建资源栈。\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -35,12 +35,14 @@
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "覆盖的模板参数的名称。如果未指定特定参数的名称和值，ROS将使用上一次创建时的取值。N的最大值为200。\n\n> 该参数仅在Mode为Recreate时生效。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "覆盖的模板参数的值。N的最大值为200。\n\n对于ROS类型资源栈，覆盖的模板参数限制如下：\n- 不能引发模板Conditions部分中任何Condition的值的变化，由true变false，或由false变true。\n- 覆盖参数不能被不继续创建的资源引用。\n\n>该参数仅在Mode为Recreate时生效。",
           "position": "Query",
           "type": "String",
           "required": true

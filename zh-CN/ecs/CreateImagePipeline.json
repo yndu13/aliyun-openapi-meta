@@ -1,5 +1,6 @@
 {
   "name": "CreateImagePipeline",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -48,7 +49,7 @@
     },
     {
       "name": "DeleteInstanceOnFailure",
-      "description": "镜像构建失败后是否释放中转实例。取值范围：\n\n- true：释放。\n- false：不释放。\n\n默认值：true。\n\n> 中转实例如果没有成功启动，则实例默认不保留。",
+      "description": "镜像构建失败后是否释放中转实例。取值范围：\n\n- true：释放。\n- false：不释放。\n\n默认值：true。\n\n> 中转实例如果没有成功启动，则实例默认不保留。\n\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -124,6 +125,12 @@
       "required": true
     },
     {
+      "name": "RepairItem",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "RepairMode",
       "description": "镜像模版中的修复选项。\n\n取值范围：\n- Standard：标准模式。\n\n  当前Linux系统的检测项包含\n  - GUESTOS.CloudInit\n  - GUESTOS.Dhcp\n  - GUESTOS.Virtio\n  - GUESTOS.OnlineResizeFS\n  - GUESTOS.Grub\n  - GUESTOS.Fstab\n\n  Windows系统的检测项包含\n  - GUESTOS.Virtio\n  - GUESTOS.Update\n  - GUESTOS.Hotfix\n  - GUESTOS.Server\n>随着检测修复能力的不断提升，包含的修复项可能会增加。修复项具体含义，请参见[镜像检测概述](~~439819~~)。",
       "position": "Query",
@@ -153,12 +160,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签键。N的取值范围：1~20。一旦传入该值，则不允许为空字符串。最多支持128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "标签值。N的取值范围：1~20。一旦传入该值，可以为空字符串。最多支持128个字符，不能以`acs:`开头，不能包含`http://`或者`https://`。",
           "position": "Query",
           "type": "String",
           "required": false

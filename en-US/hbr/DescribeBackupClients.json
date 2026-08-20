@@ -7,61 +7,63 @@
   "parameters": [
     {
       "name": "ClientIds",
-      "description": "The IDs of HBR clients.",
+      "description": "The list of backup client IDs.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "ClientType",
-      "description": "The type of the HBR client. Valid values:\n\n*   **ECS_CLIENT**: HBR client for Elastic Compute Service (ECS) file backup\n*   **CONTAINER_CLIENT**: HBR client for container backup",
+      "description": "The type of the backup client. Valid values:\n- **ECS_CLIENT**: ECS File Backup client.\n- **CONTAINER_CLIENT**: container backup client.\n- **LOCAL_CLIENT**: local NAS backup, CPFS backup, archive, or data synchronization client.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClusterId",
-      "description": "The ID of the cluster for the backup.",
+      "description": "The ID of the backup cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CrossAccountRoleName",
-      "description": "The name of the RAM role that is created within the source Alibaba Cloud account and assigned to the current Alibaba Cloud account to authorize the current Alibaba Cloud account to back up data across Alibaba Cloud accounts.",
+      "description": "The name of the RAM role created in the source account for cross-account backup.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CrossAccountType",
-      "description": "Specifies whether data is backed up within the same Alibaba Cloud account or across Alibaba Cloud accounts. Valid values:\n\n*   SELF_ACCOUNT: Data is backed up within the same Alibaba Cloud account.\n*   CROSS_ACCOUNT: Data is backed up across Alibaba Cloud accounts.",
+      "description": "The type of cross-account backup. Valid values: \n- SELF_ACCOUNT: backup within the current account. \n- CROSS_ACCOUNT: cross-account backup.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CrossAccountUserId",
-      "description": "The ID of the source Alibaba Cloud account that authorizes the current Alibaba Cloud account to back up data across Alibaba Cloud accounts.",
+      "description": "The ID of the source account used for cross-account backup.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Filters",
-      "description": "",
+      "description": "The query filters.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the query filter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Values",
+          "description": "The values to match in the query filter.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -70,40 +72,42 @@
     },
     {
       "name": "InstanceIds",
-      "description": "The IDs of ECS instances.",
+      "description": "The list of ECS instance IDs.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page 1. Default value: 1.",
+      "description": "The page number. Pages start from 1. Default value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Valid values: 1 to 99. Default value: 10.",
+      "description": "The number of entries per page. Minimum value: 1. Maximum value: 99. Default value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The tag information to return.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the backup vault. Valid values of N: 1 to 20.\n\n- The tag key cannot start with `aliyun` or `acs:`. \n- The tag key cannot contain `http://` or `https://`.\n- The tag key cannot be an empty string.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the backup vault. Valid values of N: 1 to 20.\n\n- The tag value cannot start with `aliyun` or `acs:`. \n- The tag value cannot contain `http://` or `https://`.\n- The tag value cannot be an empty string.",
           "position": "FormData",
           "type": "String",
           "required": false

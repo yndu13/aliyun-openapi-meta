@@ -7,32 +7,35 @@
   "parameters": [
     {
       "name": "DataSourceIds",
-      "description": "List of data source IDs.",
+      "description": "The list of data source IDs.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Filters",
-      "description": "Query filters.",
+      "description": "The query filters.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key in the query filter. Valid values:\n\n- **PolicyId**: backup policy ID\n- **DataSourceId**: ECS instance ID\n- **DataSourceType**: data source type",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Operator",
+          "description": "The matching method. Default value: IN. The matching operation (Operator) supported by the Key and Value in the filter. Valid values:\n\n- **EQUAL**: equal to\n- **NOT_EQUAL**: not equal to\n- **GREATER_THAN**: greater than\n- **GREATER_THAN_OR_EQUAL**: greater than or equal to\n- **LESS_THAN**: less than\n- **LESS_THAN_OR_EQUAL**: less than or equal to\n- **BETWEEN**: range. The value is a JSON array `[lower bound, upper bound]`.\n- **IN**: in a set. The value is an array.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Values",
+          "description": "The values to match in the query filter.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -41,28 +44,28 @@
     },
     {
       "name": "MaxResults",
-      "description": "Number of results per query.\n\nRange: 10~100. Default: 10.",
+      "description": "The number of results for each query.\n\nValid values: 10 to 100. Default value: 10.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "Token required to fetch the next page of policy and data source associations.",
+      "description": "The token required to obtain the next page of policy-data source associations.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyId",
-      "description": "Policy ID.",
+      "description": "The policy ID.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceType",
-      "description": "Data source type. Possible values:\n* **UDM_ECS**: Indicates ECS full machine backup.",
+      "description": "The data source type. Valid values:\n- **UDM_ECS**: ECS instance backup.\n- **OSS**: OSS backup.\n- **NAS**: Alibaba Cloud NAS backup.\n- **COMMON_NAS**: On-premises NAS backup.\n- **ECS_FILE**: ECS File Backup Essential Edition.\n- **File**: On-premises file backup.\n- **COMMON_FILE_SYSTEM**: CPFS backup.\n- **OTS**: Tablestore backup.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "AllowedPrefixes",
-      "description": "The allowed route prefixes.",
+      "description": "The list of allowed route prefixes.",
       "position": "Body",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "AllowedPrefixesMode",
-      "description": "The route prefix mode.\n\n*   MatchMode: After you distribute new route CIDR blocks to data centers, original specific routes that are distributed are withdrawn.\n*   IncrementalMode: After you distribute new route CIDR blocks to data centers, the original specific routes that fall in the CIDR blocks that you configure are withdrawn, and the original specific routes that do not fall in the CIDR blocks are still distributed.",
+      "description": "The prefix routing pattern. Valid values:\n\n- MatchMode: Publishes only the configured route prefixes to your data center. Existing specific routes are withdrawn.\n- IncrementalMode: Publishes the configured route prefixes to your data center. Withdraw previously published more specific routes that are covered by the configured prefixes. More specific routes that are not covered by the configured prefixes remain published.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -28,21 +28,21 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "A client token used to ensure the idempotence of the request.\n\nGenerate a parameter value from your client to make sure that the value is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** of each API request may be different.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run.\n*   **false** (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Performs a dry run.\n- **false** (default): Sends a normal request.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EcrId",
-      "description": "The ECR ID.",
+      "description": "The ID of ECR.",
       "position": "Body",
       "type": "String",
       "required": true

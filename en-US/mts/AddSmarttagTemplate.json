@@ -7,112 +7,111 @@
   "parameters": [
     {
       "name": "AnalyseTypes",
-      "description": "",
+      "description": "Analysis types. You can select multiple types separated by commas (,). Supported types:\n\n> Make sure your file contains results for the selected analysis types. Otherwise, queries may return empty results. For example, if you select ocr but the uploaded image contains no text, the query returns no results.\n\n- **ocr**: Detect labels from text in images.\n\n- **asr**: Detect labels from speech in audio.\n\n- **classification**: Video classification.\n\n- **shows**: Detect TV programs in videos.\n\n- **face**: Detect faces in videos or images.\n\n- **role**: Detect character roles in videos.\n\n- **object**: Detect objects in videos.\n\n- **tvstation**: Detect TV station logos in videos.\n\n- **action**: Detect action events in videos.\n\n- **emotion**: Detect facial expressions in videos.\n\n- **landmark**: Detect landmarks in videos.\n\n- **scene**: Detect scenes in videos.\n\n- **movieIp**: Detect film and TV intellectual property (IP) in videos. This type is only available in the China (Beijing) region.\n\n- **subtitle**: Extract subtitles.\n\nThe relationship between analysis types and billing items is as follows:\n\n> Enabling analysis types through this API incurs charges. For pricing details, see [Billing items](~~299952~~).\n\n- Video classification + structured tags: All analysis types except face, ocr, and asr fall under this billing item. Charges do not stack.\n\n- Video facial recognition: Enable face.\n\n- Video text recognition tags: Enable ocr.\n\n- Video speech recognition tags: Enable asr.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FaceCategoryIds",
-      "description": "",
+      "description": "List of face library IDs to use for recognition. You can select multiple IDs separated by commas (,). You can specify system face library IDs and custom face library IDs. System face library IDs include the following:\n\n- **celebrity**: Celebrity figures.\n\n- **politician**: Political figures.\n\n- **sensitive**: Sensitive figures.\n\n- For custom face library IDs, see [Register custom face library](~~187777~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FaceCustomParamsConfig",
-      "description": "",
+      "description": "Parameters for facial recognition algorithms, formatted as a JSON string. Currently supports adjusting face detection and recognition thresholds.\n\n- **faceDetThreshold**: Face detection threshold. Default: 0.999. Applies only to unknown faces.\n\n- **faceRegThreshold**: Face recognition threshold. Default: 0.9.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Industry",
-      "description": "",
+      "description": "Industry of the file to analyze. Default value: **common** (general industry). Select the appropriate industry so the backend can match the best algorithm combination. Valid values:\n\n- **microVideo**: Short video industry.\n\n- **common**: General industry.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IsDefault",
-      "description": "",
+      "description": "Set as the default template. If set to true, this template is used automatically when transcoding if no template is specified. Valid values: **true** (yes), **false** (no). Default: **false**. Each Alibaba Cloud account can have only one default template. Setting another default template returns an error.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "KeywordConfig",
-      "description": "",
+      "description": "Keyword tag configuration. **type** specifies part-of-speech categories. You can select multiple categories separated by commas (,). Supported categories:\n\n- **name**: Person names\n\n- **location**: Place names\n\n- **organization**: Organization names\n\n- **other**: Other\n\n> If KeywordConfig is missing, invalid (not a JSON string), or lacks a valid type field, all keyword types are returned by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KnowledgeConfig",
-      "description": "",
+      "description": "In DataQ - Smart Tag Service 2.0 and 2.0-custom modes, specify the knowledge graph fields to return in tag results. For more information about knowledge graph fields, see [Knowledge graph fields in DataQ - Smart Tag Service](~~356383~~). If KnowledgeConfig is empty, missing, or not a valid JSON string, the following fields are returned by default:\n\n- movie:\n\n  - name: IP name\n\n  - alias: IP alias\n\n  - chnl: Category\n\n  - genre: Genre\n\n  - country: Production country or region\n\n  - language: Language\n\n  - releaseYear: Release year\n\n- music:\n\n  - songName: Song name\n\n  - artistName: Artist name\n\n  - artistArea: Artist region (Chinese, Japanese, Korean, Western, or Other)\n\n  - albumName: Album name\n\n- person:\n\n  - name: Name\n\n  - gender: Gender\n\n  - citizenship: Nationality\n\n  - occupation: Occupation\n\n  - classification: Type\n\n  - nationality: Ethnicity\n\n  - birthPlace: Birthplace\n\n  - birthDate: Birth date\n\n- landmark\n\n  - name: Name\n\n  - nameEn: English name\n\n  - description: Description\n\n  - address: Address\n\n- item\n\n  - brandName: Brand\n\n  - finegrainName: Fine-grained description",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LabelCustomCategoryIds",
-      "description": "",
+      "description": "List of custom tag library IDs to use for recognition. You can select multiple IDs separated by commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LabelCustomParamsConfig",
-      "description": "",
+      "description": "Additional parameter settings for custom tag libraries. Currently supports only threshold configuration.\n{\"threshold\": xxx}",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LabelType",
-      "description": "",
+      "description": "Annotation type. Supported types:\n\n- **auto**: Machine-generated tags.\n\n- **hmi**: Human-in-the-loop tagging.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LabelVersion",
-      "description": "",
+      "description": "Specify the DataQ - Smart Tag Service version. Default: \"1.0\".\n\n- 1.0: DataQ - Smart Tag Service 1.0\n\n- 2.0: DataQ - Smart Tag Service 2.0 (CPV tags)\n\n- 2.0-custom: DataQ - Smart Tag Service 2.0-custom (CPV custom model)",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LandmarkGroupIds",
-      "description": "",
+      "description": "List of landmark library IDs to use for recognition. You can select multiple IDs separated by commas (,). You can specify system landmark library IDs and custom landmark library IDs. System landmark library IDs include the following:\n\n- common: General landmarks.\n\n- For custom landmark library IDs, see [Register custom entity photos](~~451182~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ObjectGroupIds",
-      "description": "",
+      "description": "List of object library IDs to use for recognition. You can select multiple IDs separated by commas (,). You can specify system object library IDs and custom object library IDs. System object library IDs include the following:\n\n- **general**: General objects.\n\n- **item**: Products.\n\n- **weapon**: Weapons.\n\n- **animal**: Animals.\n\n- For custom object library IDs, see [Register custom entity](~~451180~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Scene",
-      "description": "",
+      "description": "Usage scenario of the file to analyze. Select the appropriate scenario so the backend can match the best algorithm combination. Valid values:\n\n- **search**: Search scenario.\n\n- **recommend**: Recommendation scenario.\n\n- Default value: **search**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TemplateConfig",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateName",
-      "description": "",
+      "description": "Custom template name. The string can contain letters and Chinese characters. Maximum length: 120 characters.",
       "position": "Query",
       "type": "String",
       "required": true

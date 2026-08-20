@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.",
+      "description": "The idempotency parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DIJobId",
-      "description": "The ID of the synchronization task with which the alert rule is associated.",
+      "description": "The task ID associated with the alert rule.",
       "position": "Query",
       "type": "Long",
       "required": true
@@ -35,7 +35,7 @@
     },
     {
       "name": "MetricType",
-      "description": "The metric type in the alert rule. Valid values:\n\n*   Heartbeat\n*   FailoverCount\n*   Delay\n*   DdlReport\n*   ResourceUtilization",
+      "description": "The alert metric type. Valid values:\n- Heartbeat: task status alert.\n- FailoverCount: failover count alert.\n- Delay: task latency alert.\n- DdlReport: DDL notification.\n- ResourceUtilization: resource group utilization.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -56,37 +56,42 @@
     },
     {
       "name": "TriggerConditions",
-      "description": "The conditions that can trigger the alert rule.",
+      "description": "The list of alert trigger conditions. Multiple conditions are supported.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "DdlReportTags",
+          "description": "**[Deprecated]** Use the DdlTypes parameter instead.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "DdlTypes",
+          "description": "The list of DDL types that take effect. This parameter takes effect only when the metric type is DDL notification.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Duration",
+          "description": "The time window for alert calculation. Unit: minutes.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "Severity",
+          "description": "The severity level. Valid values:\n- Warning\n- Critical",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Threshold",
+          "description": "The alert threshold.\n- Task status alert: no threshold is required.\n- Failover count alert: the threshold is the number of failovers.\n- Task latency alert: the threshold is the latency duration. Unit: seconds.",
           "position": "Query",
           "type": "Long",
           "required": false

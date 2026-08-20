@@ -1,12 +1,13 @@
 {
   "name": "DeleteVpnPbrRouteEntry",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The ClientToken value can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -20,21 +21,21 @@
     },
     {
       "name": "OverlayMode",
-      "description": "The tunneling protocol. Set the value to **Ipsec**.",
+      "description": "The tunneling protocol. Set the value to **Ipsec** (IPsec tunneling protocol).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Priority",
-      "description": "The priority of the policy-based route.\n\n*   If the route was not assigned a priority, this parameter is optional.\n\n*   If the route was assigned a priority, this parameter is optional.\n\n        If you specify this parameter, set the value to the priority configured for the policy-based route. Otherwise, the operation cannot be performed.",
+      "description": "The policy priority of the policy-based route.\n\n- If no policy priority was previously configured for the policy-based route, you do not need to specify this parameter.\n- If a policy priority was previously configured for the policy-based route, you can choose whether to specify this parameter.\n\n    If you specify this parameter, enter the policy priority that was previously configured for the policy-based route. If you enter a different value, the operation fails.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the VPN gateway is created. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the VPN gateway instance. You can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -55,14 +56,14 @@
     },
     {
       "name": "VpnGatewayId",
-      "description": "The ID of the VPN gateway.",
+      "description": "The instance ID of the VPN gateway.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Weight",
-      "description": "The weight of the policy-based route. Valid values:\n\nYou can call [DescribeVpnPbrRouteEntries](~~2526959~~) to query weights of policy-based routes.",
+      "description": "The weight of the policy-based route.\n\nYou can call the [DescribeVpnPbrRouteEntries](~~2526959~~) operation to query the weight of the policy-based route.",
       "position": "Query",
       "type": "Integer",
       "required": true

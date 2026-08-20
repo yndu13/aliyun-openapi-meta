@@ -6,6 +6,12 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AlignStoragePrimaryAzone",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "ClientToken",
       "description": "客户端token，保证唯一任意字符串。",
       "position": "Query",
@@ -14,7 +20,7 @@
     },
     {
       "name": "CnClass",
-      "description": "计算节点规格。",
+      "description": "**企业版计算节点变配目标规格**\n\n**主实例计算节点规格（企业版CN）通用**\t\n- polarx.x4.medium.2e\t2核8G（通用）\n- polarx.x4.large.2e\t4核16G（通用）\n- polarx.x4.xlarge.2e\t8核32G（通用）\n- polarx.x4.2xlarge.2e 16核64G（通用）\n\n**主实例计算节点规格（企业版CN）独享**\t\n- polarx.x8.large.2e\t4核32G（独享）\n- polarx.x8.xlarge.2e\t8核64G（独享）\n- polarx.x8.2xlarge.2e\t16核128G（独享）\n- polarx.x4.4xlarge.2e\t32核128G（独享）\n- polarx.x8.4xlarge.2e\t32核256G（独享）\n- polarx.st.8xlarge.2e\t60核470G（独享）\n- polarx.st.12xlarge.2e\t90核720G（独享）\n\n**只读实例计算节点规格（企业版CN）通用**\t\n\n- polarxro.x4.medium.2e\t2核8G（通用）\n- polarxro.x4.large.2e\t4核16G（通用）\n- polarxro.x4.xlarge.2e\t8核32G（通用）\n- polarxro.x4.2xlarge.2e\t16核64G（通用）\n\n**只读实例计算节点规格（企业版CN）独享**\t\n\n- polarxro.x8.large.2e\t4核32G（独享）\n- polarxro.x8.xlarge.2e\t8核64G（独享）\n- polarxro.x8.2xlarge.2e\t16核128G（独享）\n- polarxro.x4.4xlarge.2e\t32核128G（独享）\n- polarxro.x8.4xlarge.2e\t32核256G（独享）\n- polarxro.st.8xlarge.2e\t60核470G（独占物理机）\n- polarxro.st.12xlarge.2e\t90核720G（独占物理机）",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,14 +34,14 @@
     },
     {
       "name": "DnClass",
-      "description": "存储节点规格。",
+      "description": "**企业版存储节点变配目标规格**\n\n**存储节点规格（企业版DN）通用**\t\n\n- mysql.n4.medium.25\t2核8G（通用）\n- mysql.n4.large.25\t4核16G（通用）\n- mysql.n4.xlarge.25\t8核32G（通用）\n- mysql.n4.2xlarge.25\t16核64G（通用）\n\n**存储节点规格（企业版DN）独享**\t\n\n- mysql.x8.large.25\t4核32G（独享）\n- mysql.x8.xlarge.25\t8核64G（独享）\n- mysql.x8.2xlarge.25\t16核128G（独享）\n- mysql.x4.4xlarge.25\t32核128G（独享）\n- mysql.x8.4xlarge.25\t32核256G（独享）\n- mysql.st.8xlarge.25\t60核470G（独享）\n- mysql.st.12xlarge.25\t90核720G（独享）\n\n**只读实例存储节点规格（企业版DN）通用**\t\n\n- rds.mysql.s2.xlarge\t2核8G（通用）\n- mysqlro.x4.large.1\t4核16G（通用）\n- mysqlro.x4.xlarge.1\t8核32G（通用）\n- mysqlro.x4.2xlarge.1\t16核64G（通用）\n\n**只读实例存储节点规格（企业版DN）独享**\t\n\n- mysqlro.x8.large.1\t4核32G（独享）\n- mysqlro.x8.xlarge.1\t8核64G（独享）\n- mysqlro.x8.2xlarge.1\t16核128G（独享）\n- mysqlro.x4.4xlarge.1\t32核128G（独享）\n- mysqlro.x8.4xlarge.1\t32核256G（独享）\n- rds.mysql.st.h43\t60核470G（独占物理机）\n- rds.mysql.st.v52\t90核720G（独占物理机）",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DnStorageSpace",
-      "description": "",
+      "description": "变配目标磁盘大小\n\n- 实例为固定大小磁盘时，不能变配磁盘，此时不传 DnStorageSpace\n- DnStorageSpace 范围：[20, 3072]",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,35 +55,42 @@
     },
     {
       "name": "SpecifiedDNScale",
-      "description": "",
+      "description": "是否为DN多规格变配",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SpecifiedDNSpecMapJson",
-      "description": "",
+      "description": "DN多规格变配时，每个DN的目标规格",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageType",
+      "description": "本地盘迁云盘时传cloud_auto；不传表示不变更存储类型",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SwitchTime",
-      "description": "",
+      "description": "切换开始时间，切换时间为：[开始时间T, T+30m]，暂未开放使用",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SwitchTimeMode",
-      "description": "",
+      "description": "切换时间\n- 0: 立即执行\n- 1: 在运维时间内执行",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetDBInstanceClass",
-      "description": "变配目标规格：\n\n- **polarx.x4.medium.2e**：2核8G\n- **polarx.x4.large.2e**：4核16G\n- **polarx.x8.large.2e**：4核32G\n- **polarx.x4.xlarge.2e**：8核32G\n- **polarx.x8.xlarge.2e**：8核64G\n- **polarx.x4.2xlarge.2e**：16核64G\n- **polarx.x8.2xlarge.2e**：16核128G\n- **polarx.x4.4xlarge.2e**：32核128G\n- **polarx.x8.4xlarge.2e**：32核256G\n- **polarx.st.8xlarge.2e**：60核470G\n- **polarx.st.12xlarge.2e**：90核720G",
+      "description": "**标准版变配目标规格**\n\n**主实例节点规格(标准版使用)（通用）：**\n- mysql.n2.medium.25\t2核4G（通用）\n- mysql.n4.medium.25\t2核8G（通用）\n- mysql.n8.medium.25\t2核16G（通用）\n- mysql.n2.large.25\t4核8G（通用）\n- mysql.n4.large.25\t4核16G（通用）\n- mysql.n8.large.25\t4核32G（通用）\n- mysql.n2.xlarge.25\t8核16G（通用）\n- mysql.n4.xlarge.25\t8核32G（通用）\n- mysql.n8.xlarge.25\t8核64G（通用）\n- mysql.n2.2xlarge.25\t16核32G（通用）\n- mysql.n4.2xlarge.25\t16核64G（通用）\n- mysql.n8.2xlarge.25\t16核128G（通用）\n\n**主实例节点规格(标准版使用)（独享）：**\n- mysql.x2.medium.25\t2核4GB（独享）\n- mysql.x4.medium.25\t2核8GB（独享）\n- mysql.x8.medium.25\t2核16G（独享）\n- mysql.x2.large.25\t4核8GB（独享）\n- mysql.x4.large.25\t4核16G（独享）\n- mysql.x8.large.25\t4核32G（独享）\n- mysql.x2.xlarge.25\t8核16GB（独享）\n- mysql.x4.xlarge.25\t8核32G（独享）\n- mysql.x8.xlarge.25\t8核64G（独享）\n- mysql.x2.2xlarge.25\t16核32GB（独享）\n- mysql.x4.2xlarge.25\t16核64G（独享）\n- mysql.x8.2xlarge.25\t16核128G（独享）\n\n**只读实例节点规格(标准版使用) 通用**\t\n\n- rds.mysql.s2.xlarge \t2核8G（通用）\n- mysqlro.x4.large.1 \t4核16G（通用）\n- mysqlro.x4.xlarge.1 \t8核32G（通用）\n- mysqlro.x4.2xlarge.1 \t16核64G（通用） \n\n**只读实例节点规格(标准版使用) 独享**\t\n\n- mysqlro.x8.large.1 \t4核32G（独享） \n- mysqlro.x8.xlarge.1 \t8核64G（独享） \n- mysqlro.x8.2xlarge.1 \t16核128G（独享） \n- mysqlro.x4.4xlarge.1 \t32核128G（独享） \n- mysqlro.x8.4xlarge.1\t32核256G（独享） ",
       "position": "Query",
       "type": "String",
       "required": false

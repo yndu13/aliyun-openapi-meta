@@ -7,112 +7,119 @@
   "parameters": [
     {
       "name": "AdaptiveRouting",
-      "description": "Configuration for failover across pools.",
+      "description": "The cross-origin address pool back-to-origin configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DefaultPools",
-      "description": "List of default pools.",
+      "description": "The list of default address pool IDs.",
       "position": "Query",
       "type": "Json",
       "required": true
     },
     {
       "name": "Description",
-      "description": "Detailed description of the load balancer, for easier management and identification.",
+      "description": "The description of the load balancer for management and identification purposes.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Enabled",
-      "description": "Whether the load balancer is enabled.\n\n- true: Enabled.\n- false: Not enabled.",
+      "description": "Specifies whether the load balancer is enabled. Valid values:\n\n- true: Enabled.\n- false: Not enabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FallbackPool",
-      "description": "Fallback pool ID, where traffic will be directed when all other pools are unavailable.",
+      "description": "The fallback address pool ID. Traffic is directed to this pool when all other pools are unavailable.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "Monitor",
-      "description": "Monitor configuration, used for health checks.",
+      "description": "The monitor configuration for health checks.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Name",
-      "description": "The name of the load balancer, which must meet the domain name format validation and be a subdomain under the site.",
+      "description": "The name of the load balancer. The name must be in a valid domain name format and must be a subdomain of the site.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RandomSteering",
-      "description": "Weighted round-robin configuration, used to control the traffic distribution weights among different pools.",
+      "description": "The weighted round-robin configuration that controls the traffic distribution weight across different address pools.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionPools",
-      "description": "Address pools corresponding to primary regions.",
+      "description": "The address pools mapped to primary regions.",
       "position": "Query",
       "type": "Any",
       "required": false
     },
     {
       "name": "Rules",
-      "description": "Rule information.",
+      "description": "The rule information.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "FixedResponse",
+          "description": "The fixed response content returned after a rule is matched.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Overrides",
+          "description": "The load balancing configuration that overwrites the corresponding fields in the load balancer configuration when a rule is matched. The specified fields overwrite the corresponding fields in the load balancer configuration.",
           "position": "Query",
           "type": "Any",
           "required": false
         },
         {
           "name": "Rule",
+          "description": "The rule content that uses conditional expressions to match user requests. This parameter is not required when you add a global configuration. Two scenarios are supported:\n- Match all incoming requests: Set the value to true.\n- Match specified requests: Set the value to a custom expression, such as (http.host eq \\\"video.example.com\\\").",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleEnable",
+          "description": "The rule switch. This parameter is not required when you add a global configuration. Valid values:\n- on: Enabled.\n- off: Disabled.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleName",
+          "description": "The rule name. This parameter is not required when you add a global configuration.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Sequence",
+          "description": "The rule execution order. This parameter is optional. If not specified, rules are executed in list order. If specified, the value must be a positive integer. A larger value indicates a higher priority.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Terminates",
+          "description": "Specifies whether to stop executing subsequent rules. Valid values:\n\n- true: Stop executing subsequent rules.\n- false: Continue executing subsequent rules. This is the default value.",
           "position": "Query",
           "type": "Boolean",
           "required": false
@@ -121,35 +128,35 @@
     },
     {
       "name": "SessionAffinity",
-      "description": "Session persistence, with possible values:\n- off: Not enabled.\n- ip: Session persistence by IP.\n- cookie: Session persistence by cookie.",
+      "description": "The session persistence mode. Valid values:\n- off: disabled.\n- ip: IP-based session persistence.\n- cookie: cookie-based session persistence.\n- http_header: HTTP header-based session persistence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SiteId",
-      "description": "Site ID, which can be obtained by calling the [ListSites](~~ListSites~~) interface.",
+      "description": "The site ID. You can call the [ListSites](~~ListSites~~) operation to obtain the site ID.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "SteeringPolicy",
-      "description": "Load balancing strategy.\n\n- geo: Geographical strategy.\n- random: Weighted round-robin.\n- order: Primary and backup method.",
+      "description": "The load balancing policy. Valid values:\n\n- geo: geo-based routing.\n- random: weighted round-robin.\n- order: primary/secondary mode.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SubRegionPools",
-      "description": "Address pools corresponding to secondary regions. When multiple secondary regions share the same set of address pools, the keys can be concatenated with commas.",
+      "description": "The address pools mapped to secondary regions. If multiple secondary regions share the same set of address pools, you can concatenate the secondary region names with commas as the key.",
       "position": "Query",
       "type": "Any",
       "required": false
     },
     {
       "name": "Ttl",
-      "description": "TTL value, the time-to-live for DNS records, with a default of 30 seconds. The value range is 10-600.",
+      "description": "The TTL value, which specifies the time-to-live of the DNS record. Default value: 30 seconds. Valid values: 10 to 600.",
       "position": "Query",
       "type": "Integer",
       "required": false

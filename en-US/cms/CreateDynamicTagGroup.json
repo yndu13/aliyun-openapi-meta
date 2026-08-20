@@ -1,51 +1,55 @@
 {
   "name": "CreateDynamicTagGroup",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ContactGroupList",
-      "description": "",
+      "description": "The alert contact groups. The value of N can be from 1 to 100. Alert notifications for the application group are sent to the alert contacts in these alert contact groups.\n\nAn alert contact group can contain one or more alert contacts. For more information about how to create alert contacts and alert contact groups, see [PutContact](~~114923~~) and [PutContactGroup](~~114929~~). For more information about how to obtain alert contact groups, see [DescribeContactGroupList](~~114922~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "EnableInstallAgent",
-      "description": "Specifies whether the CloudMonitor agent is automatically installed for the application group. CloudMonitor determines whether to automatically install the CloudMonitor agent for the hosts in an application group based on the value of this parameter. Valid values:\n\n*   true: The CloudMonitor agent is automatically installed.\n*   false (default value): The CloudMonitor agent is not automatically installed.",
+      "description": "Specifies whether to automatically install the CloudMonitor agent for the application group. CloudMonitor automatically installs the agent on the hosts in the application group. Valid values:\n\n- true: enabled.\n\n- false (default): disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableSubscribeEvent",
-      "description": "Specifies whether the application group automatically subscribes to event notifications. If events whose severity level is critical or warning occur on resources in an application group, CloudMonitor sends alert notifications. Valid values:\n\n*   true: The application group automatically subscribes to event notifications.\n*   false (default value): The application group does not automatically subscribe to event notifications.",
+      "description": "Specifies whether to automatically subscribe to event notifications for the application group. When a critical or warning event occurs on a resource in the application group, CloudMonitor sends an alert notification. Valid values:\n\n- true: enabled.\n\n- false (default): disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MatchExpress",
-      "description": "The conditional expressions used to create an application group based on the tag.",
+      "description": "The match expressions that are used to create an application group from tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "TagName",
+          "description": "The key of the tag that is used to create the group. If multiple resources have this tag key, the resources that meet the filter conditions are added to the same group based on the same key-value pair.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TagValue",
+          "description": "The value of the resource tag. The value of N is 1.\n\n> You must specify both the `MatchExpress.N.TagValueMatchFunction` and `MatchExpress.N.TagValue` parameters.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TagValueMatchFunction",
+          "description": "The method that is used to match the values of resource tags. The value of N is 1. Valid values:\n\n- contains: includes.\n\n- startWith: prefix.\n\n- endWith: suffix.\n\n- notContains: does not include.\n\n- equals: equals.\n\n- all: all.\n\n> You must specify both the `MatchExpress.N.TagValueMatchFunction` and `MatchExpress.N.TagValue` parameters.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -54,28 +58,28 @@
     },
     {
       "name": "MatchExpressFilterRelation",
-      "description": "The relationship between the conditional expressions for the tag values of the cloud resources. Valid values:\n\n*   and (default)\n*   or",
+      "description": "The relationship between the conditional expressions for the tag values. Valid values:\n\n- and (default)\n\n- or",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TagKey",
-      "description": "The tag keys of the cloud resources.\n\nFor more information about how to obtain tag keys, see [DescribeTagKeyList](~~145558~~).",
+      "description": "The tag key of the resource.\n\nFor more information about how to query the tag keys of resources, see [DescribeTagKeyList](~~145558~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TagRegionId",
-      "description": "The ID of the region to which the tags belong.",
+      "description": "The ID of the region to which the tag belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateIdList",
-      "description": "",
+      "description": "The ID of the alert template.\n\nFor more information about how to query the IDs of alert templates, see [DescribeMetricRuleTemplateList](~~114982~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false

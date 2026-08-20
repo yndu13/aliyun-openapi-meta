@@ -7,54 +7,63 @@
   "parameters": [
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.\n\n*   Sample ID of a General-purpose NAS file system: 31a8e4\\*\\*\\*\\*.\n*   The IDs of Extreme NAS file systems must start with extreme-, for example, extreme-0015\\*\\*\\*\\*.\n*   The IDs of CPFS file systems must start with cpfs-. Example: cpfs-125487\\*\\*\\*\\*.\n*   The IDs of CPFS SE file systems must start with cpfsse-. Example: cpfsse-022c71b134\\*\\*\\*\\*.",
+      "description": "The file system ID.\n- General-purpose NAS: 31a8e4****.\n- Extreme NAS: must start with extreme-, such as extreme-0015****.\n- CPFS (locally redundant): must start with cpfs-, such as cpfs-125487****.\n- CPFS SE (zone-redundant): must start with cpfsse-, such as cpfsse-022c71b134****.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FileSystemType",
-      "description": "The type of the file system.\n\nValid values:\n\n*   all (default): All types.\n*   standard: General-purpose NAS\n*   extreme: Extreme NAS\n*   cpfs: CPFS (locally redundant storage)\n*   cpfsse: CPFS SE (zone-redundant storage)\n\n>  Separate multiple data types with commas (,).",
+      "description": "The type of the file system.\n\nValid values:\n\n- all (default): queries all types.\n- standard: General-purpose NAS.\n- extreme: Extreme NAS.\n- cpfs: Cloud Parallel File Storage (CPFS) with locally redundant storage.\n- cpfsse: CPFS SE with zone-redundant storage.\n\n> To query multiple types, separate them with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number.\n\nPages start from page 1. Default value: 1.",
+      "description": "The page number of the file system list.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page.\n\nValid values: 1 to 100.\n\nDefault value: 10.",
+      "description": "The number of file systems on each page in a paging query.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The resource group ID.\n\nYou can log on to the [Resource Management console](https://resourcemanager.console.aliyun.com/resource-groups?) to view resource group IDs.",
+      "description": "The resource group ID.\n\nYou can view the resource group ID in the [Resource Management console](https://resourcemanager.console.aliyun.com/resource-groups?).",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageType",
+      "description": "The storage type. Currently, only CPFS for Lingjun specifications are supported for a filtered query. Other FileSystemType values are not supported. The following specifications are supported:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The details about the tags.",
+      "description": "The tag information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\n\nLimits:\n\n- Valid values of N: 1 to 20.\n- The tag key can be up to 128 characters in length.\n- The tag key cannot start with `aliyun` or `acs:`.\n- The tag key cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\n\nLimits:\n\n- N can be an integer from 1 to 20.\n- The tag value can be up to 128 characters in length.\n- The tag value cannot start with `aliyun` or `acs:`.\n- The tag value cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -63,7 +72,7 @@
     },
     {
       "name": "VpcId",
-      "description": "The ID of the virtual private cloud (VPC).\n\nIf you want to mount the file system on an Elastic Compute Service (ECS) instance, the file system and the ECS instance must reside in the same VPC.",
+      "description": "The VPC ID.",
       "position": "Query",
       "type": "String",
       "required": false

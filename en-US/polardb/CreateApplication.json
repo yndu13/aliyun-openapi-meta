@@ -6,103 +6,141 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AIDBClusterId",
+      "description": "The ID of an existing model operator instance to associate. This parameter is effective only when ApplicationType is set to polarclaw.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "ApplicationType",
-      "description": "",
+      "description": "The type of the application. Valid values:\n\n- supabase: Creates a managed Supabase application.\n\n- raycluster: Creates a managed Ray Cluster application.\n\n- polarclaw: Creates a managed PolarClaw application.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Architecture",
-      "description": "",
+      "description": "The CPU architecture. Valid value:\n\n- x86",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "AuthProvider",
+      "description": "The authentication service provider.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AuthProviderConfig",
+      "description": "The configuration of the authentication provider.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AutoAllocatePublicEip",
+      "description": "Specifies whether to automatically create and bind an Elastic IP Address (EIP).",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "AutoCreatePolarFs",
-      "description": "",
+      "description": "Specifies whether to automatically create a PolarFS cold storage instance. Valid values:\n\n- false (default): Does not automatically create the instance.\n\n- true: Automatically creates the instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "",
+      "description": "Specifies whether to enable auto-renewal.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "",
+      "description": "Specifies whether to automatically use a coupon. Valid values:\n\n- true (default): Uses a coupon.\n\n- false: Does not use a coupon.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Components",
-      "description": "",
+      "description": "A list of custom child components for the application.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "ComponentClass",
+          "description": "The specifications of the child component.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ComponentMaxReplica",
+          "description": "The maximum number of child components with the same specifications. The default value is the value of ComponentReplica.\n\n- This parameter is supported only for raycluster.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "ComponentReplica",
+          "description": "The number of replicas for the child component. The default value is 1.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "ComponentType",
+          "description": "The type of the child component.\n\nFor supabase, valid values are:\n\n- gateway\n\n- backend\n\nFor raycluster, valid values are:\n\n- head\n\n- worker\n\n- gpuworker",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ScaleMax",
+          "description": "The maximum number of component replicas for scaling.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ScaleMin",
+          "description": "The minimum number of component replicas for scaling.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecurityGroups",
+          "description": "The security groups for the child component. Separate multiple security group IDs with commas (,).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecurityIPArrayName",
+          "description": "The name of the IP address whitelist group for the child component. The default value is default.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecurityIPList",
+          "description": "The IP address whitelist for the child component. Separate multiple IP addresses with commas (,).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecurityIPType",
+          "description": "The type of the IP address in the whitelist for the child component. The default value is ipv4.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -111,40 +149,42 @@
     },
     {
       "name": "DBClusterId",
-      "description": "",
+      "description": "The ID of the PolarDB instance that the application depends on.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "",
+      "description": "The description of the application.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "",
+      "description": "The default value is `false`. If you set this parameter to `true`, the system only checks the parameters and resources without creating the actual resources.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Endpoints",
-      "description": "",
+      "description": "A list of custom server-side endpoints. By default, a VPC Endpoint is created.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Description",
+          "description": "The description of the server-side endpoint.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EndpointType",
+          "description": "The type of the server-side endpoint. This value is fixed to Primary.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -152,85 +192,208 @@
       ]
     },
     {
-      "name": "MemApplicationSpec",
-      "description": "",
+      "name": "KnowledgeApplicationSpec",
+      "description": "This parameter is required for knowledge applications.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "MemApplicationSpec",
+      "description": "This parameter is required for mem0 applications.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModelApi",
+      "description": "The model API. This parameter is effective only when ApplicationType is set to polarclaw.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModelApiKey",
+      "description": "The API key for the model. This parameter is effective only when ApplicationType is set to polarclaw.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModelBaseUrl",
+      "description": "The URL of the model. This parameter is effective only when ApplicationType is set to polarclaw.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModelFrom",
+      "description": "The source of the model. Valid values:\n\n- bailian: Alibaba Cloud Model Studio model.\n\n- custom: A custom model.\n\n- maas: PolarDB model operator.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModelName",
+      "description": "The name of the model. This parameter is effective only when ApplicationType is set to polarclaw.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Parameters",
+      "description": "A list of parameters.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ParameterName",
+          "description": "The name of the parameter.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ParameterValue",
+          "description": "The value of the parameter.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "PayType",
-      "description": "",
+      "description": "The billing method.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "",
+      "description": "The subscription period type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolarFSInstanceId",
-      "description": "",
+      "description": "The ID of the PolarFileSystem (PolarFS) cold storage or high-performance instance. This parameter is empty by default. If you specify this parameter, the corresponding storage is mounted to the application.\n\nThis feature is currently supported only by the following applications:\n\n- supabase\n\n- raycluster",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PromotionCode",
-      "description": "",
+      "description": "The coupon code. If you do not specify this parameter, the default coupon is used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region. The default value is the region of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "",
+      "description": "The ID of the resource group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "",
+      "description": "The ID of the security group.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SecurityIPArrayName",
+      "description": "The name of the IP address whitelist group. The default value is `default`.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SecurityIPList",
+      "description": "The IP address whitelist. If you do not specify this parameter, the default value `127.0.0.1` is used.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SecurityIPType",
+      "description": "The type of the IP address.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SkillTemplateId",
+      "description": "The ID of the skill template.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Tag",
+      "description": "The tag.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "The key of the tag.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The value of the tag.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "TargetVersion",
+      "description": "The target version.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UsedTime",
-      "description": "",
+      "description": "The subscription duration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "",
+      "description": "The vSwitch. The default value is the current vSwitch in the primary zone of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "",
+      "description": "The ID of the Virtual Private Cloud (VPC).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "",
+      "description": "The zone. The default value is the primary zone of the instance.",
       "position": "Query",
       "type": "String",
       "required": false

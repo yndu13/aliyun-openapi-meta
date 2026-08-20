@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "IpVersion",
-      "description": "The IP version of the reserved CIDR block. Valid values:\n\n*   **IPv4** (default)\n*   **IPv6**",
+      "description": "The IP version of the reserved CIDR block for a vSwitch. Valid values:\n\n- **IPv4** (default): IPv4.\n- **IPv6**: IPv6.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries to return on each page. Valid values: **1** to **100**. Default value: **10**.",
+      "description": "The number of entries per page. Valid values: **1** to **100**. Default value: **10**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n\n*   You do not need to specify this parameter for the first request.\n*   You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Valid values:\n- If this is the first request or no subsequent query exists, leave this parameter empty.\n- If a subsequent query exists, set this parameter to the NextToken value returned in the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the vSwitch.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the vSwitch.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tags",
-      "description": "The tags.",
+      "description": "The tag information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. If you specify this parameter, the value cannot be an empty string.\n\nA tag key can be up to 128 characters in length. It cannot start with aliyun or acs:, and cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. If you specify this parameter, the value can be an empty string.\n\nThe tag value can be up to 128 characters in length. It cannot start with aliyun or acs:, and cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,21 +58,21 @@
     },
     {
       "name": "VSwitchCidrReservationIds",
-      "description": "The ID of the reserved CIDR block. You can specify at most 10 IDs.",
+      "description": "The instance IDs of the reserved CIDR block for a vSwitch. You can specify up to 10 reserved CIDR blocks.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "VSwitchCidrReservationType",
-      "description": "The type of the reserved CIDR block. Set the value to **prefix**.\n\n>  When you allocate CIDR blocks, or enable the service to automatically allocate CIDR blocks to elastic network interfaces (ENIs), the CIDR blocks to allocate must fall into the reserved CIDR block. If the reserved CIDR is exhausted, an error message is returned.",
+      "description": "The type of the reserved CIDR block for a vSwitch. Valid values: **prefix**, which indicates that addresses are allocated by CIDR block.\n\n> When users or cloud services automatically assign CIDR blocks to elastic network interfaces (ENIs), the CIDR blocks must be allocated from the reserved CIDR block. If all addresses in the reserved CIDR block are allocated, the system returns an error.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch for which you want to query reserved CIDR blocks.",
+      "description": "The ID of the vSwitch to which the reserved CIDR block for a vSwitch belongs.",
       "position": "Query",
       "type": "String",
       "required": false

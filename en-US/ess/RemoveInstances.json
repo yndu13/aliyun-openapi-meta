@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DecreaseDesiredCapacity",
-      "description": "Specifies whether to adjust the expected number of ECS instances in the scaling group. Valid values:\n\n*   true: After ECS instances are removed from a scaling group, the expected number of ECS instances in the scaling group decreases.\n*   false: After ECS instances are removed from a scaling group, the expected number of ECS instances in the scaling group remains unchanged.\n\nDefault value: true.",
+      "description": "Specifies whether to modify the expected number of instances. Valid values:\n\n- true: After ECS instances are removed from the scaling group, the expected number of instances is decreased by the corresponding number.\n- false: After ECS instances are removed from the scaling group, the expected number of instances remains unchanged.\n\nDefault value: true.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IgnoreInvalidInstance",
-      "description": "",
+      "description": "Specifies whether to ignore invalid instances when you delete a batch of instances from the scaling group. Valid values:\n\n- true: Invalid instances are ignored when a batch of instances is deleted from the scaling group.\n  \n  If a batch of instances contains invalid instances (for example, instances whose instance status is `Pending`), the valid instances are successfully deleted, and the scaling activity execute status is displayed as `Warning`. You can view the invalid instances in the scaling activity details.\n- false: Invalid instances are not ignored when a batch of instances is deleted from the scaling group.\n\n  If a batch of instances contains invalid instances, an error is returned.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of ECS instance N that you want to remove. Valid values of N: 1 to 20.",
+      "description": "The ID of the ECS instance to be removed.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "LifecycleHookContext",
-      "description": "",
+      "description": "The context information of the lifecycle hook.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the scaling group resides.",
+      "description": "The region ID of the scaling group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RemovePolicy",
-      "description": "The action that is performed when ECS instances are removed. Valid values:\n\n*   recycle: The ECS instances enter the economical mode.\n\n    **\n\n    **Note** This setting takes effect only if you set ScalingPolicy to recycle.\n\n*   release: The ECS instances are released.\n\nThe ScalingPolicy parameter that you specify when you call the CreateScalingGroup operation specifies the reclaim mode of the scaling group. The RemovePolicy parameter that you specify when you call the RemoveInstances operation specifies the action to be performed on ECS instances when the ECS instances are removed. Examples:\n\n*   If you set ScalingPolicy and RemovePolicy to recycle, the ECS instances enter the economical mode when they are removed.\n*   If you set ScalingPolicy to recycle and RemovePolicy to release, the ECS instances are released when they are removed.\n*   If you set ScalingPolicy to release and RemovePolicy to recycle, the ECS instances are released when they are removed.\n*   If you set ScalingPolicy and RemovePolicy to release, the ECS instances are released when they are removed.\n\nDefault value: release.",
+      "description": "The action to take on the ECS instances that are removed. Valid values:\n\n- recycle: The ECS instance enters the economy mode.\n\n    > This value takes effect only when `ScalingPolicy` is set to `recycle`.\n\n- release: The ECS instance is released.\n\n  The `ScalingPolicy` parameter of CreateScalingGroup specifies the reclaim mode of the scaling group, but the specific action taken when an instance is removed is determined by the `RemovePolicy` parameter of RemoveInstances. Examples:\n\n    - If `ScalingPolicy` is set to `recycle` and `RemovePolicy` is set to `recycle`, the ECS instance enters the economy mode.\n    - If `ScalingPolicy` is set to `recycle` and `RemovePolicy` is set to `release`, the ECS instance is released.\n    - If `ScalingPolicy` is set to `release` and `RemovePolicy` is set to `recycle`, the ECS instance is released.\n    - If `ScalingPolicy` is set to `release` and `RemovePolicy` is set to `release`, the ECS instance is released.\n\nDefault value: release.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,7 +63,7 @@
     },
     {
       "name": "StopInstanceTimeout",
-      "description": "",
+      "description": "The timeout period for waiting for an ECS instance to be stopped during the scale-in process. Unit: seconds.\nValid values: 30 to 240.\n\n> - By default, this parameter value is inherited from the scaling group. You can also reset this value when you call RemoveInstances.\n- This parameter takes effect only in scale-in processes where RemovePolicy is set to release.  \n- If this parameter is specified, the system waits up to the StopInstanceTimeout period for the instance to stop. After the timeout period elapses, the scale-in process continues regardless of whether the instance is stopped.  \n- If this parameter is not specified, the system waits until the instance is stopped before continuing the scale-in process. If the instance fails to stop, the scale-in process is rolled back and the scale-in fails.",
       "position": "Query",
       "type": "Integer",
       "required": false

@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "Affinity",
-      "description": "Specifies whether to associate the instance on a dedicated host with the dedicated host. Valid values:\n\n*   default: does not associate the instance with the dedicated host. If you start an instance that was stopped in economical mode and the original dedicated host has insufficient resources, the instance is automatically deployed to another dedicated host in the automatic deployment resource pool.\n*   host: associates the instance with the dedicated host. If you start an instance that was stopped in economical mode, the instance remains on the original dedicated host. If the original dedicated host has insufficient resources, the instance fails to start.\n\nDefault value: default.",
+      "description": "Specifies whether the instance on a dedicated host is associated with the dedicated host. Valid values:\n\n- default: the instance is not associated with the dedicated host. When an instance that has the economical mode enabled is restarted, the instance may be placed on another dedicated host in the automatic deployment resource pool if the original dedicated host has insufficient available resources.\n\n- host: the instance is associated with the dedicated host. When an instance that has the economical mode enabled is restarted, the instance remains on the original dedicated host. If the original dedicated host has insufficient available resources, the instance fails to restart.\n\nDefault value: default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that the value is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Cpu",
-      "description": "The number of vCPUs.\n\nYou can specify the number of vCPUs and the memory size to determine the range of instance types. For example, you can set the **Cpu **parameter to 2 and the **Memory** parameter to 16 to specify the instance types that have 2 vCPUs and 16 GiB of memory. If you specify the **Cpu **and **Memory **parameters, Auto Scaling determines the available instance types based on factors such as I/O optimization requirements and zones. Then, Auto Scaling preferentially creates instances of the instance type that is provided at the lowest price.\n\n>  You can specify CPU and memory specifications to determine the range of instance types only if the **Scaling ****Policy **parameter is set to **Cost ****Optimization Policy** and no instance type is specified in the scaling configuration.",
+      "description": "The number of vCPUs. Unit: cores.\n\nSpecifying both CPU and Memory defines the range of instance types. For example, CPU=2 and Memory=16 defines all instance types with 2 vCPUs and 16 GiB of memory. Auto Scaling determines the set of available instance types based on factors such as I/O optimization and zones, and creates instances with the lowest price sorted by price.\n\n> This range configuration takes effect only in cost optimization mode when no instance type is specified in the scaling configuration.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "CreditSpecification",
-      "description": "The performance mode of the burstable instance. Valid values:\n\n*   Standard: standard mode\n*   Unlimited: unlimited mode\n\nFor more information, see the \"Performance modes\" section in the [Overview](~~59977~~) topic.",
+      "description": "The running mode of the burstable instance. Valid values:\n\n- Standard: standard mode.\n\n- Unlimited: unlimited mode.\n\nFor more information, see the performance mode section in [Overview of burstable instances](~~59977~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomPriorities",
-      "description": "",
+      "description": "The custom priorities for **ECS instance type + vSwitch** combinations.\n\n>This parameter takes effect only when the scaling policy of the scaling group is set to `Priority`.\n\nWhen an ECS instance cannot be created based on a higher-priority **ECS instance type + vSwitch** combination, Auto Scaling automatically selects the next-priority **ECS instance type + vSwitch** combination to create the instance.\n\n>If you specify custom priorities for only some **ECS instance type + vSwitch** combinations, the unspecified combinations have lower priorities than the specified ones. The unspecified combinations are still prioritized based on the vSwitch order of the scaling group and the instance type order of the scaling configuration. For example, if the vSwitch order of the scaling group is vsw1 and vsw2, and the instance type order of the scaling configuration is type1 and type2, and the custom priority order is `[\"vsw2+type2\", \"vsw1+type2\"]`, the final priority is `vsw2+type2` > `vsw1+type2` > `vsw1+type1` > `vsw2+type1`.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "The `CustomPriorities` field specifies the custom priorities for **ECS instance type + vSwitch** combinations. The `CustomPriorities.N.InstanceType` parameter specifies the instance type in the custom priority.\n\n>This parameter takes effect only when the scaling policy of the scaling group is set to `Priority`. The instance type (InstanceType) must be included in the instance type list of the scaling configuration.\n\nWhen an ECS instance cannot be created based on a higher-priority **ECS instance type + vSwitch** combination, Auto Scaling automatically selects the next-priority **ECS instance type + vSwitch** combination to create the instance.\n\n>If you specify custom priorities for only some **ECS instance type + vSwitch** combinations, the unspecified combinations have lower priorities than the specified ones. The unspecified combinations are still prioritized based on the vSwitch order of the scaling group and the instance type order of the scaling configuration. For example, if the vSwitch order of the scaling group is vsw1 and vsw2, and the instance type order of the scaling configuration is type1 and type2, and the custom priority order is `[\"vsw2+type2\", \"vsw1+type2\"]`, the final priority is `vsw2+type2` > `vsw1+type2` > `vsw1+type1` > `vsw2+type1`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VswitchId",
+          "description": "The `CustomPriorities.N.VswitchId` parameter specifies the ID of the vSwitch in the custom priority.\n\n>This parameter takes effect only when the scaling policy of the scaling group is set to `Priority`. The vSwitch must be included in the vSwitch list of the scaling group.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -56,91 +58,105 @@
     },
     {
       "name": "DataDisk",
-      "description": "The data disks.",
+      "description": "The data cloud disk information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AutoSnapshotPolicyId",
+          "description": "The ID of the automatic snapshot policy applied to the data cloud disk. Valid values of N: 1 to 16.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "BurstingEnabled",
+          "description": "Specifies whether to enable the burst feature for the data cloud disk. Valid values:\n\n- true: enabled.\n- false: disabled.\n> This parameter is supported only when `DataDisk.Category` is set to `cloud_auto`.\n\nFor more information, see [ESSD AutoPL cloud disks](~~368372~~).",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Categories",
+          "description": "The multiple disk types of data cloud disk N. The first N indicates the Nth data cloud disk. Valid values: 1 to 16. The second N indicates the Nth disk type for the data cloud disk. Valid values: 1 to 4. You can specify up to 4 disk types for a data cloud disk in a scaling configuration. A smaller N value indicates a higher priority. When a disk type with a higher priority cannot be used, Auto Scaling automatically attempts the next-priority disk type to create the data cloud disk. Valid values:\n- cloud: basic cloud disk. The DeleteWithInstance property of a basic cloud disk created along with the instance is set to true.\n- cloud_efficiency: ultra cloud disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: ESSD.\n- ephemeral_ssd: local SSD.\n- cloud_auto: ESSD AutoPL cloud disk.\n- cloud_regional_disk_auto: regional ESSD.\n\n> You cannot specify this parameter together with `DataDisk.N.Category`.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Category",
+          "description": "The category of data cloud disk N. Valid values of N: 1 to 16. Valid values:\n- cloud: basic cloud disk. The DeleteWithInstance property of a basic cloud disk created along with the instance is set to true.\n- cloud_efficiency: ultra cloud disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: ESSD.\n- ephemeral_ssd: local SSD.\n- cloud_auto: ESSD AutoPL cloud disk.\n- cloud_regional_disk_auto: regional ESSD.\n\nThis parameter cannot be specified together with `DataDisk.N.Categories.N`. If neither this parameter nor `DataDisk.N.Categories.N` is specified, the default value is:\n\n- cloud_efficiency for I/O optimized instances.\n\n- cloud for non-I/O optimized instances.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeleteWithInstance",
+          "description": "Specifies whether the data cloud disk is released when the instance is released. Valid values of N: 1 to 16. Valid values:\n\n- true: the cloud disk is released when the instance is released.\n- false: the cloud disk is retained when the instance is released.\n\nThis parameter can be set only for independent cloud disks (DataDisk.N.Category is cloud, cloud_efficiency, cloud_ssd, cloud_essd, or cloud_auto). Otherwise, an error is returned.\n\nDefault value: true.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Description",
+          "description": "The description of the data cloud disk. Valid values of N: 1 to 16. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Device",
+          "description": "The mount point of the data cloud disk. Valid values of N: 1 to 16. If you do not specify this parameter, the mount point is automatically allocated by the system by default when the ECS instance is automatic creation, starting from /dev/xvdb to /dev/xvdz.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskName",
+          "description": "The name of the data cloud disk. Valid values of N: 1 to 16. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (_), and hyphens (-). It must start with a letter or a Chinese character and cannot start with `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
+          "description": "Specifies whether data cloud disk N is encrypted. Valid values of N: 1 to 16. Valid values:\n\n- true: encrypted.\n- false: not encrypted.\n\nDefault value: false.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "KMSKeyId",
+          "description": "The ID of the KMS key for the data cloud disk. Valid values of N: 1 to 16.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "The performance level (PL) of the data cloud disk when the cloud disk is an ESSD. The value of N must be consistent with the N in DataDisk.N.Category=cloud_essd. Valid values:\n\n- PL0: a single cloud disk can deliver up to 10,000 random read/write IOPS.\n- PL1: a single cloud disk can deliver up to 50,000 random read/write IOPS.\n- PL2: a single cloud disk can deliver up to 100,000 random read/write IOPS.\n- PL3: a single cloud disk can deliver up to 1,000,000 random read/write IOPS.\n\nDefault value: PL1.\n> For more information about how to select an ESSD performance level, see [ESSDs](~~122389~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ProvisionedIops",
+          "description": "The provisioned IOPS (Input/Output Operations Per Second) performance metrics of the data cloud disk.\n\n> IOPS (Input/Output Operations Per Second) measures the number of read/write (output/input) operations that block storage can process per second.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "Size",
+          "description": "The size of data cloud disk N. Valid values of N: 1 to 16. Unit: GiB. Valid values:\n\n- cloud: 5 to 2000.\n- cloud_efficiency: 20 to 32768.\n- cloud_ssd: 20 to 32768.\n- cloud_essd: 20 to 32768.\n- ephemeral_ssd: 5 to 800.\n\nAfter this parameter is specified, the cloud disk size must be greater than or equal to the snapshot size (the snapshot is specified by SnapshotId).",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
+          "description": "The ID of the snapshot used to create the data cloud disk. Valid values of N: 1 to 16. After this parameter is specified, DataDisk.N.Size is ignored, and the size of the created cloud disk is the size of the specified snapshot.\n\nIf the snapshot was created on or before July 15, 2013, the call is rejected and the InvalidSnapshot.TooOld error is returned.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -149,21 +165,21 @@
     },
     {
       "name": "DedicatedHostClusterId",
-      "description": "",
+      "description": "The ID of the dedicated host cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DedicatedHostId",
-      "description": "The ID of the dedicated host on which the ECS instance runs. You cannot create preemptible instances on dedicated hosts. Therefore, if you configure the **DedicatedHostId **parameter, the **SpotStrategy **and **SpotPriceLimit** parameters are ignored.\n\nYou can call the [DescribeDedicatedHosts](~~134242~~) operation to query the IDs of dedicated hosts.",
+      "description": "Specifies whether to create the ECS instance on a dedicated host. Because dedicated hosts do not support the creation of spot instances, the SpotStrategy and SpotPriceLimit settings in the request are automatically ignored when the DedicatedHostId parameter is specified.\n\nYou can call [DescribeDedicatedHosts](~~134242~~) to query the list of dedicated host IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeletionProtection",
-      "description": "",
+      "description": "The release protection property of the ECS instance. This property applies only to pay-as-you-go instances and specifies whether the instance can be directly released from the ECS console or by calling the DeleteInstance operation. Valid values:\n- true: enables release protection, which prevents the instance from being directly released from the ECS console or by calling the API operation. This prevents instances scaled out by Auto Scaling from being accidentally deleted.\n- false: disables release protection, which allows the instance to be directly released from the ECS console or by calling the API operation.\n\nDefault value: false.\n\n>This property does not affect normal scale-in activities of Auto Scaling. Pay-as-you-go instances with release protection enabled can still be released during scale-in activities.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -177,215 +193,238 @@
     },
     {
       "name": "HostName",
-      "description": "The hostname of the ECS instance. The hostname cannot start or end with a period (.) or a hyphen (-). The hostname cannot contain consecutive periods (.) or hyphens (-). Naming conventions for different types of instances:\n\n*   Windows instances: The hostname must be 2 to 15 characters in length, and can contain letters, digits, and hyphens (-). The hostname cannot contain periods (.) or contain only digits.\n*   Other instances such as Linux instances: The hostname must be 2 to 64 characters in length. You can use periods (.) to separate a hostname into multiple segments. Each segment can contain letters, digits, and hyphens (-).",
+      "description": "The hostname of the ECS instance. A period (.) or a hyphen (-) cannot be used as the first or last character, and consecutive periods (.) or hyphens (-) are not allowed. The naming conventions for different types of instances are as follows:\n\n- Windows instances: The hostname must be 2 to 15 characters in length and can contain letters, digits, and hyphens (-). It cannot contain periods (.) or consist entirely of digits.\n- Other instances (such as Linux): The hostname must be 2 to 64 characters in length and can contain multiple periods (.). Each segment separated by a period (.) can contain letters, digits, and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HpcClusterId",
-      "description": "The ID of the Elastic High Performance Computing (E-HPC) cluster to which the ECS instance belongs.",
+      "description": "The ID of the HPC cluster to which the ECS instance belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HttpEndpoint",
-      "description": "",
+      "description": "Specifies whether to enable the access channel for instance metadata. Valid values:\n\n- enabled: enables the access channel.\n- disabled: disables the access channel.\n\nDefault value: enabled.\n\n> For more information about instance metadata, see [Overview of instance metadata](~~108460~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HttpTokens",
-      "description": "",
+      "description": "Specifies whether to forcefully use the security-hardened mode (IMDSv2) when accessing instance metadata. Valid values:\n\n- optional: does not forcefully use the mode.\n- required: forcefully uses the mode. After this value is set, instance metadata cannot be accessed in normal mode.\n\nDefault value: optional.\n\n> For more information about instance metadata access modes, see [Instance metadata access modes](~~108460~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageFamily",
-      "description": "The name of the image family. If you specify this parameter, the latest custom images that are available in the specified image family are returned. You can use the images to create instances. If you specify the **ImageId **parameter, you cannot specify the **ImageFamily** parameter.",
+      "description": "The name of the image family. You can set this parameter to obtain the latest available image from the specified image family for instance creation. If the `ImageId` parameter is already set, you cannot set this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageId",
-      "description": "The ID of the image that is used by Auto Scaling to create instances.",
+      "description": "The ID of the image file used to automatic creation of instances.\n\n> This parameter has the same effect as the `ImageName` parameter. You can set only one of them. If you set the ImageName parameter, the ImageId parameter is ignored (optional).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageName",
-      "description": "The name of the image. The name must be unique in a region. If you specify the **ImageId **parameter, the **ImageName **parameter is ignored.\n\nYou cannot use the **ImageName **parameter to specify Alibaba Cloud Marketplace images.",
+      "description": "The name of the image file. Image names are unique within a region. You cannot use this parameter to specify images from Alibaba Cloud Marketplace.\n> This parameter has the same effect as the `ImageId` parameter. You can set only one of them. If you set the `ImageId` parameter, the `ImageName` parameter is ignored (optional).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageOptions.LoginAsNonRoot",
-      "description": "For more information about whether an ECS instance uses the ecs-user user user to log on to an ECS instance, see Manage the login name of an ECS instance. Value range:\n\n- true: Yes.\n- false: No.\n\nDefault value: false.",
+      "description": "Specifies whether the ECS instance uses the `ecs-user` user for logon. For more information, see [Manage the logon name of an ECS instance](~~388447~~). Valid values:\n\n- true: yes.\n- false: no.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceDescription",
-      "description": "The description of the ECS instance. The description must be 2 to 256 characters in length. The description can contain letters but cannot start with `http://` or `https://`.",
+      "description": "The description of the ECS instance. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceName",
-      "description": "The name of the ECS instance that is automatically created based on the scaling configuration.",
+      "description": "The name of the ECS instance that is automatic creation by using this scaling configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstancePatternInfo",
-      "description": "The intelligent configuration settings, which determines the range of instance types that meet the specified criteria.",
+      "description": "The instance type information in intelligent mode.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Architecture",
+          "description": "The architecture type of the instance type. Valid values:\n- X86: X86 computing.\n- Heterogeneous: heterogeneous computing, such as GPU or FPGA.\n- BareMetal: Elastic Compute Service Bare Metal Instance server.\n- Arm: Arm computing.\n\nDefault value: all architecture types.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "BurstablePerformance",
+          "description": "Specifies whether to include burstable instance types. Valid values:\n- Exclude: excludes burstable instance types.\n- Include: includes burstable instance types.\n- Required: includes only burstable instance types.\n\nDefault value: Include.\n[_single",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Cores",
+          "description": "The number of vCPU cores of the instance type in intelligent configuration mode, used to filter instance types that meet the requirements. For more information, see [Instance families](~~25378~~). Valid values of N: 1 to 10.\n\nNote the following:\n\n- The InstancePatternInfo.N parameter applies only to scaling groups whose network type is VPC.\n\n- You must specify both InstancePatternInfo.N.Cores and InstancePatternInfo.N.Memory for the InstancePatternInfo.N parameter.\n\n- If you have specified instance types by using the InstanceType or InstanceTypes.N parameter, Auto Scaling preferentially uses the specified instance types for scale-out. When the specified instance types are out of stock, Auto Scaling preferentially uses the instance type with the lowest price from the instance types that match the InstancePatternInfo.N parameter values.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "CpuArchitectures",
+          "description": "The CPU architectures of the instance. Valid values:\n>N specifies that you can set multiple CPU architectures. Valid values of N: 1 to 2.\n\n- X86.\n- ARM.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ExcludedInstanceType",
+          "description": "The instance types to exclude. You can use wildcard characters (*) to exclude a single instance type or an entire instance family. Examples:\n- ecs.c6.large: excludes the ecs.c6.large instance type.\n- ecs.c6.*: excludes the entire c6 instance family.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "GpuSpecs",
+          "description": "The GPU type.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "InstanceCategories",
+          "description": "The instance categorization. Valid values:\n>N specifies that you can settings multiple instance categorization values. Valid values of N: 1 to 10.\n\n- General-purpose: general-purpose.\n- Compute-optimized: compute-optimized.\n- Memory-optimized: memory-optimized.\n- Big data: big data.\n- Local SSDs: local SSD.\n- High Clock Speed: high frequency.\n- Enhanced: enhanced.\n- Shared: shared.\n- Compute-optimized with GPU: GPU-accelerated instances (GPU computing).\n- Visual Compute-optimized: visual compute-optimized.\n- Heterogeneous Service: heterogeneous service.\n- Compute-optimized with FPGA: FPGA-accelerated compute-optimized.\n- Compute-optimized with NPU: NPU-accelerated compute-optimized.\n- ECS Bare Metal: Elastic Compute Service Bare Metal Instance server.\n- High Performance Compute: high-performance computing (HPC).",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "InstanceFamilyLevel",
+          "description": "The instance family level in intelligent configuration mode, used to filter instance types that meet the requirements. Valid values:\n\n- EntryLevel: entry level, which refers to shared instance types. Lower cost but no guarantee of stable instance computing performance. Suitable for scenarios with low average CPU utilization. For more information, see [Shared instance families](~~108489~~).\n- EnterpriseLevel: enterprise level. Stable performance with dedicated resources. Suitable for scenarios that require high stability. For more information, see [Instance families](~~25378~~).\n- CreditEntryLevel: credit-based entry level, which refers to burstable instances. Uses CPU credits to ensure computing performance. Suitable for scenarios with low average CPU utilization and occasional CPU usage spikes. For more information, see [Burstable instances](~~59977~~).\n\nValid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceTypeFamilies",
+          "description": "The instance type families to query. N specifies that you can set multiple instance type families. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "MaxPrice",
+          "description": "The maximum hourly price for pay-as-you-go or spot instances in intelligent configuration mode, used to filter instance types that meet the requirements. Valid values of N: 1 to 10.\n\n> This parameter is required when SpotStrategy is set to SpotWithPriceLimit. In other cases, this parameter is optional.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "MaximumCpuCoreCount",
+          "description": "The maximum number of vCPU cores of the instance type.\n\n>The value of `MaximumCpuCoreCount` cannot exceed four times the value of `MinimumCpuCoreCount`.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MaximumGpuAmount",
+          "description": "The maximum number of GPUs of the instance. Valid values: positive integers.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MaximumMemorySize",
+          "description": "The maximum memory size of the instance. Unit: GiB.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "Memory",
+          "description": "The memory size of the instance type in intelligent configuration mode. Unit: GiB. This parameter is used to filter instance types that meet the requirements. For more information, see [Instance families](~~25378~~). Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "MinimumBaselineCredit",
+          "description": "The minimum baseline vCPU computing performance (sum of all vCPUs) for burstable instances t5 and t6.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumCpuCoreCount",
+          "description": "The minimum number of vCPU cores of the instance type.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumEniIpv6AddressQuantity",
+          "description": "The minimum number of IPv6 addresses per elastic network interface (ENI) on a single network interface controller (NIC) of the instance.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumEniPrivateIpAddressQuantity",
+          "description": "The minimum number of IPv4 addresses per elastic network interface (ENI) on a single network interface controller (NIC) of the instance.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumEniQuantity",
+          "description": "The minimum number of elastic network interfaces (ENIs) that the instance supports.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumGpuAmount",
+          "description": "The minimum number of GPUs of the instance. Valid values: positive integers.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumInitialCredit",
+          "description": "The minimum initial vCPU credits for burstable instances t5 and t6.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MinimumMemorySize",
+          "description": "The minimum memory size of the instance. Unit: GiB.",
           "position": "Query",
           "type": "Float",
           "required": false
         },
         {
           "name": "PhysicalProcessorModels",
+          "description": "The processor models of the instance. N specifies that you can set multiple processor models. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -394,26 +433,28 @@
     },
     {
       "name": "InstanceType",
-      "description": "The instance type of the ECS instance. For more information, see [Instance family](~~25378~~).",
+      "description": "An instance type of the ECS instance. For more information, see [Instance families](~~25378~~).\n> The four methods InstanceType, InstanceTypes, InstanceTypeOverrides, and Cpu and Memory cannot be specified at the same time. However, InstanceType can be specified together with InstancePatternInfo. When specified together, Auto Scaling preferentially uses the instance types that you specified for scale-out. When the specified instance types are out of stock, Auto Scaling uses instance types that match the InstancePatternInfo configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceTypeOverride",
-      "description": "The instance type overrides.",
+      "description": "The instance type information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "To specify the capacity of an instance type in the scaling configuration, specify both this parameter and InstanceTypeOverride.N.WeightedCapacity.\n\nThis parameter specifies the instance type. You can specify N values for this parameter. Combined with the InstanceTypeOverride.N.WeightedCapacity parameter, this extends multi-instance-type support with custom weights. Valid values of N: 1 to 20.\n\n> You cannot specify this parameter together with InstanceTypes.N or InstanceType.\n\nValid values of InstanceType: ECS instance types that are available for purchase. For more information, see [Instance families](~~25378~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WeightedCapacity",
+          "description": "To specify the capacity of an instance type in the scaling configuration, first specify InstanceTypeOverride.N.InstanceType, and then specify this parameter. The two parameters correspond one-to-one, and N must be consistent.\n\nThis parameter specifies the weight of the instance type, which represents the capacity of a single instance of this type in the scaling group. A larger weight means fewer instances of this type are needed to meet the expected capacity.\n\nBecause performance metrics such as the number of vCPUs and memory size vary across instance types, you can configure different weights for different instance types based on your requirements.\n\n Example:\n\n- Current capacity: 0.\n- Expected number of instances: 6.\n- Capacity of ecs.c5.xlarge: 4.\n\nTo meet the expected capacity, the scaling group scales out two ecs.c5.xlarge instances.\n\n> During scale-out, the capacity of the scaling group cannot exceed the sum of the maximum capacity (MaxSize) and the maximum weight of the instance types.\n\nValid values of WeightedCapacity: 1 to 500.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -422,100 +463,112 @@
     },
     {
       "name": "InstanceTypes",
-      "description": "Instance type N. If you specify this parameter, the **InstanceType** parameter is ignored. You can specify up to 10 instance types in a scaling configuration. Valid values of N: 1 to 10.\n\nA smaller value of N specifies a higher priority. Auto Scaling creates instances based on the priorities of the instance types. If Auto Scaling cannot create instances of the instance type that has the highest priority, Auto Scaling creates instances of the instance type that has the next highest priority.",
+      "description": "The instance types.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "InternetChargeType",
-      "description": "The billing method for network usage. Valid values:\n\n*   PayByBandwidth: You are charged for the maximum available bandwidth that is specified by the **InternetMaxBandwidthOut **parameter.\n*   PayByTraffic: You are charged for the actual traffic that is used. **InternetMaxBandwidthOut **specifies only the maximum available bandwidth.\n\nDefault value for the classic network: PayByBandwidth. Default value for VPCs: PayByTraffic.",
+      "description": "The billing method for network usage. Valid values:\n\n- PayByBandwidth: pay-by-bandwidth. The value of InternetMaxBandwidthOut is the fixed bandwidth value.\n- PayByTraffic: pay-by-traffic. The value of InternetMaxBandwidthOut is only a bandwidth upper limit. Billing is based on the actual network traffic.\n\nIf this parameter is not specified, the default value is PayByBandwidth for the classic network and PayByTraffic for VPC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthIn",
-      "description": "The maximum inbound public bandwidth. Unit: Mbit/s. Valid values: 1 to 200.\n\nDefault value: 200. This parameter is not used for billing because inbound traffic to instances is free of charge.",
+      "description": "The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:\n\n- If the purchased outbound public bandwidth is less than or equal to 10 Mbit/s: 1 to 10. Default value: 10.\n- If the purchased outbound public bandwidth is greater than 10 Mbit/s: 1 to the value of `InternetMaxBandwidthOut`. Default value: the value of `InternetMaxBandwidthOut`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthOut",
-      "description": "The maximum outbound public bandwidth. Unit: Mbit/s.\n\n*   Valid values if you set the **InternetChargeType **parameter to **PayByBandwidth**: 0 to 100. If this parameter is not specified, 0 is used as the value of this parameter.\n*   Valid values if you set the **InternetChargeType **parameter to **PayByTraffic**: 0 to 100. If this parameter is not specified, an error is reported.",
+      "description": "The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IoOptimized",
-      "description": "Specifies whether to create an I/O optimized instance. Valid values:\n\n*   none: does not create an I/O optimized instance.\n*   optimized: creates an I/O optimized instance.\n\nFor instances of retired instance types, the default value is none. For instances of other instance types, the default value is optimized. For information about the retired instance types, see [Retired instance types](~~55263~~).",
+      "description": "Specifies whether the instance is I/O optimized. Valid values:\n\n- none: non-I/O optimized instance.\n- optimized: I/O optimized instance.\n\nThe default value for [retired instance types](~~55263~~) is none. The default value for other instance types is optimized.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6AddressCount",
-      "description": "The number of randomly generated IPv6 addresses that you want to allocate to the elastic network interface (ENI).",
+      "description": "The number of randomly generated IPv6 addresses allocated to the elastic network interfaces (ENIs).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "KeyPairName",
-      "description": "The name of the key pair that is used to log on to the ECS instance.\n\n*   Windows instances do not use this parameter.\n*   By default, the username and password authentication method is disabled for Linux instances.",
+      "description": "The name of the key pair used to log on to the ECS instance.\n         \n- For Windows instances, this parameter is ignored and is empty by default.\n- For Linux instances, password-based logon is disabled during initialization.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoadBalancerWeight",
-      "description": "The weight of the ECS instance as a backend server of the associated Server Load Balancer (SLB) instance. Valid values: 1 to 100.\n\nDefault value: 50.",
+      "description": "The weight of the ECS instance as a backend server of the associated load balancing instance. Valid values: 1 to 100.\n\nDefault value: 50.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Memory",
-      "description": "The size of the memory.\n\nYou can specify the number of vCPUs and the memory size to determine the range of instance types. For example, you can set the **Cpu **parameter to 2 and the **Memory **parameter to 16 to specify the instance types that have 2 vCPUs and 16 GiB of memory. If you specify the **Cpu **and **Memory **parameters, Auto Scaling determines the available instance types based on factors such as I/O optimization requirements and zones. Then, Auto Scaling preferentially creates instances of the instance type that is provided at the lowest price.\n\n>  You can specify CPU and memory specifications to determine the range of instance types only if the **Scaling Policy** parameter is set to **Cost Optimization Policy** and no instance type is specified in the scaling configuration.",
+      "description": "The memory size. Unit: GiB.\n\nSpecifying both CPU and Memory defines the range of instance types. For example, CPU=2 and Memory=16 defines all instance types with 2 vCPUs and 16 GiB of memory. Auto Scaling determines the set of available instance types based on factors such as I/O optimization and zones, and creates instances with the lowest price sorted by price.\n\n> This range configuration takes effect only in cost optimization mode when no instance type is specified in the scaling configuration.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NetworkInterfaces",
-      "description": "",
+      "description": "The list of elastic network interfaces (ENIs).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "The type of the elastic network interface (ENI). When you use `NetworkInterfaces.N`, you must settings the primary elastic network interface (ENI), but you cannot set the `SecurityGroupId` or `SecurityGroupIds.N` parameter at the same time. Valid values:\n\n- Primary: primary network interface controller (NIC).\n\n- Secondary: secondary NIC.\n\nDefault value: Secondary.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Ipv6AddressCount",
+          "description": "The number of randomly generated IPv6 addresses for the primary ENI. Note the following items:\n\n- This parameter takes effect only when `NetworkInterfaces.N.InstanceType` is set to `Primary`.\n- If `NetworkInterface.N.InstanceType` is set to `Secondary` or left empty, this parameter cannot be set.\n- After you set this parameter, you cannot set the `Ipv6AddressCount` parameter.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "NetworkInterfaceTrafficMode",
+          "description": "The communication mode of the network interface controller (NIC). Valid values:\n\n- Standard: uses the TCP communication mode.\n- HighPerformance: enables the Elastic RDMA Interface (ERI) and uses the RDMA communication mode.\n\nDefault value: Standard.\n>The number of elastic network interfaces (ENIs) in RDMA mode cannot exceed the limit of the instance family. For more information, see [Instance families](~~25378~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecondaryPrivateIpAddressCount",
+          "description": "The number of secondary private IPv4 addresses to assign to the ENI. Valid values: 1 to 49.\n\n- The value cannot exceed the limit on the number of IP addresses for the instance type. For more information, see [Instance families](~~25378~~).\n- NetworkInterface.N.SecondaryPrivateIpAddressCount specifies the number of secondary private IPv4 addresses to assign to the ENI (excluding the primary private IP address of the ENI). The system randomly assigns IP addresses from the available CIDR block of the vSwitch (NetworkInterface.N.VSwitchId) to which the ENI belongs.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SecurityGroupIds",
+          "description": "The IDs of one or more security groups to which the elastic network interface (ENI) belongs.",
+          "position": "Query",
+          "type": "RepeatList",
+          "required": false
+        },
+        {
+          "name": "VSwitchIds",
+          "description": "The IDs of the vSwitches to which the elastic network interface (ENI) belongs. N specifies that you can settings multiple vSwitches. Valid values of N: 1 to 10.\n\nNote the following items:\n\n* If InstanceType is set to Primary, this parameter cannot be set. The default value is the vSwitch of the instance.\n* If InstanceType is set to Secondary or left empty, this parameter is optional.\n* The system selects a vSwitch that is in the same zone as the primary elastic network interface (ENI) and has the most available IP addresses.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -524,35 +577,35 @@
     },
     {
       "name": "Password",
-      "description": "The password that is used to log on to the ECS instance. The password must be 8 to 30 characters in length, and contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:\n\n    ()` ~!@#$%^&*-_+=\\|{}[]:;'<>,.?/\n\nThe password of a Windows instance cannot start with a forward slash (/).\n\n>  If you specify the **Password **parameter, we recommend that you use HTTPS to send requests for security purposes.",
+      "description": "The password of the ECS instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:\n\n```()` ~!@#$%^&*-_+=\\|{}[]:;'<>,.?/```\n\nFor Windows instances, the password cannot start with a forward slash (/).\n\n> If you specify the Password parameter, use HTTPS to send the request to avoid password leaks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PasswordInherit",
-      "description": "Specifies whether to use the password that is preconfigured in the image. Before you use this parameter, make sure that a password is configured for the image. Valid values:\n\n*   true\n*   false",
+      "description": "Specifies whether to use the password preset in the image. To use this parameter, make sure that a password is configured for the image. Valid values:\n\n- true: uses the password preset in the image.\n- false: does not use the password preset in the image.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.Id",
-      "description": "The ID of the private pool. The ID of a private pool is the same as the ID of the elasticity assurance or capacity reservation for which the private pool is generated.",
+      "description": "The private pool ID, which is the ID of the elasticity assurance or capacity reservation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.MatchCriteria",
-      "description": "The type of the private pool that you want to use to create instances. A private pool is generated when an elasticity assurance or a capacity reservation takes effect. You can select a private pool when you create instances. Valid values:\n\n*   Open: open private pool. The system selects a matching open private pool to create instances. If no matching open private pools are found, the resources in the public pool are used. In this case, you do not need to specify the **PrivatePoolOptions.Id **parameter.\n*   Target: specified private pool. The system uses the capacity of a specified private pool to create instances. If the specified private pool is unavailable, no instances can be created. If you set this parameter to **Target**, you must specify the **PrivatePoolOptions.Id** parameter.\n*   None: no private pool. The capacity of private pools is not used.",
+      "description": "The private pool option for instance startup. A private pool is generated after an elasticity assurance or capacity reservation takes effect. You can select a private pool when you start an instance. Valid values:\n\n- Open: open mode. The system automatically matches an open private pool. If no matching private pool is available, the instance is started by using public pool resources. You do not need to set the PrivatePoolOptions.Id parameter in this mode.\n\n- Target: specified mode. The instance is started by using the capacity of the specified private pool. If the specified private pool is unavailable, the instance fails to start. In this mode, you must specify the private pool ID. The PrivatePoolOptions.Id parameter is required.\n\n- None: none mode. The instance does not use private pool capacity for startup.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RamRoleName",
-      "description": "The name of the RAM role that is associated with the ECS instance. The name is provided and maintained by Resource Access Management (RAM). You can call the [ListRoles](~~28713~~) operation to query the available RAM roles. You can call the [CreateRole](~~28710~~) operation to create RAM roles.",
+      "description": "The name of the RAM role associated with the ECS instance. The RAM role name is provided and maintained by RAM. You can call [ListRoles](~~28713~~) to query available RAM roles. For more information about how to create a RAM role, see [CreateRole](~~28710~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -566,89 +619,98 @@
     },
     {
       "name": "ResourcePoolOptions",
-      "description": "",
+      "description": "The resource pool policy used when creating instances. After you set this parameter, note the following items:\n\n- This parameter takes effect only when pay-as-you-go instances are created.\n\n- This parameter cannot be set together with PrivatePoolOptions.MatchCriteria or PrivatePoolOptions.Id.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "ScalingConfigurationName",
-      "description": "The name of the scaling configuration. The name must be 2 to 64 characters in length and can contain letters, digits, underscores (\\_), hyphens (-), and periods (.). The name must start with a letter or a digit.\n\nThe name of the scaling configuration must be unique in a scaling group in a region. If you do not specify this parameter, the value of **ScalingConfigurationId** is used.",
+      "description": "The name of the scaling configuration. The name must be 2 to 64 characters in length and can contain letters, digits, underscores (_), hyphens (-), and periods (.). It must start with a digit, letter, or Chinese character.\n\nThe scaling configuration name must be unique within a scaling group in the same region. If you do not specify this parameter, the scaling configuration ID is used by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScalingGroupId",
-      "description": "The ID of the scaling group in which you want to create the scaling configuration.",
+      "description": "The ID of the scaling group to which the scaling configuration belongs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SchedulerOptions",
-      "description": "The scheduling options.",
+      "description": "The scheduler options.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SecondaryEniVSwitchConstraint",
+      "description": "Specifies whether a vSwitch from the VSwitchIds list must be selected for the secondary elastic network interface (ENI) when the VSwitchIds parameter is settings for the secondary network interface controller (NIC).\n\n* Strict: strict mode. If no vSwitch in VSwitchIds meets the conditional requirements, instance creation fails.\n* Tolerant: tolerant mode. If no vSwitch in VSwitchIds meets the conditional requirements, no secondary elastic network interface (ENI) is set, and the instance is still created as active.\n\nDefault value: Strict.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityEnhancementStrategy",
-      "description": "Specifies whether to enable security hardening. Valid values:\n\n*   Active: enables security hardening. This value is valid only for public images.\n*   Deactive: disables security hardening. This value is valid for all image types.",
+      "description": "Specifies whether to enable security hardening. Valid values:\n\n- Active: enables security hardening. This value is applicable only to public images.\n- Deactive: disables security hardening. This value is applicable to all image types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group with which the ECS instance is associated. The ECS instances that are associated with the same security group can access each other.",
+      "description": "The ID of the security group to which the ECS instance belongs. ECS instances in the same security group can access each other.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupIds",
-      "description": "The ID of security group *N* with which you want to associate the ECS instance. Valid values of *N* vary based on the maximum number of security groups with which the instance can be associated. For more information, see the \"Security group limits\" section in the [Limits](~~25412~~) topic.\n\n>  You cannot specify the **SecurityGroupId** and **SecurityGroupIds.N** parameters at the same time.",
+      "description": "The IDs of the security groups to which the ECS instance is added. The valid values of N depend on the maximum number of security groups to which an instance can belong. For more information, see the security group section in [Limits](~~25412~~).\n\n> You cannot specify both SecurityGroupId and SecurityGroupIds.N.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "SecurityOptions",
-      "description": "",
+      "description": "The security options.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "SpotDuration",
-      "description": "The retention period of the preemptible instance. Unit: hours. Valid values: 0, 1, 2, 3, 4, 5, and 6.\n\n*   The following retention periods are available in invitational preview: 2, 3, 4, 5, and 6 hours. If you want to set this parameter to one of these values, submit a ticket.\n*   If you set this parameter to 0, no retention period is specified for the preemptible instance.\n\nDefault value: 1.",
+      "description": "The protection period of the spot instance. Unit: hours. Valid values:\n- 1: After a spot instance is created, Alibaba Cloud ensures that the instance is not automatically released within 1 hour. After 1 hour, the system automatically compares the bid price with the marketplace price and checks the resource inventory to determine whether to retain or revoke the instance.\n- 0: After a spot instance is created, Alibaba Cloud does not ensure that the instance runs for 1 hour. The system automatically compares the bid price with the marketplace price and checks the resource inventory to determine whether to retain or revoke the instance.\n> Alibaba Cloud sends an ECS system event notification 5 minutes before the instance is revoked. Spot instances are billed by second. Set an appropriate protection period based on the expected task execution duration.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SpotInterruptionBehavior",
-      "description": "The interruption mode of the preemptible instance. Default value: Terminate. Set the value to Terminate, which specifies to release the instance.",
+      "description": "The interruption mode of the spot instance. Currently, only Terminate (default) is supported, which directly releases the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotPriceLimit",
-      "description": "The billing information of the preemptible instances.",
+      "description": "The spot instance information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "The instance type of the spot instance. Valid values of N: 1 to 20. This parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PriceLimit",
+          "description": "The bid price for the spot instance. Valid values of N: 1 to 20. This parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit.",
           "position": "Query",
           "type": "Float",
           "required": false
@@ -657,133 +719,133 @@
     },
     {
       "name": "SpotStrategy",
-      "description": "The preemption policy that you want to apply to pay-as-you-go instances and preemptible instances. Valid values:\n\n*   NoSpot: The instance is created as a pay-as-you-go instance.\n*   SpotWithPriceLimit: The instance is a preemptible instance that has a user-defined maximum hourly price.\n*   SpotAsPriceGo: The instance is created as a preemptible instance for which the market price at the time of purchase is automatically used as the bid price.\n\nDefault value: NoSpot.",
+      "description": "The preemption policy for pay-as-you-go instances. Valid values:\n         \n- NoSpot: a regular pay-as-you-go instance.\n- SpotWithPriceLimit: a spot instance with a user-defined maximum hourly price.\n- SpotAsPriceGo: a spot instance priced at the market price at the time of purchase.\n\nDefault value: NoSpot.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageSetId",
-      "description": "",
+      "description": "The ID of the dedicated block storage cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageSetPartitionNumber",
-      "description": "",
+      "description": "The maximum number of partitions in the dedicated block storage cluster. The value must be an integer greater than or equal to 2.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SystemDisk.AutoSnapshotPolicyId",
-      "description": "The ID of the automatic snapshot policy that you want to apply to the system disk.",
+      "description": "The ID of the automatic snapshot policy applied to the system cloud disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.BurstingEnabled",
-      "description": "Specifies whether to enable the burst feature for the system disk. Valid values:\n\n*   true\n\n*   false\n\n    **\n\n    **Note** This parameter is available only if you set the `SystemDisk.Category` parameter to `cloud_auto`.",
+      "description": "Specifies whether to enable the Burst (performance burst) feature for the system cloud disk. Valid values:\n\n- true: enables the feature.\n- false: does not enable the feature.\n> This parameter is supported only when `SystemDisk.Category` is set to `cloud_auto`.\n\nFor more information, see [ESSD AutoPL cloud disks](~~368372~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SystemDisk.Category",
-      "description": "The category of the system disk. Valid values:\n\n*   cloud: basic disk\n*   cloud_efficiency: ultra disk\n*   cloud_ssd: standard SSD\n*   ephemeral_ssd: local standard SSD\n*   cloud_essd: enhanced SSD (ESSD)\n*   cloud_auto: ESSD AutoPL disk\n\nYou cannot specify the **SystemDisk.Category** and `SystemDiskCategories.N` parameters at the same time. If you do not specify the **SystemDisk.Category** and `SystemDiskCategories.N` parameters, the default value of **SystemDisk.Category** is used. For non-I/O optimized instances of Generation I instance types, the default value is cloud. For instances of other instance types, the default value is cloud_efficiency.",
+      "description": "The category of the system cloud disk. Valid values:\n\n- cloud: basic cloud disk.\n- cloud_efficiency: ultra cloud disk.\n- cloud_ssd: standard SSD.\n- ephemeral_ssd: local SSD.\n- cloud_essd: ESSD.\n- cloud_auto: ESSD AutoPL cloud disk.\n\nThis parameter cannot be specified together with `SystemDiskCategories.N`. If neither this parameter nor `SystemDiskCategories.N` is specified, this parameter has a default value. If the InstanceType is a Series I instance type and the instance is a non-I/O optimized instance, the default value is cloud. Otherwise, the default value is cloud_efficiency.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Description",
-      "description": "The description of the system disk. The description must be 2 to 256 characters in length. The description can contain letters but cannot start with `http://` or `https://`.",
+      "description": "The description of the system cloud disk. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.DiskName",
-      "description": "The name of the system disk. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (\\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.",
+      "description": "The name of the system cloud disk. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (_), and hyphens (-). It must start with a letter or a Chinese character and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.EncryptAlgorithm",
-      "description": "The algorithm that is used to encrypt the system disk. Valid values:\n\n*   AES-256\n*   SM4-128\n\nDefault value: AES-256.",
+      "description": "The encryption algorithm used for the system cloud disk. Valid values:\n\n- AES-256.\n- SM4-128.\n\nDefault value: AES-256.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Encrypted",
-      "description": "Specifies whether to encrypt the system disk. Valid values:\n\n*   true: encrypts the system disk.\n*   false: does not encrypt the system disk.\n\nDefault value: false.",
+      "description": "Specifies whether to encrypt the system cloud disk. Valid values:\n\n- true: encrypts the system cloud disk.\n- false: does not encrypt the system cloud disk.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SystemDisk.KMSKeyId",
-      "description": "The ID of the KMS key that is used to encrypt the system disk.",
+      "description": "The ID of the KMS key used for the system cloud disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.PerformanceLevel",
-      "description": "The performance level (PL) of the system disk of the ESSD category. Valid values:\n\n*   PL0: An ESSD can deliver up to 10,000 random read/write IOPS.\n*   PL1: An ESSD can deliver up to 50,000 random read/write IOPS.\n*   PL2: An ESSD can deliver up to 100,000 random read/write IOPS.\n*   PL3: An ESSD can deliver up to 1,000,000 random read/write IOPS.\n\nDefault value: PL0.\n\n>  For more information about how to select ESSD PLs, see [ESSDs](~~122389~~).",
+      "description": "The performance level (PL) of the system cloud disk when the cloud disk is an ESSD. Valid values:\n\n- PL0: a single cloud disk can deliver up to 10,000 random read/write IOPS.\n- PL1: a single cloud disk can deliver up to 50,000 random read/write IOPS.\n- PL2: a single cloud disk can deliver up to 100,000 random read/write IOPS.\n- PL3: a single cloud disk can deliver up to 1,000,000 random read/write IOPS.\n\nDefault value: PL1.\n> For more information about how to select an ESSD performance level, see [ESSDs](~~122389~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.ProvisionedIops",
-      "description": "The preconfigured IOPS for the system disk.\n\n>  IOPS measures the number of read and write operations that an EBS device can process per second.",
+      "description": "The provisioned IOPS (Input/Output Operations Per Second) performance metrics for the system cloud disk.\n\n> IOPS (Input/Output Operations Per Second) measures the number of read and write (output/input) operations that a block storage device can process per second.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "SystemDisk.Size",
-      "description": "The size of the system disk. Unit: GiB. Valid values: 20 to 500.\n\nThe value of **SystemDisk.Size** must be greater than or equal to max{20, ImageSize}.\n\nDefault value: max{40, ImageSize}.",
+      "description": "The size of the system cloud disk. Unit: GiB. Valid values:\n\n- Basic cloud disk: 20 to 500.\n- ESSD:\n    - PL0: 1 to 2048.\n    - PL1: 20 to 2048.\n    - PL2: 461 to 2048.\n    - PL3: 1261 to 2048.\n- ESSD AutoPL cloud disk: 1 to 2048.\n- Other cloud disk types: 20 to 2048.\n\nThe value of this parameter must be greater than or equal to max{1, ImageSize}.\n\nDefault value: max{40, ImageSize}.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SystemDiskCategories",
-      "description": "Category *N* of the system disk. Valid values of N: 1 to 4. You can specify up to four system disk categories in a scaling configuration. A smaller value of *N* specifies a higher priority. If Auto Scaling cannot create instances by using the system disk that has the highest priority, Auto Scaling creates instances by using the system disk that has the next highest priority. Valid values:\n\n*   cloud: basic disk.\n*   cloud_efficiency: ultra disk.\n*   cloud_ssd: standard SSD.\n*   cloud_essd: ESSD.\n\n>  You cannot specify the **SystemDiskCategories.N** and `SystemDisk.Category` parameters at the same time.",
+      "description": "The disk types for the system cloud disk. Valid values of N: 1 to 4. You can specify up to four disk types for the system cloud disk in a scaling configuration. A smaller value of N indicates a higher priority. When a disk type with a higher priority is unavailable, Auto Scaling automatically attempts the next-priority disk type to create the system cloud disk. Valid values:\n- cloud: basic cloud disk.\n- cloud_efficiency: ultra cloud disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: ESSD.\n\n> If you specify this parameter, do not specify `SystemDisk.Category` at the same time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The tags of the ECS instance. The tags must be specified in the key-value pair format. You can specify up to 20 tags. Take note of the following items when you specify tag keys and tag values:\n\n*   A tag key can be up to 64 characters in length. The key cannot start with acs: or aliyun and cannot contain `http://` or `https://`. You cannot specify an empty string as a tag key.\n*   A tag value can be up to 128 characters in length. The value cannot start with acs: or aliyun and cannot contain `http://` or `https://`. You can specify an empty string as a tag value.",
+      "description": "The tags of the ECS instance. Tags are specified as key-value pairs. You can specify up to 20 tags. The following limits apply to the Key and Value parameters:\n         \n- Key can be up to 64 characters in length and cannot start with aliyun or acs:, and cannot contain `http://` or `https://`. Key cannot be an empty string when a tag is used.\n- Value can be up to 128 characters in length and cannot start with aliyun or acs:, and cannot contain `http://` or `https://`. Value can be an empty string.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tenancy",
-      "description": "Specifies whether to create the instance on a dedicated host. Valid values:\n\n*   default: does not create the instance on a dedicated host.\n*   host: creates the instance on a dedicated host. If you do not specify the **DedicatedHostId** parameter, the system selects a dedicated host for the instance that you want to create.\n\nDefault value: default.",
+      "description": "Specifies whether to create the instance on a dedicated host. Valid values:\n\n- default: creates a non-dedicated host instance.\n\n- host: creates a dedicated host instance. If you do not specify DedicatedHostId, Alibaba Cloud automatically selects a dedicated host for the instance.\n\nDefault value: default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserData",
-      "description": "The user data of the ECS instance. The data must be encoded in Base64. The maximum size of the data before encoding is 16 KB.",
+      "description": "The user data of the ECS instance. The data must be encoded in Base64. The maximum size of the raw data before encoding is 32 KB.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The ID of the zone where the ECS instance resides.",
+      "description": "The zone ID of the ECS instance.",
       "position": "Query",
       "type": "String",
       "required": false

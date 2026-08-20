@@ -1,61 +1,62 @@
 {
   "name": "DescribeDcdnDomainIpaTrafficData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainName",
-      "description": "The accelerated domain name.\n\nSeparate multiple domain names with commas (,). If you do not specify a value for this parameter, data for all accelerated domain names is queried.",
+      "description": "The accelerated domain name.\n\nSeparate multiple domain names with commas (,). If you do not specify this parameter, data for all accelerated domain names is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query.\n\nSpecify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n> The end time must be later than the start time.",
+      "description": "The end of the time range to query.\n\nSpecify the time in the ISO 8601 standard. The time must be in UTC. Format: yyyy-MM-ddTHH:mm:ssZ.\n\n> The end time must be later than the start time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FixTimeGap",
-      "description": "Specify whether to implement padding with zeros. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to pad data with zeros. Valid values:\n\n- **true**: Pads data with zeros.\n\n- **false**: Does not pad data with zeros.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Interval",
-      "description": "The time granularity of data entries. Unit: seconds.\n\nThe time granularity varies with the time range specified by **StartTime** and **EndTime**.\n\n*   If the time range between StartTime and EndTime is less than 3 days, the valid values are **300**, **3600**, and **86400**. If you do not specify a value for this parameter, **300** is used.\n*   If the time range between StartTime and EndTime is greater than or equal to 3 days and less than 31 days, the valid values are **3600** and **86400**. Default value: **3600**.\n*   If the time range between StartTime and EndTime is 31 days or longer, the valid value is **86400**. Default value: **86400**.",
+      "description": "The time granularity of the data to query. Unit: seconds.\n\nThe value of this parameter depends on the time range specified by the **StartTime** and **EndTime** parameters:\n\n- If the time span is less than 3 days: **300**, **3600**, and **86400**. If you do not set this parameter, the default value is **300**.\n\n- If the time span is from 3 to 31 days (not including 31 days): **3600** and **86400**. If you do not set this parameter, the default value is **3600**.\n\n- If the time span is 31 days or more: **86400**. If you do not set this parameter, the default value is **86400**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IspNameEn",
-      "description": "The name of the Internet service provider (ISP).\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query ISPs.",
+      "description": "The name of the carrier.\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query the names of carriers. If you do not specify this parameter, data for all carriers is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LocationNameEn",
-      "description": "The name of the region.\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query regions.",
+      "description": "The name of the region.\n\nYou can call the [DescribeDcdnRegionAndIsp](~~207199~~) operation to query the names of regions. If you do not specify this parameter, data for all regions is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query.\n\nSpecify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The beginning of the time range to query.\n\nSpecify the time in the ISO 8601 standard. The time must be in UTC. Format: yyyy-MM-ddTHH:mm:ssZ.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TimeMerge",
-      "description": "Specifies whether to automatically calculate the value of the **interval**. If the **timeMerge** parameter is set to **1**, the value of **inteval** is calculated based on **StartTime** and **EndTime**. You can set either this parameter or the **interval** parameter.",
+      "description": "Specifies whether to automatically calculate the time granularity. If you set this parameter to **1**, the system calculates a proper value for the **Interval** parameter based on the specified time range. You can specify either **TimeMerge** or **Interval**.",
       "position": "Query",
       "type": "String",
       "required": false

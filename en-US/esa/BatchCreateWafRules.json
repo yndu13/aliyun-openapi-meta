@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "Configs",
-      "description": "A list of configurations for each rule, specifying detailed configurations for each rule.",
+      "description": "The list of rule configurations. Specifies the detailed configuration for each rule.\n\n**Required subfields for each phase** (applicable only to the two phases supported by this batch operation):\n\n- `http_anti_scan`: You must specify `Type` and at least one of `ManagedList` or `RateLimit`.\n- `http_bot`: You must specify the advanced mode bots configuration. The subfields are defined in the `WafRuleConfig` data structure.\n\n> Note: Other phases such as `http_custom` and `http_whitelist` cannot use this batch operation. Use the single-rule operation `CreateWafRule` instead. The subfield constraints are described in the single-rule operation documentation.\n\n> If `Configs` is not specified or required subfields are missing, the service returns `InvalidParameter(400)` or `Rule.Config.Malformed`.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Phase",
-      "description": "WAF rule type, with values:\n\n- **http_anti_scan**: Scan protection.\n- **http_bot**: Bots.",
+      "description": "The WAF rule execution phase. This **batch operation supports only** the following two phases. For other phases, use the single-rule operations `CreateWafRule` or `UpdateWafRule`:\n- `http_anti_scan`: scan protection rules\n- `http_bot`: advanced mode bots\n\n> Note: The `http_anti_scan` and `http_bot` phases **support only batch creation**. The single-rule operation `CreateWafRule` does not accept these two values. Conversely, other phases such as `http_custom` and `http_whitelist` can be created only by using single-rule operations and cannot use this batch operation.\n\n**Required constraint**: Although this parameter is marked as optional (required: false) in the specification, it is **required** when you call this batch operation. If this parameter is not specified, the service returns `InvalidParameter(400)`.\n\n**Plan prerequisite**: `http_anti_scan` requires the site to have a **high or higher plan**. Calling this operation with a basic plan returns `Phase.HttpAntiScan.NotSupport`. Verify the site plan before calling this operation.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "RulesetId",
-      "description": "Ruleset ID.",
+      "description": "The ID of the WAF ruleset. You can call the [ListWafRulesets](~~2878359~~) operation to obtain the ruleset ID.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "Shared",
-      "description": "Shared configuration for multiple rules, specifying common attributes of multiple rules.",
+      "description": "The shared configuration for multiple rules. Specifies the common properties of multiple rules.\n\n**Conditionally required**: Although this parameter is marked as optional (required: false) in the specification, it is **required** when `Phase=http_anti_scan`. If this parameter is not specified, the service returns `InvalidParameter(400)`.\n\n**Subfield requirements**: In the `http_anti_scan` phase, Shared must include shared fields such as `Name` (rule name) and `Action` (rule action). For other phases, the required subfields of Shared vary depending on the specific phase.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "SiteId",
-      "description": "Site ID, which can be obtained by calling the [ListSites](~~2850189~~) interface.",
+      "description": "The site ID. You can call the [ListSites](~~2850189~~) operation to obtain the site ID.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "SiteVersion",
-      "description": "Site version.",
+      "description": "The version number of the site configuration. For sites with version management enabled, you can use this parameter to specify the site version on which the configuration takes effect. The default value is 0.",
       "position": "Query",
       "type": "Integer",
       "required": false

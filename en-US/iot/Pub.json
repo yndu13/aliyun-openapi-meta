@@ -1,54 +1,54 @@
 {
   "name": "Pub",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ContentType",
-      "description": "The content type of the message when you use MQTT 5.0 for communication.\n\nThe content type is usually MIME, such as text or plain********.",
+      "description": "The content type of the published message when using the MQTT 5.0 communication protocol.\n\nThis is typically used to store MIME types. For example, for a text file type: **text**, **plain**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CorrelationData",
-      "description": "The related data in the request/response communication mode when you use MQTT 5.0. You can specify this parameter as needed.\n\nA message recipient can process the request based on the data.\n\n>  You must convert the related data into binary data and perform Base64 encoding to generate a value of the string type.",
+      "description": "The correlation data in the request/response mode when using the MQTT 5.0 communication protocol. You can customize this value.\n\nThe message receiver can process the request based on the correlation data.\n\n> Convert the correlation data to binary data and perform Base64 encoding to generate a String value.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeviceName",
-      "description": "The name of the MQTT cloud gateway.\n\n>When you publish a message to an MQTT cloud gateway, you must specify this parameter.",
+      "description": "The name of the MQTT cloud gateway device.\n\n><notice>\nSpecify this parameter only when you need to publish a message to a specified MQTT cloud gateway device.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can obtain the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify this parameter. Otherwise, the call fails.\n>*   If the **Overview** page or the instance ID is not displayed in the IoT Platform console, ignore this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this **ID** value exists, you must specify it. Otherwise, the call fails.\n- If no **Overview** page or **ID** value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MessageContent",
-      "description": "The body of the message that you want to publish.\n\nTo generate a message body, you must convert the raw message into binary data and perform Base64 encoding.",
+      "description": "The message body to send. Convert the original message to binary data and perform Base64 encoding to generate the message body.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "MessageExpiryInterval",
-      "description": "",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PayloadFormatIndicator",
-      "description": "The payload identifier of the message when you use MQTT 5.0 for communication. Valid values:\n\n*   **0**: The message is unknown byte data.\n*   **1**: The payload of the message is UTF-8 encoded character data.",
+      "description": "The payload format indicator of the published message when using the MQTT 5.0 communication protocol. Valid values:\n- **0**: The message is undetermined byte data.\n- **1**: The payload of the message is UTF-8 encoded character data.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -62,54 +62,54 @@
     },
     {
       "name": "Qos",
-      "description": "The quality of service (QoS) level of the message. Valid values:\n\n*   **0**: The message is published at most once.\n*   **1**: The message is published at least once. If a PUBACK response is not returned after you publish a QoS 1 message, the message is pushed to the device again when the device reconnects to IoT Platform.\n\nDefault value: **0**.\n\nFor more information about message communication, see [Limits](~~30527~~).",
+      "description": "The method for sending the message. Valid values:\n\n- **0**: The message is sent at most once.\n- **1**: The message is sent at least once. If a PUBACK message is not received for a QoS=1 message, the message is pushed to the device again when the device reconnects.\n\nIf you do not specify this parameter, the default value **0** is used.\n\nFor more information about communication messages, see [Limits on connections and communications](~~30527~~).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ResponseTopic",
-      "description": "The response topic in the request/response communication mode when you use MQTT 5.0. For more information, see [MQTT 5.0](~~30540~~).",
+      "description": "The response topic in the request/response mode when using the MQTT 5.0 communication protocol, which is the communication topic. For more information, see [MQTT 5.0 protocol description](~~30540~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Retained",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TopicAlias",
-      "description": "",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TopicFullName",
-      "description": "The custom topic for the device that receives the message.\n\n*   Topic format: `/${productKey}/${deviceName}/user/${TopicShortName}`.\n*   You must specify the **Subscribe** permission, or **Publish and Subscribe** permissions for the topic.\n\n> Make sure that the device subscribes to the topic before you call the Pub operation. Otherwise, the device cannot receive the message.\n\nYou can view the custom topics of a product on the **Topic Categories** tab of the **Product Details** page, or by calling the [QueryProductTopic](~~69647~~) operation. You can view the topics to which the device subscribes on the **Topic List** tab of the **Device Details** page.",
+      "description": "The custom topic of the device that receives the message.\n\n- For <props=\"china\"><ph>open-source MQTT managed devices and </ph></props>MQTT cloud gateway devices, the custom topic is the original custom topic of the device. For more information, see [Topic description](~~433806~~).\n- For <props=\"china\"><ph>non-open-source MQTT managed devices and </ph></props>non-MQTT cloud gateway devices, the custom topic supports the following formats:\n\n    - `/${productKey}/${deviceName}/user/${TopicShortName}`: Sends a message to a specified device under the specified **ProductKey**.\n    - `/broadcast/${productKey}/${CustomField}`: Sends a message to online devices that have subscribed to this topic under the specified **ProductKey**. `${productKey}` is the **ProductKey** of the product that receives the broadcast message. `${CustomField}` is a custom field that you define.\n\n><notice> \n- The operation permission of the topic must be **Subscribe** or **Publish and Subscribe**.\n- Before calling this operation, the device must have subscribed to the topic and not unsubscribed. Otherwise, the device cannot receive the published message.\n\n></notice>\n\nMethods to query custom topics:\n\n- Call the [QueryProductTopic](~~69647~~) operation to query custom topics of a product.\n- In the IoT Platform console, go to the **Product Details** page and click the **Topic Categories** tab to query custom topics of a product.\n- In the IoT Platform console, go to the **Device Details** page and click the **Topic List** tab to view custom topics that the device has subscribed to.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "UserProp",
-      "description": "",
+      "description": "The list of user-defined properties when using the MQTT 5.0 communication protocol.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the user-defined property when using the MQTT 5.0 communication protocol.\n\nThis parameter must be used together with **UserProp.N.Value**.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the user-defined property when using the MQTT 5.0 communication protocol.\n\nThis parameter must be used together with **UserProp.N.Key**.",
           "position": "Query",
           "type": "String",
           "required": false

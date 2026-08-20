@@ -7,33 +7,35 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among all requests. The token can contain only ASCII characters.\n\n> If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request is different.",
+      "description": "The client token that is used to ensure the idempotence of a request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** value as the **ClientToken** value. The **RequestId** value is different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointId",
-      "description": "The ID of the endpoint for which you want to create traffic destinations.",
+      "description": "The ID of the endpoint for which you want to create traffic policies.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PolicyConfigurations",
-      "description": "The configurations of the traffic destinations.\n\nYou can specify up to 500 traffic destinations for each endpoint.",
+      "description": "The traffic policy configurations.\n\nYou can specify up to 500 traffic policies for each endpoint.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Address",
+          "description": "The IP address of the traffic destination that is allowed to receive traffic.\n\nThis parameter takes effect only when **TrafficToEndpointPolicy** is set to **AllowCustom**.\n\nYou can specify up to 500 traffic destination IP addresses for each endpoint.\n\n> This parameter is required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PortRanges",
+          "description": "The port range of the traffic destination that is allowed to receive traffic. The port range must fall within the backend service port range of the endpoint group.\n\nIf you leave this parameter empty, all ports of the traffic destination are supported.\n\nThis parameter takes effect only when **TrafficToEndpointPolicy** is set to **AllowCustom**.\n\nYou can specify up to 500 port ranges for each endpoint, and up to 10 port ranges for each traffic destination.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -42,7 +44,7 @@
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the GA instance is deployed. Set the value to **cn-hangzhou**.",
+      "description": "The region ID of the Global Accelerator instance. Set the value to **ap-southeast-1**.",
       "position": "Query",
       "type": "String",
       "required": true

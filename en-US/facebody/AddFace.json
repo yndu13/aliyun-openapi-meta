@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "DbName",
-      "description": "",
+      "description": "The database name. The name can contain lowercase letters, digits, and underscores (_), and must be 1 to 64 characters in length.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "EntityId",
-      "description": "",
+      "description": "The entity ID that uniquely identifies a user, such as a user ID or employee ID. Each entity can contain multiple face images. The ID can contain uppercase and lowercase letters, digits, and underscores (_), and must be 1 to 64 characters in length.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "ExtraData",
-      "description": "",
+      "description": "The custom information. The value can contain letters, digits, punctuation marks, and Chinese characters. The value cannot exceed 512 characters in length.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageUrl",
-      "description": "",
+      "description": "The URL of the face image. The face must be a frontal, unobstructed face. If the image contains multiple faces, the largest face is added. We recommend that you use an Object Storage Service (OSS) link in the China (Shanghai) region. For local files or OSS links in other regions, see [File URL processing](~~155645~~). The URL cannot exceed 1024 characters in length.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "QualityScoreThreshold",
-      "description": "",
+      "description": "The quality score threshold. The system performs quality analysis on the new face image. If the quality score is less than this threshold, the face image does not meet quality requirements and the addition fails. Valid values: \\[0.0, 100.0]. A value of 0.0 or empty indicates that quality score evaluation is not performed.",
       "position": "Body",
       "type": "Float",
       "required": false
     },
     {
       "name": "SimilarityScoreThresholdBetweenEntity",
-      "description": "",
+      "description": "The inter-entity similarity threshold. The system compares the new face image with existing faces in all other **EntityId** entries. If the similarity score is greater than or equal to this threshold, a similar face exists in another **EntityId**, indicating a duplicate, and the addition fails. Valid values: \\[0.0, 100.0]. A value of 0.0 or empty indicates that inter-entity similarity evaluation is not performed. For reference values, see the **Thresholds** field in the response of the [CompareFace](~~151891~~) operation.\n\n> The inter-entity similarity threshold check applies only to the first face image uploaded for each EntityId.",
       "position": "Body",
       "type": "Float",
       "required": false
     },
     {
       "name": "SimilarityScoreThresholdInEntity",
-      "description": "",
+      "description": "The intra-entity similarity threshold. The system compares the new face image with existing faces within the specified **EntityId**. If the similarity score is less than this threshold, the new face image differs significantly from other face images and the addition fails. If no faces exist within the **EntityId**, the addition succeeds. Valid values: \\[0.0, 100.0]. A value of 0.0 or empty indicates that intra-entity similarity evaluation is not performed. For reference values, see the **Thresholds** field in the response of the [CompareFace](~~151891~~) operation.",
       "position": "Body",
       "type": "Float",
       "required": false

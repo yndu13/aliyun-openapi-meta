@@ -7,138 +7,140 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Valid values:\n\n*   **false** (default): disables automatic payment. If you select this option, you must go to the Order Center to complete the payment after an order is generated.\n*   **true**: enables automatic payment. Payments are automatically completed.",
+      "description": "Specifies whether to enable automatic payment. Valid values:\n\n- **false** (default): Disables automatic payment. After an order is generated, go to the Order Hub to complete the payment.\n\n- **true**: Enables automatic payment. Payments are automatically completed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal for the bandwidth plan. Valid values:\n\n*   **true**: enables auto-renewal.\n*   **false** (default): does not enable auto-renewal.",
+      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n- **true**: Yes.\n\n- **false** (default): No.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenewDuration",
-      "description": "The auto-renewal duration. Unit: months.\n\nValid values: **1** to **12**. Default value: **1**.\n\n>  This parameter is required only if **AutoRenew** is set to **true**.",
+      "description": "The auto-renewal duration. Unit: months.\n\nValid values: **1** to **12**. Default value: **1**.\n\n> This parameter takes effect only if **AutoRenew** is set to **true**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to automatically pay bills by using coupons. Valid values:\n\n*   **true**: yes\n*   **false** (default): no\n\n>  This parameter is required only if **AutoPay** is set to **true**.",
+      "description": "Specifies whether to use a coupon to automatically pay for the bill. Valid values:\n\n- **true**: Yes.\n\n- **false** (default): No.\n\n> This parameter takes effect only if **AutoPay** is set to **true**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "The bandwidth of the bandwidth plan. Unit: Mbit/s.\n\nValid values: **2** to **2000**.",
+      "description": "The bandwidth of the bandwidth plan. Unit: Mbps.\nValid values: **2** to **2000**.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "BandwidthType",
-      "description": "The type of the bandwidth. Valid values:\n\n*   **Basic**: standard bandwidth\n*   **Enhanced**: enhanced bandwidth\n*   **Advanced**: premium bandwidth\n\nIf **Type** is set to **Basic**, this parameter is required.",
+      "description": "The type of bandwidth. Valid values:\n\n- **Basic**: Basic bandwidth.\n\n- **Enhanced**: Enhanced bandwidth.\n\n- **Advanced**: Advanced bandwidth.\n\nThis parameter is required if you set **Type** to **Basic**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BillingType",
-      "description": "The metering method that is used when you use the pay-as-you-go billing method. Valid values:\n\n*   **PayByTraffic** (default)\n*   **PayBY95** By default, the pay-by-95th-percentile metering method is unavailable. If you want to use the metering method, contact your account manager.\n\n>  This parameter takes effect only if you set **ChargeType** to **POSTPAY**.",
+      "description": "The billing method for a pay-as-you-go bandwidth plan. Valid values:\n\n- **PayByTraffic** (default): pay-by-traffic.\n\n- **PayBY95**: pay-by-95th-percentile. This billing method is not available by default. Contact your account manager to use this billing method.\n\n> This parameter takes effect only if **ChargeType** is set to **POSTPAY**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CbnGeographicRegionIdA",
-      "description": "Area A to be connected. Set the value to **China-mainland**.\n\nYou can set this parameter only if you call this operation on the international site (alibabacloud.com).",
+      "description": "Connected area A of the cross-region acceleration bandwidth plan. Set the value to **China-mainland**.\n\nThis parameter is available only on the Alibaba Cloud International Website (www\\.alibabacloud.com).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CbnGeographicRegionIdB",
-      "description": "Area B to be connected. Set the value to **Global**.\n\nYou can set this parameter only if you call this operation on the international site (alibabacloud.com).",
+      "description": "Connected area B of the cross-region acceleration bandwidth plan. Set the value to **Global**.\n\nThis parameter is available only on the Alibaba Cloud International Website (www\\.alibabacloud.com).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ChargeType",
-      "description": "The billing method of the bandwidth plan. Valid values:\n\n*   **PREPAY** (default): subscription.\n*   **POSTPAY**: pay-as-you-go. By default, the pay-as-you-go billing method is unavailable. If you want to use the billing method, contact your account manager.",
+      "description": "The billing method. Valid values:\n\n- **PREPAY** (default): subscription.\n\n- **POSTPAY**: pay-as-you-go. The pay-as-you-go billing method is not available by default. Contact your account manager to use this billing method.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a client token from your client to make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. The **RequestId** may be different for each request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Duration",
-      "description": "The subscription duration.\n\n*   If the **PricingCycle** parameter is set to **Month**, the valid values for the **Duration** parameter are **1** to **9**.\n*   If the **PricingCycle** parameter is set to **Year**, the valid values for the **Duration** parameter are **1** to **3**.\n\nIf **ChargeType** is set to **PREPAY**, this parameter is required.",
+      "description": "The subscription duration.\n\n- If you set **PricingCycle** to **Month**, valid values for **Duration** are **1** to **9**.\n\n- If you set **PricingCycle** to **Year**, valid values for **Duration** are **1** to **3**.\n\nThis parameter is required if you set **ChargeType** to **PREPAY**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "The billing cycle. Valid values:\n\n*   **Month**: billed on a monthly basis.\n*   **Year**: billed on an annual basis.\n\nIf **ChargeType** is set to **PREPAY**, this parameter is required.",
+      "description": "The billing cycle. Valid values:\n\n- **Month**: monthly billing.\n\n- **Year**: yearly billing.\n\nThis parameter is required if you set **ChargeType** to **PREPAY**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PromotionOptionNo",
-      "description": "The coupon code.\n\n>  This parameter is only available on the international site (alibabacloud.com).",
+      "description": "The coupon code.\n\n> This parameter is available only on the Alibaba Cloud International Website (www\\.alibabacloud.com).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ratio",
-      "description": "The percentage of the minimum bandwidth guaranteed if the pay-by-95th-percentile-bandwidth metering method is used. Valid values: **30** to **100**.\n\n>  This parameter is required only if **BillingType** is set to **PayBY95**.",
+      "description": "The percentage of the guaranteed minimum bandwidth if you use the pay-by-95th-percentile metering method. Valid values: **30** to **100**.\n\n> This parameter takes effect only if **BillingType** is set to **PayBY95**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the GA instance is deployed. **cn-hangzhou** is returned.",
+      "description": "The region ID of the GA instance. Set the value to **cn-hangzhou**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the bandwidth plan.",
+      "description": "The tags of the bandwidth plan.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the bandwidth plan. The tag key cannot be an empty string.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the bandwidth plan. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag values.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -147,7 +149,7 @@
     },
     {
       "name": "Type",
-      "description": "The type of the bandwidth plan. Valid values:\n\n*   **Basic**: a basic bandwidth plan\n*   **CrossDomain**: a cross-region acceleration bandwidth plan\n\nIf you call this operation on the Alibaba Cloud China site, only **Basic** is supported.",
+      "description": "The type of the bandwidth plan. Valid values:\n\n- **Basic**: a basic bandwidth plan.\n\n- **CrossDomain**: a cross-region acceleration bandwidth plan.\n\nOnly **Basic** is supported on the Alibaba Cloud China Website (www\\.aliyun.com).",
       "position": "Query",
       "type": "String",
       "required": true

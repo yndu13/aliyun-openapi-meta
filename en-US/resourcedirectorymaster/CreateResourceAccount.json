@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "AccountNamePrefix",
-      "description": "The prefix for the Alibaba Cloud account name of the member. If you leave this parameter empty, the system randomly generates a prefix.\n\nThe prefix must be 2 to 37 characters in length.\n\nThe prefix can contain letters, digits, and special characters but cannot contain consecutive special characters. The prefix must start with a letter or digit and end with a letter or digit. Valid special characters include underscores (`_`), periods (.), and hyphens (`-`).\n\nThe complete Alibaba Cloud account name of a member in a resource directory is in the @.aliyunid.com format, such as `alice@rd-3G****.aliyunid.com`.\n\nEach name must be unique in the resource directory.",
+      "description": "The prefix of the account name. If you leave this parameter empty, the system randomly generates a prefix.\n\n<props=\"china\">Length: 2 to 50 characters.</props>\n\n<props=\"intl\">Length: 2 to 37 characters.</props>\n\nFormat: Can contain letters, digits, and special characters `_.-`. Must start and end with a letter or digit. Consecutive special characters `_.-` are not allowed.\n\nThe full account name is in the format of <AccountNamePrefix>@<ResourceDirectoryId>.aliyunid.com, such as `alice@rd-3G****.aliyunid.com`.\n\nThe account name must be unique within the resource directory.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DisplayName",
-      "description": "The display name of the member.\n\nThe name must be 2 to 50 characters in length.\n\nThe name can contain letters, digits, underscores (\\_), periods (.), hyphens (-), and spaces.\n\nThe name must be unique in the resource directory.",
+      "description": "The display name of the member.\n\nLength: 2 to 50 characters.\n\nFormat: Can contain letters, digits, underscores (\\_), periods (.), hyphens (-), and spaces.\n\nThe display name must be unique within the resource directory.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks whether an identity type can be specified for the member. If the request does not pass the dry run, an error code is returned.\n*   false (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether to perform only a dry run for the request. Valid values:\n- true: performs a dry run without actually creating the member. The check currently includes whether the current account is allowed to set the identity type of the member. If the check fails, the corresponding error code is returned.\n- false (default): sends the request. If the check passes, the member is created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -35,21 +35,21 @@
     },
     {
       "name": "PayerAccountId",
-      "description": "The ID of the billing account. If you leave this parameter empty, the newly created member is used as its billing account.",
+      "description": "The ID of the billing account. If you leave this parameter empty, the newly created member pays for its own resource consumption.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResellAccountType",
-      "description": "The identity type of the member. Valid values:\n\n*   resell: The member is an account for a reseller. This is the default value. A relationship is automatically established between the member and the reseller. The management account of the resource directory must be used as the billing account of the member.\n*   non_resell: The member is not an account for a reseller. The member is an account that is not associated with a reseller. You can directly use the account to purchase Alibaba Cloud resources. The member is used as its own billing account.\n\n> This parameter is available only for resellers at the international site (alibabacloud.com).",
+      "description": "The identity type of the member. Valid values:\n\n- resell (default): reseller account. The created member automatically establishes a reseller relationship with your reseller. You must use the management account to pay for the new member.\n- non_resell: non-reseller account. The created member is a regular Alibaba Cloud account that is not associated with your current reseller. The account purchases resources directly from Alibaba Cloud and pays for its own resource consumption.\n\n> This parameter is supported only for China site (Chinese mainland) reseller customers.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tag of the member.",
+      "description": "The tags of the member.",
       "position": "Query",
       "type": "Array",
       "required": false

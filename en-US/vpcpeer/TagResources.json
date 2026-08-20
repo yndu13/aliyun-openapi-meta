@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among all requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a unique token for each request from your client. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. The **RequestId** of each request may be different.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the resource to which you want to create and add tags.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The ID of the region where the resource is located.\n\nFor more information, see [DescribeRegions](~~36063~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceId",
-      "description": "The IDs of resources.",
+      "description": "The ID of the resource. You can specify up to 20 resource IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource. Set the value to **PeerConnection**, which specifies a VPC peering connection.",
+      "description": "The resource type. Set the value to **PeerConnection**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The tag details.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. You must specify 1 to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. You must specify 1 to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,42 +7,49 @@
   "parameters": [
     {
       "name": "BizDate",
-      "description": "The data timestamp. The value of this parameter is 00:00:00 of the day before the scheduling time of the instance. The value is a UNIX timestamp. Unit: milliseconds. Example: 1743350400000.",
+      "description": "The business date. This is typically 00:00:00 of the day before the scheduled time of the periodic instance. The value is a millisecond-level timestamp, such as 1743350400000.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
+      "name": "EnvType",
+      "description": "The project environment. Valid values:\n- Prod: production\n- Dev: development",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Filter",
-      "description": "",
+      "description": "The filter. The value is in JSON format. Multiple filter conditions have an AND relationship. Currently supported fields: `status, executionDate`.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Ids",
-      "description": "The IDs of the workflow instances. You can query multiple instances at a time by instance ID.",
+      "description": "The list of workflow instance IDs. You can use this parameter to query information about multiple workflow instances in a batch.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The instance name. Fuzzy match is supported.",
+      "description": "The name. Fuzzy match is supported.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Owner",
-      "description": "The account ID of the workflow instance owner.",
+      "description": "The account ID of the owner.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page 1. Default value: 1.",
+      "description": "The page number. Pages start from 1. Default value: 1.",
       "position": "Body",
       "type": "Integer",
       "required": false
@@ -56,35 +63,35 @@
     },
     {
       "name": "ProjectId",
-      "description": "The workspace ID.",
+      "description": "The project ID.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "SortBy",
-      "description": "The fields used for sorting. Fields such as TriggerTime and StartedTime are supported. The value of this parameter is in the Sort field + Sort by (Desc/Asc) format. By default, results are sorted in ascending order. Valid values:\n\n*   TriggerTime (Desc/Asc)\n*   StartedTime (Desc/Asc)\n*   FinishedTime (Desc/Asc)\n*   CreateTime (Desc/Asc)\n*   Id (Desc/Asc)\n\nDefault value: Id Desc.",
+      "description": "The list of sort fields. Sorting by scheduled time, start time, and other fields is supported. The format is \"sort field + sort order (Desc/Asc)\". Asc is the default if omitted. Valid values for the sort field:\n- TriggerTime (Desc/Asc)\n- StartedTime (Desc/Asc)\n- FinishedTime (Desc/Asc)\n- CreateTime (Desc/Asc)\n- Id (Desc/Asc)\n\nDefault value: Id Desc.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "",
+      "description": "The list of tags. Results are returned if any one of the specified tags matches.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the workflow instance. Valid values:\n\n*   Normal: Scheduled execution\n*   Manual: Manually triggered node\n*   SmokeTest: Smoke test\n*   SupplementData: Data backfill\n*   ManualWorkflow: Manually triggered workflow\n*   TriggerWorkflow: Triggered Workflow",
+      "description": "The type of the workflow instance. Valid values:\n- Normal: periodic scheduling\n- Manual: manual task\n- SmokeTest: test\n- SupplementData: data backfill\n- ManualWorkflow: manual workflow\n- TriggerWorkflow: trigger-based workflow",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "UnifiedWorkflowInstanceId",
-      "description": "",
+      "description": "The unified workflow instance ID. All workflow instances within the same business date under a specific trigger share the same value for this field.",
       "position": "Body",
       "type": "Long",
       "required": false

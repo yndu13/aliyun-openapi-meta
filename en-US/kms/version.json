@@ -4,22 +4,27 @@
   "apis": {
     "AsymmetricDecrypt": {
       "title": "AsymmetricDecrypt",
-      "summary": "Decrypts data by using an asymmetric key.",
+      "summary": "Decrypts data by using the private key of an asymmetric CMK.",
       "deprecated": false
     },
     "AsymmetricEncrypt": {
       "title": "AsymmetricEncrypt",
-      "summary": "Encrypts data by using an asymmetric customer master key (CMK).",
+      "summary": "Encrypts data by using the public key of an asymmetric CMK.",
       "deprecated": false
     },
     "AsymmetricSign": {
       "title": "AsymmetricSign",
-      "summary": "AsymmetricSign",
+      "summary": "Generates a digital signature by using an asymmetric CMK.",
       "deprecated": false
     },
     "AsymmetricVerify": {
       "title": "AsymmetricVerify",
-      "summary": "Verifies a signature by using an asymmetric key.",
+      "summary": "Verifies a digital signature by using the public key of an asymmetric CMK.",
+      "deprecated": false
+    },
+    "BatchGetSecretValue": {
+      "title": "Retrieve secret values in batches",
+      "summary": "Retrieves secret values in batches.",
       "deprecated": false
     },
     "CancelKeyDeletion": {
@@ -49,7 +54,7 @@
     },
     "CreateKey": {
       "title": "CreateKey",
-      "summary": "Creates a key.",
+      "summary": "Creates a customer master key (CMK) for envelope encryption, digital signatures, or other cryptographic operations.",
       "deprecated": false
     },
     "CreateKeyVersion": {
@@ -69,12 +74,12 @@
     },
     "CreateSecret": {
       "title": "CreateSecret",
-      "summary": "Creates a secret and stores the initial version of the secret.",
+      "summary": "Creates a secret and stores its initial version.",
       "deprecated": false
     },
     "Decrypt": {
       "title": "Decrypt",
-      "summary": "Decrypts the ciphertext that is specified by using CiphertextBlob.",
+      "summary": "Decrypts ciphertext that was encrypted by using a CMK.",
       "deprecated": false
     },
     "DeleteAlias": {
@@ -94,7 +99,7 @@
     },
     "DeleteKeyMaterial": {
       "title": "DeleteKeyMaterial",
-      "summary": "Deletes the key material that you imported.",
+      "summary": "Deletes the imported key material from a CMK. After deletion, the CMK enters the PendingImport state until you re-import key material.",
       "deprecated": false
     },
     "DeleteNetworkRule": {
@@ -119,32 +124,32 @@
     },
     "DescribeApplicationAccessPoint": {
       "title": "DescribeApplicationAccessPoint",
-      "summary": "Queries the details of an application access point (AAP).",
+      "summary": "Retrieves the details of an application access point (AAP).",
       "deprecated": false
     },
     "DescribeKey": {
       "title": "DescribeKey",
-      "summary": "Queries the information about a key.",
+      "summary": "Queries the metadata of a CMK, such as the key state, usage, and rotation configuration.",
       "deprecated": false
     },
     "DescribeKeyVersion": {
       "title": "DescribeKeyVersion",
-      "summary": "Queries the information about a key version.",
+      "summary": "Queries the metadata of a specific CMK version.",
       "deprecated": false
     },
     "DescribeNetworkRule": {
       "title": "DescribeNetworkRule",
-      "summary": "Queries the details of a network access rule.",
+      "summary": "Retrieves the details of a network access rule.",
       "deprecated": false
     },
     "DescribePolicy": {
       "title": "DescribePolicy",
-      "summary": "Queries the details of a permission policy.",
+      "summary": "Retrieves the details of a permission policy.",
       "deprecated": false
     },
     "DescribeRegions": {
       "title": "DescribeRegions",
-      "summary": "Queries available regions for the current account.",
+      "summary": "Queries the regions where KMS is available.",
       "deprecated": false
     },
     "DescribeSecret": {
@@ -164,51 +169,62 @@
     },
     "Encrypt": {
       "title": "Encrypt",
-      "summary": "Encrypts plaintext by using a symmetric key.",
+      "summary": "Encrypts plaintext by using a symmetric CMK.",
       "deprecated": false
     },
     "ExportDataKey": {
       "title": "ExportDataKey",
-      "summary": "Encrypts and exports a data key by using a public key.",
+      "summary": "Exports a data key encrypted by a CMK. The data key is re-encrypted by a public key that you specify for secure transmission.",
       "deprecated": false
     },
     "GenerateAndExportDataKey": {
       "title": "GenerateAndExportDataKey",
-      "summary": "Randomly generates a data key and uses a key and a public key to encrypt the data key. This operation returns both the data key ciphertext that is encrypted by using the key and the data key ciphertext that is encrypted by using the public key.",
+      "summary": "Generates a random data key, encrypts it by using a CMK and a public key that you specify, and returns both ciphertexts.",
       "deprecated": false
     },
     "GenerateDataKey": {
       "title": "GenerateDataKey",
-      "summary": "Generates a random data key that is used to encrypt on-premises data.",
+      "summary": "Generates a random data key for envelope encryption. The data key is returned in both plaintext and ciphertext forms.",
       "deprecated": false
     },
     "GenerateDataKeyWithoutPlaintext": {
       "title": "GenerateDataKeyWithoutPlaintext",
-      "summary": "Generates a random data key, which can be used to encrypt local data.",
+      "summary": "Generates a random data key in only ciphertext form, without the plaintext copy.",
+      "deprecated": false
+    },
+    "GenerateMac": {
+      "title": "Generate HMAC message authentication code",
+      "summary": "Generates an HMAC message authentication code for a message by using a specified key.",
       "deprecated": false
     },
     "GetClientKey": {
       "title": "GetClientKey",
-      "summary": "Queries the information about a client key.",
+      "summary": "Retrieves information about a client key.",
       "deprecated": false
     },
     "GetDefaultKmsInstance": {
-      "title": null,
-      "summary": null,
+      "title": "GetDefaultKmsInstance",
+      "summary": "Queries the default KMS instance in a specified region.",
       "deprecated": false
     },
     "GetKeyPolicy": {
-      "title": null,
-      "summary": null,
+      "title": "GetKeyPolicy",
+      "summary": "Queries the key policy of a CMK in a KMS instance.",
       "deprecated": false
     },
     "GetKmsInstance": {
       "title": "GetKmsInstance",
-      "summary": "Queries the details of a Key Management Service (KMS) instance.",
+      "summary": "Retrieves the details of a KMS instance.",
       "deprecated": false
     },
     "GetKmsInstanceQuotaInfos": {
-      "title": null,
+      "title": "GetKmsInstanceQuotaInfos",
+      "summary": "Queries the quota usage and limits for a KMS instance.",
+      "deprecated": false
+    },
+    "GetManagedDataKey": {
+      "title": "Retrieve managed data key plaintext",
+      "summary": "Retrieves the plaintext of a managed data key (DK).",
       "deprecated": false
     },
     "GetParametersForImport": {
@@ -218,27 +234,27 @@
     },
     "GetPublicKey": {
       "title": "GetPublicKey",
-      "summary": "Queries the public key of an asymmetric key pair. You can use the public key to encrypt local data and verify signatures.",
+      "summary": "Retrieves the public key of an asymmetric key. You can use the public key to encrypt data or verify a signature on your device.",
       "deprecated": false
     },
     "GetRandomPassword": {
       "title": "GetRandomPassword",
-      "summary": "Obtains a random password string.",
+      "summary": "Generates a random password string.",
       "deprecated": false
     },
     "GetSecretPolicy": {
-      "title": null,
-      "summary": null,
+      "title": "GetSecretPolicy",
+      "summary": "Queries the access policy of a specified secret in a KMS instance.",
       "deprecated": false
     },
     "GetSecretValue": {
-      "title": "GetSecretValue",
-      "summary": "Queries a secret value.",
+      "title": "Retrieve a secret value",
+      "summary": "Retrieves a secret value.",
       "deprecated": false
     },
     "ImportKeyMaterial": {
       "title": "ImportKeyMaterial",
-      "summary": "Call the ImportKeyMaterial operation to import the key material.",
+      "summary": "Imports externally generated key material into a CMK whose origin is EXTERNAL.",
       "deprecated": false
     },
     "ListAliases": {
@@ -253,37 +269,42 @@
     },
     "ListApplicationAccessPoints": {
       "title": "ListApplicationAccessPoints",
-      "summary": "Queries a list of application access points (AAPs).",
+      "summary": "Queries all application access points (AAPs) in the current region.",
       "deprecated": false
     },
     "ListClientKeys": {
       "title": "ListClientKeys",
-      "summary": "Queries a list of client keys",
+      "summary": "Queries all client keys within an AAP.",
       "deprecated": false
     },
     "ListKeyVersions": {
       "title": "ListKeyVersions",
-      "summary": "Queries all versions of a key.",
+      "summary": "Queries all versions of a specified CMK.",
       "deprecated": false
     },
     "ListKeys": {
       "title": "ListKeys",
-      "summary": "Queries all keys of the current Alibaba Cloud account in the current region.",
+      "summary": "Queries the IDs and ARNs of all CMKs in the current region.",
       "deprecated": false
     },
     "ListKmsInstances": {
       "title": "ListKmsInstances",
-      "summary": "Queries a list of Key Management Service (KMS) instances.",
+      "summary": "Queries all KMS instances in the current region.",
+      "deprecated": false
+    },
+    "ListManagedDataKeyVersions": {
+      "title": "List key versions of a managed data key",
+      "summary": "Lists the key versions of a specified managed data key (DK).",
       "deprecated": false
     },
     "ListNetworkRules": {
       "title": "ListNetworkRules",
-      "summary": "Queries a list of network access rules.",
+      "summary": "Queries all network access rules in the current region.",
       "deprecated": false
     },
     "ListPolicies": {
       "title": "ListPolicies",
-      "summary": "Queries a list of permission policies.",
+      "summary": "Queries all permission policies in the current region.",
       "deprecated": false
     },
     "ListResourceTags": {
@@ -292,38 +313,38 @@
       "deprecated": false
     },
     "ListSecretVersionIds": {
-      "title": "ListSecretVersionIds",
-      "summary": "Queries all versions of a secret.",
+      "title": "Query all version information of a secret",
+      "summary": "Queries all version information of a secret.",
       "deprecated": false
     },
     "ListSecrets": {
       "title": "ListSecrets",
-      "summary": "Queries all secrets created by the current Alibaba Cloud account in the current region.",
+      "summary": "Queries all secrets in the current region.",
       "deprecated": false
     },
     "ListTagResources": {
       "title": "ListTagResources",
-      "summary": "Queries the tags of a key or a secret.",
+      "summary": "Lists the tags that are bound to a key or a secret.",
       "deprecated": false
     },
     "OpenKmsService": {
       "title": "OpenKmsService",
-      "summary": "Activates Key Management Service (KMS) under your Alibaba cloud account.",
+      "summary": "Activates Key Management Service (KMS) for your Alibaba Cloud account.",
       "deprecated": false
     },
     "PutSecretValue": {
       "title": "PutSecretValue",
-      "summary": "Stores the secret value of a new version into a secret.",
+      "summary": "Stores a new version of a secret value for a generic secret.",
       "deprecated": false
     },
     "ReEncrypt": {
       "title": "ReEncrypt",
-      "summary": "Re-encrypts ciphertext. When you call this operation, Key Management Service (KMS) decrypts the ciphertext, uses a different key to re-encrypt the generated plaintext or data key, and then returns the new ciphertext.",
+      "summary": "Re-encrypts ciphertext under a different CMK without exposing the plaintext.",
       "deprecated": false
     },
     "ReleaseKmsInstance": {
-      "title": null,
-      "summary": null,
+      "title": "ReleaseKmsInstance",
+      "summary": "Releases a pay-as-you-go KMS instance.",
       "deprecated": false
     },
     "RestoreSecret": {
@@ -333,7 +354,7 @@
     },
     "RotateSecret": {
       "title": "RotateSecret",
-      "summary": "Manually rotates a secret.",
+      "summary": "Immediately rotates a secret.",
       "deprecated": false
     },
     "ScheduleKeyDeletion": {
@@ -342,33 +363,33 @@
       "deprecated": false
     },
     "SetDeletionProtection": {
-      "title": "SetDeletionProtection",
-      "summary": "Enables or disables deletion protection for a key.",
+      "title": "Set deletion protection",
+      "summary": "Enables or disables deletion protection for a customer master key (CMK).",
       "deprecated": false
     },
     "SetKeyPolicy": {
       "title": "SetKeyPolicy",
-      "summary": "Configures a policy for a key in a Key Management Service (KMS) instance.",
+      "summary": "Sets the key policy for a CMK in a KMS instance.",
       "deprecated": false
     },
     "SetSecretPolicy": {
       "title": "SetSecretPolicy",
-      "summary": "Configures a policy for a secret in a Key Management Service (KMS) instance.",
+      "summary": "Sets the access policy for a secret in a KMS instance.",
       "deprecated": false
     },
     "TagResource": {
       "title": "TagResource",
-      "summary": "Adds tags to a customer master key (CMK), secret, or certificate.",
+      "summary": "Adds tags to a CMK, secret, or certificate.",
       "deprecated": false
     },
     "TagResources": {
       "title": "TagResources",
-      "summary": "Adds tags to keys or secrets.",
+      "summary": "Adds tags to one or more keys or secrets.",
       "deprecated": false
     },
     "UntagResource": {
       "title": "UntagResource",
-      "summary": "Removes tags from a customer master key (CMK), secret, or certificate.",
+      "summary": "Removes tags from a CMK, secret, or certificate.",
       "deprecated": false
     },
     "UntagResources": {
@@ -388,12 +409,12 @@
     },
     "UpdateKeyDescription": {
       "title": "UpdateKeyDescription",
-      "summary": "Updates the description of a key.",
+      "summary": "Updates the description of a CMK.",
       "deprecated": false
     },
     "UpdateKmsInstanceBindVpc": {
       "title": "UpdateKmsInstanceBindVpc",
-      "summary": "Updates the virtual private cloud (VPC) that is associated with a Key Management Service (KMS) instance.",
+      "summary": "Updates the VPC bindings of a KMS instance.",
       "deprecated": false
     },
     "UpdateNetworkRule": {
@@ -408,7 +429,7 @@
     },
     "UpdateRotationPolicy": {
       "title": "UpdateRotationPolicy",
-      "summary": "Updates a key rotation policy.",
+      "summary": "Updates the automatic rotation policy of a CMK.",
       "deprecated": false
     },
     "UpdateSecret": {
@@ -423,7 +444,12 @@
     },
     "UpdateSecretVersionStage": {
       "title": "UpdateSecretVersionStage",
-      "summary": "Updates the stage label that marks a secret version.",
+      "summary": "Moves a version stage label to a different version of a secret.",
+      "deprecated": false
+    },
+    "VerifyMac": {
+      "title": "Verify HMAC message authentication code",
+      "summary": "Verifies the HMAC message authentication code of a specific message by using a specified key.",
       "deprecated": false
     }
   }

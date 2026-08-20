@@ -1,96 +1,97 @@
 {
   "name": "CreateEdgeContainerApp",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "HealthCheckFailTimes",
-      "description": "The number of consecutive failed health checks required for an application to be considered as unhealthy. Valid values: 1 to 10. Default value: 5.",
+      "description": "The number of consecutive failed health checks required. If an application is healthy, it is considered unhealthy after the specified number of consecutive failed probes.\n- Valid values: **1 to 10**. \n- Default value: **5**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckHost",
-      "description": "The domain name that is used for health checks. This parameter is empty by default.",
+      "description": "The domain name used for health checks. If this parameter is not specified, the value is empty by default.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckHttpCode",
-      "description": "The HTTP status code returned for a successful health check. Valid values:\n\n*   **http\\_2xx** (default)\n*   **http\\_3xx**",
+      "description": "The HTTP status code that indicates the health check is Normal. Valid values:\n\n- **http_2xx** (default).\n- **http_3xx**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckInterval",
-      "description": "The interval between two consecutive health checks. Unit: seconds. Valid values: **1** to **50**. Default value: **5**.",
+      "description": "The interval between health checks.\n- Valid values: **1** to **50**.\n- Default value: **5**.\n- Unit: **seconds**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckMethod",
-      "description": "The HTTP request method for health checks. Valid values:\n\n*   **HEAD** (default): requests the headers of the resource.\n*   **GET**: requests the specified resource and returns both the headers and entity body.",
+      "description": "The health check method for HTTP-type listeners. Valid values:\n\n- **HEAD** (default): Requests only the headers of the page.\n- **GET**: Requests the specified page information and returns the entity body.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckPort",
-      "description": "The port used for health checks. Valid values: 1 to 65535. Default value: 80.",
+      "description": "The port used for health checks.\n- Valid values: **1 to 65535**.\n- Default value: **80**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckSuccTimes",
-      "description": "The number of consecutive successful health checks required for an application to be considered as healthy. Valid values: 1 to 10. Default value: 2.",
+      "description": "The number of consecutive successful health checks required. If an application is unhealthy, it is considered healthy again after the specified number of consecutive successful probes.\n- Valid values: **1 to 10**.\n- Default value: **2**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckTimeout",
-      "description": "The timeout period of a health check response. If a backend ECS instance does not respond within the specified timeout period, the ECS instance fails the health check. Unit: seconds.\\\nValid values: **1** to **100**.\\\nDefault value: **3**.",
+      "description": "The amount of time to wait for a response from the health check. If the backend ECS instance does not respond correctly within the specified time, the health check is considered failed.    \n\n- Valid values: **1** to **100**.   \n- Default value: **3**.\n- Unit: **seconds**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckType",
-      "description": "The health check type. By default, this parameter is left empty.\n\nValid values:\n\n*   **l4**: Layer 4 health check.\n*   **l7**: Layer 7 health check.",
+      "description": "The health check type, which includes Layer 4 and Layer 7 probing. If this parameter is not specified, the value is empty by default.\n\nValid values:\n\n- **l4**: Layer 4 probing.\n- **l7**: Layer 7 probing.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckURI",
-      "description": "The URI used for health checks. The URI must be **1** to **80** characters in length. Default value: \"/\".",
+      "description": "The URI used for health checks.\n- The length is limited to **1** to **80** characters.\n- Default value: **\"/\"**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the application. The name must start with a lowercase letter and can contain lowercase letters, digits, and hyphens (-). The name must be 6 to 128 characters in length.",
+      "description": "The application name. The name must start with a lowercase letter and can contain lowercase letters, digits, and hyphens (-). The name must be 6 to 128 characters in length.\n><notice>Activate the EdgeContainer service in the console before calling this operation. Calls from accounts that have not activated the service will return a service activation error.</notice>",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Remarks",
-      "description": "The remarks. This parameter is empty by default.",
+      "description": "The remarks. If this parameter is not specified, the value is empty by default.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ServicePort",
-      "description": "The server port. Valid values: 1 to 65535.",
+      "description": "The server port number. Only 80 and 443 are accepted.",
       "position": "Body",
       "type": "Integer",
       "required": true

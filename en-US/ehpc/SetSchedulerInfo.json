@@ -7,50 +7,56 @@
   "parameters": [
     {
       "name": "ClusterId",
-      "description": "The ID of the E-HPC cluster.\n\nYou can call the [ListClusters](~~87116~~) operation to query the cluster ID.",
+      "description": "The ID of the E-HPC cluster.\n\nYou can call the [ListClusters](~~87116~~) operation to query the cluster ID.\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PbsInfo",
-      "description": "The information about PBS schedulers.",
+      "description": "The information about PBS schedulers.\n",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AclLimit",
+          "description": "The information about limits on the queue.\n",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "JobHistoryDuration",
+          "description": "The retention period of jobs. After the retention period is exceeded, job data is deleted. Unit: days.\\\nValid values: 1 to 30.\\\nDefault value: 14.\n",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ResourceLimit",
+          "description": "The information about the nodes that are used by cluster users.\n",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SchedInterval",
+          "description": "PbsInfo specifies the number of PBS schedulers that can be configured in the cluster. Valid values of N: 0 to 100.\n\nSchedInterval specifies the scheduling period. Unit: seconds.\n\nA scheduling period is the interval between two consecutive running jobs. If you set SchedInterval to 60, another job can be run 60 seconds after a job starts running.\n\nDefault value: 60.\n",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SchedMaxJobs",
+          "description": "The maximum number of jobs that can be scheduled in the cluster. If the total number of running jobs and queuing jobs exceeds the value, no more jobs can be submitted. Default value: 20000.\n",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SchedMaxQueuedJobs",
+          "description": "The maximum number of queuing jobs that can be scheduled in the cluster. If the number of queuing jobs exceeds the value, no more jobs can be submitted. Default value: 10000.\n",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -59,20 +65,21 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID.\n\nYou can call the [ListRegions](~~188593~~) operation to obtain the IDs of regions supported by Elastic High Performance Computing (E-HPC).",
+      "description": "The region ID.\n\nYou can call the [ListRegions](~~188593~~) operation to obtain the IDs of regions supported by Elastic High Performance Computing (E-HPC).\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Scheduler",
-      "description": "The scheduler information.",
+      "description": "The scheduler information.\n",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "SchedName",
+          "description": "The name of the scheduler. Valid values:\n\n*   pbs\n*   pbs19\n*   slurm\n*   slurm19\n*   slurm20\n\n>  If you set Scheduler.N.SchedName to pbs or pbs19, you must specify at least one of the PbsInfo.N.SchedInterval, PbsInfo.N.JobHistoryDuration, PbsInfo.N.ResourceLimit, and PbsInfo.N.AclLimit parameters. If you set Scheduler.N.SchedName to slurm, slurm19, or slurm20, you must specify at least one of the SlurmInfo.N.SchedInterval and SlurmInfo.N.BackfillInterval parameters.\n",
           "position": "Query",
           "type": "String",
           "required": true
@@ -81,19 +88,21 @@
     },
     {
       "name": "SlurmInfo",
-      "description": "The information about Slurm schedulers.",
+      "description": "The information about Slurm schedulers.\n",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "BackfillInterval",
+          "description": "The backfill scheduling period. Unit: seconds.\n\nDefault value: 60.\n",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SchedInterval",
+          "description": "SlurmInfo specifies the number of Slurm schedulers that can be configured in the cluster. Valid values of N: 0 to 100.\n\nSchedInterval specifies the scheduling period. Unit: seconds.\n\nDefault value: 60.\n",
           "position": "Query",
           "type": "Integer",
           "required": false

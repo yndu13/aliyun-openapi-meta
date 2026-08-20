@@ -1,0 +1,165 @@
+{
+  "name": "ModifyDBInstance",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AutoUseCoupon",
+      "description": "是否自动使用优惠券，取值：\n* **true**（默认）：是。\n* **false**：否。\n\n> 使用优惠券后，若需要进行降配操作，由代金券抵扣的金额将不会进行退款。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "BurstingEnabled",
+      "description": "[高性能云盘IO性能突发功能](~~2340501~~)开关，取值：\n\n- **true**：开启。\n- **false**：关闭。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Category",
+      "description": "实例系列，取值：\n\n- **Basic**：基础系列\n- **HighAvailability**：高可用系列\n- **cluster**：集群系列",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ColdDataEnabled",
+      "description": "<props=\"china\">通用云盘[数据归档功能](~~2701832~~)，取值：</props>\n\n- <props=\"china\">**true**：开启</props>\n\n- <props=\"china\">**false**：关闭</props>\n\n<props=\"intl\">预留参数。</props>",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "DBInstanceClass",
+      "description": "实例规格。详情请参见[实例规格](~~26312~~)。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBInstanceId",
+      "description": "实例ID。可调用DescribeDBInstances获取。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "DBInstanceStorage",
+      "description": "[目标存储空间大小](~~26312~~)，单位GB，可调用[DescribeAvailableClasses](~~610393~~)接口查询目标实例规格中可用的存储空间范围。\n\n> * 本参数和**DBInstanceClass**参数两者至少传入一项。\n> * 调用[DescribeDBInstanceAttribute](~~610394~~)可以查看实例当前的存储空间大小。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "DBInstanceStorageType",
+      "description": "实例存储类型，取值：\n\n* **general_essd**：高性能云盘（推荐）\n* **cloud_essd**：ESSD PL1云盘\n* **cloud_essd2**：ESSD PL2云盘\n* **cloud_essd3**：ESSD PL3云盘\n",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBNodes",
+      "description": "节点信息。",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "NodeId",
+          "description": "节点的唯一标识，用于指定节点。\n> 仅对集群版实例有效。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Role",
+          "description": "节点类型。返回值：\n* **Master**：主节点。\n* **Slave**：备节点。\n\n> 集群版实例可不填入，通过填入NodeId参数确定节点。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "VSwitchId",
+          "description": "实例虚拟交换机ID。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ZoneId",
+          "description": "可用区ID。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Direction",
+      "description": "实例变配类型，取值：\n\n- **Up**（默认值）：包年包月实例的升级和按量付费实例的升级/降级。\n- **Down**：包年包月实例的降级。\n",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "EffectiveTime",
+      "description": "新配置生效时间，取值：\n> **变更部分配置可能对实例产生影响**，请仔细阅读[功能文档内的影响章节](~~96061~~)，再配置该参数，建议在业务低峰期进行。\n* **Immediate**（默认值）：立即生效。\n* **MaintainTime**：在[可运维时间段内](~~610402~~)生效。\n* **ScheduleTime**：指定时间切换。该时间需为当前时间12小时之后的一个时刻，且实际切换时间遵循EffectiveTime=ScheduleTime+SwitchTime。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "IoAccelerationEnabled",
+      "description": "高性能云盘[Buffer Pool Extension（BPE）功能](~~2527067~~)，取值：\n\n-  **1**：开启\n-  **0**：不开启",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ParameterGroupId",
+      "description": "参数模板ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Parameters",
+      "description": "参数及其值，参数的值都是字符串类型。可调用DescribeParameterTemplates查询参数名称和参数值。\n\n>传入参数**ParameterGroupId**，如果ParameterGroupId参数与Parameters参数共同修改了某个参数，则优先使用Parameters参数的改动。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PromotionCode",
+      "description": "优惠券code。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ResourceGroupId",
+      "description": "资源组名称",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SwitchTime",
+      "description": "指定修改参数的执行时间。需要EffectiveTime取值ScheduleTime。格式：<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）。\n>该时间必须大于当前时间（执行调用的时间）。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetMinorVersion",
+      "description": "PostgreSQL实例[内核小版本号](~~126002~~)。当变更实例规格并且报错内核小版本不支持时，需要传入内核小版本号，**用于在变更实例规格时升级内核小版本**。\n\n格式：`rds_postgres_<大版本号>00_<小版本号>`。例如12版本的20200830：`rds_postgres_1200_20200830`。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

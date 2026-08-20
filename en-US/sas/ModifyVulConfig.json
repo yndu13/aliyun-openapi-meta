@@ -1,19 +1,27 @@
 {
   "name": "ModifyVulConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
+      "name": "ClientToken",
+      "description": "The client token that is used to ensure the idempotence of the request. Different requests should use different tokens. The token supports only ASCII characters and cannot exceed 64 characters in length.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Config",
-      "description": "Specifies whether to enable the vulnerability scan feature. Valid values:\n\n*   **on**: enables the feature\n*   **off**: disables the feature\n\n> Valid values when you set the Type parameter to scanMode:\n\n*   **real**: displays only easily exploitable vulnerabilities.\n\n*   **all**: displays all vulnerabilities.",
+      "description": "Specifies whether to enable or disable vulnerability detection. Valid values:\n\n- **on**: Enable vulnerability detection.\n- **off**: Disable vulnerability detection.\n\n> If the type is set to real risk, valid values:\n> - **real**: Real risk vulnerabilities.\n> - **all**: All vulnerabilities.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the vulnerability. Valid values:\n\n*   **cve**: Linux software vulnerability\n*   **sys**: Windows system vulnerability\n*   **cms**: Web-CMS vulnerability\n*   **emg**: urgent vulnerability\n*   **app**: application vulnerability\n*   **yum**: YUM and APT source configuration\n*   **scanMode**: easily exploitable vulnerability",
+      "description": "The type of vulnerability to modify. Valid values:\n\n- **cve**: Linux software vulnerability\n- **sys**: Windows system vulnerability\n- **cms**: Web-CMS vulnerability\n- **emg**: emergency vulnerability\n- **app**: application vulnerability\n- **yum**: YUM/APT source configuration\n- **scanMode**: real risk",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,19 +7,21 @@
   "parameters": [
     {
       "name": "Dimensions",
-      "description": "The quota dimensions.",
+      "description": "The quota dimensions.\nThe dimensions are properties of a quota item. A combination of dimensions (Dimensions) and a quota ID (QuotaActionCode) uniquely identifies a quota item.\n> Some cloud services require dimensions. You can call [ListProductQuotaDimensions](~~ListProductQuotaDimensions~~) to query the quota dimensions supported by a cloud service. The `Requisite` response parameter indicates whether a dimension is required.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the quota dimension.\n\n> `Dimensions.N.Key` and `Dimensions.N.Value` must be specified together. The valid values of N depend on the number of dimensions supported by the cloud service. You can call [ListProductQuotaDimensions](~~ListProductQuotaDimensions~~) to query the quota dimensions supported by a cloud service. The length of the returned array is the value of N.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the quota dimension.\n\n> `Dimensions.N.Key` and `Dimensions.N.Value` must be specified together. The valid values of N depend on the number of dimensions supported by the cloud service. You can call [ListProductQuotaDimensions](~~ListProductQuotaDimensions~~) to query the quota dimensions supported by a cloud service. The length of the returned array is the value of N.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -28,49 +30,49 @@
     },
     {
       "name": "KeyWord",
-      "description": "The keyword that you want to use to search for the application.",
+      "description": "The keyword for searching quota increase applications.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to return.\n\nValid values: 1 to 200. Default value: 30.",
+      "description": "The maximum number of records to return in this query.\n\nValid values: 1 to 200. Default value: 30.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that marks the position from which you want to start the query. If you leave this parameter empty, the query starts from the beginning.",
+      "description": "The token that marks the position from which you want to start the query. Leave this parameter empty to query from the beginning.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductCode",
-      "description": "The abbreviation of the Alibaba Cloud service name.",
+      "description": "The abbreviation of the cloud service name.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "QuotaActionCode",
-      "description": "The ID of the quota.",
+      "description": "The quota ID.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "QuotaCategory",
-      "description": "The quota type. Valid values:\n\n*   CommonQuota: general quota\n*   FlowControl: API rate limit\n*   WhiteListLabel: whitelist quota",
+      "description": "The quota category. Valid values:\n- CommonQuota: general quota.\n- FlowControl: API rate limit.\n- WhiteListLabel: privilege.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The approval state of the quota increase application. Valid values:\n\n*   Disagree: The application is rejected.\n*   Agree: The application is approved.\n*   Process: The application is in review.\n*   Cancel: The application is canceled.",
+      "description": "The approval status of the quota increase application. Valid values:\n\n- Disagree: Rejected.\n\n- Agree: Approved.\n\n- Process: Under review.\n\n- Cancel: Closed.",
       "position": "Body",
       "type": "String",
       "required": false

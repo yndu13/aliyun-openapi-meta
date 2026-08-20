@@ -1,40 +1,54 @@
 {
   "name": "ModifyOperateVul",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
+      "name": "ClientToken",
+      "description": "The client token that is used to ensure the idempotence of the request. Use a different token for each request. The token supports only ASCII characters and cannot exceed 64 characters in length.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "From",
-      "description": "The request ID. Set the value to **sas**.",
+      "description": "The source identifier of the request. Set the value to **sas**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Info",
-      "description": "The details of the vulnerability. The value of this parameter is in the JSON format and contains the following fields:\n\n*   **name**: the name of the vulnerability.\n\n*   **uuid**: the UUID of the server on which the vulnerability is detected.\n\n*   **tag**: the tag that is added to the vulnerability. Valid values:\n\n    *   **oval**: Linux software vulnerability\n    *   **system**: Windows system vulnerability\n    *   **cms**: Web-CMS vulnerability\n\n>  You can call the [DescribeVulList](~~DescribeVulList~~) operation to query the tags that are added to vulnerabilities of other types.\n\n*   **isFront**: specifies whether a pre-patch is required to fix the Windows system vulnerability. This field is required only for Windows system vulnerabilities. Valid values:\n\n    *   **0**: no\n    *   **1**: yes\n\n>  You can fix multiple vulnerabilities at a time. Separate the details of multiple vulnerabilities with commas (,). You can call the [DescribeVulLIst](~~DescribeVulList~~) operation to query the details of vulnerabilities.",
+      "description": "The information about the vulnerability to handle. This parameter is in JSON format and contains the following fields:\n\n- **name**: The name of the vulnerability.\n- **uuid**: The UUID of the server on which the vulnerability is detected.\n- **tag**: The tag of the vulnerability. Valid values:\n    - **oval**: Linux software vulnerability.\n    - **system**: Windows system vulnerability.\n    - **cms**: Web-CMS vulnerability.\n\n> For other vulnerability types, call the [DescribeVulList](~~DescribeVulList~~) operation to obtain vulnerability information.\n\n- **isFront**: Specifies whether the Windows patch is a prerequisite patch. This parameter is required only when you handle Windows system vulnerabilities. You can ignore this parameter for other vulnerability types. Valid values:\n    - **0**: No.\n    - **1**: Yes.\n\n> Batch processing of vulnerabilities is supported. Separate multiple vulnerability entries with commas (,). Call the [DescribeVulList](~~DescribeVulList~~) operation to obtain vulnerability information.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "OperateType",
-      "description": "The operation that you want to perform on the vulnerability. Valid values:\n\n*   **vul_fix**: fixes the vulnerability.\n*   **vul_verify**: verifies the vulnerability fix.\n*   **vul_ignore**: ignores the vulnerability.\n*   **vul\\_undo_ignore**: cancels ignoring the vulnerability.\n*   **vul_delete**: deletes the vulnerability.",
+      "description": "The operation to perform on the vulnerability. Valid values:\n- **vul_fix**: fixes the vulnerability.\n- **vul_verify**: verifies the vulnerability.\n- **vul_ignore**: ignores the vulnerability.\n- **vul\\_undo\\_ignore**: cancels ignoring the vulnerability.\n- **vul_delete**: deletes the vulnerability.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Reason",
-      "description": "The reason why the vulnerability is **ignored**.\n\n>  This parameter is required only when you set **OperateType** to **vul_ignore**.",
+      "description": "The reason for ignoring the vulnerability.\n> This parameter is required only when the operation type is **ignore** (OperateType is set to **vul_ignore**).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "ResourceDirectoryAccountId",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "Type",
-      "description": "The type of the vulnerability. Valid values:\n\n*   **cve**: Linux software vulnerability\n*   **sys**: Windows system vulnerability\n*   **cms**: Web-CMS vulnerability\n*   **emg**: urgent vulnerability\n*   **app**: application vulnerability\n*   **sca**: vulnerability that is detected based on software component analysis\n\n>  You cannot fix the urgent vulnerabilities, application vulnerabilities, or vulnerabilities that are detected based on software component analysis.",
+      "description": "The type of the vulnerability to handle. Valid values:\n- **cve**: Linux software vulnerability.\n- **sys**: Windows system vulnerability.\n- **cms**: Web-CMS vulnerability.\n- **emg**: emergency vulnerability.\n- **app**: application vulnerability.\n- **sca**: software constituency parsing vulnerability.\n\n> Emergency vulnerabilities (emg), application vulnerabilities (app), and software constituency parsing vulnerabilities (sca) do not support the execute vulnerability fix operation.",
       "position": "Query",
       "type": "String",
       "required": true

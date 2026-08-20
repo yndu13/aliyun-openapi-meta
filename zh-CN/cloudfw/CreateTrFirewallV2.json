@@ -7,7 +7,14 @@
   "parameters": [
     {
       "name": "CenId",
-      "description": "云企业网实例ID。",
+      "description": "云企业网实例 ID。本参数必填；请先在 CEN 产品中创建云企业网实例，并确保已创建企业版转发路由器。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallAttachmentZone",
+      "description": "防火墙连接使用的可用区 ID。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -24,6 +31,20 @@
       "description": "云防火墙的名称。",
       "position": "Query",
       "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallServiceMode",
+      "description": "防火墙服务部署模式。取值：\n\n- **PrimaryStandby**：主备模式\n- **MultiPrimary**：双活模式\n\n> 不传该参数时，由系统按转发路由器的能力自动选择部署模式；取值非法时返回 ErrorFwServiceMode（-360437）。MultiPrimary 模式不支持指定可用区。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallServiceZones",
+      "description": "防火墙服务使用的可用区 ID 列表。",
+      "position": "Query",
+      "type": "RepeatList",
       "required": false
     },
     {
@@ -63,14 +84,14 @@
     },
     {
       "name": "RegionNo",
-      "description": "转发路由器实例I的地域ID。",
+      "description": "企业版转发路由器所在地域 ID。本参数必填。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteMode",
-      "description": "路由模式。取值：\n\n- **managed**：表示自动模式\n\n- **manual**：表示手动模式",
+      "description": "路由模式。本参数必填。取值：managed（自动模式）或 manual（手动模式）。managed 模式需提供 FirewallVpcCidr、FirewallSubnetCidr、TrAttachmentSlaveCidr 和 TrAttachmentMasterCidr；manual 模式需提供 FirewallVpcId、FirewallVswitchId、TrAttachmentSlaveZone 和 TrAttachmentMasterZone。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -104,8 +125,15 @@
       "required": false
     },
     {
+      "name": "TrAttachmentZones",
+      "description": "TR 连接使用的可用区 ID 列表。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "TransitRouterId",
-      "description": "转发路由器实例ID。",
+      "description": "企业版转发路由器实例 ID。本参数必填，且该转发路由器必须属于 CenId 指定的云企业网实例。",
       "position": "Query",
       "type": "String",
       "required": false

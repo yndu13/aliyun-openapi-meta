@@ -1,5 +1,6 @@
 {
   "name": "CreateCaster",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,56 +14,56 @@
     },
     {
       "name": "CasterTemplate",
-      "description": "The preset resolution of the production studio. If the subscription billing method is used, this parameter supports the following valid values:\n\n*   **lp_ld**: low definition\n*   **lp_sd**: standard definition\n*   **lp_hd**: high definition\n*   **lp_ud**: ultra high definition\n*   **lp_ld_v**: low definition (portrait mode)\n*   **lp_sd_v**: standard definition (portrait mode)\n*   **lp_hd_v**: high definition (portrait mode)\n*   **lp_ud_v**: ultra high definition (portrait mode)\n\n>  If the pay-as-you-go billing method is used, you must call the [SetCasterConfig](~~60271~~) operation to specify the resolution.",
+      "description": "The preset resolution of the production studio. This parameter is available only for the subscription billing method. Valid values:\n\n- **lp\\_ld**: low definition.\n\n- **lp\\_sd**: standard definition.\n\n- **lp\\_hd**: high definition.\n\n- **lp\\_ud**: ultra-high definition.\n\n- **lp\\_ld\\_v**: vertical low definition.\n\n- **lp\\_sd\\_v**: vertical standard definition.\n\n- **lp\\_hd\\_v**: vertical high definition.\n\n- **lp\\_ud\\_v**: vertical ultra-high definition.\n\n> If you use the pay-as-you-go billing method, call the [SetCasterConfig](~~60271~~) operation to set the resolution.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ChargeType",
-      "description": "The billing method. Only the pay-as-you-go billing method is supported.**** Valid values:\n\n*   **PrePaid**: subscription. This billing method is not yet supported.\n*   **PostPaid**: pay-as-you-go",
+      "description": "The billing method. Only **PostPaid** is supported. Valid values:\n\n- **PrePaid**: subscription (not supported).\n\n- **PostPaid**: pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can specify a custom value for this parameter, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a token on your client and ensure that the token is unique among different requests. The token can be up to 64 ASCII characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ExpireTime",
-      "description": "The expiration time of the production studio. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n>  This parameter is valid only if you set the **ChargeType** parameter to **PrePaid**.",
+      "description": "The expiration time of the production studio. The time is in the \\`yyyy-MM-ddTHH:mm:ssZ\\` format and is displayed in UTC.\n\n> This parameter is available only if you set **ChargeType** to **PrePaid**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NormType",
-      "description": "The type of the production studio. Valid values:\n\n*   **1**: general mode\n*   **6**: playlist mode (for carousel playback)",
+      "description": "The type of the production studio. Valid values:\n\n<props=\"china\">\n\n- **1**: Standard.\n\n- **3**: Lightweight Carousel.\n\n- **4**: Virtual Studio.\n\n- **6**: Carousel (New Playlist).\n\n</props>\n\n<props=\"intl\">\n\n- **1**: Standard.\n\n- **6**: Carousel (New Playlist).\n\n</props>",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "PurchaseTime",
-      "description": "The time when the production studio was purchased. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n>  This parameter is valid only if you set the **ChargeType** parameter to **PrePaid**.",
+      "description": "The purchase time of the production studio. The time is in the \\`yyyy-MM-ddTHH:mm:ssZ\\` format and is displayed in UTC.\n\n> This parameter is available only if you set **ChargeType** to **PrePaid**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group. For more information about resource groups, see [Resource groups](~~2381067~~).",
+      "description": "The ID of the resource group. For more information, see [What is a resource group?](~~2381067~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -76,12 +77,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -14,75 +14,77 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and instance status. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Sends a check request without querying instance information. The system checks whether the required parameters are specified, whether the request format is valid, and whether the instance status is valid. If the check fails, the corresponding error is returned. If the check succeeds, `DryRunOperation` is returned.\n\n- **false** (default): Sends a normal request. After the request passes the check, an HTTP 2xx status code is returned and the operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IncludeReservationData",
-      "description": "Specifies whether to return the information about pending orders. Valid values:\n\n*   **false** (default)\n*   **true**",
+      "description": "Specifies whether to include pending subscription data. Valid values:\n-  **false** (default): Does not include pending subscription data.\n- **true**: Includes pending subscription data.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the Internet Shared Bandwidth instance.",
+      "description": "The name of the Internet Shared Bandwidth instance.\nThe name must be 0 to 128 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Default value: **1**.",
+      "description": "The page number of the list. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Valid values: **1 to 50**. Default value: **10**.",
+      "description": "The number of entries per page for paging queries. Maximum value: **50**. Default value: **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the Internet Shared Bandwidth instance resides.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
+      "description": "The region ID of the Internet Shared Bandwidth instance. \n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityProtectionEnabled",
-      "description": "Specifies whether to enable Anti-DDoS Pro/Premium. Valid values:\n\n*   **false** (default)\n*   **true**",
+      "description": "Specifies whether to enable Anti-DDoS (Enhanced). Valid values:\n- **false**: Disabled.\n- **true**: Enabled.\n\n> This parameter is deprecated.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the Internet Shared Bandwidth instance.",
+      "description": "The list of tags associated with the Internet Shared Bandwidth instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nA tag key can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,25 +7,28 @@
   "parameters": [
     {
       "name": "AlbServerGroup",
-      "description": "The ALB server groups.",
+      "description": "The list of ALB server groups.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "AlbServerGroupId",
+          "description": "The ID of the ALB server group.\n\nN specifies the number of the ALB server group. The number of ALB server groups that can be associated with a scaling group is limited. To view or request a quota increase, go to [Quota Center](https://quotas.console.aliyun.com/products/ess/quotas).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Port",
+          "description": "The port number used by the ECS instance or elastic container instance after Auto Scaling adds the instance to the ALB server group. Valid values: 1 to 65535.\n\n> N specifies the number of the ALB server group. If the values of N are the same but the values of Port are different, the system associates the ALB server group with the scaling group multiple times, each with a different port.",
           "position": "Query",
           "type": "Integer",
           "required": true
         },
         {
           "name": "Weight",
+          "description": "The weight of the ECS instance or elastic container instance as a backend server after Auto Scaling adds the instance to the ALB server group. N specifies the number of the ALB server group.\n\nA higher weight indicates that the instance receives more requests. If the weight is 0, the instance does not receive any requests. Valid values: 0 to 100.",
           "position": "Query",
           "type": "Integer",
           "required": true
@@ -34,21 +37,21 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ForceAttach",
-      "description": "Specifies whether to add the Elastic Compute Service (ECS) instances in the scaling group to the newly associated ALB server group.\n\n*   true: adds the ECS instances and returns the `ScalingActivityId` value. You can view the ID of the scaling activity to determine whether the existing instances are added.\n*   false: does not add the ECS instances.\n\nDefault value: false.",
+      "description": "Specifies whether to add the existing ECS instances or elastic container instances in the scaling group to the new ALB server group. Valid values:\n\n- true: The instances are added. The system returns a ScalingActivityId. You can use the scaling activity ID to check whether the existing instances are added.\n\n- false: The instances are not added.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the scaling group belongs, such as cn-hangzhou and cn-shanghai. For more information, see [Regions and zones](~~40654~~).",
+      "description": "The ID of the region where the scaling group resides.\n\nExamples: `ap-southeast-1` and `cn-shanghai`. For more information, see [Regions and zones](~~40654~~).",
       "position": "Query",
       "type": "String",
       "required": true

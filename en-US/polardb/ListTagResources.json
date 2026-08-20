@@ -7,47 +7,49 @@
   "parameters": [
     {
       "name": "NextToken",
-      "description": "The token required to obtain more results. This parameter is not required in the first query. If the first query does not return all results, you can use the token that is returned from the first query in the next query to obtain more results.",
+      "description": "A token to retrieve the next page of results. You do not need to specify this parameter for the first request. If the first request does not return all results, the response returns a token. You can use this token in the next request to continue the query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region. You can call the [DescribeRegions](~~98041~~) operation to query available region IDs.",
+      "description": "The region ID. You can call the [DescribeRegions](~~98041~~) operation to view the available region IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceId",
-      "description": "The IDs of the clusters. To query the tags of multiple clusters, click **Add** to add cluster IDs.\n\n> \n\n*   You must specify at least one of the `ResourceId.N` and `Tag.N.Key` parameters.\n\n*   If you specify the `ResourceId.N` parameter, you can add a maximum of 50 cluster IDs at a time.",
+      "description": "The ID of a cluster. You can specify multiple cluster IDs to query the tags of multiple clusters.\n\n> - You must specify either the `ResourceId.N` parameter or the `Tag.N.Key` parameter.\n>\n> - If you specify the `ResourceId.N` parameter, you can add up to 50 cluster IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource. Set the value to **cluster**.",
+      "description": "The resource type. Set the value to **cluster**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of a tag. You can specify multiple tags to query for resources that have all of the specified tags.\n\n> - You must specify either the `ResourceId.N` parameter or the `Tag.N.Key` parameter.\n>\n> - If you specify the `Tag.N.Key` parameter, you can add up to 20 tag pairs.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value that corresponds to the tag key. An empty string is allowed.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,32 +7,35 @@
   "parameters": [
     {
       "name": "Architecture",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Arn",
-      "description": "This parameter is not available for public use.",
+      "description": "This parameter is not publicly available.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AssumeRoleFor",
+          "description": ">This parameter is not publicly available.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "RoleType",
+          "description": ">This parameter is not publicly available.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Rolearn",
+          "description": ">This parameter is not publicly available.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -41,98 +44,98 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but make sure that the token is unique across requests. The **token** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskId",
-      "description": ">  This parameter is deprecated. To improve compatibility, we recommend that you use `ImageId`.",
+      "description": "> **[Deprecated]** This parameter is deprecated. To improve compatibility, use `ImageId` instead.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EncryptAlgorithm",
-      "description": "> This parameter is not available for public use.",
+      "description": ">This parameter is not publicly available.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Encrypted",
-      "description": "Specifies whether to encrypt the disk. Valid values:\n\n*   true\n*   false\n\nDefault value: false.\n\n>  When you use a shared encrypted image to create the disk based on an encrypted snapshot, you must set Encrypted to true to ensure that the disk uses an encryption key of your own.",
+      "description": "Specifies whether to encrypt the disk. Valid values:\n\n- true: encrypts the disk.\n\n- false: does not encrypt the disk.\n\n\nDefault value: false.\n\n><notice>When you use a shared encrypted image to create a disk from an encrypted snapshot, you must set the request parameter Encrypted to true to ensure that the created disk uses the key of the image recipient.></notice>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ImageId",
-      "description": "The ID of the image used to replace the system disk. This parameter is required.",
+      "description": "The ID of the image to use to reset the system. This parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance whose operating system you want to replace.\n\n>  Make sure that the instance is in the `Stopped` (`Stopped`) state.",
+      "description": "The ID of target instance.\n\n>Before you send the request, make sure that the instance status of the target instance is `Stopped`.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "KMSKeyId",
-      "description": "The ID of the KMS key to use for the system disk.",
+      "description": "The KMS key ID of the system disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KeyPairName",
-      "description": "The name of the key pair.\n\n> This parameter is applicable only to Linux instances. You can bind an SSH key pair to the instance as a logon credential. After you bind the SSH key pair, the username and password logon method is disabled for the instance.",
+      "description": "The name of the key pair. \n\n> This parameter takes effect only for Linux instances. You can bind an SSH key pair to the ECS instance as a logon credential. After you bind an SSH key pair, the username and password logon method is disabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Password",
-      "description": "Specifies whether to reset the password for the instance. The password must be 8 to 30 characters in length and contain at least three of the following items: uppercase letters, lowercase letters, digits, and special characters. Special characters include:\n\n    ()`~!@#$%^&*-_+=|{}[]:;'<>,.?/\n\nThe passwords of Windows instances cannot start with a forward slash (/).\n\nThis parameter is empty by default, which indicates that the current password remains unchanged.\n\n> If you specify `Password`, we recommend that you send requests over HTTPS to prevent password leaks.",
+      "description": "Specifies whether to reset the username and password of the ECS instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:\n\n```\n()`~!@#$%^&*-_+=|{}[]:;'<>,.?/\n```\n\nFor Windows instances, the password cannot start with a forward slash (/).\n\nDefault value: The password remains unchanged.\n\n> If you specify the `Password` parameter, send the request over HTTPS to prevent password leaks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PasswordInherit",
-      "description": "Specifies whether to use the preset password of the image.\n\nDefault value: false\n\n> If the PasswordInherit parameter is specified, you must leave the Password parameter empty. Before you use this parameter, make sure that a password is preset for the image.",
+      "description": "Specifies whether to use the preset password of the image.\n\nDefault value: false.\n\n> When you use this parameter, the Password parameter must be empty. Make sure that the image you use has a preset password.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Platform",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityEnhancementStrategy",
-      "description": "Specifies whether to use Security Center Basic after the system disk is replaced. Valid values:\n\n*   Active: uses Security Center Basic after the system disk is re-initialized. This value is applicable only to public images.\n*   Deactive: does not use Security Center Basic after the system disk is re-initialized. This value is applicable to all images.\n\nDefault value: Deactive.",
+      "description": "Specifies whether to use the free Security Center service after the system disk is replaced. Valid values: \n\n- Active: Security Center is enabled. This value is valid only for public images.\n\n- Deactive: Security Center is not enabled. This value is valid for all images.\n\nDefault value: Deactive.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Size",
-      "description": "The capacity of the new system disk. Unit: GiB. Valid values:\n\n*   Basic disk: Max{20, Size of the image specified by ImageId} to 500.\n\n*   Enterprise SSD (ESSD):\n\n    *   PL0 ESSD: Max{1, Size of the image specified by ImageId} to 2048.\n    *   PL1 ESSD: Max{20, Size of the image specified by ImageId} to 2048.\n    *   PL2 ESSD: Max{461, Size of the image specified by ImageId} to 2048.\n    *   PL3 ESSD: Max{1261, Size of the image specified by ImageId} to 2048.\n\n*   ESSD AutoPL disk: Max{1, Size of the image specified by ImageId} to 2048.\n\n*   Other disk categories: Max{20, Size of the image specified by ImageId} to 2048.\n\nDefault value: Max{40, Size of the image specified by ImageId}.\n\n>  If the capacity of the new system disk exceeds `Max{20, Capacity of the original system disk}`, you are charged for the excess capacity.",
+      "description": "The capacity of the new system disk. Unit: GiB. Valid values:\n\n- Basic disk: Max{20, size of the image specified by the parameter ImageId} to 500.\n- Enterprise SSD:\n  - PL0: Max{1, size of the image specified by the parameter ImageId} to 2048.\n  - PL1: Max{20, size of the image specified by the parameter ImageId} to 2048.\n  - PL2: Max{461, size of the image specified by the parameter ImageId} to 2048.\n  - PL3: Max{1261, size of the image specified by the parameter ImageId} to 2048.\n- ESSD AutoPL disk: Max{1, size of the image specified by the parameter ImageId} to 2048.\n- Standard SSD: Max{20, size of the image specified by the parameter ImageId} to 2048.\n- Other disk types: Max{20, size of the image specified by the parameter ImageId} to 2048.\n\nDefault value: Max{40, size of the image specified by the parameter ImageId}.\n\n> You are charged additional fees for the disk capacity that exceeds `Max{20, capacity of the original system disk}`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "UseAdditionalService",
-      "description": "Specifies whether to use the system configurations for virtual machines provided by Alibaba Cloud. System configurations for Windows: NTP and KMS. System configurations for Linux: NTP and YUM.\n\n> This parameter takes effect only when you attach a system disk whose device name is /dev/xvda.",
+      "description": "Specifies whether to use the virtual machine system configuration provided by Alibaba Cloud (Windows: NTP and KMS. Linux: NTP and YUM).\n\n> This parameter takes effect only when a system disk is attached (the device name is /dev/xvda).",
       "position": "Query",
       "type": "Boolean",
       "required": false

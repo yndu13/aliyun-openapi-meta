@@ -7,19 +7,21 @@
   "parameters": [
     {
       "name": "Filters",
-      "description": "The filter conditions. Vaild values:\n\n- ExpireTimeStart：\nQuery start time for Subscription resource expiration.\n<notice>Notice Note: Only supports querying service instances on private deployments.><notice>\n\n- ExpireTimeEnd：Query end time for Subscription resource expiration.\n<notice>Notice Note: Only supports querying service instances on private deployments.><notice>\n\n- PayType：The billing method of the read-only instance. \n<notice>Notice Note: Only supports querying service instances on private deployments.<notice> \n\n   Valid values:\n\n   - PayAsYouGo\n\n   - Subscription\n\n- ResourceARN：The Alibaba Cloud Resource Name (ARN) of a resource.",
+      "description": "The filter conditions. Valid values:\n\n- ExpireTimeStart: The start of the time range to query the expiration time of subscription resources.\n  ><notice>This parameter applies only to service instances in private deployments.></notice>\n\n- ExpireTimeEnd: The end of the time range to query the expiration time of subscription resources.\n  ><notice>This parameter applies only to service instances in private deployments.></notice>\n\n- PayType: The billing method.><notice> This parameter applies only to service instances in private deployments.></notice>\n  Valid values:\n\n  - Subscription: subscription.\n\n  - PayAsYouGo: pay-as-you-go.\n\n- ResourceARN: The Alibaba Cloud Resource Name (ARN) of the resource.\n\nresource name (ARN).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The name of the filter. Valid values:\n\n- ExpireTimeStart\n\n- ExpireTimeEnd\n\n- PayType\n\n- ResourceARN",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Values",
+          "description": "The filter condition values.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -28,21 +30,21 @@
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries per page. Valid values: 1 to 100. Default value: 20.",
+      "description": "The number of entries to return on each page. Maximum value: 100. Default value: 20.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that determines the start point of the next query. Valid values:\n\n*   If **NextToken** is not returned, it indicates that no additional results exist.\n*   If **NextToken** was returned in the previous query, specify the value to obtain the next set of results.",
+      "description": "The token that is used to retrieve the next page of results. Set this to the NextToken value from a previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID. Valid values:\n\n*   cn-hangzhou: China (Hangzhou).\n*   ap-southeast-1: Singapore.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,26 +58,28 @@
     },
     {
       "name": "ServiceInstanceResourceType",
-      "description": "Service Instance resource type，include AliyunResource and ContainerResource.",
+      "description": "The resource type of the service instance. Valid values:\n\n- AliyunResource: an Alibaba Cloud resource.\n\n- ContainerResource: a container group (pod) resource.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tag key and value.",
+      "description": "The resource tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the resource tag.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the resource tag.",
           "position": "Query",
           "type": "String",
           "required": false

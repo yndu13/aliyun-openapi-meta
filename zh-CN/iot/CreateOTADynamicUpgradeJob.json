@@ -1,5 +1,6 @@
 {
   "name": "CreateOTADynamicUpgradeJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "DynamicMode",
-      "description": "动态升级模式。取值范围：\n\n- **1**（默认）：除了升级当前满足升级条件的设备，还将持续检查设备是否满足升级条件，对满足升级条件的设备进行升级。\n\n- **2**：仅对后续上报新版本号的设备生效。",
+      "description": "动态升级模式。取值范围：\n\n- **1**（默认）：除了升级当前满足升级条件的设备，还将持续检查设备是否满足升级条件，对满足升级条件的设备进行升级。\n\n- **2**：仅对后续上报新版本号的设备生效。\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -62,14 +63,14 @@
     },
     {
       "name": "NeedConfirm",
-      "description": "如需自主控制设备OTA升级时，可配置此参数，通过手机App来控制，设备是否可进行OTA升级。手机App需您自行开发。\n\n\n- **false**（默认）：否。直接按照**NeedPush**设置，获取OTA升级任务信息。\n- **true**：是。设备无法获取OTA升级任务，需App侧确认OTA升级后，才能按照**NeedPush**设置，获取OTA升级任务信息。",
+      "description": "如需自主控制设备OTA升级时，可配置此参数，通过手机App来控制，设备是否可进行OTA升级。手机App需您自行开发。\n\n\n- **false**（默认）：否。直接按照**NeedPush**设置，获取OTA升级任务信息。\n- **true**：是。设备无法获取OTA升级任务，需App侧确认OTA升级后，才能按照**NeedPush**设置，获取OTA升级任务信息。\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NeedPush",
-      "description": "物联网平台是否主动向设备推送升级任务。\n\n- **true**（默认）：是。批次任务创建完成后，物联网平台主动将升级任务，直接推送给升级范围内的在线设备。\n    \n    此时，设备仍可主动向物联网平台发起请求，来获取OTA升级任务信息。\n\n- **false**：否。设备必须通过向物联网平台发起请求，来获取OTA升级任务信息。",
+      "description": "物联网平台是否主动向设备推送升级任务。\n\n- **true**（默认）：是。批次任务创建完成后，物联网平台主动将升级任务，直接推送给升级范围内的在线设备。\n    \n    此时，设备仍可主动向物联网平台发起请求，来获取OTA升级任务信息。\n\n- **false**：否。设备必须通过向物联网平台发起请求，来获取OTA升级任务信息。\n\n\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -118,12 +119,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "批次标签key。仅支持英文字母、数字、半角句号（.），长度限制为1~30个字符。支持最多添加10个批次标签。\n\n批次标签将在向设备推送升级通知时下发给设备。\n\n> 批次标签可以不传入。**是否必选**的**是**，表示如果传入批次标签Tag，**Tag.N.Value**与**Tag.N.Key**必须成对传入。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "批次标签value。长度限制为1~1024个字符。支持最多添加10个批次标签。所有批次标签key和vlaue的长度总和，不能超过4096个字符。\n\n\n> 批次标签可以不传入。**是否必选**的**是**，表示如果传入批次标签Tag，**Tag.N.Value**与**Tag.N.Key**必须成对传入。\n",
           "position": "Query",
           "type": "String",
           "required": true
@@ -132,7 +135,7 @@
     },
     {
       "name": "TimeoutInMinutes",
-      "description": "设备升级超时时间，超过指定时间后，设备未完成升级，则升级失败。单位为分钟，取值范围为1~1,440。\n\n> - 从设备首次上报进度开始计算时间。升级期间若设备多次上下线，触发物联网平台多次推送升级包，都始终以设备最开始的第一次上报升级进度时间作为开始时间。\n- 因超时而导致的升级失败，物联网平台不会触发自动重试逻辑。\n\n\n\n\n不传入该参数，则表示设备升级没有超时限制。",
+      "description": "设备升级超时时间，超过指定时间后，设备未完成升级，则升级失败。单位为分钟，取值范围为1~1,440。\n\n> - 从设备首次上报进度开始计算时间。升级期间若设备多次上下线，触发物联网平台多次推送升级包，都始终以设备最开始的第一次上报升级进度时间作为开始时间。\n- 因超时而导致的升级失败，物联网平台不会触发自动重试逻辑。\n\n\n\n\n不传入该参数，则表示设备升级没有超时限制。\n\n\n",
       "position": "Query",
       "type": "Integer",
       "required": false

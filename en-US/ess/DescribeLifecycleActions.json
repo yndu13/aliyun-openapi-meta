@@ -1,33 +1,34 @@
 {
   "name": "DescribeLifecycleActions",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "LifecycleActionStatus",
-      "description": "The status of the lifecycle action. Valid values:\n\n*   Pending: ECS instances enter the Pending state.\n*   Timeout: The lifecycle hook times out. ECS instances are automatically removed from the Pending state.\n*   Completed: ECS instances are manually removed from the Pending state.",
+      "description": "The status of the lifecycle action. Valid values:\n\n- Pending: The ECS instance is still in the wait state.\n- Timeout: The timeout period of the lifecycle hook has been reached, and the wait state of the ECS instance is automatically ended.\n- Completed: You manually ended the wait state of the ECS instance ahead of schedule.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to return on each page. Valid values: 1 to 50.\n\nDefault value: 10.",
+      "description": "The maximum number of entries per page. Valid values: 1 to 50.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used to specify the lifecycle action from which the query starts.\n\nFor example, after the first 10 lifecycle actions were queried, the query starts from the 11th lifecycle action. Set this parameter to the NextToken value that is returned in the previous API call. If you do not specify this parameter, the query starts from the beginning.",
+      "description": "The pagination token that is used to specify the position from which to start the query.\n\nFor example, if you queried 10 lifecycle actions in the previous request, you can set this parameter to the value of NextToken returned in the previous response to query lifecycle actions starting from the 11th one. If you do not specify this parameter, the query starts from the beginning.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the scaling group resides.",
+      "description": "The region ID of the scaling group.",
       "position": "Query",
       "type": "String",
       "required": false

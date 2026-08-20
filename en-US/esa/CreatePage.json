@@ -7,31 +7,38 @@
   "parameters": [
     {
       "name": "Content",
-      "description": "The Base64-encoded page content. Example: \"PGh0bWw+aGVsbG8gcGFnZTwvaHRtbD4=\", which indicates \"hello page\".",
+      "description": "The BASE64-encoded page content. The actual content format must match the value of `ContentType`.\n\n**Encoding method**:\n1. Encode the original page content into a byte string by using UTF-8 encoding.\n2. Apply standard BASE64 encoding to the byte string.\n\n**Example**:\n- Original content: `<html>hello page</html>`\n- BASE64: `PGh0bWw+aGVsbG8gcGFnZTwvaHRtbD4=`\n\n> The maximum size, supported character sets, and security filtering rules are subject to the server-side custom page specifications.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ContentType",
-      "description": "The Content-Type field in the HTTP header. Valid values:\n\n*   text/html\n*   application/json",
+      "description": "The MIME type of the page content. This value is returned to the client as the HTTP `Content-Type` response header after a match.\n\n**Common values**:\n- `text/html`: HTML page. The `Content` parameter must be set to the BASE64-encoded value of UTF-8 HTML text.\n- `application/json`: JSON response. The `Content` parameter must be set to the BASE64-encoded value of a valid JSON string.\n- `text/plain`: plain text. The `Content` parameter must be set to the BASE64-encoded value of plain text content.\n\n> Note: The complete list of supported ContentType values is subject to the server-side specifications. If the specified `ContentType` does not match the actual format of `Content`, the client may fail to render the page properly.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Description",
-      "description": "The description of the page.",
+      "description": "The description of the page, used to identify the purpose of the page in the console list.\n\n**Suggested content**: Use the scenarios and identity information of the page, such as \"CC protection block page - Chinese version\". This is an optional field. If not specified, the value is empty by default.\n\n> The maximum field length is subject to the server-side specifications.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the custom error page.",
+      "description": "The name of the custom page.\n\n**Naming suggestions**: Use a short name that consists of letters, digits, and underscores, such as `blocked_page_v1`, for easy reference in rules. The specific character set, maximum length, uniqueness, and other constraints are **subject to the server-side custom page naming specifications**.",
       "position": "Body",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "SiteIds",
+      "description": "The list of website IDs to associate with this custom page.\n\n- You can obtain website IDs by calling the `ListSites` operation.\n- If you pass an empty list (no websites are associated), the page is still created but does not take effect. You can call the `UpdatePage` operation later to associate websites.\n- If the list contains a website ID that does not belong to the current account, an `InvalidParameter` error is returned.",
+      "position": "Body",
+      "type": "Json",
+      "required": false
     }
   ]
 }

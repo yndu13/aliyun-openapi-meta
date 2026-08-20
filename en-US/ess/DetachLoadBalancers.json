@@ -1,40 +1,41 @@
 {
   "name": "DetachLoadBalancers",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Async",
-      "description": "Specifies whether to perform asynchronous calls when you disassociates an SLB instance from the scaling group. Asynchronous calls ensure the transactional nature of operations. This means that the execution results take effect only if all operations are successfully performed. We recommend that you perform asynchronous calls.\n\nValid values:\n\n*   true: performs asynchronous calls. The request returns the ID of the scaling activity.\n*   false: does not perform asynchronous calls.\n\nDefault value: false.",
+      "description": "Specifies whether to use asynchronous invocation when removing load balancing instances. Asynchronous invocation ensures the transactional nature of the operation, which means that either all operations execute successfully or none of the operations take effect if one fails. Use asynchronous invocation.\n\nValid values:\n\n- true: Asynchronous invocation. The request returns the ID of the scaling activity.\n\n- false: Synchronous call.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests.\n\nThe token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.\n\nThe token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ForceDetach",
-      "description": "Specifies whether to remove Elastic Compute Service (ECS) instances in the scaling group from the backend server groups of the SLB instance. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to remove ECS instances that belong to the current scaling group from the backend servers of the load balancing instance after the load balancing instance is removed. Valid values:\n\n- true: Removes the ECS instances.\n\n- false: Does not remove the ECS instances.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LoadBalancer",
-      "description": "The IDs of the CLB instances. You can specify up to five instance IDs.",
+      "description": "The ID of the load balancing instance. You can remove up to five load balancing instances at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the scaling group resides.",
+      "description": "The region ID of the scaling group.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,128 @@
+{
+  "name": "CreateWHClientCertificate",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AfterTime",
+      "description": "The expiration time of the client certificate, specified as a Unix timestamp in seconds.\n\n> The `BeforeTime` and `AfterTime` parameters must be specified together or not at all.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Algorithm",
+      "description": "The key algorithm for the client certificate. The format is `<encryption_algorithm>_<key_length>`. Valid values:\n\n- **RSA\\_1024**: The corresponding signature algorithm is Sha256WithRSA.\n\n- **RSA\\_2048**: The corresponding signature algorithm is Sha256WithRSA.\n\n- **RSA\\_4096**: The corresponding signature algorithm is Sha256WithRSA.\n\n- **ECC\\_256**: The corresponding signature algorithm is Sha256WithECDSA.\n\n- **ECC\\_384**: The corresponding signature algorithm is Sha256WithECDSA.\n\n- **ECC\\_512**: The corresponding signature algorithm is Sha256WithECDSA.\n\n- **SM2\\_256**: The corresponding signature algorithm is SM3WithSM2.\n\nThe encryption algorithm of the client certificate must match that of the issuing subordinate CA certificate, but the key lengths can differ. For example, if the key algorithm of the subordinate CA certificate is RSA\\_2048, the key algorithm for the client certificate must be one of RSA\\_1024, RSA\\_2048, or RSA\\_4096.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "BeforeTime",
+      "description": "The issuance time of the client certificate, as a Unix timestamp in seconds. If omitted, this defaults to the time of the API call.\n\n> The `BeforeTime` and `AfterTime` parameters must be specified together or not at all.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "CommonName",
+      "description": "The common name of the client certificate. Supports Chinese, English, and other characters.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Country",
+      "description": "The country where the organization is located.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Csr",
+      "description": "The content of the certificate signing request (CSR). You can generate a CSR with tools like OpenSSL or Keytool.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Days",
+      "description": "The validity period of the client certificate, in days.\n\nYou cannot leave the `Days`, `BeforeTime`, and `AfterTime` parameters all empty. The `BeforeTime` and `AfterTime` parameters must be specified together or not at all.\n\n- If you specify the `Days` parameter, specifying `BeforeTime` and `AfterTime` is optional.\n\n- If you do not specify the `Days` parameter, you must specify both `BeforeTime` and `AfterTime`.\n\n> If you specify `Days`, `BeforeTime`, and `AfterTime` simultaneously, the `Days` parameter takes precedence in determining the validity period.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Immediately",
+      "description": "Specifies which certificate content to return in the response.\n\n- **0**: Does not return the certificate (default).\n\n- **1**: Returns the certificate.\n\n- **2**: Returns the certificate and its certificate chain.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Locality",
+      "description": "The city where the organization is located. Chinese, English, and other characters are supported.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Months",
+      "description": "The validity period of the certificate, in months.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Organization",
+      "description": "The organization name associated with the root CA certificate, typically your company or enterprise name. Supports Chinese, English, and other characters.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "OrganizationUnit",
+      "description": "The name of the department or business unit within the organization.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ParentIdentifier",
+      "description": "The unique identifier of the issuing subordinate CA certificate.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "SanType",
+      "description": "The type of the subject alternative name (SAN) for the client certificate. Valid values:\n\n- **1**: email address.\n\n- **2**: domain name.\n\n- **6**: Uniform Resource Identifier (URI).\n\n- **7**: IP address.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "SanValue",
+      "description": "The value of the SAN extension. To specify multiple values, separate them with commas (,).",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "State",
+      "description": "The province, municipality, or autonomous region where the organization is located. Chinese, English, and other characters are supported.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Years",
+      "description": "The validity period of the certificate, in years.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    }
+  ]
+}

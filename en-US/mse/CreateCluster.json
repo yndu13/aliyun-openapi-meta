@@ -7,152 +7,154 @@
   "parameters": [
     {
       "name": "AcceptLanguage",
-      "description": "The language type of the returned information:\n\n- zh: Chinese\n- en: English",
+      "description": "The language of the response. Valid values:\n\n- zh: Chinese\n- en: English.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ChargeType",
-      "description": "Billing method, including PREPAY (Subscription) and POSTPAY (Pay-As-You-Go).\n\nThis parameter is ignored for the Serverless edition.",
+      "description": "The billing method. Valid values: PREPAY (subscription) and POSTPAY (pay-as-you-go).\n\nThis parameter is ignored for the Serverless Edition.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterSpecification",
-      "description": "Engine specifications, with the following values:\n\n[Professional Edition] \n\n- `MSE_SC_2_4_60_c`: 2 cores, 4GB\n- `MSE_SC_1_2_60_c`: 1 core, 2GB\n- `MSE_SC_4_8_60_c`: 4 cores, 8GB\n- `MSE_SC_8_16_60_c`: 8 cores, 16GB\n- `MSE_SC_16_32_60_c`: 16 cores, 32GB\n\n[Developer Edition] \n\n- `MSE_SC_1_2_60_c`: 1 core, 2GB\n- `MSE_SC_2_4_60_c`: 2 cores, 4GB\n\n[Serverless Edition]\n\nIgnore this parameter, or you can fill in `MSE_SC_SERVERLESS`.",
+      "description": "The engine specifications. Valid values:",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClusterType",
-      "description": "Cluster type, including ZooKeeper, Nacos-Ans.",
+      "description": "The cluster type, such as ZooKeeper or Nacos-Ans.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ClusterVersion",
-      "description": "Cluster version, with the following values:\n\n[Professional Edition] \n\n- `NACOS_2_0_0`: indicates Nacos 2.x.x version.\n- `ZooKeeper_3_8_0`: indicates ZooKeeper 3.8.x version.\n\n[Developer Edition] \n\n- `NACOS_2_0_0`: indicates Nacos 2.x version.\n- `ZooKeeper_3_8_0`: indicates ZooKeeper 3.8.x version.\n\n[Serverless Edition]\n\n- `NACOS_2_0_0`: indicates Nacos 2.x version.\n- `ZooKeeper_3_8_0`: indicates ZooKeeper 3.8.x version.",
+      "description": "The cluster version. Valid values:",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ConnectionType",
-      "description": "Network access type, `slb` or `single_eni`; some regions' Developer Edition only support the `single_eni` type.",
+      "description": "The network access type. Valid values: `slb` and `single_eni`. In some regions, the Developer Edition supports only the `single_eni` type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskType",
-      "description": "No longer in use",
+      "description": "No longer used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipEnabled",
-      "description": "Valid when `ConnectionType` is `single_eni`, indicating whether to enable public network access (Elastic IP).",
+      "description": "Valid when ConnectionType is set to `single_eni`. Specifies whether to enable public network access by using an elastic IP address (EIP).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceCount",
-      "description": "Number of instance nodes, with a range limit of 1 to 9.\n\n[Professional Edition] \n- The number of instances must be 3 or more and must be an odd number.\n\n[Developer Edition] \n- The number of instances can only be 1.\n\n[Serverless Edition]\n\nIgnore this parameter.",
+      "description": "The number of instance nodes. Valid values: 1 to 9.\n[Professional Edition] \n\n-  `NACOS_2_0_0`: Nacos 2.x.x.\n- `ZooKeeper_3_8_0`: ZooKeeper 3.8.x.\n[Developer Edition] \n\n-  `NACOS_2_0_0`: Nacos 2.x.\n- `ZooKeeper_3_8_0`: ZooKeeper 3.8.x.\n[Serverless Edition]\n\n-  `NACOS_2_0_0`: Nacos 2.x.\n- `ZooKeeper_3_8_0`: ZooKeeper 3.8.x.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "InstanceName",
-      "description": "Custom instance name",
+      "description": "The custom name of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MseVersion",
-      "description": "Required unless under special circumstances, with the following values:\n\n- `mse_pro`: indicates Professional Edition.\n- `mse_dev`: indicates Developer Edition.\n- `mse_serverless`: indicates Serverless Edition.",
+      "description": "Required in most cases. Valid values:\n\n- `mse_pro`: Professional Edition.\n- `mse_dev`: Developer Edition.\n- `mse_serverless`: Serverless Edition.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetType",
-      "description": "Network type, with the following values:\n- `privatenet`: indicates a private network.\n- `pubnet`: indicates a public network.",
+      "description": "The network type. Valid values:\n- `privatenet`: virtual private cloud (VPC).\n- `pubnet`: Internet.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PrivateSlbSpecification",
-      "description": "No longer in use",
+      "description": "No longer used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PubNetworkFlow",
-      "description": "Valid when `ConnectionType` is `slb`. 0 indicates no public network access SLB creation, and values above 1 indicate a fixed bandwidth for public network access SLB; unit: Mbps.\n\nValue range: 0~5000.",
+      "description": "Valid when ConnectionType is set to `slb`. A value of 0 indicates that no Internet-facing SLB instance is created. A value of 1 or greater specifies the fixed bandwidth of the Internet-facing SLB instance, in Mbit/s.\n\nValid values: 0 to 5000.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PubSlbSpecification",
-      "description": "No longer in use",
+      "description": "No longer used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Region",
-      "description": "The region where the cluster is located, including but not limited to the following regions:\n- `cn-hangzhou`: Hangzhou\n- `cn-beijing`: Beijing\n- `cn-shanghai`: Shanghai\n- `cn-zhangjiakou`: Zhangjiakou\n- `cn-shenzhen`: Shenzhen",
+      "description": "The region where the cluster resides. Valid values include but are not limited to:\n- `ap-southeast-1`: Singapore\n- `cn-beijing`: Beijing\n- `cn-shanghai`: Shanghai\n- `cn-zhangjiakou`: Zhangjiakou\n- `cn-shenzhen`: Shenzhen.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RequestPars",
-      "description": "Extended request parameters, in JSON format.",
+      "description": "The extended request parameters in JSON format.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "Resource group ID. For more details about the resource group, see [Basic Information of Resource Group](~~457230~~).",
+      "description": "The resource group ID. For more information about resource groups, see [View basic information of a resource group](~~457230~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupType",
-      "description": "Valid when `ConnectionType` is `single_eni`, indicating the security group type of the instance.",
+      "description": "Valid when ConnectionType is set to `single_eni`. Specifies the type of the security group to which the instance belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "List of tags to be added. Contains up to 20 items.",
+      "description": "The list of tags to add. A maximum of 20 tags can be specified.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -161,14 +163,14 @@
     },
     {
       "name": "VSwitchId",
-      "description": "Switch ID.",
+      "description": "The vSwitch ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "VPC ID.",
+      "description": "VPC ID。",
       "position": "Query",
       "type": "String",
       "required": false

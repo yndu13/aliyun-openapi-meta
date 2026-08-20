@@ -49,18 +49,21 @@
       "sub_parameters": [
         {
           "name": "Alias",
+          "description": "重定向待压缩文件在压缩包中的文件路径或重命名文件。\n\n- 不填写该参数。保留源目录结构进行压缩，例如源文件地址为`oss://test-bucket/test-dir/test-object.doc`，则压缩包中文件路径为`/test-dir/test-object.doc`。\n\n- 重命名文件。重命名压缩包中的文件名称，例如源文件地址为`oss://test-bucket/test-object.jpg`，指定参数为`/test-rename-object.jpg`，则压缩包中文件名称为`test-rename-object.jpg`。\n\n- 重新指定源文件在压缩包中的文件路径。例如源目录地址为`oss://test-bucket/test-dir/`，指定参数为`/new-dir/`，则源目录下所有文件都会被压缩到路径`/new-dir/`中。\n\n- 指定为`/`，去除源目录结构。所有文件将直接放置在压缩包的根目录下，而不保留原有的目录结构。\n- 同时指定路径和文件名。按照重新指定的路径和文件名重命名。例如，指定参数为`/new-dir/alias.doc`，则会将文件重命名为`alias.doc`并放置在压缩包的`/new-dir/`路径下。\n\n>- 请避免在重命名过程中出现重名文件的情况，出现此情况时压缩包内的重名文件可能无法解压（取决于您使用的解压程序）。\n>- 格式要求：必须以`/`开头，例如`/new-dir/alias.doc`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Mode",
+          "description": "指定打包规则的匹配模式，包括`prefix`（表示前缀模式）和`fullname`（表示精准匹配），默认为`prefix`。\n\n+ `prefix`：前缀模式，解析该条打包规则时，前缀模式匹配所有符合规则的文件。\n+ `fullname`：精准匹配，按照规则精准匹配文件，只会匹配到一个文件。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "URI",
+          "description": "待打包的目录或文件的OSS地址。\n\nOSS地址规则为oss://${Bucket}/${Object}，其中`${Bucket}`为和当前项目处于同一区域(Region)的OSS Bucket名称，`${Object}` 说明如下：\n\n- 打包目录时，`${Object}`为目录名称。\n\n- 打包文件时，`${Object}`为包含文件扩展名的文件完整路径。",
           "position": "Query",
           "type": "String",
           "required": false

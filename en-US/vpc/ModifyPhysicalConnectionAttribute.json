@@ -7,42 +7,48 @@
   "parameters": [
     {
       "name": "CircuitCode",
-      "description": "The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.",
+      "description": "The circuit code provided by the carrier for the Express Connect circuit.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The ClientToken value can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the Express Connect circuit.\n\nThe description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.",
+      "description": "The description of the Express Connect circuit.  \n\nThe description must be 2 to 256 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "DownDelayTime",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "LineOperator",
-      "description": "The connectivity provider of the Express Connect circuit. Valid values:\n\n*   **CT**: China Telecom\n*   **CU**: China Unicom\n*   **CM**: China Mobile\n*   **CO**: other connectivity providers in the Chinese mainland\n*   **Equinix**: Equinix\n*   **Other**: other connectivity providers outside the Chinese mainland",
+      "description": "The carrier that provides the access to the physical connection. Valid values:\n\n- **CT**: China Telecom\n- **CU**: China Unicom\n- **CM**: China Mobile\n- **CO**: Other carriers in the Chinese mainland\n- **Equinix**: Equinix\n- **Other**: Other carriers outside the Chinese mainland",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the Express Connect circuit.\n\nThe name must be 2 to 128 characters in length and can contain letters, digits, periods (.), underscores (\\_), and hyphens (-). It must start with a letter but cannot start with `http://` or `https://`.",
+      "description": "The name of the Express Connect circuit.  \n\nThe name must be 2 to 128 characters in length and must start with a letter or a Chinese character. It can contain digits, periods (.), underscores (_), and hyphens (-). It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PeerLocation",
-      "description": "The geographical location of the data center.",
+      "description": "The geographical location of the on-premises data center.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,28 +62,28 @@
     },
     {
       "name": "PortType",
-      "description": "The port type of the Express Connect circuit. Valid values:\n\n*   **100Base-T**: 100 Mbit/s copper Ethernet port\n*   **1000Base-T** (default): 1,000 Mbit/s copper Ethernet port\n*   **1000Base-LX**: 1,000 Mbit/s single-mode optical port (10 kilometers)\n*   **10GBase-T**: 10,000 Mbit/s copper Ethernet port\n*   **10GBase-LR**: 10,000 Mbit/s single-mode optical port (10 kilometers)\n*   **40GBase-LR**: 40,000 Mbit/s single-mode optical port\n*   **100GBase-LR**: 100,000 Mbit/s single-mode optical port\n\n>  To use ports 40GBase-LR and 100GBase-LR, you must first contact your account manager.",
+      "description": "The port type of the Express Connect circuit access point. Valid values:\n\n- **100Base-T**: 100M Ethernet port.\n- **1000Base-T (default)**: 1 GE electrical port.\n- **1000Base-LX**: GE single-mode optical port (10 km).\n- **10GBase-T**: 10 GE electrical port.\n- **10GBase-LR**: 10 GE single-mode optical port (10 km).\n- **40GBase-LR**: 40 GE single-mode optical port.\n- **100GBase-LR**: 100 GE single-mode optical port.\n\n> To create 40GBase-LR or 100GBase-LR ports, check the actual port availability on the backend. Contact your account manager for details.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RedundantPhysicalConnectionId",
-      "description": "The ID of the redundant Express Connect circuit. The redundant Express Connect circuit must be in the **Allocated**, **Confirmed**, or **Enabled** state.",
+      "description": "The ID of the redundant Express Connect circuit. The redundant circuit must be in the **Allocated**, **Confirmed**, or **Enabled** state.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the Express Connect circuit.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the Express Connect circuit.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "bandwidth",
-      "description": "The bandwidth value for the connection over the Express Connect circuit. Unit: Mbit/s. Valid values: 2 to 10240.",
+      "description": "The bandwidth of the Express Connect circuit access interface. Unit: Mbit/s. Valid values: 2 to 10240.",
       "position": "Query",
       "type": "Integer",
       "required": false

@@ -1,30 +1,40 @@
 {
   "name": "DescribeInstanceModificationPrice",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DataDisk",
-      "description": "The information about data disks.",
+      "description": "The information about data disk types.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Category",
+          "description": "The category of the data disk. Specify this parameter when you want to query the price of new subscription data disks to be attached to the ECS instance. Valid values of N: 1 to 16. Valid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: enterprise SSD.\n- cloud: basic disk.\n\nDefault value: null.\n\n> The instance type parameter (`InstanceType`) and data disk parameters (`DataDisk.N.*`) cannot both be empty. You must specify at least one.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DiskId",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "The performance level of the data disk when the data disk is an enterprise SSD. The value of N must be the same as that in `DataDisk.N.Category=cloud_essd`. Valid values:\n\n- PL0: a single disk can deliver up to 10,000 random read/write IOPS.\n- PL1: a single disk can deliver up to 50,000 random read/write IOPS.\n- PL2: a single disk can deliver up to 100,000 random read/write IOPS.\n- PL3: a single disk can deliver up to 1,000,000 random read/write IOPS.\n\nDefault value: PL1.\n\nFor information about how to select an ESSD performance level, see [ESSD](~~122389~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "The capacity of the data disk. Valid values of N: 1 to 16. Unit: GiB. Valid values:\n\n- cloud_efficiency: 20 to 32768.\n- cloud_ssd: 20 to 32768.\n- cloud_essd: The valid values depend on the value of `DataDisk.N.PerformanceLevel`.    \n    - PL0: 1 to 32768.\n    - PL1: 20 to 32768.\n    - PL2: 461 to 32768.\n    - PL3: 1261 to 32768.\n- cloud: 5 to 2000.\n\nDefault value: the minimum capacity for the specified data disk category.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -32,29 +42,71 @@
       ]
     },
     {
+      "name": "EndTime",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ISP",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ImageId",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "InstanceId",
-      "description": "The ID of the instance for which you want to query pricing information for a configuration upgrade.",
+      "description": "The instance ID of the instance for which you want to query the upgrade price.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceType",
-      "description": "The new instance type. We recommend that you call the [DescribeResourcesModification](~~66187~~) operation to query the instance types available for configuration upgrades in a specified zone.\n\n> When you call the DescribeInstanceModificationPrice operation, you must specify at least one of the following parameters: `InstanceType` and `DataDisk.N.*`.",
+      "description": "The target instance type for the upgrade. Call [DescribeResourcesModification](~~66187~~) to query the instance types available for upgrade in a specified zone.\n\n> The instance type parameter (`InstanceType`) and data disk parameters (`DataDisk.N.*`) cannot both be empty. You must specify at least one.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "InternetChargeType",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "InternetMaxBandwidthOut",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "RegionId",
-      "description": "The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "StartTime",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SystemDisk",
+      "position": "Query",
+      "type": "Struct",
+      "required": false
+    },
+    {
       "name": "SystemDisk.Category",
-      "description": "The category of the system disk. You must specify this parameter only when you upgrade a non-I/O optimized instance of a retired instance type to an I/O optimized instance of an available instance type. For more information about instance types, see [Instance families](~~25378~~) and [Retired instance types](~~55263~~).\n\nValid values:\n\n*   cloud_efficiency: ultra disk\n*   cloud_ssd: standard SSD\n\nThis parameter is empty by default.",
+      "description": "The category of the system disk. You need to specify this parameter only when you upgrade from a retired instance type to an available instance type and upgrade a non-I/O optimized instance to an I/O optimized instance. For more information about instance types, see [Instance family](~~25378~~) and [Retired instance types](~~55263~~).\n\nValid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n\nDefault value: null.",
       "position": "Query",
       "type": "String",
       "required": false

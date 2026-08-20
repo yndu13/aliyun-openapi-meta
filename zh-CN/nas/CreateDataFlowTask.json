@@ -35,14 +35,14 @@
     },
     {
       "name": "DataType",
-      "description": "数据流动任务操作的数据类型。\n\n取值：\n\n- Metadata：文件的元数据，包括文件的timestamp、 ownership、permission等属性信息。选择Metadata，只会导入文件的元数据，用户只能看到该文件，但访问该文件数据时，数据从源端存储按需加载。\n- Data：文件的数据块。\n- MetaAndData：文件的元数据和数据块。",
+      "description": "数据流动任务操作的数据类型。\n\n取值：\n\n- Metadata：文件的元数据，包括文件的timestamp、 ownership、permission等属性信息。选择Metadata，只会导入文件的元数据，用户只能看到该文件，但访问该文件数据时，数据从源端存储按需加载。\n- Data：文件的数据块。\n- MetaAndData：文件的元数据和数据块。\n> TaskAction=Evict 时，DataType 参数为必填项。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Directory",
-      "description": "数据的源目录。\n\n限制：\n- 长度为1~1023个字符。\n- 使用UTF-8编码。\n- 必须以正斜线（/）开头和结尾。\n- 一次只能列举一个目录。\n- 当TaskAction为Export时，该目录必须是FileSystemPath内的相对路径。\n- 当TaskAction为Import时，该目录必须是SourceStoragePath内的相对路径。\n- 当TaskAction为StreamExport时，该目录必须是FileSystemPath内的相对路径。\n- 当TaskAction为StreamImport时，该目录必须是SourceStoragePath内的相对路径。\n> StreamImport和StreamExport仅CPFS智算版2.6.0版本及以上版本支持。",
+      "description": "数据的源目录。\n\n限制：\n- 长度为1~1023个字符。\n- 使用UTF-8编码。\n- 必须以正斜线（/）开头和结尾。\n- 一次只能列举一个目录。\n- 当TaskAction为Export时，该目录必须是FileSystemPath内的相对路径。\n- 当TaskAction为Import时，该目录必须是SourceStoragePath内的相对路径。\n- 当TaskAction为StreamExport时，该目录必须是FileSystemPath内的相对路径。\n- 当TaskAction为StreamImport时，该目录必须是SourceStoragePath内的相对路径。\n> StreamImport和StreamExport仅CPFS智算版2.6.0版本及以上版本支持。\nDirectory、EntryList、TransferFileListPath 为互斜参数，只能三者选一。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,14 +63,14 @@
     },
     {
       "name": "EntryList",
-      "description": "数据流动任务执行的文件列表。\n\n限制：\n\n- 使用UTF-8编码。\n- 文件列表总长度小于64KB。\n- 文件列表采用JSON格式。\n- 单个文件路径长度为 1~1023 个字符，且必须以正斜线（/）开头。\n- 当TaskAction为Import时，列表中每个元素代表一个OSS Object名称。\n- 当TaskAction为Export时，列表中每个元素代表一个CPFS文件路径。",
+      "description": "数据流动任务执行的文件列表。\n\n限制：\n\n- 使用UTF-8编码。\n- 文件列表总长度小于64KB。\n- 文件列表采用JSON格式。\n- 单个文件路径长度为 1~1023 个字符，且必须以正斜线（/）开头。\n- 当TaskAction为Import时，列表中每个元素代表一个OSS Object名称。\n- 当TaskAction为Export时，列表中每个元素代表一个CPFS文件路径。\n> Directory、EntryList、TransferFileListPath 为互斜参数，只能三者选一。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FileSystemId",
-      "description": "文件系统ID。\n\n- CPFS：必须以`cpfs-`开头，例如cpfs-125487\\*\\*\\*\\*。\n\n- CPFS智算版：必须以`bmcpfs-`开头，例如bmcpfs-0015\\*\\*\\*\\*。",
+      "description": "文件系统ID。\n\n- CPFS通用版：必须以`cpfs-`开头，例如cpfs-125487\\*\\*\\*\\*。\n\n- CPFS智算版：必须以`bmcpfs-`开头，例如bmcpfs-0015\\*\\*\\*\\*。",
       "position": "Query",
       "type": "String",
       "required": true

@@ -14,12 +14,14 @@
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "The name of the parameter. If you do not specify the name and value of a parameter, Resource Orchestration Service (ROS) uses the default name and value that are specified in the template.\n\n> Parameters is optional. If you specify Parameters, you must specify ParameterKey.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "The value of the parameter.\n\n> Parameters is optional. If you specify Parameters, you must specify ParameterValue.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -35,13 +37,14 @@
     },
     {
       "name": "Services",
-      "description": "The services.",
+      "description": "The list of Alibaba Cloud services.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ServiceName",
+          "description": "The name of the Alibaba Cloud service. Valid values:\n\n- AHAS: Application High Availability Service.\n\n- ARMS: Application Real-Time Monitoring Service.\n\n- ApiGateway: API Gateway.\n\n- BatchCompute: Batch Compute.\n\n- BrainIndustrial: Industrial Intelligence.\n\n- CloudStorageGateway: Cloud Storage Gateway.\n\n- CMS: Cloud Monitor.\n\n- CR: Container Registry.\n\n- CS: Container Service.\n\n- DCDN: DCDN.\n\n- DataHub: DataHub.\n\n- DataWorks: DataWorks.\n\n- EDAS: Enterprise Distributed Application Service.\n\n- EHPC: Elastic High Performance Computing.\n\n- EMAS: Enterprise Mobile Application Studio.\n\n- FC: Function Compute.\n\n- FNF: CloudFlow.\n\n- MaxCompute: MaxCompute.\n\n- SMQ: Simple Message Queue (formerly MNS).\n\n- HBR: Cloud Backup.\n\n- IMM: Intelligent Media Management.\n\n- IOT: IoT Platform.\n\n- KMS: Key Management Service.\n\n- NAS: File Storage NAS.\n\n- NLP: Natural Language Processing.\n\n- OSS: Object Storage Service.\n\n- OTS: Tablestore.\n\n- PrivateLink: PrivateLink.\n\n- PrivateZone: PrivateZone.\n\n- RocketMQ: Message Queue for Apache RocketMQ.\n\n- SAE: Serverless App Engine.\n\n- SLS: Simple Log Service.\n\n- TrafficMirror: Traffic Mirroring.\n\n- VS: Video Surveillance.\n\n- Xtrace: Tracing Analysis.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -50,28 +53,28 @@
     },
     {
       "name": "TemplateBody",
-      "description": "The structure that contains the template body. The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend that you add parameters to the HTTP POST request body to prevent request failures caused by excessively long URLs. You must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.",
+      "description": "The structure of the template body. The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend to use the HTTP POST + Body Param method to pass the parameter in the request body to avoid request failures caused by an excessively long URL.\n\n> You can specify only one of the TemplateBody, TemplateURL, TemplateId, and Services parameters.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateId",
-      "description": "The template ID. This parameter applies to shared and private templates.\n\nYou must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and Services.",
+      "description": "The template ID. This parameter applies to shared and private templates.\n\nYou can specify only one of the TemplateBody, TemplateURL, TemplateId, and Services parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateURL",
-      "description": "The URL of the file that contains the template body. The URL must point to a template that is located on an HTTP or HTTPS web server or in an Object Storage Service (OSS) bucket, such as oss://ros/template/demo or oss://ros/template/demo?RegionId=cn-hangzhou. The template body must be 1 to 524,288 bytes in length. If you do not specify the region ID of the OSS bucket, the value of RegionId is used.\n\nYou must and can specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and Services.",
+      "description": "The URL of the file that contains the template body. The URL must point to a template that is located on an HTTP or HTTPS web server or in an Object Storage Service (OSS) bucket. The template body must be 1 to 524,288 bytes in length. Examples of OSS URLs: oss\\://ros/template/demo and oss\\://ros/template/demo?RegionId=cn-hangzhou. If you do not specify the region ID of the OSS bucket, the value of the RegionId parameter is used.\n\nYou can specify only one of the TemplateBody, TemplateURL, TemplateId, and Services parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateVersion",
-      "description": "The version of the template. If you do not specify this parameter, the latest version is used.\n\nThis parameter takes effect only when TemplateId is specified.",
+      "description": "The version of the template. If you do not specify this parameter, the latest version is used.\n\nThis parameter takes effect only when you specify TemplateId.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -6,6 +6,20 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "ClientToken",
+      "description": "保证请求幂等性的客户端令牌。由客户端生成，需保证在不同请求间唯一；数据类型 String，大小写敏感，格式为 [0-9a-zA-Z-_]{1,64}，建议使用 UUID。服务端在有效期内（600 秒）保证幂等：相同 ClientToken 且相同业务参数的重复请求返回与首次一致的结果；相同 ClientToken 但业务参数不同时返回 HTTP 400 及 IdempotentParameterMismatch 错误码。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DryRun",
+      "description": "是否只预检此次请求。取值 true 时仅执行参数合法性、身份权限、资源存在性、配额限制与依赖关系等执行前校验，不创建/更新/删除真实资源、不触发真实异步引流任务、不产生计费/通知/回调等下游副作用；预检成功时响应中 DryRun=true，与真实调用响应可区分；预检失败返回可机器识别的错误码（如 ErrorParamsInvalid 参数错误、ErrorAuthentication 权限不足、ErrorInstanceOpenIpNumExceed 配额不足）。取值 false（默认）表示正常发起请求并执行关闭操作。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "IpVersion",
       "description": "IP版本号",
       "position": "Query",
@@ -42,7 +56,7 @@
     },
     {
       "name": "ResourceTypeList",
-      "description": "资产类型列表。\n\n> IpaddrList、RegionList、ResourceTypeList三个参数不允许同时为空，必须为其中一个参数设置取值。",
+      "description": "资产类型列表。取值：\n\n- **BastionHostEgressIP**：堡垒机出口IP。\n- **BastionHostIngressIP**：堡垒机入口IP。\n- **EcsEIP**：ECS EIP。\n- **EcsPublicIP**：ECS公网IP。\n- **EIP**：弹性公网IP。\n- **EniEIP**：弹性网卡EIP。\n- **NatEIP**：NAT EIP。\n- **SlbEIP**：SLB EIP(CLB EIP)。\n- **SlbPublicIP**：SLB 公网IP(CLB 公网IP)。\n- **NatPublicIP**：NAT公网IP。\n- **HAVIP**：高可用虚拟IP。\n- **NlbEIP**：NLB EIP。\n- **ApiGatewayEIP**：API网关公网IP。\n- **AlbEIP**：ALB EIP。\n- **AiGatewayEIP**：AI网关公网IP。\n- **GaEIP**：GA EIP。\n- **SwasEIP**：轻量应用服务器公网IP。\n- **EcdEIP**：无影公网IP。\n- **BastionHostIP**：堡垒机IP。\n\n> IpaddrList、RegionList、ResourceTypeList三个参数不允许同时为空，必须为其中一个参数设置取值。",
       "position": "Query",
       "type": "RepeatList",
       "required": false

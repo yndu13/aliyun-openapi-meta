@@ -1,12 +1,13 @@
 {
   "name": "ForbidLiveStream",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppName",
-      "description": "The name of the application to which the live stream belongs. You can view the application name on the [Stream Management](~~197397~~) page of the ApsaraVideo Live console.",
+      "description": "The name of the application to which the ingest stream belongs. You can view the AppName on the [Stream Management](~~197397~~) page.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -20,35 +21,35 @@
     },
     {
       "name": "LiveStreamType",
-      "description": "Specifies whether the live stream is ingested by a streamer or played by a viewer. Set the value to **publisher**.",
+      "description": "Specifies whether to disable stream ingest or streaming. Currently, only disabling stream ingest is supported: **publisher**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Oneshot",
-      "description": "Specifies whether to only interrupt the live stream without adding the ingest URL of the live stream to the blacklist. Valid values:\n\n*   **yes**: interrupts the live stream but does not add the ingest URL of the live stream to the blacklist. This value is available only when the live stream is ingested or played in the upstream.\n*   **no**: disables the live stream and adds the ingest URL of the live stream to the blacklist.\n\n>  If you do not specify this parameter, the default value no is used.",
+      "description": "Specifies whether to only interrupt the stream without adding it to the blacklist. Valid values:\n\n- **yes**: Only interrupts the stream without adding it to the blacklist (supports upstream ingest or upstream streaming).\n\n- **no**: Interrupts the stream and adds it to the blacklist.\n\n> Default value: no.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResumeTime",
-      "description": "The time when the live stream is resumed. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n> \n\n*   If you set the **Oneshot** parameter to **no** and do not specify this parameter, the live stream is disabled for six months by default.\n\n*   If you specify this parameter, the live stream is resumed at the specified point in time.",
+      "description": "The time to resume the stream. Format: yyyy-MM-ddTHH:mm:ssZ (UTC).\n\n> - If the **Oneshot** parameter is set to **no** and ResumeTime is not specified, the live stream is disabled for 6 months by default.\n> - If a value is specified, the restriction is lifted at the time specified by ResumeTime and the live stream is resumed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StreamName",
-      "description": "The name of the ingested stream. You can view the stream name on the [Stream Management](~~197397~~) page of the ApsaraVideo Live console.",
+      "description": "The name of the ingest stream. You can view the StreamName on the [Stream Management](~~197397~~) page.",
       "position": "Query",
       "type": "String",
       "required": true

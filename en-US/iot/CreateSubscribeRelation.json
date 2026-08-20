@@ -1,117 +1,118 @@
 {
   "name": "CreateSubscribeRelation",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ConsumerGroupIds",
-      "description": "",
+      "description": "The consumer group IDs in the AMQP subscription. This parameter is required when **Type** is set to **AMQP**.\n\nAfter you call [CreateConsumerGroup](~~170388~~) to create a consumer group, the consumer group ID is returned. You can call [QueryConsumerGroupList](~~170419~~) to query the consumer group ID by consumer group name, or view the consumer group ID in the IoT Platform console by choosing **Message Forwarding** > **Server-side Subscription** > **Consumer Groups**.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "DeviceDataFlag",
-      "description": "Specifies whether to push upstream device messages. Valid values:\n\n*   **true**: yes.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push device-reported messages. Valid values:\n- **true**: yes.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DeviceLifeCycleFlag",
-      "description": "Specifies whether to push messages about device lifecycle changes. Valid values:\n\n*   **true**: yes.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push device lifecycle change messages. Valid values:\n- **true**: yes.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DeviceStatusChangeFlag",
-      "description": "Specifies whether to push messages about device status changes. Valid values:\n\n*   **true**: yes.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push device status change notifications. Valid values:\n- **true**: yes.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DeviceTagFlag",
-      "description": "Specifies whether to push messages about device tag changes. Valid values:\n\n*   **true**: yes. This parameter is valid only if you set the **Type** parameter to **AMQP**.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push device tag change messages. Valid values:\n- **true**: yes. This is valid only when **Type** is set to **AMQP**.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DeviceTopoLifeCycleFlag",
-      "description": "Specifies whether to push messages about topological relationship changes of devices. Valid values:\n\n*   **true**: yes. This parameter is valid only for gateway products.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push device topology relationship change messages. Valid values:\n- **true**: yes. This is valid only for gateway products.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FoundDeviceListFlag",
-      "description": "Specifies whether to push messages when a gateway detects new sub-devices. Valid values:\n\n*   **true**: yes. This parameter is valid only for gateway products.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push sub-device discovery report messages from gateways. Valid values:\n- **true**: yes. This is valid only for gateway products.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the ID of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.****\n>*   If no **Overview** page or **ID** is generated for your instance, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this **ID** value exists, you must specify it. Otherwise, the call fails.\n- If no **Overview** page or **ID** value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MnsConfiguration",
-      "description": "The configurations of the MNS queue. If you set the **Type** parameter to **AMQP**, this parameter is required.\n\nFor more information, see the \"Definition of the MnsConfiguration parameter\" section.",
+      "description": "The configuration information of the MNS queue. This parameter is required when **Type** is set to **MNS**.\nFor specific requirements and examples, see the \"MnsConfiguration definition\" section below.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OtaEventFlag",
-      "description": "Specifies whether to push notifications about the status of over-the-air (OTA) update batches. Valid values:\n\n*   **true**: yes.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push over-the-air update upgrade status notifications. Valid values:\n- **true**: is.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "OtaJobFlag",
-      "description": "Specifies whether to push notifications about the status of OTA update batches. Valid values:\n\n*   **true**: yes. This parameter is valid only if you set the **Type** parameter to **AMQP**.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push over-the-air update upgrade batch status notifications. Valid values:\n- **true**: yes. This is valid only when **Type** is set to **AMQP**.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "OtaVersionFlag",
-      "description": "Specifies whether to push messages about the version numbers of OTA modules. Valid values:\n\n*   **true**: yes. This parameter is valid only if you set the **Type** parameter to **AMQP**.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push OTA module version number reports. Valid values:\n- **true**: yes. This is valid only when **Type** is set to **AMQP**.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The **ProductKey** of the product that is specified for the subscription.",
+      "description": "The **ProductKey** of the product in this subscription.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SubscribeFlags",
-      "description": "Specifies whether to receive the messages of a specific subscribed product.\n\nIf you subscribe to JT/T 808 gateway products, you must configure the **SubscribeFlags** parameter. Set the value to the following code.\n\n```\n\n{\n    \"jt808DeviceDataFlag\": true\n}\n```",
+      "description": "Identifies other message types for the subscribed product. The data format is JSON String.\n\n- If you subscribe to a JT/T 808 protocol cloud gateway product, you must specify **SubscribeFlags** with the following value:\n\n    ```\n    {\n        \"jt808DeviceDataFlag\": true\n    }\n    ```\n\n- If you subscribe to device video stream status change notification messages, you must specify **SubscribeFlags** with the following value:\n\n    ```\n    {\n        \"lvDeviceStatusFlag\": true\n    }\n    ```\n    For more information about configuring AMQP server-side subscription for **device video stream status change notification** messages, see [AMQP server-side subscription](~~2698782~~).\n\n- If you subscribe to both of the above messages, use the following value:\n\n    ```\n    {\n        \"lvDeviceStatusFlag\": true,\n        \"jt808DeviceDataFlag\": true\n    }\n    ```",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ThingHistoryFlag",
-      "description": "Specifies whether to push upstream historical Thing Specification Language (TSL) data. Valid values:\n\n*   **true**: yes.\n*   **false**: no. This is the default value.",
+      "description": "Specifies whether to push Thing Specification Language model historical data reports. Valid values:\n- **true**: yes.\n- **false** (default): no.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the subscription. Valid values:\n\n*   **MNS**\n*   **AMQP**",
+      "description": "The subscription type. Valid values:\n\n- **MNS**\n- **AMQP**",
       "position": "Query",
       "type": "String",
       "required": false

@@ -21,7 +21,7 @@
     },
     {
       "name": "PageNumber",
-      "description": "文件系统列表的分页页码。\n\n起始值（默认值）：1。",
+      "description": "文件系统列表的分页页码。\n\n起始值（默认值）：1。\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -41,6 +41,13 @@
       "required": false
     },
     {
+      "name": "StorageType",
+      "description": "存储类型。当前仅支持传入智算CPFS的规格进行筛选查询，其他类型FileSystemType暂不支持。支持以下规格：\n- bm_advance_400\n- bm_advance_400_large\n- bm_advance_new\n- bm_advance_100\n- cpfslight_100\n- bm_p100_stepsize_300\n- bm_p400_stepsize_1\n- bm_p400_stepsize_300\n\n支持同时传入多个规格，以英文逗号分隔；比如传入：bm_advance_400,bm_advance_new。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Tag",
       "description": "标签信息集合。",
       "position": "Query",
@@ -49,12 +56,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签键。\n\n限制：\n\n- N的取值范围为1~20。\n- 最多支持128个字符。\n- 不能以`aliyun`或`acs:`开头。\n- 不能包含`http://`和`https://`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "标签值。\n\n限制：\n\n- N的取值范围为1~20。\n- 最多支持128个字符。\n- 不能以`aliyun`或`acs:`开头。\n- 不能包含`http://`和`https://`。",
           "position": "Query",
           "type": "String",
           "required": false

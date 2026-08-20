@@ -1,40 +1,41 @@
 {
   "name": "GetThingModelTsl",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "FunctionBlockId",
-      "description": "The error code returned if the call fails. For more information, see [Error codes](~~87387~~).",
+      "description": "The identifier of the custom module in the TSL model. The identifier is unique within the product.\n\nIf you do not specify this parameter, the data of the default module is queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ProductKey of the product.\n\nYou can view the ProductKey on the Product Details page of the IoT Platform console. You can also obtain the ProductKey by calling the [QueryProductList](~~69271~~) operation.",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, view the **ID** of the current instance.\n\n><notice>\n- If an ID value is available, you must specify this parameter. Otherwise, the call fails.\n- If no<props=\"intl\"><ph> **Overview** page or</ph></props> ID value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModelVersion",
-      "description": "Specifies whether to retrieve a simplified TSL model.\n\n*   **true**: retrieves a simplified TSL model.\n\n    A simplified TSL model includes only the **identifier** and **dataType** attributes of properties, services, events, and related input or output parameters. Simplified TSL models can be used by device developers for reference.\n\n*   **false**: retrieves the complete TSL model.\n\n    A complete TSL model includes all the parameters and values of properties, services, and events. Complete TSL models can be used by cloud application developers for reference.\n\nDefault value: false.",
+      "description": "The version number of the TSL model to query.\n\nIf you do not specify this parameter, the draft version of the unpublished TSL model is returned.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The version number of the TSL model to be queried.\n\nIf you do not specify this parameter, IoT Platform returns the draft TSL model that is unpublished.",
+      "description": "The ProductKey of the product.\nYou can view the ProductKey on the Products page in the IoT Platform console or call [QueryProductList](~~69271~~) to obtain the ProductKey.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Simple",
-      "description": "The identifier of the custom TSL module. Each identifier is unique in a product.\n\nIf you do not specify this parameter, the default module is queried.",
+      "description": "Specifies whether to retrieve the simplified TSL model.\n\n- **true**: Retrieves the simplified TSL model.\n\n    The simplified TSL model contains only the identifiers (**identifier**) and data types (**dataType**) of properties, services, events, and their input and output parameters. This is intended for device-side developers.\n\n- **false**: Retrieves the complete TSL model.\n\n    The complete TSL model contains all parameters and values defined for properties, services, and events. This is intended for cloud-side application developers.\n\nIf you do not specify this parameter, the default value is false, and the complete TSL model is returned.",
       "position": "Query",
       "type": "Boolean",
       "required": false

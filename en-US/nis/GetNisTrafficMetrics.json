@@ -1,0 +1,130 @@
+{
+  "name": "GetNisTrafficMetrics",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "BeginTime",
+      "description": "The start timestamp, in milliseconds. If not specified, the most recent 1 hour is queried by default.",
+      "position": "Query",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "Direction",
+      "description": "The network traffic direction based on Alibaba Cloud resources.\n\nIn: traffic flowing into the target resource.\nOut: traffic flowing out of the target resource.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "EndTime",
+      "description": "The end timestamp, in milliseconds. If not specified, the most recent 1 hour is queried by default. If only BeginTime is specified, the 1 hour after BeginTime is queried.",
+      "position": "Query",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "Filter",
+      "description": "Specifies additional filter conditions for the traffic to perform focused network traffic analysis.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "Based on the TupleDimension field and TrafficScenario field, the supported filter condition label keys are as follows:\n\n- `TrafficScenario = VpcFlowLogAll` / `VpcFlowLogInternet` (VPC flow log scenario):\n\n  - When `TupleDimension` is a 1-tuple, the following keys are supported:\n    - `FlowAction`: the action type to execute on traffic after it matches the corresponding rule or policy (required, the corresponding value does not support multiple selections)\n    - `VpcId`: VPC ID (the corresponding value supports multiple selections)\n    - `VSwitchId`: vSwitch ID (the corresponding value supports multiple selections)\n    - `NetworkInterfaceId`: elastic network interfaces (ENIs) ID (the corresponding value supports multiple selections)\n    - `EcsId`: ECS instance ID (the corresponding value supports multiple selections)\n    - `CloudIp`: cloud IP address (the corresponding value supports multiple selections)\n\n  - When `TupleDimension` is a 2-tuple, the following keys are supported:\n    - `FlowAction`: the action type to execute on traffic after it matches the corresponding rule or policy (required, the corresponding value does not support multiple selections)\n    - `VpcId`: VPC ID (the corresponding value supports multiple selections)\n    - `VSwitchId`: vSwitch ID (the corresponding value supports multiple selections)\n    - `NetworkInterfaceId`: elastic network interfaces (ENIs) ID (the corresponding value supports multiple selections)\n    - `EcsId`: ECS instance ID (the corresponding value supports multiple selections)\n    - `SourceIp`: source IP address (the corresponding value supports multiple selections)\n    - `DestinationIp`: destination IP address (the corresponding value supports multiple selections)\n    - `TrafficPath`: traffic path (the corresponding value supports multiple selections)\n\n  - When `TupleDimension` is a 5-tuple, the following keys are supported:\n    - `FlowAction`: the action type to execute on traffic after it matches the corresponding rule or policy (required, the corresponding value does not support multiple selections)\n    - `VpcId`: VPC ID (the corresponding value supports multiple selections)\n    - `VSwitchId`: vSwitch ID (the corresponding value supports multiple selections)\n    - `NetworkInterfaceId`: elastic network interfaces (ENIs) ID (the corresponding value supports multiple selections)\n    - `EcsId`: ECS instance ID (the corresponding value supports multiple selections)\n    - `SourceIp`: source IP address\n    - `DestinationIp`: destination IP address\n    - `TrafficPath`: traffic path (the corresponding value supports multiple selections)\n    - `SourcePort`: source port (the corresponding value supports multiple selections)\n    - `DestinationPort`: destination port (the corresponding value supports multiple selections)\n    - `Protocol`: network protocol (the corresponding value supports multiple selections)\n\n  - In the VPC Internet scenario (`TrafficScenario = VpcFlowLogInternet`), the following additional keys are supported for filtering by Internet location:\n    - `ClientCountry`: filters network traffic analysis scope by country (the corresponding value supports multiple selections)\n    - `ClientCity`: filters network traffic analysis scope by city (the corresponding value supports multiple selections)\n    - `ClientAsn`: filters network traffic analysis scope by ASN (the corresponding value supports multiple selections)\n    - `ClientIsp`: filters network traffic analysis scope by client ISP (the corresponding value supports multiple selections)\n\n  - In VPC scenarios, the following traffic metrics filters are supported:\n    - `MinBytes`: specifies the minimum traffic volume for sorting, in bytes (the corresponding value does not support multiple selections)\n    - `MaxBytes`: specifies the maximum traffic volume for sorting, in bytes (the corresponding value does not support multiple selections)\n    - `MinRoundTripTime`: specifies the minimum RTT for sorting, in ms (the corresponding value does not support multiple selections)\n    - `MaxRoundTripTime`: specifies the maximum RTT for sorting, in ms (the corresponding value does not support multiple selections)\n    - `MinPackages`: specifies the minimum number of packets for sorting (the corresponding value does not support multiple selections)\n    - `MaxPackages`: specifies the maximum number of packets for sorting (the corresponding value does not support multiple selections)\n\n---\n\n- `TrafficScenario = TRFlowlog` (TR flow log scenario):\n\n  - When querying 2-tuples or adaptively using 2-tuples, the following keys are supported:\n    - `TransitRouterAttachmentId`: network instance connection ID (required, the corresponding value does not support multiple selections)\n    - `TransitRouterPairAttachmentId`: peer TR connection ID (the corresponding value supports multiple selections)\n    - `TransitRouterId`: transit router instance ID (the corresponding value supports multiple selections)\n    - `SourceIp`: source IP address (the corresponding value does not support multiple selections when Operator is like, and supports multiple selections when Operator is not like)\n    - `DestinationIp`: destination IP address (the corresponding value does not support multiple selections when Operator is like, and supports multiple selections when Operator is not like)\n    - `Dscp`: Differentiated Services Code Point (the corresponding value supports multiple selections)\n\n  - When querying 5-tuples or adaptively using 5-tuples, the following additional keys are supported in addition to the 2-tuple keys:\n    - `Protocol`: network protocol (the corresponding value supports multiple selections)\n    - `SourcePort`: source port (the corresponding value supports multiple selections)\n    - `DestinationPort`: destination port (the corresponding value supports multiple selections)\n  - In `non-TR cross-region scenarios`, the following additional keys are supported:\n    - `TransitRouterSourceResourceId`: source network instance ID (the corresponding value supports multiple selections)\n    - `TransitRouterDestinationResourceId`: destination network instance ID (the corresponding value supports multiple selections)\n  - In `VPC connection traffic scenarios`, the following additional keys are supported:\n    - `TransitRouterSourceNetworkInterface`: source TR network interface controller (NIC) (the corresponding value supports multiple selections)\n    - `TransitRouterDestinationNetworkInterface`: destination TR network interface controller (NIC) (the corresponding value supports multiple selections)\n\n  - In TR scenarios, the following traffic metrics filters are supported:\n    - `MinBytes`: specifies the minimum traffic volume for sorting, in bytes (the corresponding value does not support multiple selections)\n    - `MaxBytes`: specifies the maximum traffic volume for sorting, in bytes (the corresponding value does not support multiple selections)\n    - `MinPackages`: specifies the minimum number of packets for sorting (the corresponding value does not support multiple selections)\n    - `MaxPackages`: specifies the maximum number of packets for sorting (the corresponding value does not support multiple selections)\n    - `MinPacketsLostNoRoute`: minimum number of packets dropped due to no route (the corresponding value does not support multiple selections)\n    - `MinPacketsLostBlackhole`: minimum number of packets dropped due to blackhole route (the corresponding value does not support multiple selections)\n    - `MinPacketsLostTTLExpired`: minimum number of packets dropped due to TTL timeout (the corresponding value does not support multiple selections)\n    - `MaxPacketsLostNoRoute`: maximum number of packets dropped due to no route (the corresponding value does not support multiple selections)\n    - `MaxPacketsLostBlackhole`: maximum number of packets dropped due to blackhole route (the corresponding value does not support multiple selections)\n    - `MaxPacketsLostTTLExpired`: maximum number of packets dropped due to TTL timeout (the corresponding value does not support multiple selections)\n\n---\n\n- `TrafficScenario = CbwpMetric` (Internet Shared Bandwidth metric analysis scenario):\n\n  - The following filter condition keys are supported:\n    - `PublicIpAddress`: the public IP address of the associated EIP (the corresponding value does not support multiple selections when Operator is like, and supports multiple selections when Operator is not like)\n    - `BindingResourceType`: the type of the instance resource to which the EIP is bound (the corresponding value supports multiple selections)\n    - `BindingResourceId`: the ID of the instance resource to which the EIP is bound (the corresponding value supports multiple selections)\n    - `CbwpId`: the Internet Shared Bandwidth instance ID (required, the corresponding value does not support multiple selections)\n    - `InstanceId`: the EIP ID bound to the Internet Shared Bandwidth instance (the corresponding value supports multiple selections)\n\n  - In CBWP scenarios, the following traffic metrics filters are supported:\n    - `MinBytes`: specifies the minimum traffic volume for sorting, in bytes (the corresponding value does not support multiple selections)\n    - `MaxBytes`: specifies the maximum traffic volume for sorting, in bytes (the corresponding value does not support multiple selections)\n    - `MinPackages`: specifies the minimum number of packets for sorting (the corresponding value does not support multiple selections)\n    - `MaxPackages`: specifies the maximum number of packets for sorting (the corresponding value does not support multiple selections)",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Operator",
+          "description": "The filter operator.\n- TR and Internet Shared Bandwidth scenarios:\n  - Defaults to in if not specified.\n  - like performs prefix matching and only one Value can be specified.\n- VPC scenarios currently ignore this parameter and uniformly process it as IN.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The filter value corresponding to the specified key type.\n\nBased on the `TupleDimension` field and `TrafficScenario` field, the supported values are as follows:\n\n- `TrafficScenario = VpcFlowLogAll` / `VpcFlowLogInternet` (VPC flow log scenario)\n\n  - When the key is `FlowAction`, the valid values are:\n    - `ACCEPT` (pass `Accept` by default): traffic allowed by security groups and network ACLs\n    - `REJECT`: traffic denied by security groups and network ACLs\n\n- `TrafficScenario = TRFlowlog` (TR flow log scenario)\n\n  - When the key is `TransitRouterAttachmentId`, this is a required field, and the corresponding value is also required (specify the specific VPC connection / VPN connection / VBR connection / ECR connection / inter-region connection or network instance connection ID).\n\n- `TrafficScenario = CbwpMetric` (shared bandwidth metric analysis scenario)\n\n  - When the key is `CbwpId`, this is a required field, and the corresponding value is also required (specify the specific Internet Shared Bandwidth instance ID).",
+          "position": "Query",
+          "type": "RepeatList",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "MaxResults",
+      "description": "In VPC scenarios, this parameter specifies the paging size. In TR and Internet Shared Bandwidth scenarios, this parameter specifies the SQL query limit. If not specified, the backend defaults to 1440.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "MetricName",
+      "description": "The metric name.\nCommon parameters supported in network traffic analysis scenarios:\n  bps: bits per second.\n  pps: packets per second.\nParameters specific to the Internet scenario:\n  rtt: round-trip time when establishing a TCP protocol connection.\n  RetransmitRate: retransmission rate.\nParameters specific to the area-level bandwidth scenario:\n  RatelimitDropPps: rate of packet loss due to rate limiting.\n  BandwidthUtilization: bandwidth utilization.\nParameters specific to the NAT scenario:\n  ActiveSessionCount: number of concurrent sessions.\n  NewSessionPerSecond: number of new sessions per second.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "NextToken",
+      "description": "The token for the next query. You do not need to specify this parameter for the first query or when no more results exist. If a next page exists, set this parameter to the NextToken value returned by the previous API invoke. This parameter is valid only in VPC scenarios. TR and Internet Shared Bandwidth scenarios do not use this parameter.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionNo",
+      "description": "The region ID.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanBy",
+      "description": "The sort order. Valid values:\nTimestampAscending: sorts by time in ascending order.\nTimestampDescending: sorts by time in descending order.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StepMinutes",
+      "description": "The aggregation step for time series data, in minutes. The final query granularity is the larger value between StepMinutes and the underlying storage granularity. The number of data points calculated by (EndTime-BeginTime)/StepMinutes cannot exceed 1440.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "StorageInterval",
+      "description": "The storage bucket precision property.\n\nThe storage bucket precision specifies the storage aggregation epoch to query. Two precision levels are supported: high precision (such as 1 minute) or long epoch (such as 1 day). The specific precision is determined by the network traffic analysis sampling interval configured for high-precision traffic statistics or long-epoch traffic statistics when creating or editing the network traffic analysis analyzer.\n\n- The storage precisions active for the corresponding tuples of the network traffic analysis analyzer are:\n  - `1`: in minutes (1 minute)\n  - `10`: in minutes (10 minutes)\n  - `60`: in minutes (60 minutes, i.e., 1 hour)\n  - `1440`: in minutes (1440 minutes, i.e., 1 day)\n\n- The storage bucket precision can be used for two typical purposes:\n  - High-precision traffic statistics: such as 1-minute, 10-minute, or 60-minute aggregation\n  - Long-epoch traffic statistics: such as 1440-minute (1-day) aggregation\n\n- Specify a value for this field during the query to select the storage aggregation epoch. For example:\n  - Pass `10`: queries short-epoch data with a 10-minute aggregation granularity\n  - Pass `1440`: queries long-epoch data with a 1-day aggregation granularity",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "TrafficAnalyzerId",
+      "description": "The ID of the network traffic analysis analyzer.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "TrafficScenario",
+      "description": "The supported analysis scenarios: \n\n- All VPC flow log analysis\n- Internet VPC flow log analysis\n- All TR flow log analysis\n- Internet Shared Bandwidth metric analysis",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "TupleDimension",
+      "description": "The traffic storage aggregation dimension.\n\nBased on the TrafficScenario:\n\n- VpcFlowLogAll/VpcFlowLog: required. Specifies the storage aggregation view to query, which corresponds to the storage aggregation property configured in the network traffic analysis analyzer.\n\n- TRFlowLog/CbwpMetric: optional. Automatically adapts based on the storage aggregation property of the network traffic analysis analyzer.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

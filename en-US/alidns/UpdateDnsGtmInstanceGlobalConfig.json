@@ -7,31 +7,35 @@
   "parameters": [
     {
       "name": "AlertConfig",
-      "description": "",
+      "description": "The alert configurations.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DingtalkNotice",
+          "description": "Specifies whether to send alerts through DingTalk. Valid values:\n\n- true: yes\n\n- false: no",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "EmailNotice",
+          "description": "Specifies whether to send alerts by email. Valid values:\n\n- true: yes\n\n- false or null: no",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "NoticeType",
+          "description": "The type of the alert event. Valid values:\n\n- ADDR\\_ALERT: An address becomes unavailable.\n\n- ADDR\\_RESUME: An address becomes available.\n\n- ADDR\\_POOL\\_GROUP\\_UNAVAILABLE: An address pool group becomes unavailable.\n\n- ADDR\\_POOL\\_GROUP\\_AVAILABLE: An address pool group becomes available.\n\n- ACCESS\\_STRATEGY\\_POOL\\_GROUP\\_SWITCH: A switchover occurs between the primary and secondary address pools.\n\n- MONITOR\\_NODE\\_IP\\_CHANGE: The IP address of a monitoring node changes.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SmsNotice",
+          "description": "Specifies whether to send alerts through text messages. Valid values:\n\n- true: yes\n\n- false or null: no",
           "position": "Query",
           "type": "Boolean",
           "required": false
@@ -40,70 +44,70 @@
     },
     {
       "name": "AlertGroup",
-      "description": "The name of the alert group in the JSON format.",
+      "description": "The alert contact group. The value is a JSON-formatted \\`List\\<string>\\`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CnameType",
-      "description": "The type of the canonical name (CNAME).\n\n*   Set the value to PUBLIC.",
+      "description": "The type of the CNAME record. Valid value:\n\n- PUBLIC: The CNAME record is used for Internet access.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ForceUpdate",
-      "description": "Specifies whether to enable force updates. Valid values:\n\n*   true: enables force update without a conflict alert.\n*   false: disables force update. If a conflict occurs, the system displays an alert. null: This valid value of ForceUpdate provides the same information as the false value.",
+      "description": "Specifies whether to forcefully update the instance. Valid values:\n\n- true: Forcefully updates the instance without checking for conflicts.\n\n- false or null: Does not forcefully update the instance. The system checks for conflicts before the update.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance.",
+      "description": "The ID of the GTM instance. To obtain the instance ID, call the [DescribeDnsGtmInstances](https://www.alibabacloud.com/help/en/dns/api-alidns-2015-01-09-describednsgtminstances?spm=a2c63.p38356.help-menu-search-29697.d_0) operation.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceName",
-      "description": "The name of the instance. This parameter is required only for the first update.",
+      "description": "The name of the instance. This parameter is required when you update the instance for the first time. It is optional for subsequent updates.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language of the values of specific response parameters. Default value: en. Valid values: en, zh, and ja.",
+      "description": "The language of the response. Valid values: en, zh, and ja. The default value is en.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublicCnameMode",
-      "description": "Specifies whether to use a custom CNAME domain name or a CNAME domain name assigned by the system to access the instance over the Internet. Valid values:\n\n*   SYSTEM_ASSIGN: a CNAME domain name assigned by the system\n*   CUSTOM: a custom CNAME domain name",
+      "description": "The method used to access the instance over the Internet. Valid values:\n\n- SYSTEM\\_ASSIGN: The system assigns a canonical name (CNAME) record. This option is disabled.\n\n- CUSTOM: You specify a CNAME record.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublicRr",
-      "description": "The hostname corresponding to the CNAME domain name that is used to access the instance over the Internet.",
+      "description": "The hostname of the CNAME record that is used for Internet access.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublicUserDomainName",
-      "description": "The service domain name that is used over the Internet.",
+      "description": "The service domain name that is accessed over the Internet.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublicZoneName",
-      "description": "The CNAME domain name that is used to access the instance over the Internet, which is the primary domain name. This parameter is required when the PublicCnameMode parameter is set to CUSTOM.\n\n>  You must use the primary domain name. Do not include the hostname specified by the PublicRr parameter.",
+      "description": "The primary domain name that is used to access the instance over the Internet using a CNAME record. This parameter is required if you set PublicCnameMode to CUSTOM.\n\n> Enter the primary domain name. Do not include the hostname specified by the PublicRr parameter.",
       "position": "Query",
       "type": "String",
       "required": false

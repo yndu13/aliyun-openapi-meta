@@ -1,68 +1,69 @@
 {
   "name": "ApplyMetricRuleTemplate",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppendMode",
-      "description": "The template application policy. Valid values:\n\n*   all (default): deletes all the rules that are created by using the alert template from the selected application group, and then creates alert rules based on the template.\n*   append: deletes the rules that are created by using the alert template from the selected application group, and then creates alert rules based on the existing template.",
+      "description": "The policy for applying the template. Valid values:\n\n- all: deletes all rules that were created from alert templates for the selected group, and then creates new alert rules based on the template (default value).\n\n- append: deletes the rules that were created from this alert template for the selected group, and then creates new alert rules based on the current template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ApplyMode",
-      "description": "The mode in which the alert template is applied. Valid values:\n\n*   GROUP_INSTANCE_FIRST: The metrics in the application group take precedence. If a metric specified in the alert template does not exist in the application group, the system does not generate an alert rule for the metric based on the alert template.\n*   ALARM_TEMPLATE_FIRST: The metrics specified in the alert template take precedence. If a metric specified in the alert template does not exist in the application group, the system still generates an alert rule for the metric based on the alert template.",
+      "description": "The mode in which the alert template is applied. Valid values:\n\n- GROUP_INSTANCE_FIRST: application group instances take priority. When the alert template is applied, instances in the application group take priority. If an instance does not exist in the application group, the rule in the template is ignored.\n\n- ALARM_TEMPLATE_FIRST: alert template instances take priority. When the alert template is applied, alert rules are created regardless of whether the instances exist in the application group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableEndTime",
-      "description": "The end of the time period during which the alert rule is effective. Valid values: 00 to 23. A value of 00 indicates 00:59 and a value of 23 indicates 23:59.",
+      "description": "The end time of the alert effective period. Valid values: 00 to 23, which indicates 00:59 to 23:59.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "EnableStartTime",
-      "description": "The beginning of the time period during which the alert rule is effective. Valid values: 00 to 23. A value of 00 indicates 00:00 and a value of 23 indicates 23:00.",
+      "description": "The start time of the alert effective period. Valid values: 00 to 23, which indicates 00:00 to 23:00.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "GroupId",
-      "description": "The ID of the application group to which the alert template is applied.\n\nFor more information about how to query the ID of an application group, see [DescribeMonitorGroups](~~115032~~).",
+      "description": "The ID of the application group.\n\nFor information about how to obtain the application group ID, see [DescribeMonitorGroups](~~115032~~).",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "NotifyLevel",
-      "description": "The alert notification method. Valid values:\n\nSet the value to 4. A value of 4 indicates that alert notifications are sent by using TradeManager and DingTalk chatbots.",
+      "description": "The alert notification method. Valid values:\n\n<props=\"china\">- 2: phone call + text message + mailbox + TradeManager + DingTalk chatbot.</props>\n\n<props=\"china\">- 3: text message + mailbox + TradeManager + DingTalk chatbot.</props>\n\n<props=\"china\">- 4: TradeManager + DingTalk chatbot.</props>\n\n\n<props=\"intl\">4: TradeManager + DingTalk chatbot.</props>\n\n<props=\"partner\">4: TradeManager + DingTalk chatbot.</props>",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "SilenceTime",
-      "description": "The mute period during which notifications are not repeatedly sent for an alert. Unit: seconds. Default value: 86400.\n\n>  Only one alert notification is sent during each mute period even if the metric value exceeds the alert threshold several times.",
+      "description": "The mute for. Unit: seconds. Default value: 86400.\n\n> When monitoring data continuously exceeds the alert rule threshold, only one alert notification is sent within each mute period.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "TemplateIds",
-      "description": "The ID of the alert template.\n\nFor more information about how to query the IDs of alert templates, see [DescribeMetricRuleTemplateList](~~114982~~).",
+      "description": "The ID of the alert template.\n\nFor information about how to obtain the alert template ID, see [DescribeMetricRuleTemplateList](~~114982~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Webhook",
-      "description": "The callback URL to which a POST request is sent when an alert is triggered based on the alert rule.",
+      "description": "The callback URL to which a POST request is sent when an alert is triggered.",
       "position": "Query",
       "type": "String",
       "required": false

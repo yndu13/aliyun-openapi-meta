@@ -1,5 +1,6 @@
 {
   "name": "CreateRepoSyncRule",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -12,11 +13,32 @@
       "required": true
     },
     {
+      "name": "LinkId",
+      "description": "同步自定义链路ID",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "NamespaceName",
       "description": "源实例命名空间名称。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
+    },
+    {
+      "name": "NamespaceNameFilter",
+      "description": "实例级别命名空间正则\n> 该参数仅在同步类型 SyncScope 是 `INSTANCE` 时有效。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Priority",
+      "description": "同步任务执行优先级。同步任务按照该优先级从大到小的顺序被执行。相同优先级的同步任务按随机顺序执行。\n\n取值范围：1～5\n\n默认值：3",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
     },
     {
       "name": "RepoName",
@@ -27,7 +49,7 @@
     },
     {
       "name": "RepoNameFilter",
-      "description": "仓库过滤规则。\n> 该参数仅在同步类型 SyncScope 是 `NAMESPACE` 时有效。",
+      "description": "仓库过滤规则。\n> 该参数仅在同步类型 SyncScope 是 `INSTANCE` 或 `NAMESPACE` 时有效。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,7 +63,7 @@
     },
     {
       "name": "SyncScope",
-      "description": "同步类型，取值：\n\n- `REPO`：按照镜像仓库同步。\n\n- `NAMESPACE`：按照命名空间同步。",
+      "description": "同步类型，取值：\n\n- `REPO`：按照镜像仓库同步。\n\n- `NAMESPACE`：按照命名空间同步。\n\n- `INSTANCE`：按照命名空间正则和仓库正则同步。",
       "position": "Query",
       "type": "String",
       "required": true
@@ -72,7 +94,7 @@
       "description": "目标实例命名空间名称。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "TargetRegionId",

@@ -1,5 +1,6 @@
 {
   "name": "CreateIpControl",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "IpControlName",
-      "description": "The name of the ACL. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\\_). The name cannot start with an underscore (\\_).``",
+      "description": "The name of the ACL. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\\_). The name cannot start with an underscore (\\_).\\`\\`",
       "position": "Query",
       "type": "String",
       "required": true
@@ -27,12 +28,14 @@
       "sub_parameters": [
         {
           "name": "AppId",
+          "description": "The ID of the application that is restricted by the policy. You can configure the AppId parameter only when the value of the IpControlType parameter is ALLOW.\n\n- You can add only one application ID at a time.\n\n- If this parameter is empty, no applications are restricted.\n\n- If this parameter is not empty, not only IP addresses but also applications are restricted.\n\n- If this parameter is not empty and no security authentication method is specified for the API, all API calls are restricted.\n\n- If the value of the IpControlType parameter is REFUSE and the AppId parameter is not empty, API Gateway automatically ignores the AppId parameter and restricts only the IP addresses.\n\n- Valid values of N in IpControlPolicys.N: `[1,100]`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "CidrIp",
+          "description": "The IP address or CIDR block involved in a policy.\n\n- If you want to specify a policy when you create an ACL, this parameter is required.\n\n- The IP address or CIDR block that is defined in each policy. Separate multiple IP addresses or CIDR blocks with semicolons (;). You can add a maximum of 10 IP addresses or CIDR blocks.\n\n- Valid values of N in IpControlPolicys.N: `[1,100]`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -41,7 +44,7 @@
     },
     {
       "name": "IpControlType",
-      "description": "The type of the ACL. Valid values:\n\n*   **ALLOW**: an IP address whitelist\n*   **REFUSE**: an IP address blacklist",
+      "description": "The type of the ACL. Valid values:\n\n- **ALLOW**: an IP address whitelist\n\n- **REFUSE**: an IP address blacklist",
       "position": "Query",
       "type": "String",
       "required": true

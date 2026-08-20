@@ -1,5 +1,6 @@
 {
   "name": "AddDnsFirewallPolicy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -27,14 +28,14 @@
     },
     {
       "name": "DestinationType",
-      "description": "访问控制策略中的目的地址类型。\n\n取值：\n\n- **net**：目的网段（CIDR地址）\n- **group**：目的地址簿\n- **domain**：目的域名",
+      "description": "DNS 防火墙访问控制策略的目的地址类型。仅支持 group（目的地址簿）和 domain（目的域名）；net 与 CIDR 地址不适用于本接口。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Direction",
-      "description": "访问控制策略的流量方向。取值：\n\n- **in**：外对内流量访问控制\n- **out**：内对外流量访问控制",
+      "description": "DNS 防火墙访问控制策略的流量方向。\n\n> 本参数不参与后端校验：创建和修改 DNS 防火墙策略时，方向恒按 **out**（内对外）落库，传入 **in** 既不会报错也不会生效。DNS 防火墙仅支持出方向策略。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -55,7 +56,7 @@
     },
     {
       "name": "Priority",
-      "description": "访问控制策略优先级修改前，该策略的优先级。",
+      "description": "新建 DNS 防火墙策略的优先级。取值范围为 1～20000，数值越小，策略优先级越高。",
       "position": "Query",
       "type": "String",
       "required": true

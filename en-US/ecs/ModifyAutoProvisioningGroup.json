@@ -1,70 +1,76 @@
 {
   "name": "ModifyAutoProvisioningGroup",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AutoProvisioningGroupId",
-      "description": "The auto-provisioning group ID.",
+      "description": "The ID of the auto provisioning group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoProvisioningGroupName",
-      "description": "The name of the auto-provisioning group. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http:// or https://.[ It can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).](http://https://。、（:）、（\\_）（-）。)",
+      "description": "The name of the auto provisioning group. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with http:// or https://. The name can contain digits, colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DefaultTargetCapacityType",
-      "description": "The type of supplemental instances. When the sum of the PayAsYouGoTargetCapacity and SpotTargetCapacity values is smaller than the TotalTargetCapacity value, the auto-provisioning group creates instances of the specified type to meet the target capacity. Valid values:\n\n*   PayAsYouGo: pay-as-you-go instances\n*   Spot: spot instances",
+      "description": "The billing method of the capacity difference when the sum of PayAsYouGoTargetCapacity and SpotTargetCapacity is less than TotalTargetCapacity. Valid values:\n\n- PayAsYouGo: pay-as-you-go instance.\n- Spot: spot instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExcessCapacityTerminationPolicy",
-      "description": "Specifies whether to release the removed instances when the real-time capacity of the auto-provisioning group exceeds the target capacity and a scale-in event is triggered. Valid values:\n\n*   termination: releases the removed instances.\n*   no-termination: removes the instances from the auto-provisioning group but does not release them.",
+      "description": "Specifies whether to release instances when the real-time capacity of the auto provisioning group exceeds the target capacity and a scale-in event is triggered. Valid values:\n\n- termination: Releases the scaled-in instances.\n- no-termination: Only removes the scaled-in instances from the auto provisioning group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateConfig",
-      "description": "The extended configurations of the launch template.",
+      "description": "The extended launch template list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "InstanceType",
+          "description": "The instance type specified in the extension launch template. Valid values of N: 1 to 20. For more information, see [Instance family](~~25378~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MaxPrice",
+          "description": "The maximum price of the spot instance in the extended launch template.",
           "position": "Query",
           "type": "Double",
           "required": false
         },
         {
           "name": "Priority",
+          "description": "The priority of the extended launch template. A value of 0 indicates the highest priority. Valid values: greater than 0.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "VSwitchId",
+          "description": "The ID of the vSwitch to which the ECS instance belongs in the extended launch template. The zone of the ECS instance launched from the extended template is determined by the vSwitch.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WeightedCapacity",
+          "description": "The weight of the instance type specified in the extended launch template. A higher value indicates that a single instance can meet more computing requirements, which means fewer instances are required. Valid values: greater than 0.\n\nYou can calculate the weight based on the computing power of the specified instance type and the minimum computing power of a single node in the cluster. For example, if the minimum computing power of a single node is 8 vCPUs and 60 GiB:\n\n- The weight of an instance type with 8 vCPUs and 60 GiB can be set to 1.\n- The weight of an instance type with 16 vCPUs and 120 GiB can be set to 2.",
           "position": "Query",
           "type": "Double",
           "required": false
@@ -73,42 +79,42 @@
     },
     {
       "name": "MaxSpotPrice",
-      "description": "The maximum price of spot instances in the auto-provisioning group.\n\n> When both the MaxSpotPrice and LaunchTemplateConfig.N.MaxPrice parameters are specified, the smaller one of the two parameter values is used. The LaunchTemplateConfig.N.MaxPrice parameter is specified when the auto-provisioning group is created, and cannot be modified.",
+      "description": "The maximum price of spot instances in the auto provisioning group.\n\n> If both MaxSpotPrice and LaunchTemplateConfig.N.MaxPrice are specified, the lower value is used. LaunchTemplateConfig.N.MaxPrice is specified in Settings when the auto provisioning group is created and cannot be modified.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "PayAsYouGoTargetCapacity",
-      "description": "The target capacity of pay-as-you-go instances in the auto-provisioning group. Valid values: Set this parameter to a value smaller than the TotalTargetCapacity value.",
+      "description": "The target capacity of pay-as-you-go instances in the auto provisioning group. Valid values: less than the parameter value of TotalTargetCapacity.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the auto-provisioning group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the auto provisioning group. You can invoke [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SpotTargetCapacity",
-      "description": "The target capacity of spot instances in the auto-provisioning group. Valid values: Set this parameter to a value smaller than the TotalTargetCapacity value.",
+      "description": "The target capacity of spot instances in the auto provisioning group. Valid values: less than the parameter value of TotalTargetCapacity.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TerminateInstancesWithExpiration",
-      "description": "Specifies whether to release instances that are located in the auto-provisioning group after the group expires. Valid values:\n\n*   true: releases instances that are located in the auto-provisioning group.\n*   false: removes instances from the auto-provisioning group but does not release them.",
+      "description": "Specifies whether to release instances in the auto provisioning group when the group expires. Valid values:\n\n- true: Releases the instances in the group.\n- false: Only removes the instances from the auto provisioning group.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TotalTargetCapacity",
-      "description": "The total target capacity of the auto-provisioning group. The value must be a positive integer.\n\nThe total target capacity of the auto-provisioning group must be greater than or equal to the sum of the target capacity of pay-as-you-go instances specified by the PayAsYouGoTargetCapacity parameter as well as the target capacity of spot instances specified by the SpotTargetCapacity parameter.",
+      "description": "The total target capacity of the auto provisioning group. Valid values: positive integers.\n\nThe total capacity must be greater than or equal to the sum of PayAsYouGoTargetCapacity (the target capacity of pay-as-you-go instances) and SpotTargetCapacity (the target capacity of spot instances).",
       "position": "Query",
       "type": "String",
       "required": false

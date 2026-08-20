@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "FunctionName",
-      "description": "",
+      "description": "The name of the function. For information about the regions that support each function, see [Service regions](~~43248~~). Valid values:\n\n- **VideoH2V**: Converts a landscape video to a portrait video.\n\n- **VideoDelogo**: Removes watermarks or logos from videos.\n\n- **Cover**: Generates an [intelligent cover]().\n\n- **VideoClip**: Generates a [video summary]().\n\n- **ImageH2V**: Converts a landscape image to a portrait image.\n\n- **ImageDelogo**: Removes watermarks or logos from images.\n\n- **CaptionExtraction**: Performs [caption extraction](). The algorithm extracts captions from the input video and returns the caption file.\n\n- **VideoDetext**: Removes hard-coded subtitles from videos.\n\n- **VideoGreenScreenMatting**: Performs [green screen matting](). The algorithm composites the input green screen video with a background image and returns the resulting video.\n\n- **MusicSegmentDetect**: Performs [chorus detection](). The algorithm detects chorus segments in the input audio or video file and returns their start and end times. If no chorus is detected, the result is empty.\n\n- **AudioMixing**: Performs audio mixing.\n\n- **AudioBeatDetection**: Performs [beat detection](). The algorithm takes the URL of an audio or video file as input and outputs a list of beat timestamps (BeatList) and a list of downbeat timestamps (DownBeatList).\n\n- **ImageCartoonize**: Applies 3D or stylized effects to faces. To use the face stylization feature, contact us on DingTalk at yuanzhigao1209.\n\n- **AudioQualityAssessment**: Assesses audio quality.\n\n- **FaceBeauty**: Applies beauty filters to faces in videos.\n\n- **SpeechDenoise**: Performs [intelligent noise reduction]().\n\n  > For audio quality assessment, the input audio must be a 16-bit quantized WAV file. Both mono and stereo channels are supported. Supported [sampling rates]() range from 8,000 Hz to 48,000 Hz.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Input",
-      "description": "",
+      "description": "The input file in an [OSS bucket](). Only OSS paths are supported. The file must be in an OSS bucket in the same region as the MPS service. You can obtain the path from the **MPS console** by navigating to **Media Management** > **Media List**, or from the OSS console by selecting the corresponding bucket.\n\n> The `Input` parameter is required for some algorithms. Specify this parameter based on your business requirements.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobParams",
-      "description": "",
+      "description": "The job parameters for the algorithm, specified as a JSON object. The content of this parameter varies depending on the algorithm. For more information, see [Supplemental parameters for intelligent production jobs](~~352026~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModelId",
-      "description": "",
+      "description": "The ID of the algorithm [model](). If you do not specify this parameter, the system uses the default model for the function.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NotifyUrl",
-      "description": "",
+      "description": "The callback URL. Only MNS message queues are supported. You can find the [message queue]() path in the **MNS console** by navigating to **Queues** > **Details**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Output",
-      "description": "",
+      "description": "The output file in an [OSS bucket](). Only OSS paths are supported. The destination OSS bucket must be in the same region as the MPS service. You can obtain the path from the **MPS console** by navigating to **Media Management** > **Media List**, or from the OSS console by selecting the corresponding bucket.\n\n> The format is `oss://example-****.oss-cn-shanghai.aliyuncs.com/iproduction/{source}-{timestamp}-{sequenceId}.srt`. In this format, `{source}`, `{timestamp}`, and `{sequenceId}` are [placeholders](). The system replaces them with the input filename, a Unix [timestamp](), and a sequence number, respectively. The placeholders are not required. However, for algorithms that produce multiple outputs, such as [intelligent cover](), you must include a sequence number placeholder like `{sequenceId}` to ensure that each output file has a unique path. You can define the file extension.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PipelineId",
-      "description": "",
+      "description": "The ID of the job [pipeline](). You can obtain the pipeline ID from the **MPS console** by navigating to **Global Settings** > **Pipelines**. This ID determines the job callback queue and provides [tenant isolation](). If you do not specify this parameter, the default pipeline is used. The default pipeline has a [concurrency]() of 10 and is not bound to a [message queue]() for notifications.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScheduleParams",
-      "description": "",
+      "description": "Optional job scheduling parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserData",
-      "description": "",
+      "description": "Optional custom data that the service passes back in the callback notification.",
       "position": "Query",
       "type": "String",
       "required": false

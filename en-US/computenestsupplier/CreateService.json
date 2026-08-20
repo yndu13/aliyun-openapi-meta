@@ -7,70 +7,70 @@
   "parameters": [
     {
       "name": "AlarmMetadata",
-      "description": "The alert configurations of the service.\n\n>  This parameter takes effect only when you specify an alert policy for **PolicyNames**.",
+      "description": "The alert configurations for the service.\n\n> This configuration takes effect only after an alert-related access policy is configured in \\`PolicyNames\\`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ApprovalType",
-      "description": "The approval type of the service usage application. Valid values:\n\n*   Manual: The application is manually approved.\n*   AutoPass: The application is automatically approved.",
+      "description": "The approval type for service usage requests. Valid values:\n\n- Manual: The request requires manual approval.\n\n- AutoPass: The request is automatically approved.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BuildParameters",
-      "description": "The parameters for building the service",
+      "description": "The parameters for building the service.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.",
+      "description": "A client token used to ensure the idempotence of the request. Generate a unique value for this parameter from your client. \\`ClientToken\\` supports only ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ComplianceMetadata",
-      "description": "Compliance check metadata.",
+      "description": "The compliance check metadata.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeployMetadata",
-      "description": "The storage configurations of the service. The format in which the deployment information of a service is stored varies based on the deployment type of the service. In this case, the deployment information is stored in the JSON string format.",
+      "description": "The deployment configuration of the service. The information stored varies by deployment type. Different deployment types have different data formats. The data is stored in a JSON string.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeployType",
-      "description": "The deployment type of the service. Valid values:\n\n*   ros: The service is deployed by using Resource Orchestration Service (ROS).\n*   terraform: The service is deployed by using Terraform.\n*   ack: The service is deployed by using Container Service for Kubernetes (ACK).\n*   spi: The service is deployed by calling a service provider interface (SPI).\n*   operation: The service is deployed by using a hosted O\\&M service.",
+      "description": "The deployment type. Valid values:\n\n- ros: The service is deployed using ROS.\n\n- terraform: The service is deployed using Terraform.\n\n- ack: The service is deployed using ACK.\n\n- spi: The service is deployed by invoking an SPI.\n\n- operation: The service is an O\\&M service.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run for the request to check information. Valid values:\n\n*   true: performs a dry run for the request, but does not create a service.\n*   false: performs a dry run for the request, and create a service if the request passes the dry run.",
+      "description": "Specifies whether to perform a dry run to check the request.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Duration",
-      "description": "The duration for which hosted O\\&M is implemented. Unit: seconds.",
+      "description": "The O\\&M duration. Unit: seconds.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "IsSupportOperated",
-      "description": "Specifies whether to enable the hosted O\\&M feature for the service. Default value: false. Valid values:\n\n*   true\n*   false\n\n>  This parameter is required if you set **ServiceType** to **private**.",
+      "description": "Specifies whether to enable O\\&M. Default value: false. Valid values:\n\n- true: Enabled.\n\n- false: Disabled.\n\n> This parameter is required when \\`ServiceType\\` is set to \\`private\\`.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -84,21 +84,21 @@
     },
     {
       "name": "LogMetadata",
-      "description": "The logging configurations.",
+      "description": "The application log configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OperationMetadata",
-      "description": "The hosted O\\&M configurations.",
+      "description": "The O\\&M configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyNames",
-      "description": "The policy name. The name can be up to 128 characters in length. Separate multiple names with commas (,). Only hosted O\\&M policies are supported.",
+      "description": "The policy name. The name of a single policy can be up to 128 characters in length. Separate multiple names with commas (,). Only policies related to O\\&M parameters are supported.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -112,14 +112,14 @@
     },
     {
       "name": "Resellable",
-      "description": "Whether resell is supported.",
+      "description": "Specifies whether the service can be distributed. Valid values:\n\n- false: The service cannot be distributed.\n\n- true: The service can be distributed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -140,42 +140,49 @@
       "sub_parameters": [
         {
           "name": "Agreements",
+          "description": "The information about the service agreements.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Image",
+          "description": "The URL of the service icon.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Locale",
+          "description": "The language of the service. Valid values:\n\n- zh-CN: Chinese.\n\n- en-US: English.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "LongDescriptionUrl",
+          "description": "The detailed description of the service.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The service name.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ShortDescription",
+          "description": "A brief description of the service.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Softwares",
+          "description": "The information about the software used in the service.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -184,28 +191,28 @@
     },
     {
       "name": "ServiceType",
-      "description": "The service type. Valid values:\n\n*   private: The service is a private service and is deployed within the account of a customer.\n*   managed: The service is a fully managed service and is deployed within the account of a service provider.\n*   operation: The service is a hosted O\\&M service.\n*   poc: The service is a trial service.",
+      "description": "The service type. Valid values:\n\n- private: The service instance is deployed in the user's account.\n\n- managed: The service instance is managed in the service provider's account.\n\n- operation: An O\\&M service instance.\n\n- poc: A trial service instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ShareType",
-      "description": "The permission type of the deployment URL. Valid values:\n\n*   Public: All users can go to the URL to create a service instance or a trial service instance.\n*   Restricted: Only users in the whitelist can go to the URL to create a service instance or a trial service instance.\n*   OnlyFormalRestricted: Only users in the whitelist can go to the URL to create a service instance.\n*   OnlyTrailRestricted: Only users in the whitelist can go to the URL to create a trial service instance.\n*   Hidden: Users not in the whitelist cannot see the service details page when they go to the URL and cannot request deployment permissions.",
+      "description": "The sharing type. Valid values:\n\n- Public: The service is public. Full and trial deployments are not restricted.\n\n- Restricted: The service is restricted. Full and trial deployments are restricted.\n\n- OnlyFormalRestricted: Only full deployments are restricted.\n\n- OnlyTrailRestricted: Only trial deployments are restricted.\n\n- Hidden: The service is hidden. It is not visible and you cannot request deployment permissions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceServiceId",
-      "description": "The source service ID for resell。",
+      "description": "The ID of the source service for distribution.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceServiceVersion",
-      "description": "The source service version for resell。",
+      "description": "The version of the source service for distribution.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -219,12 +226,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -233,21 +242,21 @@
     },
     {
       "name": "TenantType",
-      "description": "The type of the tenant. Valid values:\n\n*   SingleTenant\n*   MultiTenant",
+      "description": "The tenant type. Valid values:\n\n- SingleTenant: Single-tenant.\n\n- MultiTenant: Multitenant.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrialDuration",
-      "description": "The trial duration. Unit: day. The maximum trial duration cannot exceed 30 days.",
+      "description": "The trial duration. Unit: days. The maximum trial duration is 30 days.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "UpgradeMetadata",
-      "description": "The metadata about the upgrade.",
+      "description": "The upgrade metadata.",
       "position": "Query",
       "type": "String",
       "required": false

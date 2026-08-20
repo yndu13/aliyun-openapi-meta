@@ -7,66 +7,70 @@
   "parameters": [
     {
       "name": "Architecture",
-      "description": "The system architecture of the system disk. If you specify a data disk snapshot to create the system disk of the custom image, use Architecture to specify the system architecture of the system disk. Valid values:\n\n*   i386\n*   x86\\_64\n*   arm64\n\nDefault value: x86\\_64.",
+      "description": "The system architecture. After a data disk snapshot is specified as the system disk of the image, use this parameter to specify the system architecture of the system disk. Valid values:\n\n- i386.\n- x86_64.\n- arm64.\n\nDefault value: x86_64.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BootMode",
-      "description": "The boot mode of the image. Valid values:\n\n*   BIOS: BIOS mode\n*   UEFI: Unified Extensible Firmware Interface (UEFI) mode\n*   UEFI-Preferred (default): BIOS mode and UEFI mode\n\n>  Before you specify this parameter, make sure that you are familiar with the boot modes supported by the image. If you specify a boot mode that is not supported by the image, ECS instances created from the image cannot start as expected. For information about the boot modes of images, see the [Boot modes of images](~~2244655#b9caa9b8bb1wf~~) section of the \"Best practices for ECS instance boot modes\" topic.",
+      "description": "The boot mode of the image. Valid values:\n\n- BIOS: BIOS boot mode.\n- UEFI: UEFI boot mode.\n- (Default) UEFI-Preferred: dual boot mode.  \n\n<notice>\n\nTo prevent instances from failing to start due to an unsupported boot mode, make sure that you understand the boot modes supported by the target image before specifying this parameter. For more information about image boot modes, see [Image boot modes](~~2244655#b9caa9b8bb1wf~~).\n\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The value of **ClientToken** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. **ClientToken** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The image description. The description must be 2 to 256 characters in length and cannot start with [http:// or https://.](http://https://。)",
+      "description": "The description of the image. The description must be 2 to 256 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DetectionStrategy",
-      "description": "The mode in which to check the custom image. If you do not specify this parameter, the image is not checked. Only the standard check mode is supported.\n\n>  This parameter is supported for most Linux and Windows operating system versions. For information about image check items and operating system limits for image check, see [Overview of image check](~~439819~~) and [Operating system limits for image check](~~475800~~).",
+      "description": "The image detection strategy. If this parameter is not configured, detection is not triggered. Only the Standard detection mode is supported. \n\n> Most Linux and Windows versions are supported. For more information about image detection items and operating system limitations, see [Image detection overview](~~439819~~) and [Operating system limitations for image detection](~~475800~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskDeviceMapping",
-      "description": "Details of the disks and snapshots from which the custom image is created. If you want to create a custom image based on a system disk snapshot and data disk snapshots, use this parameter to specify the snapshots.",
+      "description": "The disk and snapshot information used to create the custom image. If you want to create a custom image from system disk and data disk snapshots, use this parameter to specify the snapshots.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Device",
+          "description": "The device name in the custom image. Valid values:\n\n- The device name of the system disk must be /dev/xvda.\n\n- The device names of data disks are in alphabetical order from /dev/xvdb to /dev/xvdz and cannot be duplicated.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskType",
+          "description": "The type of the disk in the new image. You can use this parameter to specify a data disk snapshot as the system disk of the image. If this parameter is not specified, the disk type defaults to the type of the disk corresponding to the snapshot. Valid values:\n\n- system: system disk. Only one system disk snapshot can be specified.\n- data: data disk. Up to 16 data disk snapshots can be specified.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "The size of the disk, in GiB. The valid values and default value of DiskDeviceMapping.N.Size depend on DiskDeviceMapping.N.SnapshotId:\n\n- If SnapshotId is not specified, the valid values and default value of Size are:\n    - Basic disk: 5 to 2000 GiB. Default value: 5.\n    - Other disk types: 20 to 32768 GiB. Default value: 20.\n- If SnapshotId is specified, the value of Size must be greater than or equal to the size of the snapshot. Default value: the size of the snapshot.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
+          "description": "The snapshot ID.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -75,70 +79,75 @@
     },
     {
       "name": "DryRun",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Features",
-      "description": "The attributes of the custom image.",
+      "description": "The image feature-related properties.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "ImageFamily",
-      "description": "The name of the image family. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with acs: or aliyun. The name cannot contain http:// or https://. The name can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The image family name. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with aliyun or acs:. It cannot contain http:// or https://. It can contain digits, colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageName",
-      "description": "The name of the custom image. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with http:// or https://. The name can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The image name. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with http:// or https://. It can contain digits, colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageVersion",
-      "description": "The image version.\n\n>  If you specify an ECS instance that runs an Alibaba Cloud Marketplace image or a custom image derived from an Alibaba Cloud Marketplace image by using `InstanceId`, you must leave this parameter empty or set this parameter to the `ImageVersion` value of the image run by the specified ECS instance.",
+      "description": "The image version.\n\n> If you specify an instance ID (`InstanceId`) and the image of the instance is an Alibaba Cloud Marketplace image or a custom image created from an Alibaba Cloud Marketplace image, this parameter must be the same as the `ImageVersion` of the current instance image or left empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the ECS instance from which to create the custom image. To create a custom image from an ECS instance, you must specify this parameter.",
+      "description": "The instance ID. This parameter is required when you create a custom image from an instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Platform",
-      "description": "The operating system distribution for the system disk in the custom image. If you specify a data disk snapshot to create the system disk of the custom image, use Platform to specify the operating system distribution for the system disk. Valid values:\n\n*   Aliyun\n*   Anolis\n*   CentOS\n*   Ubuntu\n*   CoreOS\n*   SUSE\n*   Debian\n*   OpenSUSE\n*   FreeBSD\n*   RedHat\n*   Kylin\n*   UOS\n*   Fedora\n*   Fedora CoreOS\n*   CentOS Stream\n*   AlmaLinux\n*   Rocky Linux\n*   Gentoo\n*   Customized Linux\n*   Others Linux\n*   Windows Server 2022\n*   Windows Server 2019\n*   Windows Server 2016\n*   Windows Server 2012\n*   Windows Server 2008\n*   Windows Server 2003\n\nDefault value: Others Linux.",
+      "description": "The operating system distribution. After a data disk snapshot is specified as the system disk of the image, use this parameter to specify the operating system distribution of the system disk. Valid values:\n\n- Aliyun\n- Anolis\n- CentOS\n- Ubuntu\n- CoreOS\n- SUSE\n- Debian\n- OpenSUSE\n- FreeBSD\n- RedHat\n- Kylin\n- UOS\n- Fedora\n- Fedora CoreOS\n- CentOS Stream\n- AlmaLinux\n- Rocky Linux\n- Gentoo\n- Customized Linux\n- Others Linux\n- Windows Server 2022\n- Windows Server 2019\n- Windows Server 2016\n- Windows Server 2012\n- Windows Server 2008\n- Windows Server 2003\n\nDefault value: Others Linux.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the custom image that you want to create. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.",
+      "description": "The region ID of the image. You can call [DescribeRegions](~~25609~~) to query the most recent list of Alibaba Cloud regions.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the custom image. If you leave this parameter empty, the image is assigned to the default resource group.\n\n>  If you call the CreateImage operation as a Resource Access Management (RAM) user who does not have permissions on the default resource group and leave `ResourceGroupId` empty, the `Forbidden: User not authorized to operate on the specified resource` error message is returned. You must specify the ID of a resource group on which the RAM user has permissions or grant the RAM user permissions on the default resource group, and then call the CreateImage operation again.",
+      "description": "The ID of the resource group to which the custom image belongs. If you do not set this parameter, the created image belongs to the default resource group.\n\n> If you invoke this operation as a Resource Access Management (RAM) user and `ResourceGroupId` is left empty, note that when the RAM user does not have permissions on the default resource group, the error message `Forbidden: User not authorized to operate on the specified resource` is returned. Settings a resource group ID that the RAM user has permissions on, or grant the RAM user permissions on the default resource group through the corresponding Alibaba Cloud account before invoking this operation again.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "SecureBootOptions",
+      "position": "Query",
+      "type": "Struct",
+      "required": false
+    },
+    {
       "name": "SnapshotId",
-      "description": "The ID of the snapshot from which to create the custom image.\n\n>  To create a custom image from only a system disk snapshot of an ECS instance, you can specify this parameter or `DiskDeviceMapping.N.SnapshotId` to specify the snapshot ID. If you add data disk snapshots, you can use only `DiskDeviceMapping.N.SnapshotId` to specify snapshots.",
+      "description": "The snapshot ID used to create the custom image.\n\n> If you want to create a custom image from only the system disk snapshot of an instance, you can use this parameter or the `DiskDeviceMapping.N.SnapshotId` parameter. If you want to add data disk snapshots, use only the `DiskDeviceMapping.N.SnapshotId` parameter.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -152,24 +161,28 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the image. Valid values of N: 1 to 20. The tag key cannot be an empty string. It can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the image. Valid values of N: 1 to 20. The tag value can be an empty string. It can be up to 128 characters in length and cannot start with `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
+          "description": "The tag key of the image.\n\n> For better compatibility, we recommend that you use Tag.N.Key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
+          "description": "The tag value of the image.\n\n> For better compatibility, we recommend that you use Tag.N.Value.",
           "position": "Query",
           "type": "String",
           "required": false

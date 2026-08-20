@@ -7,31 +7,35 @@
   "parameters": [
     {
       "name": "RequestHeaderModification",
-      "description": "The configurations of modifying request headers. You can add, delete, or modify a request header.",
+      "description": "The request header modifications. Three operations are supported: add, delete, and modify.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The request header name.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Operation",
+          "description": "The operation type. Valid values:\n\n- add: adds a request header.\n- del: deletes a request header.\n- modify: modifies a request header.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Type",
+          "description": "The value type. Valid values:\n- static: static pattern.\n- dynamic: dynamic pattern.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The request header value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -40,42 +44,42 @@
     },
     {
       "name": "Rule",
-      "description": "The content of the rule. A conditional expression is used to match a user request. You do not need to set this parameter when you add global configuration. Use cases:\n\n*   true: Match all incoming requests.\n*   Set the value to a custom expression, for example: (http.host eq \"video.example.com\"): Match the specified request",
+      "description": "The rule content, which uses a conditional expression to match user requests. This parameter is not required when you add a global configuration. Two scenarios are supported:\n- Match all incoming requests: set the value to true.\n- Match specified requests: set the value to a custom expression, such as (http.host eq \\\"video.example.com\\\").",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleEnable",
-      "description": "Specifies whether to enable the rule. Valid values: You do not need to set this parameter when you add global configuration. Valid values:\n\n*   on\n*   off",
+      "description": "The rule switch. This parameter is not required when you add a global configuration. Valid values:\n- on: enabled.\n- off: disabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleName",
-      "description": "The rule name. You do not need to set this parameter when you add global configuration.",
+      "description": "The rule name. This parameter is not required when you add a global configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Sequence",
-      "description": "The order in which the rule is executed. A smaller value gives priority to the rule.",
+      "description": "The rule execution order. A smaller value indicates a higher priority.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SiteId",
-      "description": "The website ID, which can be obtained by calling the [ListSites](~~2850189~~) operation.",
+      "description": "The site ID, which can be obtained by calling the [ListSites](~~2850189~~) operation.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "SiteVersion",
-      "description": "The version number of the website configurations. You can use this parameter to specify a version of your website to apply the feature settings. By default, version 0 is used.",
+      "description": "The version number of the site configuration. For sites with configuration version management enabled, you can use this parameter to specify the site version on which the configuration takes effect. The default value is 0.",
       "position": "Query",
       "type": "Integer",
       "required": false

@@ -7,26 +7,28 @@
   "parameters": [
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.",
+      "description": "The file system ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Filters",
-      "description": "The filter that is used to query data streaming tasks.",
+      "description": "The filter keys for querying data flow streaming tasks.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The name of the filter key.\n\nValid values:\n\n- DataFlowIds: filters by data flow ID.\n- DataFlowTaskIds: filters by data flow task ID.\n- DataFlowSubTaskIds: filters by data flow streaming task ID.\n- Status: filters by data flow status.\n- SrcFilePath: filters by source file path.\n- DstFilePath: filters by destination file path.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the filter key. Wildcards are not supported for this parameter.\n\n- If Key is set to DataFlowIds, Value is set to a data flow ID or part of a data flow ID. You can specify one or more data flow IDs. A maximum of 10 data flow IDs can be specified. Example: `df-194433a5be31****` or `df-194433a512a2****,df-234533a5be31****`.\n- If Key is set to DataFlowTaskIds, Value is set to a data flow task ID or part of a data flow task ID. You can specify one or more data flow task IDs. A maximum of 10 data flow task IDs can be specified. Example: `task-29ee8e890f45****` or `task-29ee8e890f45****,task-38ae8e890f45****`.\n- If Key is set to DataFlowSubTaskIds, Value is set to a data flow streaming task ID or part of a data flow streaming task ID. You can specify one or more data flow streaming task IDs. A maximum of 10 data flow streaming task IDs can be specified. Example: `subTaskId-370kyfmyknxcyzw****` or `subTaskId-247kyfmyknxcyzw****,subTaskId-256kyfmyknxcyzw****`.\n- If Key is set to Status, Value is set to the status of the data flow task, including EXPIRED, CREATED, RUNNING, COMPLETE, CANCELING, FAILED, and CANCELED. Combined queries are supported.\n- If Key is set to SrcFilePath, Value is set to the source file path. The maximum length is 1023 characters.\n- If Key is set to DstFilePath, Value is set to the destination file path. The maximum length is 1023 characters.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -35,14 +37,14 @@
     },
     {
       "name": "MaxResults",
-      "description": "The number of results for each query.\n\n*   Valid values: 20 to 100.\n*   Default value: 20.",
+      "description": "The maximum number of results per query.\n\n- Valid values: 20 to 100.\n\n- Default value: 20.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "If the returned results are truncated, you can use NextToken to initiate a new request to retrieve the content after the current truncation point.",
       "position": "Query",
       "type": "String",
       "required": false

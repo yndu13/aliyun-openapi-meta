@@ -7,77 +7,84 @@
   "parameters": [
     {
       "name": "AllowUserToChangePassword",
-      "description": "Specifies whether RAM users can manage their own passwords. Valid values:\n\n- true (default)\n\n- false",
+      "description": "Specifies whether RAM users can change their own passwords. Valid values:\n\n- true (default): Allowed.\n\n- false: Not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AllowUserToLoginWithPasskey",
-      "description": "Specifies whether RAM users can log on using passkeys. Valid values:\n\n- true (default)\n\n- false",
+      "description": "Specifies whether RAM users can use passkeys to log on to the console. Valid values:\n\n- true (default): Allowed.\n\n- false: Not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AllowUserToManageAccessKeys",
-      "description": "Specifies whether RAM users can manage their own AccessKey pairs. Valid values:\n\n- true:\n\n- false (default)",
+      "description": "Specifies whether RAM users can manage their own AccessKeys. Valid values:\n\n- true: Allowed.\n\n- false (default): Not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AllowUserToManageMFADevices",
-      "description": "Specifies whether RAM users can manage their own MFA devices. Valid values:\n\n- true (default)\n\n- false",
+      "description": "Specifies whether RAM users can manage their own MFA devices. Valid values:\n\n- true (default): Allowed.\n\n- false: Not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AllowUserToManagePersonalDingTalk",
-      "description": "Specifies whether RAM users can attach or detach their personal DingTalk accounts. Valid values:\n\n- true (default)\n\n- false",
+      "description": "Specifies whether RAM users can link or unlink their personal DingTalk accounts. Valid values:\n\n- true (default): Allowed.\n\n- false: Not allowed.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "AllowUserToManageServiceCredentials",
+      "description": "Specifies whether RAM users can manage their own API keys. Valid values:\n\n- true: Allowed.\n\n- false: Not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableSaveMFATicket",
-      "description": "Specifies whether to save the multi-factor authentication (MFA) status for seven days after a RAM user logs on using MFA. Valid values:\n\n- true\n\n- false (default)",
+      "description": "Specifies whether a RAM user who logs on with multi-factor authentication (MFA) can skip MFA for the next seven days. Valid values:\n\n- true: Allowed.\n\n- false (default): Not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LoginNetworkMasks",
-      "description": "Specifies the IP addresses or CIDR blocks from which RAM users are allowed to sign in to the Alibaba Cloud console.\n\n- This restriction applies to both password-based and single sign-on (SSO) logons.\n\n- It does not affect API calls made with an AccessKey pair.\n\n- If a mask is not configured, logons are allowed from any IP address.\n\nSeparate multiple entries with a semicolon (`;`). For example: 192.168.0.0/16;10.0.0.0/8.\n\nThe mask is limited to a maximum of 40 entries and a total length of 512 characters.",
+      "description": "The IP address mask that is used to log on to the console. This mask applies to password-based logons and single sign-on (SSO) logons, but does not affect API calls that are initiated by using an AccessKey pair.\n\n- If you specify a mask, RAM users can log on to the console only from the specified IP addresses.\n\n- If you do not specify a mask, RAM users can log on to the console from all IP addresses.\n\nIf you need to specify multiple masks, separate them with semicolons (`;`). Example: `192.168.0.0/16;10.0.0.0/8`.\n\nYou can specify up to 40 masks. The total length cannot exceed 512 characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoginSessionDuration",
-      "description": "The duration of a logon session for a RAM user.\n\nValid values: 1 to 24. Unit: hours.\n\nDefault value: 6.",
+      "description": "The session duration of a RAM user who logs on to the console. Unit: hours.\n\nValid values: 1 to 24.\n\nDefault value: 6.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MFAOperationForLogin",
-      "description": "Specifies whether MFA is required for logon. This parameter replaces `EnforceMFAForLogin`. The `EnforceMFAForLogin` parameter is still valid, but using this new parameter is recommended. Valid values:\n\n- mandatory: Enforces MFA for all RAM users. This value corresponds to `true` for the `EnforceMFAForLogin` parameter.\n\n- independent (default): The MFA requirement depends on the configuration of each RAM user. This value corresponds to `false` for the `EnforceMFAForLogin` parameter.\n\n- adaptive: Enforces MFA only for abnormal logons.",
+      "description": "Specifies the MFA policy for user logon. This parameter replaces `EnforceMFAForLogin`. We recommend that you use this parameter. `EnforceMFAForLogin` is still valid. Valid values:\n\n- `mandatory`: enforces MFA for all RAM users. This is equivalent to setting `EnforceMFAForLogin` to `true`.\n\n- `independent` (default): The MFA settings for each RAM user are not affected. This is equivalent to setting `EnforceMFAForLogin` to `false`.\n\n- `adaptive`: enforces MFA only for unusual logons.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxIdleDaysForAccessKeys",
-      "description": "The maximum number of days that a RAM user's AccessKey pair can be idle. If an AccessKey pair is not used within the specified period, it is automatically disabled the next day. Valid values:\n\n- 90\n\n- 180\n\n- 365\n\n- 730 (default)",
+      "description": "The maximum idle period of the AccessKey pairs of RAM users. An AccessKey pair that is not used for the specified period of time is automatically disabled on the next day. You can set the value to one of the following numbers:\n\n- 90\n\n- 180\n\n- 365\n\n- 730 (default)",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MaxIdleDaysForUsers",
-      "description": "The maximum number of days that a RAM user can be idle. If a RAM user with console logon enabled does not log on within this period, their console logon is automatically disabled the next day. This setting does not apply to single sign-on (SSO) logons. Valid values:\n\n- 90\n\n- 180\n\n- 365\n\n- 730 (default)",
+      "description": "The maximum idle period of RAM users. If a RAM user who can log on to the console does not log on to the console for the specified period of time (SSO logons are not included), the console logon feature of the RAM user is disabled on the next day. You can set the value to one of the following numbers:\n\n- 90\n\n- 180\n\n- 365\n\n- 730 (default)",
       "position": "Query",
       "type": "Integer",
       "required": false

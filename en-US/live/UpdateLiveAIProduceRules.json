@@ -1,47 +1,48 @@
 {
   "name": "UpdateLiveAIProduceRules",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "App",
-      "description": "The name of the application to which the live stream belongs.",
+      "description": "The name of the live stream application.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Description",
-      "description": "The description of the subtitle rule. The description can be up to 128 characters in length and can contain letters, digits, and special characters.",
+      "description": "The description of the subtitle rule. The description can contain letters, digits, Chinese characters, and special characters, and can be up to 128 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Domain",
-      "description": "The main streaming domain.",
+      "description": "The primary streaming domain.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IsLazy",
-      "description": "Specifies whether to generate live subtitles when stream pulling starts. Valid values:\n\n*   true: generates live subtitles when stream pulling starts and stops generating live subtitles when no streams are pulled for 5 minutes. When stream pulling restarts, live subtitles are generated again.\n*   false: generates live subtitles when stream ingest starts.",
+      "description": "Specifies whether subtitles are triggered by stream pulling. Valid values:\n- true: Subtitles start when a stream is pulled. If no stream is pulled within 5 minutes, the subtitles stop. Subtitles restart when a stream is pulled again.\n- false: Subtitles start as long as stream ingest is active, regardless of whether a stream is being pulled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LiveTemplate",
-      "description": "The specification of the output subtitles. Valid values:\n\n*   `lp_ld`: 360p (640 × 360)\n*   `lp_ld_v`: 360p (360 × 640)\n*   `lp_sd`: 480p (854 × 480)\n*   `lp_sd_v`: 480p (480 × 854)\n*   `lp_hd`: 720p (1280 × 720)\n*   `lp_hd_v`: 720p (720 × 1280)\n*   `lp_ud`: 1080p (1920 × 1080)\n*   `lp_ud_v`: 1080p (1080 × 1920)",
+      "description": "The output specification of the subtitle. Valid values:\n- Landscape low definition 360P 640 × 360: `lp_ld`\n- Portrait low definition 360P 360 × 640: `lp_ld_v`\n- Landscape standard definition 480P 854 × 480: `lp_sd`\n- Portrait standard definition 480P 480 × 854: `lp_sd_v`\n- Landscape high definition 720P 1280 × 720: `lp_hd`\n- Portrait high definition 720P 720 × 1280: `lp_hd_v`\n- Landscape ultra-high definition 1080P 1920 × 1080: `lp_ud`\n- Portrait ultra-high definition 1080P 1080 × 1920: `lp_ud_v`",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -55,7 +56,7 @@
     },
     {
       "name": "StudioName",
-      "description": "The name of the virtual background template.",
+      "description": "The name of the virtual background template. You must specify at least one of SubtitleName and StudioName. Otherwise, a MissingParameter error is returned.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -69,14 +70,14 @@
     },
     {
       "name": "SubtitleName",
-      "description": "The name of the subtitle template.",
+      "description": "The name of the subtitle template. You must specify at least one of SubtitleName and StudioName. Otherwise, a MissingParameter error is returned.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Suffix",
-      "description": "The suffix to match.",
+      "description": "The suffix match.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,77 +7,83 @@
   "parameters": [
     {
       "name": "AlarmMetadata",
-      "description": "The alert configurations of the service.\n\n>  This parameter takes effect only when you specify an alert policy for **PolicyNames**.",
+      "description": "The alert configurations for the service.\n\n> This configuration takes effect only after you configure an alert-related access policy for **PolicyNames**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ApprovalType",
-      "description": "The approval type of the service usage application. Valid values:\n\n*   Manual: The application is manually approved.\n*   AutoPass: The application is automatically approved.",
+      "description": "The approval type for service usage requests. Valid values:\n\n- Manual: The request is manually approved.\n\n- AutoPass: The request is automatically approved.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BuildParameters",
-      "description": "The Parameters to build service parameters.",
+      "description": "The parameters for building the service.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client token to ensure that the request is idempotent. You can use a client to generate the token. Make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Commodity",
-      "description": "The commodity details.",
+      "description": "The commodity information.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ComplianceMetadata",
-      "description": "Compliance check metadata.",
+      "description": "The compliance check metadata.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeployMetadata",
-      "description": "The deployment configurations of the service. The format in which the deployment information of a service is stored varies based on the deployment type of the service. In this case, the deployment information is stored in the JSON string format.",
+      "description": "The information about the service deployment configuration. The data format varies based on the deployment type. The value is a JSON string.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeployType",
-      "description": "The deployment type of the service. Valid values:\n\nros: The service is deployed by using Resource Orchestration Service (ROS).\nterraform: The service is deployed by using Terraform.\nack: The service is deployed by using Container Service for Kubernetes (ACK).\nspi: The service is deployed by calling a service provider interface (SPI).\noperation: The service is deployed by using a hosted O&M service.",
+      "description": "The deployment type. Valid values:\n\n- ros: The service is deployed using ROS.\n\n- terraform: The service is deployed using Terraform.\n\n- spi: The service is deployed by calling an SPI.\n\n- operation: The service is an O\\&M service.\n\n- container: The service is deployed using containers.\n\n- pkg: The service is a package service.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run for the request to check information such as the permissions and instance status. Valid values:\n\n*   true: performs a dry run for the request, but does not update a service.\n*   false: performs a dry run for the request, and update a service if the request passes the dry run.",
+      "description": "Specifies whether to perform a dry run for the request. A dry run checks the permissions and the instance status. Valid values:\n\n- true: sends the request but does not update the service.\n\n- false: sends the request. If the check is successful, the service is updated.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Duration",
-      "description": "The duration for which hosted O\\&M is implemented. Unit: seconds.",
+      "description": "The O\\&M duration. Unit: seconds.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
+      "name": "IsDefault",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "IsSupportOperated",
-      "description": "Specifies whether to enable the hosted O\\&M feature for the service. Default value: false. Valid values:\n\n*   true\n*   false\n\n>  This parameter is required if you set **ServiceType** to **private**.",
+      "description": "Specifies whether to enable O\\&M. Default value: false. Valid values:\n\n- true: enables O\\&M.\n\n- false: disables O\\&M.\n\n> This parameter is required when **ServiceType** is set to **private**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -91,35 +97,35 @@
     },
     {
       "name": "LogMetadata",
-      "description": "The logging configurations.",
+      "description": "The application log configurations.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OperationMetadata",
-      "description": "The hosted O\\&M configurations.",
+      "description": "The O\\&M configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyNames",
-      "description": "The policy name. The name can be up to 128 characters in length. Separate multiple names with commas (,). Only hosted O\\&M policies are supported.",
+      "description": "The policy name. The name of a single policy can be up to 128 characters in length. If you specify multiple policies, separate them with commas (,). Only O\\&M-related policies are supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "Region ID.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Resellable",
-      "description": "Whether resell is supported.",
+      "description": "Specifies whether to enable distribution. Valid values:\n\n- false: Distribution is not enabled.\n\n- true: Distribution is enabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -140,42 +146,49 @@
       "sub_parameters": [
         {
           "name": "Agreements",
+          "description": "The information about the service agreements.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Image",
+          "description": "The URL of the service icon.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Locale",
+          "description": "The language of the service. Valid values:\n\n- zh-CN: Chinese.\n\n- en-US: English.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LongDescriptionUrl",
+          "description": "The URL of the detailed description of the service.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The service name.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ShortDescription",
+          "description": "The description of the service.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Softwares",
+          "description": "The information about the software used in the service.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -184,25 +197,28 @@
     },
     {
       "name": "ServiceLocaleConfigs",
-      "description": "",
+      "description": "The multilingual configurations of the service.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "EnValue",
+          "description": "The English value of the business information.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OriginalValue",
+          "description": "The raw data value of the business information.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZhValue",
+          "description": "The Chinese value of the business information.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -211,7 +227,7 @@
     },
     {
       "name": "ServiceType",
-      "description": "The service type. Valid values:\n\n*   private: The service is a private service and is deployed within the account of a customer.\n*   managed: The service is a fully managed service and is deployed within the account of a service provider.\n*   operation: The service is a hosted O\\&M service.",
+      "description": "The service type. Valid values:\n\n- private: The service instance is deployed in the user account.\n\n- managed: The service instance is deployed in the service provider account.\n\n- operation: The service instance is an O\\&M instance.\n\n- poc: The service instance is a trial instance.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -225,35 +241,35 @@
     },
     {
       "name": "ShareType",
-      "description": "The permission type of the deployment URL. Valid values:\n\n*   Public: All users can go to the URL to create a service instance or a trial service instance.\n*   Restricted: Only users in the whitelist can go to the URL to create a service instance or a trial service instance.\n*   OnlyFormalRestricted: Only users in the whitelist can go to the URL to create a service instance.\n*   OnlyTrailRestricted: Only users in the whitelist can go to the URL to create a trial service instance.\n*   Hidden: Users not in the whitelist cannot see the service details page when they go to the URL and cannot request deployment permissions.",
+      "description": "The sharing type. Valid values:\n\n- Public: The service is public. Formal and trial deployments are not restricted.\n\n- Restricted: The service is restricted. Formal and trial deployments are restricted.\n\n- OnlyFormalRestricted: Only formal deployments are restricted.\n\n- OnlyTrailRestricted: Only trial deployments are restricted.\n\n- Hidden: The service is hidden. You cannot view the service or request deployment permissions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TenantType",
-      "description": "The type of the tenant. Valid values:\n\n*   SingleTenant\n*   MultiTenant",
+      "description": "The tenant type. Valid values:\n\n- SingleTenant: The service is single-tenant.\n\n- MultiTenant: The service is multi-tenant.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TrialDuration",
-      "description": "The trial duration. Unit: day. The maximum trial duration cannot exceed 30 days.",
+      "description": "The trial duration. Unit: days. The maximum trial duration is 30 days.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "UpdateOption",
-      "description": "The update option.",
+      "description": "The update options.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UpgradeMetadata",
-      "description": "The metadata about the upgrade.",
+      "description": "The upgrade metadata.",
       "position": "Query",
       "type": "String",
       "required": false

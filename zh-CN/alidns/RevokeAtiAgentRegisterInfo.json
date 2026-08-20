@@ -1,0 +1,37 @@
+{
+  "name": "RevokeAtiAgentRegisterInfo",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AgentRegisterInfoId",
+      "description": "AgentRegisterInfoId Agent注册ID。由阿里云 ATS 平台自动生成，在阿里云 ATS 平台具有全局唯一性。在 Agent 注册过程中自动生成，通过API注册、查询流程中，该 ID 必须全程携带，需调用接口 ListAtiAgentRegisterInfos 查询目标Agent后从应答内容获取AgentRegisterInfoId",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ClientToken",
+      "description": "保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符，且不能超过64个字符。\n\n> 若您未指定，则系统自动使用API请求的RequestId作为ClientToken标识。每次API请求的RequestId可能不一样。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Reason",
+      "description": "注销原因，可选：\n\n- 秘钥泄露\n- CA密钥失陷\n- 从属关系变更\n- 证书被替换\n- 停止运营\n- 证书暂时挂起\n- 从CRL中移除\n- 权限被撤销\n- 属性授权机构失陷\n- 未指定原因",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ReasonCode",
+      "description": "遵循RFC 5280 吊销原因码：\n\n- unspecified：未指定。默认值。如果 CA 没有提供具体原因，或原因不明时使用。这是最常见的代码。\n- keyCompromise：密钥泄露。私钥可能被未经授权的一方获取。这是最严重的原因，通常意味着必须立即吊销，且不可恢复。\n- cACompromise：CA 密钥泄露。签发该证书的 CA 的私钥泄露。这会影响该 CA 签发的所有证书，通常会导致整个子树被吊销。\n- affiliationChanged：隶属关系变更。证书持有者的身份信息（如姓名、组织名称）发生变更，但公钥仍然有效。例如：员工离职、公司改名。\n- superseded：证书被替代。证书持有者申请了新的证书（例如密钥轮换、升级算法），旧证书因此被吊销。旧密钥并未泄露。\n- cessationOfOperation：停止运营。证书持有者不再使用该密钥进行相关操作（例如服务器下线、服务终止）。密钥未泄露。\n- certificateHold：证书挂起。临时吊销。通常用于调查可疑活动或行政原因。后续可以解除挂起（Unhold），使证书重新有效。注意：此代码不能用于最终吊销。\n- removeFromCRL：从 CRL 中移除。仅用于 delta CRL（增量吊销列表）。表示之前被 certificateHold 挂起的证书现在已解除挂起，应从吊销列表中移除。这不是一个吊销原因，而是一个状态更新指令。\n- privilegeWithdrawn：权限收回。证书中授予的特权或属性已被撤销（主要用于属性证书 Attribute Certificates，较少用于普通 SSL/TLS 证书）。\n- aACompromise：授权机构泄露。签发属性证书的 AA（Attribute Authority）密钥泄露。同样主要用于属性证书体系。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

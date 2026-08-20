@@ -1,26 +1,27 @@
 {
   "name": "RefreshDcdnObjectCaches",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Force",
-      "description": "Specifies whether to refresh resources in a directory if the resources are different from the resources in the same directory in the origin server. Default value: false.\n\n*   **true**: refresh all resources in the directory.\n*   **false**: refresh the changed resources in the directory.",
+      "description": "Specifies whether to refresh all resources within the corresponding scope when the back-to-origin content is consistent with the origin server resources. Default value: false.\n- **true**: Refreshes all resources within the corresponding scope. When \"Refresh All Resources\" is selected, if the requested content matches a resource within the corresponding scope, the DCDN point of presence (POP) retrieves the new resource from the origin server via back-to-origin, returns it to the user, and caches the resource again.\n- **false**: Refreshes only changed resources within the corresponding scope. When \"Refresh Changed Resources\" is selected, if the requested content matches a resource within the corresponding scope, the DCDN point of presence (POP) retrieves the Last-Modified information of the resource from the origin server via back-to-origin. If the information is consistent with the currently cached resource, the cached resource is returned directly. If the information is inconsistent, the new resource is retrieved from the origin server via back-to-origin, returned to the user, and cached again.\n> This parameter takes effect for all refresh types except file refresh.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ObjectPath",
-      "description": "The path of the objects that you want to refresh. Separate multiple URLs with line feed characters (\\n) or a pair of carriage return and line feed characters (\\r\\n).",
+      "description": "- Separate multiple URLs or directories with line breaks when submitting them in a single request.\n- The total number of domain names across all URLs in a single request must not exceed 10.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ObjectType",
-      "description": "The refresh type. Valid values:\n\n*   **File** (default): refreshes resources based on URLs.\n*   **Directory**: refreshes resources based on directories.\n*   **Regex**: refreshes content based on regular expressions.\n*   **IgnoreParams**: removes the question mark (`?`) and parameters after `?` in a request URL and refreshes content. After you call this operation with the request URL submitted, the system compares the submitted URL with the URL of the cached resource without specific parameters. If the URLs match, the DCDN POPs refresh the cached resource.\n\n>*   For more information about features of URL refresh and directory refresh, see [Refresh and prefetch resources](~~64936~~).\n>*   If you set ObjectType to Directory, the resources in the directory that you want to refresh are marked as expired. You cannot delete the directory. If clients request resources after the resources on POPs are marked as expired, DCDN checks whether the resources on your origin server are updated with a later version. If a later version exists, DCDN retrieves the resources of the later version and returns the resources to the clients. Otherwise, DCDN retrieves the 304 status code from the origin server.",
+      "description": "The refresh type. Valid values:\n\n- **File** (default): URL.\n- **Directory**: directory refresh.\n- **Regex**: regular expression-based refresh.\n- **IgnoreParams**: purge by URL with parameters ignored. This refers to removing the `?` and all characters after `?` from the request URL. When you submit a URL with parameters removed through the API, the submitted URL is matched against cached resource URLs after their parameters are also removed. If a cached resource URL matches the submitted URL after parameter removal, the point of presence executes a refresh on the cached resource.\n\n> - For the feature description of URL refresh and directory refresh, see [Refresh and prefetch resources](~~64936~~).\n> - File refresh directly deletes the resource on the point of presence (POP). When a new request is received, the new resource is retrieved from the origin server via back-to-origin. Other refresh types refresh only changed resources by default. To force a refresh, set the Force parameter to true. For more information, see the description of the Force parameter.",
       "position": "Query",
       "type": "String",
       "required": false

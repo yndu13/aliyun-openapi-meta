@@ -1,54 +1,55 @@
 {
   "name": "DescribeDefenseTemplates",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DefenseScene",
-      "description": "The scenario in which the protection template is used.\n\n*   **waf_group**: basic protection.\n*   **antiscan**: scan protection.\n*   **ip_blacklist**: IP address blacklist.\n*   **custom_acl**: custom rule.\n*   **whitelist**: whitelist.\n*   **region_block**: region blacklist.\n*   **custom_response**: custom response.\n*   **cc**: HTTP flood protection.\n*   **tamperproof**: website tamper-proofing.\n*   **dlp**: data leakage prevention.",
+      "description": "The protection scenario. For more information, see the **DefenseScene** parameter in [CreateDefenseRule](~~461421~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DefenseSubScene",
-      "description": "The sub-scenario in which the protection template is used. Valid values:\n\n*   **web**: bot management for website protection.\n*   **app**: bot management for app protection.\n*   **basic**: bot management for basic protection.",
+      "description": "The sub-scenario of the protection template. Valid values:\n- **web**: BOT management web protection scenario template.\n- **app**: BOT management app protection scenario template.\n- **basic**: BOT management basic protection template.\n- **bot_custom_acl**: BOT management advanced custom rule protection template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the Web Application Firewall (WAF) instance.\n\n> You can call the [DescribeInstance](~~433756~~) operation to query the ID of the WAF instance.",
+      "description": "The ID of the WAF instance.\n\n> You can call [DescribeInstance](~~433756~~) to query the ID of the current WAF instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Default value: **1**.",
+      "description": "The page number to return in a paging query request. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Default value: **20**.",
+      "description": "The number of entries per page in a paging query. Default value: **20**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region in which the WAF instance is deployed. Valid values:\n\n*   **cn-hangzhou**: Chinese mainland.\n*   **ap-southeast-1**: outside the Chinese mainland.",
+      "description": "The region where the WAF instance is deployed. Valid values:\n\n- **cn-hangzhou**: the Chinese mainland.\n\n- **ap-southeast-1**: outside the Chinese mainland.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Resource",
-      "description": "The name of the protected object or protected object group.\n\n>  If you specify ResourceType, you must specify this parameter.",
+      "description": "The name of the protected object, protection group, or the ID of the protected asset.\n\n> This parameter is used together with the ResourceType parameter. Both parameters must have values for filtering to take effect.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -62,7 +63,7 @@
     },
     {
       "name": "ResourceType",
-      "description": "The type of the protected resource. Valid values:\n\n*   **single**: protected object. This is the default value.\n*   **group**: protected object group.\n\n>  If you specify Resource, you must specify this parameter.",
+      "description": "The type of the protected resource.\n> This parameter is used together with the Resource parameter. Both parameters must have values for filtering to take effect.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -76,21 +77,21 @@
     },
     {
       "name": "TemplateIds",
-      "description": "The IDs of the protection templates that you want to query. Separate multiple template IDs with commas (,).",
+      "description": "The IDs of the protection templates to query. You can specify this parameter to query the protected resources associated with multiple protection templates. Separate multiple template IDs with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateName",
-      "description": "The name of the protection template.",
+      "description": "The name of the protection template to query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TemplateType",
-      "description": "The type of the protection template. Valid values:\n\n*   **user_default**: default template.\n*   **user_custom**: custom template.",
+      "description": "The templatetype of the protection template. Valid values:\n- **user_default**: user default protection.\n- **user_custom**: user custom protection.",
       "position": "Query",
       "type": "String",
       "required": false

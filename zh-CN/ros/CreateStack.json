@@ -28,21 +28,21 @@
     },
     {
       "name": "DeletionProtection",
-      "description": "是否开启资源栈删除保护。取值：\n- Enabled：开启资源栈删除保护。\n- Disabled（默认）：关闭资源栈删除保护。此时支持通过控制台或API（DeleteStack）释放资源栈。\n\n> 嵌套资源栈删除保护与根资源栈一致。",
+      "description": "是否开启资源栈删除保护。取值：\n- Enabled：开启资源栈删除保护。\n- Disabled（默认）：关闭资源栈删除保护。此时支持通过控制台或API（DeleteStack）释放资源栈。\n\n> 嵌套资源栈删除保护与根资源栈一致。  \n  ",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DisableRollback",
-      "description": "当创建资源栈失败时，是否禁用回滚。\n\n取值：\n\n- true：禁用回滚，即在创建资源栈失败时不进行回滚。\n- false（默认值）：不禁用回滚，即在创建资源栈失败时进行回滚。",
+      "description": "当创建资源栈失败时，是否禁用回滚。\n\n取值：\n\n- true：禁用回滚，即在创建资源栈失败时不进行回滚。\n- false（默认值）：不禁用回滚，即在创建资源栈失败时进行回滚。\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NotificationURLs",
-      "description": "接收资源栈事件的回调地址。取值：\n\n- HTTP POST URL      \n每个URL最大长度为1024个字节。  \n\n- eventbridge  \n资源栈状态变更会通知到事件总线（EventBridge）服务。您可以在[事件总线控制台](https://eventbridge.console.aliyun.com)查看事件信息。  \n> 当前支持华东1（杭州）、华东2（上海）、华北2（北京）、中国（香港）、华北3（张家口）五个地域。    \n\n  \nN最大值为5。资源栈的状态发生变化时，会进行通知。当资源栈启用回滚时，CREATE_FAILED（创建失败）和UPDATE_FAILED（更新失败）不会通知，而CREATE_ROLLBACK（创建失败回滚）和ROLLBACK（更新失败回滚）会进行通知。IN_PROGRESS状态不会通知。  \n无论资源栈是否定义了Outputs都会进行通知。通知内容示例如下：  \n ```\n{\n    \"Outputs\": [\n        {\n            \"Description\": \"No description given\",\n            \"OutputKey\": \"InstanceId\",\n            \"OutputValue\": \"i-xxx\"\n        }\n    ],\n    \"StackId\": \"80bd6b6c-e888-4573-ae3b-93d29113****\",\n    \"StackName\": \"test-notification-url\",\n    \"Status\": \"CREATE_COMPLETE\"\n}\n```",
+      "description": "接收资源栈事件的回调地址。取值：\n\n- HTTP POST URL      \n每个URL最大长度为1024个字节。  \n\n- eventbridge  \n资源栈状态变更会通知到事件总线（EventBridge）服务。您可以在[事件总线控制台](https://eventbridge.console.aliyun.com)查看事件信息。  \n> 当前支持华东1（杭州）、华东2（上海）、华北2（北京）、中国（香港）、华北3（张家口）五个地域。    \n\n  \nN最大值为5。资源栈的状态发生变化时，会进行通知。当资源栈启用回滚时，CREATE_FAILED（创建失败）和UPDATE_FAILED（更新失败）不会通知，而CREATE_ROLLBACK（创建失败回滚）和ROLLBACK（更新失败回滚）会进行通知。IN_PROGRESS状态不会通知。  \n无论资源栈是否定义了Outputs都会进行通知。通知内容示例如下：  \n ```\n{\n    \"Outputs\": [\n        {\n            \"Description\": \"No description given\",\n            \"OutputKey\": \"InstanceId\",\n            \"OutputValue\": \"i-xxx\"\n        }\n    ],\n    \"StackId\": \"80bd6b6c-e888-4573-ae3b-93d29113****\",\n    \"StackName\": \"test-notification-url\",\n    \"Status\": \"CREATE_COMPLETE\"\n}\n```   ",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -63,12 +63,14 @@
       "sub_parameters": [
         {
           "name": "ParameterKey",
+          "description": "模板中已定义的参数的名称。如果未指定参数的名称和值，则ROS将使用模板中指定的默认值。\n\nN最大值为200。  \n长度为1~128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://` 。\n\n> Parameters为可选参数。如果需要指定Parameters，则Parameters.N.ParameterKey和Parameters.N.ParameterValue必须同时指定。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParameterValue",
+          "description": "模板中已定义的参数的取值。\n\nN最大值为200。  \n长度为0~128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://` 。\n> Parameters为可选参数。如果需要指定Parameters，则Parameters.N.ParameterKey和Parameters.N.ParameterValue必须同时指定。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -126,12 +128,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "资源栈的标签键。\n\nN的取值范围为1~20。  \n>- Tags为可选参数。如果需要指定Tags，则Tags.N.Key必须指定。\n>- 此标签会传递到资源栈中每个支持标签的资源中。更多信息，请参见[标签传递](~~201421~~)。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "资源栈的标签值。\n\nN的取值范围为1~20。\n\n> 此标签会传递到资源栈中每个支持标签的资源中。更多信息，请参见[标签传递](~~201421~~)。",
           "position": "Query",
           "type": "String",
           "required": false

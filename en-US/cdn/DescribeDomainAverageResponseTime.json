@@ -1,19 +1,20 @@
 {
   "name": "DescribeDomainAverageResponseTime",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DomainName",
-      "description": "The accelerated domain name. Separate multiple accelerated domain names with commas (,).\n\nBy default, this operation queries the geographic distribution of users for all accelerated domain names.",
+      "description": "The accelerated domain name. Separate multiple domain names with commas (,).\n\nBy default, all accelerated domain names are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainType",
-      "description": "The type of the query condition. When you set the value to dynamic, this operation queries the average response time of dynamic resources and static resources. If you do not set this parameter, this operation queries the average response time of only static resources.",
+      "description": "The type of the query. If you set this parameter to dynamic, the average response time of dynamic resources and the average response time of static resources for Dynamic Route for CDN (DCDN) are queried. By default, this parameter is left empty, and the average response time of static resources is queried.\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -27,35 +28,35 @@
     },
     {
       "name": "Interval",
-      "description": "The time interval between the data entries. Unit: seconds. The value varies based on the values of the **StartTime** and **EndTime** parameters. Valid values:\n\n*   If the time span between StartTime and EndTime is less than 3 days, valid values are **300**, **3600**, and **86400**. Default value: **300**.\n*   If the time span between StartTime and EndTime is greater than or equal to 3 days and less than 31 days, valid values are **3600** and **86400**. Default value: **3600**.\n*   If the time range between StartTime and EndTime is 31 days or longer, the valid value is **86400**. Default value: **86400**.",
+      "description": "The time granularity of the query. Unit: seconds. The valid values vary based on the time range specified by **StartTime** and **EndTime**:\n\n- If the time range is less than 3 days (3 days excluded), valid values are **300**, **3600**, and **86400**. Default value: **300**.\n\n- If the time range is from 3 to 31 days (31 days excluded), valid values are **3600** and **86400**. Default value: **3600**.\n\n- If the time range is 31 days or longer, the valid value is **86400**. Default value: **86400**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IspNameEn",
-      "description": "The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you do not set this parameter, data of all ISPs is queried.",
+      "description": "The English name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names. By default, all ISPs are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LocationNameEn",
-      "description": "The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions. If you do not set this parameter, data in all regions is queried.",
+      "description": "The English name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query region names. By default, all regions are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TimeMerge",
-      "description": "Specifies whether to automatically set the interval. If you set the value to 1, the value of the Interval parameter is automatically assigned based on the StartTime and EndTime parameters. You can set this parameter or the Interval parameter.",
+      "description": "Specifies whether to adaptively calculate the Interval value. If **timeMerge** is set to **1**, an appropriate interval value is calculated based on StartTime and EndTime. You can specify this parameter or the Interval parameter.",
       "position": "Query",
       "type": "String",
       "required": false

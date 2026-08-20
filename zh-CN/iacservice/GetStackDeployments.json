@@ -1,0 +1,58 @@
+{
+  "name": "GetStackDeployments",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET",
+  "pathPattern": "/stacks/[stackId]/deployments",
+  "parameters": [
+    {
+      "name": "configVersion",
+      "description": "配置版本，如：v1。初始值为 v1，每次资源栈更新或刷新且配置发生变更时，版本号递增。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "deploymentName",
+      "description": "部署名称",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "deploymentNo",
+      "description": "部署编号，每个 Stack 的部署编号都从 1 开始，每次成功触发部署后，部署编号都会递增。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "pageNumber",
+      "description": "当前页面序号，从1开始",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "pageSize",
+      "description": "每页返回的结果数量。默认值：20，最小值：1，最大值：200。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "stackId",
+      "description": "StackId，Stack创建后的唯一标识",
+      "position": "Path",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "status",
+      "description": "部署状态\n| 名称 | 描述 |\n|------|------|\n| Pending | deployment被创建后的初始状态 |\n| PriorityQueued | 优先级排队中 |\n| PlanQueued | deployment被创建后，如果没有可用的工作流，需要排队等待状态 |\n| ApplyQueued | deployment执行时，如果没有可用的工作流，需要排队等待状态 |\n| Planning | 资源deployment正处于执行Plan阶段 |\n| Planned | 资源deployment完成Plan的执行 |\n| ConfigProactiveInProgress | 合规预检中 |\n| ConfigProactiveSuccess | 合规预检成功 |\n| DetectInProgress | 偏差检测中 |\n| ImportQueued | deployment执行Import时，如果没有可用的工作流，需要排队等待状态 |\n| Importing | 资源deployment正在进行Import阶段 |\n| Imported | 资源deployment完成Import的执行 |\n| StateQueued | deployment执行state命令时，如果没有可用的工作流，需要排队等待状态 |\n| Stating | 资源deployment正在进行state命令的执行 |\n| Stated | 资源deployment完成state命令的执行 |\n| Confirmed | 资源deployment执行Plan之后被确认 |\n| PlannedAndFinished | 执行完Plan之后，发现没有任何diff，此时deployment处于最终状态 |\n| Applying | 资源deployment正处于执行Apply阶段 |\n| Applied | 资源deployment完成Apply的执行 |\n| Discarded | 资源deployment被丢弃，进入最终状态 |\n| Errored | deployment的执行有错误，进入最终状态 |\n| ConfigProactiveFailure | 合规预检失败 |\n| Canceled | deployment的执行被取消，进入最终状态 |",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "ModifyForwardStrategyBindingItems",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ForwardId",
+      "description": "The forwarding rule ID.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ItemIds",
+      "description": "The list of binding item IDs. Must be empty when MatchMode is **UserGroupAll** or **ApplicationAll**. Required for other values. Duplicates are not allowed in the list, and the specified objects must already exist.",
+      "position": "Query",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "MatchMode",
+      "description": "The policy matching target type. Required. Valid values:\n- **UserGroupAll**: associates with all users.\n- **UserGroupNormal**: associates with specific user groups.\n- **ApplicationAll**: all private network applications.\n- **Application**: specific private network applications.\n- **Tag**: private network application tags.\n\nWhen the value is **UserGroupAll** or **ApplicationAll**, ItemIds must be empty. When the value is **UserGroupNormal**, **Application**, or **Tag**, ItemIds is required.\n\nWhen ModifyType is not **Cover**, switching the matching target type is not allowed: **Application**, **Tag**, and **ApplicationAll** are mutually exclusive, and **UserGroupNormal** and **UserGroupAll** are mutually exclusive. If a binding item of a mutually exclusive type already exists on the same forwarding rule, the request is rejected.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModifyType",
+      "description": "The modification method. Required. Valid values:\n- **Append**: appends to existing binding items. ItemIds cannot contain objects that are already bound.\n- **Delete**: deletes specified binding items. All objects in ItemIds must be already bound.\n- **Cover**: overwrites binding items of the same category by clearing all existing binding items of the same category on the forwarding rule and then writing ItemIds. The same category refers to **ApplicationAll**, **Application**, and **Tag**, or **UserGroupAll** and **UserGroupNormal**.\n\nWhen the value is **Append** or **Delete**, MatchMode cannot be **UserGroupAll** or **ApplicationAll**.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

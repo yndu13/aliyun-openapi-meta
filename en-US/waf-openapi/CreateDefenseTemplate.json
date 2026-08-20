@@ -1,33 +1,41 @@
 {
   "name": "CreateDefenseTemplate",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DefenseScene",
-      "description": "The scenario in which you want to use the protection rule template. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.",
+      "description": "The protection scenario. For more information, see the **DefenseScene** parameter in [CreateDefenseRule](~~461421~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "DefenseSubScene",
+      "description": "The sub-scenario of the protection template. This parameter is supported only for advanced bot management scenarios.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Description",
-      "description": "The description of the protection rule template.",
+      "description": "The description of the protection template to create.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the Web Application Firewall (WAF) instance.\n\n>  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.",
+      "description": "The ID of the WAF instance.\n\n> You can call [DescribeInstance](~~433756~~) to query the ID of the WAF instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region where the WAF instance resides. Valid values:\n\n*   **cn-hangzhou:** the Chinese mainland.\n*   **ap-southeast-1:** outside the Chinese mainland.",
+      "description": "The region where the WAF instance resides. Valid values:\n\n- **cn-hangzhou**: the Chinese mainland.\n\n- **ap-southeast-1**: outside the Chinese mainland.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,42 +49,42 @@
     },
     {
       "name": "TemplateName",
-      "description": "The name of the protection rule template.",
+      "description": "The name of the protection template to create. The name must be 1 to 255 characters in length and can contain Chinese characters, letters, digits, underscores (_), periods (.), or hyphens (-).\n\n> Template names must be unique within the same protection scenario (**DefenseScene**).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TemplateOrigin",
-      "description": "The origin of the protection rule template that you want to create. Set the value to **custom**. The value specifies that the protection rule template is a custom template.",
+      "description": "The source of the protection template to create. Set the value to **custom**, which indicates user-defined.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TemplateStatus",
-      "description": "The status of the protection rule template. Valid values:\n\n*   **0:** disabled.\n*   **1:** enabled.",
+      "description": "The status of the protection template to create. Valid values:\n- **0**: Disabled.\n- **1**: Enabled.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "TemplateType",
-      "description": "The type of the protection rule template. Valid values:\n\n*   **user_default:** default template.\n*   **user_custom:** custom template.",
+      "description": "The templatetype of the protection template to create. Valid values:\n- **user_default**: default protection.\n- **user_custom**: custom protection.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "UnbindResourceGroups",
-      "description": "",
+      "description": "The protected object groups to unbind when creating a default protection template. Use the format [**\"group1\",\"group2\",……**].\n> This parameter takes effect only when you create a **default template** (the value of **TemplateType** is **user_default**).",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "UnbindResources",
-      "description": "",
+      "description": "The protected objects to unbind when creating a default protection template. Use the format [**\"XX1\",\"XX2\",……**].\n> This parameter takes effect only when you create a **default template** (the value of **TemplateType** is **user_default**).",
       "position": "Query",
       "type": "Array",
       "required": false

@@ -1,47 +1,48 @@
 {
   "name": "ListOTATaskByJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CurrentPage",
-      "description": "The number of the page to return. Pages start from page 1.\n\n> The product of the value of the **CurrentPage** parameter and the value of the **PageSize** parameter must be less than or equal to 100,000.",
+      "description": "The page number of the page to return. Pages start from page 1.\n\n><notice>The product of **CurrentPage** and **PageSize** must be less than or equal to 100,000.\n></notice>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DeviceNames",
-      "description": "",
+      "description": "The list of device names to query.\n\n> - You can specify up to 50 device names.\n> - If you specify this parameter, you do not need to specify **PageSize** or **CurrentPage**. If you specify **DeviceNames.N**, **PageSize**, and **CurrentPage** at the same time, **DeviceNames.N** takes precedence.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.\n>*   If no **Overview** page or ID is generated for your instance, you do not need to configure this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If this parameter is available, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or </ph></props>ID is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobId",
-      "description": "The ID of the update batch. This ID uniquely identifies the update batch. You can obtain the ID from the value of the **JobId** parameter that is returned after you call the [CreateOTAVerifyJob](~~147480~~), [CreateOTAStaticUpgradeJob](~~147496~~), or [CreateOTADynamicUpgradeJob](~~147887~~) operation. You can also view the batch ID on the **Firmware Details** page of the IoT Platform console.",
+      "description": "The ID of the upgrade batch. This is the unique identifier of the upgrade batch. This is the **JobId** returned when you invoke [CreateOTAVerifyJob](~~147480~~), [CreateOTAStaticUpgradeJob](~~147496~~), or [CreateOTADynamicUpgradeJob](~~147887~~). You can also view this value on the **Update Package Details** page of the over-the-air update package in the IoT Platform console.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Maximum value: 100.\n\n\n\n> The product of the value of the **CurrentPage** parameter and the value of the **PageSize** parameter must be less than or equal to 100,000.",
+      "description": "The number of device upgrade tasks to display per page in the response. Maximum value: 100.\n\n><notice>The product of **CurrentPage** and **PageSize** must be less than or equal to 100,000.\n></notice>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TaskStatus",
-      "description": "If you specify a value for this parameter, only the update tasks that are in the specified state are queried. Valid values:\n\n*   **CONFIRM**: The update task is pending confirmation.\n*   **QUEUED**: The update notification is to be pushed.\n*   **NOTIFIED**: The update notification is pushed to the device.\n*   **IN_PROGRESS**: The update task is in progress.\n*   **SUCCEEDED**: The update is successful.\n*   **FAILED**: The update failed.\n*   **CANCELED**: The update batch is canceled.\n\nIf you do not specify a value for this parameter, all update tasks of the specified batch are queried.",
+      "description": "If you specify this parameter, only device upgrade tasks in the specified status are returned.\n\n- **CONFIRM**: to be confirmed.\n- **QUEUED**: to be pushed.\n- **NOTIFIED**: pushed.\n- **IN_PROGRESS**: in progress.\n- **SUCCEEDED**: succeeded.\n- **FAILED**: failed.\n- **CANCELED**: canceled.\n\nIf you do not specify this parameter, all device upgrade tasks in the specified upgrade batch are returned.",
       "position": "Query",
       "type": "String",
       "required": false

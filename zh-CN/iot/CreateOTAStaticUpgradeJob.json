@@ -1,5 +1,6 @@
 {
   "name": "CreateOTAStaticUpgradeJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -139,12 +140,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "批次标签key。仅支持英文字母、数字、半角句号（.），长度限制为1~30个字符。支持最多添加10个批次标签。\n\n批次标签将在向设备推送升级通知时下发给设备。\n\n> 批次标签可以不传入。**是否必选**的**是**，表示如果传入批次标签Tag，**Tag.N.Value**与**Tag.N.Key**必须成对传入。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "批次标签value。长度限制为1~1024个字符。支持最多添加10个批次标签。所有批次标签key和vlaue的长度总和，不能超过4096个字符。\n\n\n> 批次标签可以不传入。**是否必选**的**是**，表示如果传入批次标签Tag，**Tag.N.Value**与**Tag.N.Key**必须成对传入。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -167,7 +170,7 @@
     },
     {
       "name": "TimeoutInMinutes",
-      "description": "设备升级超时时间，超过指定时间后，设备未完成升级，则升级失败。单位为分钟，取值范围为1~1,440。\n\n> - 从设备首次上报进度开始计算时间。升级期间若设备多次上下线，触发物联网平台多次推送升级包，都始终以设备最开始的第一次上报升级进度时间作为开始时间。\n- 因超时而导致的升级失败，物联网平台不会触发自动重试逻辑。\n\n\n\n\n不传入该参数，则表示设备升级没有超时限制。",
+      "description": "设备升级超时时间，超过指定时间后，设备未完成升级，则升级失败。单位为分钟，取值范围为1~1,440。\n\n> - 从设备首次上报进度开始计算时间。升级期间若设备多次上下线，触发物联网平台多次推送升级包，都始终以设备最开始的第一次上报升级进度时间作为开始时间。\n- 因超时而导致的升级失败，物联网平台不会触发自动重试逻辑。\n\n\n\n\n不传入该参数，则表示设备升级没有超时限制。\n\n\n",
       "position": "Query",
       "type": "Integer",
       "required": false

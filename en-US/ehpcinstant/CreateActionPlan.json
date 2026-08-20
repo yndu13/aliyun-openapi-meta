@@ -14,73 +14,76 @@
     },
     {
       "name": "AllocationSpec",
-      "description": "The type of the resource.\n\n*   Standard\n*   Dedicated: You must enable a whitelist for use.\n*   Economic: You must enable a whitelist for use.",
+      "description": "The resource type.\n\n- Standard: Standard.\n\n- Dedicated: Dedicated. This type is available only to users in the whitelist.\n\n- Economic: Economy. This type is available only to users in the whitelist.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AppId",
-      "description": "The ID of the application.",
+      "description": "The application ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DesiredCapacity",
-      "description": "The expected scale of resources for the execution plan. If the ResourceType parameter is set to VcpuCapacity, the execution plan is expected to have 10000 vCPUs.",
+      "description": "The desired size of the resource for the execution plan. For example, if you set ResourceType to VcpuCapacity, this parameter specifies the number of vCPUs that you want to maintain for the execution plan.",
       "position": "Query",
       "type": "Double",
       "required": false
     },
     {
       "name": "IntervalMinutes",
-      "description": "",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Level",
-      "description": "The computing power level. This value is valid only when the resource type is Economic. The following disk categories are supported:\n\n*   General\n*   Performance\n\nDefault value: General",
+      "description": "The computing power level. This parameter is valid only when you set AllocationSpec to Economic. The following types are supported:\n\n- General: General-purpose.\n\n- Performance: Compute-optimized.\n\nDefault value: General",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrologScript",
-      "description": "The pre-processing script. Base64 encoding is required.",
+      "description": "The pre-execution script. The script must be Base64-encoded.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Regions",
-      "description": "The list of resource configurations in the region where the execution plan runs.",
+      "description": "A list of regional resource configurations for the runtime environment of the execution plan.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "RegionId",
+          "description": "The region ID.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SecurityGroupId",
+          "description": "A list of security groups that are available for the execution plan in the region. You can specify 0 to 5 security groups.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SecurityGroupIds",
+          "description": "A list of security group IDs. You can call the [DescribeSecurityGroups](https://api.aliyun.com/document/Ecs/2014-05-26/DescribeSecurityGroups) operation to query information about available security groups.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "VSwitchIds",
+          "description": "A list of vSwitches that are available for the execution plan in the region. You can specify 0 to 5 vSwitches.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -89,26 +92,28 @@
     },
     {
       "name": "ResourceType",
-      "description": "Target resource type: the capacity of vCPUs or the number of execution nodes. Valid values:\n\n*   VCpuCapacity\n*   ExecutorCapacity",
+      "description": "The type of resource for the execution target. The value can be the vCPU capacity or the number of executor nodes. Valid values:\n\n- VCpuCapacity: vCPU capacity\n\n- ExecutorCapacity: number of executor nodes",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Resources",
-      "description": "The list of resource configurations of the execution plan runtime environment. You can configure 1 to 10 resources.",
+      "description": "A list of resource configurations for the runtime environment of the execution plan. You can specify 1 to 10 resource configurations.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Cores",
+          "description": "The number of vCPUs for the runtime environment.",
           "position": "Query",
           "type": "Double",
           "required": false
         },
         {
           "name": "Memory",
+          "description": "The memory size of the runtime environment. Unit: GiB.",
           "position": "Query",
           "type": "Double",
           "required": false
@@ -117,7 +122,7 @@
     },
     {
       "name": "Script",
-      "description": "The running-job script. Base64 encoding is required.",
+      "description": "The script to run the job. The script must be Base64-encoded.",
       "position": "Query",
       "type": "String",
       "required": false

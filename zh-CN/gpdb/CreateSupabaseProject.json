@@ -7,98 +7,138 @@
   "parameters": [
     {
       "name": "AccountPassword",
-      "description": "初始账户的密码。\n\n- 由大写字母、小写字母、数字、特殊字符其中三种及以上组成。\n- 支持的特殊字符：`!@#$%^&*()_+-=`\n- 长度为8~32个字符。",
+      "description": "初始账号密码。\n\n密码规则：\n\n- 长度为 8~32 个字符。\n- 至少包含大写字母、小写字母、数字、特殊字符中的三类。\n- 支持的特殊字符包括 !@#$%^&*()_+-=。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "AutoScale",
+      "description": "是否开启自动启停。不传时默认值为 false。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "ClientToken",
-      "description": "幂等性校验。更多信息，请参见[如何保证幂等性](~~327176~~)。",
+      "description": "幂等 Token。用于保证重复请求不会重复执行同一操作。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskPerformanceLevel",
-      "description": "云盘PL等级，默认PL0。取值可选：\n- PL0\n- PL1",
+      "description": "云盘性能等级。不传时默认值为 PL0。\n\n可选值：\n\n- PL0\n- PL1\n- PL2\n- PL3",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "EngineVersion",
+      "description": "引擎版本。不传时默认值为 PG15。PG17 及以上版本支持数据沙箱（分支）功能。\n\n可选值：\n\n- PG15：PostgreSQL 15。\n- PG17：PostgreSQL 17，支持数据沙箱功能。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Lightweight",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "PayType",
-      "description": "",
+      "description": "计费类型。不传时默认值为 Free。\n\n可选值：\n\n- Free：免费类型。\n- Postpaid：按量付费。\n- Prepaid：包年包月。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "",
+      "description": "购买资源的时长单位。仅 PayType 为 PrePay 时生效；不传时默认值为 Month。\n\n可选值：\n\n- Month：月。\n- Year：年。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "项目名称。命名规则如下：\n\n- 长度为1~128字符。\n\n- 只能包含英文字母，数字，短划线（-）和下划线（_）。\n\n- 必须以英文字母或下划线（_）开头。",
+      "description": "Supabase 项目名称。\n\n命名规则：\n\n- 长度为 1~128 个字符。\n- 只能包含英文字母、数字、短划线（-）和下划线（_）。\n- 必须以英文字母或下划线（_）开头。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProjectSpec",
-      "description": "Supabase实例规格，默认为1C1G。",
+      "description": "Supabase 项目规格。Free 计费类型会使用免费规格；付费类型规格需与控制台售卖规格一致。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "地域ID，您可以通过[DescribeRegions](~~86912~~)接口查看可用的地域ID。",
+      "description": "地域 ID。用于限定查询或操作所在地域。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityIPList",
-      "description": "IP白名单。\n\n127.0.0.1表示禁止任何外部IP访问，您可以在实例创建完成后调用[ModifySecurityIps](~~86928~~)接口修改IP白名单。",
+      "description": "IP 白名单。多个 IP 或网段使用英文逗号分隔；不传时默认值为 0.0.0.0/0。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StorageSize",
-      "description": "存储空间大小，单位GB，默认1GB。",
+      "description": "存储空间大小，单位 GB。非 Free 计费类型不传时默认值为 1GB。",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
+      "name": "Tags",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "UsedTime",
-      "description": "",
+      "description": "购买资源的时长。仅 PayType 为 PrePay 时生效；不传时默认值为 1。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "vSwitch ID。\n\n> - **vSwitchId**必填。\n> - **vSwitch**所在可用区必须与**ZoneId**保持一致。",
+      "description": "交换机 ID。该参数必填，且交换机所在可用区需要与 ZoneId 一致。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VpcId",
-      "description": "VPC ID。\n>  - 您可以调用[DescribeRdsVpcs](~~208327~~)接口查看可用的VPC ID。\n> - 该参数必须传入。",
+      "description": "专有网络 VPC ID。该参数必填。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ZoneId",
-      "description": "可用区ID。\n\n> 您可以调用[DescribeRegions](~~86912~~)接口查看可用的可用区ID。",
+      "description": "可用区 ID。VSwitchId 所在可用区需要与该参数一致。",
       "position": "Query",
       "type": "String",
       "required": true

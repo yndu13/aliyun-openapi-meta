@@ -1,5 +1,6 @@
 {
   "name": "AddLiveRecordVodConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,14 +14,14 @@
     },
     {
       "name": "AutoCompose",
-      "description": "设置为**ON**表示开启自动合并，且必须同时设置请求参数ComposeVodTranscodeGroupId。不传入参数值表示关闭自动合并。\n\n>开启自动合并，会使用视频点播服务剪辑合成功能。该功能计费详情，请参见[剪辑合成计费](~~188310~~)。",
+      "description": "><notice>当使用按格式配置功能，即传入RecordFormat参数时，此参数无效，可不传。></notice>\n在直播录制结束后自动将多个录制周期文件合并成一个录制文件。\n\n设置为**ON**表示开启自动合并，且必须同时设置请求参数ComposeVodTranscodeGroupId。不传入参数值表示关闭自动合并。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ComposeVodTranscodeGroupId",
-      "description": "对自动合成出来的新视频在点播服务中进行一次转码，所使用的点播转码模板组ID。\n\n> - 当AutoCompose（是否开启自动合并）设为ON时，本参数才必填。\n> - 自动合成和转码常见问题，请参见[直播转点播常见问题FAQ](~~99726~~)。\n> - 点播转码计费详情，请参见[媒资转码计费](~~188308~~)。",
+      "description": "><notice>当使用按格式配置功能，即传入RecordFormat参数时，此参数无效，可不传></notice>\n对自动合成出来的新视频在点播服务中进行一次转码，所使用的点播转码模板组ID。当AutoCompose为ON时，本参数必填。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,6 +29,13 @@
     {
       "name": "CycleDuration",
       "description": "周期录制时长。单位：秒。默认值为**3600**，取值范围：**300~21600**。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "DelayTime",
+      "description": "断流拼接时长。 直播断流时长超过设定的拼接时长后，将会生成新文件，断流拼接时长支持 15~21600 秒。",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -41,14 +49,86 @@
     },
     {
       "name": "OnDemand",
-      "description": "按需录制，取值：\n \n- **0**（默认值）：关闭。\n\n- **1**：不支持按需录制。",
+      "description": "录制触发方式，取值：\n \n- **0**（默认值）：自动录制。\n\n- **1**：按需录制，通过 HTTP 回调方式。\n\n- **2**：按需录制，通过解析推流参数。\n\n- **7**：手动录制，默认不录制，可以通过 RealTimeRecordCommand 接口手动控制录制开启或停止。",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "RecordContent",
+      "description": "录制内容。取值：\n\n- raw(默认值)：录制源流\n\n- transcode：录制转码流\n\n如需同时录制源流和转码流，请将两个取值同时传入,以\",\"分隔，如raw,transcode\n> 录制内容包含transcode时，TranscodeTemplates至少传入一个转码模版。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RecordFormat",
+      "description": "按格式配置录制参数列表。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "AutoCompose",
+          "description": "在直播录制结束后自动将多个录制周期文件合并成一个录制文件。取值：\n\n- ON：开启自动合并\n\n- OFF：关闭自动合并",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Format",
+          "description": "录制格式。取值：\n- m3u8\n- flv\n- mp4",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ProcessMethod",
+          "description": "视频处理方式。取值：\n\n- transcode：使用转码模版组处理视频\n\n- workflow：使用工作流处理视频",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ProcessTemplateId",
+          "description": "视频处理转码模版组ID或工作流模版ID。取值：\n\n> 此处传入的ID必须与ProcessMethod传入的视频处理方式对应，即ProcessMethod传入transcode，此处应使用转码模版组ID。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SliceDuration",
+          "description": "单个切片时长。单位：秒。\n\n仅当RecordFormat.N.Format（格式）设为m3u8时，本参数有效。\n\n不填则默认为30秒。取值范围：5s~30s。",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "Tags",
+          "description": "视频分类标签。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "VideoProcess",
+          "description": "视频处理源。取值：\n\n- origin(默认值)：处理源视频\n\n- compose：处理合并后视频\n\n如需同时处理源视频和合并后视频，请将两个取值同时传入,以\",\"分隔，如origin,compose",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "RegionId",
       "description": "地域ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SpaceId",
+      "description": "点播应用空间ID，通过**点播控制台**或[应用信息查询接口](~~454873~~)获取。未开启应用空间时无需填写。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -68,11 +148,18 @@
       "required": false
     },
     {
+      "name": "TranscodeTemplates",
+      "description": "转码流录制的转码模板组。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "VodTranscodeGroupId",
-      "description": "点播转码模板组ID。",
+      "description": "><notice>当使用按格式配置功能，即传入RecordFormat参数时，此参数无效，可不传。></notice>\n对录制后的视频在点播服务中进行一次转码，所使用的点播转码模板组ID。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     }
   ]
 }

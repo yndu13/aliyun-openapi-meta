@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n*   **true**: performs a dry run. The system checks the required parameters, request format, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and sends the request.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, traffic classification rules are added to the traffic marking policy.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -28,61 +28,70 @@
     },
     {
       "name": "TrafficMatchRules",
-      "description": "The traffic classification rules.\n\nYou can add at most 50 traffic classification rules in each call.",
+      "description": "The list of traffic classification rules.\n\nYou can add up to 50 traffic classification rules at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AddressFamily",
+          "description": "The address type. Valid values: IPv4, IPv6, or empty.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DstCidr",
+          "description": "The destination CIDR block of the traffic packet.\n\nThe traffic classification rule matches traffic whose destination IP address falls within the destination CIDR block. If you do not specify this parameter, the traffic classification rule matches traffic with any destination IP address.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DstPortRange",
+          "description": "The destination port of the traffic packet. Valid values: **-1** and **1** to **65535**.\n\nThe traffic classification rule matches traffic whose destination port falls within the destination port range. If you do not specify this parameter, the traffic classification rule matches traffic with any destination port.\n\nYou can specify up to 2 port numbers for this parameter. The input format is described as follows:\n\n- If you specify only one port number, for example, 1, the system matches traffic whose destination port is 1. If the value is -1, the system matches traffic with any destination port.\n- If you specify two port numbers, for example, 1 and 200, the system matches traffic whose destination port is in the range of 1 to 200.\n- If you specify two port numbers and one of them is -1, the other port number must also be -1, which indicates that traffic with any destination port is matched.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "MatchDscp",
+          "description": "The Differentiated Services Code Point (DSCP) value of the traffic packet. Valid values: **0** to **63**.\n\nThe traffic classification rule matches traffic that contains the specified DSCP value. If you do not specify this parameter, the traffic classification rule matches traffic with any DSCP value.\n\n> The DSCP value refers to the DSCP value that the traffic packet already carries before it enters the inter-region connection.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Protocol",
+          "description": "The protocol type of the traffic packet.\n\nThe traffic classification rule supports matching traffic of multiple protocol types, such as **HTTP**, **HTTPS**, **TCP**, **UDP**, **SSH**, and **Telnet**. For more protocol types, log on to the [Cloud Enterprise Network (CEN) console](https://cen.console.aliyun.com/cen/list).\n\n<details>\n<summary>Some protocols have fixed ports. Click to view port details.</summary>\n\n- If the protocol type is **ICMP**, the destination port must be set to **-1**.\n- If the protocol type is **GRE**, the destination port must be set to **-1**.\n- If the protocol type is **SSH**, the destination port must be set to **22**.\n- If the protocol type is **Telnet**, the destination port must be set to **23**.\n- If the protocol type is **HTTP**, the destination port must be set to **80**.\n- If the protocol type is **HTTPS**, the destination port must be set to **443**.\n- If the protocol type is **MS SQL**, the destination port must be set to **1443**.\n- If the protocol type is **Oracle**, the destination port must be set to **1521**.\n- If the protocol type is **Mysql**, the destination port must be set to **3306**.\n- If the protocol type is **RDP**, the destination port must be set to **3389**.\n- If the protocol type is **Postgre SQL**, the destination port must be set to **5432**.\n- If the protocol type is **Redis**, the destination port must be set to **6379**.\n\n</details>",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SrcCidr",
+          "description": "The source CIDR block of the traffic packet.\n\nThe traffic classification rule matches traffic whose source IP address falls within the source CIDR block. If you do not specify this parameter, the traffic classification rule matches traffic with any source IP address.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SrcPortRange",
+          "description": "The source port of the traffic packet. Valid values: **-1** and **1** to **65535**.\n\nThe traffic classification rule matches traffic whose source port falls within the source port range. If you do not specify this parameter, the traffic classification rule matches traffic with any source port.\n\nYou can specify up to two port numbers for this parameter. The input format is described as follows:\n\n- If you specify only one port number, for example, 1, the system matches traffic whose source port is 1. If the value is -1, the system matches traffic with any source port.\n- If you specify two port numbers, for example, 1 and 200, the system matches traffic whose source port is in the range of 1 to 200.\n- If you specify two port numbers and one of them is -1, the other port number must also be -1, which indicates that traffic with any source port is matched.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "TrafficMatchRuleDescription",
+          "description": "The description of the traffic classification rule.\n\nThe description can be empty or 1 to 256 characters in length and cannot start with http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TrafficMatchRuleName",
+          "description": "The name of the traffic classification rule.\n\nThe name can be empty or 1 to 128 characters in length and cannot start with http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false

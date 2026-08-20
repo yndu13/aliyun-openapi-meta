@@ -1,0 +1,172 @@
+{
+  "name": "DescribeDBClusterPrice",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "CreationCategory",
+      "description": "The cluster edition. Valid values:\n- Normal: Cluster Edition.\n- Basic: Single Node Edition.\n- ArchiveNormal: Archive Database.\n- SENormal: Standard Edition.\n- NormalMultimaster: Multi-master Cluster.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBClusterId",
+      "description": "The cluster ID. Required for non-BUY scenarios.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBNodeClass",
+      "description": "The node specifications. Required for the BUY scenario. Example format: polar.mysql.x4.large.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBNodeIds",
+      "description": "The list of node IDs to delete. Used when ModifyType is set to DELETE.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "DBNodeNum",
+      "description": "The number of nodes. Valid for the BUY scenario. This value includes the read/write node. Minimum value: 1. Default value: 1.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "DBNodes",
+      "description": "The list of heterogeneous specification change nodes. Used for specification change scenarios to specify the target specifications for each node.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "DBNodeClass",
+          "description": "The target node specifications.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DBNodeId",
+          "description": "The node ID.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "DBType",
+      "description": "The database engine type. Required for the BUY scenario. Valid values: MySQL, PostgreSQL, and Oracle.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBVersion",
+      "description": "The database engine version. Required for the BUY scenario. Valid values for MySQL: 5.6, 5.7, and 8.0. Valid values for PostgreSQL: 11 and 14. Valid values for Oracle: 11 and 14.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "HotStandbyCluster",
+      "description": "Specifies whether to enable the hot standby cluster. Valid values:\n- ON: Enable.\n- OFF: Disable.\n\nValid for the BUY and specification change scenarios.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModifyType",
+      "description": "The specification change direction. Valid values:\n- ADD: add nodes.\n- DELETE: remove nodes.\n- UPGRADE: upgrade specifications.\n- DOWNGRADE: downgrade specifications.\n- HOT_STANDBY: hot standby change.\n- STORAGE: storage space change.\n- STORAGE_TYPE: storage type change.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "OrderType",
+      "description": "The order type. Valid values:\n- BUY: new purchase.\n- CONVERT: billing method conversion.\n- RENEW: renewal.\n- UPGRADE: upgrade specifications or add nodes.\n- DOWNGRADE: downgrade specifications or remove nodes.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "PayType",
+      "description": "The billing method. Required for the BUY and CONVERT scenarios. Valid values:\n- Prepaid: subscription.\n- Postpaid: pay-as-you-go.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Period",
+      "description": "The subscription cycle. Valid values:\n- Month: monthly.\n- Year: yearly.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ProvisionedIops",
+      "description": "The provisioned IOPS. Used for the Standard Edition (SENormal) scenario.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "The region ID.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ServerlessType",
+      "description": "The serverless type. Valid values: AgileServerless.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageChargeType",
+      "description": "The storage billing type. Valid values:\n- Prepaid: subscription.\n- Postpaid: pay-as-you-go.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageSpace",
+      "description": "The storage space, in GB. Used for prepaid storage or storage specification change scenarios.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageType",
+      "description": "The storage type. Valid values:\n- PSL5: high performance.\n- PSL4: standard.\n- ESSDPL0\n- ESSDPL1\n- ESSDPL2\n- ESSDPL3\n- ESSDAUTOPL",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "UsedTime",
+      "description": "The subscription duration. Used together with Period. Valid for the BUY, CONVERT, and RENEW scenarios when the billing method is Prepaid.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ZoneId",
+      "description": "The zone ID. We recommend that you specify this parameter for the BUY scenario.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

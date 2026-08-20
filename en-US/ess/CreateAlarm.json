@@ -1,19 +1,20 @@
 {
   "name": "CreateAlarm",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AlarmAction",
-      "description": "The list of unique identifiers of the scaling rules that are associated with the event-triggered task.",
+      "description": "The unique identifier of the scaling rule associated with the event-triggered task.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ComparisonOperator",
-      "description": "The operator that is used to compare the metric value and the metric threshold. Valid values:\n\n*   If the metric value is greater than or equal to the metric threshold, set the value to `>=`.\n*   If the metric value is less than or equal to the metric threshold, set the value to `<=`.\n*   If the metric value is greater than the metric threshold, set the value to `>`.\n*   If the metric value is less than the metric threshold, set the value to `<`.",
+      "description": "The comparison operator between the aggregated value of the monitoring metric and the threshold. This parameter specifies the relationship under which the condition is met. Valid values:\n\n- The aggregated value is greater than or equal to the threshold. Value: >=.\n- The aggregated value is less than or equal to the threshold. Value: <=.\n- The aggregated value is greater than the threshold. Value: >.\n- The aggregated value is less than the threshold. Value: <.\n\nDefault value: >=.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -27,19 +28,21 @@
     },
     {
       "name": "Dimension",
-      "description": "The quota dimension.",
+      "description": "The list of dimensions associated with the monitoring metric.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DimensionKey",
+          "description": "The key of the dimension associated with the monitoring metric. Valid values vary based on the monitoring type of the event-triggered task:\n\n- If the event-triggered task is of the custom monitoring type (MetricType=custom), you can specify any value.\n\n- If the event-triggered task is of the system monitoring type (MetricType=system), valid values:\n\n    - user_id: your account ID.\n    - scaling_group: the scaling group to be monitored.\n    - device: the type of the network interface controller (NIC) device.\n    - state: the state of the TCP connection.\n    - rulePool: the server group specified for the ALB QPS monitoring metrics node.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DimensionValue",
+          "description": "The value of the dimension associated with the monitoring metric. Valid values are determined by Dimension.N.DimensionKey:\n\n- If Dimension.N.DimensionKey is a custom value, meaning the event-triggered task is of the custom monitoring type (MetricType=custom), you can specify any value.\n\n- If Dimension.N.DimensionKey is a system-specified value, meaning the event-triggered task is of the system monitoring type (MetricType=system), valid values:\n\n    - user_id: automatically populated by the system.\n\n    - scaling_group: automatically populated by the system.\n\n    - device:\n\n        - eth0: for classic network instances, eth0 represents the internal NIC. For VPC-connected instances, only the eth0 NIC exists.\n        - eth1: for classic network instances, eth1 represents the public NIC.\n\n    - state:\n\n        - TCP_TOTAL: the total number of TCP connections.\n        - ESTABLISHED: the number of established TCP connections.\n    - rulePool: the ID of the ALB server group. Example: sgp-xxxxx.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -48,51 +51,56 @@
     },
     {
       "name": "Effective",
-      "description": "The effective period of the event-triggered task.\n\nThe Effective value follows the cron expression format. The default format is `X X X X X ?`. In the format:\n\n*   X: a placeholder for a field, which represents seconds, minutes, hours, days, and months in sequence. X can be a definite value or a special character that has logical meaning. For information about the valid values of X, see [Cron expression](~~25907~~).\n*   ?: No value is specified.\n\n> By default, the value of this parameter is specified in **UTC+8**. You can specify the time zone in the `TZ=+yy` format before a cron expression. y indicates the time zone. For example, `TZ=+00 * * 1-2 * * ?` specifies that the event-triggered task is in effect between 01:00 and 02:59 (UTC+0) every day.\n\nExamples:\n\n*   ` * * * * * ?  `: The event-triggered task is in effect at all times.\n*   ` * * 17-18 * * ?  `: The event-triggered task is in effect between 17:00:00 and 18:59:00 (UTC+8) every day.\n*   `TZ=+00 * * 1-2 * * ?`: The event-triggered task is in effect between 01:00:00 and 02:59:00 (UTC+0) every day.",
+      "description": "The effective period of the event-triggered task. By default, the event-triggered task is effective at all times.\n\nThis parameter follows cron expressions. The default format is `X X X X X ?`, where:\n- X: a placeholder for a field, which represents seconds, minutes, hours, day of month, and month in sequence. X can be a specific value or a special character with logical meaning. For more information about the valid values of X, see [Cron expression](~~25907~~).\n\n- ?: specifies no value.\n\n> The value of this parameter is **in the UTC+8 time zone by default**. You can add the time zone information `TZ=+yy` before the cron expression to specify a time zone, where y represents the numeric value of the time zone. For example, `TZ=+00 * * 1-2 * * ?` specifies that the event-triggered task is effective between 01:00 and 02:59 in the UTC+0 time zone every day.\n\nExamples:\n\n-  `* * * * * ?  `: effective at all times.\n\n-  `* * 17-18 * * ? `: effective between 17:00 and 18:59 in the UTC+8 time zone every day.\n\n- `TZ=+00 * * 1-2 * * ?`: effective between 01:00 and 02:59 in the UTC+0 time zone every day.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EvaluationCount",
-      "description": "The number of times that the threshold must be reached before a scaling rule can be executed. For example, if you set this parameter to 3, the average CPU utilization must reach or exceed 80% three times in a row before a scaling rule is triggered.",
+      "description": "The number of consecutive times that the threshold expression must be met before the scaling rule is executed. For example, the average CPU utilization must be greater than or equal to 80% for three consecutive statistical periods.\n\nDefault value: 3.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Expression",
-      "description": "The expressions that are specified in the multi-metric alert rule.",
+      "description": "The information about multi-metric alert rules.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ComparisonOperator",
+          "description": "The comparison operator between the aggregated value of the monitoring metric and the threshold in the multi-metric alert rule. This parameter specifies the relationship under which the condition is met. Valid values:\n\n- The aggregated value is greater than or equal to the threshold. Value: >=.\n- The aggregated value is less than or equal to the threshold. Value: <=.\n- The aggregated value is greater than the threshold. Value: >.\n- The aggregated value is less than the threshold. Value: <.\n\nDefault value: >=.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MetricName",
+          "description": "The name of the monitoring metric in the multi-metric alert rule. Valid values vary based on the monitoring type of the event-triggered task:\n- If the event-triggered task is of the custom monitoring type (MetricType=custom), valid values are your custom monitoring metrics.\n- If the event-triggered task is of the system monitoring type (MetricType=system), valid values:\n\n    - CpuUtilization: (ECS) CPU utilization (%).\n\n    - ConcurrentConnections: (ECS) number of concurrent connections to an ECS instance.\n\n    - IntranetTx: (ECS) outbound traffic over the internal network (Kbit/min).\n\n    - IntranetRx: (ECS) inbound traffic over the internal network (Kbit/min).\n\n    - VpcInternetTx: (ECS) outbound traffic over the Internet (Kbit/min).\n\n    - VpcInternetRx: (ECS) inbound traffic over the Internet (Kbit/min).\n\n    - SystemDiskReadBps: (ECS) system cloud disk read BPS (byte/s).\n\n    - SystemDiskWriteBps: (ECS) system cloud disk write BPS (byte/s).\n\n    - SystemDiskReadOps: (ECS) system cloud disk read IOPS (count/s).\n\n    - SystemDiskWriteOps: (ECS) system cloud disk write IOPS (count/s).\n\n    - CpuUtilizationAgent: (Agent) CPU utilization (%).\n\n    - GpuUtilizationAgent: (Agent) GPU utilization (%).\n\n    - GpuMemoryFreeUtilizationAgent: (Agent) GPU memory idle rate (%).\n\n    - GpuMemoryUtilizationAgent: (Agent) GPU memory utilization (%).\n\n    - MemoryUtilization: (Agent) memory utilization (%).\n\n    - LoadAverage: (Agent) average system load.\n\n    - TcpConnection: (Agent) total number of TCP connections.\n    \n    - TcpConnection: (Agent) number of established TCP connections.\n\n    - PackagesNetOut: (Agent) number of packets sent by the internal NIC (count/s).\n\n    - PackagesNetIn: (Agent) number of packets received by the internal NIC (count/s).\n\n    - PackagesNetOut: (Agent) number of packets sent by the public NIC (count/s).\n\n    - PackagesNetIn: (Agent) number of packets received by the public NIC (count/s).\n   \n    - EciPodCpuUtilization: CPU utilization (%).\n\n    - EciPodMemoryUtilization: memory utilization (%).\n\n    - LoadBalancerRealServerAverageQps: (ALB) average QPS per server in a server group (count/s).\n\nFor more information, see [Event-triggered tasks of the system monitoring type](~~74854~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Period",
+          "description": "The statistical period for the monitoring metric data in the multi-metric alert rule. Unit: seconds. Valid values:\n\n- 15\n- 60\n- 120\n- 300\n- 900\n\n> Only scaling groups of the ECS type support a statistical period of 15 seconds.\nDefault value: 300.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Statistics",
+          "description": "The method used to aggregate the monitoring metric data in the multi-metric alert rule. Valid values:\n\n- Average: average value.\n- Minimum: minimum value.\n- Maximum: maximum value.\n\nDefault value: Average.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Threshold",
+          "description": "The threshold of the monitoring metrics in the multi-metric alert rule. An alert is triggered and the scaling rule is executed when the threshold expression is met for the specified number of times.",
           "position": "Query",
           "type": "Float",
           "required": false
@@ -101,28 +109,28 @@
     },
     {
       "name": "ExpressionsLogicOperator",
-      "description": "The relationship between the trigger conditions in the multi-metric alert rule. Valid values:\n\n*   `&&`: An alert is triggered only if all metrics in the multi-metric alert rule meet the trigger conditions. In this case, an alert is triggered only if the results of all trigger conditions that are specified in the multi-metric alert rule are `true`.\n*   \\`\\`: An alert is triggered as long as one of the metrics in the multi-metric alert rule meets the trigger condition.\n\nDefault value: `&&`",
+      "description": "The relationship between multiple metric alert conditions. Valid values:\n\n- `&&`: an alert is triggered only when all monitoring metrics meet the alert conditions. An alert is triggered only when all expressions in the multi-metric alert rule evaluate to `true`.\n- `||`: an alert is triggered when any monitoring metric meets the alert condition.\n\nDefault value: `&&`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GroupId",
-      "description": "The ID of the application group to which the custom metric belongs. This parameter must be specified when MetricType is set to custom.",
+      "description": "The ID of the CloudMonitor application group to which the custom monitoring metric belongs. This parameter is required only when MetricType is set to custom.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MetricName",
-      "description": "The name of the metric. Valid values of MetricName vary based on the value of MetricType.\n\n*   If you set MetricType to custom, the valid values of MetricName are your custom metrics.\n\n*   If you set MetricType to system, MetricName has the following valid values:\n\n    *   CpuUtilization: (ECS) the CPU utilization. Unit: %.\n    *   IntranetTx: the outbound traffic over the internal network from an ECS instance. Unit: KB/min.\n    *   IntranetRx: the inbound traffic over the internal network to an ECS instance. Unit: KB/min.\n    *   VpcInternetTx: the outbound traffic over the Internet from an ECS instance that resides in a virtual private cloud (VPC). Unit: KB/min.\n    *   VpcInternetRx: the inbound traffic over the Internet to an ECS instance that resides in a VPC. Unit: KB/min.\n    *   SystemDiskReadBps: the number of bytes read from the system disk that is used by an ECS instance per second.\n    *   SystemDiskWriteBps: the number of bytes written to the system disk that is used by an ECS instance per second.\n    *   SystemDiskReadOps: the number of read operations on the system disk that is used by an ECS instance per second.\n    *   SystemDiskWriteOps: the number of write operations on the system disk that is used by an ECS instance per second.\n    *   CpuUtilizationAgent: the CPU utilization of an agent. Unit: %.\n    *   GpuMemoryFreeUtilizationAgent: the percentage of idle GPU memory of an agent.\n    *   GpuMemoryUtilizationAgent: the GPU memory usage of an agent. Unit: %.\n    *   MemoryUtilization: the memory usage of an agent. Unit: %.\n    *   LoadAverage: the average system load of an agent.\n    *   TcpConnection: the total number of TCP connections of an agent.\n    *   TcpConnection: the number of established TCP connections of an agent.\n    *   PackagesNetOut: the number of packets that are sent by the internal network interface controller (NIC) used by an agent.\n    *   PackagesNetIn: the number of packets that are received by the internal NIC used by an agent.\n    *   EciPodCpuUtilization: the CPU utilization of an elastic container instance. Unit: %.\n    *   EciPodMemoryUtilization: the memory usage of an elastic container instance. Unit: %.\n\nFor more information, see [Event-triggered task for system monitoring](~~74854~~).",
+      "description": "The name of the monitoring metric. Valid values vary based on the monitoring type of the event-triggered task:\n\n- If the event-triggered task is of the custom monitoring type (MetricType=custom), valid values are your custom monitoring metrics.\n\n- If the event-triggered task is of the system monitoring type (MetricType=system), valid values: \n    - CpuUtilization: (ECS) CPU utilization (%).\n\n    - ConcurrentConnections: (ECS) number of concurrent connections to an ECS instance.\n\n    - IntranetTx: (ECS) outbound traffic over the internal network (Kbit/min).\n\n    - IntranetRx: (ECS) inbound traffic over the internal network (Kbit/min).\n\n    - VpcInternetTx: (ECS) outbound traffic over the Internet (Kbit/min).\n\n    - VpcInternetRx: (ECS) inbound traffic over the Internet (Kbit/min).\n\n    - SystemDiskReadBps: (ECS) system cloud disk read BPS (byte/s).\n\n    - SystemDiskWriteBps: (ECS) system cloud disk write BPS (byte/s).\n\n    - SystemDiskReadOps: (ECS) system cloud disk read IOPS (count/s).\n\n    - SystemDiskWriteOps: (ECS) system cloud disk write IOPS (count/s).\n\n    - CpuUtilizationAgent: (Agent) CPU utilization (%).\n\n    - GpuUtilizationAgent: (Agent) GPU utilization (%).\n\n    - GpuMemoryFreeUtilizationAgent: (Agent) GPU memory idle rate (%).\n\n    - GpuMemoryUtilizationAgent: (Agent) GPU memory utilization (%).\n\n    - MemoryUtilization: (Agent) memory utilization (%).\n\n    - LoadAverage: (Agent) average system load.\n\n    - TcpConnection: (Agent) total number of TCP connections.\n    \n    - TcpConnection: (Agent) number of established TCP connections.\n\n    - PackagesNetOut: (Agent) number of packets sent by the internal NIC (count/s).\n\n    - PackagesNetIn: (Agent) number of packets received by the internal NIC (count/s).\n   \n    - PackagesNetOut: (Agent) number of packets sent by the public NIC (count/s).\n\n    - PackagesNetIn: (Agent) number of packets received by the public NIC (count/s).\n\n    - EciPodCpuUtilization: CPU utilization (%).\n\n    - EciPodMemoryUtilization: memory utilization (%).\n\n    - LoadBalancerRealServerAverageQps: (ALB) average QPS per server in a server group (count/s).\n\nFor more information, see [Event-triggered tasks of the system monitoring type](~~74854~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MetricType",
-      "description": "The type of the metric. Valid values:\n\n*   system: system metrics of CloudMonitor\n*   custom: custom metrics that are reported to CloudMonitor",
+      "description": "The type of the monitoring metric. Valid values:\n- system: uses CloudMonitor system metrics.\n- custom: uses custom metrics reported to CloudMonitor.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -136,7 +144,7 @@
     },
     {
       "name": "Period",
-      "description": "The period of time during which statistics about the metric is collected. Unit: seconds. Valid values:\n\n*   15\n*   60\n*   120\n*   300\n*   900\n\n> If your scaling group is of the ECS type and uses CloudMonitor metrics, you can set Period to 15. In other cases, you can set Period to 60, 120, 300, or 900. In most cases, the name of a CloudMonitor metric contains Agent.",
+      "description": "The statistical period for the monitoring metric data. Unit: seconds. Valid values:\n\n- 15\n- 60\n- 120\n- 300\n- 900\n\n> Only scaling groups of the ECS type support a statistical period of 15 seconds.\n\nDefault value: 300.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -150,21 +158,21 @@
     },
     {
       "name": "ScalingGroupId",
-      "description": "The ID of the scaling group.",
+      "description": "The ID of the scaling group associated with the event-triggered task.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Statistics",
-      "description": "The method that is used to aggregate statistics for the metric. Valid values:\n\n*   Average\n*   Minimum\n*   Maximum",
+      "description": "The method used to aggregate the monitoring metric data. Valid values:\n\n- Average: average value.\n- Minimum: minimum value.\n- Maximum: maximum value.\n\nDefault value: Average.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Threshold",
-      "description": "The threshold of a metric in the multi-metric alert rule. If the threshold is reached the specified number of times within the specified period, a scaling rule is executed.",
+      "description": "The threshold of the monitoring metrics. An alert is triggered and the scaling rule is executed when the threshold expression is met for the specified number of times.",
       "position": "Query",
       "type": "Float",
       "required": false

@@ -1,26 +1,27 @@
 {
   "name": "DescribeLiveRecordNotifyRecords",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppName",
-      "description": "The name of the application to which the live stream belongs.",
+      "description": "The name of the application to which the stream belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DomainName",
-      "description": "The main streaming domain.",
+      "description": "The streamer's streaming domain.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. The end time must be later than the start time. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The end time. The end time must be later than the start time. Format: yyyy-MM-ddTHH:mm:ssZ (UTC).",
       "position": "Query",
       "type": "String",
       "required": true
@@ -34,35 +35,42 @@
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Valid values: 1 to 500. Default value: 20.",
+      "description": "The number of entries per page. Default value: 20. Maximum value: 500. Valid values: any integer from 1 to 500.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\n>  You can query data within the last seven days.",
+      "description": "The start time. Format: yyyy-MM-ddTHH:mm:ssZ (UTC).\n\n> You can query data within the last 7 days.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Status",
-      "description": "Specifies whether the callback is successful. Valid values:\n\n*   success\n*   failed",
+      "description": "Specifies whether the callback was successful. Valid values:\n- success: The callback was successful.\n- failed: The callback failed.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StorageType",
+      "description": "The storage type of the recording for which to query callback records. Valid values:\n\n- oss: recorded to OSS\n\n- vod: recorded to ApsaraVideo VOD\n\n- all: queries callback records for all storage types",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StreamName",
-      "description": "The name of the live stream.",
+      "description": "The stream name.",
       "position": "Query",
       "type": "String",
       "required": false

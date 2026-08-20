@@ -14,19 +14,21 @@
     },
     {
       "name": "delete_options",
-      "description": "The type of cluster resource that you want to delete or retain.",
+      "description": "The deletion options for cluster-associated resources.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "delete_mode",
+          "description": "The deletion policy for this resource type. Valid values:\n- delete: deletes resources of this type.\n- retain: retains resources of this type.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "resource_type",
+          "description": "The resource type. Valid values:\n- SLB: SLB resources created through services. Deleted by default. You can choose to retain them.\n- ALB: ALB resources created by ALB Ingress Controller. Retained by default. You can choose to delete them.\n- SLS_Data: the SLS project used by the cluster logging feature. Retained by default. You can choose to delete it.\n- SLS_ControlPlane: the SLS project used by the control plane logs of managed clusters. Retained by default. You can choose to delete it.\n- PrivateZone: PrivateZone resources created by ACK Serverless clusters. Retained by default. You can choose to delete them.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -35,21 +37,21 @@
     },
     {
       "name": "keep_slb",
-      "description": "Specifies whether to retain the Server Load Balancer (SLB) resources that are created by the cluster.\n\n*   `true`: retains the SLB instances that are created by the cluster.\n*   `false`: does not retain the SLB instances that are created by the cluster.\n\nDefault value: `false`. Set resource_type to `SLB` in the `delete_options` parameter to manage SLB instances.",
+      "description": "Specifies whether to retain SLB resources. Valid values:\n\n- `true`: retains the created SLB resources.\n- `false`: does not retain the created SLB resources.\n\nDefault value: `false`.\nUse `SLB` in `delete_options` to manage this setting.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "retain_all_resources",
-      "description": "Specifies whether to retain all resources. If you set the parameter to `true`, the `retain_resources` parameter is ignored. The cloud resources that are created by the cluster are retained. You can call the `DescribeClusterResources` operation to query cloud resources created by the cluster. If you set the parameter to `false`, resources to be retained by default in the `delete_options` parameter are still retained. To delete these resources, set `delete_mode` to `delete` in `delete_options`.\n\n*   `true`: retains all resources, including cloud resources created by the cluster.\n*   `false`: does not retain all resources. Resources to be retained by default in the `delete_options` parameter are retained. For example, `ALB` instances are retained when this parameter is set to `false`.\n\nDefault value: `false`.",
+      "description": "Specifies whether to retain all resources. If this parameter is set to `true`, `retain_resources` is ignored, and cloud resources created through the cluster that are queried by the `DescribeClusterResources` operation are retained. If this parameter is set to `false`, resources that are retained by default in `delete_options` are still retained. To delete these resources, set `delete_mode` to `delete` in `delete_options`.\n\n- `true`: retains all resources, including all cloud resources created through the cluster.\n- `false`: does not retain all resources, except resources defined as retained by default in `delete_options`. For example, `ALB` resources are still retained when this parameter is set to `false`.\n\nDefault value: `false`.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "retain_resources",
-      "description": "The list of resources. To retain resources when you delete a cluster, you need to specify the IDs of the resources to be retained.",
+      "description": "The resource list. To retain resources when you delete a cluster, specify the IDs of the resources to retain.",
       "position": "Query",
       "type": "Json",
       "required": false

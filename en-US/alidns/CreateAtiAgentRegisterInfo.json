@@ -1,0 +1,88 @@
+{
+  "name": "CreateAtiAgentRegisterInfo",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AgentDescription",
+      "description": "The description of the agent capabilities.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AgentDisplayName",
+      "description": "The display name of the agent.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "AgentHost",
+      "description": "The endpoint domain name through which the agent provides services.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "AgentVersion",
+      "description": "The version of the agent.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ClientToken",
+      "description": "Provides idempotency. Within 3 minutes, the same value takes effect only once.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Endpoints",
+      "description": "The endpoint information of the agent.",
+      "position": "Query",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "AgentUrl",
+          "description": "The actual service address of the agent endpoint, which is the HTTPS entry point where the agent runs online. This is a required field with a maximum of 500 characters.\n\nExample: https://my-agent.example.com/mcp\n\nAfter a caller discovers this agent through DNS, it can use this URL to initiate a connection directly. This is the address where the agent is actually online.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "MetadataUrl",
+          "description": "An optional URL that points to the metadata description file of the agent (typically in JSON format). This allows other agents or clients to automatically discover the agent capabilities before connecting, including:\n- Functions supported by the agent\n- Input/output formats\n- Version information\n- Other capability declarations",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Protocol",
+          "description": "The communication protocol standard that the agent endpoint follows. This determines how the invoker interacts with the agent.\n\nValid values:\n- MCP: Model Context Protocol, an agent tool invocation protocol developed by Anthropic.\n- A2A: Agent-to-Agent Protocol, a cross-agent communication protocol developed by Google.\n- OpenAPI: Standard RESTful API specification (Swagger/OpenAPI).\n\nWhen other agents or clients see this protocol identity, they know which method to use to communicate with the agent. For example, MCP uses the MCP SDK, A2A uses the A2A SDK, and OpenAPI uses standard HTTP requests.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Transports",
+          "description": "The transport methods.",
+          "position": "Query",
+          "type": "RepeatList",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "RegistrantId",
+      "description": "The ID of the verified registrant. Obtain this ID by invoking the identity verification API operation or from the ATS console.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

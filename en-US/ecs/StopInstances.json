@@ -1,47 +1,48 @@
 {
   "name": "StopInstances",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "BatchOptimization",
-      "description": "Specifies the batch operation mode. Valid values:\n\n*   AllTogether: The batch operation is successful only after all operations are successful. If any operation fails, the batch operation is considered failed, and all operations that have been performed are undone to restore the instances to the status before the batch operation.\n*   SuccessFirst: allows each operation in a batch to be independently executed. If an operation fails, other operations can continue and confirm success. In this mode, successful operations are committed and failed operations are marked as failed, but the execution results of other operations are not affected.\n\nDefault value: AllTogether.",
+      "description": "The batch operation mode. Valid values:\n\n- AllTogether: all operations must succeed for the entire batch operation to be considered successful. If any operation fails, the entire batch operation fails and all executed operations are rolled back to the pre-operation state.\n\n- SuccessFirst: each operation in the batch is executed independently. If an operation fails, other operations can still be executed and confirmed as successful. Successful operations are committed, and failed operations are marked as failed without affecting the results of other operations.\n\nDefault value: AllTogether.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to send a precheck request. Valid values:\n\n*   true: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and instance status. If the check fails, the corresponding error message is returned. If the request passes the dry run, `DRYRUN.SUCCESS` is returned.\n\n>  If you set `BatchOptimization` to `SuccessFirst` and `DryRun` to true, only `DRYRUN.SUCCESS` is returned, regardless of whether the request passes the dry run.\n\n*   false: performs a dry run and performs the actual request. If the request passes the dry run, instances are stopped.\n\nDefault value: false.",
+      "description": "Specifies whether to send a dry run request. Valid values:\n\n- true: sends a dry run request without stopping the instances. The system checks the required parameters, request format, and instance status. If the check fails, the corresponding error is returned. If the check succeeds, `DRYRUN.SUCCESS` is returned.\n> If the `BatchOptimization` parameter is set to `SuccessFirst`, the dry run result for `DryRun=true` returns only `DRYRUN.SUCCESS`.\n\n- false: sends a normal request. After the request passes the check, the instances are stopped.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ForceStop",
-      "description": "Specifies whether to forcefully stop instances. Valid values:\n\n*   true: forcefully stops the ECS instance.\n\n    **\n\n    **Alert** Force Stop: forcefully stops the instance. A force stop is equivalent to a physical shutdown and may cause data loss if instance data has not been written to disks.\n\n*   false: normally stops the ECS instance.\n\nDefault value: false.",
+      "description": "Specifies whether to forcefully stop the instances. Valid values:\n\n- true: forcefully stops the instances.\n  ><warning>A forced stop is equivalent to a power-off. Data that is not written to disks in the instance operating system may be lost. Proceed with caution.></warning>\n- false: normally stops the instances.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The IDs of ECS instances. You can specify 1 to 100 instance IDs.",
+      "description": "The instance IDs. Array length: 1 to 100.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the instances. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StoppedMode",
-      "description": "Stop mode. Valid values:\n\n*   StopCharging: economical mode. After an instance is stopped in economical mode:\n\n    *   Billing for the following resources of the instance stops: computing resources (vCPUs, memory, and GPUs), image licenses, and public bandwidth of the static public IP address (if any) that uses the pay-by-bandwidth metering method.\n    *   Billing for the following resources of the instance continues: system disk, data disks, and public bandwidth of the elastic IP address (EIP) (if any) that uses the pay-by-bandwidth metering method.\n    *   The instance may fail to restart due to the reclaimed computing resources or insufficient resources. Try again later or change the instance type of the instance.\n    *   If an EIP is associated with the instance before the instance is stopped, the EIP remains unchanged after the instance is restarted. If a static public IP address is associated with the instance before the instance is stopped, the static public IP address may change, but the private IP address does not change.\n\n    For more information, see [Economical mode](~~63353~~).\n\n    **\n\n    **Note** If the instance itself does not support the economical shutdown mode, the API side does not intercept errors, and the instance is preferentially stopped. The following types of instances are not supported: classic network instances, local disks, and monthly instances.\n\n*   KeepCharging: standard mode. After the instance is stopped in standard mode, you continue to be charged for the instance. If you want to change the operating system, re-initialize disks, change the instance type, or modify the private IP address, we recommend selecting this mode to avoid startup failures.\n\nDefault value: If the conditions for [enabling the economical mode for an instance in a VPC](~~63353#default~~) are met and you have enabled this mode in the ECS console, the default value is `StopCharging`. Otherwise, the default value is `KeepCharging`.",
+      "description": "The stop mode. Valid values:\n  - StopCharging: economical mode. After economical mode is enabled:\n    - Billing for compute resources (vCPUs, memory, and GPUs), image license fees, and fixed bandwidth of static public IP addresses is suspended.\n    - Billing for system disks, data disks, and fixed bandwidth of Elastic IP Addresses (EIPs) continues.\n    - Because compute resources are released, the instance may fail to restart due to insufficient resources. Try again later or change the instance type.\n    - If an EIP is associated with the instance before it is stopped, the IP address remains unchanged after the instance is restarted. Otherwise, the static public IP address may change, but the private IP address remains unchanged. \n\n    For more information, see [Economical mode](~~63353~~).\n    ><notice>\nIf the instance does not support economical mode, the API does not return an error. Stopping the instance takes priority. Instance types that do not support economical mode include instances with local SSDs and subscription instances.\n    ></notice>\n\n  - KeepCharging: standard stop mode. After the instance is stopped, its resources are retained and billing continues. The instance type inventory and public IP address are also retained. If you stop the instance to replace the operating system, reinitialize a disk, change the instance type, or modify the private IP address, select this mode to avoid restart failures.\n\nDefault value: If you [enable economical mode for VPC-connected instances](~~63353#default~~) and the conditions are met, the default value is `StopCharging`. Otherwise, the default value is `KeepCharging`.",
       "position": "Query",
       "type": "String",
       "required": false

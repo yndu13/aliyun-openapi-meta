@@ -7,77 +7,77 @@
   "parameters": [
     {
       "name": "AddressIPVersion",
-      "description": "The IP version. Valid values:\n\n*   **ipv4** (default): IPv4\n*   **DualStack**: dual-stack",
+      "description": "The protocol version. Valid values:\n\n- **ipv4** (default): IPv4.\n\n- **DualStack**: dual-stack.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AnyPortEnabled",
-      "description": "Specifies whether to enable multi-port forwarding. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable all-port forwarding. Valid values:\n\n- **true**: enabled.\n\n- **false** (default): disabled.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token used to ensure the idempotence of the request.\n\nYou can use the client to generate the token. Ensure that the token is unique among different requests. Only ASCII characters are allowed.\n\n>  If you do not set this parameter, the value of **RequestId** is used.**** The value of **RequestId** is different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ConnectionDrainEnabled",
-      "description": "Specifies whether to enable connection draining. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable connection draining. Valid values:\n\n- **true**: enabled.\n\n- **false** (default): disabled.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ConnectionDrainTimeout",
-      "description": "Specifies a timeout period for connection draining. Unit: seconds. Valid values: **0** to **900**.",
+      "description": "The timeout period of connection draining. Unit: seconds.\nValid values: **0** to **900**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n*   **true:**: validates the request without performing the operation. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the validation, the corresponding error message is returned. If the request passes the validation, the `DryRunOperation` error code is returned.\n*   **false** (default): validates the request and performs the operation. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run without creating the server group. The system checks the required parameters, request format, and service limits. If the check fails, the corresponding error is returned. If the check succeeds, the error code `DryRunOperation` is returned.\n- **false** (default): sends the request. After the request passes the check, an HTTP 2xx status code is returned and the operation is performed.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckConfig",
-      "description": "The configurations of health checks.",
+      "description": "The health check configurations.",
       "position": "Body",
       "type": "Struct",
       "required": false
     },
     {
       "name": "IpVersionAffinityMode",
-      "description": "",
+      "description": "The traffic scheduling policy in dual-stack mode:\n\n- NonAffinity (default): non-affinity mode. Traffic is forwarded to healthy backend servers based on the scheduling algorithm, regardless of the IP protocol version of the source.\n- Affinity: affinity mode. Traffic is forwarded based on the IP protocol version of the request source. IPv4 requests are forwarded only to IPv4 backend servers, and IPv6 requests are forwarded only to IPv6 backend servers.\n> This parameter takes effect only when **AddressIPVersion** is set to **DualStack**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PreserveClientIpEnabled",
-      "description": "Specifies whether to enable client IP preservation. Valid values:\n\n*   **true** (default)\n*   **false**\n\n>  If you set this parameter to **true** and **Protocol** to **TCP**, the server group cannot be associated with **TCPSSL** listeners.",
+      "description": "Specifies whether to enable client IP preservation. Valid values:\n\n- **true** (default): enabled.\n- **false**: disabled.\n\n\n> \n> If **Protocol** is set to **TCP** and this parameter is set to **true**, the server group cannot be associated with **TCPSSL** listeners.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Protocol",
-      "description": "The protocol between the NLB instance and backend servers. Valid values:\n\n*   **TCP** (default)\n*   **UDP**\n*   **TCP_UDP**\n\n> *   If you set this parameter to **UDP**, you can associate the server group only with **UDP** listeners.\n> *   If you set this parameter to **TCP** and **PreserveClientIpEnabled** to **true**, you can associate the server group only with **TCP** listeners.\n> *   If you set this parameter to **TCP** and **PreserveClientIpEnabled** to **false**, you can associate the server group with **TCPSSL** and **TCP** listeners.\n> *   If you set this parameter to **TCP_UDP**, you can associate the server group with **TCP** and **UDP** listeners.",
+      "description": "The communication protocol used to forward requests to the backend servers. Valid values:\n\n- **TCP** (default)\n- **UDP**\n- **TCP_UDP**\n> \n> - If this parameter is set to **UDP**, the server group can be associated only with **UDP** listeners.\n> - If this parameter is set to **TCP** and **PreserveClientIpEnabled** is set to **true**, the server group can be associated only with **TCP** listeners.\n> - If this parameter is set to **TCP** and **PreserveClientIpEnabled** is set to **false**, the server group can be associated with **TCPSSL** listeners and **TCP** listeners.\n> - If this parameter is set to **TCP_UDP**, the server group can be associated with **TCP** listeners and **UDP** listeners.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the NLB instance is deployed.\n\nYou can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.",
+      "description": "The region ID of the Network Load Balancer (NLB) instance.\n\nYou can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -91,40 +91,42 @@
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **Wrr** (default): weighted round-robin. Backend servers with higher weights receive more requests.\n*   **Wlc**: weighted least connections. Requests are distributed based on the weights and the number of connections to backend servers. If multiple backend servers have the same weight, requests are forwarded to the backend server with the least connections.\n*   **rr**: Requests are forwarded to backend servers in sequence.\n*   **sch**: source IP hash. Requests from the same source IP address are forwarded to the same backend server.\n*   **tch**: consistent hashing based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same four factors are forwarded to the same backend server.\n*   **qch**: QUIC ID hash. Requests that contain the same QUIC ID are forwarded to the same backend server.\n\n>  QUIC ID hash is supported only when the backend protocol is set to UDP.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **Wrr** (default): weighted round-robin. Backend servers with higher weights are polled more frequently.\n\n- **Wlc**: weighted least connections. In addition to the weight of each backend server, the actual load (number of connections) is also considered. When the weights are the same, backend servers with fewer current connections are polled more frequently.\n\n- **rr**: round-robin. Requests are distributed to backend servers in sequence.\n\n- **sch**: source IP hashing. Requests from the same source IP address are distributed to the same backend server.\n\n- **tch**: four-element hashing. Consistent hashing based on four elements (source IP address, destination IP address, source port, and destination port). The same stream is distributed to the same backend server.\n\n- **qch**: QUIC ID hashing. Requests with the same QUIC ID are distributed to the same backend server.\n\n>  QUIC ID hashing is supported only when the backend protocol is UDP.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerGroupName",
-      "description": "The server group name.\n\nThe name must be 2 to 128 characters in length, can contain digits, periods (.), underscores (\\_), and hyphens (-), and must start with a letter.",
+      "description": "The name of the server group.\n\nThe name must be 2 to 128 characters in length, and must start with an uppercase letter, lowercase letter, or Chinese character. It can contain digits, periods (.), underscores (_), and hyphens (-).",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "ServerGroupType",
-      "description": "The type of the server group. Valid values:\n\n*   **Instance** (default): allows you to specify servers of the **Ecs**, **Eni**, or **Eci** type.\n*   **Ip**: allows you to specify IP addresses.",
+      "description": "The type of the server group. Valid values:\n\n- **Instance** (default): server type. This type of server group supports adding instances of the **Ecs**, **Eni**, and **Eci** types.\n\n- **Ip**: IP address type. This type of server group supports directly adding backend servers by IP address.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The tag list.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. The tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. Valid characters include letters, digits, underscores (_), periods (.), colons (:), forward slashes (/), equal signs (=), plus signs (+), hyphens (-), and at signs (@).\n\nYou can add up to 20 tags in each call.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. The tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. Valid characters include letters, digits, underscores (_), periods (.), colons (:), forward slashes (/), equal signs (=), plus signs (+), hyphens (-), and at signs (@).\n\nYou can add up to 20 tags in each call.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -133,7 +135,7 @@
     },
     {
       "name": "VpcId",
-      "description": "The ID of the virtual private cloud (VPC) where the server group is deployed.\n\n>  If **ServerGroupType** is set to **Instance**, only servers in the specified VPC can be added to the server group.",
+      "description": "The ID of the virtual private cloud (VPC) to which the server group belongs.\n\n> If **ServerGroupType** is set to **Instance**, only servers in this VPC can be added to the server group.",
       "position": "Body",
       "type": "String",
       "required": true

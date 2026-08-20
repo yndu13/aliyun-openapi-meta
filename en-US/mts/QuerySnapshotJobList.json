@@ -1,54 +1,55 @@
 {
   "name": "QuerySnapshotJobList",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "EndOfJobCreatedTimeRange",
-      "description": "The snapshot configuration.",
+      "description": "The end of the job creation time range.\n\n- The date format must follow the ISO 8601 standard and use Coordinated Universal Time (UTC).\n\n- The format is YYYY-MM-DDThh:mm:ssZ.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaximumPageSize",
-      "description": "The ID of the MPS queue to which the snapshot jobs that you want to query are submitted. To obtain the ID, you can log on to the **MPS console** and choose **Global Settings** > **Pipelines** in the left-side navigation pane.",
+      "description": "The maximum number of entries to return on each page of a paged query.\n\n- Valid values: **\\[1, 300]**.\n\n- Default value: **30**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NextPageToken",
-      "description": "The end of the time range within which the creation time of snapshot jobs to be queried is.\n\n*   Specify the time in the ISO 8601 standard in the\n*   YYYY-MM-DDThh:mm:ssZ format. The time must be in UTC.",
+      "description": "The token for the next page. It is a 32-bit universally unique identifier (UUID).\n\n- If the query result is truncated, the NextPageToken parameter is returned. The value of this parameter is updated for each query. Use this token in the next query to retrieve the next page of results.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PipelineId",
-      "description": "The start time for taking snapshots. Unit: milliseconds.",
+      "description": "The ID of the MPS queue. For more information, see [Terms](~~29197~~).\n\n- You can view and create MPS queues in the [MPS console](https://mps.console.aliyun.com/overview) by choosing **Global Settings** > **Pipelines**.\n\n- If you want to receive asynchronous notification messages, attach an MNS queue or topic to the MPS queue. For more information, see <props=\"china\">[Receive message notifications](https://help.aliyun.com/document_detail/42618.html)</props><props=\"intl\">[Receive message notifications](https://www.alibabacloud.com/help/zh/apsaravideo-for-media-processing/latest/receive-message-notifications)</props>.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SnapshotJobIds",
-      "description": "The beginning of the time range within which the creation time of snapshot jobs to be queried is.\n\n*   Specify the time in the ISO 8601 standard in the\n*   YYYY-MM-DDThh:mm:ssZ format. The time must be in UTC.",
+      "description": "The list of snapshot job IDs.\n\n- You can query up to **10** jobs at a time. Separate multiple IDs with commas (,).\n\n- You can obtain the job IDs from the [MPS console](https://mps.console.aliyun.com/overview) by choosing **Task Management** > **Snapshots**. You can also obtain them from the response parameters of the [SubmitSnapshotJob](~~602857~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartOfJobCreatedTimeRange",
-      "description": "The time when the job was created.",
+      "description": "The beginning of the job creation time range.\n\n- The date format must follow the ISO 8601 standard and use Coordinated Universal Time (UTC).\n\n- The format is YYYY-MM-DDThh:mm:ssZ.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "State",
-      "description": "The information about the snapshot jobs.",
+      "description": "The state of the snapshot jobs to query.\n\n- **Submitted**: The job is submitted.\n\n- **Snapshoting**: The job is in progress.\n\n- **Success**: The job is successful.\n\n- **Fail**: The job failed.",
       "position": "Query",
       "type": "String",
       "required": false

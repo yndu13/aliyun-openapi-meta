@@ -7,168 +7,167 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to automatically renew the DTS instance when it expires. Valid values:\n\n*   **false**: does not automatically renew the DTS instance when it expires. This is the default value.\n*   **true**: automatically renews the DTS instance when it expires.",
+      "description": "Specifies whether to enable auto-renewal upon expiration. Valid values:\n- **false**: no. This is the default value.\n- **true**: yes.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoStart",
-      "description": "Specifies whether to automatically start the task after the DTS instance is purchased. Valid values:\n\n*   **false** (default)\n*   **true**\n\n>  This parameter can be set to **true** and take effect only if you specify a valid value for **JobId**.",
+      "description": "Specifies whether to automatically start the task after the purchase is complete. Valid values:\n- **false**: no. This is the default value.\n- **true**: yes.\n\n> This parameter takes effect only when **JobId** is set to a valid task ID and this parameter is set to **true**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ComputeUnit",
-      "description": "The specification of the extract, transform, and load (ETL) instance. The unit is compute unit (CU). One CU is equal to 1 vCPU and 4 GB of memory. The value of this parameter must be an integer greater than or equal to 2.",
+      "description": "The specifications of the ETL instance. Unit: compute unit (CU). 1 CU = 1 vCPU + 4 GB memory. Valid values: integers that are greater than or equal to 2.\n<props=\"china\">\n> If you specify this parameter, the [ETL feature](~~212324~~) is enabled for data cleaning and transformation.</props>.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DatabaseCount",
-      "description": "The number of custom ApsaraDB RDS instances in the PolarDB-X instance. Default value: **1**.\n\n>  This parameter is required only if **SourceEndpointEngineName** is set to **drds**.",
+      "description": "The number of private custom ApsaraDB RDS instances under PolarDB-X. Default value: **1**.\n> This parameter is required only when **SourceEndpointEngineName** is set to **drds**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DestinationEndpointEngineName",
-      "description": "The database engine of the destination instance.\n\n*   **MySQL**: ApsaraDB RDS for MySQL instance or self-managed MySQL database\n*   **PolarDB**: PolarDB for MySQL cluster\n*   **polardb_o**: PolarDB for Oracle cluster\n*   **polardb_pg**: PolarDB for PostgreSQL cluster\n*   **Redis**: ApsaraDB for Redis instance or self-managed Redis database\n*   **DRDS**: PolarDB-X 1.0 or PolarDB-X 2.0 instance\n*   **PostgreSQL**: self-managed PostgreSQL database\n*   **odps**: MaxCompute project\n*   **oracle**: self-managed Oracle database\n*   **mongodb**: ApsaraDB for MongoDB instance or self-managed MongoDB database\n*   **tidb**: TiDB database\n*   **ADS**: AnalyticDB for MySQL V2.0 cluster\n*   **ADB30**: AnalyticDB for MySQL V3.0 cluster\n*   **Greenplum**: AnalyticDB for PostgreSQL instance\n*   **MSSQL**: ApsaraDB RDS for SQL Server instance or self-managed SQL Server database\n*   **kafka**: Message Queue for Apache Kafka instance or self-managed Kafka cluster\n*   **DataHub**: DataHub project\n*   **DB2**: self-managed Db2 for LUW database\n*   **as400**: AS/400\n*   **Tablestore**: Tablestore instance\n\n> \n*   The default value is **MySQL**.\n*   For more information about the supported source and destination databases, see [Overview of data synchronization scenarios](~~130744~~) and [Overview of data migration scenarios](~~26618~~).\n*   You must specify one of this parameter and the **JobId** parameter.",
+      "description": "The database engine type of the destination instance. Valid values:\n- **MySQL**: MySQL database, including ApsaraDB RDS for MySQL and self-managed MySQL.\n- **PolarDB**: PolarDB for MySQL.\n- **polardb_o**: PolarDB for Oracle.\n- **polardb_pg**: PolarDB for PostgreSQL.\n- **Redis**: Redis database, including Tair (Redis® OSS-Compatible) and self-managed Redis.\n- **DRDS**: cloud-native distributed database PolarDB-X 1.0 and 2.0.\n- **PostgreSQL**: self-managed PostgreSQL.\n- **odps**: MaxCompute.\n- **oracle**: self-managed Oracle.\n- **mongodb**: MongoDB database, including ApsaraDB for MongoDB and self-managed MongoDB.\n- **tidb**: TiDB database.\n- **ADS**: AnalyticDB for MySQL 2.0.\n- **ADB30**: AnalyticDB for MySQL 3.0.\n- **Greenplum**: AnalyticDB for PostgreSQL.\n- **MSSQL**: SQL Server database, including ApsaraDB RDS for SQL Server and self-managed SQL Server.\n- **kafka**: Kafka database, including ApsaraMQ for Kafka and self-managed Kafka.\n- **DataHub**: Alibaba Cloud DataHub.\n- **DB2**: self-managed Db2 for LUW.\n- **as400**: AS/400.\n- **Tablestore**: Tablestore.\n\n> - Default value: **MySQL**.\n- For more information about the supported source and destination database combinations, see [Databases, initial synchronization types, and synchronization topologies](~~130744~~) and [Supported databases and migration types](~~26618~~).\n- You must specify this parameter or **JobId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationRegion",
-      "description": "The ID of the region in which the destination instance resides. For more information, see [List of supported regions](~~141033~~).\n\n>  You must specify one of this parameter and the **JobId** parameter.",
+      "description": "The region of the destination instance. For more information, see [List of supported regions](~~141033~~).\n> You must specify this parameter or **JobId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DtsRegion",
-      "description": "The region ID of the DTS instance. Set this parameter to the value of **RegionId**.",
+      "description": "The region to which the instance belongs. The value must be the same as the value of **RegionId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Du",
-      "description": "The number of DTS units (DUs) that are assigned to a DTS task that is run on a DTS dedicated cluster. Valid values: **1** to **100**.\n\n> \n*   The value of this parameter must be within the range of the number of DUs available for the DTS dedicated cluster.",
+      "description": "The number of DU resources to allocate to the DTS task on a DTS dedicated cluster. Valid values: **1** to **100**.\n\n> - The value must be within the range of available DUs in the DTS dedicated cluster.\n- For more information about DTS dedicated clusters, see [What is a DTS dedicated cluster](~~417481~~).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "FeeType",
-      "description": "The billing type for a change tracking instance. Valid values: ONLY_CONFIGURATION_FEE and CONFIGURATION_FEE_AND_DATA_FEE. ONLY_CONFIGURATION_FEE: charges only configuration fees. CONFIGURATION_FEE_AND_DATA_FEE: charges configuration fees and data traffic fees.",
+      "description": "The billing type for change tracking. Valid values: ONLY_CONFIGURATION_FEE, which indicates that only configuration fees are charged and data traffic fees are waived. CONFIGURATION_FEE_AND_DATA_FEE, which indicates that data traffic fees are additionally charged.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InsightModule",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceClass",
-      "description": "The instance class.\n\n*   DTS supports the following instance classes for a data migration instance: **xxlarge**, **xlarge**, **large**, **medium**, and **small**.\n*   DTS supports the following instance classes for a data synchronization instance: **large**, **medium**, **small**, and **micro**.\n\n>  For more information about the test performance of each instance class, see [Specifications of data migration instances](~~26606~~) and [Specifications of data synchronization instances](~~26605~~).",
+      "description": "The specification of the data migration or data synchronization instance.\n\n- Specifications supported by data migration instances: **xxlarge**, **xlarge**, **large**, **medium**, and **small**.\n- Specifications supported by data synchronization instances: **large**, **medium**, **small**, and **micro**.\n\n> For more information about the performance of each specification, see [Specifications of data migration instances](~~26606~~) and [Specifications of data synchronization instances](~~26605~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobId",
-      "description": "The ID of the task. You can call the **ConfigureDtsJob** operation to obtain the task ID from the **DtsJobId** parameter.\n\n>  If this parameter is specified, you do not need to specify the **SourceRegion**, **DestinationRegion**, **Type**, **SourceEndpointEngineName**, or **DestinationEndpointEngineName** parameter. Even if these parameters are specified, the value of the **JobId** parameter takes precedence.",
+      "description": "The task ID (**DtsJobId**) obtained by calling the **ConfigureDtsJob** operation.\n> If you specify this parameter, you do not need to specify **SourceRegion**, **DestinationRegion**, **Type**, **SourceEndpointEngineName**, or **DestinationEndpointEngineName**. Even if you specify these parameters, the configurations in **JobId** take precedence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxDu",
-      "description": "Upper limit of DU.\n\n> Only supported by Serverless instances.",
+      "description": "The maximum number of DUs.\n\n> This parameter is supported only for serverless instances.",
       "position": "Query",
       "type": "Double",
       "required": false
     },
     {
       "name": "MinDu",
-      "description": "Lower limit of DU.\n\n> Only supported by Serverless instances.",
+      "description": "The minimum number of DUs.\n\n> This parameter is supported only for serverless instances.",
       "position": "Query",
       "type": "Double",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "The billing method. Valid values:\n\n*   **PrePaid**: subscription\n*   **PostPaid**: pay-as-you-go\n\n>  This parameter must be specified.",
+      "description": "The billing method. Valid values:\n- **PrePaid**: subscription.\n- **PostPaid**: pay-as-you-go.\n\n> Correction: This parameter is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The unit of the subscription duration. Valid values: **Year** and **Month**.\n\n>  You must specify this parameter only if the **PayType** parameter is set to **PrePaid**.",
+      "description": "The billing method of the subscription instance. Valid values: **Year** and **Month**.\n> This parameter is valid and required only when **PayType** is set to **PrePaid** (subscription).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Quantity",
-      "description": "The number of DTS instances that you want to purchase.\n\n>  You can purchase only one DTS instance each time you call this operation.",
+      "description": "The number of instances to purchase.\n> A maximum of one instance can be purchased per call.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which the DTS instance resides. For more information, see [List of supported regions](~~141033~~).",
+      "description": "The region ID of the instance. For more information, see [List of supported regions](~~141033~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpointEngineName",
-      "description": "The database engine of the source instance.\n\n*   **MySQL**: ApsaraDB RDS for MySQL instance or self-managed MySQL database\n*   **PolarDB**: PolarDB for MySQL cluster\n*   **polardb_o**: PolarDB for Oracle cluster\n*   **polardb_pg**: PolarDB for PostgreSQL cluster\n*   **Redis**: ApsaraDB for Redis instance or self-managed Redis database\n*   **DRDS**: PolarDB-X 1.0 or PolarDB-X 2.0 instance\n*   **PostgreSQL**: self-managed PostgreSQL database\n*   **odps**: MaxCompute project\n*   **oracle**: self-managed Oracle database\n*   **mongodb**: ApsaraDB for MongoDB instance or self-managed MongoDB database\n*   **tidb**: TiDB database\n*   **ADS**: AnalyticDB for MySQL V2.0 cluster\n*   **ADB30**: AnalyticDB for MySQL V3.0 cluster\n*   **Greenplum**: AnalyticDB for PostgreSQL instance\n*   **MSSQL**: ApsaraDB RDS for SQL Server instance or self-managed SQL Server database\n*   **kafka**: Message Queue for Apache Kafka instance or self-managed Kafka cluster\n*   **DataHub**: DataHub project\n*   **DB2**: self-managed Db2 for LUW database\n*   **as400**: AS/400\n*   **Tablestore**: Tablestore instance\n\n> \n*   The default value is **MySQL**.\n*   For more information about the supported source and destination databases, see [Overview of data synchronization scenarios](~~130744~~) and [Overview of data migration scenarios](~~26618~~).\n*   You must specify one of this parameter and the **JobId** parameter.",
+      "description": "The database engine type of the source instance. Valid values:\n- **MySQL**: MySQL database, including ApsaraDB RDS for MySQL and self-managed MySQL.\n- **PolarDB**: PolarDB for MySQL.\n- **polardb_o**: PolarDB for Oracle.\n- **polardb_pg**: PolarDB for PostgreSQL.\n- **Redis**: Redis database, including Tair (Redis® OSS-Compatible) and self-managed Redis.\n- **DRDS**: cloud-native distributed database PolarDB-X 1.0 and 2.0.\n- **PostgreSQL**: self-managed PostgreSQL.\n- **odps**: MaxCompute.\n- **oracle**: self-managed Oracle.\n- **mongodb**: MongoDB database, including ApsaraDB for MongoDB and self-managed MongoDB.\n- **tidb**: TiDB database.\n- **ADS**: AnalyticDB for MySQL 2.0.\n- **ADB30**: AnalyticDB for MySQL 3.0.\n- **Greenplum**: AnalyticDB for PostgreSQL.\n- **MSSQL**: SQL Server database, including ApsaraDB RDS for SQL Server and self-managed SQL Server.\n- **kafka**: Kafka database, including ApsaraMQ for Kafka and self-managed Kafka.\n- **DataHub**: Alibaba Cloud DataHub.\n- **DB2**: self-managed Db2 for LUW.\n- **as400**: AS/400.\n- **Tablestore**: Tablestore.\n- **OceanBase**: OceanBase (MySQL). Only data migration instances are supported.\n\n> - Default value: **MySQL**.\n- For more information about the supported source and destination database combinations, see [Databases, initial synchronization types, and synchronization topologies](~~130744~~) and [Supported databases and migration types](~~26618~~).\n- You must specify this parameter or **JobId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceRegion",
-      "description": "The ID of the region in which the source instance resides. For more information, see [List of supported regions](~~141033~~).\n\n>  You must specify one of this parameter and the **JobId** parameter.",
+      "description": "The region of the source instance. For more information, see [List of supported regions](~~141033~~).\n> You must specify this parameter or **JobId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SyncArchitecture",
-      "description": "The synchronization topology. Valid values:\n\n*   **oneway**: one-way synchronization. This is the default value.\n*   **bidirectional**: two-way synchronization.",
+      "description": "The synchronization topology. Valid values:\n\n- **oneway**: one-way synchronization. This is the default value.\n- **bidirectional**: two-way synchronization.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the DTS instance. Valid values:\n\n*   **MIGRATION**: data migration instance\n\n*   **SYNC**: data synchronization instance\n\n*   **SUBSCRIBE**: change tracking instance\n\n> You must specify one of this parameter and the **JobId** parameter.",
+      "description": "The instance type. Valid values:\n\n- **MIGRATION**: data migration.\n- **SYNC**: data synchronization.\n- **SUBSCRIBE**: change tracking.\n> You must specify this parameter or **JobId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UsedTime",
-      "description": "The subscription duration.\n\n*   Valid values if **Period** is set to **Month**: 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n*   Valid values if **Period** is set to **Year**: 1, 2, 3, and 5.\n\n> \n\n*   This parameter is valid and required only if **PayType** is set to **PrePaid**.\n\n*   You can configure **Period** to specify the unit of the subscription duration.",
+      "description": "The subscription duration of the subscription instance.\n- If **Period** is set to **Month**, valid values are 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n- If **Period** is set to **Year**, valid values are 1, 2, 3, and 5.\n> - This parameter is valid and required only when **PayType** is set to **PrePaid** (subscription).\n- You can set the billing method of the subscription instance by using the **Period** parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false

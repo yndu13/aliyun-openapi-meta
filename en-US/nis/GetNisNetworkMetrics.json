@@ -1,0 +1,94 @@
+{
+  "name": "GetNisNetworkMetrics",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AccountIds",
+      "description": "Explicitly passes member account IDs.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "BeginTime",
+      "description": "The start time, in **ms**, in **UNIX** timestamp format. If not specified, the most recent 1 hour is queried by default. The earliest start time can be 7 days ago.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Dimensions",
+      "description": "The collection of metric query parameters for specific business scenarios. For metric description of each scenario, see [GetNisNetworkMetrics](~~2833348~~).",
+      "position": "Query",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "Name",
+          "description": "The name of the filter condition.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The value of the filter condition.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "EndTime",
+      "description": "The end time, in **ms**, in **UNIX** timestamp format. If not specified, the most recent 1 hour is queried by default. If only BeginTime is specified, the 1 hour after BeginTime is queried. The maximum time span between the end time and start time is 24 hours.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "MetricName",
+      "description": "The metric name. Valid values:\n\n-   bps: bits per second.\n-   pps: packets per second.\n-   rtt: round-trip time when establishing a TCP connection.\n-   RetransmitRate: retransmission rate.\n-   RatelimitDropPps: rate of packets dropped due to throttling.\n-   ActiveSessionCount: concurrent session count.\n-   NewSessionPerSecond: new sessions per second.\n-   BandwidthUtilization: bandwidth utilization.\n-   passRate: inspection pass rate.\n> If no RTT data is available within the selected time range, the connection is a persistent connection and no initial connection was established during that period.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "RegionNo",
+      "description": "The region ID.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ResourceType",
+      "description": "Analyzes traffic by the Alibaba Cloud network resource type used for traffic forwarding. Valid values:\n\n- AccessInternetIpV4: all Alibaba Cloud public IPv4 addresses.\n- AccessInternetIpV4Limited: all region-throttled Alibaba Cloud public IPv4 addresses.\n- ElasticIP: Elastic IP Address (EIP) (IPv4).\n- PublicIpEcs: static public IP address bound to an ECS instance (IPv4).\n- PublicIpClb: static public IP address bound to a CLB instance (IPv4).\n- NAT: public network traffic through SNAT.\n- TR: traffic through Cloud Enterprise Network (CEN) transit routers.\n- TRAttachment: traffic through CEN connection instances, including intra-region and inter-region connections. Intra-region connections have inbound and outbound directions. Inter-region connections have only the outbound direction.\n- VBR: traffic through virtual border routers.\n- GA: traffic through Global Accelerator.\n- IntranetProbing: internal network quality probing data.\n- NisInspectionHistoryReportScore: inspection history scores.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanBy",
+      "description": "The sort order. Default value: TimestampAscending. Valid values:\n\n- TimestampAscending: sorts by time in ascending order.\n- TimestampDescending: sorts by time in descending order.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StepMinutes",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "UseCrossAccount",
+      "description": "Specifies whether to use multi-account access mode. This is a reserved parameter and is not currently supported.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    }
+  ]
+}

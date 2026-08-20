@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among all requests. The token can contain only ASCII characters.\n\n>  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** of each API request may be different.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may differ for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n*   **true**: performs a dry run. The system checks your AccessKey pair, the RAM user permissions, and the required parameters If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run without updating the gateway endpoint configuration. The system checks the AccessKey pair, the authorization of the Resource Access Management (RAM) user, and the required parameters. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n\n- **false** (default): sends a Normal request. If the check succeeds, a 2xx HTTP status code is returned and the gateway endpoint configuration is updated.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -28,7 +28,7 @@
     },
     {
       "name": "EndpointId",
-      "description": "The ID of the gateway endpoint that you want to modify.",
+      "description": "The instance ID of the gateway endpoint whose configuration you want to update.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -42,14 +42,14 @@
     },
     {
       "name": "PolicyDocument",
-      "description": "The access policy for the cloud service.\n\nFor more information about the syntax and structure of the access policy, see [Policy syntax and structure](~~93739~~).",
+      "description": "The access policy for the cloud service.\n\nFor more information about the syntax and structure of access policies, see [Policy syntax and structure](~~93739~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the gateway endpoint.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the gateway endpoint whose configuration you want to update.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true

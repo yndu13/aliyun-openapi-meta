@@ -1,12 +1,34 @@
 {
   "name": "CreateSecurityProxy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
+      "name": "FirewallServiceMode",
+      "description": "防火墙服务部署模式。取值：\n\n- PrimaryStandby：主备模式\n- MultiPrimary：双活模式",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallServiceZones",
+      "description": "防火墙服务使用的可用区 ID 列表。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "FirewallSwitch",
       "description": "安全防护开关。取值：\n- **open**：打开\n- **close**：关闭",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FwVswitchZoneId",
+      "description": "防火墙交换机可用区",
       "position": "Query",
       "type": "String",
       "required": false
@@ -20,7 +42,7 @@
     },
     {
       "name": "NatGatewayId",
-      "description": "NAT网关的ID。",
+      "description": " NAT网关的ID。 ",
       "position": "Query",
       "type": "String",
       "required": true
@@ -34,24 +56,28 @@
       "sub_parameters": [
         {
           "name": "DestinationCidr",
+          "description": "默认路由目的网段。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "NextHopId",
+          "description": "原NAT网关下一跳转地址。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "NextHopType",
+          "description": "下一跳的网络类型。取值：NatGateway。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "RouteTableId",
+          "description": "NAT网关默认路由所在路由表。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -88,7 +114,7 @@
     },
     {
       "name": "VswitchAuto",
-      "description": "是否使用交换机自动模式。取值：\n- **true**：自动模式\n- **false**：手动模式",
+      "description": "是否使用交换机自动模式。取值：\n- **true**：自动模式\n- **false**：手动模式\n> VswitchAuto 默认 true。VswitchAuto=true 时 VswitchCidr 必填（且须为合法 CIDR）；VswitchAuto=false 时 VswitchId 必填。",
       "position": "Query",
       "type": "String",
       "required": false

@@ -42,18 +42,21 @@
       "sub_parameters": [
         {
           "name": "Index",
+          "description": "目标阿里云服务器ECS的数据盘顺序。初始值为1。取值范围：1~16\n\n\n>您只能为迁移源中存在的数据盘创建目标数据盘。\n",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Part",
+          "description": "分区列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Size",
+          "description": "目标阿里云服务器ECS的数据盘大小，单位为GiB。取值范围：20~32768。\n>该参数取值需要大于迁移源数据盘实际占用大小。例如，源数据盘大小为500 GiB，实际占用100 GiB，则该参数取值需大于100 GiB。\n",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -125,7 +128,7 @@
     },
     {
       "name": "LaunchTemplateVersion",
-      "description": "实例启动模板的版本。",
+      "description": "实例启动模板的版本。\n         ",
       "position": "Query",
       "type": "String",
       "required": false
@@ -153,7 +156,7 @@
     },
     {
       "name": "NetMode",
-      "description": "数据传输网络模式。取值范围：\n\n- 0：表示公网传输模式。此时要求您的源服务器能够访问公网，迁云数据从公网传输。\n- 2：表示内网传输模式，选用此模式必须设置VSwitchId参数（VpcId参数可以不设置，服务内部可以通过接口反查出来）。\n\n默认值：0。",
+      "description": "数据传输网络模式。取值范围：\n\n- 0：表示公网传输模式。此时要求您的源服务器能够访问公网，迁云数据从公网传输。\n- 2：表示内网传输模式，选用此模式必须设置VSwitchId参数（VpcId参数可以不设置，服务内部可以通过接口反查出来）。\n\n默认值：0。\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -181,14 +184,14 @@
     },
     {
       "name": "RunOnce",
-      "description": "创建一次性迁移任务还是增量迁移任务。取值范围：\n\n- true（默认值）：一次性迁移任务。任务创建后，仅执行一次。\n\n- false：增量迁移任务。任务创建后，按照您设置的`Frequency`参数值周期性自动执行。使用增量迁移任务，可在业务不暂停的情况下，同步源服务器的增量数据至阿里云，并为源服务器生成任务运行时刻的全量数据镜像。\n\n> 该参数值只能在创建迁移任务时指定。参数值一经指定，则无法更改。",
+      "description": "创建一次性迁移任务还是增量迁移任务。取值范围：\n\n- true（默认值）：一次性迁移任务。任务创建后，仅执行一次。\n\n- false：增量迁移任务。任务创建后，按照您设置的`Frequency`参数值周期性自动执行。使用增量迁移任务，可在业务不暂停的情况下，同步源服务器的增量数据至阿里云，并为源服务器生成任务运行时刻的全量数据镜像。\n\n> 该参数值只能在创建迁移任务时指定。参数值一经指定，则无法更改。\n\n\n\n\n\n",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ScheduledStartTime",
-      "description": "迁移任务的执行时间。该参数值的设置需满足以下要求：\n\n- 遵循ISO8601标准，并需要使用UTC+0时间，格式为YYYY-MM-DDThh:mm:ssZ。例如，2018-01-01T12:00:00Z，表示北京时间2018年01月01日20点00分00秒。\n- 该参数值必须晚于当前时间，并且需要设置在30天以内。\n\n>如果该参数值为空，则SMC不会启动迁移任务，需要您调用[StartReplicationJob](~~121823~~)启动任务。",
+      "description": "迁移任务的执行时间。该参数值的设置需满足以下要求：\n\n- 遵循ISO8601标准，并需要使用UTC+0时间，格式为YYYY-MM-DDThh:mm:ssZ。例如，2018-01-01T12:00:00Z，表示北京时间2018年01月01日20点00分00秒。\n- 该参数值必须晚于当前时间，并且需要设置在30天以内。\n\n>如果该参数值为空，则SMC不会启动迁移任务，需要您调用[StartReplicationJob](~~121823~~)启动任务。\n\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -209,18 +212,21 @@
       "sub_parameters": [
         {
           "name": "Block",
+          "description": "系统盘分区N是否开启块复制。取值范围：\n- true。\n- false。\n\n默认值：true。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Device",
+          "description": "目标系统盘分区N设备标识。N的实际取值请参考迁移源的分区设备标识。\n> 当`SystemDiskPart.N.SizeBytes`不为空时，该参数也不能为空。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SizeBytes",
+          "description": "系统盘分区N大小。单位：Byte。默认为源系统盘分区大小。\n> - 分区空间大小不能超过系统盘空间大小，并且在系统盘下所有分区空间大小之和不能超过系统盘空间大小。\n- 当`SystemDiskPart.N.Device`不为空时，该参数也不能为空。",
           "position": "Query",
           "type": "Long",
           "required": false
@@ -229,7 +235,7 @@
     },
     {
       "name": "SystemDiskSize",
-      "description": "目标阿里云服务器ECS的系统盘大小，单位为GiB。取值范围：20~2048。\n\n> 该参数取值需要大于迁移源系统盘实际占用大小，例如，源系统盘大小为500 GiB，实际占用100 GiB，则该参数取值需大于100 GiB。",
+      "description": "目标阿里云服务器ECS的系统盘大小，单位为GiB。取值范围：20~2048。\n\n> 该参数取值需要大于迁移源系统盘实际占用大小，例如，源系统盘大小为500 GiB，实际占用100 GiB，则该参数取值需大于100 GiB。\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -243,12 +249,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "迁移任务的标签键。N的取值范围：1~20\n\n一旦传入该值，则不允许为空字符串。最多支持128个字符，不能以`aliyun`、`acs:`、`http://`或者`https://`开头。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "迁移任务的标签值。N的取值范围：1~20。\n\n一旦传入该值，可以为空字符串。最多支持128个字符，不能以`aliyun`、`acs:`、`http://`或者`https://`开头。",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "RegionId",
-      "description": "The region ID of the resource.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the resource to which you want to create and bind tags.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceId",
-      "description": "The resource ID. You can specify at most 20 IDs.",
+      "description": "The resource IDs. You can specify up to 50 resource IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "ResourceType",
-      "description": "The resource type. Valid values:\n\n*   **VPC**: a VPC\n*   **VSWITCH**: a vSwitch\n*   **ROUTETABLE**: a route table\n*   **EIP**: an EIP\n*   **VpnGateway**: a VPN gateway\n*   **NATGATEWAY**: a NAT gateway\n*   **COMMONBANDWIDTHPACKAGE**: an EIP bandwidth plan",
+      "description": "The resource type. Valid values:\n- **VPC**: virtual private cloud (VPC) instance.\n- **VSWITCH**: virtual switch instance.\n- **ROUTETABLE**: route table instance.\n- **EIP**: elastic IP address (EIP) instance.\n- **VPNGATEWAY**: VPN gateway instance.\n- **NATGATEWAY**: NAT gateway instance.\n- **COMMONBANDWIDTHPACKAGE**: Internet Shared Bandwidth instance.\n- **PREFIXLIST**: prefix list instance.\n- **PUBLICIPADDRESSPOOL**: IP address pool instance.\n- **IPV4GATEWAY**: IPv4 gateway instance.\n- **IPV6GATEWAY**: IPv6 gateway instance.\n- **NETWORKACL**: network ACL instance.\n- **TRAFFICMIRRORFILTER**: traffic mirror filter instance.\n- **TRAFFICMIRRORSESSION**: traffic mirror session instance.\n- **FLOWLOG**: flow log instance.\n- **HAVIP**: high-availability (HA) virtual IP address instance.\n- **DHCPOPTIONSSET**: DHCP options set instance.\n- **GATEWAYENDPOINT**: gateway endpoint instance.\n- **IPV6ADDRESS**: IPv6 address instance.\n\n\n> The resource type value is case-insensitive.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -35,12 +35,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You must specify at least 1 and can specify up to 20 tag keys.\n\nThe tag key can be up to 128 characters in length, and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`.\n\n> The **Tag.N.Key** parameter is required when you call this operation, and cannot be an empty string.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You must specify at least 1 and can specify up to 20 tag values.\n\nThe tag value can be up to 128 characters in length, and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`.\n\n> The **Tag.N.Value** parameter is required when you call this operation, and can be an empty string.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,33 +1,41 @@
 {
   "name": "AttachHostAccountsToUserGroup",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Hosts",
-      "description": "The IDs of the host and host account that you want to authorize the user group to manage. You can specify up to 10 host IDs and up to 10 host account IDs for each host. You can specify only host IDs. In this case, the user group is authorized to manage only the specified hosts. For more information about this parameter, see the \"Description of the Hosts parameter\" section of this topic.\n\n> You can call the [ListHosts](~~200665~~) operation to query the ID of the host and the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.",
+      "description": "The host IDs and host account IDs to be authorized for the user group. You can specify up to 10 host IDs, and each host supports up to 10 host account IDs. You do not need to specify host account IDs. If you do not specify host account IDs, only the hosts are authorized for the user group. For the specific structure of this parameter, see the Hosts parameter structure description below the request parameters list.\n> You can call the [ListHosts](~~200665~~) operation to query host IDs and call the [ListHostAccounts](~~204372~~) operation to query host account IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the bastion host in which you want to authorize the user group to manage the specified hosts and host accounts.\n\n> You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.",
+      "description": "The instance ID of the bastion host where the user group to be granted authorization resides.\n> You can call the [DescribeInstances](~~153281~~) operation to query this parameter.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "ProjectId",
+      "description": "The project ID.",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "RegionId",
-      "description": "The region ID of the bastion host in which you want to authorize the user group to manage the specified hosts and host accounts.\n\n> For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
+      "description": "The region ID of the bastion host instance where the user group to be authorized resides.\n> For the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserGroupId",
-      "description": "The ID of the user group that you want to authorize to manage the specified hosts and host accounts.\n\n> You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.",
+      "description": "The ID of the user group to be authorized with hosts and host accounts.\n> You can call the [ListUserGroups](~~204509~~) operation to query this parameter.",
       "position": "Query",
       "type": "String",
       "required": true

@@ -1,0 +1,58 @@
+{
+  "name": "DescribeModelOperatorUsage",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApiKeyIds",
+      "description": "The list of API key IDs. Separate multiple IDs with commas (,). If this parameter is not specified, all API key IDs under the instance ID are used by default.\n\n> The list can contain up to 50 items.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "EndTime",
+      "description": "The end time of the query. Specify the time in the <i>YYYY-MM-DDThh:mmZ</i> format (UTC).\n\n> The end time must be later than the start time, and the interval between the start time and end time cannot exceed 7 days.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "GroupBy",
+      "description": "The dimension by which to split the series. Separate multiple dimensions with commas (,). The order is not significant. Valid values:\n\n- model (default): splits by model.\n- api_key: splits by API key.\n- model,api_key: splits by model and API key.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Keys",
+      "description": "The list of metrics. Separate multiple metrics with commas (,). Valid values:\n\n- request_count: the number of requests.\n- success_count: the number of successful requests.\n- error_count: the number of failed requests.\n- success_rate: the request success rate.\n- input_token: the number of input tokens.\n- output_token: the number of output tokens.\n- total_token: the total number of tokens.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "ModelNames",
+      "description": "The list of model names. Separate multiple names with commas (,).",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "Period",
+      "description": "The time bucket size in seconds. Valid values: 1, 5, 15, 60, 300, and 3600.\n\n>\n> - 1. If Period is not specified, the default value is determined by the following rules:\n> - - Window range ≤ 1 hour: Period = 1.\n> - - Window range ≤ 1 day: Period = 60.\n> - - Window range ≤ 7 days: Period = 60.\n> - 2. When Period is set to 1, the window must be ≤ 1 day.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "StartTime",
+      "description": "The start time of the query. Specify the time in the <i>YYYY-MM-DDThh:mmZ</i> format (UTC).\n\n> Only metrics within the last 30 days can be queried.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

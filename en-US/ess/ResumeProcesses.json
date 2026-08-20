@@ -1,26 +1,27 @@
 {
   "name": "ResumeProcesses",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a unique value from your client to ensure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Process",
-      "description": "The number of processes.",
+      "description": "The type of scaling process that you want to resume. Valid values of N: 1 to 100. Valid values:\n\n- `ScaleIn`: scale-in process.\n- `ScaleOut`: scale-out process.\n- `HealthCheck`: health check.\n- `AlarmNotification`: event-triggered task.\n- `ScheduledAction`: scheduled task.\n\n>The system supports resuming the preceding five types of scaling processes. If you specify more than these five types, the system automatically removes duplicate types.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the scaling group resides.",
+      "description": "The region ID of the scaling group.",
       "position": "Query",
       "type": "String",
       "required": false

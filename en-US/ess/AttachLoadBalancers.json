@@ -1,52 +1,55 @@
 {
   "name": "AttachLoadBalancers",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Async",
-      "description": "Specifies whether to use asynchronous calls when you associate an SLB instance with the scaling group. Asynchronous calls ensure the transactional nature of operations, which means that all operations are successfully performed or the execution results do not take effect if some operations fail. We recommend that you use asynchronous calls.\n\nValid values:\n\n*   true: asynchronous calls. The request returns the ID of the scaling activity.\n*   false: synchronous calls.\n\nDefault value: false.",
+      "description": "Specifies whether to use asynchronous invocation when adding load balancing CLB (formerly SLB) instances. Asynchronous invocation ensures the transactional nature of the operation, which means that either all operations execute successfully or none of the operations take effect if one is failed. Use asynchronous invocation.\n\nValid values:\n\n- true: Asynchronous invocation. The request returns the ID of the scaling activity.\n\n- false: Synchronous call.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to guarantee the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25965~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ForceAttach",
-      "description": "Specifies whether to add all instances in the specified scaling group as backend servers to the SLB instance. Valid values:\n\n*   true: adds all instances.\n*   false: does not add all instances.\n\nDefault value: false.",
+      "description": "Specifies whether to add all existing instances in the scaling group as backend servers of the load balancing CLB (formerly SLB) instances. Valid values:\n         \n- true: All existing instances in the scaling group are added as backend servers of the load balancing instances when the load balancing instances are added to the scaling group.\n    > If a load balancing instance has already been added to the scaling group and you want to add all instances in the scaling group as backend servers of the load balancing instance, you can add the load balancing instance to the scaling group again with the `ForceAttach` parameter set to `true`.\n\n- false: Existing instances in the scaling group are not added as backend servers of the load balancing instances when the load balancing instances are added to the scaling group.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "LoadBalancer",
-      "description": "The IDs of the CLB instances.",
+      "description": "The IDs of the load balancing CLB (formerly SLB) instances to be added. Valid values of N: 1 to 5.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "LoadBalancerConfig",
-      "description": "",
+      "description": "The load balancing CLB (formerly SLB) configuration list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "LoadBalancerId",
+          "description": "The ID of the load balancing CLB (formerly SLB) instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Weight",
+          "description": "The weight of an ECS instance or elastic container instance as a backend server after Auto Scaling adds the instance to the CLB server group. A higher weight indicates that the instance receives more requests. If the weight is 0, the instance does not receive any requests.\n\nValid values: 0 to 100.",
           "position": "Query",
           "type": "Integer",
           "required": false

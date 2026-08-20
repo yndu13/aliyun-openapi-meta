@@ -1,0 +1,37 @@
+{
+  "name": "ModifyForwardStrategyBindingItems",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ForwardId",
+      "description": "转发策略ID。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ItemIds",
+      "description": "绑定项ID列表。MatchMode 为 **UserGroupAll** 或 **ApplicationAll** 时必须为空，其余取值时必填。列表内不允许重复，且所指定的对象必须已存在。",
+      "position": "Query",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "MatchMode",
+      "description": "策略匹配目标类型。必填。取值：\n- **UserGroupAll**：关联全体用户。\n- **UserGroupNormal**：关联部分用户组。\n- **ApplicationAll**: 所有内网应用。\n- **Application**: 部分内网应用。\n- **Tag**: 内网应用标签。\n\n取值为 **UserGroupAll** 或 **ApplicationAll** 时，ItemIds 必须为空；取值为 **UserGroupNormal**、**Application** 或 **Tag** 时，ItemIds 必填。\n\nModifyType 不为 **Cover** 时不允许切换匹配目标类型：**Application**、**Tag**、**ApplicationAll** 三者互斥，**UserGroupNormal** 与 **UserGroupAll** 互斥。同一转发策略上已存在互斥类型的绑定项时，请求会被拒绝。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ModifyType",
+      "description": "修改方式。必填。取值：\n- **Append**：在现有绑定项上追加。ItemIds 中不能包含已绑定的对象。\n- **Delete**：删除指定的绑定项。ItemIds 中必须全部为已绑定的对象。\n- **Cover**：覆盖同类绑定项，即先清空该转发策略上同类的全部绑定项，再写入 ItemIds。同类范围为 **ApplicationAll**、**Application**、**Tag**，或 **UserGroupAll**、**UserGroupNormal**。\n\n取值为 **Append** 或 **Delete** 时，MatchMode 不能为 **UserGroupAll** 或 **ApplicationAll**。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

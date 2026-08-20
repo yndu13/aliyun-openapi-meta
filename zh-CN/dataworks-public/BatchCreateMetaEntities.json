@@ -1,0 +1,53 @@
+{
+  "name": "BatchCreateMetaEntities",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "Entities",
+      "description": "实体列表，最多5个；同一批次必须为同一种entityType",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "Attributes",
+          "description": "实体属性，复杂值需要序列化为JSON字符串",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "Comment",
+          "description": "注释",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "CustomAttributes",
+          "description": "自定义属性值，key为自定义属性标识，value当前仅支持单值。\n<notice>这里用到的自定义属性，需要通过CreateCustomAttribute API预先创建，比如通过API创建ID为 `custom-attribute:owner_name`的自定义属性后，这里可以配置 {'owner_name': ['Bob']}完成自定义属性配置</notice>",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "EntityType",
+          "description": "实体类型, 统一批次须一致，支持\n- 纯自定义类型，如custom_entity-biz_api\n- 扩展表类型，如果注册了元数据实体类型 custom_dw-table，支持创建对应的数据库类型 custom_dw-database 和 数据表 类型 custom_dw-table的对象",
+          "position": "FormData",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "Name",
+          "description": "实体名称，由大小写字母、数字、下划线组成，必须以字母开头，最长64字符",
+          "position": "FormData",
+          "type": "String",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

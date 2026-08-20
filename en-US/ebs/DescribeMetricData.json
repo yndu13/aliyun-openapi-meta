@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "AggreOps",
-      "description": "Aggregation method over time. Possible values include:\n\n- SUM_OVER_TIME\n- COUNT_OVER_TIME\n- AVG_OVER_TIME\n- MAX_OVER_TIME\n- MIN_OVER_TIME\n- SUM_OVER_TIME_LCRO: Sum over a left-closed, right-open interval\n- AVG_OVER_TIME_LCRO: Average over a left-closed, right-open interval\n- SUM_OVER_TIME_LORC: Sum over a left-open, right-closed interval\n- AVG_OVER_TIME_LORC: Average over a left-open, right-closed interval",
+      "description": "The method for aggregating data over time. Valid values:\n\n- SUM\\_OVER\\_TIME\n- COUNT\\_OVER\\_TIME\n- AVG\\_OVER\\_TIME\n- MAX\\_OVER\\_TIME\n- MIN\\_OVER\\_TIME\n- SUM\\_OVER\\_TIME\\_LCRO: The sum of values in a left-closed, right-open interval.\n- AVG\\_OVER\\_TIME\\_LCRO: The average of values in a left-closed, right-open interval.\n- SUM\\_OVER\\_TIME\\_LORC: The sum of values in a left-open, right-closed interval.\n- AVG\\_OVER\\_TIME\\_LORC: The average of values in a left-open, right-closed interval.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AggreOverLineOps",
-      "description": "Aggregation method between lines. Possible values include:\n- NON: No aggregation\n- SUM: Sum\n- AVG: Average\n- COUNT: Count\n- MAX: Maximum\n- MIN: Minimum",
+      "description": "The method for aggregating data across different lines. Valid values:\n\n- NON: No aggregation is performed.\n- SUM: The sum of values.\n- AVG: The average of values.\n- COUNT: The number of values.\n- MAX: The maximum value.\n- MIN: The minimum value.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Dimensions",
-      "description": "The dimension map, in the JSON format. Valid values:\n\n*   DiskId: the disk name. Example: d-xxx.\n*   DeviceType: the disk type. system indicates the system disk, and data indicates the data disk.\n*   DeviceCategory: the disk category. Example: cloud_essd.\n*   EcsInstanceId: the ECS instance name. Example: i-xxx.\n*   Azone: the zone, such as cn-hangzhou-a.\n\nThe returned result is the intersection of all dimension filtering conditions.",
+      "description": "A map of dimensions in the JSON format. The map specifies the dimensions to query. The following keys are supported:\n\n- DiskId: The disk name, such as d-xxx.\n- DeviceType: The disk category. \\`system\\` indicates a system disk and \\`data\\` indicates a data disk.\n- DeviceCategory: The disk type, such as cloud\\_essd.\n- EcsInstanceId: The name of the ECS instance to which the disk is attached, such as i-xxx.\n- Azone: The zone, such as cn-hangzhou-a.\n\nThe returned results are the intersection of all specified dimension-based filter conditions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end time point for obtaining metric data. It should not be later than the current moment. Represented according to the ISO 8601 standard, using UTC +0 time, in the format yyyy-MM-ddTHH:mm:ssZ.",
+      "description": "The end of the time range to query metric data. The time cannot be later than the current time. The time must be in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GroupByLabels",
-      "description": "The list of fields used for grouping and aggregation.",
+      "description": "A list of fields for grouping and aggregation.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "MetricName",
-      "description": "Metric name. Possible values include:\n   \n- disk_bps_percent\n- disk_iops_percent\n- disk_read_block_size\n- disk_read_bps\n- disk_read_iops\n- disk_write_block_size\n- disk_write_bps\n- disk_write_iops",
+      "description": "The name of the metric. Valid values:\n\n- disk\\_bps\\_percent\n- disk\\_iops\\_percent\n- disk\\_read\\_block\\_size\n- disk\\_read\\_bps\n- disk\\_read\\_iops\n- disk\\_write\\_block\\_size\n- disk\\_write\\_bps\n- disk\\_write\\_iops",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Period",
-      "description": "The granularity at which data is collected for the metric. Unit: seconds. Default value: 5. Valid values:\n\n*   5: 5 seconds. The query time range can be up to 12 hours.\n*   10: 10 seconds. The query time range can be up to 24 hours.\n*   60: 60 seconds. The query time range can be up to 7 days.\n*   300: 300 seconds. The query time range can be up to 30 days.\n*   600: 600 seconds. The query time range can be up to 30 days.\n*   3600: 3,600 seconds. The query time range can be up to 30 days.",
+      "description": "The interval at which to query metric data. Unit: seconds. The default value is 5. Valid values:\n\n- 5: 5-second precision. You can query data within a 12-hour time range.\n- 10: 10-second precision. You can query data within a 24-hour time range.\n- 60: 60-second precision. You can query data within a 7-day time range.\n- 300: 300-second precision. You can query data within a 30-day time range.\n- 600: 600-second precision. You can query data within a 30-day time range.\n- 3600: 3600-second precision. You can query data within a 30-day time range.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "Region ID.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. You can specify a point in time that is up to 30 days before the current time. If both StartTime and EndTime are left empty, the monitoring metric data of the most recent statistical period is queried. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The beginning of the time range to query metric data. The start time can be up to 30 days before the current time. If you leave both the StartTime and EndTime parameters empty, the system queries the metrics for the most recent period. The time must be in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.",
       "position": "Query",
       "type": "String",
       "required": false

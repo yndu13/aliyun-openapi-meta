@@ -1,49 +1,55 @@
 {
   "name": "ListAnalyticsData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ApiPath",
-      "description": "",
+      "description": "The API path.\n\nYou can view the value of **API Path** on the API details page of **Data API**. For more information, see [View and use](~~206247~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Condition",
-      "description": "",
+      "description": "The list of query conditions.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "BetweenEnd",
+          "description": "The end value when the service API request parameter represents a range.\n\nYou can view the value range of request parameters on the API details page of **Data API**. For more information, see [View and use](~~206247~~).\n> If **Condition.N.Operate** is set to `BETWEEN` or `bt`, this parameter is required, and **Condition.N.Value** is not required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "BetweenStart",
+          "description": "The start value when the service API request parameter represents a range.\n\nYou can view the value range of request parameters on the API details page of **Data API**. For more information, see [View and use](~~206247~~).\n> If **Condition.N.Operate** is set to `BETWEEN` or `bt`, this parameter is required, and **Condition.N.Value** is not required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FieldName",
+          "description": "The request parameter name configured for the service API.\n\nYou can view the values of **Request Parameters** on the API details page of **Data API**. For more information, see [View and use](~~206247~~).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Operate",
+          "description": "The comparison operator.\n\nOnly `bt`, `eq`, `neq`, `rlike`, `in`, or `nin` are supported, along with their corresponding operators `BETWEEN`, `=`, `!=`, `LIKE`, `IN`, and `NIN`.\n\nYou can view the corresponding operators of request parameters on the API details page of **Data API**. For more information, see [View and use](~~206247~~).\n\n- `BETWEEN`: The request parameter is assigned a specific range.\n- `=`: The request parameter is assigned a specific value.\n- `!=`: The request parameter is not assigned a specific value.\n- `LIKE`: The request parameter value starts with a specific value.\n- `IN`: The request parameter value belongs to a specific set.\n- `NIN`: The request parameter value does not belong to a specific set.\n\nFor example, if a dataset has 6 records (with `time` values of `abcd`, `abce`, `abcf`, `abcg`, `aabc`, and `abbc`), and you call this operation with `Condition.N.FieldName=\"time\"`:\n\n- If `Condition.N.Operate=\"LIKE\"` and `Condition.N.Value=\"abc\"`, all records with `time=abcd`, `time=abce`, `time=abcf`, and `time=abcg` are returned.\n- If `Condition.N.Operate=\"IN\"` and `Condition.N.Value=\"[abcd,abce,abcf]\"`, all records with `time=abcd`, `time=abce`, and `time=abcf` are returned.\n\n> If this parameter is set to `BETWEEN`, **Condition.N.BetweenStart** and **Condition.N.BetweenEnd** are required. If this parameter is not set to `BETWEEN`, **Condition.N.Value** is required.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The comparison value, which is the value assigned to the service API request parameter.\n\nYou can view the values of request parameters on the API details page of **Data API**. For more information, see [View and use](~~206247~~).\n\n> If **Condition.N.Operate** is not set to `BETWEEN` or `bt`, this parameter is required, and **Condition.N.BetweenStart** and **Condition.N.BetweenEnd** are not required.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -52,28 +58,28 @@
     },
     {
       "name": "IotInstanceId",
-      "description": "",
+      "description": "The ID of the instance where the API resides.\n\nFor more information, see [How to obtain an instance ID](~~267533~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IsoId",
-      "description": "",
+      "description": "The logically isolated ID. Ignore this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNum",
-      "description": "",
+      "description": "The number of the page to return. Default value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "",
+      "description": "The number of entries to return on each page.\n\nThe number of records displayed on each page in the returned results. Maximum value: 100. Minimum value: 1. Default value: 100.\n> This parameter is required when pagination is enabled.",
       "position": "Query",
       "type": "Integer",
       "required": false

@@ -1,5 +1,6 @@
 {
   "name": "CreateAlarm",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -34,12 +35,14 @@
       "sub_parameters": [
         {
           "name": "DimensionKey",
+          "description": "监控项关联的维度信息键。取值范围与报警任务的监控类型有关：\n\n- 当报警任务为自定义监控类型（即MetricType=custom）时，不限制取值范围，由您自行指定。\n\n\n- 当报警任务为系统监控类型（即MetricType=system）时，取值范围如下：\n\n    - user_id：您的账号ID。\n    - scaling_group：被监控的伸缩组。\n    - device：网卡设备的类型。\n    - state：TCP连接的状态。\n    - rulePool: ALB qps监控指标指定服务器组。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DimensionValue",
+          "description": "监控项关联的维度信息值，取值范围由Dimension.N.DimensionKey决定：\n\n- 当Dimension.N.DimensionKey的取值是自定义的，即报警任务是自定义监控类型（即MetricType=custom）时，该参数不限制取值范围，由您自行指定。\n\n- 当Dimension.N.DimensionKey的取值是系统指定的取值范围中的，即报警任务为系统监控类型（即MetricType=system）时，该参数取值范围如下：\n\n    - user_id：由系统自动填充。\n\n    - scaling_group：由系统自动填充。\n\n    - device：\n\n        - eth0：对于经典网络实例，eth0表示内网网卡。对于VPC实例，只存在eth0一张网卡。\n        - eth1：对于经典网络实例，eth1代表外网网卡。\n\n    - state：\n\n        - TCP_TOTAL：表示总的TCP连接数。\n        - ESTABLISHED：表示已建立的TCP连接数。\n    - rulePool：ALB服务器组id，示例：sgp-xxxxx。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -48,7 +51,7 @@
     },
     {
       "name": "Effective",
-      "description": "指定报警任务的生效时间段，默认所有时间都生效。\n\n该参数遵循Cron表达式，默认格式为`X X X X X ?`，含义如下：\n- X：一个域的占位符，依次表示秒、分钟、小时、日期和月。X可以是确定的取值，也可以是具有逻辑意义的特殊字符。X的取值范围，请参见[Cron表达式](~~25907~~)。\n\n- ？：表示不指定值。\n\n> 该参数指定值**默认为UTC+8时区**，支持在Cron表达式之前添加时区信息`TZ=+yy`来指定时区，其中y表示时区的数值。例如，`TZ=+00 * * 1-2 * * ?`表示报警任务在UTC+0时区每天01:00~02:59之间生效。\n\n取值示例及含义如下：\n\n-  `* * * * * ?  `：所有时间都生效。\n\n-  `* * 17-18 * * ? `：在UTC+8时区每天17:00~18:59之间生效。\n\n- `TZ=+00 * * 1-2 * * ?`：在UTC+0时区每天01:00~02:59之间生效。",
+      "description": "指定报警任务的生效时间段，默认所有时间都生效。\n\n该参数遵循Cron表达式，默认格式为`X X X X X ?`，含义如下：\n- X：一个域的占位符，依次表示秒、分钟、小时、日期和月。X可以是确定的取值，也可以是具有逻辑意义的特殊字符。X的取值范围，请参见[Cron表达式](~~25907~~)。\n\n- ？：表示不指定值。\n\n> 该参数指定值**默认为UTC+8时区**，支持在Cron表达式之前添加时区信息`TZ=+yy`来指定时区，其中y表示时区的数值。例如，`TZ=+00 * * 1-2 * * ?`表示报警任务在UTC+0时区每天01:00~02:59之间生效。\n\n取值示例及含义如下：\n\n-  `* * * * * ?  `：所有时间都生效。\n\n-  `* * 17-18 * * ? `：在UTC+8时区每天17:00~18:59之间生效。\n\n- `TZ=+00 * * 1-2 * * ?`：在UTC+0时区每天01:00~02:59之间生效。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -69,30 +72,35 @@
       "sub_parameters": [
         {
           "name": "ComparisonOperator",
+          "description": "多指标报警规则的监控项统计值与阈值的比较符，用于指定监控项统计值与阈值在什么关系下满足条件。取值范围：\n\n- 监控项统计值大于等于阈值。取值：>=。\n- 监控项统计值小于等于阈值。取值：<=。\n- 监控项统计值大于阈值。取值：>。\n- 监控项统计值小于阈值。取值：<。\n\n默认值：>=。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MetricName",
+          "description": "多指标报警规则的监控指标名称。取值范围与报警任务的监控类型有关：\n- 当报警任务为自定义监控类型（即MetricType=custom）时，取值范围是您自有的监控项范围。\n- 当报警任务为系统监控类型（即MetricType=system）时，取值范围如下所示：\n\n    - CpuUtilization：（ECS）CPU使用率（%）。\n\n    - ConcurrentConnections：（ECS）ECS同时连接数（个）。\n\n    - IntranetTx：（ECS）内网出流量（Kb/min）。\n\n    - IntranetRx：（ECS）内网入流量（Kb/min）。\n\n    - VpcInternetTx：（ECS）外网出流量（Kb/min）。\n\n    - VpcInternetRx：（ECS）外网入流量（Kb/min）。\n\n    - SystemDiskReadBps：（ECS）系统盘读BPS（Byte/s）。\n\n    - SystemDiskWriteBps：（ECS）系统盘写BPS（Byte/s）。\n\n    - SystemDiskReadOps：（ECS）系统盘读IOPS（次/s）。\n\n    - SystemDiskWriteOps：（ECS）系统盘写IOPS（次/s）。\n\n    - CpuUtilizationAgent：（Agent）CPU使用率（%）。\n\n    - GpuUtilizationAgent：（Agent）GPU使用率（%）。\n\n    - GpuMemoryFreeUtilizationAgent：（Agent）GPU内存空闲率（%）。\n\n    - GpuMemoryUtilizationAgent：（Agent）GPU内存使用率（%）。\n\n    - MemoryUtilization：（Agent）内存（%）。\n\n    - LoadAverage：（Agent）系统平均负载。\n\n    - TcpConnection：（Agent）TCP总连接数（个）。\n    \n    - TcpConnection：（Agent）TCP已建立连接数（个）。\n\n    - PackagesNetOut：（Agent）内网网卡发包数（个/s）。\n\n    - PackagesNetIn：（Agent）内网网卡收包数（个/s）。\n\n    - PackagesNetOut：（Agent）外网网卡发包数（个/s）。\n\n    - PackagesNetIn：（Agent）外网网卡收包数（个/s）。\n   \n    - EciPodCpuUtilization：CPU使用率（%）。\n\n    - EciPodMemoryUtilization：内存（%）。\n\n    - LoadBalancerRealServerAverageQps：（ALB）服务器组单机QPS（次/s）。\n\n更多信息，请参见[系统监控报警任务](~~74854~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Period",
+          "description": "多指标报警规则中统计监控项数据的周期，单位：秒。取值范围：\n\n- 15。\n- 60。\n- 120。\n- 300。\n- 900。\n\n> 仅ECS类型的伸缩组支持设置15秒的统计周期。\n默认值：300。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Statistics",
+          "description": "多指标报警规则中统计监控项数据的方法。取值范围：\n\n- Average：平均值。\n- Minimum：最小值。\n- Maximum：最大值。\n\n默认值：Average。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Threshold",
+          "description": "多指标报警规则中监控指标的阈值，满足阈值表达式达到指定次数即触发执行伸缩规则。",
           "position": "Query",
           "type": "Float",
           "required": false

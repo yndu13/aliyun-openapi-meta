@@ -1,33 +1,34 @@
 {
   "name": "CreateProduct",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AliyunCommodityCode",
-      "description": "The edition of the product.\n\n*   If you do not configure this parameter, a product of the Basic Edition is automatically created. You cannot use a TSL model to define the product.\n*   If you want to configure this parameter, set the value to **iothub_senior**. A product that supports TSL models is created. You must also configure the **DataFormat** parameter.",
+      "description": "The edition of the product. \n\n- If you do not specify this parameter, a Basic Edition product is created by default, which does not support the Thing Specification Language model.\n- If you specify this parameter, only **iothub_senior** is supported, which indicates that a product that uses the Thing Specification Language model is created. In this case, you must also specify the **DataFormat** parameter.\n\n<props=\"china\">\n><notice>\n- Under an MQTT-type instance, the Thing Specification Language model is not supported. Do not specify this parameter.\n- For Basic Edition products, the **Online Debug** and **Event Response** features are not supported in the IoT Platform console.\n\n></notice></props>\n\n<props=\"intl\">\n><notice>For Basic Edition products, the **Online Debug** feature is not supported in the IoT Platform console.\n></notice></props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AuthType",
-      "description": "The verification method that is used to connect the devices of the product to IoT Platform.\n\nYou do not need to configure this parameter. **secret**: uses DeviceSecrets to verify the devices. Default value: secret. For more information, see [MQTT connections over TCP](~~73742~~).",
+      "description": "The authentication method for devices under the product to connect to IoT Platform.\n\n<props=\"china\">\n- **secret**: uses the device secret for device identity authentication. For more information, see [MQTT-TCP connection](~~73742~~).\n\n- **id2**: uses IoT Device ID (ID²) for authentication.\n\n    > Only the China (Shanghai) region supports ID²-based authentication. Products with the network connection type **NetType** set to **LORA** do not support ID²-based authentication. To use ID²-based authentication, you must purchase the ID² service.\n\n   For more information, see [Use ID²-based authentication](~~141661~~).\n\n- **one-party**: requires importing device authentication information (UserName, Password, SN) to IoT Platform, which authenticates devices based on the imported information.\n\n    > Only under an MQTT-type instance can **AuthType** be set to **one-party**, and it must be set to **one-party**.\n\n\n</props>\n\n\n<props=\"china\">If you do not specify this parameter, the default value is **secret**.</props>\n\n<props=\"intl\">You do not need to specify this parameter. The default value is **secret**, which indicates that the device secret is used for device identity authentication. For more information, see [MQTT-TCP connection](~~73742~~).</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CategoryKey",
-      "description": "The identifier of the product category. If you configure this parameter, a TSL model of the product category is used. Otherwise, no TSL model is used.\n\nYou can call the [ListThingTemplates](~~150316~~) operation to query the details of product categories that are predefined by IoT Platform and obtain category keys.",
+      "description": "The identifier of the product category. If you specify this parameter, the created product uses the Thing Specification Language model of the specified category. If you do not specify this parameter, no standard Thing Specification Language model of any category is used.\nCall [ListThingTemplates](~~150316~~) to view the predefined category information of IoT Platform and obtain the value of CategoryKey from the response.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataFormat",
-      "description": "The data format.\n\nIf the **AliyunCommodityCode** parameter is set to **iothub_senior**, you must configure this parameter.\n\nValid values:\n\n*   **0**: custom data format.\n*   **1**: Alink JSON format.",
+      "description": "The data format. Valid values:\n\n- **0**: pass-through/custom format (CUSTOM_FORMAT).\n- **1**: Alink protocol (ALINK_FORMAT).\n\n<props=\"china\">\n><notice>Under an MQTT-type instance, the data format for device communication is raw custom format, and **DataFormat** must be set to **0**.\n></notice></props>",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -41,70 +42,70 @@
     },
     {
       "name": "Id2",
-      "description": "You do not need to configure this parameter.",
+      "description": "<props=\"china\">Specifies whether to enable ID²-based authentication. Valid values:</props>\n\n<props=\"china\">\n- **true**: Enable ID²-based authentication.\n- **false**: Do not enable ID²-based authentication.\n\n</props>\n\n<props=\"china\">If you do not specify this parameter, the default value is **false**, which means ID²-based authentication is not enabled.</props>\n\n<props=\"china\">\n> Only the China (Shanghai) region supports ID²-based authentication. If this parameter is set to **true** but the **AuthType** parameter is not set to **id2**, the system uses the value of the **AuthType** parameter.</props>\n\n<props=\"intl\">You do not need to specify this parameter.</props>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n\n**Important**\n\n*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.\n*   If no **Overview** page or ID is generated for your instance, you do not need to configure this parameter.\n\nFor more information about the instance, see [Overview](~~356505~~).",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If an ID value exists, you must specify this parameter. Otherwise, the call fails.\n- If no ID value exists, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JoinPermissionId",
-      "description": "You do not need to configure this parameter.",
+      "description": "<props=\"china\">The LoRaWAN network credential ID. This parameter is required if the network connection type **NetType** is set to **LORA**.</props>\n\n<props=\"china\">Call [QueryLoRaJoinPermissions](~~109293~~) to query the **JoinPermissionId** of the LoRaWAN network credentials under your account.</props>\n\n<props=\"china\">If you do not have a LoRaWAN network credential, go to the [Link WAN console](https://linkwan.console.aliyun.com/join-permission-authorization) to create one.</props>\n\n<props=\"intl\">You do not need to specify this parameter.</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetType",
-      "description": "The network connection method.\n\nIf the **AliyunCommodityCode** parameter is set to **iothub_senior** and the devices of the product are directly connected devices or gateways, you must configure this parameter.\n\nValid values:\n\n*   **WIFI**: Wi-Fi.\n*   **CELLULAR**: cellular network.\n*   **ETHERNET**: Ethernet.\n*   **OTHER**: other networks.\n\nDefault value: WIFI.",
+      "description": "The network connection type.\nSpecify this parameter if the devices under the product are gateway devices or directly connected devices.\n\nValid values:\n\n<props=\"china\">- **LORA**: LoRaWAN.</props>\n- **WIFI**: Wi-Fi.\n- **CELLULAR**: cellular network.\n- **ETHERNET**: Ethernet.\n- **OTHER**: other.\n\nIf you do not specify this parameter, the default value is Wi-Fi.\n\n<props=\"china\">\n><notice>Under an MQTT-type instance, **NetType** does not support the value **LORA**.\n></notice></props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NodeType",
-      "description": "The node type of the product. Valid values:\n\n*   **0**: device. Sub-devices cannot be attached to a device. A device can be directly connected to IoT Platform or connected to IoT Platform as a sub-device of a gateway. If you use the device as a sub-device, you must also configure the **ProtocolType** parameter.\n*   **1**: gateway. Sub-devices can be attached to a gateway. A gateway can manage sub-devices, maintain topological relationships with sub-devices, and synchronize topological relationships to IoT Platform.",
+      "description": "The node type of the product. Valid values:\n\n- **0**: device. A device cannot attach sub-devices. It can connect to IoT Platform directly or as a sub-device of a gateway. When the device serves as a sub-device of a gateway, you must also specify **ProtocolType**.\n- **1**: gateway. A gateway can attach sub-devices. It has a sub-device management module that maintains the topological relationships of sub-devices and synchronizes the topological relationships to IoT Platform.\n\n<props=\"china\">\n><notice>Under an MQTT-type instance, the device must connect to IoT Platform as a directly connected device, and **NodeType** must be set to **0**.\n></notice></props>",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ProductName",
-      "description": "The name of the product.\n\nThe name must be 4 to 30 characters in length, and can contain letters, digits, and underscores (\\_).\n\n\n**Important** Each product name must be unique within the current instance.",
+      "description": "The name of the product to be created.\nThe product name must be 4 to 30 characters in length and can contain Chinese characters, letters, digits, and underscores (_). Each Chinese character counts as two characters.\n\n><notice> The product name must be unique within the current instance.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProtocolType",
-      "description": "The protocol used by the devices of the product to connect to the gateway.\n\nIf the **AliyunCommodityCode** parameter is set to **iothub_senior** and a gateway is required to connect the devices of the product to IoT Platform, you must configure this parameter.\n\nValid values:\n\n*   **modbus**: Modbus.\n*   **opc-ua**: Open Platform Communication Unified Architecture (OPC UA).\n*   **customize**: custom protocol.\n*   **ble**: Bluetooth Low Energy (BLE).\n*   **zigbee**: ZigBee.",
+      "description": "The protocol type used by the device to connect to the gateway.\nSpecify this parameter if the product uses the Thing Specification Language model (**AliyunCommodityCode**=**iothub_senior**) and the devices under the product need to connect to IoT Platform through a gateway.\n\nValid values:\n\n- **modbus**: Modbus protocol.\n- **opc-ua**: OPC UA protocol.\n- **customize**: custom protocol.\n- **ble**: BLE protocol.\n- **zigbee**: ZigBee protocol.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublishAuto",
-      "description": "Specifies whether to publish the TSL model after the product is created.\n\n*   **true**: publishes the TSL model after the product is created.\n*   **false**: does not publish the TSL model after the product is created.\n\nDefault value: **true**.",
+      "description": "Specifies whether to automatically publish the Thing Specification Language model after the product is created.\n\n- **true**: Publish.\n- **false**: Do not publish.\n\nIf you do not specify this parameter, the default value is **true**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the product belongs. If you specify a value for this parameter, the product is added to the resource group.\n\nYou can log on to the [Resource Management console](https://resourcemanager.console.aliyun.com/resource-groups) to view the ID of the resource group.\n\n\n**Important**\n\nYou can specify a value for this parameter only if you have activated Resource Management.",
+      "description": "The resource group ID.\n\n><notice>\n- Currently, IoT Platform supports resource group management only at the instance level. The request parameter **ResourceGroupId** is no longer effective and does not need to be specified.\n- Resource groups previously set by calling this API remain effective.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ValidateType",
-      "description": "The level of data verification. If you do not configure this parameter, the default value is used. Valid values:\n\n*   **1**: weak verification. Default value: 1. IoT Platform verifies only the identifier and dataType fields of the data. All data is forwarded.\n\n    In the IoT Platform console, the data is displayed on the **TSL Data** tab of the **Device Details** page. The data that fails to be verified is not displayed.\n\n    You can view the data that failed to be verified in the **checkFailedData** parameter of the forwarded data. For more information, see [Data formats](~~73736~~).\n\n*   **2**: no verification. IoT Platform does not verify the data. All data is forwarded.\n\n    In the IoT Platform console, the data is not displayed on the **TSL Data** tab of the **Device Details** page.",
+      "description": "The data validation level. If you do not specify this parameter, weak validation is used by default. Valid values:\n\n- **1**: weak validation. Only the identifier and dataType fields of device data are validated. Other fields are not validated, and full data is forwarded.\n\n Data that passes validation is displayed on the **TSL Data** tab of the **Device Details** page in the IoT Platform console. Data that fails validation is not displayed.\n\n You can view data that fails validation through the **checkFailedData** parameter in forwarded data. For more information, see [Data formats](~~73736~~).\n\n- **2**: no validation. Reported data is not validated, and full data is forwarded.\n\n Data is not displayed on the **TSL Data** tab of the **Device Details** page in the IoT Platform console.",
       "position": "Query",
       "type": "Integer",
       "required": false

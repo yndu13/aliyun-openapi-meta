@@ -7,35 +7,35 @@
   "parameters": [
     {
       "name": "Config",
-      "description": "Rule configuration, specifying the detailed configuration for creating a rule.",
+      "description": "The specific configuration of the WAF rule (`WafRuleConfig` data structure). The required fields vary depending on the Phase value:\n\n- `http_custom`: `Expression` (match expression) and `Action` (action upon match) are required. Setting `Name` is recommended for easier identification.\n- `http_whitelist`: `Expression` is required. Matched requests are allowed directly (no Action).\n- `http_ratelimit`: `Expression` and `RateLimit` (rate limiting parameters) are required.\n- `ip_access_rule`: `Expression` (containing IP match) and `Action` are required.\n\n> The complete field definitions are based on the `WafRuleConfig` data structure. If required fields are missing, the service returns `InvalidParameter(400)` / `Rule.Config.Malformed`.",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Phase",
-      "description": "WAF operation phase.",
+      "description": "The WAF rule execution phase. This **single-creation operation** supports the following phases (it does not support `http_anti_scan` or `http_bot`. For these two phases, use the batch operation `BatchCreateWafRules`):\n- `http_whitelist`: whitelist rule\n- `http_custom`: custom rule\n- `http_managed`: managed rule\n- `http_ratelimit`: rate limiting rule\n- `ip_access_rule`: IP access rule\n- `http_security_level_rule`: security rule\n\n> Note: `http_anti_scan` and `http_bot` can only be created through the batch operation. Passing these two values to this operation returns an error.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "RulesetId",
-      "description": "Ruleset ID.",
+      "description": "The ID of the WAF ruleset. You can call the [ListWafRulesets](~~2878359~~) operation to obtain the ruleset ID.",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "SiteId",
-      "description": "Site ID, which can be obtained by calling the [ListSites](~~2850189~~) interface.",
+      "description": "The site ID. You can call the [ListSites](~~2850189~~) operation to obtain the site ID.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "SiteVersion",
-      "description": "Site version.",
+      "description": "The version number of the site configuration. For sites with version management enabled, you can use this parameter to specify the site version on which the configuration takes effect. The default value is 0.",
       "position": "Query",
       "type": "Integer",
       "required": false

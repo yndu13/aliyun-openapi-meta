@@ -14,72 +14,84 @@
       "sub_parameters": [
         {
           "name": "AdvancedOptions",
+          "description": "高级选项。",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "CrossAccountRoleName",
+          "description": "用于跨账号备份的原账号RAM中创建的角色名。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "CrossAccountType",
+          "description": "跨账号备份类型，默认值为SELF_ACCOUNT。支持： \n- **SELF_ACCOUNT**：本账号备份。\n- **CROSS_ACCOUNT**：跨账号备份。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "CrossAccountUserId",
+          "description": "用于跨账号备份的原账号阿里云UID。",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "DataSourceId",
+          "description": "数据源ID，根据**SourceType**字段表示不同含义：\n- **UDM_ECS**：ECS实例ID。\n- **OSS**：OSS bucket名称。\n- **NAS**：阿里云NAS文件系统ID。\n- **COMMON_NAS**：本地NAS实例ID。\n- **ECS_FILE**：ECS实例ID。\n- **File**：云备份客户端ID。\n- **COMMON_FILE_SYSTEM**：CPFS备份数据源ID。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Disabled",
+          "description": "策略对该数据源是否暂停生效。\n- true：暂停\n- false：未暂停",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Exclude",
+          "description": "当**SourceType**取值为**ECS_FILE**、**File**、**NAS**、**COMMON_NAS**、**COMMON_FILE_SYSTEM**时，可以配置该参数。表示不需要进行备份的文件类型，该类型的所有文件都不备份。最多支持255个字符。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Include",
+          "description": "当**SourceType**取值为**ECS_FILE**、**File**、**NAS**、**COMMON_NAS**、**COMMON_FILE_SYSTEM**时，可以配置该参数。表示要进行备份的文件类型，这些类型的所有文件都备份。最多支持255个字符。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PolicyBindingDescription",
+          "description": "策略绑定描述。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Source",
+          "description": "根据SourceType取值表示不同的含义，SourceType为\n- **OSS**：表示备份某个prefix，如果不指定，则表示备份整个Bucket根目录，仅支持单个prefix。如果要备份/backup，则填写/backup\n- **ECS_FILE**：表示备份的文件目录，如果不指定，则表示备份全部目录，支持同时指定多个目录。如果要备份路径/a和路径/b下的文件，则填写[\"/a\", \"/b\"]。\n- **File**：表示备份的文件目录，如果不指定，则表示备份全部目录，支持同时指定多个目录。如果要备份/a目录和/b目录下的文件，则填写[\"/a\", \"/b\"]。\n- **COMMON_FILE_SYSTEM**：必填，表示备份路径，支持同时指定多个路径。如果要备份/a路径和/b路径，则填写[\"/a\", \"/b\"]，如果要备份根路径则填写[\"/\"]。\n- **COMMON_NAS**：必填，表示备份路径，仅支持单个路径。如果要备份/a路径则填写[\"/a\"]，如果要备份根路径则填写[\"/\"]\n- **OTS**：表示备份的数据表列表，如果不指定，则表示备份全部数据表。支持同时指定多个数据表。如果要备份数据表a和数据表b，则填写[\"a\", \"b\"]。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourceType",
+          "description": "数据源类型。取值范围：\n- **UDM_ECS**：表示ECS整机备份。\n- **OSS**：表示OSS备份。\n- **NAS**：表示阿里云NAS备份。\n- **COMMON_NAS**：表示本地NAS备份。\n- **ECS_FILE**：表示ECS文件备份标准版。\n- **File**：表示本地文件备份。\n- **COMMON_FILE_SYSTEM**：表示CPFS备份。\n- **OTS**: 表示Tablestore备份。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SpeedLimit",
+          "description": "仅当**SourceType**取值为**ECS_FILE**或**File**时，需要配置该参数。表示备份流量控制。格式为`{start}{end}{bandwidth}`。多个流量控制配置使用分隔，并且配置时间不允许有重叠。\n\n- **start**：起始小时。\n- **end**：结束小时。\n- **bandwidth**：限制速率，单位KB/s。",
           "position": "Query",
           "type": "String",
           "required": false

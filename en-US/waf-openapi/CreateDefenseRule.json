@@ -1,61 +1,62 @@
 {
   "name": "CreateDefenseRule",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DefenseScene",
-      "description": "The module to which the protection rule that you want to create belongs.\n\n*   **waf_group:** the basic protection rule module.\n*   **antiscan:** the scan protection module.\n*   **ip_blacklist:** the IP address blacklist module.\n*   **custom_acl:** the custom rule module.\n*   **whitelist:** the whitelist module.\n*   **region_block:** the region blacklist module.\n*   **custom_response:** the custom response module.\n*   **cc:** the HTTP flood protection module.\n*   **tamperproof:** the website tamper-proofing module.\n*   **dlp:** the data leakage prevention module.",
+      "description": "The WAF protection scenario to create.\n\nWhen the protection rule type **DefenseType** is set to **template**, valid values:\n\n- **waf_group**: Basic Web Protection.\n- **waf_base**: new version of Web core protection.\n\n- **antiscan**: scan protection.\n\n- **ip_blacklist**: IP blacklist.\n\n- **custom_acl**: custom rules.\n\n- **whitelist**: whitelist.\n\n- **region_block**: Location Blacklist.\n\n- **custom_response**: legacy custom response.\n\n- **cc**: HTTP flood mitigation.\n\n- **tamperproof**: web tamper proofing.\n\n- **dlp**: information leak prevention.\n\n- **spike_throttle**: peak traffic throttling.\n\n- **bot_manager**: bot management.\n\n\nWhen the protection rule type **DefenseType** is set to **resource**, valid values:\n\n- **account_identifier**: account extraction.\n\n- **custom_response**: new version of custom response.\n\n- **waf_codec**: decoding.\n\n- **websdk**: WebSDK integration.\n\nWhen the protection rule type **DefenseType** is set to **global**, valid values:\n\n- **regular_custom**: custom regular expression.\n\n- **address_book**: address book.\n\n- **custom_response**: new version of custom response.\n>  The custom response in global configurations can be referenced by protected objects or rules. When custom response rules are referenced at different levels, the effective priority is: rule level > protected object level > default page.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DefenseType",
-      "description": "",
+      "description": "The type of the protection rule.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the Web Application Firewall (WAF) instance.\n\n>  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.",
+      "description": "The ID of the WAF instance.\n\n> You can call the [DescribeInstance](~~433756~~) operation to query the ID of the current WAF instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region where the WAF instance resides. Valid values:\n\n*   **cn-hangzhou:** the Chinese mainland.\n*   **ap-southeast-1:** outside the Chinese mainland.",
+      "description": "The region where the WAF instance resides. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Resource",
-      "description": "",
+      "description": "The protection object associated with the rule to create.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceManagerResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The ID of the Alibaba Cloud resource group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Rules",
-      "description": "The configurations of the protection rule. The value is a JSON string that contains multiple parameters.\n\n>  The parameters vary based on the **protection module**, which is specified by **DefenseScene**. For more information, see the \"**Parameters of protection rules**\" section in this topic.",
+      "description": "The rule configuration content, which is a JSON string constructed from a series of parameters.\n>  The specific parameters vary depending on the **mitigation setting type** (**DefenseScene**) that you specify. For more information, refer to **Protection rule parameter description**.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "TemplateId",
-      "description": "The ID of the rule template for which you want to create a protection rule.",
+      "description": "The ID of the protection template for which you want to create a protection rule.\n> This parameter is required only when **DefenseType** is set to **template**.\n> There is an upper limit on the number of rules that can be created in a protection template. For more information, see **Rule quantity limits**. If the number of rules has reached the upper limit, you can call the [CreateDefenseTemplate](~~461613~~) operation to create a new protection template. You can also call the [ModifyDefenseRule](~~461422~~) operation to modify an existing rule.",
       "position": "Query",
       "type": "Long",
       "required": false

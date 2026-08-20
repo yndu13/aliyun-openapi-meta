@@ -1,33 +1,41 @@
 {
   "name": "CreateRole",
+  "deprecated": false,
   "protocol": "HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AllowConsoleLogin",
+      "description": "Specifies whether console logon is allowed for the RAM role. Valid values:\n- true: Console logon is allowed.\n- false: Console logon is not allowed.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "AssumeRolePolicyDocument",
-      "description": "The trust policy that specifies one or more trusted entities to assume the RAM role. The trusted entities can be Alibaba Cloud accounts, Alibaba Cloud services, or identity providers (IdPs).\n\n>  RAM users cannot assume the RAM roles of trusted Alibaba Cloud services.",
+      "description": "The trust policy. Specifies one or more principals that are allowed to assume the RAM role. The principal can be an Alibaba Cloud account, an Alibaba Cloud service, or an identity provider.\n>Resource Access Management (RAM) users cannot assume RAM roles whose trusted entity is an Alibaba Cloud service.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the RAM role.\n\nThe description must be 1 to 1,024 characters in length.",
+      "description": "The description of the RAM role.\n\nThe description must be 1 to 1024 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxSessionDuration",
-      "description": "The maximum session time of the RAM role.\n\nValid values: 3600 to 43200. Unit: seconds. Default value: 3600.\n\nIf you do not specify this parameter, the default value is used.",
+      "description": "The maximum session duration of the RAM role.\n\nValid values: 3600 to 43200. Unit: seconds. Default value: 3600.\n\nIf you leave this parameter empty, the default value is used.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "RoleName",
-      "description": "The name of the RAM role.\n\nThe name must be 1 to 64 characters in length, and can contain letters, digits, periods (.), and hyphens (-).",
+      "description": "The name of the RAM role.\n\nThe name must be 1 to 64 characters in length and can contain letters, digits, periods (.), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,12 +49,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

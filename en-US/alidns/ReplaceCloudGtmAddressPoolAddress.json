@@ -7,45 +7,49 @@
   "parameters": [
     {
       "name": "AcceptLanguage",
-      "description": "The language of the response. Valid values:\n\n*   **zh-CN**: Chinese\n*   **en-US (default)**: English",
+      "description": "The response language. Valid values:\n\n- **zh-CN**: Chinese\n\n- **en-US** (Default): English",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AddressPoolId",
-      "description": "The ID of the address pool for which you want to replace addresses. This ID uniquely identifies the address pool.",
+      "description": "The unique ID of the address pool to update.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Addresses",
-      "description": "The addresses.",
+      "description": "The list of addresses.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "AddressId",
+          "description": "The unique ID of the address.\n\n- If you specify this parameter, all existing addresses in the address pool are deleted and replaced with the specified addresses.\n\n- If you leave this parameter empty, all existing addresses in the address pool are deleted.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RequestSource",
+          "description": "The list of DNS request sources.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SerialNumber",
+          "description": "The serial number, which determines the priority of the address. A smaller number indicates a higher priority. This setting applies to the updated addresses.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "WeightValue",
+          "description": "The weight of the address. Valid values: 1 to 100. You can set a different weight for each address. DNS queries are then resolved based on the weight ratio. This setting applies to the updated addresses.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -54,7 +58,7 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "The client token that is used to ensure the idempotence of the request. Ensure the client token is unique for each request. The token can contain a maximum of 64 ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,65 @@
+{
+  "name": "CreateCustomAttribute",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "Comment",
+      "description": "自定义属性描述，长度小于256个字符",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DisplayEnabled",
+      "description": "是否在详情页展示，默认为true",
+      "position": "Body",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "DisplayName",
+      "description": "自定义属性展示名称，长度小于128个字符",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "EntityTypes",
+      "description": "适用实体类型列表，支持精确实体类型以及 `*-table`、`*-column` 通配写法，如\n- dataworks-project 工作空间\n- dataworks-dataset dataworks数据集\n- maxcompute-table maxcompute表\n- *-column 所有字段类型",
+      "position": "Body",
+      "type": "RepeatList",
+      "required": true
+    },
+    {
+      "name": "Id",
+      "description": "自定义属性ID，需匹配 `^custom-attribute:[A-Za-z][A-Za-z0-9_]{0,98}$`，custom-attribute: 后面的部分长度小于100",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "SearchFilterEnabled",
+      "description": "是否支持在数据地图搜索页作为筛选条件，默认为false，目前仅ENUM类型配置该值为true",
+      "position": "Body",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Type",
+      "description": "自定义属性类型，支持 ENUM、TEXT、HYPERLINK",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ValueEnums",
+      "description": "枚举可选值，type=ENUM时必填；TEXT、HYPERLINK类型不支持",
+      "position": "Body",
+      "type": "RepeatList",
+      "required": false
+    }
+  ]
+}

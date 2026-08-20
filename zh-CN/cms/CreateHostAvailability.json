@@ -1,12 +1,13 @@
 {
   "name": "CreateHostAvailability",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AlertConfig.EndTime",
-      "description": "报警生效的结束时间。取值范围：0~23。\n\n例如：`AlertConfig.StartTime`为0，`AlertConfig.EndTime`为22，表示报警生效时间为00:00:00至22:00:00。\n\n>如果报警不在生效时间内，则超过阈值也不会发送报警通知。",
+      "description": "报警生效的结束时间。\n\n数据类型为整数，取值范围为 0~23，单位为小时（h）。该值表示结束时间所在的小时，实际生效终点为该小时的 00 分 00 秒（例如传入 22，表示生效至 22:00:00）。时区基准为 UTC+8（北京时间）。\n\n>说明：如果当前时间不在生效时间窗口内，即使超过阈值也不会发送报警通知。",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -27,7 +28,7 @@
     },
     {
       "name": "AlertConfig.StartTime",
-      "description": "报警生效的开始时间。取值范围：0~23。\n\n例如：`AlertConfig.StartTime`为0，`AlertConfig.EndTime`为22，表示报警生效时间为00:00:00至22:00:00。\n\n>如果报警不在生效时间内，则超过阈值也不会发送报警通知。",
+      "description": "报警生效的开始时间。\n\n数据类型为整数，取值范围为 0~23，单位为小时（h）。该值表示生效时间所在的小时，实际生效起点为该小时的 00 分 00 秒（例如传入 0，表示从 00:00:00 开始生效）。时区基准为 UTC+8（北京时间）。\n\n>说明：如果当前时间不在生效时间窗口内，即使超过阈值也不会发送报警通知。",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -48,30 +49,35 @@
       "sub_parameters": [
         {
           "name": "Aggregate",
+          "description": "报警统计方法。N的取值范围：1~21。不同监控项的取值如下：\n\n- HttpStatus：Value。\n- HttpLatency：Average。\n- TelnetStatus：Value。\n- TelnetLatency：Average。\n- PingLostRate：Average。\n\n>状态码类的统计方法为原始值（Value），延时时间或丢包率的统计方法为平均值（Average）。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MetricName",
+          "description": "报警的监控项。N的取值范围：1~21。取值：\n\n- HttpStatus：HTTP状态码。\n- HttpLatency：HTTP等待时间。\n- TelnetStatus：Telnet状态码。\n- TelnetLatency：Telnet等待时间。\n- PingLostRate：Ping丢包率。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Operator",
+          "description": "报警规则比较符号。N的取值范围：1~21。取值：\n\n- `>`\n- `>=`\n- `<`\n- `<=`\n- `=`",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Times",
+          "description": "报警重试次数。N的取值范围：1~21。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Value",
+          "description": "报警阈值。N的取值范围：1~21。",
           "position": "Query",
           "type": "String",
           "required": false

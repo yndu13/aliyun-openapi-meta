@@ -112,7 +112,7 @@
     },
     {
       "name": "GlobalInstanceId",
-      "description": "分布式实例ID，本参数仅适用于中国站。\n\n<props=\"china\"> 如需将新创建的Redis实例追加为分布式实例中的新子实例，本参数才可用且必须传入。相关说明与控制台操作，请参见[为分布式实例添加子实例](~~106885~~)。</props>",
+      "description": "分布式实例ID，本参数仅适用于中国站。\n\n<props=\"china\"> 如需将新创建的Redis实例追加为分布式实例中的新子实例，本参数才可用且必须传入。相关说明与控制台操作，请参见[为分布式实例添加子实例](~~106885~~)。</props>\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -148,6 +148,20 @@
     {
       "name": "InstanceType",
       "description": "实例类型，取值：\n* **Redis**（默认）\n* **Memcache**",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "MaintainEndTime",
+      "description": "设置实例可维护时段的结束时间，格式为<i>HH:mm</i>Z（UTC时间）。例如，需要在北京时间凌晨2点结束，应设置为`18:00Z`。\n\n> 开始时间和结束时间的间隔不能低于1小时。\n\n> 若不设置，值默认为北京时间凌晨6:00，即UTC时间22:00",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "MaintainStartTime",
+      "description": "设置实例可维护时段的开始时间，格式为<i>HH:mm</i>Z（UTC时间）。例如，需要在北京时间凌晨1点开始，应设置为`17:00Z`。\n\n> 若不设置，值默认为北京时间凌晨2:00，即UTC时间18:00",
       "position": "Query",
       "type": "String",
       "required": false
@@ -252,7 +266,7 @@
     },
     {
       "name": "ShardCount",
-      "description": "分片数，本参数仅适用于创建云原生版集群架构实例，您可以通过该参数实现自定义分片数量。",
+      "description": "分片数，本参数仅适用于创建云原生版实例，您可以通过该参数实现自定义分片数量。\n\n- 1代表创建非集群架构。\n- 大于1代表创建集群架构。",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -287,12 +301,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签的键。\n\n> * **N**表示传入第几个标签的键，单个实例最多可绑定20个标签。例如Tag.1.Key表示传入第一个标签的键；Tag.2.Key表示传入第二个标签的键。\n> * 如果标签的键不存在，则自动创建。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "标签的值。\n> **N**表示传入第几个标签的值。例如**Tag.1.Value**表示传入第一个标签的值；**Tag.2.Value**表示传入第二个标签的值。",
           "position": "Query",
           "type": "String",
           "required": false

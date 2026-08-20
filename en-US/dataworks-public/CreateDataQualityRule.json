@@ -1,46 +1,48 @@
 {
   "name": "CreateDataQualityRule",
-  "deprecated": false,
+  "deprecated": true,
   "protocol": "HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CheckingConfig",
-      "description": "The check settings for sample data.",
+      "description": "The sample check settings.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the rule. The description can be up to 500 characters in length.",
+      "description": "The description of the rule. The maximum length is 500 characters.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Enabled",
-      "description": "Specifies whether to enable the monitoring rule.",
+      "description": "Specifies whether to enable the data quality rule.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ErrorHandlers",
-      "description": "The operations that you can perform after the rule-based check fails.",
+      "description": "The list of issue handlers for the data quality rule check.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "ErrorDataFilter",
+          "description": "For a custom SQL rule, you must specify an SQL statement to filter problematic data.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "The handler type:\n- SaveErrorData",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -56,35 +58,35 @@
     },
     {
       "name": "ProjectId",
-      "description": "The DataWorks workspace ID.",
+      "description": "The ID of the DataWorks workspace.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "SamplingConfig",
-      "description": "The sampling settings.",
+      "description": "The settings required for sample collection.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Severity",
-      "description": "The strength of the rule. Valid values:\n\n*   Normal\n*   High",
+      "description": "The severity of the rule for the business (corresponding to the strong/weak rule on the page). Valid values:\n- Normal\n- High",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Target",
-      "description": "The monitored object of the rule.",
+      "description": "The object monitored by the rule.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "TemplateCode",
-      "description": "The ID of the template used by the rule.",
+      "description": "The unique identifier of the rule template that the rule references.",
       "position": "Body",
       "type": "String",
       "required": true

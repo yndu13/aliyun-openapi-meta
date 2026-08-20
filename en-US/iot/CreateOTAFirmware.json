@@ -1,98 +1,104 @@
 {
   "name": "CreateOTAFirmware",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DestVersion",
-      "description": "The version number of the OTA update package. The value can contain letters, digits, periods (.), hyphens (-), and underscores (\\_). The version number must be 1 to 64 characters in length.",
+      "description": "The version number of the OTA update package. Only letters, digits, periods (.), hyphens (-), and underscores (_) are supported. The version number must be 1 to 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FirmwareDesc",
-      "description": "The description of the OTA update package. The description must be 1 to 100 characters in length.",
+      "description": "The description of the OTA update package. The description can be up to 100 characters in length. Each Chinese character counts as one character.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FirmwareName",
-      "description": "The name of the OTA update package. The name must be unique within an Alibaba Cloud account. The name cannot be modified after the OTA update package is created. The name must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), underscores (\\_), and parentheses (). The name must start with a letter or a digit.",
+      "description": "The name of the OTA update package. The name must be unique within the Alibaba Cloud account and cannot be modified after creation. The name can contain Chinese characters, letters, Japanese characters, digits, hyphens (-), underscores (_), and parentheses (()). The name must start with a Chinese character, letter, Japanese character, or digit. The name must be 1 to 40 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FirmwareSign",
-      "description": "The signature of the OTA update package. The value is calculated by using the specified **signature algorithm** to sign the OTA update package.\n\n> If you add only one file to the OTA update package, you can configure this parameter. If you do not configure this parameter, the MD5 value of the OTA update package in OSS is used as the package signature.",
+      "description": "The signature value of the OTA update package file. The value is calculated by applying the **SignMethod** to the content of over-the-air update package file.\n\n><notice>This parameter can be specified only when the OTA update package contains a single file. If you do not specify this parameter, the MD5 value of over-the-air update package file in OSS is used as the signature value.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FirmwareSize",
-      "description": "The size of the OTA update package. Unit: bytes.\n\n> If you add only one file to the OTA update package, you can configure this parameter. If you do not configure this parameter, the size of the OTA update package in OSS is used.",
+      "description": "The size of the OTA update package file, in bytes.\n\n><notice>This parameter can be specified only when the OTA update package contains a single file. If you do not specify this parameter, the size of the over-the-air update package file in OSS is used.\n></notice>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "FirmwareUrl",
-      "description": "The URL of the OTA update package. This parameter specifies the storage location of the OTA update package in OSS. You can call the [GenerateOTAUploadURL](~~147310~~) operation to generate a URL for the OTA update package.\n\n>If you add only one file to the OTA update package, you must configure this parameter.",
+      "description": "The URL of the OTA update package file, which is the storage address of over-the-air update package file in Object Storage Service (OSS). You can call [GenerateOTAUploadURL](~~147310~~) to generate the URL of over-the-air update package file.\n\n><notice>This parameter is required and can be specified only when the OTA update package contains a single file.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the ID of the instance on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must specify the ID for this parameter. Otherwise, the call fails.\n>*   If no **Overview** page or **ID** is generated for your instance, you do not need to configure this parameter.",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, view the **ID** of the current instance.\n\n><notice>\n- If this parameter is available, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or </ph></props>ID is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModuleName",
-      "description": "The name of the OTA module. OTA modules are the updatable units of devices that belong to the same product.\n\n> *   If you do not configure this parameter, the default OTA module is used. The default value indicates that the complete device firmware is updated.\n>*   You can call the [CreateOTAModule](~~186066~~) operation to create a custom OTA module. You can call the [ListOTAModuleByProduct](~~186532~~) operation to query the existing OTA modules of a product.",
+      "description": "The name of the OTA module. An OTA module represents a different upgradable module of devices under the same product.\n\n> - If you do not specify this parameter, the default module is used, which represents the firmware of the entire device.\n- You can call [CreateOTAModule](~~186066~~) to create a custom OTA module, and call [ListOTAModuleByProduct](~~186532~~) to query the OTA modules created under a product.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MultiFiles",
-      "description": "",
+      "description": "The list of OTA update package files.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "FileMd5",
+          "description": "The MD5 value of the OTA update package file.\n\n>This parameter can be specified when the OTA update package contains multiple files. If you do not specify this parameter, the MD5 value of the over-the-air update package file in OSS is used.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Name",
+          "description": "The name of the OTA update package file. The name must be 1 to 32 characters in length. You can add up to 20 file names, and the names of multiple over-the-air update package files must be unique.\n\n><notice>This parameter is required when the OTA update package contains multiple files.\n></notice>",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SignValue",
+          "description": "The signature value of the OTA update package file. The value is calculated by applying the **SignMethod** to the content of over-the-air update package file.\n\n>This parameter can be specified when the OTA update package contains multiple files. If you do not specify this parameter, the MD5 value of over-the-air update package file in OSS is used as the signature value.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "The size of the OTA update package file, in bytes.\n\n>This parameter can be specified when the OTA update package contains multiple files. If you do not specify this parameter, the size of the over-the-air update package file in OSS is used.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Url",
+          "description": "The URL of the OTA update package file, which is the storage address of the over-the-air update package file in Object Storage Service (OSS). You can invoke [GenerateOTAUploadURL](~~147310~~) to generate a file URL for each over-the-air update package file.\n\n><notice>This parameter is required when the OTA update package contains multiple files.\n></notice>",
           "position": "Query",
           "type": "String",
           "required": false
@@ -101,7 +107,7 @@
     },
     {
       "name": "NeedToVerify",
-      "description": "Specifies whether to verify the OTA update package before you create a batch update task.\n\n*   **true** The system verifies the OTA update package before you create a batch update task. This is the default value.\n*   **false**: The system does not verify the OTA update package before you create a batch update task.",
+      "description": "Specifies whether the update package must be verified before a batch update task is created.\n\n- **true** (default): Required.\n\n- **false**: Not required.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -115,28 +121,28 @@
     },
     {
       "name": "SignMethod",
-      "description": "The signature algorithm of the OTA update package. Set the value to **MD5**. The value indicates an MD5 signature.\n\nDefault value: **MD5**.",
+      "description": "The signature method of the OTA update package. Currently, only **MD5** (MD5 signature) is supported.\n\nIf you do not specify this parameter, the default value is **MD5**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SrcVersion",
-      "description": "The version number of the OTA module of the device to be updated.\n\nYou can call the [QueryDeviceDetail](~~69594~~) operation and view the **FirmwareVersion** parameter in the response.\n\n> *   If you set the **Type** parameter to **1**, you must configure this parameter, and the value cannot be the same as the update package version that is specified by the **DestVersion** parameter.\n>*   If you set the **Type** parameter to **0**, this parameter is optional.",
+      "description": "The version number of the OTA module to be updated, which is the current OTA module version of the device to be updated.\n\nYou can call [QueryDeviceDetail](~~69594~~) to view the OTA module version of the device (**FirmwareVersion**).\n\n> - If **Type** is set to **1** (delta update package), this parameter is required, and the value cannot be the same as the current update package version (**DestVersion**).\n- If **Type** is set to **0** (full update package), this parameter is optional.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the OTA update package. Valid values:\n\n*   **0**: The uploaded file contains a full update package. IoT Platform pushes the full update package to a device for update.\n*   **1**: The uploaded file contains only the differences between the latest update package and the previous update package. IoT Platform pushes only the differences to a device for update.\n\nDefault value: **0**.",
+      "description": "The type of the OTA update package. Valid values:\n\n- **0**: full update package. The over-the-air update package file contains the complete update package. The full update package is pushed to the device for the update.\n- **1**: delta update package. The over-the-air update package file contains only the differences between the new version and the previous version. Only the differences are pushed to the device for the update.\n\nIf you do not specify this parameter, the default value is **0**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Udi",
-      "description": "The custom information that you want to send to a device. The format of the custom information has no limits. However, the information cannot exceed 4,096 characters in length.\n\nAfter you add the OTA update package and create an update task, IoT Platform sends the custom information to the specified device when IoT Platform pushes an update notification.",
+      "description": "The custom information to be pushed to the device. The text content format is not restricted. The maximum length is 4,096 characters.\n\nAfter the update package is added and an update task is created, IoT Platform pushes this custom information to the device along with the update notification.",
       "position": "Query",
       "type": "String",
       "required": false

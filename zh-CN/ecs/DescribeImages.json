@@ -35,12 +35,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "查询资源时的筛选键。取值范围：\n\n- 当该参数取值为`CreationStartTime`时，可以查询在指定时间点（`Filter.N.Value`）后创建的资源信息。\n- 当该参数取值为`CreationEndTime`时，可以查询在指定时间点（`Filter.N.Value`）前创建的资源信息。\n- 当该参数取值为`NetworkType`时，可以查询指定网络类型的资源信息。\n- 当该参数取值为`CpuOnlineUpgrade`、`CpuOnlineDowngrade`、`MemoryOnlineUpgrade`、`MemoryOnlineDowngrade`中的任何一个值时，可以查询指定镜像的CPU或内存的热插拔支持情况。\n\n默认值：null。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "查询资源时的筛选值。\n- 当（`Filter.N.Key`）为`CreationStartTime`或`CreationEndTime`时，格式为：`yyyy-MM-ddTHH:mmZ`，采用 UTC+0 时区。\n- 当（`Filter.N.Key`）为`NetworkType`时，可以指定网络类型的值有：`vpc`、`classic`等。\n\n- 当（`Filter.N.Key`）取值为`CpuOnlineUpgrade`、`CpuOnlineDowngrade`、`MemoryOnlineUpgrade`、`MemoryOnlineDowngrade`时，该值可以取`supported`或`unsupported`。\n\n默认值：null。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -77,7 +79,7 @@
     },
     {
       "name": "ImageOwnerId",
-      "description": "镜像所属的阿里云账号ID。该参数仅在查询共享镜像以及社区镜像时生效。",
+      "description": "镜像所属的阿里云账号ID。该参数仅在查询共享镜像以及社区镜像时生效。\n\n",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -161,7 +163,7 @@
     },
     {
       "name": "Status",
-      "description": "查询指定状态的镜像，如果不配置此参数，默认只返回Available状态的镜像。取值范围：\n\n- Creating：镜像正在创建中。\n- Waiting：多任务排队中。\n- Available（默认）：您可以使用的镜像。\n- UnAvailable：您不能使用的镜像。\n- CreateFailed：创建失败的镜像。\n- Deprecated：已弃用的镜像。\n\n默认值：Available。当前参数支持同时取多个值，值之间以半角逗号（,）隔开。",
+      "description": "查询指定状态的镜像。取值范围：\n\n- Creating：镜像正在创建中。\n- Waiting：多任务排队中。\n- Available：您可以使用的镜像。\n- UnAvailable：您不能使用的镜像。\n- CreateFailed：创建失败的镜像。\n- Deprecated：已弃用的镜像。\n- ALL：所有状态的镜像。\n\n默认值：Available。仅当使用Usable 时，Status为必填参数，无默认值。\n> 当前参数支持同时取上述多个具体状态值，值之间以半角逗号（,）隔开。参数取值为 ALL 时可以查询所有状态的镜像，ALL不可与其他状态值同时使用。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -175,29 +177,40 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "镜像的标签键。N的取值范围：1~20。\n\n使用一个标签过滤资源，查询到该标签下的资源数量不能超过1000个；使用多个标签过滤资源，查询到同时绑定了多个标签的资源数量不能超过1000个。如果资源数量超过1000个，请使用[ListTagResources](~~110425~~)接口进行查询。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "镜像的标签值。N的取值范围：1~20。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
+          "description": "镜像的标签键。\n\n>该参数即将被弃用，为提高兼容性，建议您使用另一个`Tag.N.Key`参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
+          "description": "镜像的标签值。\n\n>该参数即将被弃用，为提高兼容性，建议您使用另一个`Tag.N.Value`参数。",
           "position": "Query",
           "type": "String",
           "required": false
         }
       ]
+    },
+    {
+      "name": "Usable",
+      "description": "镜像是否可用。\n>镜像可用表示支持该镜像立即用于创建实例，更多可用场景请参见[镜像极速可用能力](~~3044728~~)。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
     },
     {
       "name": "Usage",

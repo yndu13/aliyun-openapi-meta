@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "AssociationId",
-      "description": "The ID of the association between the ECR and the VPC or TR.",
+      "description": "The associate ID between the Express Connect Router (ECR) and a VPC or TR.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AssociationNodeType",
-      "description": "The type of the associated resource. Valid values:\n\n*   **VPC**\n*   **TR**",
+      "description": "The type of the associated resource. Valid values:\n\n- **VPC**: virtual private cloud.\n\n- **TR**: transit router.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "AssociationRegionId",
-      "description": "The region ID of the VPC or TR.",
+      "description": "The region to which the VPC or TR belongs.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -35,49 +35,72 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a parameter value from your client to ensure uniqueness across different requests. ClientToken supports only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run.\n*   **false** (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether this is a dry run. Valid values:\n- **true**: sends a check request without modifying EPS resources.\n- **false** (default): sends a Normal request.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EcrId",
-      "description": "The ECR ID.",
+      "description": "The Express Connect Router (ECR) instance ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to read. Valid values: 1 to 2147483647. Default value: 20.",
+      "description": "The maximum number of entries to return. Valid values: 1 to 2147483647. Default value: 20.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n\n*   You do not need to specify this parameter for the first request.\n*   You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Valid values:\n- If this is the first query or no more results exist, leave this parameter empty.\n- If more results exist, set this parameter to the NextToken value returned by the previous API call.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
+      "name": "Tag",
+      "description": "The list of tags.\n\nYou can bind up to 20 tags.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "The tag key of the resource. Once specified, the value cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The tag value of the resource. The tag value can be an empty string and can be up to 128 characters in length. It cannot contain `http://` or `https://`.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "TransitRouterId",
-      "description": "The TR ID.",
+      "description": "The ID of the transit router instance.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The VPC ID.",
+      "description": "The ID of the VPC-connected instance.",
       "position": "Body",
       "type": "String",
       "required": false

@@ -20,6 +20,13 @@
       "required": false
     },
     {
+      "name": "FileSpec",
+      "description": "脚本模式代码内容",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Id",
       "description": "任务ID。",
       "position": "Query",
@@ -30,6 +37,13 @@
       "name": "JobSettings",
       "description": "同步任务维度的设置，含DDL处理策略、源端和目标端列数据类型映射策略、任务运行时参数等",
       "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Owner",
+      "description": "任务责任人",
+      "position": "Query",
       "type": "String",
       "required": false
     },
@@ -56,12 +70,14 @@
       "sub_parameters": [
         {
           "name": "SourceObjectSelectionRules",
+          "description": "每条规则可选择待同步源端对象的不同对象类型，如选择源端数据库、源端数据表",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "TransformationRules",
+          "description": "源端对象上应用的转换规则",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
@@ -77,24 +93,28 @@
       "sub_parameters": [
         {
           "name": "RuleActionType",
+          "description": "动作类型，可选的枚举值：\n\n- DefinePrimaryKey（定义主键）\n- Rename（重命名）\n- AddColumn（增加列）\n- HandleDml（DML处理）\n- DefineIncrementalCondition（定义增量条件）\n- DefineCycleScheduleSettings（定义周期调度设置）\n- DefinePartitionKey（定义分区列）",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleExpression",
+          "description": "规则表达式，json string格式。\n\n1. 重命名规则（Rename）\n- 示例：{\"expression\":\"${srcDatasourceName}_${srcDatabaseName}_0922\" }\n- expression：为重命名转换规则表达式，表达式内支持变量包括：${srcDatasourceName}（源端数据源名）、${srcDatabaseName}（源端库名）、${srcTableName}（源端表名）。\n2. 加列规则（AddColumn)\n- 示例：{\"columns\":[{\"columnName\":\"my_add_column\",\"columnValueType\":\"Constant\",\"columnValue\":\"123\"}]}\n- 如不指定，默认规则为不加列不复制。\n- columnName：附加的列名称。\n- columnValueType：附加的列取值类型，包括Constant（常量）、Variable（变量）。\n- columnValue：附加的列取值。当columnValueType=Constant时，value为自定义常量，String类型。当columnValueType=Variable时，value为内置变量。内置变量可选值包括：EXECUTE_TIME（执行时间，Long类型）、DB_NAME_SRC（源端数据库名称，String类型）、DATASOURCE_NAME_SRC（源端数据源名称，String类型）、TABLE_NAME_SRC（源端表名，String类型）、DB_NAME_DEST（目标端数据库名称，String类型）、DATASOURCE_NAME_DEST（目标端数据源名称，String类型）、TABLE_NAME_DEST（目标端表名，String类型）、DB_NAME_SRC_TRANSED（转换后的数据库名称，String类型）。\n3. 指定目标端表的主键列列名（DefinePrimaryKey）\n- 示例：{\"columns\":[\"ukcolumn1\",\"ukcolumn2\"]}\n- 如不指定默认使用源端主键列。\n- 当目标端为已有表：数据集成系统不会修改目标端表结构，如果指定的主键列不在目标端的列集合中，任务启动会报错提示。\n- 当目标端为自动建表：数据集成系统会自动创建目标端表结构，表结构包含定义的主键列。当指定的主键列不在目标端的列集合中时，任务启动会报错提示。\n4. DML处理规则（HandleDml）\n- 示例： {\"dmlPolicies\":[{\"dmlType\":\"Delete\",\"dmlAction\":\"Filter\",\"filterCondition\":\"id > 1\"}]}\n- 如不指定，默认规则为Insert、Update、Delete均为Normal\n- dmlType：DML操作类型，Insert（插入）、Update（更新）、Delete（删除）\n- dmlAction：DML处理策略，Normal（正常处理）、Ignore（忽略）、Filter（有条件的正常处理，当dmlType=Update/Delete时使用）、LogicalDelete（逻辑删除）\n- filterCondition：DML过滤条件，当dmlAction=Filter时使用\n5. 增量条件（DefineIncrementalCondition）\n- 示例： {\"where\":\"id > 0\"}\n- 指定增量过滤条件\n6. 周期调度参数（DefineCycleScheduleSettings）\n- 示例： {\"cronExpress\":\" * * * * * *\", \"cycleType\":\"1\"}\n- 指定周期任务调度参数\n7. 指定分区键（DefinePartitionKey）\n- 示例： {\"columns\":[\"id\"]}\n- 指定分区键",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleName",
+          "description": "规则名称，当动作类型和动作作用的目标类型相同时，规则名称需保证唯一性，长度不能超过50个字符",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleTargetType",
+          "description": "动作作用的目标类型，可选的枚举值：\n\n- Table（表）\n- Schema（schema）\n- Database（数据库）",
           "position": "FormData",
           "type": "String",
           "required": false

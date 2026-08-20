@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AccountId",
-      "description": "The ID of the Alibaba Cloud account. You do not need to specify this parameter because this parameter will be removed in the future.",
+      "description": "The ID of the Alibaba Cloud account. You do not need to specify this parameter because it will be discontinued.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,189 +21,189 @@
     },
     {
       "name": "DataInitialization",
-      "description": "Specifies whether to perform initial full data synchronization. Valid values:\n\n*   **true**: yes\n*   **false**: no\n\n>  Default value: **true**.",
+      "description": "Specifies whether to perform initial full data synchronization. Valid values:\n\n- **true**: yes.\n- **false**: no.\n\n> Default value: **true**.",
       "position": "Query",
       "type": "Boolean",
       "required": true
     },
     {
       "name": "DestinationEndpoint.DataBaseName",
-      "description": "The name of the database to which the synchronization object in the destination instance belongs.",
+      "description": "目标实例中的同步对象所属数据库名称。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationEndpoint.IP",
-      "description": "The IP address of the destination database.\n\n>  You must specify this parameter only if the **DestinationEndpoint.InstanceType** parameter is set to **Express**, **dg**, or **cen**.",
+      "description": "目标库的IP地址。\n> 当**DestinationEndpoint.InstanceType**取值为**Express**、**dg**或**cen**时，本参数必须传入本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationEndpoint.InstanceId",
-      "description": "The ID of the destination instance.\n\n>  If the **DestinationEndpoint.InstanceType** parameter is set to **MaxCompute** or **DataHub**, you must specify the name of the MaxCompute project or the DataHub project.\n\nIf the destination instance is an AnalyticDB for MySQL cluster, specify the ID of the AnalyticDB for MySQL cluster.",
+      "description": "同步目标实例的实例ID\n> 当**DestinationEndpoint.InstanceType**取值为**MaxCompute**或**DataHub**时，本参数传入MaxCompute实例或DataHub的Project名称。\n当目标实例为阿里云分析型数据库MySQL版时，传入分析型数据库MySQL版的集群ID。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationEndpoint.InstanceType",
-      "description": "The type of the destination instance. Valid values:\n\n*   **Redis**: ApsaraDB for Redis instance\n*   **RDS**: ApsaraDB RDS instance\n*   **PolarDB**: PolarDB for MySQL cluster or PolarDB O Edition cluster\n*   **ECS**: self-managed database that is hosted on ECS\n*   **Express**: self-managed database that is connected over Express Connect\n*   **DataHub**: DataHub project\n*   **MaxCompute**: MaxCompute project\n*   **AnalyticDB**: AnalyticDB for MySQL cluster V3.0 or V2.0\n*   **Greenplum**: AnalyticDB for PostgreSQL instance\n\n>  The default value is **RDS**.",
+      "description": "目标实例类型，取值为：\n\n- **Redis**：阿里云Redis实例。\n- **RDS**：阿里云RDS实例。\n- **PolarDB**：阿里云PolarDB集群（仅支持MySQL或兼容Oracle语法的引擎）。\n- **ECS**：ECS上的自建数据库。\n- **Express**：通过专线接入的本地数据库。\n- **DataHub**：阿里云DataHub实例。\n- **MaxCompute**：阿里云MaxCompute实例。\n- **AnalyticDB**：云原生数据仓库AnalyticDB MySQL  3.0和2.0版本。\n- **Greenplum**：云原生数据仓库ADB PostgreSQL版（原分析型数据库PostgreSQL版）。\n\n> 默认取值为**RDS**。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationEndpoint.Password",
-      "description": "The password of the destination database account.\n\n> \n*   If the **DestinationEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**, you must specify the DestinationEndpoint.Password parameter.",
+      "description": "目标库数据库账号密码。\n\n> - 当**DestinationEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationEndpoint.Port",
-      "description": "The service port number of the destination database.\n\n>  You must specify this parameter only if the **DestinationEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**.",
+      "description": "目标库的数据库服务端口。\n> 当**DestinationEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationEndpoint.UserName",
-      "description": "The database account of the destination database.\n\n> \n*   The permissions that are required for database accounts vary with the synchronization scenario. For more information, see [Overview of data synchronization scenarios](~~140954~~).\n*   If the **DestinationEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**, you must specify the DestinationEndpoint.UserName parameter.\n*   If the **DestinationEndpoint.InstanceType** parameter is set to RDS and the database version is MySQL 5.5 or MySQL 5.6, you do not need to specify the DestinationEndpoint.UserName and **DestinationEndpoint.Password** parameters.\n*   If the **DestinationEndpoint.InstanceType** parameter is set to **Redis**, you do not need to specify the DestinationEndpoint.UserName parameter.",
+      "description": "目标库的数据库账号。\n> - 同步不同的数据库所需的权限有所差异，详情请参见[DTS数据同步方案概览](~~140954~~)中对应的配置案例。\n- 当**DestinationEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数必须传入。\n- 当**DestinationEndpoint.InstanceType**取值为RDS且数据库版本为MySQL 5.5或MySQL 5.6，无需传入本参数和**DestinationEndpoint.Password**参数。\n- 当**DestinationEndpoint.InstanceType**取值为**Redis**时，无需传入本参数。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MigrationReserved",
-      "description": "The reserved parameter of DTS. The value is a JSON string. You can specify this parameter to meet special requirements, for example, whether to automatically start a precheck. For more information, see [MigrationReserved](~~176470~~).\n\n>  This parameter can be used for data synchronization between ApsaraDB for Redis Enterprise Edition instances. For more information, see [Use OpenAPI Explorer to configure one-way or two-way data synchronization between ApsaraDB for Redis Enterprise Edition instances](~~155967~~).",
+      "description": "The reserved parameter of DTS. The value is a JSON string. You can specify this parameter to meet special requirements, such as specifying whether to automatically start the precheck. For more information, see [MigrationReserved parameter description](~~176470~~).\n> For example, you can use this parameter for data synchronization between ApsaraDB for Redis Enhanced Edition (Tair) instances. For more information, see [Use OpenAPI to configure one-way or bidirectional data synchronization between ApsaraDB for Redis Enhanced Edition instances](~~155967~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PartitionKey.ModifyTime_Day",
-      "description": "Specifies whether the incremental data table contains partitions defined by the modifytime_day field. Valid values: **true** and **false**.\n\n>  This parameter is available only if the **DestinationEndpoint.InstanceType** parameter is set to **MaxCompute**.",
+      "description": "设置增量日志表是否包含以增量更新时间对应日期信息定义的分区，取值：**true**或**false**。\n> 当**DestinationEndpoint.InstanceType**参数取值为**Maxcompute**时，本参数才可用。",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PartitionKey.ModifyTime_Hour",
-      "description": "Specifies whether the incremental data table contains partitions defined by the modifytime_hour field. Valid values: **true** and **false**.\n\n>  This parameter is available only if the **DestinationEndpoint.InstanceType** parameter is set to **MaxCompute**.",
+      "description": "设置增量日志表是否包含以增量更新时间对应小时信息定义的分区，取值：**true**或**false**。\n> 当**DestinationEndpoint.InstanceType**参数取值为**Maxcompute**时，本参数才可用。",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PartitionKey.ModifyTime_Minute",
-      "description": "Specifies whether the incremental data table contains partitions defined by the modifytime_minute field. Valid values: **true** and **false**.\n\n>  This parameter is available only if the **DestinationEndpoint.InstanceType** parameter is set to **MaxCompute**.",
+      "description": "设置增量日志表是否包含以增量更新时间对应分钟信息定义的分区，取值：**true**或**false**。\n\n> 当**DestinationEndpoint.InstanceType**参数取值为**Maxcompute**时，本参数才可用。",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PartitionKey.ModifyTime_Month",
-      "description": "Specifies whether the incremental data table contains partitions defined by the modifytime_month field. Valid values: **true** and **false**.\n\n>  This parameter is available only if the **DestinationEndpoint.InstanceType** parameter is set to **MaxCompute**.",
+      "description": "设置增量日志表是否包含以增量更新时间对应月份信息定义的分区，取值：**true**或**false**。\n> 当**DestinationEndpoint.InstanceType**参数取值为**Maxcompute**时，本参数才可用。",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PartitionKey.ModifyTime_Year",
-      "description": "Specifies whether the incremental data table contains partitions defined by the modifytime_year field. Valid values: **true** and **false**.\n\n>  This parameter is available only if the **DestinationEndpoint.InstanceType** parameter is set to **MaxCompute**.",
+      "description": "设置增量日志表是否包含以增量更新时间对应年份信息定义的分区，取值：**true**或**false**。\n> 当**DestinationEndpoint.InstanceType**参数取值为**Maxcompute**时，本参数才可用。",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the data synchronization instance resides. For more information, see [List of supported regions](~~141033~~).",
+      "description": "The ID of the region where the data synchronization instance resides. For more information, see [Supported regions](~~141033~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "资源组ID。",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.DatabaseName",
-      "description": "The name of the database to which the synchronization object in the source instance belongs.",
+      "description": "源实例中的同步对象所属数据库名称。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.IP",
-      "description": "The IP address of the source database.\n\n>  You must specify this parameter only if the **SourceEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**.",
+      "description": "源库的IP地址。\n> 当**SourceEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.InstanceId",
-      "description": "The ID of the source instance.",
+      "description": "源实例ID。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.InstanceType",
-      "description": "The type of the source instance. Valid values:\n\n*   **RDS**: ApsaraDB RDS instance\n*   **Redis**: ApsaraDB for Redis instance\n*   **PolarDB**: PolarDB for MySQL cluster or PolarDB O Edition cluster\n*   **ECS**: self-managed database that is hosted on Elastic Compute Service (ECS)\n*   **Express**: self-managed database that is connected over Express Connect\n*   **dg**: self-managed database that is connected over Database Gateway\n*   **cen**: self-managed database that is connected over Cloud Enterprise Network (CEN)\n\n>  The default value is **RDS**.",
+      "description": "源实例类型，取值为：\n\n- **RDS**：阿里云RDS实例。\n- **Redis**：阿里云Redis实例。\n- **PolarDB**：阿里云PolarDB集群（仅支持MySQL或兼容Oracle语法的引擎）。\n- **ECS**：ECS上的自建数据库。\n- **Express**：通过专线接入的自建数据库。\n- **dg**：通过数据库网关DG接入的自建数据库。\n- **cen**：通过云企业网CEN接入的自建数据库。\n\n> 默认取值为**RDS**。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.OwnerID",
-      "description": "The ID of the Alibaba Cloud account that owns the source RDS instance.\n\n>  You can specify this parameter to synchronize data across different Alibaba Cloud accounts. In this case, you also need to specify the **SourceEndpoint.Role** parameter.",
+      "description": "源RDS实例所属的阿里云账号ID。\n> 传入本参数即代表执行跨阿里云账号的数据同步，同时您还需要传入**SourceEndpoint.Role**参数。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.Password",
-      "description": "The password of the source database account.\n\n>  You must specify this parameter only if the **SourceEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**.",
+      "description": "源库数据库账号密码。\n> 当**SourceEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.Port",
-      "description": "The service port number of the source database.\n\n>  You must specify this parameter only if the **SourceEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**.",
+      "description": "源库的数据库服务端口。\n> 当**SourceEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数才可用且必须传入。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.Role",
-      "description": "The name of the RAM role configured for the Alibaba Cloud account that owns the source instance.\n\n>  You must specify this parameter when you synchronize data across different Alibaba Cloud accounts. For information about the permissions and authorization methods of the RAM role, see [Configure RAM authorization for cross-account data migration and synchronization](~~48468~~).",
+      "description": "源实例所属云账号配置的角色名称。\n> 执行跨阿里云账号的数据同步时须传入本参数，该角色所需的权限及授权方式请参见[跨阿里云账号数据迁移或同步时如何配置RAM授权](~~48468~~)。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceEndpoint.UserName",
-      "description": "The database account of the source database.\n\n> \n*   You must specify this parameter only if the **SourceEndpoint.InstanceType** parameter is set to **ECS**, **Express**, **dg**, or **cen**.\n*   If the **SourceEndpoint.InstanceType** parameter is set to **Redis**, you do not need to specify the database account.\n*   The permissions that are required for database accounts vary with the synchronization scenario. For more information, see [Overview of data synchronization scenarios](~~140954~~).",
+      "description": "源库的数据库账号。\n> - 当**SourceEndpoint.InstanceType**取值为**ECS**、**Express**、**dg**或**cen**时，本参数才可用且必须传入。\n- 当**SourceEndpoint.InstanceType**取值为**Redis**时，本参数无需传入。\n- 同步不同的数据库所需的权限有所差异，详情请参见[DTS数据同步方案概览](~~140954~~)中对应的配置案例。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StructureInitialization",
-      "description": "Specifies whether to perform initial schema synchronization. Valid values:\n\n*   **true**: yes\n*   **false**: no\n\n>  Default value: **true**.",
+      "description": "Specifies whether to perform initial schema synchronization. Valid values:\n- **true**: yes.\n- **false**: no.\n\n> Default value: **true**.",
       "position": "Query",
       "type": "Boolean",
       "required": true
     },
     {
       "name": "SynchronizationDirection",
-      "description": "The synchronization direction. Valid values:\n\n*   **Forward**\n*   **Reverse**\n\n> \n*   Default value: **Forward**.\n*   The value **Reverse** takes effect only if the topology of the data synchronization instance is two-way synchronization.",
+      "description": "The synchronization direction. Valid values:\n- **Forward**: forward.\n- **Reverse**: reverse.\n\n> - Default value: **Forward**.\n- This parameter takes effect only if you set it to **Reverse** and the synchronization topology of the data synchronization instance is two-way synchronization.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -217,14 +217,14 @@
     },
     {
       "name": "SynchronizationJobName",
-      "description": "The name of the data synchronization task.\n\n>  We recommend that you specify an informative name for easy identification. You do not need to use a unique task name.",
+      "description": "The name of the synchronization task.\n> Specify a descriptive name that makes it easy to identify the task. It does not need to be unique.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SynchronizationObjects",
-      "description": "The objects that you want to synchronize. The value is a JSON string and can contain regular expressions. For more information, see [SynchronizationObjects](~~141901~~).",
+      "description": "The objects to be synchronized. The value is a JSON string and supports certain regular expressions. For more information, see [Synchronization object configuration](~~141901~~).",
       "position": "Body",
       "type": "String",
       "required": true

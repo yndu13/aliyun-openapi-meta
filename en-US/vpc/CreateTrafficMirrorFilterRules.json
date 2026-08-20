@@ -7,69 +7,77 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.\n\n>  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to check the request without performing the operation. Valid values:\n\n*   **true**: checks the request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.\n*   **false** (default): sends the request. After the request passes the check, the operation is performed.",
+      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n- **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\n\n- **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, inbound or outbound rules are created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EgressRules",
-      "description": "The information about the outbound rule.",
+      "description": "The details of the outbound rules.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Action",
+          "description": "The collection policy of the outbound rule. Valid values:\n\n- **accept**: collects network traffic.\n- **drop**: does not collect network traffic.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "DestinationCidrBlock",
+          "description": "The destination CIDR block of network traffic for the outbound rule.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DestinationPortRange",
+          "description": "The destination port range of network traffic for the outbound rule. Valid values for a port: **1** to **65535**. Separate the start port and stop port with a forward slash (/). Format: **1/200** or **80/80**. A value of **-1/-1** cannot be configured independently and indicates that all ports are available.\n\n> If EgressRules.N.Protocol is set to **ALL** or **ICMP**, you do not need to configure this parameter. Settings are not required because all ports are available.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "IpVersion",
+          "description": "The IP version of the instance. Valid values:\n\n- **IPv4**: IPv4.\n- **IPv6**: IPv6.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Priority",
+          "description": "The priority of the outbound rule. A smaller value indicates a higher priority. The maximum value of **N** is **10**, which means that you can configure up to 10 outbound rules for a traffic mirror filter.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Protocol",
+          "description": "The protocol type of network traffic to be mirrored for the outbound rule. Valid values:\n\n- **ALL**: all protocols.\n- **ICMP**: Internet Control Message Protocol.\n- **TCP**: Transmission Control Protocol.\n- **UDP**: User Datagram Protocol.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "SourceCidrBlock",
+          "description": "The source CIDR block of network traffic for the outbound rule.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourcePortRange",
+          "description": "The source port range of network traffic for the outbound rule. Valid values for a port: **1** to **65535**. Separate the start port and stop port with a forward slash (/). Format: **1/200** or **80/80**. A value of **-1/-1** cannot be configured independently and indicates that all ports are available.\n\n> If EgressRules.N.Protocol is set to **ALL** or **ICMP**, you do not need to configure this parameter. Settings are not required because all ports are available.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -78,55 +86,63 @@
     },
     {
       "name": "IngressRules",
-      "description": "The information about the inbound rules.",
+      "description": "The details of the inbound rules.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Action",
+          "description": "The collection policy of the inbound rule. Valid values:\n\n- **accept**: collects network traffic.\n- **drop**: does not collect network traffic.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DestinationCidrBlock",
+          "description": "The destination CIDR block of network traffic for the inbound rule.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DestinationPortRange",
+          "description": "The destination port range of network traffic for the inbound rule. Valid values for a port: **1** to **65535**. Separate the start port and stop port with a forward slash (/). Format: **1/200** or **80/80**.\n\n> If IngressRules.N.Protocol is set to **ALL** or **ICMP**, you do not need to configure this parameter. Settings are not required because all ports are available.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "IpVersion",
+          "description": "The IP version of the instance. Valid values:\n\n- **IPv4**: IPv4.\n- **IPv6**: IPv6.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Priority",
+          "description": "The priority of the inbound rule. A smaller value indicates a higher priority. The maximum value of **N** is **10**, which means that you can configure up to 10 inbound rules for a traffic mirror filter.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Protocol",
+          "description": "The protocol type of network traffic to be mirrored for the inbound rule. Valid values:\n\n- **ALL**: all protocols.\n- **ICMP**: Internet Control Message Protocol.\n- **TCP**: Transmission Control Protocol.\n- **UDP**: User Datagram Protocol.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourceCidrBlock",
+          "description": "The source CIDR block of network traffic for the inbound rule.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourcePortRange",
+          "description": "The source port range of network traffic for the inbound rule. Valid values for a port: **1** to **65535**. Separate the start port and stop port with a forward slash (/). Format: **1/200** or **80/80**. A value of **-1/-1** cannot be configured independently and indicates that all ports are available.\n\n> If IngressRules.N.Protocol is set to **ALL** or **ICMP**, you do not need to configure this parameter. Settings are not required because all ports are available.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -135,14 +151,14 @@
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the mirrored traffic belongs.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirror, see [Overview of traffic mirror](~~207513~~).",
+      "description": "The region ID of the traffic mirror.\n\nYou can call [DescribeRegions](~~36063~~) to query the most recent region list. For more information about regions that support traffic mirroring, see [Traffic mirroring overview](~~207513~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TrafficMirrorFilterId",
-      "description": "The ID of the filter.",
+      "description": "The instance ID of the traffic mirror filter.",
       "position": "Query",
       "type": "String",
       "required": true

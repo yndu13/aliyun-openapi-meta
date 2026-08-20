@@ -1,19 +1,33 @@
 {
   "name": "ModifyStartVulScan",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
+      "name": "ClientToken",
+      "description": "The client token that is used to ensure the idempotence of the request. Different requests should use different tokens. The token supports only ASCII characters and cannot exceed 64 characters in length.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ResourceDirectoryAccountId",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "Types",
-      "description": "The types of vulnerabilities that can be detected. Valid values:\n\n*   **cve**: Linux software vulnerabilities\n*   **sys**: Windows system vulnerabilities\n*   **cms**: Web-CMS vulnerabilities\n*   **app**: application vulnerabilities\n*   **emg**: urgent vulnerabilities\n*   **image**: container image vulnerabilities\n*   **sca**: vulnerabilities that are detected based on software component analysis\n\n> If you leave this parameter empty, all types of vulnerabilities can be detected.",
+      "description": "Settings for the types of vulnerabilities to detect by using the one-click scan feature. Valid values:\n- **cve**: Linux software vulnerability.\n- **sys**: Windows system vulnerability.\n- **cms**: Web-CMS vulnerability.\n- **app**: application vulnerability detected by the web scanner.\n- **emg**: urgent vulnerability.\n- **image**: container image vulnerability.\n- **sca**: application vulnerability detected by software constituency parsing.\n> If this parameter is left empty, all vulnerability types are detected.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Uuids",
-      "description": "The UUIDs of servers.",
+      "description": "The UUIDs of the servers. Separate multiple UUIDs with commas (,).\n\n> You can call the [DescribeCloudCenterInstances](~~421726~~) operation to obtain this parameter.",
       "position": "Query",
       "type": "String",
       "required": false

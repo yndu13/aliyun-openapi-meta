@@ -7,35 +7,34 @@
   "parameters": [
     {
       "name": "BootMode",
-      "description": "The new boot mode of the image. Valid values:\n\n*   BIOS: BIOS mode\n*   UEFI: Unified Extensible Firmware Interface (UEFI) mode\n*   UEFI-Preferred: BIOS mode and UEFI mode\n\n>  Before you change this parameter, make sure that you are familiar with the boot modes supported by the image. If you specify a boot mode that is not supported by the image, ECS instances created from the image cannot start as expected. For information about the boot modes of images, see the [Boot modes of custom images](~~2244655#b9caa9b8bb1wf~~) section of the \"Best practices for ECS instance boot modes\" topic.",
+      "description": "The boot mode of the image. Valid values:\n- BIOS: Basic Input/Output System (BIOS) boot mode.\n- UEFI: Unified Extensible Firmware Interface (UEFI) boot mode.\n- UEFI-Preferred: dual boot mode.\n\n\n<notice>\n\n   To prevent instances from failing to start due to an unsupported boot mode, make sure that you understand the boot modes supported by the image before you modify this parameter. For more information about image boot modes, see [Image boot modes](~~2244655#b9caa9b8bb1wf~~).\n\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The new description of the custom image. The description must be 2 to 256 characters in length It cannot start with [http:// or https://.](http://https://。)\n\nThis parameter is empty by default, which specifies that the original description is retained.",
+      "description": "The description of the custom image. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nDefault value: null, which indicates that the original description is retained.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Features",
-      "description": "The attributes of the custom image.",
+      "description": "The image feature attributes.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "ImageFamily",
-      "description": "The name of the image family. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with acs: or aliyun. [It cannot contain http:// or https://. It can contain letters, digits, periods (.), colons (:), underscores (\\_), and hyphens (-).](http://https://。、（.）、（:）、（\\_）（-）。)\n\nBy default, this parameter is empty.",
+      "description": "The name of the image family. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. It can contain digits, periods (.), colons (:), underscores (_), or hyphens (-).\n\nDefault value: null.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,28 +48,28 @@
     },
     {
       "name": "ImageName",
-      "description": "The name of the custom image. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with acs: or aliyun. [It cannot contain http:// or https://. It can contain letters, digits, periods (.), colons (:), underscores (\\_), and hyphens (-).](http://https://。、（.）、（:）、（\\_）（-）。)\n\nBy default, this parameter is empty. In this case, the original name is retained.",
+      "description": "The name of the custom image. The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`. It can contain digits, periods (.), colons (:), underscores (_), or hyphens (-).\n\nDefault value: null, which indicates that the original name is retained.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LicenseType",
-      "description": "The type of the license that is used to activate the operating system after the image is imported. Set the value to BYOL.\n\nBYOL: The license that comes with the source operating system is used. When you use the BYOL license, make sure that your license key is supported by Alibaba Cloud.",
+      "description": "The license type used to activate the operating system after the image is imported. Currently, only BYOL is supported.\n\nBYOL: the license that comes with the source operating system. When you use BYOL, make sure that your license key supports use on Alibaba Cloud.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the custom image. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the custom image. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Status",
-      "description": "The new state of the custom image. Valid values:\n\n*   Deprecated: puts the image into the Deprecated state. If the custom image is shared, you must unshare it before you can put it into the Deprecated state. Images in the Deprecated state cannot be shared or copied, but can be used to create instances or replace system disks.\n*   Available: puts the image into the Available state. You can restore an image from the Deprecated state to the Available state.\n\n> If you want to roll back a custom image in the image family to a previous version, you can put the latest available custom image into the Deprecated state. If no custom images are in the Available state within the image family, an image family cannot be used to create instances. Proceed with caution if only a single custom image is in the Available state within the image family.",
+      "description": "The image status. Valid values:\n\n- Deprecated: sets the image to the deprecated state. If you have shared the custom image, you must unshare it before you can set it to the deprecated state. You cannot share or copy a deprecated image. However, you can use the image to create instances or replace system disks.\n- Available: sets the image to the available state. You can restore a deprecated image to the available state.\n\n> To roll back a custom image in an image family to the previous version, you can set the latest available custom image to the deprecated state. However, if the image is the only available custom image in the image family, the image family will have no available custom image for creating instances after the image is deprecated. Proceed with caution.",
       "position": "Query",
       "type": "String",
       "required": false

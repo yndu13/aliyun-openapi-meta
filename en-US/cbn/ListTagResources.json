@@ -7,54 +7,56 @@
   "parameters": [
     {
       "name": "NextToken",
-      "description": "The token that determines the start point of the query. Valid values:\n\n*   If this is your first query and no next queries are to be sent, ignore this parameter.\n*   If a subsequent query is to be sent, set the parameter to the value of NextToken that is returned from the last call.",
+      "description": "Specifies whether a next query token exists. Valid values:\n\n- If this is the first query or no next query exists, you do not need to specify this parameter.\n\n- If a next query exists, set the value to the NextToken value returned by the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.",
+      "description": "The number of entries per page for a paged query. Valid values: **1** to **50**. Default value: **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the resource is deployed.\n\nYou can ignore this parameter if ResourceType is set to Cen or BandwidthPackage.",
+      "description": "The region ID of the resource instance.\n\nThis parameter is not required when the resource type is Cen or BandwidthPackage. This parameter is required for all other resource types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The IDs of the CEN instances.\n\nYou can specify at most 20 IDs in each call.",
+      "description": "The CEN instance ID.\n\nYou can specify up to 20 CEN instance IDs at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The type of the resource to which you want to add the tag. Valid values:\n\n**Cen**: CEN instance\n\n**BandwidthPackage**: bandwidth plan\n\n**TransitRouter**: transit router\n\n**TransitRouterVpcAttachment**: virtual private cloud (VPC) connection\n\n**TransitRouterVbrAttachment**: virtual border router (VBR) connection\n\n**TransitRouterPeerAttachment**: inter-region connection\n\n**TransitRouterVpnAttachment**: VPN connection\n\n**TransitRouterRouteTable**: route table\n\n**Flowlog**: flow log\n\n**TransitRouterMulticastDomain**: multicast domain",
+      "description": "The resource type. Valid values:\n\n**Cen**: CEN instance.\n\n**BandwidthPackage**: bandwidth package instance.\n\n**TransitRouter**: transit router instance.\n\n**TransitRouterVpcAttachment**: VPC connection instance.\n\n**TransitRouterVbrAttachment**: VBR connection instance.\n\n**TransitRouterPeerAttachment**: inter-region connection instance.\n\n**TransitRouterVpnAttachment**: VPN connection instance.\n\n**TransitRouterRouteTable**: route table instance.\n\n**Flowlog**: flow log instance.\n\n**TransitRouterMulticastDomain**: multicast domain instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The information about the tags that are added to the CEN instance.\n\nYou can query at most 20 tags in each call.",
+      "description": "The tag information of the CEN instance.\n\nYou can query up to 20 tags at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\n\nA tag key can contain up to 64 characters and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys at a time.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\n\nA tag value can contain up to 128 characters and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag values at a time.",
           "position": "Query",
           "type": "String",
           "required": false

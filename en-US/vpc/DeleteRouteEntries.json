@@ -7,45 +7,49 @@
   "parameters": [
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n**true**: performs a dry run without deleting routes. The system checks the AccessKey pair, the authorization of the Resource Access Management (RAM) user, and the required parameters. If the check fails, the corresponding error is returned. If the check passes, the error code `DryRunOperation` is returned.\n\n**false** (default): sends a normal request. If the check passes, a 2xx HTTP status code is returned and the routes are deleted.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the route table.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The ID of the region where the route table resides.\n\nYou can call [DescribeRegions](~~36063~~) to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouteEntries",
-      "description": "The information about the routes that you want to delete.",
+      "description": "The information about the route entries to delete.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "DstCidrBlock",
+          "description": "The destination CIDR block of the route entry to delete. IPv4 CIDR blocks, IPv6 CIDR blocks, and prefix list CIDR blocks are supported. You can specify up to 50 destination CIDR blocks.\n\n> If the **RouteEntryId** parameter is not specified, the **DstCidrBlock** and **NextHop** parameters are required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "NextHop",
+          "description": "The ID of the next hop instance to delete. You can specify up to 50 instance IDs.\n\n> If the **RouteEntryId** parameter is not specified, the **DstCidrBlock** and **NextHop** parameters are required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RouteEntryId",
+          "description": "The ID of the route entry to delete. You can specify up to 50 route entry IDs.\n\n> If the **RouteEntryId** parameter is not specified, the **DstCidrBlock** and **NextHop** parameters are required.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RouteTableId",
+          "description": "The ID of the route table that contains the route entry to delete. You can specify up to 50 route table IDs.",
           "position": "Query",
           "type": "String",
           "required": true

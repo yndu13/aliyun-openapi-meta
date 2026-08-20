@@ -1,36 +1,41 @@
 {
   "name": "DetachFromPolicy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "IpPortProtocolList",
-      "description": "The protected objects.",
+      "description": "The list of protected objects.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Ip",
+          "description": "The IP address of the protected object.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Port",
+          "description": "The port of the protected object.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "PortRange",
+          "description": "The port range of the protected object.\n> Only port-specific mitigation policies support this parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Protocol",
+          "description": "The protocol type of the protected object. Valid values:\n\n- **tcp**: Transmission Control Protocol.\n- **udp**: User Datagram Protocol.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -39,14 +44,14 @@
     },
     {
       "name": "PolicyType",
-      "description": "The type of the policy. Valid values:\n\n*   **default**: the default mitigation policies.\n*   **l3**: IP-specific mitigation policies.\n*   **l4**: port-specific mitigation policies.",
+      "description": "The policy type. Valid values:\n- **default**: default mitigation policy.\n- **l3**: IP-specific mitigation policy.\n- **l4**: port-specific mitigation policy.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PortVersion",
-      "description": "",
+      "description": "The version of the port-specific mitigation policy. Valid values:\n\n- **Not specified**: dissociates the default surf anti-DDoS engine policy.\n- **2**: dissociates the new stream anti-DDoS engine policy.\n> Only port-specific mitigation policies support this parameter.",
       "position": "Query",
       "type": "String",
       "required": false

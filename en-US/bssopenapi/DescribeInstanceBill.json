@@ -7,91 +7,91 @@
   "parameters": [
     {
       "name": "BillOwnerId",
-      "description": "The ID of the member. If you specify this parameter, the bills of the member are queried. If you do not specify this parameter, the bills of the current account are queried by default.",
+      "description": "The ID of the resource ownership account. This is the account that actually uses the resources.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "BillingCycle",
-      "description": "The billing cycle. Specify the parameter in the YYYY-MM format.\nOnly the latest 18 month billing cycle is supported.",
+      "description": "The billing cycle in YYYY-MM format. Only billing cycles within the past 18 months are supported.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "BillingDate",
-      "description": "The billing date. This parameter is required only when the Granularity parameter is set to DAILY. Format: YYYY-MM-DD.",
+      "description": "The bill date. This parameter is required only when Granularity is set to DAILY. The format is YYYY-MM-DD.\n\n> The month of BillingDate must match the month of BillingCycle. For example, if BillingCycle is 2020-03, BillingDate must be in the format 2020-03-DD. If the months do not match, the query returns results based on the BillingCycle setting.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Granularity",
-      "description": "The granularity at which bills are queried. Valid values:\n\n*   MONTHLY: queries bills on a monthly basis. The data that you query is the same as the data searched by instances on the Billing Details tab of the Bill Details page in the User Center console.\n*   DAILY: queries bills on a daily basis. The data that you query is the same as the data searched by days on the Billing Details tab of the Bill Details page in the User Center console.\n\nThe BillingDate parameter is required if you set the Granularity parameter to DAILY.",
+      "description": "The granularity of the bills to query. Valid values:\n\n- MONTHLY: Monthly. This corresponds to the bills on the Bills by Billing Cycle tab of the Bill Details page.\n\n- DAILY: Daily. This corresponds to the bills on the Bills by Day tab of the Bill Details page.\n\n> Specify BillingDate if you select DAILY.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceID",
-      "description": "The ID of the instance.",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IsBillingItem",
-      "description": "Specifies whether to query data by billable items. Valid values:\n\n*   false: The data that you query is the same as the data searched by instances on the Billing Details tab of the Bill Details page in the User Center console.\n*   true: The data that you query is the same as the data searched by billable items on the Billing Details tab of the Bill Details page in the User Center console.\n\nDefault value: false.",
+      "description": "Specifies whether to pull data by billing item dimension.\n\n- false (default): The data is consistent with the Instance Bill page under Expenses and Costs > Bills > Bill Details.\n\n- true: The data is consistent with the Billing Item Bill page under Expenses and Costs > Bills > Bill Details.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IsHideZeroCharge",
-      "description": "Specifies whether to filter bills if both the pretax gross amount and pretax amount are 0. Valid values:\n\n*   false: does not filter bills.\n*   true: filters bills.",
+      "description": "Specifies whether to exclude bills where both PretaxGrossAmount and PretaxAmount are 0.\n\n- false\n\n- true",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to return. Default value: 20. Maximum value: 300.",
+      "description": "The maximum number of data records to return. Default value: 20. Maximum value: 300.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used to indicate the position where the results for the current call start. The parameter must be left empty or set to the value of the NextToken parameter that is returned from the last call. Otherwise, an error is returned. If the parameter is left empty, data is queried from the first item.",
+      "description": "The token that specifies the starting point for reading data. Leave this parameter empty to read the first page of results. To read the next page, set this parameter to the NextToken value that was returned in the previous response. Any other value will cause an error.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PipCode",
-      "description": "The code of the service. The code is the same as that in Cost Center.",
+      "description": "The product code. This is the same as the product code on the bill in the User Center.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductCode",
-      "description": "The code of the service.",
+      "description": "The product code.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductType",
-      "description": "The type of the service.",
+      "description": "The product type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionType",
-      "description": "The billing method. Valid values:\n\n*   Subscription: the subscription billing method.\n*   PayAsYouGo: the pay-as-you-go billing method.",
+      "description": "The subscription type. Valid values:\n\n- Subscription: subscription\n\n- PayAsYouGo: pay-as-you-go",
       "position": "Query",
       "type": "String",
       "required": false

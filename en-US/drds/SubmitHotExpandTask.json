@@ -1,38 +1,41 @@
 {
   "name": "SubmitHotExpandTask",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DbName",
-      "description": "The name of the database.",
+      "description": "The database name.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DrdsInstanceId",
-      "description": "The ID of the instance.",
+      "description": "The instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ExtendedMapping",
-      "description": "The information about the database on which you want to perform hot-spot scale-out.",
+      "description": "The list of scale-out data.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "SrcDb",
+          "description": "The name of the source physical sharded database.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SrcInstanceId",
+          "description": "The instance ID of the ApsaraDB RDS instance where the source physical database sharding resides.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -41,19 +44,21 @@
     },
     {
       "name": "InstanceDbMapping",
-      "description": "The information about the instance to which the hot-spot database belongs.",
+      "description": "The list of target instance data.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "DbList",
+          "description": "The target hotspot sharded databases.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "InstanceName",
+          "description": "The name of the ApsaraDB RDS instance where the target hotspot database resides.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -62,49 +67,56 @@
     },
     {
       "name": "Mapping",
-      "description": "The information about the hot-spot database.",
+      "description": "The list of target database data.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "DbShardColumn",
+          "description": "The database shard key of the associated table.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "HotDbName",
+          "description": "The name of the hotspot database.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "HotTableName",
+          "description": "The name of the hotspot sharded table. The name must use the logical table name as a prefix.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "LogicTable",
+          "description": "The name of the logical table for hotspot scale-out.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ShardDbValue",
+          "description": "The database-level shard key value.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ShardTbValue",
+          "description": "The table-level shard key value.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TbShardColumn",
+          "description": "The table shard key of the associated table.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -113,25 +125,28 @@
     },
     {
       "name": "SupperAccountMapping",
-      "description": "The information about the privileged account.",
+      "description": "The list of privileged account data.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "InstanceName",
+          "description": "The instance ID of the ApsaraDB RDS instance that has a privileged account.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SupperAccount",
+          "description": "The name of the privileged account for the ApsaraDB RDS instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SupperPassword",
+          "description": "The password of the privileged account for the ApsaraDB RDS instance.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -140,14 +155,14 @@
     },
     {
       "name": "TaskDesc",
-      "description": "The description of the task.",
+      "description": "The task description.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TaskName",
-      "description": "The name of the task.",
+      "description": "The task name.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,67 @@
+{
+  "name": "ApplyResourceAccessPermission",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApplyContents",
+      "description": "资源权限申请内容列表",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "AccessTypes",
+          "description": "申请的权限列表。\n\n**注意**：不同层级资源支持权限的申请类型不同，统一受[ResourceSchema](https://help.aliyun.com/zh/dataworks/developer-reference/resourceschema-template-instructions).isValidLeaf和accessTypeRestrictions和authMethodAccessTypes 约束。\n\n附：[ResourceSchema国际站说明文档](https://www.alibabacloud.com/help/zh/dataworks/developer-reference/resourceschema-template-instructions)",
+          "position": "FormData",
+          "type": "RepeatList",
+          "required": true
+        },
+        {
+          "name": "AuthMethod",
+          "description": "授权方式。当前只有SEVERLESS_STARROCKS支持指定授权方式：ranger、starrocksManager。\n\n**注意**：不同资源支持的授权方式不同，统一受[ResourceSchema](https://help.aliyun.com/zh/dataworks/developer-reference/resourceschema-template-instructions).authMethods 约束。\n\n附：[ResourceSchema国际站说明文档](https://www.alibabacloud.com/help/zh/dataworks/developer-reference/resourceschema-template-instructions)",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ExpirationTime",
+          "description": "权限到期时间，毫秒时间戳\n",
+          "position": "FormData",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "name": "Grantee",
+          "description": "授权主体描述。\n\n**注意**： 系统支持的授权主体类型受[ResourceSchema](https://help.aliyun.com/zh/dataworks/developer-reference/resourceschema-template-instructions).authPrincipal 约束。\n\n附：[ResourceSchema国际站说明文档](https://www.alibabacloud.com/help/zh/dataworks/developer-reference/resourceschema-template-instructions)",
+          "position": "FormData",
+          "type": "Struct",
+          "required": true
+        },
+        {
+          "name": "Resource",
+          "description": "资源描述。",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ClientToken",
+      "description": "幂等参数。用于避免多次调用导致操作重复。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Reason",
+      "description": "申请理由\n",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

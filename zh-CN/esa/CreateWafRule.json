@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "Config",
-      "description": "规则配置，指定创建规则的详细配置。",
+      "description": "WAF 规则的具体配置（`WafRuleConfig` 数据结构），根据 Phase 阶段不同，必填字段不同：\n\n- `http_custom`：必填 `Expression`（匹配表达式）与 `Action`（匹配后动作）；建议下 `Name` 便于后续定位\n- `http_whitelist`：必填 `Expression`；命中后直接放行（无 Action）\n- `http_ratelimit`：必填 `Expression`、`RateLimit` 频控参数\n- `ip_access_rule`：必填 `Expression`（包含 IP 匹配）、`Action`\n\n> 完整字段定义以 `WafRuleConfig` 数据结构为准。字段缺失时服务返回 `InvalidParameter(400)` / `Rule.Config.Malformed`。",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Phase",
-      "description": "WAF运行阶段。",
+      "description": "WAF 规则运行阶段。本**单条创建接口**支持以下阶段（不支持 `http_anti_scan` 与 `http_bot`，这两个阶段请使用批量接口 `BatchCreateWafRules`）：\n- `http_whitelist`：白名单规则\n- `http_custom`：自定义规则\n- `http_managed`：托管规则\n- `http_ratelimit`：频次控制规则\n- `ip_access_rule`：IP 访问规则\n- `http_security_level_rule`：安全规则\n\n> 说明：`http_anti_scan` / `http_bot` 仅支持通过批量接口创建；本接口传入这两个取值会报错。",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "RulesetId",
-      "description": "规则集ID。",
+      "description": "WAF规则集的ID，可通过调用[ListWafRulesets](~~2878359~~)接口获取。",
       "position": "Body",
       "type": "Long",
       "required": false
@@ -35,7 +35,7 @@
     },
     {
       "name": "SiteVersion",
-      "description": "站点版本。",
+      "description": "站点配置的版本号。开启了配置版本管理的站点，可以通过该参数指定配置生效的站点版本，默认为版本0。",
       "position": "Query",
       "type": "Integer",
       "required": false

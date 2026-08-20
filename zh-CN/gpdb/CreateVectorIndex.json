@@ -6,6 +6,13 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "Algorithm",
+      "description": "向量索引算法\n\n取值说明：\n- hnswflat：不带量化压缩的 HNSW 索引（默认值）\n- novam：不带量化压缩的图索引，适用于实时推荐等高性能场景\n- novad：带 rabitq 量化的分区索引，适用于大规模低成本检索场景",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Collection",
       "description": "集合名。\n> 您可以[ListCollections](~~2401503~~)接口查看列表。",
       "position": "Query",
@@ -76,8 +83,22 @@
       "required": false
     },
     {
+      "name": "Nlist",
+      "description": "Novad 列表数（分区数）。取值范围：[2, 1073741824]，默认值256。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "PqEnable",
       "description": "索引是否开启PQ（Product quantization）算法加速，数据量大于50w时建议开启。取值说明：\n- 0：关闭。\n- 1：开启（默认）。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "RabitqBits",
+      "description": "rabitq 压缩比特数。取值范围：[1, 8]，默认值3。",
       "position": "Query",
       "type": "Integer",
       "required": false

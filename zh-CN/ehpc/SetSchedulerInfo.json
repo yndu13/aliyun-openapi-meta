@@ -21,36 +21,42 @@
       "sub_parameters": [
         {
           "name": "AclLimit",
+          "description": "队列限制信息列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "JobHistoryDuration",
+          "description": "作业保留时间，超过保留之间后，作业数据会被销毁。单位为天。    \n取值范围：1~30。    \n默认值：14。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ResourceLimit",
+          "description": "集群用户使用的节点信息列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "SchedInterval",
+          "description": "PbsInfo指集群中可以设置的PBS调度信息个数。N的取值范围：0~100。\n\nSchedInterval指调度周期，单位：秒\n\n调度周期指运行多个作业之间时间间隔，如设置为60，表示本次作业开始运行60秒后才能开始运行下次作业。\n\n默认值：60",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SchedMaxJobs",
+          "description": "集群调度的最大作业数。若集群排队和运行的作业数总和超过此数值则无法再继续提交作业。默认值：20000",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SchedMaxQueuedJobs",
+          "description": "集群调度的最大排队作业数。若集群排队作业数量超过此数值则无法再继续提交作业。默认值：10000",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -73,6 +79,7 @@
       "sub_parameters": [
         {
           "name": "SchedName",
+          "description": "调度器名，取值范围：\n\n- pbs\n- pbs19\n- slurm\n- slurm19\n- slurm20\n\n> 调度器为pbs、pbs19时，PbsInfo.N.SchedInterval、PbsInfo.N.JobHistoryDuration、PbsInfo.N.ResourceLimit、PbsInfo.N.AclLimit中至少一个参数为必选；调度器为slurm、slurm19、slurm20时，SlurmInfo.N.SchedInterval、SlurmInfo.N.BackfillInterval中至少一个参数为必选。",
           "position": "Query",
           "type": "String",
           "required": true
@@ -88,12 +95,14 @@
       "sub_parameters": [
         {
           "name": "BackfillInterval",
+          "description": "Backfill调度周期设置，单位：秒\n\n默认值：60",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SchedInterval",
+          "description": "SlurmInfo指集群中可以设置的Slurm调度信息个数。N的取值范围：0~100。\n\nSchedInterval指主调度周期设置，单位：秒\n\n默认值：60",
           "position": "Query",
           "type": "Integer",
           "required": false

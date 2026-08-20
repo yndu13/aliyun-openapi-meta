@@ -7,77 +7,77 @@
   "parameters": [
     {
       "name": "CaCertificates",
-      "description": "The certificate authority (CA) certificates. You can specify only one CA certificate.",
+      "description": "A list of CA certificates for the listener. Only one CA certificate is supported.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "CaEnabled",
-      "description": "Specifies whether to enable mutual authentication. Valid values:\n\n*   **true**: enables mutual authentication.\n*   **false** (default): disables mutual authentication.",
+      "description": "Specifies whether to enable mutual authentication. Valid values:\n\n- **true**: Enables mutual authentication.\n\n- **false** (default): Disables mutual authentication.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Certificates",
-      "description": "The details about each certificate.",
+      "description": "A list of server certificates.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.\n\n>  If you do not set this parameter, the system automatically uses the value of **RequestId** as the value of **ClientToken**. **RequestId** may be different for each API request.",
+      "description": "A client-generated token that is used to ensure the idempotency of the request. The token must be unique across different requests and can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** is unique for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DefaultActions",
-      "description": "The actions of the forwarding rule.",
+      "description": "The default actions for the listener.",
       "position": "Query",
       "type": "Array",
       "required": true
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a precheck. Valid values:\n\n*   **true**: prechecks the request without creating a listener. The system checks the required parameters, request syntax, and limits. If the request fails the precheck, an error code is returned based on the cause of the failure. If the request passes the precheck, the `DryRunOperation` error code is returned.\n*   **false** (default): sends the API request. If the request passes the precheck, a 2xx HTTP status code is returned and the system proceeds to create a listener.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Performs a dry run to check the request for potential issues, including required parameters, request format, and service limits. The listener is not created. If the request fails the check, the system returns an error. If the request passes the check, the system returns the `DryRunOperation` error code.\n\n- **false** (default): Sends the request. If the request passes the check, the system performs the operation and returns an HTTP 2xx status code.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "GzipEnabled",
-      "description": "Specifies whether to enable `Gzip` compression to compress specific types of files. Valid values:\n\n*   **true** (default): enables Gzip compression.\n*   **false**: disables Gzip compression.",
+      "description": "Specifies whether to enable `Gzip` compression to compress specific types of files. Valid values:\n\n- **true** (default): Enables Gzip compression.\n\n- **false**: Disables Gzip compression.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Http2Enabled",
-      "description": "Specifies whether to enable `HTTP/2`. Valid values:\n\n*   **true** (default): enables HTTP/2.\n*   **false**: disables HTTP/2.\n\n>  Only HTTPS listeners support this parameter.",
+      "description": "Specifies whether to enable `HTTP/2`. Valid values:\n\n- **true** (default): Enables HTTP/2.\n\n- **false**: Disables HTTP/2.\n\n> This parameter is available only for HTTPS listeners.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "IdleTimeout",
-      "description": "The timeout period of an idle connection. Unit: seconds.\n\nValid values: **1 to 60**.\n\nDefault value: **15**.\n\nIf no requests are received within the specified timeout period, ALB closes the current connection. When a new request is received, ALB establishes a new connection.",
+      "description": "The idle timeout in seconds.\n\nValid values: **1** to **600**.\n\nDefault value: **15**.\n\nIf no requests are received on a connection within the idle timeout, the load balancer closes the connection. A new connection is established for the next request.\n\n> You can request a quota increase to a maximum of 3,600 seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ListenerDescription",
-      "description": "The name of the listener.\n\nThe description must be 2 to 256 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\\_). Regular expressions are supported.",
+      "description": "A custom name for the listener.\n\nThe name must be 2 to 256 characters long and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), underscores (\\_), and Chinese characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ListenerPort",
-      "description": "The frontend port that is used by the ALB instance.\n\nValid values: **1 to 65535**.",
+      "description": "The frontend port used by the listener.\n\nValid values: **1** to **65535**.",
       "position": "Query",
       "type": "Integer",
       "required": true
@@ -91,42 +91,42 @@
     },
     {
       "name": "LoadBalancerId",
-      "description": "The ID of the ALB instance.",
+      "description": "The ID of the Application Load Balancer (ALB) instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "QuicConfig",
-      "description": "Select a QUIC listener and associate it with the ALB instance.",
+      "description": "The configuration of the associated QUIC listener.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "RequestTimeout",
-      "description": "The timeout period of a request. Unit: seconds.\n\nValid values: **1 to 180**.\n\nDefault value: **60**.\n\nIf no response is received from the backend server during the request timeout period, ALB sends an `HTTP 504` error code to the client.",
+      "description": "The request timeout in seconds.\n\nValid values: **1** to **600**.\n\nDefault value: **60**.\n\nIf a backend server does not respond within the timeout period, the load balancer returns an `HTTP 504` error to the client.\n\n> You can request a quota increase to a maximum of 3,600 seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SecurityPolicyId",
-      "description": "The ID of the security policy. System security policies and custom security policies are supported.\n\nDefault value: **tls_cipher_policy\\_1\\_0** (system security policy).\n\n>  Only HTTPS listeners support this parameter.",
+      "description": "The ID of the security policy. Both system and custom security policies are supported.\n\nDefault value: **tls\\_cipher\\_policy\\_1\\_0** (a system security policy).\n\n> This parameter is available only for HTTPS listeners.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "A list of tags to add to the listener.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "XForwardedForConfig",
-      "description": "The configuration of the XForward header.",
+      "description": "The configuration of `X-Forwarded-*` headers.",
       "position": "Query",
       "type": "Struct",
       "required": false

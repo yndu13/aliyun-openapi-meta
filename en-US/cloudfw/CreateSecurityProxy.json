@@ -1,19 +1,41 @@
 {
   "name": "CreateSecurityProxy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
+      "name": "FirewallServiceMode",
+      "description": "The deployment mode of the firewall service. Valid values:\n\n- PrimaryStandby: active/standby mode\n- MultiPrimary: active-active mode",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallServiceZones",
+      "description": "The list of zone IDs used by the firewall service.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
       "name": "FirewallSwitch",
-      "description": "The status of the NAT firewall. Valid values:\n\n*   **open**: enabled\n*   **close**: disabled",
+      "description": "The security protection switch. Valid values:\n- **open**: enabled\n- **close**: disabled",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FwVswitchZoneId",
+      "description": "The zone of the firewall vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lang",
-      "description": "The language of the content within the response. Valid values:\n\n*   **zh** (default): Chinese\n*   **en**: English",
+      "description": "The language of the response. Valid values:\n\n- **zh** (default): Chinese\n- **en**: English",
       "position": "Query",
       "type": "String",
       "required": false
@@ -27,31 +49,35 @@
     },
     {
       "name": "NatRouteEntryList",
-      "description": "The routes to be switched to the NAT gateway.",
+      "description": "The list of routes to be switched for the NAT gateway.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "DestinationCidr",
+          "description": "The destination CIDR block of the default route.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "NextHopId",
+          "description": "The next hop address of the original NAT gateway.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "NextHopType",
+          "description": "The network type of the next hop. Valid values: NatGateway.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "RouteTableId",
+          "description": "The route table that contains the default route of the NAT gateway.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -60,49 +86,49 @@
     },
     {
       "name": "ProxyName",
-      "description": "The name of the NAT firewall. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\\_). However, it cannot start with an underscore.",
+      "description": "The name of the NAT firewall. The name can contain uppercase and lowercase letters, Chinese characters, digits, and underscores (_). The name must be 4 to 50 characters in length and cannot start with an underscore.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionNo",
-      "description": "The region ID of the virtual private cloud (VPC).\n\n>  For more information about Cloud Firewall supported regions, see [Supported regions](~~195657~~).",
+      "description": "The region ID of the VPC.\n\n> For more information about the regions supported by Cloud Firewall, see [Supported regions](~~195657~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StrictMode",
-      "description": "Specifies whether to enable the strict mode. Valid values:\n\n*   1: yes\n*   0: no",
+      "description": "Specifies whether to enable strict mode.\n\n- 1: Enable strict mode.\n- 0: Disable strict mode.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC.",
+      "description": "The VPC-connected instance ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VswitchAuto",
-      "description": "The mode of the vSwitch that you want to use. Valid values:\n\n*   **true**: automatic\n*   **false**: manual",
+      "description": "Specifies whether to use the automatic vSwitch mode. Valid values:\n- **true**: automatic mode\n- **false**: manual mode\n> The default value of VswitchAuto is true. If VswitchAuto is set to true, VswitchCidr is required and must be a valid CIDR block. If VswitchAuto is set to false, VswitchId is required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VswitchCidr",
-      "description": "The CIDR block of the vSwitch.",
+      "description": "The CIDR block of the vSwitch. This parameter is required when the vSwitch is in automatic mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VswitchId",
-      "description": "The ID of the vSwitch. This parameter is required if you set the VswitchAuto parameter to true.",
+      "description": "The vSwitch ID. This parameter is required when the vSwitch is in manual mode.",
       "position": "Query",
       "type": "String",
       "required": false

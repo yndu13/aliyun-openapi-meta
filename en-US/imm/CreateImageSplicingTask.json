@@ -7,96 +7,98 @@
   "parameters": [
     {
       "name": "Align",
-      "description": "The width or height with which the input images must align. Valid values: 1 to 4096. Unit: px.\n\n*   If you set **Direction** to `vertical`, this parameter specifies the width with which the input images must align.\n*   If you set **Direction** to `horizontal`, this parameter specifies the height with which the input images must align.\n\n>  If you do not specify this parameter, the width or height of the first input image is used.",
+      "description": "The alignment value, in pixels, for the width or height of the images to be stitched. The value can range from 1 to 4096.\n\n- If you set **Direction** to `vertical`, this parameter specifies the width alignment.\n\n- If you set **Direction** to `horizontal`, this parameter specifies the height alignment.\n\n> If you do not specify this parameter, the width or height of the first image is used for alignment by default.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "BackgroundColor",
-      "description": "The padding color of the spaces specified by `Padding` and `Margin`. Colors encoded in the `#FFFFFF` format and colors that are related to preset keywords such as `red` and `alpha` are supported.",
+      "description": "The fill color for the areas specified by `Padding` and `Margin`. The value can be in the `#FFFFFF` format or a keyword such as `red` or `alpha`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CredentialConfig",
-      "description": "The authorization chain settings. For more information, see [Use authorization chains to access resources of other entities](~~465340~~).",
+      "description": "The chained authorization configuration. For more information, see [Use chained authorization to access resources of other entities](~~465340~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "Direction",
-      "description": "The splicing method. Valid values:\n\n*   vertical (default): All input images are vertically aligned and have the same width.\n*   horizontal: All input images are horizontally aligned and have the same height.",
+      "description": "The image stitching method. Valid values:\n\n- vertical (default): Stitches images vertically. The widths of all images must be the same.\n\n- horizontal: Stitches images horizontally. The heights of all images must be the same.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageFormat",
-      "description": "The compression format of the output image. Valid values:\n\n*   jpg (default)\n*   png\n*   webp",
+      "description": "The compression format of the output image. Valid values:\n\n- jpg (default)\n\n- png\n\n- webp",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Margin",
-      "description": "The empty space or border around the edges of the output image. Default value: 0. Unit: px.",
+      "description": "The blank margin, in pixels, of the stitched image. The default value is 0.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Notification",
-      "description": "The notification settings. For information about the asynchronous notification format, see [Asynchronous message examples](~~2743997~~).",
+      "description": "The message notification configuration. For information about the format of asynchronous notification messages, see [Asynchronous notification message format](~~2743997~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "Padding",
-      "description": "The space between component images in the output image. Default value: 0. Unit: px.",
+      "description": "The space, in pixels, between sub-images in the stitched image. The default value is 0.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "The name of the project. You can obtain the name of the project from the response of the [CreateProject](~~478153~~) operation.",
+      "description": "The project name. For more information about how to obtain the project name, see [Create a project](~~478153~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Quality",
-      "description": "The compression quality of the output image. This parameter takes effect only for JPG and WebP images. Valid values: 0 to 100. Default value: 80.",
+      "description": "The compression quality of the output image. This parameter is valid only for JPG and WebP images. The value range is 0 to 100. The default value is 80.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ScaleType",
-      "description": "The scaling mode of the input images that are vertically or horizontally aligned. Valid values:\n\n*   fit (default): Input images are scaled proportionally, and black edges are not retained.\n*   stretch: Input images are stretched to fill the space.\n*   horizon: Input images are horizontally stretched.\n*   vertical: Input images are vertically stretched.",
+      "description": "The scaling method used when the width or height of an image is aligned. Valid values:\n\n- fit (default): Scales the image without adding black bars. Only proportional scaling is supported.\n\n- stretch: Stretches the image to fill the space.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Sources",
-      "description": "The input images. The images are sliced in the order of the input image URIs.",
+      "description": "The list of input images. The images are stitched in the order of their URIs in the list.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Rotate",
+          "description": "The rotation angle of the image. Valid values:\n\n- 0 (default)\n\n- 90\n\n- 180\n\n- 270",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "URI",
+          "description": "The OSS URI of the source image.\n\nThe URI must be in the oss\\://${Bucket}/${Object} format. `${Bucket}` is the name of the OSS bucket that is in the same region as the project. `${Object}` is the full path of the file, including the file name extension.\n\nSupported image formats: JPG and PNG.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -105,21 +107,21 @@
     },
     {
       "name": "Tags",
-      "description": "The custom tags. You can search for or filter asynchronous tasks by custom tag.",
+      "description": "Custom tags used to search for and filter asynchronous tasks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetURI",
-      "description": "The OSS bucket in which you want to store the output image.\n\nSpecify the value in the oss://${bucketname}/${objectname} format. ${bucketname} specifies the name of the OSS bucket that resides in the same region as the current project. ${objectname} specifies the path to the output image.",
+      "description": "The OSS URI where the output image is stored.\n\nThe URI must be in the oss\\://${bucketname}/${objectname} format. ${bucketname} is the name of the OSS bucket that is in the same region as the project. ${objectname} is the path of the file, including the file name.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "UserData",
-      "description": "The user data, which is returned as asynchronous notifications to help manage notifications within your system. The maximum length of the user data is 2,048 bytes.",
+      "description": "The custom information. This information is returned in the asynchronous notification message. Use this information to associate the notification message with your system. The maximum length is 2,048 bytes.",
       "position": "Query",
       "type": "String",
       "required": false

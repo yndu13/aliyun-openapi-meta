@@ -7,38 +7,42 @@
   "parameters": [
     {
       "name": "ConfigId",
-      "description": "The ID of the configuration. You can call the ListHttpIncomingResponseHeaderModificationRules operation to query the ID.",
+      "description": "The configuration ID. You can call the ListHttpIncomingResponseHeaderModificationRules operation to obtain the configuration ID.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "ResponseHeaderModification",
-      "description": "Modifies a response header. You can add, delete, or modify a request header.",
+      "description": "The response header modifications. Three operation types are supported: add, delete, and modify.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Name",
+          "description": "The response header name.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Operation",
+          "description": "The operation type. Valid values:\n\n- add: Add.\n- del: Delete.\n- modify: Modify.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Type",
+          "description": "The value type. Valid values:\n- static: Static pattern.\n- dynamic: Dynamic schema.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The response header value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -47,35 +51,35 @@
     },
     {
       "name": "Rule",
-      "description": "The content of the rule. A conditional expression is used to match a user request. You do not need to set this parameter when you add global configuration. Use cases:\n\n*   true: Match all incoming requests.\n*   Set the value to a custom expression, for example, (http.host eq \"video.example.com\"): Match the specified request.",
+      "description": "The rule content, which uses a conditional expression to match user requests. This parameter is not required when adding a global configuration. There are two usage scenarios:\n- Match all incoming requests: Set the value to true.\n- Match specified requests: Set the value to a custom expression, for example, (http.host eq \\\"video.example.com\\\").",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleEnable",
-      "description": "Specifies whether to enable the rule. Valid values: You do not need to set this parameter when you add global configuration. Valid values:\n\n*   on\n*   off",
+      "description": "The rule switch. This parameter is not required when adding a global configuration. Valid values:\n\n- on: Enabled.\n- off: Disabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RuleName",
-      "description": "The rule name. You do not need to set this parameter when you add global configuration.",
+      "description": "The rule name. This parameter is not required when adding a global configuration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Sequence",
-      "description": "The order in which the rule is executed. A smaller value gives priority to the rule.",
+      "description": "The rule execution order. A smaller value indicates a higher priority.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SiteId",
-      "description": "The website ID, which can be obtained by calling the [ListSites](~~2850189~~) operation.",
+      "description": "The site ID. You can call the [ListSites](~~2850189~~) operation to obtain the site ID.",
       "position": "Query",
       "type": "Long",
       "required": true

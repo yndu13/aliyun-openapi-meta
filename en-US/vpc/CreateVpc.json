@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "CidrBlock",
-      "description": "The CIDR block of the VPC.\n\n*   We recommend using the private IPv4 address specified in RFC 1918 as the primary IPv4 CIDR block of the VPC with a recommended mask length of 16 to 28 bits. For example, 10.0.0.0/16, 172.16.0.0/16, and 192.168.0.0/16.\n*   You can also use a custom CIDR block other than 100.64.0.0/10, 224.0.0.0/4, 127.0.0.0/8, 169.254.0.0/16, or their subnets as the primary IPv4 CIDR block.",
+      "description": "The CIDR block of the VPC.\n\n- We recommend that you use an IPv4 address specified in RFC 1918 as the primary IPv4 CIDR block of the VPC. The subnet mask must be 16 to 28 bits in length. Examples: 10.0.0.0/16, 172.16.0.0/16, and 192.168.0.0/16.\n- You can also use a custom CIDR block other than 100.64.0.0/10, 224.0.0.0/4, 127.0.0.0/8, 169.254.0.0/16, or their subnets as the primary IPv4 CIDR block of the virtual private cloud (VPC).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,96 +28,98 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run without creating the VPC. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n- **false** (default): performs a Normal request and sends the request. If the request passes the check, an HTTP 2xx status code is returned and the system proceeds to create a VPC.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableDnsHostname",
-      "description": "Whether to enable the DNS hostname feature. Values:\n- **false** (default): Not enabled. \n- **true**: Enabled.",
+      "description": "Specifies whether to enable the DNS hostname feature. Valid values:\n\n- **false** (default): disabled.\n- **true**: enabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableIpv6",
-      "description": "Indicates whether IPv6 is enabled. Valid values:\n\n*   **false** (default): disabled.\n*   **true**: enabled.",
+      "description": "Specifies whether to enable IPv6. Valid values:\n\n- **false** (default): disabled.\n- **true**: enabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Ipv4CidrMask",
-      "description": "Allocate VPC from the IPAM address pool by inputting a mask.\n> When creating a VPC with a specified IPAM address pool, at least one of the parameters CidrBlock or Ipv4CidrMask must be provided.",
+      "description": "The subnet mask used to allocate a CIDR block from the IPAM pool to the VPC.\n\n> When you create a VPC by specifying an IPAM pool, you must specify at least one of CidrBlock or Ipv4CidrMask.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Ipv4IpamPoolId",
-      "description": "The ID of the IP Address Manager (IPAM) pool of the IPv4 type.",
+      "description": "The instance ID of the IPv4 IPAM pool.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6CidrBlock",
-      "description": "The IPv6 CIDR block of the VPC. If you enable IPv6 for a VPC, the system allocates an IPv6 CIDR block. To specify an IPv6 CIDR block, you must call the [AllocateVpcIpv6Cidr](~~448916~~) operation to reserve the specified IPv6 CIDR block.",
+      "description": "The IPv6 CIDR block of the VPC. When you enable IPv6 for the VPC, the system will assign an IPv6 CIDR block. To specify an IPv6 CIDR block, you need to first invoke the [AllocateVpcIpv6Cidr](~~448916~~) operation to reserve the specified IPv6 CIDR block, and then pass it in.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6CidrMask",
-      "description": "Add an IPv6 CIDR block from the IPAM pool to the VPC by entering a mask.",
+      "description": "The subnet mask used to add an IPv6 CIDR block to the VPC from the IPAM pool.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Ipv6IpamPoolId",
-      "description": "The ID of the IP Address Manager (IPAM) pool of the IPv6 type.",
+      "description": "The instance ID of the IPv6 IPAM pool.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6Isp",
-      "description": "The type of the IPv6 CIDR block of the VPC. Valid values:\n\n*   **BGP** (default)\n*   **ChinaMobile**\n*   **ChinaUnicom**\n*   **ChinaTelecom**\n\n>  If you are allowed to use single-ISP bandwidth, you can set the value to **ChinaTelecom**, **ChinaUnicom**, or **ChinaMobile**.",
+      "description": "The type of the IPv6 CIDR block of the VPC. Valid values:\n\n- **BGP** (default): Alibaba Cloud BGP IPv6.\n- **ChinaMobile**: China Mobile (single ISP).\n- **ChinaUnicom**: China Unicom (single ISP).\n- **ChinaTelecom**: China Telecom (single ISP).\n\n> If your account is included in the China single-ISP bandwidth whitelist, you can set this parameter to **ChinaTelecom** (China Telecom), **ChinaUnicom** (China Unicom), or **ChinaMobile** (China Mobile).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the VPC belongs.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the VPC.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.\n\nFor more information about resource groups, see [What is a resource group?](~~94475~~)",
+      "description": "The resource group ID.\n\nFor more information about resource groups, see [What is a resource group?](~~2381067~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tag of the resource.",
+      "description": "The tags of the resource.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -126,7 +128,7 @@
     },
     {
       "name": "UserCidr",
-      "description": "The user CIDR block. Separate user CIDR blocks with commas (,). You can specify up to three user CIDR blocks.\n\nFor more information about user CIDR blocks, see the `What is a user CIDR block?` section in [VPC FAQ](~~185311~~).",
+      "description": "The user CIDR block. Separate multiple CIDR blocks with commas (,). You can specify up to three CIDR blocks.\n\nFor more information about user CIDR blocks, see the `What is a user CIDR block?` section in [virtual private cloud (VPC) FAQ](~~185311~~).",
       "position": "Query",
       "type": "String",
       "required": false

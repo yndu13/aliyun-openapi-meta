@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "Configs",
-      "description": "各规则配置列表，指定每个规则的详细配置。",
+      "description": "各规则配置列表，指定每个规则的详细配置。\n\n**各 Phase 下的必填子字段**（仅适用于本批量接口支持的两个 phase）：\n\n- `http_anti_scan`：必须提供 `Type`，以及 `ManagedList` 或 `RateLimit` 中至少一项；\n- `http_bot`：需提供高级模式 Bots 相关配置（子字段以 `WafRuleConfig` 数据结构定义为准）。\n\n> 说明：`http_custom` / `http_whitelist` 等其他阶段不能使用本批量接口，请使用单条接口 `CreateWafRule`；对应子字段约束以单条接口文档为准。\n\n> 注意：无 `Configs` 或 子字段缺失时服务返回 `InvalidParameter(400)` / `Rule.Config.Malformed`。",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Phase",
-      "description": "WAF规则类型，取值：\n\n- **http_anti_scan**：扫描防护。\n- **http_bot**：Bots。",
+      "description": "WAF 规则运行阶段，本**批量接口仅支持**以下两个 phase（其他 phase 请使用单条接口 `CreateWafRule` / `UpdateWafRule`）：\n- `http_anti_scan`：扫描防护规则\n- `http_bot`：高级模式 Bots\n\n> 说明：`http_anti_scan` / `http_bot` 两个阶段**仅支持批量创建**，单条接口 `CreateWafRule` 不接受这两个取值；反之其他 phase（如 `http_custom`、`http_whitelist` 等）只能通过单条接口创建，不能使用本批量接口。\n\n**必填约束**：此参数虽在 spec 中标注为可选（required: false），但本批量接口实际调用时**必须传入**，未提供时服务返回 `InvalidParameter(400)`。\n\n**套餐前置条件**：`http_anti_scan` 需要站点具备 **high 及以上套餐**，basic 套餐调用会返回 `Phase.HttpAntiScan.NotSupport`。请在调用前确认站点套餐等级。",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "RulesetId",
-      "description": "规则集ID。",
+      "description": "WAF规则集的ID，可通过调用[ListWafRulesets](~~2878359~~)接口获取。",
       "position": "Body",
       "type": "Long",
       "required": false
     },
     {
       "name": "Shared",
-      "description": "多规则共享配置，指定多个规则的共有属性。",
+      "description": "多规则共享配置，指定多个规则的共有属性。\n\n**条件必填**：此参数虽在 spec 中标注为可选（required: false），但当 `Phase=http_anti_scan` 时**实际必填**，未提供时服务返回 `InvalidParameter(400)`。\n\n**子字段要求**：`http_anti_scan` 阶段下 Shared 必须包含 `Name`（规则名称）、`Action`（规则动作）等共享字段；其他 Phase 下 Shared 的必填子字段以具体 Phase 为准。",
       "position": "Body",
       "type": "Json",
       "required": false
@@ -42,7 +42,7 @@
     },
     {
       "name": "SiteVersion",
-      "description": "站点版本。",
+      "description": "站点配置的版本号。开启了配置版本管理的站点，可以通过该参数指定配置生效的站点版本，默认为版本0。",
       "position": "Query",
       "type": "Integer",
       "required": false

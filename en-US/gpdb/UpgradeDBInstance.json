@@ -1,110 +1,111 @@
 {
   "name": "UpgradeDBInstance",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CacheStorageSize",
-      "description": "",
+      "description": "The Serverless cache storage capacity. Unit: GB.\n> This parameter is required only for Serverless Pro instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceClass",
-      "description": "This parameter is no longer used.",
+      "description": "This parameter is deprecated. You do not need to specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceGroupCount",
-      "description": "This parameter is no longer used.",
+      "description": "This parameter is deprecated. You do not need to specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceId",
-      "description": "The instance ID.\n\n> You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.",
+      "description": "The instance ID.\n\n> You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances in the specified region.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceSpec",
-      "description": "The specifications of each compute node. For information about the supported specifications, see [Instance specifications](~~35406~~).\n\n> This parameter is available only for instances in elastic storage mode.",
+      "description": "The specifications of segment nodes. For information about supported node specifications, see [Instance specifications](~~35406~~).\n\n> This parameter is supported only for elastic storage mode instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MasterNodeNum",
-      "description": "This parameter is no longer used.",
+      "description": "This parameter is deprecated. You do not need to specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "This parameter is no longer used.",
+      "description": "This parameter is deprecated. You do not need to specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance.\n\n> You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.",
+      "description": "The region ID.\n\n> You can call the [DescribeRegions](~~86912~~) operation to query available region IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the instance belongs. For information about how to obtain the ID of a resource group, see [View basic information of a resource group](~~151181~~).",
+      "description": "The ID of the resource group to which the instance belongs. For information about how to obtain the resource group ID, see [View basic information of a resource group](~~151181~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SegDiskPerformanceLevel",
-      "description": "The performance level of Enterprise SSDs (ESSDs). Valid values:\n\n*   **pl0**\n*   **pl1**\n*   **pl2**",
+      "description": "The performance level (PL) of the cloud disk. Valid values:\n\n- **pl0**: PL0.\n- **pl1**: PL1.\n- **pl2**: PL2.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SegNodeNum",
-      "description": "The number of compute nodes. The number of compute nodes varies based on the instance resource type and edition.\n\n*   Valid values for High-availability Edition instances in elastic storage mode: 4 to 512, in 4 increments.\n*   Valid values for High-performance Edition instances in elastic storage mode: 2 to 512, in 2 increments.\n*   Valid values for instances in manual Serverless mode: 2 to 512, in 2 increments.",
+      "description": "The number of segment nodes. The supported number of nodes varies based on the instance resource type and instance edition:\n\n- Elastic storage mode, High-availability Edition: Valid values: 4 to 512. The value must be a multiple of 4.\n- Elastic storage mode, <props=\"china\">Basic Edition (formerly High-performance Edition)</props><props=\"intl\">High-performance Edition</props>: Valid values: 2 to 512. The value must be a multiple of 2.\n- Serverless manual scheduling mode: Valid values: 2 to 512. The value must be a multiple of 2.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SegStorageType",
-      "description": "The disk storage type of the instance after the change. The disk storage type can be changed only to ESSD. Set the value to **cloud_essd**.",
+      "description": "The cloud disk storage type after the change. Currently, only ESSD cloud disks are supported. Set the value to **cloud_essd**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerlessResource",
-      "description": "",
+      "description": "- Serverless instances:\nThe compute resource threshold. Valid values: 8 to 32. The value must be a multiple of 8. Unit: ACU. Default value: 32.\n\n- Serverless Pro instances: The reserved compute resources. Valid values: 16 to 1024. Unit: ACU. Default value: 16. The step size varies based on the value range:\n  - 16 to 32: step size of 4.\n  - 32 to 64: step size of 8.\n  - 64 to 128: step size of 16.\n  - 128 to 256: step size of 32.\n  - Greater than 256: step size of 64.\n> This parameter is required only for Serverless automatic scheduling mode and Serverless Pro instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageSize",
-      "description": "The storage capacity of each compute node. Unit: GB. Valid values: 50 to 6000, in 50 increments.\n\n>  This parameter is available only for instances in elastic storage mode.",
+      "description": "The storage capacity of segment nodes. Unit: GB. Valid values: 50 to <props=\"china\">8000</props><props=\"intl\">6000</props>. The value must be a multiple of 50.\n\n> This parameter is supported only for elastic storage mode instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UpgradeType",
-      "description": "The type of the instance configuration change. Valid values:\n\n*   **0** (default): changes the number of compute nodes.\n*   **1**: changes the specifications and storage capacity of each compute node.\n*   **2**: changes the number of coordinator nodes.\n*   **3**: changes the disk storage type and ESSD performance level of the instance.\n\n> \n\n*   The supported changes to compute node configurations vary based on the instance resource type. For more information, see the \"Usage notes\" section of the [Change compute node configurations](~~50956~~) topic.\n\n*   After you specify a change type, only the corresponding parameters take effect. For example, if you set **UpgradeType** to 0, the parameter that is used to change the number of compute nodes takes effect, but the parameter that is used to change the number of coordinator nodes does not.\n*   The number of coordinator nodes can be changed only on the China site (aliyun.com).\n*   The disk storage type can be changed only from ultra disks to ESSDs.",
+      "description": "The type of the specification change. Valid values:\n\n- **0** (default): Changes the number of segment nodes. SegNodeNum is required. Other parameters do not take effect.\n- **1**: Changes the segment node specifications and instance storage capacity. InstanceSpec is required. StorageSize is optional and must be greater than or equal to the current instance storage capacity.\n- **2**: Changes the number of master nodes. MasterNodeNum is required. Other parameters do not take effect.\n- **3**: Changes the cloud disk storage type and performance level (PL). SegDiskPerformanceLevel and SegStorageType are required. Other parameters do not take effect.\n\n> - Different instance resource types support different Upgrade/Downgrade operations for compute nodes. For more information, see [Precautions](~~50956~~).\n- After you select a specification change type, only the corresponding parameters take effect. Other parameters do not take effect. For example, if **UpgradeType** is set to 0 and you specify both the number of segment nodes and the number of master nodes, only the number of segment nodes is changed.\n- Changing the number of master nodes is supported only on the China site (aliyun.com).\n- You can change the cloud disk storage type only from standard SSD to ESSD cloud disk.",
       "position": "Query",
       "type": "Long",
       "required": false

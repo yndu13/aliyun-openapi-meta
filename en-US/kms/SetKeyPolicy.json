@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "KeyId",
-      "description": "",
+      "description": "The ID or Alibaba Cloud Resource Name (ARN) of the key.\n\n> To access a key of another Alibaba Cloud account, you must specify the ARN of the key. The key ARN is in the format of `acs:kms:${region}:${account}:key/${keyid}`.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Policy",
-      "description": "",
+      "description": "The key policy. The policy is in the JSON format. The policy can be up to 32,768 bytes in length.\n\nA key policy contains the following elements:\n\n- Version: The version of the key policy. The value can only be 1.\n\n- Statement: The statement of the key policy. Each key policy can contain one or more statements.\n\nThe following code provides an example of a key policy:\n\n```\n{\n    \"Version\": \"1\",\n    \"Statement\": [\n        {\n            \"Sid\": \"Enable RAM User Permissions\",\n            \"Effect\": \"Allow\",\n            \"Principal\": {\n              \"RAM\": [\"acs:ram::112890462****:*\"]\n            },\n            \"Action\": [\n                \"kms:*\"\n            ],\n            \"Resource\": [\n                \"*\"\n            ]\n        }\n    ]\n}\n```\n\nThe following section describes the elements in a Statement:\n\n- Sid: Optional. The custom statement identifier. The value can be up to 128 characters in length and can contain uppercase letters, lowercase letters, digits, and the following special characters: \\_ / + = . @ -.\n\n- Effect: Required. The effect of the policy statement. Valid values: Allow and Deny.\n\n- Principal: Required. The principal that is authorized to access the key. You can set this parameter to the current Alibaba Cloud account, a RAM user or RAM role of the current Alibaba Cloud account, or a RAM user or RAM role of another Alibaba Cloud account.\n\n- Action: Required. The API operations that are allowed or denied. The value must start with kms:. For more information about the operations, see [Key policy overview](~~2716468~~). If you specify an operation that is not included in the list, the operation will not take effect.\n\n- Resource: Required. The key. The value can only be \\*.\n\n- Condition: Optional. The conditions for the policy to take effect. You can use conditions to evaluate the context of an API request to determine whether the policy statement is applicable. The format is `\"Condition\": {\"condition operator\": {\"condition key\": \"condition value\"}}`. For more information, see [Key policy overview](~~2716468~~).\n\n> After you grant permissions to a RAM user or RAM role of another Alibaba Cloud account, you must use the Alibaba Cloud account to which the RAM user or RAM role belongs to grant the RAM user or RAM role the permissions to use the key in the RAM console. For more information, see [Custom policies for KMS](~~480682~~), [Grant permissions to a RAM user](~~116146~~), and [Grant permissions to a RAM role](~~116147~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PolicyName",
-      "description": "",
+      "description": "The name of the key policy. The name can only be \\`default\\`.",
       "position": "Query",
       "type": "String",
       "required": false

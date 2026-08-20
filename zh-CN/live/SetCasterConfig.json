@@ -1,5 +1,6 @@
 {
   "name": "SetCasterConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -41,7 +42,7 @@
     },
     {
       "name": "ChannelEnable",
-      "description": "是否启用Channel。 \n         \n- **0**（默认）：不启用。\n- **1**：启用。 \n\n> 默认不启用，且启用后不可取消；不启用时Resource直接被布局引用，首次开启Channel需要在导播台停止的状态下进行，之前已存在的布局将被废弃，Resource需要首先设置到Channel中，新增的布局直接引用Channel，通过Channel可调整视频源播放进度和播放状态，该模式下视频源、PVW、PGM三区域若引用同一Resource，则对应画面将保持同步。",
+      "description": "是否启用Channel。 若导播频道此前已启用（ChannelEnable=1），每次调用必须显式传入 ChannelEnable=1 以保持频道状态，否则将返回错误 InvalidCaster.ChannelDisableUnsupported。\n         \n- **0**（默认）：不启用。\n- **1**：启用。 \n\n> 默认不启用，且启用后不可取消；不启用时Resource直接被布局引用，首次开启Channel需要在导播台停止的状态下进行，之前已存在的布局将被废弃，Resource需要首先设置到Channel中，新增的布局直接引用Channel，通过Channel可调整视频源播放进度和播放状态，该模式下视频源、PVW、PGM三区域若引用同一Resource，则对应画面将保持同步。",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -55,7 +56,7 @@
     },
     {
       "name": "DomainName",
-      "description": "主播流域名。\n\n请您在导播台启动前完成域名配置。 若该参数为空，默认清除导播台域名配置。",
+      "description": "主播流域名。\n\n请您在导播台启动前完成域名配置。 若该参数为空，默认清除导播台域名配置。 ",
       "position": "Query",
       "type": "String",
       "required": false
@@ -76,7 +77,7 @@
     },
     {
       "name": "RecordConfig",
-      "description": "录制配置信息。格式为JSON。配置元素信息如下：\n\n- **endpoint**：阿里云服务的API服务端地址。\n- **ossBucket**：ossBucket名称。\n- **videoFormat**：支持导出的视频文件格式，例如：`[{\\\"OssObjectPrefix\\\":\\\"record/{AppName}/{StreamName}/{StartTime}_{EndTime}\\\",\\\"Format\\\":\\\"m3u8\\\",\\\"CycleDuration\\\":21600,\\\"SliceOssObjectPrefix\\\":\\\"record/{AppName}/{StreamName}/{UnixTimestamp}\\\"},{\\\"OssObjectPrefix\\\":\\\"record/{AppName}/{StreamName}/{StartTime}_{EndTime}\\\",\\\"Format\\\":\\\"flv\\\",\\\"CycleDuration\\\":21600}]`。\n- **interval**：时间间隔，单位为毫秒（ms）。\n\n>参数设置为空时表示不启用录制功能。 若该参数置为空，默认清除录制配置。",
+      "description": "录制配置信息。格式为JSON。配置元素信息如下：\n\n- **endpoint**：阿里云服务的API服务端地址。\n- **ossBucket**：ossBucket名称。\n- **videoFormat**：支持导出的视频文件格式，例如：`[{\\\"OssObjectPrefix\\\":\\\"record/{AppName}/{StreamName}/{StartTime}_{EndTime}\\\",\\\"Format\\\":\\\"m3u8\\\",\\\"CycleDuration\\\":21600,\\\"SliceOssObjectPrefix\\\":\\\"record/{AppName}/{StreamName}/{UnixTimestamp}\\\"},{\\\"OssObjectPrefix\\\":\\\"record/{AppName}/{StreamName}/{StartTime}_{EndTime}\\\",\\\"Format\\\":\\\"flv\\\",\\\"CycleDuration\\\":21600}]`。\n- **interval**：时间间隔，单位为毫秒（ms）。\n\n>参数设置为空时表示不启用录制功能。 若该参数置为空，默认清除录制配置。 ",
       "position": "Query",
       "type": "String",
       "required": false
@@ -104,7 +105,7 @@
     },
     {
       "name": "SyncGroupsConfig",
-      "description": "多视角同步配置，让多个视频源同步。\n多视角同步分为两个模式：\n\n- mode: 0（主播模式，多个视频源根据指定的模式同步。）\n\n- mode: 1（会议模式，没有主播视频的概念，所有视频源相互同步。）\n\n\n\n主播模式：hostResourceId：主播模式下的主播视频源\n\n会议模式：没有hostRsoureId 字段，只提供需要提供的resourceIds 中的资源ids",
+      "description": "多视角同步配置，让多个视频源同步。\n多视角同步分为两个模式：\n\n- mode: 0（主播模式，多个视频源根据指定的模式同步。）\n\n- mode: 1（会议模式，没有主播视频的概念，所有视频源相互同步。）\n\n\n\n主播模式：hostResourceId：主播模式下的主播视频源\n\n会议模式：没有hostRsoureId 字段，只提供需要提供的resourceIds 中的资源ids\n",
       "position": "Query",
       "type": "String",
       "required": false

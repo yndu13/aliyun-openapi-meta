@@ -1,19 +1,20 @@
 {
   "name": "DescribeForwardTableEntries",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ExternalIp",
-      "description": "*   The elastic IP addresses (EIPs) that can be accessed over the Internet when you query DNAT entries of Internet NAT gateways.\n*   The NAT IP addresses that can be accessed by external networks when you query DNAT entries of Virtual Private Cloud (VPC) NAT gateways.",
+      "description": "- If you query DNAT entries of an Internet NAT gateway, this parameter specifies the elastic IP address (EIP) that provides public network access in the DNAT entry.\n\n- If you query DNAT entries of a VPC NAT gateway, this parameter specifies the NAT IP address that is accessed by external networks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExternalPort",
-      "description": "*   The external port or port range that is used for port forwarding when you query DNAT entries of Internet NAT gateways.\n\n    *   Valid values: **1** to **65535**.\n    *   If you want to query a port range, separate the first port and last port with a forward slash (/), such as `10/20`.\n    *   If you set **ExternalPort** to a port range, you must also set **InternalPort** to a port range, and the number of ports specified by these parameters must be the same. For example, if you set **ExternalPort** to `10/20`, you can set **InternalPort** to `80/90`.\n\n*   The port that is used when the NAT IP address can be accessed by external networks when you query DNAT entries of VPC NAT gateways. Valid values: **1** to **65535**.",
+      "description": "- If you query DNAT entries of an Internet NAT gateway, this parameter specifies the external port or port range used for port forwarding.\n    - The port range must be within **1** to **65535**.\n    - To query a port range, separate the start and end ports with a forward slash (/), such as `10/20`.\n    - If **ExternalPort** is set to a port range, **InternalPort** must also be set to a port range with the same number of ports. For example, if **ExternalPort** is set to `10/20`, **InternalPort** must be set to `80/90`.\n\n- If you query DNAT entries of a VPC NAT gateway, this parameter specifies the port on the NAT IP address that is accessed by external networks. Valid values: **1** to **65535**.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -27,63 +28,63 @@
     },
     {
       "name": "ForwardEntryName",
-      "description": "The name of the DNAT entry.\n\nThe name must be 2 to 128 characters in length, and can contain digits, periods (.), underscores (\\_), and hyphens (-). It must start with a letter.",
+      "description": "The name of the DNAT entry.\n\nThe name must be 2 to 128 characters in length and must start with a letter or Chinese character. It can contain digits, underscores (\\_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ForwardTableId",
-      "description": "The ID of the DNAT table.\n\n**\n\n**Description** You must specify at least one of **ForwardTableId** and **NatGatewayId**.",
+      "description": "The ID of the DNAT table. \n\n> You must specify at least one of **ForwardTableId** and **NatGatewayId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternalIp",
-      "description": "The private IP address.\n\n*   The private IP address of the ECS instance that uses DNAT entries to communicate with the Internet when you query DNAT entries of Internet NAT gateways.\n*   The private IP address that uses DNAT entries for communication when you query DNAT entries of VPC NAT gateways.",
+      "description": "The private IP address.\n\n- If you query DNAT entries of an Internet NAT gateway, this parameter specifies the private IP address of the ECS instance that communicates with the Internet through the DNAT entry.\n\n- If you query DNAT entries of a VPC NAT gateway, this parameter specifies the private IP address that needs to communicate through the DNAT rule.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternalPort",
-      "description": "*   The internal port or port range that is used for port forwarding when you query DNAT entries of Internet NAT gateways. Valid values: **1** to **65535**.\n*   The port of the destination ECS instance to be mapped when you query DNAT entries of VPC NAT gateways. Valid values: **1** to **65535**.",
+      "description": "- If you query DNAT entries of an Internet NAT gateway, this parameter specifies the internal port or port range used for port forwarding. Valid values: **1** to **65535**.\n\n- If you query DNAT entries of a VPC NAT gateway, this parameter specifies the port of the destination ECS instance to be mapped. Valid values: **1** to **65535**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IpProtocol",
-      "description": "The protocol. Valid values:\n\n*   **TCP**\n*   **UDP**\n*   **Any**",
+      "description": "The protocol type. Valid values:\n\n- **tcp**: forwards TCP packets.\n\n- **udp**: forwards UDP packets.\n\n- **any**: forwards packets of all protocols.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NatGatewayId",
-      "description": "The ID of the NAT gateway.\n\n**\n\n**Description** You must specify at least one of **ForwardTableId** and **NatGatewayId**.",
+      "description": "The ID of the NAT gateway to query.\n\n> You must specify at least one of **ForwardTableId** and **NatGatewayId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Default value: **1**.",
+      "description": "The page number of the list. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Maximum value: **50**. Default value: **10**.",
+      "description": "The number of entries per page for a paged query. Maximum value: **50**. Default value: **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where you want to create the NAT gateway.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the NAT gateway.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true

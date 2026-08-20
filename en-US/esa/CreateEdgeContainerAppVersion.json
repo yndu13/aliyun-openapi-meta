@@ -1,97 +1,111 @@
 {
   "name": "CreateEdgeContainerAppVersion",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppId",
-      "description": "The application ID, which can be obtained by calling the [ListEdgeContainerApps](~~ListEdgeContainerApps~~) operation.",
+      "description": "The application ID. You can call the [ListEdgeContainerApps](~~ListEdgeContainerApps~~) operation to obtain the application ID.\n><notice>1) Your account must have an ESA plan with the Edge Container feature enabled. 2) Call CreateEdgeContainerApp first to create an application and obtain the AppId. 3) Complete call chain example: CreateEdgeContainerApp → ListEdgeContainerApps → CreateEdgeContainerAppVersion.</notice>",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Containers",
-      "description": "The container group to be deployed for this version, which contains information about images.\\\nThe image data contains the image address, startup command, parameters, environment variables, and probe rules. You can specify one or more images. The parameter value is a JSON string.",
+      "description": "The container group to be deployed for this version, including specific image information. The image information consists of the image address, startup command, parameters, environment variables, and probe rules. Multiple images are supported in a JSON array structure.",
       "position": "Body",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "ACRImageInfo",
+          "description": "The ACR image information.",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Args",
+          "description": "The startup parameters. Separate multiple parameters with spaces.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Command",
+          "description": "The startup command. Separate multiple commands with spaces.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "EnvVariables",
+          "description": "The environment variables. Format: key1=val1,key2=val2.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Image",
+          "description": "The image address.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "IsACRImage",
+          "description": "Specifies whether the image is an Alibaba Cloud Container Registry (ACR) image.",
           "position": "FormData",
           "type": "Boolean",
           "required": true
         },
         {
           "name": "Name",
+          "description": "The container name. The name must be unique within the same container group.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "PostStart",
+          "description": "The command to execute before the container starts. Separate multiple commands with spaces. This command is executed before the service starts and is typically used for initialization operations.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "PreStop",
+          "description": "The command to execute before the container stops. Separate multiple commands with spaces. This command is executed before the service exits and is typically used for cleanup operations before exit.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ProbeContent",
+          "description": "The container health probe content.",
           "position": "FormData",
           "type": "Struct",
           "required": true
         },
         {
           "name": "ProbeType",
+          "description": "The probe type. Valid values:\n- **exec**: Command-based.\n- **tcpSocket**: TCP detection-based.\n- **httpGet**: HTTP access-based.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Spec",
+          "description": "The container specifications. Specifies the computing specifications. Valid values: 1C2G, 2C4G, 2C8G, 4C8G, 4C16G, 8C16G, and 8C32G.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Storage",
+          "description": "The storage capacity. Valid values: 0.5G, 10G, 20G, and 30G.",
           "position": "FormData",
           "type": "String",
           "required": true
@@ -100,14 +114,14 @@
     },
     {
       "name": "Name",
-      "description": "The version name, which must be 6 to 128 characters in length.",
+      "description": "The version name. The name must be **6 to 128** characters in length.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Remarks",
-      "description": "The description of the version.",
+      "description": "The remarks.",
       "position": "Body",
       "type": "String",
       "required": false

@@ -7,210 +7,217 @@
   "parameters": [
     {
       "name": "DataLinkName",
-      "description": "The name of the database link for cross-database queries.\n\n> \n\n*   This property must be specified when UseDsql is set to 1.\n\n*   The name can contain only lowercase letters and underscores (\\_).\n\n*   The name must be unique within a tenant.",
+      "description": "The name of the cross-database query datalink.\n\n> - This parameter is required if UseDsql is set to 1.\n> - The DBLink name can contain only lowercase letters and underscores (_).\n> - The DBLink name must be globally unique within the tenant.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DatabasePassword",
-      "description": "The password of the database account.",
+      "description": "The database password.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "DatabaseUser",
-      "description": "The name of the database account.",
+      "description": "The database account.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "DbaId",
-      "description": "The ID of the user who assumes the database administrator (DBA) role. You can call the [ListUsers](~~141938~~) or [GetInstance](~~141567~~) operation to obtain the value of this parameter.",
+      "description": "The user ID of the DBA for the instance. You can call the [ListUsers](~~141938~~) or [GetInstance](~~141567~~) operation to obtain this value.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "DdlOnline",
-      "description": "Specifies whether to enable Lock-free Schema Change. Valid values:\n\n*   **0**: does not enable lock-free schema change.\n*   **1**: uses the native online DDL operations of MySQL first.\n*   **2:** uses lock-free schema change first.\n\n> Supported databases include ApsaraDB RDS for MySQL, PolarDB for MySQL, ApsaraDB MyBase for MySQL, and third-party MySQL databases.",
+      "description": "Specifies whether DMS structure change is prioritized. Valid values:\n- **0**: Do not use.\n- **1**: Native Online DDL takes priority.\n- **2**: DMS lock-free structure change takes priority.\n\n> Supported database types: ApsaraDB RDS for MySQL, PolarDB for MySQL, MyBase for MySQL, and other MySQL sources.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "EcsInstanceId",
-      "description": "The ID of the instance. If your instance is a database instance connected by using a database gateway, specify the gateway ID for this parameter.\n\n> This parameter is required if InstanceSource is set to ECS_OWN or GATEWAY.",
+      "description": "The instance ID. For example, if your instance is a Database Gateway instance, enter the gateway ID.\n\n> This parameter is required if InstanceSource is set to ECS_OWN or GATEWAY.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EcsRegion",
-      "description": "The region in which the ECS instance resides.\n\n> This parameter is required if InstanceSource is set to RDS, ECS_OWN, GATEWAY, or VPC_IDC.",
+      "description": "The region in which the instance resides.\n\n> This parameter is required if InstanceSource is set to RDS, ECS\\_OWN, GATEWAY, or VPC\\_IDC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableSellCommon",
-      "description": "Specifies whether to enable Security Collaboration for the database instance. Valid values:\n\n*   Y: enables Security Collaboration.\n*   N: disables Security Collaboration.",
+      "description": "Specifies whether to enable the security collaboration feature for the instance. Valid values:\n- Y: Enable.\n- N: Do not enable.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableSellSitd",
-      "description": "Specifies whether to enable sensitive data protection. Valid values:\n\n*   Y: enables the sensitive data protection feature for the database instance.\n*   N: disables the sensitive data protection feature for the database instance.",
+      "description": "Specifies whether to enable the sensitive data protection feature for the instance. Valid values:\n- Y: Enable.\n- N: Do not enable.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableSellStable",
-      "description": "Specifies whether to enable Stable Change for the database instance. Valid values:\n\n*   Y: Enables Stable Change.\n*   N: Disables Stable Change.",
+      "description": "Specifies whether to enable the stable change feature for the instance. Valid values:\n- Y: Enable.\n- N: Do not enable.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableSellTrust",
-      "description": "Specifies whether to enable the security hosting feature for the database instance. Valid values:\n\n*   Y: enables the security hosting feature for the database instance.\n*   N: disables the security hosting feature for the database instance.",
+      "description": "Specifies whether to enable security hosting for the instance. Valid values:\n- Y: Enable security hosting mode.\n- N: Do not enable security hosting mode.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EnvType",
-      "description": "The type of the environment to which the database instance belongs. Valid values:\n\n*   **product:** the production environment.\n*   **dev**: development environment.\n*   **pre**: pre-release environment.\n*   **test**: test environment.\n*   **sit**: system integration testing (SIT) environment.\n*   **uat**: user acceptance testing (UAT) environment.\n*   **pet**: stress testing environment.\n*   **stag**: staging environment.",
+      "description": "The environment type. Valid values:\n- **product**: production environment.\n- **dev**: development environment.\n- **pre**: pre-release environment.\n- **test**: test environment.\n- **sit**: SIT environment.\n- **uat**: UAT environment.\n- **pet**: stress testing environment.\n- **stag**: STAG environment.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ExportTimeout",
-      "description": "The timeout period for exporting data from the database instance. Unit: seconds.",
+      "description": "The export timeout period. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "Host",
-      "description": "The endpoint that is used to connect to the database.",
+      "description": "The database connection address.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceAlias",
-      "description": "The alias of the database instance. Specify an alias that can help you identify the database instance in DMS.",
+      "description": "The alias of the instance, which helps you quickly identify the instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceSource",
-      "description": "The source of the database instance. Valid values:\n\n*   **PUBLIC_OWN**: a self-managed database instance that is deployed on the Internet.\n*   **RDS**: an ApsaraDB RDS instance.\n*   **ECS_OWN**: a self-managed database instance that is deployed on an Elastic Compute Service (ECS) instance.\n*   **VPC_IDC**: a self-managed database instance that is deployed in a data center connected over a virtual private cloud (VPC).\n*   **GATEWAY**: a database instance connected by using a database gateway.",
+      "description": "The source of the instance. Valid values:\n\n- **PUBLIC_OWN**: a self-managed instance connected over the Internet.\n- **RDS**: an ApsaraDB RDS instance.\n- **ECS_OWN**: a self-managed instance on an ECS instance.\n- **VPC_IDC**: a self-managed instance in a VPC-connected IDC.\n- **GATEWAY**: a Database Gateway instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceType",
-      "description": "The type of the database instance. For more information about the valid values of this parameter, see [DbType parameter](~~198106~~).",
+      "description": "The database type. For valid values, see [DbType parameter description](~~198106~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "LoginType",
+      "description": "- 0: username and password logon.\n- 1: password-only (Redis).\n- 2: password-free logon (Redis).",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "NetworkType",
-      "description": "The network type. Valid values:\n\n*   **CLASSIC:** the classic network.\n*   **VPC**",
+      "description": "The network type. Valid values:\n\n- **CLASSIC**: classic network.\n- **VPC**: VPC network.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Port",
-      "description": "The port that is used to connect to the database.",
+      "description": "The database connection port.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "QueryTimeout",
-      "description": "The timeout period for querying data from the database instance. Unit: seconds.",
+      "description": "The query timeout period. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "RoleArn",
-      "description": "",
+      "description": "The ARN of the authorized role in the target account, used for cross-tenant registration.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SafeRule",
-      "description": "The name of the security rule set for the database instance. This parameter is required if Security Collaboration is enabled. You can call the[ListStandardGroups](~~465940~~) or [GetInstance](~~465826~~) operation to obtain the name of the security rule set from GroupName.",
+      "description": "If you want to enable the security collaboration feature, you must specify the security rule set (GroupName) for the instance. You can call the [ListStandardGroups](~~465940~~) or [GetInstance](~~465826~~) operation to obtain this value.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Sid",
-      "description": "The system ID (SID) of the database instance.\n\n> This parameter is required if InstanceType is set to ORACLE.",
+      "description": "The SID of the instance.\n\n> This parameter is required if InstanceType is set to ORACLE.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SkipTest",
-      "description": "Specifies whether to skip the connectivity test. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to skip the connectivity test for the instance. Valid values:\n- **true**: Skip.\n- **false**: Do not skip.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TemplateId",
-      "description": "The ID of the classification and grading template. You can call the [ListClassificationTemplates](~~465947~~) operation to query the template ID.",
+      "description": "The ID of the data classification template. You can call the [ListClassificationTemplates](~~465947~~) operation to obtain this value.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "TemplateType",
-      "description": "The type of the classification and grading template. You can call the [ListClassificationTemplates](~~465947~~) operation to query the template type.",
+      "description": "The categorization templatetype. You can call the [ListClassificationTemplates](~~465947~~) operation to obtain this value.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tid",
-      "description": "The ID of the tenant.\n\n> You can move the pointer over the profile picture in the upper-right corner of the DMS console to obtain the tenant ID.",
+      "description": "The tenant ID.\n> You can find the tenant ID by hovering over the profile icon in the upper-right corner of the DMS console.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "UseDsql",
-      "description": "Specifies whether to enable cross-database query for the database instance. Valid values:\n\n*   **0: does not enable cross-database query.**\n*   **1**: enables cross-database query.\n\n> Supported databases include MySQL, SQL Server, PostgreSQL, PolarDB for Oracle, and Redis.",
+      "description": "Specifies whether to enable cross-instance query. Valid values:\n- **0**: Disable.\n- **1**: Enable.\n\n> Supported database types: MySQL, SQL Server, PostgreSQL, PolarDB for PostgreSQL (Oracle-Compatible), and Redis.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "UseSsl",
-      "description": "Specifies whether to allow Data Management Service (DMS) to connect to the database instance by using SSL connections. Before you use SSL connections, make sure that the SSL encryption feature is enabled for the database instance. Valid values:\n\n*   **0** (default): DMS automatically checks whether self-negotiation is enabled for the database instance. DMS automatically checks whether the SSL encryption feature is enabled for the database instance. If the SSL encryption feature is enabled, DMS connects to the database instance by using SSL connections. Otherwise, DMS connects to the database instance without encryption.\n*   **1**: DMS connects to the database instance by using SSL connections. This value is invalid if the SSL encryption feature is disabled for the database instance.\n*   **-1**: DMS does not connect to the database instance by using SSL connections.\n\n> \n\n*   This parameter is available only for a MySQL or Redis database instance.\n\n*   SSL encrypts network connections at the transport layer to improve the security and integrity of data in transmission. However, SSL increases the response time of network connections.",
+      "description": "Specifies whether to enable SSL connection. After SSL is enabled, DMS connects to the database over SSL. The database must have SSL enabled before you use this parameter. Valid values:\n\n- **0**: Default value (DMS and the database service automatically negotiate whether to enable SSL). The system automatically identifies whether the target database has SSL enabled. If SSL is enabled, DMS connects to the database over SSL. Otherwise, DMS connects through a regular method.\n- **1**: Enable SSL connection. If the database does not have SSL enabled, this parameter does not take effect.\n- **-1**: Disable SSL connection.\n\n> - This configuration item is available only when the database type is MySQL or Redis.\n> - SSL (Secure Sockets Layer) encrypts network Connections at the transport layer, improving the security and integrity of communication data, but increases network connection response time.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of the instance connected over a VPC.\n\n> This parameter is required if InstanceSource is set to VPC_IDC.",
+      "description": "The instance ID of the VPC.\n\n> This parameter is required if InstanceSource is set to VPC_IDC.",
       "position": "Query",
       "type": "String",
       "required": false

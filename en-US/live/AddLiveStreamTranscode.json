@@ -1,47 +1,48 @@
 {
   "name": "AddLiveStreamTranscode",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "App",
-      "description": "The name of the application to which the live stream belongs.\n\n*   The transcoding template takes effect only if the value of this parameter is the same as the application name that is specified in the ingest URL. The name can be up to 256 characters in length and can contain digits, letters, hyphens (-), and underscores (\\_).\n*   You can also set this parameter to an asterisk (\\*). Asterisks (\\*) can match any string, including an empty string.\n\n>  If you configure a transcoding template for which App is set to an asterisk (\\*), the transcoding template is used only if no transcoding template for which App is set to the same value as AppName in the ingest URL exists.",
+      "description": "The name of the application to which the stream belongs.\n\n- The value of App must be the same as the AppName in the ingest URL for the transcoding template to take effect. The value can be up to 256 characters in length and can contain digits, letters, hyphens (-), and underscores (_).\n\n- App also supports a single asterisk (\\*) as the value, which matches any string including an empty string.\n\n> If a transcoding template with App set to a single asterisk (\\*) is configured: when a user pulls a transcoded stream, the system first matches the transcoding template whose App value is the same as the AppName in the ingest URL. If no such template exists, the system matches the transcoding template with App set to a single asterisk (\\*).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Domain",
-      "description": "The name of the main streaming domain.",
+      "description": "The streaming domain of the streamer.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EncryptParameters",
-      "description": "The encryption configuration. The value is a JSON string. The following fields are included in the syntax:\n\n*   EncryptType: the type of the encryption. Set the value to **aliyun**.\n*   KmsKeyID: the ID of the CMK in KMS.\n*   KmsKeyExpireInterval: the validity period of the CMK. Valid values: **60 to 3600**. Unit: seconds.",
+      "description": "The encryption configuration. JSON format. The fields are described as follows:\n\n- EncryptType: the encryption type. Set the value to **aliyun**.\n- KmsKeyID: the user KMS master key ID.\n- KmsKeyExpireInterval: the key rotation interval. Valid values: **60 to 3600**. Unit: seconds.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Lazy",
-      "description": "Specifies whether to use the load-on-demand mechanism for transcoding. Default value: **yes**.",
+      "description": "Specifies whether to enable on-demand transcoding. Valid values:\n- **yes**: enables on-demand transcoding.\n- **no**: disables on-demand transcoding.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID. When using SDK 2.0, set this parameter to the region ID that corresponds to the service registration endpoint. When using SDK 1.0, ignore this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Template",
-      "description": "The transcoding template. Valid values:\n\n*   Standard transcoding template:\n\n    *   **lld**: low definition\n    *   **lsd**: standard definition\n    *   **lhd**: high definition\n    *   **lud**: ultra-high definition\n\n*   Narrowband HD™ transcoding template:\n\n    *   **ld**: low definition\n    *   **sd**: standard definition\n    *   **hd**: high definition\n    *   **ud**: ultra-high definition",
+      "description": "The transcoding template. Valid values:\n\n- Standard quality templates:\n\n    - **lld**: low definition.\n\n    - **lsd**: standard definition.\n\n    - **lhd**: high definition.\n\n    - **lud**: ultra-high definition.\n            \n- Narrowband HD™ transcoding templates:\n\n    - **ld**: low definition.\n    \n    - **sd**: standard definition.\n    \n    - **hd**: high definition.\n    \n    - **ud**: ultra-high definition.",
       "position": "Query",
       "type": "String",
       "required": true

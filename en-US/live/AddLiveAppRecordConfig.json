@@ -1,54 +1,55 @@
 {
   "name": "AddLiveAppRecordConfig",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AppName",
-      "description": "The name of the application to which the live stream belongs. The value of this parameter must be the same as the application name in the ingest URL. Otherwise, the configuration does not take effect. If you want to match all applications, specify an asterisk (\\*) as the value.",
+      "description": "The name of the application to which the stream belongs. The template takes effect only when the AppName value matches the AppName in the ingest URL. To match all application names, set this parameter to an asterisk (*).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DelayTime",
-      "description": "Duration for stream concatenation. If the live streaming interruption exceeds the set concatenation duration, a new file will be generated. The concatenation duration can be set between 15 to 21600 seconds.",
+      "description": "The stream discontinuity merging duration. If the live stream is disconnected for longer than the specified merging duration, a new file is generated. Valid values: 15 to 21600. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DomainName",
-      "description": "The main streaming domain.",
+      "description": "The streaming domain of the streamer.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndTime",
-      "description": "Recording end time. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC time).\n> The difference between EndTime and StartTime should not exceed 7 days; if it does, it will be calculated as 7 days. This is only valid for stream-level recording (when StreamName is not empty).",
+      "description": "The recording end time. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n\n> The difference between EndTime and StartTime cannot exceed 7 days. If it exceeds 7 days, the value is calculated as 7 days. This parameter is valid only for stream-level recording (when StreamName is not empty).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OnDemand",
-      "description": "Specifies whether to enable on-demand recording. Valid values:\n\n*   **0**: disables on-demand recording.\n*   **1**: enables on-demand recording by using the HTTP callback method.\n*   **2**: enables on-demand recording by parsing the stream ingest parameters.\n*   **7**: By default, ApsaraVideo Live does not automatically record live streams. You can call the [RealTimeRecordCommand](~~2847882~~) operation to manually start or stop recording.\n\n>  If you set the OnDemand parameter to **1**, you need to call the [AddLiveRecordNotifyConfig](~~2847891~~) operation to configure the OnDemandUrl parameter. Otherwise, ApsaraVideo Live does not perform on-demand recording.",
+      "description": "The on-demand or manual recording mode. Valid values:\n\n- **0** (default): disabled. Automatic recording is used.\n- **1**: on-demand recording through HTTP callback. You must first configure OnDemandUrl by calling the [AddLiveRecordNotifyConfig](~~2847891~~) operation. Otherwise, recording is not performed by default.\n- **2**: on-demand recording by parsing stream ingest parameters.\n- **7**: manual recording. Recording is not performed by default. You can call the [RealTimeRecordCommand](~~2847882~~) operation to manually start or stop recording.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "OssBucket",
-      "description": "The name of the OSS bucket where live streaming recording files are stored. To store recorded files in OSS, you need to create an OSS bucket in advance. For creation method, please refer to [Configure OSS](~~84932~~).",
+      "description": "The name of the OSS bucket.\n\nTo store live recordings in OSS, create an OSS bucket in advance. For more information, see [Configure OSS](~~84932~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "OssEndpoint",
-      "description": "The endpoint of the OSS bucket. \nTo store live stream recordings in OSS, you need to create an OSS bucket in advance. For more information, see Configure OSS.",
+      "description": "The endpoint of the OSS bucket.\n\nTo store live recordings in OSS, create an OSS bucket in advance. For more information, see [Configure OSS](~~84932~~).",
       "position": "Query",
       "type": "String",
       "required": true
@@ -62,30 +63,35 @@
       "sub_parameters": [
         {
           "name": "CycleDuration",
+          "description": "The recording length per epoch. Unit: seconds.\n\n> - If this parameter is not specified, the default value varies by recording format: 6 hours for m3u8 and cmaf formats, and 1 hour for flv and mp4 formats.\n> - If a live stream is disconnected within a recording epoch but resumes stream ingest within the stream discontinuity merging duration, recording continues in the same file. This is Normal behavior.\n> - A recording file is generated only after the live stream is disconnected for longer than the stream discontinuity merging duration.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Format",
+          "description": "The format. M3U8, FLV, MP4, and CMAF are supported. Valid values:\n\n><notice>At least one of RecordFormat and TranscodeRecordFormat must be set. If you select m3u8 or cmaf, you must also set the request parameters RecordFormat.N.SliceOssObjectPrefix and RecordFormat.N.SliceDuration.\n></notice>\n\n- m3u8.\n- flv.\n- mp4.\n- cmaf.\n\n> Settings for RecordFormat and TranscodeRecordFormat: at least one must be specified.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OssObjectPrefix",
+          "description": "The name of the recording file stored in OSS.\n\n- The file name must be less than 256 bytes and supports variable matching, including {AppName}, {StreamName}, {Sequence}, {StartTime}, {EndTime}, {EscapedStartTime}, and {EscapedEndTime}.\n- The value must contain {StartTime} or {EscapedStartTime} and {EndTime} or {EscapedEndTime}.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SliceDuration",
+          "description": "The segment length of a single segment. Unit: seconds.\n\n><notice>This parameter takes effect only when RecordFormat.N.Format is set to m3u8 or cmaf.\n></notice>\n\nIf this parameter is not specified, the default value is 30 seconds. Valid values: 5 to 30.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SliceOssObjectPrefix",
+          "description": "The segment name.\n\n><notice>This parameter is required only when RecordFormat.N.Format is set to m3u8 or cmaf.\n></notice>\n\n- The default segment length is 30 seconds. The value must be less than 256 bytes and supports variable matching, including {AppName}, {StreamName}, {UnixTimestamp}, and {Sequence}.\n- The value must contain the {UnixTimestamp} and {Sequence} variables.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -94,14 +100,14 @@
     },
     {
       "name": "StartTime",
-      "description": "Start time of the recording. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC time).\n> The set time must be within 7 days of the actual streaming start time, and is only valid for stream-level recording (when StreamName is not empty).",
+      "description": "The recording start time. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n\n> The specified time must be within 7 days of the actual stream ingest start time. This parameter is valid only for stream-level recording (when StreamName is not empty).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StreamName",
-      "description": "Stream broadcast name.",
+      "description": "The stream name. The template takes effect only when the StreamName value matches the StreamName in the ingest URL. To match all stream names under the specified AppName, set this parameter to an asterisk (*).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -115,30 +121,35 @@
       "sub_parameters": [
         {
           "name": "CycleDuration",
+          "description": "The recording length per epoch for transcoding stream recording. Unit: seconds.\n> If this parameter is not specified, the default value varies by recording format: 6 hours for m3u8 and cmaf formats, and 1 hour for flv and mp4 formats.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Format",
+          "description": "The transcoding stream recording format. M3U8, FLV, MP4, and CMAF are supported. Valid values:\n><notice>If you select m3u8 or cmaf, you must also set the request parameters TranscodeRecordFormat.N.SliceOssObjectPrefix and TranscodeRecordFormat.N.SliceDuration.\n></notice>\n\n- m3u8.\n- flv.\n- mp4.\n- cmaf.\n\n> Settings: if you select m3u8 or cmaf format, the corresponding slice parameters must also be configured.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OssObjectPrefix",
+          "description": "The name of the transcoded stream recording file stored in OSS.\n- The file name must be less than 256 bytes and supports variable matching, including {AppName}, {StreamName}, {Sequence}, {StartTime}, {EndTime}, {EscapedStartTime}, and {EscapedEndTime}.\n- The value must contain {StartTime} or {EscapedStartTime} and {EndTime} or {EscapedEndTime}.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SliceDuration",
+          "description": "The segment length of a single segment for transcoding stream recording. Unit: seconds.\n\n><notice>This parameter takes effect only when TranscodeRecordFormat.N.Format (transcoding stream recording format) is set to m3u8 or cmaf.\n></notice>\n\nIf this parameter is not specified, the default value is 30 seconds. Valid values: 5 to 30.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SliceOssObjectPrefix",
+          "description": "The segment name for transcoded stream recording.\n\n><notice>This parameter is required only when TranscodeRecordFormat.N.Format is set to m3u8 or cmaf.\n></notice>\n\n- The default segment length is 30 seconds. The value must be less than 256 bytes and supports variable matching, including {AppName}, {StreamName}, {UnixTimestamp}, and {Sequence}.\n- The value must contain the {UnixTimestamp} and {Sequence} variables.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -147,7 +158,7 @@
     },
     {
       "name": "TranscodeTemplates",
-      "description": "Transcoding stream recording template group.",
+      "description": "The transcoding template group for transcoded stream recording.",
       "position": "Query",
       "type": "RepeatList",
       "required": false

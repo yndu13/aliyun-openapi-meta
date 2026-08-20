@@ -1,68 +1,69 @@
 {
   "name": "CreateEdgeInstanceMessageRouting",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "InstanceId",
-      "description": "",
+      "description": "The edge instance ID. On the **Edge Instances** page in the [Edge Computing console](https://iot.console.aliyun.com/le/instance/list), hover your mouse pointer over the name of the target edge instance to obtain the ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotInstanceId",
-      "description": "",
+      "description": "The ID of the IoT Platform instance:\n- Enterprise instance: This parameter is required. You can view the instance ID on the **Instance Overview** page in the [IoT Platform console](http://iot.console.aliyun.com/).\n- Public instance: This parameter is not required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "",
+      "description": "The name of the message route. The name must be 4 to 32 characters in length. Chinese characters and full-width symbols count as 2 characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceData",
-      "description": "",
+      "description": "The data of the message source. The value varies based on the following scenarios:\n\n- If **SourceType** is set to **device**: \n    - If a specific device under a specific product sends the message, the value is in the format of `/{Your_ProductKey}/{Your_DeviceName}`.\n\n        > Replace {Your_ProductKey} and {Your_DeviceName} with the actual ProductKey and DeviceName of your device.\n\n    - If all devices under a specific product send messages, the value is in the format of `/{Your_ProductKey}/+`.\n\n        > Replace {Your_ProductKey} with the actual ProductKey of your device.\n\n    - If all devices under all products in the edge instance send messages, the value is `#`.\n\n- If **SourceType** is set to **function**: The value is the ID of the edge application. On the **Application Management** page in the [Edge Computing console](https://iot.console.aliyun.com/le/instance/list), hover your mouse pointer over the name of the target application to obtain the ID.\n\n- If **SourceType** is set to **IotHub**: This parameter is not required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceType",
-      "description": "",
+      "description": "The message source. Valid values:\n- **device**: The message is sent from a device.\n- **function**: The message is sent from an edge application.\n- **IotHub**: The message is sent from the cloud.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TargetData",
-      "description": "",
+      "description": "The data of the message receiver. The value varies based on the following scenarios:\n- If **TargetType** is set to **function**: The value is the ID of the edge application. On the **Application Management** page in the [Edge Computing console](https://iot.console.aliyun.com/le/instance/list), hover your mouse pointer over the name of the target application to obtain the ID.\n- If **TargetType** is set to **IotHub**: This parameter is not required.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetIotHubQos",
-      "description": "",
+      "description": "The quality of service (QoS) level. Valid values:\n\n- **0**: The message is sent only once, regardless of whether the message receiver successfully receives it.\n\n- **1**: The message is sent at least once until a response is received from the message receiver.\n\n> If **TargetType** is set to **IoTHub**, this parameter is required.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TargetType",
-      "description": "",
+      "description": "The message receiver. The value varies based on the following scenarios:\n- If **SourceType** is set to **device**: The value can be **function** or **IotHub**, which indicates that messages sent from a device are forwarded to an edge application or the cloud.\n- If **SourceType** is set to **function**: The value can be **function** or **IotHub**, which indicates that messages sent from an edge application are forwarded to another edge application or the cloud.\n- If **SourceType** is set to **IotHub**: The value can be **function**, which indicates that messages sent from the cloud are forwarded to an edge application.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TopicFilter",
-      "description": "",
+      "description": "The filter condition for messages. Valid values:\n- A specific message topic: Messages from the message source that match this topic are sent to the message receiver. For more information about topics, see [What is a topic](~~73731~~).\n- **all**: All messages from the message source are sent to the message receiver.",
       "position": "Query",
       "type": "String",
       "required": false

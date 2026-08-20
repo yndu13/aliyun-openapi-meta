@@ -7,238 +7,244 @@
   "parameters": [
     {
       "name": "AclId",
-      "description": "The ID of the access control list (ACL) that is associated with the listener.\n\n> This parameter is required when **AclStatus** is set to **on**.",
+      "description": "The ID of the access control list (ACL) that is associated with the listener.\n\n> This parameter is required if you set **AclStatus** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclStatus",
-      "description": "Specifies whether to enable access control. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to enable access control. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AclType",
-      "description": "The type of the ACL. Valid values:\n\n*   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Risks may occur if a whitelist is improperly configured. If a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.\n\nIf you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.\n\n*   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.\n\nIf a blacklist is configured for a listener but no IP addresses are added to the blacklist, the listener forwards all requests.\n\n> This parameter takes effect when the value of **AclStatus** is set to **on**.",
+      "description": "The type of access control. Valid values:\n\n- **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the ACL are forwarded. Whitelists are suitable for scenarios where you want to allow access only from specific IP addresses. If you enable a whitelist but do not add any IP addresses to the ACL, the listener forwards all requests.\n\n* **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are denied. Blacklists are suitable for scenarios where you want to deny access from specific IP addresses.\n\nIf you enable a blacklist but do not add any IP addresses to the ACL, the listener forwards all requests.\n\n> This parameter applies only when you set **AclStatus** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "The maximum bandwidth of the listener. Unit: Mbit/s. Set the value to\n\n*   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, this value specifies that the bandwidth of the listener is unlimited.",
+      "description": "The peak bandwidth of the listener. Unit: Mbit/s. Valid values:\n\n- **-1**: For a pay-by-traffic, Internet-facing load balancer instance, a value of **-1** indicates an unlimited listener bandwidth.\n\n<props=\"china\">\n\n- **1** to **5120**: For an Internet-facing, pay-by-bandwidth load balancer instance, specify a peak bandwidth for the listener. The sum of the peak bandwidths of all listeners cannot exceed the peak bandwidth of the instance. For more information, see [Share instance bandwidth](~~85930~~).\n\n</props>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Cookie",
-      "description": "The cookie that is configured on the server.\n\nThe cookie must be 1 to 200 characters in length, and can contain ASCII characters and digits. It cannot contain commas (,), semicolons (;), or spaces. It cannot start with a dollar sign ($).\n\n> This parameter is required when **StickySession** is set to **on** and **StickySessionType** is set to **server**.",
+      "description": "The cookie that is configured on the backend server.\n\nThe value must be 1 to 200 characters long and can contain only ASCII letters and digits. It cannot contain commas (,), semicolons (;), or spaces, and must not start with a dollar sign ($).\n\n> This parameter is required if you set **StickySession** to **on** and **StickySessionType** to **server**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CookieTimeout",
-      "description": "The timeout period of a cookie.\n\nValid values: **1** to **86400**. Unit: seconds.\n\n> This parameter is required when **StickySession** is set to **on** and **StickySessionType** is set to **insert**.",
+      "description": "The cookie timeout period.\n\nValue range: **1** to **86400**. Unit: seconds.\n\n> This parameter is required if you set **StickySession** to **on** and **StickySessionType** to **insert**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the listener.",
+      "description": "A description for the listener.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "DryRun",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "Gzip",
-      "description": "Specifies whether to enable `GZIP` compression to compress specific types of files. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to enable `Gzip` compression to compress specific file types. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheck",
-      "description": "Specifies whether to enable the health check feature. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to enable health checks. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckConnectPort",
-      "description": "The port that is used for health checks.\n\nValid values: **1** to **65535**.\n\n> This parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The port used for health checks.\n\nValue range: **1** to **65535**.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckDomain",
-      "description": "The domain name that is used for health checks. Valid values:\n\n*   **$\\_ip**: the private IP address of a backend server. If you specify \\*\\*$\\_ip **or** ignore HealthCheckDomain\\*\\*, CLB uses the private IP addresses of backend servers as the health check domain names.\n*   **domain**: The domain name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).\n\n> The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The domain name used for health checks. Valid values:\n\n- **$\\_ip**: The private IP of a backend server. If you set this parameter to **$\\_ip** or leave it empty, the load balancer uses the private IP of each backend server for the health check.\n\n- **domain**: The domain name must be 1 to 80 characters in length and can contain only letters, digits, periods (.), and hyphens (-).\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckHttpCode",
-      "description": "The HTTP status code for a successful health check. Separate multiple HTTP status codes with commas (,).\n\nValid values: **http\\_2xx**, **http\\_3xx**, **http\\_4xx**, and **http\\_5xx**.\n\n>  The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The HTTP status codes that indicate a successful health check. Separate multiple status codes with commas (,).\n\nValid values: **http\\_2xx**, **http\\_3xx**, **http\\_4xx**, and **http\\_5xx**.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckInterval",
-      "description": "The interval at which health checks are performed.\n\nValid values: **1** to **50**. Unit: seconds.\n\n>  The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The interval between consecutive health checks.\n\nValue range: **1** to **50**. Unit: seconds.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckMethod",
-      "description": "The health check method that is used in HTTP health checks. Valid values: **head** and **get**.\n\n> The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The health check method. Valid values: **head** and **get**.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckTimeout",
-      "description": "The timeout period of a health check response. If a backend ECS instance does not respond within the specified timeout period, the ECS instance fails the health check. This parameter takes effect only if the **HealthCheck** parameter is set to **on**.\n\nValid values: **1** to **300**. Unit: seconds.",
+      "description": "The timeout period for a health check response. If a backend ECS instance fails to return a valid response within this timeout period, the health check is considered a failure. This parameter applies only when you set **HealthCheck** to **on**.\n\nValue range: **1** to **300**. Unit: seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckURI",
-      "description": "The Uniform Resource Identifier (URI) that you want to use for health checks.\n\nThe URI must be 1 to 80 characters in length, and can contain letters, digits, and the following characters: - / . % ? # & The URI must start with a forward slash (/) but cannot be a single forward slash (/).\n\n> The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The URI that is used for health checks.\n\nThe URI must be 1 to 80 characters long and can contain letters, digits, and the following special characters: -, /, ., %, ?, #, and &. The URI must start with a forward slash (/) but cannot be a single forward slash.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthyThreshold",
-      "description": "The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.\n\nValid values: **2** to **10**.\n\n> The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The number of consecutive successful health checks required to change the status of a backend server from **fail** to **success**.\n\nValue range: **2** to **10**.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IdleTimeout",
-      "description": "The timeout period of an idle connection. Unit: seconds. Valid values: **1 to 60**. Default value: **15**.\n\nIf no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.",
+      "description": "The idle connection timeout period. Value range: **1** to **60**. Default value: 15. Unit: seconds.\n\nIf a connection remains idle for longer than the timeout period, the load balancer closes it. A new connection is established when the next request is received.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ListenerPort",
-      "description": "The frontend port that is used by the CLB instance.\n\nValid values: **1** to **65535**.",
+      "description": "The frontend port used by the load balancer instance.\n\nValue range: **1** to **65535**.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "LoadBalancerId",
-      "description": "The CLB instance ID.",
+      "description": "The ID of the load balancer instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the CLB instance.\n\nYou can query the region ID from the [Regions and zones](~~27585~~) list or by calling the [DescribeRegions](~~27584~~) operation.",
+      "description": "The region ID of the load balancer instance.\n\nYou can get the region ID from the [Regions and availability zones](~~27585~~) list or by calling the [DescribeRegions](~~27584~~) operation.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RequestTimeout",
-      "description": "The timeout period of a request. Unit: seconds. Valid values: **1 to 180**. Default value: **60**.\n\nIf no response is received from the backend server within the request timeout period, CLB returns an HTTP 504 error code to the client.",
+      "description": "The request timeout period. Value range: **1** to **180**. Default value: 60. Unit: seconds.\n\nIf a backend server fails to respond within this timeout period, the load balancer returns an HTTP 504 error to the client.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.\n*   **rr**: Requests are distributed to backend servers in sequence.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **wrr**: weighted round-robin (WRR). Backend servers with higher weights receive more requests.\n\n- **rr**: round-robin (RR). Requests are distributed to backend servers in sequential order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StickySession",
-      "description": "Specifies whether to enable session persistence. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to enable sticky sessions. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StickySessionType",
-      "description": "The method that is used to handle a cookie. Valid values:\n\n*   **insert**: inserts a cookie.\n\nCLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response packet that is sent to a client. The next request from the client contains this cookie, and the listener distributes the request to the recorded backend server.\n\n*   **server**: rewrites a cookie.\n\nWhen CLB detects a user-defined cookie, CLB overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener forwards the request to the recorded backend server.\n\n> This parameter is required when **StickySession** is set to **on**.",
+      "description": "The cookie handling method. Valid values:\n\n- **insert**: cookie insertion.\n\nWhen a client makes its first request, the load balancer inserts a SERVERID cookie into the HTTP or HTTPS response. Subsequent requests from the client with this cookie are routed to the same backend server.\n\n- **server**: cookie rewriting.\n\nWhen the load balancer detects a user-defined cookie, it overwrites the original cookie. Subsequent requests from the client with the new cookie are routed to the same backend server.\n\n> This parameter is required if you set **StickySession** to **on**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UnhealthyThreshold",
-      "description": "The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.\n\nValid values: **2** to **10**.\n\n> The parameter takes effect only if you set **HealthCheck** to **on**.",
+      "description": "The number of consecutive failed health checks required to change the status of a backend server from **success** to **fail**.\n\nValue range: **2** to **10**.\n\n> This parameter applies only when you set **HealthCheck** to **on**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "VServerGroup",
-      "description": "Specifies whether to use a vServer group. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to use a VServer group. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VServerGroupId",
-      "description": "The ID of the vServer group.",
+      "description": "The ID of the VServer group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "XForwardedFor",
-      "description": "Specifies whether to use the `X-Forwarded-For` header to preserve client IP addresses. Valid values:\n\n*   **on** (default)\n*   **off**",
+      "description": "Specifies whether to use the `X-Forwarded-For` header to retrieve the client's real IP address. Valid values:\n\n- **on** (default).\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "XForwardedFor_ClientSrcPort",
-      "description": "Specifies whether to use the `XForwardedFor_ClientSrcPort` header to retrieve the client port. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to use the `XForwardedFor_ClientSrcPort` header to retrieve the client's source port. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "XForwardedFor_SLBID",
-      "description": "Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to use the `SLB-ID` header to retrieve the ID of the load balancer instance. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "XForwardedFor_SLBIP",
-      "description": "Specifies whether to use the `SLB-IP` header to retrieve the virtual IP address (VIP) requested by the client. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to use the `SLB-IP` header to retrieve the virtual IP address (VIP) requested by the client. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "XForwardedFor_SLBPORT",
-      "description": "Specifies whether to use the `XForwardedFor_SLBPORT` header to retrieve the listener port of the CLB instance. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to use the `XForwardedFor_SLBPORT` header to retrieve the listener port of the load balancer instance. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "XForwardedFor_proto",
-      "description": "Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:\n\n*   **on**\n*   **off**",
+      "description": "Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol of the load balancer instance. Valid values:\n\n- **on**.\n\n- **off**.",
       "position": "Query",
       "type": "String",
       "required": false

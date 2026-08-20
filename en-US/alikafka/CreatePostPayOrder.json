@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "DeployType",
-      "description": "The deployment mode of the instance. Valid values:\n\n*   **4**: deploys the instance that allows access from the Internet and a VPC.\n*   **5**: deploys the instance that allows access only from a VPC.",
+      "description": "The deployment type. Valid values:\n\n- **4**: Internet- and VPC-connected instance\n\n- **5**: VPC-connected instance",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "DiskSize",
-      "description": "The disk size.\n\nFor information about the valid values of this parameter, see [Billing](~~84737~~).\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The disk capacity.\n\nFor the value range, see [Billing overview](~~84737~~).\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DiskType",
-      "description": "The disk type of the instance. Valid values:\n\n*   **0**: ultra disk\n*   **1**: standard SSD\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The disk type. Valid values:\n\n- **0**: premium cloud disk\n\n- **1**: SSD\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipMax",
-      "description": "The Internet traffic.\n\n*   If you set **DeployType** to **4**, you must configure this parameter.\n*   For information about the valid values of this parameter, see [Billing](~~84737~~).\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The Internet traffic.\n\n- If **DeployType** is set to **4**, this parameter is required.\n\n- For the value range, see [Billing overview](~~84737~~).\n\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IoMax",
-      "description": "The maximum traffic in the instance. We recommend that you do not configure this parameter.\n\n*   You must configure at least one of IoMax and IoMaxSpec. If you configure both parameters, the value of IoMaxSpec takes effect. We recommend that you configure only IoMaxSpec.\n*   For information about the valid values of this parameter, see [Billing](~~84737~~).\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The maximum traffic (not recommended).\n\n- You must specify one of IoMax and IoMaxSpec. If both parameters are specified, the value of IoMaxSpec takes precedence. Specify only IoMaxSpec.\n\n- For the value range, see [Billing overview](~~84737~~).\n\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IoMaxSpec",
-      "description": "The traffic specification of the instance. We recommend that you configure this parameter.\n\n*   You must configure at least one of IoMax and IoMaxSpec. If you configure both parameters, the value of IoMaxSpec takes effect. We recommend that you configure only IoMaxSpec.\n*   For information about the valid values of this parameter, see [Billing](~~84737~~).\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The traffic specification (recommended).\n\n- You must specify one of IoMax and IoMaxSpec. If both parameters are specified, the value of IoMaxSpec takes precedence. Specify only IoMaxSpec.\n\n- For the value range, see [Billing overview](~~84737~~).\n\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PaidType",
-      "description": "The billing method of the instance. Valid values:\n\n*   1: pay-as-you-go (reserved capacity).\n*   3: pay-as-you-go (reserved capacity) + pay-as-you-go (on-demand capacity)",
+      "description": "The billing type. Valid values:\n\n- 1 (default): reserved instance with pay-as-you-go billing.\n- 3: serverless instance with reserved specification pay-as-you-go billing + serverless elastic scaling pay-as-you-go billing.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PartitionNum",
-      "description": "The number of partitions. We recommend that you configure this parameter.\n\n*   You must configure one of PartitionNum and TopicQuota. We recommend that you configure only ParittionNum.\n*   If you configure PartitionNum and TopicQuota at the same time, the system verifies whether the price of the partitions equals the price of the topics based on the previous topic-based selling mode. If the price of the partitions does not equal the price of the topics, an error is returned. If the price of the partitions equals the price of the topics, the instance is purchased based on the partition number.\n*   For information about the valid values of this parameter, see [Billing](~~84737~~).\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The number of partitions (recommended).\n\n* You must specify one of PartitionNum and TopicQuota. Specify only PartitionNum.\n\n* If both PartitionNum and TopicQuota are specified, the system verifies whether the values are equivalent based on the legacy topic sales model. If the values are not equivalent, the request fails. If the values are equivalent, the purchase is made based on the number of partitions.\n\n* For the value range, see [Billing overview](~~84737~~).\n\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -70,40 +70,42 @@
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.\n\nIf this parameter is left empty, the default resource group is used. You can view the resource group ID on the Resource Group page in the Resource Management console.",
+      "description": "The resource group ID.\n\nIf this parameter is not specified, the instance is placed in the default resource group. You can view the resource group ID in the Resource Management console.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerlessConfig",
-      "description": "The parameters configured for the serverless ApsaraMQ for Kafka instance. These parameters are required only when you create a serverless instance.",
+      "description": "The settings of the serverless instance. This parameter is required when you create a serverless instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpecType",
-      "description": "The instance edition.\n\nValid values if you set PaidType to 1:\n\n*   normal: Standard Edition (High Write)\n*   professional: Professional Edition (High Write)\n*   professionalForHighRead: Professional Edition (High Read)\n\nValid values if you set PaidType to 3:\n\n*   normal: Serverless Standard Edition\n\nFor more information about the instance editions, see [Billing](~~84737~~).",
+      "description": "The specification type.\n\nValid values when PaidType is set to 1 (reserved instance with pay-as-you-go billing):\n\n- normal: Standard Edition (shared throughput for writes)\n- professional: Professional Edition (shared throughput for writes)\n- professionalForHighRead: Professional Edition (shared throughput for reads)\n\nValid values when PaidType is set to 3 (serverless instance with reserved specification pay-as-you-go billing + serverless elastic scaling pay-as-you-go billing):\n\n- basic: Serverless Basic Edition\n- normal: Serverless Standard Edition\n- professional: Serverless Professional Edition\n\nFor more information about these specification types, see [Billing overview](~~84737~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource.\n- N ranges from 1 to 20.\n- If this parameter is left empty, all tag keys are matched.\n- The tag key can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource.\n- N ranges from 1 to 20.\n- If the tag key is left empty, this parameter must also be left empty. If this parameter is left empty, all tag values are matched.\n- The tag value can be up to 128 characters in length and cannot start with aliyun or acs:. It cannot contain http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -112,7 +114,7 @@
     },
     {
       "name": "TopicQuota",
-      "description": "The number of topics. We recommend that you do not configure this parameter.\n\n*   You must configure one of PartitionNum and TopicQuota. We recommend that you configure only ParittionNum.\n*   If you configure PartitionNum and TopicQuota at the same time, the system verifies whether the price of the partitions equals the price of the topics based on the previous topic-based selling mode. If the price of the partitions does not equal the price of the topics, an error is returned. If the price of the partitions equals the price of the topics, the instance is purchased based on the partition number.\n*   The default value of TopicQuota varies based on the value of IoMaxSpec. If the number of topics that you consume exceeds the default value, you are charged additional fees.\n*   For information about the valid values of this parameter, see [Billing](~~84737~~).\n\n>  If you create a serverless ApsaraMQ for Kafka instance, you do not need to configure this parameter.",
+      "description": "The number of topics (not recommended).\n\n- You must specify one of PartitionNum and TopicQuota. Specify only PartitionNum.\n\n- If both PartitionNum and TopicQuota are specified, the system verifies whether the values are equivalent based on the legacy topic sales model. If the values are not equivalent, the request fails. If the values are equivalent, the purchase is made based on the number of partitions.\n\n- The default value varies based on the traffic specification. If the value exceeds the default value, additional fees are charged.\n\n- For the value range, see [Billing overview](~~84737~~).\n\n> If you create a serverless instance, you do not need to set this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false

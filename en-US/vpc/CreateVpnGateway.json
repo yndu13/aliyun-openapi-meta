@@ -7,112 +7,112 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Valid values:\n\n*   **true**\n*   **false** (default)\n\n> To create a VPN gateway, we recommend that you enable automatic payment. If you disable automatic payment, you must manually pay the bill to create the VPN gateway.",
+      "description": "Specifies whether to automatically pay the bill for the VPN gateway. Valid values:\n\n- **true**: automatically pays the bill for the VPN gateway.\n\n- **false** (default): does not automatically pay the bill for the VPN gateway.\n\n> To successfully create a VPN gateway instance, enable automatic payment. If you disable automatic payment, you must manually pay the bill to create the VPN gateway instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "The maximum bandwidth of the VPN gateway. Unit: Mbit/s.\n\n*   If you want to create a public VPN gateway, valid values are **10**, **100**, **200**, **500**, and **1000**.\n*   If you want to create a private VPN gateway, valid values are **200** and **1000**.\n\n>  The maximum bandwidth supported by VPN gateways in some regions is 500 Mbit/s. For more information, see [VPN gateway limits](~~65290~~).",
+      "description": "The bandwidth specification of the VPN gateway. Unit: Mbit/s.\n\n<props=\"china\">- To create a public VPN gateway, set the value to **5**, **10**, **20**, **50**, **100**, **200**, **500**, or **1000**.</props>\n<props=\"china\">- To create a private VPN gateway, set the value to **200** or **1000**.</props>\n<props=\"intl\">- To create a public VPN gateway, set the value to **10**, **100**, **200**, **500**, or **1000**.</props>\n<props=\"intl\">- To create a private VPN gateway, set the value to **200** or **1000**.</props>\n\n>The maximum bandwidth specification supported by VPN gateways in some regions is 500 Mbit/s. For more information, see [VPN gateway limits](~~65290~~).",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate a value, and you must make sure that each request has a unique token value. The client token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the value of **RequestId** as the value of **ClientToken**. The value of **RequestId** for each API request is different.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DisasterRecoveryVSwitchId",
-      "description": "The second vSwitch with which you want to associate the VPN gateway.\n\n*   If you call this operation in a region that supports the IPsec-VPN connections in dual-tunnel mode, this parameter is required.\n*   You need to specify two vSwitches in different zones in the virtual private cloud (VPC) that is associated with the VPN gateway to implement disaster recovery across zones.\n*   For a region that supports only one zone, disaster recovery across zones is not supported. We recommend that you specify two vSwitches in the zone to implement high availability. You can specify the same vSwitch.\n\nFor more information about the regions and zones that support the IPsec-VPN connections in dual-tunnel mode, see [IPsec-VPN connections support the dual-tunnel mode](~~2358946~~).",
+      "description": "The second vSwitch associated with the VPN VPC-connected instance.\n\n- If the current region supports dual-tunnel mode IPsec-VPN connections, this parameter is required.\n- You must specify two vSwitches in different zones from the VPC associated with the VPN VPC-connected instance to implement zone-level disaster recovery for IPsec-VPN connections.\n- For regions that support only one zone, zone-level disaster recovery is not supported. Specify two different vSwitches in the same zone to implement high availability for IPsec-VPN connections. You can also specify the same vSwitch.\n\nFor information about the regions and zones that support dual-tunnel mode IPsec-VPN connections, see [Upgrade an IPsec-VPN connection to dual-tunnel mode](~~2358946~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableIpsec",
-      "description": "Specifies whether to enable IPsec-VPN for the VPN gateway. Valid values:\n\n*   **true** (default)\n*   **false**",
+      "description": "Specifies whether to enable the IPsec-VPN feature. Valid values:\n\n- **true** (default): enables the IPsec-VPN feature.\n\n- **false**: disables the IPsec-VPN feature.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableSsl",
-      "description": "Specifies whether to enable SSL-VPN. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable the SSL-VPN feature. Valid values:\n\n- **true**: enables the SSL-VPN feature.\n\n- **false** (default): disables the SSL-VPN feature.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the VPN gateway. Set the value to **POSTPAY**, which specifies the pay-as-you-go billing method.",
+      "description": "<props=\"china\">The billable methods of the VPN gateway. Set the value to **PREPAY**, which specifies the subscription billing method.</props>\n<props=\"intl\">The billable methods of the VPN gateway. Set the value to **POSTPAY**, which specifies the pay-as-you-go billing method.</props>\n<props=\"partner\">The billable methods of the VPN gateway. Set the value to **POSTPAY**, which specifies the pay-as-you-go billing method.</props>\n\n<props=\"china\">This parameter is required when you create a VPN gateway.</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the VPN gateway. The default value is the ID of the VPN gateway.\n\nThe name must be 2 to 100 characters in length and cannot start with `http://` or `https://`. It must start with a letter and can contain letters, digits, underscores (\\_), hyphens (-), and periods (.). Other special characters are not supported.",
+      "description": "The name of the VPN gateway. The default value is the ID of the VPN gateway.\n\nThe name must be 2 to 100 characters in length. It cannot start with `http://` or `https://`. It must start with an uppercase or lowercase letter and can contain uppercase and lowercase letters, digits, underscores (\\_), hyphens (-), and periods (.). Other special characters are not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetworkType",
-      "description": "The network type of the VPN gateway. Valid values:\n\n*   **public** (default)\n*   **private**",
+      "description": "The network type of the VPN gateway. Valid values:\n\n- **public** (default): public VPN gateway.\n- **private**: private VPN gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The subscription duration. Unit: month. Valid values: **1** to **9**, **12**, **24**, and **36**.",
+      "description": "The subscription duration. Unit: months. Valid values: **1** to **9**, **12**, **24**, and **36**.\n\n<props=\"china\">\n> This parameter is required if the **InstanceChargeType** parameter is set to **PREPAY**.</props>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the VPN gateway. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the VPN gateway. You can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the VPN gateway belongs.\n\n*   You can call the [ListResourceGroups](~~158855~~) operation to query resource group IDs.\n\n*   If you do not specify a resource group ID, the VPN gateway belongs to the default resource group.\n\n*   After the VPN gateway is created, the following resources also belong to the resource group and you cannot change the resource group: SSL servers, SSL client certificates, IPsec servers, and IPsec-VPN connections.\n\n    If you move the VPN gateway to a new resource group, the preceding resources are also moved to the new resource group.",
+      "description": "The ID of the resource group to which the VPN gateway belongs.\n\n- You can call the [ListResourceGroups](~~158855~~) operation to query the resource group ID.\n- If you do not specify a resource group ID, the VPN gateway belongs to the default resource group after it is created.\n- After the VPN gateway is created, if you create SSL servers, SSL client certificates, IPsec servers, or IPsec-VPN connections (where the IPsec-VPN connection is associated with the VPN gateway) under the VPN gateway, these resources belong to the same resource group as the VPN gateway and cannot be modified individually.\n\n  If you change the resource group of the VPN gateway, the resource group of the preceding resources is also changed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SslConnections",
-      "description": "The maximum number of clients that can be connected at the same time. Valid values: **5** (default), **10**, **20**, **50**, **100**, **200**, **500**, and **1000**.",
+      "description": "The maximum number of clients that can be simultaneously connected. Valid values: **5** (default), **10**, **20**, **50**, **100**, **200**, **500**, and **1000**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch with which you want to associate the VPN gateway.\n\n*   If you call this operation in a region that supports the IPsec-VPN connections in dual-tunnel mode, this parameter is required. You must specify a vSwitch and specify **DisasterRecoveryVSwitchId**.\n*   If you call this operation in a region that supports the IPsec-VPN connections in single-tunnel mode and do not specify a vSwitch, the system automatically specifies a vSwitch.",
+      "description": "The vSwitch associated with the VPN gateway instance. \n\n- In regions that support dual-tunnel mode IPsec-VPN connections, this parameter is required. You must specify a vSwitch and also specify the **DisasterRecoveryVSwitchId** parameter.\n- In regions that support single-tunnel mode IPsec-VPN connections, if you do not specify a vSwitch, the system automatically selects a vSwitch from the VPC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of the virtual private cloud (VPC) where you want to create the VPN gateway.",
+      "description": "The instance ID of the VPC-connected instance to which the VPN gateway belongs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VpnType",
-      "description": "The type of the VPN gateway. Valid values:\n\nSet the value to **Normal** (default), which specifies a standard NAT gateway.",
+      "description": "The type of the VPN gateway. Valid values:\n- **Normal** (default): standard.\n<props=\"china\">- **NationalStandard**: Chinese SM-based.</props>",
       "position": "Query",
       "type": "String",
       "required": false

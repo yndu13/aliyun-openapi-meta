@@ -7,32 +7,35 @@
   "parameters": [
     {
       "name": "Edition",
-      "description": "",
+      "description": "The edition. Valid values: BASIC and STANDARD. The default value is STANDARD.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Filters",
-      "description": "The keys that you want to match in the filter.",
+      "description": "The key-value pairs of the filter.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the filter. Valid values:\n\n- **RegionId**: The region ID.\n\n- **PlanId**: The backup plan ID.\n\n- **JobId**: The backup job ID.\n\n- **VaultId**: The repository ID.\n\n- **InstanceId**: The ECS instance ID.\n\n- **Bucket**: The name of the OSS bucket.\n\n- **FileSystemId**: The file system ID.\n\n- **Status**: The job status.\n\n- **CreatedTime**: The start time of the job.\n\n- **CompleteTime**: The end time of the job.\n\n- **InstanceName**: The name of the Tablestore instance.\n\n- **BackupType**: The backup job. This parameter is required only when SourceType is set to COMMON\\_NAS.\n\n- **ParentId**: The ID of the parent job. This parameter is required when you query sub-tasks. For example, if you set SourceType to UDM\\_ECS\\_DISK, you must specify the ID of the UDM\\_ECS job.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Operator",
+          "description": "The matching operator. The default value is IN. This parameter specifies the operator to use for matching the Key and Value. Valid values:\n\n- **EQUAL**: Equal to.\n\n- **NOT\\_EQUAL**: Not equal to.\n\n- **GREATER\\_THAN**: Greater than.\n\n- **GREATER\\_THAN\\_OR\\_EQUAL**: Greater than or equal to.\n\n- **LESS\\_THAN**: Less than.\n\n- **LESS\\_THAN\\_OR\\_EQUAL**: Less than or equal to.\n\n- **BETWEEN**: The value is a JSON array in the format of `[start,end]`.\n\n- **IN**: The value is an array.\n\n> The IN operator is not supported when you use **CompleteTime** as the key for a query.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Values",
+          "description": "The value of the filter.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -41,28 +44,28 @@
     },
     {
       "name": "PageNumber",
-      "description": "The number of the page to return. Pages start from page 1. Default value: 1.",
+      "description": "The page number. Pages start from page 1. The default value is 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values: 1 to 99. Default value: 10.",
+      "description": "The number of entries per page. Valid values: 1 to 99. The default value is 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SortDirection",
-      "description": "The order in which you want to sort the results. Valid values:\n\n*   **ASCEND**: sorts the results in ascending order\n*   **DESCEND** (default value): sorts the results in descending order",
+      "description": "The sort direction. Valid values:\n\n- **ASCEND**: Ascending order.\n\n- **DESCEND** (Default): Descending order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceType",
-      "description": "The type of the data source. Valid values:\n\n*   **ECS_FILE**: Elastic Compute Service (ECS) files\n*   **OSS**: Object Storage Service (OSS) buckets\n*   **NAS**: Apsara File Storage NAS file systems\n*   **OTS**: Tablestore instances\n*   **UDM_ECS**: ECS instances\n*   **UDM_ECS_DISK**: ECS disks",
+      "description": "The type of the data source. Valid values:\n\n- **ECS\\_FILE**: Backs up Elastic Compute Service (ECS) files.\n\n- **OSS**: Backs up Alibaba Cloud Object Storage Service (OSS) buckets.\n\n- **NAS**: Backs up Alibaba Cloud Apsara File Storage NAS (NAS) file systems.\n\n- **OTS**: Backs up Alibaba Cloud Tablestore instances.\n\n- **UDM\\_ECS**: Backs up entire ECS instances.\n\n- **UDM\\_ECS\\_DISK**: A sub-task for disk backup in an ECS instance backup job.\n\n- **COMMON\\_NAS**: A generic NAS data source. This includes archive NAS and on-premises NAS data sources. Use the Values parameter of Filters to specify the data source type.\n\n- **File**: Backs up on-premises files.\n\n- **SYNC**: Data synchronization.",
       "position": "Query",
       "type": "String",
       "required": false

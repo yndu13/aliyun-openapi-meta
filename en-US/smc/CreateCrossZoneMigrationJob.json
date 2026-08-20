@@ -7,39 +7,42 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Valid values:\n\n*   **true** (default): enables automatic payment. Make sure that you have sufficient balance within your account.\n*   **false**: disables automatic payment. In this case, you must manually pay for the instance. For more information, see [Renew a subscription instance](~~85052~~).",
+      "description": "Specifies whether to enable automatic payment. Valid values:\n\n- **true**: (Default) Enables automatic payment. Make sure that your account has a sufficient balance.\n\n- **false**: Disables automatic payment. In this case, you must manually complete the payment. For more information, see [Manually renew a subscription instance](~~85052~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client token to ensure the idempotence of the request. Generate a unique value for this parameter from your client. \\`ClientToken\\` can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Disk",
-      "description": "The disk list.",
+      "description": "The disk information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Category",
+          "description": "The disk category. \\`cloud\\_essd\\` indicates an Enhanced SSD (ESSD).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskId",
+          "description": "The disk ID.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "The performance level of the ESSD. Valid values:\n\n- PL0: A single disk can deliver up to 10,000 random read/write IOPS.\n\n- PL1: A single disk can deliver up to 50,000 random read/write IOPS.\n\n- PL2: A single disk can deliver up to 100,000 random read/write IOPS.\n\n- PL3: A single disk can deliver up to 1,000,000 random read/write IOPS.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -48,14 +51,14 @@
     },
     {
       "name": "InstanceId",
-      "description": "The instance ID.",
+      "description": "The ID of the ECS instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the destination Alibaba Cloud region.\n\nFor example, if you want to migrate the source server to the China (Hangzhou) region, set this parameter to `cn-hangzhou`. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The ID of the destination Alibaba Cloud region.\n\nFor example, if you want to migrate a source server to the China (Hangzhou) region, the region ID is `cn-hangzhou`. You can call [DescribeRegions](~~25609~~) to view the latest list of Alibaba Cloud regions.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -69,14 +72,14 @@
     },
     {
       "name": "TargetInstanceType",
-      "description": "The type of the new instance.",
+      "description": "The destination instance type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetVSwitchId",
-      "description": "The vSwitch ID of the destination Elastic Compute Service (ECS) instance.",
+      "description": "The ID of the destination vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false

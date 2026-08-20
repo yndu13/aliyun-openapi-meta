@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A unique identifier that you provide to ensure the idempotence of the request. The token can contain only ASCII characters and cannot be longer than 64 characters.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,19 +28,21 @@
     },
     {
       "name": "SharedAccounts",
-      "description": "The shared account and permissions of the service.",
+      "description": "The shared accounts and their permissions.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Permission",
+          "description": "The permission type. Valid values:\n\n- Deployable: The service can be deployed.\n\n- Accessible: The service can be accessed.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "UserAliUid",
+          "description": "The UID of the Alibaba Cloud account.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -49,7 +51,7 @@
     },
     {
       "name": "Type",
-      "description": "The share type of the service. Default value: SharedAccount. Valid values:\n\n*   SharedAccount: The service is shared by multiple accounts.\n*   Reseller: The service is distributed.",
+      "description": "The service sharing type. The default value is SharedAccount. Valid values:\n\n- SharedAccount: The service is shared with a specified account.\n\n- Reseller: The service is shared with a reseller.",
       "position": "Query",
       "type": "String",
       "required": false

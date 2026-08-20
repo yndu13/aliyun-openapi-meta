@@ -1,0 +1,81 @@
+{
+  "name": "HandleObjectScanEvent",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "BatchType",
+      "description": "Specifies the type for batch processing of similar alerts. Valid values:\n\n- **sha256**: by file content\n- **eventName**: by alert name.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "EventId",
+      "description": "The event ID.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "EventIdList",
+      "description": "The list of event IDs.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "Lang",
+      "description": "The language of the content in the request and response. Default value: **zh**. Valid values:\n- **zh**: Chinese\n- **en**: English.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Remark",
+      "description": "The remarks.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RuleConditionList",
+      "description": "The list of whitelist rules. This parameter takes effect only when the alert is whitelisted.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Key",
+          "description": "The whitelist field. Valid values:\n\n- **ossKey**: file path\n- **bucketName**: bucket name\n- **md5**: file MD5\n- **sha256**: file SHA-256.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Operate",
+          "description": "The operator. Valid values:\n\n- **contains**: Contains.\n- **not_contains**: Does not contain.\n- **str_equal**: Equals.\n- **str_not_equal**: Does not equal.\n- **regex**: Regular expression.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The value to match.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "description": "The target status. Valid values:\n\n- **0**: Unhandled.\n- **1**: Manually handled.\n- **2**: Whitelisted.\n- **3**: Ignored.\n- **4**: Access denied.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 {
   "name": "InvokeDataAPIService",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -27,30 +28,35 @@
       "sub_parameters": [
         {
           "name": "ListParamType",
+          "description": "ARRAY类型的参数值的数据类型。请参见[JDBCType](https://docs.oracle.com/javase/8/docs/api/java/sql/JDBCType.html)。\n目前仅支持VARCHAR、INTEGER、BIGINT、BOOLEAN、DECIMAL、TIMESTAMP。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ListParamValue",
+          "description": "ARRAY类型的参数值列表。数组中只能放置一组类型相同的数据，例如放置数值类型数据，则全部数据为数值类型。\n\n> 统一使用String类型存储，平台会跟据ListParamType对应的值转换成JDBC类型对象。",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ParamName",
+          "description": "调用API的入参参数名称。必须与调用**CreateDataAPIService**接口创建API时，**RequestParam**中定义的**Name**保持一致。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ParamType",
+          "description": "数据类型。目前只支持VARCHAR、INTEGER、BOOLEAN、BIGING、TIMESTAMP、DECIMAL和ARRAY类型。\n\n> 当paramType选择ARRAY时，ListParamType和ListParamValue参数会生效；paramType为其他类型时，paramValue参数会生效。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ParamValue",
+          "description": "调用API的入参参数值。\n\n- 统一使用String类型存储，物联网平台会根据创建API时定义的**ParamType**转换成JDBC类型对象。\n\n- 创建API时，如果API请求参数类型**Type**定义为ARRAY类型，则不传入该参数，而需传入**ListParamType**和**ListParamValue**。\n",
           "position": "FormData",
           "type": "String",
           "required": false

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "Description",
-      "description": "The task description.",
+      "description": "The description of the task.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -17,61 +17,83 @@
       "description": "The list of destination data source settings.",
       "position": "Body",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "DataSourceName",
+          "description": "The name of the data source.",
           "position": "FormData",
           "type": "String",
+          "required": false
+        },
+        {
+          "name": "DataSourceProperties",
+          "description": "The properties of the data source.",
+          "position": "FormData",
+          "type": "Struct",
           "required": false
         }
       ]
     },
     {
       "name": "DestinationDataSourceType",
-      "description": "The destination type. Valid values: Hologres, OSS-HDFS, OSS, MaxCompute, LogHub, StarRocks, DataHub, AnalyticDB for MySQL, Kafka, and Hive.",
+      "description": "The type of the destination data source. Valid values: Hologres, OSS-HDFS, OSS, MaxCompute, LogHub, StarRocks, DataHub, AnalyticDB_For_MySQL, Kafka, Hive.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
+    },
+    {
+      "name": "FileSpec",
+      "description": "The code content in script mode.",
+      "position": "Body",
+      "type": "String",
+      "required": false
     },
     {
       "name": "JobName",
-      "description": "This parameter is deprecated and is replaced by the Name parameter.",
+      "description": "**[Deprecated]** Use the Name parameter instead.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobSettings",
-      "description": "The task-level settings, including DDL handling policies, column data type mapping between source and destination, and runtime parameters.",
+      "description": "The task-level settings, including DDL handling policies, source-to-destination column data type mapping policies, and task runtime parameters.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "JobType",
-      "description": "The type of the synchronization task. Valid values:\n\n*   DatabaseRealtimeMigration: A real-time synchronization task used to synchronize only full data, only incremental data, or full and incremental data in multiple tables of multiple databases in the source.\n*   DatabaseOfflineMigration: A batch synchronization task used to synchronize only full data, only incremental data, or full and incremental data in multiple tables of multiple databases in the source.\n*   SingleTableRealtimeMigration: A real-time synchronization task used to synchronize data only in a single table in the source.",
+      "description": "The task type. Valid values:\n\n - DatabaseRealtimeMigration: real-time migration of entire databases. Performs streaming synchronization of multiple tables from multiple source databases. Supports full-only, incremental-only, or full and incremental synchronization.\n\n - DatabaseOfflineMigration: offline migration of entire databases. Performs batch synchronization of multiple tables from multiple source databases. Supports full-only, incremental-only, or full and incremental synchronization.\n\n - SingleTableRealtimeMigration: real-time migration of a single table. Performs streaming synchronization of a single source table.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MigrationType",
-      "description": "The synchronization type. Valid values:\n\n*   FullAndRealtimeIncremental\n*   RealtimeIncremental\n*   Full\n*   OfflineIncremental\n*   FullAndOfflineIncremental",
+      "description": "The synchronization type. Valid values:\n- FullAndRealtimeIncremental: full and real-time incremental synchronization for entire databases in real time.\n- RealtimeIncremental: real-time incremental synchronization for single tables in real time.\n- Full: full synchronization for entire databases offline.\n- OfflineIncremental: offline incremental synchronization for entire databases offline.\n- FullAndOfflineIncremental: full and offline incremental synchronization for entire databases offline.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the synchronization task.",
+      "description": "The name of the task.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Owner",
+      "description": "The owner of the task.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectId",
-      "description": "The DataWorks workspace ID. You can log on to the [DataWorks console](https://workbench.data.aliyun.com/console) and go to the Workspace page to obtain the ID.\n\nYou must configure this parameter to specify the DataWorks workspace to which the API operation is applied.",
+      "description": "The ID of the DataWorks workspace. You can log on to the [DataWorks console](https://workbench.data.aliyun.com/console) and go to the workspace management page to obtain the ID.\n\nThis parameter specifies the DataWorks workspace for this API call.",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -81,23 +103,25 @@
       "description": "The resource settings.",
       "position": "Body",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "SourceDataSourceSettings",
       "description": "The list of source data source settings.",
       "position": "Body",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "DataSourceName",
+          "description": "The name of the data source.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DataSourceProperties",
+          "description": "The properties of the data source.",
           "position": "FormData",
           "type": "Struct",
           "required": false
@@ -106,26 +130,28 @@
     },
     {
       "name": "SourceDataSourceType",
-      "description": "The source type. Valid values: PolarDB, MySQL, Kafka, LogHub, Hologres, Oracle, OceanBase, MongoDB, Redshift, Hive, SQL Server, Doris, and ClickHouse.",
+      "description": "The type of the source data source. Valid values: PolarDB, MySQL, Kafka, LogHub, Hologres, Oracle, OceanBase, MongoDB, RedShift, Hive, SQLServer, Doris, ClickHouse.",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "TableMappings",
-      "description": "The list of synchronization object transformation mappings. Each element describes a set of source object selection rules and the transformation rules applied to those objects.\n\n>  \\[ { \"SourceObjectSelectionRules\":\\[ { \"ObjectType\":\"Database\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"biz_db\" }, { \"ObjectType\":\"Schema\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"s1\" }, { \"ObjectType\":\"Table\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"table1\" } ], \"TransformationRuleNames\":\\[ { \"RuleName\":\"my_database_rename_rule\", \"RuleActionType\":\"Rename\", \"RuleTargetType\":\"Schema\" } ] } ]",
+      "description": "The list of synchronization object transformation mappings. Each element describes a group of source object selection rules and the transformation rules applied to that group.\n\n> [ { \"SourceObjectSelectionRules\":[ { \"ObjectType\":\"Database\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"biz_db\" }, { \"ObjectType\":\"Schema\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"s1\" }, { \"ObjectType\":\"Table\", \"Action\":\"Include\", \"ExpressionType\":\"Exact\", \"Expression\":\"table1\" } ], \"TransformationRuleNames\":[ { \"RuleName\":\"my_database_rename_rule\", \"RuleActionType\":\"Rename\", \"RuleTargetType\":\"Schema\" } ] } ]",
       "position": "Body",
       "type": "Json",
-      "required": true,
+      "required": false,
       "sub_parameters": [
         {
           "name": "SourceObjectSelectionRules",
+          "description": "Each rule selects a set of source objects to synchronize. Multiple rules together select a single table.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "TransformationRules",
+          "description": "The list of synchronization object transformation rule definitions. Each element represents one transformation rule.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
@@ -134,31 +160,35 @@
     },
     {
       "name": "TransformationRules",
-      "description": "The list of synchronization object transformation rule definitions.\n\n>  \\[ { \"RuleName\":\"my_database_rename_rule\", \"RuleActionType\":\"Rename\", \"RuleTargetType\":\"Schema\", \"RuleExpression\":\"{\"expression\":\"${srcDatasoureName}\\_${srcDatabaseName}\"}\" } ]",
+      "description": "The list of synchronization object transformation rule definitions.\n>[ { \"RuleName\":\"my_database_rename_rule\", \"RuleActionType\":\"Rename\", \"RuleTargetType\":\"Schema\", \"RuleExpression\":\"{\"expression\":\"${srcDatasoureName}_${srcDatabaseName}\"}\" } ]",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "RuleActionType",
+          "description": "The action type. Valid values:\n\n- DefinePrimaryKey: defines a primary key.\n- Rename: renames an object.\n- AddColumn: adds a column.\n- HandleDml: handles DML operations.\n- DefineIncrementalCondition: defines an incremental condition.\n- DefineCycleScheduleSettings: defines cycle scheduling settings.\n- DefinePartitionKey: defines a partition key.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleExpression",
+          "description": "The rule expression in JSON string format.\n\n1. Rename rule (Rename)\n- Example: {\"expression\":\"${srcDatasourceName}_${srcDatabaseName}_0922\" }\n- expression: the rename transformation rule expression. The expression supports the following variables: ${srcDatasourceName} (source data source name), ${srcDatabaseName} (source database name), and ${srcTableName} (source table name).\n2. Add column rule (AddColumn)\n- Example: {\"columns\":[{\"columnName\":\"my_add_column\",\"columnValueType\":\"Constant\",\"columnValue\":\"123\"}]}\n- If not specified, the default rule is to neither add columns nor perform replication.\n- columnName: the name of the additional column.\n- columnValueType: the value type of the additional column. Valid values: Constant and Variable.\n- columnValue: the value of the additional column. When columnValueType is set to Constant, the value is a custom constant of the String type. When columnValueType is set to Variable, the value is a built-in variable. Valid built-in variables: EXECUTE_TIME (execution time, Long type), DB_NAME_SRC (source database name, String type), DATASOURCE_NAME_SRC (source data source name, String type), TABLE_NAME_SRC (source table name, String type), DB_NAME_DEST (destination database name, String type), DATASOURCE_NAME_DEST (destination data source name, String type), TABLE_NAME_DEST (destination table name, String type), and DB_NAME_SRC_TRANSED (transformed database name, String type).\n3. Define primary key columns for the destination table (DefinePrimaryKey)\n- Example: {\"columns\":[\"ukcolumn1\",\"ukcolumn2\"]}\n- If not specified, the source primary key columns are used by default.\n- When the destination table already exists: the data integration system does not modify the destination table schema. If the specified primary key columns are not in the destination column set, the node reports an error upon startup.\n- When the destination table uses automatic creation: the data integration system automatically creates the destination table schema, which includes the defined primary key columns. If the specified primary key columns are not in the destination column set, the node reports an error upon startup.\n4. DML operations handling rule (HandleDml)\n- Example: {\"dmlPolicies\":[{\"dmlType\":\"Delete\",\"dmlAction\":\"Filter\",\"filterCondition\":\"id > 1\"}]}\n- If not specified, the default rule is Normal for Insert, Update, and Delete.\n- dmlType: the DML operations type. Valid values: Insert, Update, and Delete.\n- dmlAction: the DML operations handling policy. Valid values: Normal (process normally), Ignore (ignore), Filter (conditionally process normally, used when dmlType is Update or Delete), and LogicalDelete (logical delete).\n- filterCondition: the DML filter condition, used when dmlAction is set to Filter.\n5. Incremental condition (DefineIncrementalCondition)\n- Example: {\"where\":\"id > 0\"}\n- Specifies the incremental filter condition.\n6. Cycle scheduling parameters (DefineCycleScheduleSettings)\n- Example: {\"cronExpress\":\" * * * * * *\", \"cycleType\":\"1\"}\n- Specifies the cycle node scheduling parameters.\n7. Define partition key (DefinePartitionKey)\n- Example: {\"columns\":[\"id\"]}\n- Specifies the partition key.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleName",
+          "description": "The rule name. When the action type and target type are the same, the rule name must be unique. The name cannot exceed 50 characters in length.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleTargetType",
+          "description": "The target type on which the action is applied. Valid values:\n\n- Table\n- Schema\n- Database",
           "position": "FormData",
           "type": "String",
           "required": false

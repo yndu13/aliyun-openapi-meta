@@ -1,54 +1,55 @@
 {
   "name": "RRpc",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ContentType",
-      "description": "",
+      "description": "The type of message that the server sends to the specified device when the JT/T 808 protocol is used. Valid values:\n\n- **0**: detailed positioning data of the GNSS module.\n- **11**: IC card information of the road transport certificate.\n- **65**: serial port 1 pass-through.\n- **66**: serial port 2 pass-through.\n- **240** to **255**: user-defined pass-through.\n\nFor more information about the JT/T 808 protocol supported by IoT Platform, see [Overview of JT/T 808 protocol cloud gateway](~~474256~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeviceName",
-      "description": "The name of the device that receives the request.",
+      "description": "The device name of the device that receives the message.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the instance. You can view the instance **ID** on the **Overview** page in the IoT Platform console.\n\n>*   If your instance has an ID, you must configure this parameter. If you do not set this parameter, the call fails.\n>*   If your instance has no **Overview** page or ID, you do not need to set this parameter.\n\nFor more information, see [Overview](~~356505~~).",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If this **ID** value is available, you must specify it. Otherwise, the call fails.\n- If no **Overview** page or **ID** value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The ProductKey of the product to which the device belongs.",
+      "description": "The **ProductKey** of the product to which the message is sent.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RequestBase64Byte",
-      "description": "The string that is obtained by performing Base64 encoding on the message. Example: `dGhpcyBpcyBhbiBleGFtcGxl`.",
+      "description": "The Base64-encoded string of the message content to be sent, for example, `dGhpcyBpcyBhbiBleGFtcGxl`.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Timeout",
-      "description": "The timeout period of a response. Unit: milliseconds. Valid values: 1000 to 8000.",
+      "description": "The timeout period for waiting for the device response. Unit: milliseconds. Valid values: 1000 to 8000.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "Topic",
-      "description": "The custom revert-RPC (RRPC) topic. Before you can use a custom RRPC topic, you must configure the device. For more information, see [Use custom topics](~~90570~~).\n\nIf you do not configure this parameter, the default RRPC topic is used.",
+      "description": "The custom RRPC-related topic. The device must be developed accordingly. For more information, see [Custom topic](~~90570~~) in device development.\nIf you do not specify this parameter, the default system RRPC topic is used.",
       "position": "Query",
       "type": "String",
       "required": false

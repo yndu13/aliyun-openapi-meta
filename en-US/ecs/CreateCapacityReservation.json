@@ -1,108 +1,117 @@
 {
   "name": "CreateCapacityReservation",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The `token` can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the capacity reservation. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nThis parameter is empty by default.",
+      "description": "The description of the capacity reservation. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The time when the capacity reservation expires. Specify the time in the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC. For more information, see [ISO 8601](~~25696~~).",
+      "description": "The expiration time of the capacity reservation. Specify the time in the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC. For more information, see [ISO 8601](~~25696~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTimeType",
-      "description": "The release mode of the capacity reservation. Valid values:\n\n*   Limited: The capacity reservation is automatically released at a specified time. If you specify this parameter, you must specify the `EndTime` parameter.\n*   Unlimited: The capacity reservation is manually released. The capacity reservation can be released anytime.",
+      "description": "The release mode of the capacity reservation. Valid values:\n\n- Limited: released at a specified time. You must also specify the `EndTime` parameter.\n- Unlimited: manual release. No time limit is imposed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceAmount",
-      "description": "The total number of instances for which the capacity of an instance type is reserved.",
+      "description": "The total number of instances to reserve for a single instance type.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
+      "name": "InstanceChargeType",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "InstanceType",
-      "description": "The instance type. You can create a capacity reservation to reserve the capacity of only one instance type. You can call the [DescribeInstanceTypes](~~25620~~) operation to query the instance types provided by ECS.",
+      "description": "The instance type. Currently, you can set a capacity reservation for only one instance type. You can invoke [DescribeInstanceTypes](~~25620~~) to query the instance types provided by Elastic Compute Service (ECS).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Platform",
-      "description": "The operating system of the image used by the instance. This parameter corresponds to the `Platform` parameter of regional reserved instances. If the operating system of a capacity reservation matches the operating system of a regional reserved instance, you can apply the regional reserved instance to offset fees of the unused capacity of the capacity reservation. Valid values:\n\n*   Windows: Windows Server operating system\n*   Linux: Linux and UNIX-like operating system\n\nDefault value: Linux.\n\n> This parameter is unavailable.",
+      "description": "The operating system type of the image used by the instance. This parameter corresponds to the `Platform` parameter of regional reserved instances. If the operating system type of the capacity reservation matches that of a regional reserved instance, the regional reserved instance can be used to offset the bill for unused capacity in the capacity reservation. Valid values:\n\n- Windows: Windows Server operating system.\n- Linux: Linux and Unix-like operating system.\n\nDefault value: Linux.\n\n> This parameter is not available for use.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.MatchCriteria",
-      "description": "The type of the private pool to generate after the capacity reservation takes effect. Valid values:\n\n*   Open: open private pool\n*   Target: targeted private pool\n\nDefault value: Open.",
+      "description": "The type of the private pool generated after the capacity reservation takes effect. Valid values:\n\n- Open: open mode. The system automatically matches the open private pool capacity when an instance is started. If no matching private pool capacity is available, the system uses public pool resources to start the instance.\n- Target: targeted mode. The instance is started by using the specified private pool capacity. If the specified private pool capacity is unavailable, the instance fails to start.\n\nDefault value: Open.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.Name",
-      "description": "The capacity reservation name. The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`. The name can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the capacity reservation. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain digits, colons (:), underscores (\\_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which to create the capacity reservation. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the capacity reservation. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which you want to assign the capacity reservation.",
+      "description": "The ID of the enterprise resource group to which the capacity reservation belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The mode in which the capacity reservation takes effect. You can call the CreateCapacityReservation operation to create only immediate capacity reservations.\n\n> If you do not specify this parameter, the capacity reservation immediately takes effect.",
+      "description": "The effective mode of the capacity reservation. Currently, only the immediate mode is supported when you call this API operation.\n\n> If you leave this parameter empty, the capacity reservation immediately takes effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the capacity reservation.",
+      "description": "The list of tag pairs bound to the capacity reservation.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the capacity reservation. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the capacity reservation. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:`. The tag value cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -111,7 +120,7 @@
     },
     {
       "name": "ZoneId",
-      "description": "The ID of the zone in which you want to create the capacity reservation. A capacity reservation can reserve resources within only one zone.",
+      "description": "The zone ID of the capacity reservation. Currently, you can create a capacity reservation in only one zone.",
       "position": "Query",
       "type": "RepeatList",
       "required": true

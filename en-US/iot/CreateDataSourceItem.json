@@ -1,47 +1,48 @@
 {
   "name": "CreateDataSourceItem",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DataSourceId",
-      "description": "",
+      "description": "The data source ID.",
       "position": "Query",
       "type": "Long",
       "required": true
     },
     {
       "name": "DeviceName",
-      "description": "",
+      "description": "The device name to which the custom topic belongs.\n\n><notice>For open-source MQTT managed products and devices, and MQTT cloud gateway products and devices, if the **Topic** is a custom topic and **ScopeType** is set to **DEVICE**, this parameter is required.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The instance ID. You can view the instance **ID** on the **Overview** page in the IoT Platform console.\n\n>  If your instance has an ID, you must specify this parameter. Otherwise, the request fails. If no Overview page exists or no instance ID is displayed, you do not need to specify this parameter.\n\nFor more information, see the [Overview](~~356505~~) topic of IoT instances.",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Instance Overview** page in the IoT Platform console.\n\n><notice>\n- If this ID value exists, you must specify it. Otherwise, the call fails.\n- If the **Instance Overview** page or **ID** value is not available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Instance overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "",
+      "description": "The **ProductKey** of the product to which the custom topic belongs.\n\n><notice>For open-source MQTT managed products and devices, and MQTT cloud gateway products and devices, this parameter is required.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScopeType",
-      "description": "",
+      "description": "The scope of the custom topic subscription. Valid values:\n\n- **PRODUCT**: product scope. The subscription applies to all devices under the product. You must also specify **ProductKey**.\n- **DEVICE**: device scope. The subscription applies to a specified device under the product. You must also specify **DeviceName**.\n\n><notice>For open-source MQTT managed products and devices, and MQTT cloud gateway products and devices, if the **Topic** is a custom topic, this parameter is required.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Topic",
-      "description": "The topic that you want to add to the data source in the rules engine. Format: `/${productKey}/${deviceName}/topicShortName`. `${productKey}` specifies the **ProductKey** of the product to which a device belongs. `${deviceName}` specifies the name of the device. `topicShortName` specifies the custom name of the topic.\n\n*   Basic communication topics or Thing Specification Language (TSL) communication topics are in the `/${productKey}/${deviceName}/topicShortName` format. You can replace `${deviceName}` with the plus sign (`+`) wildcard character. The wildcard character specifies that the topic applies to all devices in the product. Valid values of `topicShortName`:\n\n    *   `/thing/event/property/post`: submits the property data of a device.\n    *   `/thing/event/${tsl.event.identifier}/post`: submits the event data of a device. `${tsl.event.identifier}` specifies the identifier of an event in the TSL model.\n    *   `/thing/lifecycle`: submits device lifecycle changes.\n    *   `/thing/downlink/reply/message`: sends a response to a request from IoT Platform.\n    *   `/thing/list/found`: submits data when a gateway detects a new sub-device.\n    *   `/thing/topo/lifecycle`: submits device topology changes.\n    *   `/thing/event/property/history/post`: submits the historical property data of a device.\n    *   `/thing/event/${tsl.event.identifier}/post`: submits the historical event data of a device. `${tsl.event.identifier}` specifies the identifier of an event in the TSL model.\n    *   `/ota/upgrade`: submits the over-the-air (OTA) update status.\n    *   `/ota/version/post`: submits OTA module versions.\n    *   `/thing/deviceinfo/update`: submits device tag changes.\n\n    `/${productKey}/${packageId}/${jobId}/ota/job/status`: submits the status of each OTA update batch. This topic is a basic communication topic. `${packageId}` specifies the ID of the update package. `${jobId}` specifies the ID of the update batch.\n\n*   Custom topics are in the `/${productKey}/${deviceName}/user/#` format. Example: `/${productKey}/${deviceName}/user/get`.\n\n    You can call the [QueryProductTopic](~~69647~~) operation to view all custom topics of a product.\n\n    When you specify a custom topic, you can use the plus sign (`+`) and number sign (`#`) wildcard characters.\n\n    *   You can replace `${deviceName}` with the plus sign (`+`) wildcard character. The wildcard character specifies that the topic applies to all devices in the product.\n    *   You can replace the fields that follow ${deviceName} with `/user/#`. The number sign (`#`) wildcard character specifies that the topic applies to all fields that follow `/user`.\n\n*   Topics that are used to submit device status changes are in the `/as/mqtt/status/${productKey}/${deviceName}` format.\n\nYou can use the plus sign (`+`) wildcard character to specify that the status changes of all devices in the product are submitted.\n\nFor more information about how to use wildcard characters, see the \"Custom topics with wildcard characters\" section in [Use custom topics](~~85539~~).\n\nFor more information about the data formats of topics, see [Data formats](~~73736~~).\n\n> You can add only the following topics to the data source in the rules engine for MQTT gateways, devices of MQTT gateways, and products and devices that use the open source MQTT protocol: custom topics, topics that are used to submit device status changes, and topics that are used to submit device lifecycle changes. For more information about custom topics, see the \"Messaging\" topic. If you set this parameter to a custom topic, you must specify ScopeType and ProductKey. If you set ScopeType to DEVICE, you must specify DeviceName.",
+      "description": "The specific topic to be applied to the rules engine. The format is generally: `/${productKey}/${deviceName}/topicShortName`. In this format, `${productKey}` is the **ProductKey** of the product to which the device belongs, `${deviceName}` is the name of the specific device, and `topicShortName` is the remaining part of the topic.\n\n- The format of a basic communication topic or Thing Specification Language model communication topic is generally: `/${productKey}/${deviceName}/topicShortName`. The `${deviceName}` can be replaced with the wildcard `+` to represent all device names under the product. Valid values of `topicShortName`:\n\n    - `/thing/event/property/post`: property messages reported by devices.\n    - `/thing/event/${tsl.event.identifier}/post`: event messages reported by devices. The `${}` contains the event identifier in the product Thing Specification Language model.\n    - `/thing/lifecycle`: device lifecycle change messages.\n    - `/thing/downlink/reply/message`: result messages of device responses to cloud commands.\n    - `/thing/list/found`: messages reported by gateways about discovered sub-devices.\n    - `/thing/topo/lifecycle`: device topology relationship change messages.\n    - `/thing/event/property/history/post`: historical property messages reported by devices.\n    - `/thing/event/${tsl.event.identifier}/history/post`: historical event messages reported by devices. The `${}` contains the event identifier in the product Thing Specification Language model.\n    - `/ota/upgrade`: device OTA update status notification messages.\n    - `/ota/version/post`: device OTA module version number reporting messages.\n    - `/thing/deviceinfo/update`: device tag change messages.\n\n    The OTA update batch status notification topic is also a basic communication topic. The format is: `/${productKey}/${packageId}/${jobId}/ota/job/status`. In this format, `${packageId}` is over-the-air update package ID, and `${jobId}` is over-the-air update batch ID.\n- A custom topic is: `/${productKey}/${deviceName}/user/#`, such as: `/${productKey}/${deviceName}/user/get`.\n\n  Call the [QueryProductTopic](~~69647~~) operation to view all custom topic categories under a product.\n\n    When specifying a custom topic, you can use the wildcards `+` and `#`.\n    - `${deviceName}` can be replaced with the wildcard `+` to represent all devices under the product.\n    - Subsequent fields can use `/user/#`, where `#` represents all levels after the `/user` level.\n    \n- The device status change notification topic is: `/as/mqtt/status/${productKey}/${deviceName}`.\n\n You can directly use the wildcard `+` to represent status change notifications for all devices under the product.\n\nFor more information about wildcards, see [Wildcards in topic categories](~~85539~~).\n\nFor more information about topic data formats, see [Data formats](~~73736~~).\n\n><notice>For open-source MQTT managed products and devices, and MQTT cloud gateway products and devices, only custom topics, device status change notification topics, and device lifecycle change topics are supported. For more information about custom topics, see the messaging description. If you specify a custom topic, you must also specify **ScopeType** and **ProductKey**. If **ScopeType** is set to **DEVICE**, you must also specify **DeviceName**.\n></notice>",
       "position": "Query",
       "type": "String",
       "required": true

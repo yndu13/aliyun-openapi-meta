@@ -7,49 +7,48 @@
   "parameters": [
     {
       "name": "Amount",
-      "description": "The number of instances to create. Valid values: **1** to **100**.",
+      "description": "The number of instances to create. Valid range: **1** to **100**.",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal for the subscription. Valid values:\n\n*   true\n*   false (default)",
+      "description": "Specifies whether to automatically renew the subscription when it expires. Valid values:\n\n- true\n\n- false (Default)",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to use coupons. Valid values:\n\n*   true\n*   false (default)",
+      "description": "Specifies whether to automatically apply a coupon to the purchase. Valid values:\n\n- true: A coupon is automatically applied.\n\n- false (Default): A coupon is not applied.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Cidr",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnsRegionId",
-      "description": "The ID of the Edge Node Service (ENS) node.",
+      "description": "The ID of the edge node.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EnvironmentVar",
-      "description": "Set one or more environment variables during EAIS instance initialization.",
+      "description": "The environment variables for the instance, specified in JSON format.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Frequency",
-      "description": "The refresh rate. Unit: Hz. Valid values: 30 and 60.",
+      "description": "The refresh rate in hertz (Hz). Valid values: 30 and 60.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -63,14 +62,13 @@
     },
     {
       "name": "InstanceBillingCycle",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The specification of the Android in Container (AIC) instance. Examples:\n\n*   aic.cf52r.c1.np\n*   aic.cf52r.c2.np\n*   aic.cf53r.c2.np\n*   aic.cf52r.c4.np\n*   aic.cf53r.c3.np\n*   aic.cf52r.c3.np\n*   aic.cf53r.c1.np\n*   aic.cf53r.c5.np\n*   aic.cf53r.c6\n*   aic.cf53r.c4.np\n*   aic.cf53r.c6.np\n*   aic.cf53r.c7.np\n*   aic.cf52m1r.c5.np\n*   aic.cf53r.c8.np\n*   aic.cf53r.c7\n*   aic.cf52m1r.c2.np\n*   aic.cf52m1r.c1.np\n*   aic.cf52m1r.c3.np\n*   aic.cf52m1r.c4.np\n*   aic.cf52m1r.c6\n*   ens.a6c2",
+      "description": "The instance type for the AIC. Valid values:\n\n- aic.cf52r.c1.np\n\n- aic.cf52r.c2.np\n\n- aic.cf53r.c2.np\n\n- aic.cf52r.c4.np\n\n- aic.cf53r.c3.np\n\n- aic.cf52r.c3.np\n\n- aic.cf53r.c1.np\n\n- aic.cf53r.c5.np\n\n- aic.cf53r.c6\n\n- aic.cf53r.c4.np\n\n- aic.cf53r.c6.np\n\n- aic.cf53r.c7.np\n\n- aic.cf52m1r.c5.np\n\n- aic.cf53r.c8.np\n\n- aic.cf53r.c7\n\n- aic.cf52m1r.c2.np\n\n- aic.cf52m1r.c1.np\n\n- aic.cf52m1r.c3.np\n\n- aic.cf52m1r.c4.np\n\n- aic.cf52m1r.c6\n\n- ens.a6c2",
       "position": "Query",
       "type": "String",
       "required": true
@@ -84,68 +82,70 @@
     },
     {
       "name": "NameSpace",
-      "description": "The namespace.",
+      "description": "The namespace of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "The billing method. Set the value to **PrePaid**. PrePaid specifies the subscription billing method.\n\n>  Only PrePaid is supported.",
+      "description": "The payment type. The only valid value is **PrePaid**.\n\n> This service supports only the subscription (pre-paid) payment type.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Period",
-      "description": "The subscription duration of the instance.\n\n*   If you leave PeriodUnit empty, the instance is purchased on a monthly basis. Valid values: Day and Month.\n*   If you set PeriodUnit to Day, you can set Period only to 3.\n*   If you set PeriodUnit to Month, you can set Period to a value within the range of \\[1,9], or set the value to 12.",
+      "description": "The subscription duration. The valid values for this parameter depend on the `PeriodUnit` parameter.\n\n- If `PeriodUnit` is `Month`, valid values are 1–9 and 12.\n\n- If `PeriodUnit` is `Day`, the value must be 3.\n\n- If PeriodUnit is Month, Period can be a value from 1 to 9, or 12.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the subscription duration.\n\n*   If you leave PeriodUnit empty, the instance is purchased on a monthly basis. Valid values: Day and Month.\n*   If you set PeriodUnit to Day, you can set Period only to 3.\n*   If you set PeriodUnit to Month, you can set Period to a value within the range of \\[1,9], or set the value to 12.",
+      "description": "The time unit for the subscription duration. Valid values:\n\n- `Month` (default)\n\n- `Day`\n\n- If PeriodUnit is Monthc, Period can be an integer from 1 to 9, or 12.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Resolution",
-      "description": "The resolution. Examples:\n\n*   1920\\*864\n*   1080\\*1920\n*   1920\\*1080\n*   720\\*1280\n*   2400\\*1080\n*   1080\\*2400\n*   1280\\*720\n*   864\\*1920",
+      "description": "The resolution. Valid values:\n\n- 1920\\*864\n\n- 1080\\*1920\n\n- 1920\\*1080\n\n- 720\\*1280\n\n- 2400\\*1080\n\n- 1080\\*2400\n\n- 1280\\*720\n\n- 864\\*1920",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ServerName",
-      "description": "The name of the service.",
+      "description": "The server name.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerType",
-      "description": "The specification of the ARM server. Examples:\n\n*   cas.cf53r\n*   cas.cf52r\n*   cas.cf52m1r\n*   cas.tg52g2\n*   ens.afq-c2m3i.medium",
+      "description": "The server type. Valid values:\n\n- cas.cf53r\n\n- cas.cf52r\n\n- cas.cf52m1r\n\n- cas.tg52g2\n\n- ens.afq-c2m3i.medium",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The tags to add to the instance. Each tag is a key-value pair.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

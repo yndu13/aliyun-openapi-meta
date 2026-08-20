@@ -1,5 +1,6 @@
 {
   "name": "UpdateCasterSceneAudio",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,24 +14,28 @@
       "sub_parameters": [
         {
           "name": "Filter",
+          "description": "Specifies whether to enable the features provided by the 3A audio algorithm. This parameter consists of the following fields:\n\n- **enableAgc**: (Optional) Specifies whether to enable the automatic gain control (AGC) feature of the 3A algorithm. Valid values: **0** (disabled, default) and **1** (enabled).\n\n- **enableAns**: (Optional) Specifies whether to enable the intelligent noise reduction feature of the 3A algorithm. Valid values: **0** (disabled, default) and **1** (enabled).\n\n- **ansMode**: (Optional) The mode of the intelligent noise reduction feature. This field is active only when **enableAns** is set to **1**. Valid values: **0** (speech noise reduction, default) and **1** (music noise reduction).\n\n> For better noise reduction, set ansMode to 1.\n\n- **enableBeautify**: (Optional) Specifies whether to enable voice beautification. Valid values: **0** (disabled, default) and **1** (enabled).\n\n- **voiceBeautifyMode**: (Optional) The voice beautification mode. This field is active only when **enableBeautify** is set to **1**. Valid values: **0** (magnetic male voice, default) and **1** (fresh female voice).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FixedDelayDuration",
+          "description": "The fixed latency of the audio layer. This parameter is used to synchronize the audio with captions.\n\nUnit: milliseconds. Valid values: 0 to **5000**. Default value: **0**.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ValidChannel",
+          "description": "The sound channels that are used for volume input. Valid values:\n\n- **leftChannel**: the left sound channel.\n\n- **rightChannel**: the right sound channel.\n\n- **all** (default): both sound channels.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "VolumeRate",
+          "description": "The volume multiplier for the audio stream. Valid values: 0 to **10.0**. Default value: **1.0**.\n\n- **1.0**: The original volume is used.\n\n- A value less than **1** decreases the volume.\n\n- A value greater than **1** increases the volume.",
           "position": "Query",
           "type": "Float",
           "required": false
@@ -39,35 +44,35 @@
     },
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\n*   If the production studio was created by calling the [CreateCaster](~~2848009~~) operation, check the value of the response parameter CasterId to obtain the ID.\n*   If the production studio was created by using the ApsaraVideo Live console, obtain the ID on the **Production Studio Management** page. To go to the page, log on to the **ApsaraVideo Live console** and click **Production Studios** in the left-side navigation pane.\n\n>  You can find the ID of the production studio in the Instance ID/Name column.",
+      "description": "The ID of the production studio.\n\n- If you create a production studio by calling the [CreateCaster](~~2848009~~) operation, you can obtain the ID from the CasterId parameter in the response.\n\n- If you create a production studio in the LIVE console, go to the **LIVE Console** > **Production Studio** > **Cloud Production Studio** page to view the ID.\n\n> The name of the production studio in the list on the Cloud Production Studio page is the ID of the production studio.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FollowEnable",
-      "description": "The audio mode. By default, the AFV mode is used. If you do not specify this parameter, the scene retains the last configuration. Valid values:\n\n*   **0**: the audio mixing mode.\n*   **1**: the AFV mode.",
+      "description": "Specifies whether to enable the AFV mode. If you leave this parameter empty, the last configuration is retained. Valid values:\n\n- **0**: audio mixing mode.\n\n- **1**: audio-follows-video mode.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MixList",
-      "description": "The location IDs of the audio layers, which are in the same order as the audio layers.",
+      "description": "The list of associated location IDs. The order of the location IDs must be the same as the order of the audio layers.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The ID of the region.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SceneId",
-      "description": "The ID of the scene. If you call the [DescribeCasterScenes](~~2848039~~) operation to query scenes of the production studio, check the value of the response parameter ComponentId to obtain the ID.",
+      "description": "The ID of the scene. If you query the list of scenes in a production studio by calling the [DescribeCasterScenes](~~2848039~~) operation, you can obtain the ID from the ComponentId parameter in the response.",
       "position": "Query",
       "type": "String",
       "required": true

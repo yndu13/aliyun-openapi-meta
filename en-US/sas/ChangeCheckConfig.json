@@ -7,105 +7,112 @@
   "parameters": [
     {
       "name": "AddedCheck",
-      "description": "The list of check items that you want to add to the policy.\n\n>  If the ConfigStandardIds or ConfigRequirementIds parameter is configured, this parameter does not take effect.",
+      "description": "The list of check items to add to the policy.\n<notice> If ConfigStandardIds or ConfigRequirementIds is specified, this parameter does not take effect. ></notice>",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
+      "name": "ClientToken",
+      "description": "The client token used to ensure request idempotency. Use a different token for each request. Only ASCII characters are supported. The token can be up to 64 characters in length.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "ConfigRequirementIds",
-      "description": "The requirement IDs that you want to specify for the check policy.\n\n>  You can call the [ListCheckResult](~~ListCheckResult~~) operation to obtain the requirement ID. If the ConfigStandardIds parameter is configured, this parameter does not take effect.",
+      "description": "Configures the check policy by specifying requirement IDs.\n\n> Call [ListCheckResult](~~ListCheckResult~~) to obtain requirement IDs. If ConfigStandardIds is specified, this parameter does not take effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConfigStandardIds",
-      "description": "The standard IDs that you want to specify for the check policy.\n\n>  You can call the [ListCheckResult](~~ListCheckResult~~) operation to obtain the standard ID.",
+      "description": "Configures the check policy by specifying standard IDs.\n\n> Call [ListCheckResult](~~ListCheckResult~~) to obtain standard IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Configure",
-      "description": "The configuration of the check item. Valid value:\n\n*   **all**: Add all check items.",
+      "description": "The field configuration. Valid values:\n\n- **all:** Adds all check items.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CycleDays",
-      "description": "The days in a week on which a check is performed.",
+      "description": "The scheduled check days.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "EnableAddCheck",
-      "description": "Specifies whether to check the new check items in the selected requirement item. Valid values:\n- **true**\n- **false**",
+      "description": "Specifies whether to automatically include newly added check items from the selected requirements. Valid values:\n\n- **true:** Enabled.\n- **false:** Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableAutoCheck",
-      "description": "Specifies whether to enable the automatic periodical check feature. Valid values:\n\n- **true**\n- **false**",
+      "description": "Specifies whether to enable automatic scheduled checks. Valid values:\n\n- **true:** Enabled.\n- **false:** Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end time of the check. The value specifies a point in time in a day. The time period that is specified by the start time and end time must be one of the following time periods:\n\n*   **00:00 to 06:00:** If you set the StartTime parameter to 0, you must set the EndTime parameter to 6.\n*   **06:00 to 12:00**: If you set the StartTime parameter to 6, you must set the EndTime parameter to 12.\n*   **12:00 to 18:00**: If you set the StartTime parameter to 12, you must set the EndTime parameter to 18.\n*  **18:00 to 24:00:** If you set the StartTime parameter to 18, you must set the EndTime parameter to 24.",
+      "description": "The end hour of the check time window, expressed as an hour of the day. The start and end times must fall within one of the following time ranges. Valid values: 6, 12, 18, 24.\n\n- **0~6:** If the start time is 0, set the end time to 6.\n- **6~12:** If the start time is 6, set the end time to 12.\n- **12~18:** If the start time is 12, set the end time to 18.\n- **18~24:** If the start time is 18, set the end time to 24.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the bastion host to query.\n\n>  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).",
+      "description": "The region of the Security Center instance. Valid values:\n\n- **cn-hangzhou:** China (Hangzhou)\n- **ap-southeast-1:** Singapore",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RemovedCheck",
-      "description": "The list of the check items that you want to remove from the policy.\n\n>  If the ConfigStandardIds or ConfigRequirementIds parameter is configured, this parameter does not take effect.",
+      "description": "The list of check items to remove from the policy.\n<notice> If ConfigStandardIds or ConfigRequirementIds is specified, this parameter does not take effect. ></notice>",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "ResourceDirectoryAccountId",
-      "description": "The Alibaba Cloud account ID of the member in the resource directory.\n\n>  You can call the [DescribeMonitorAccounts](~~DescribeMonitorAccounts~~) operation to obtain the IDs.",
+      "description": "The ID of the resource directory member accounts (Alibaba Cloud account).\n> Call [DescribeMonitorAccounts](~~DescribeMonitorAccounts~~) to obtain this parameter.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "StandardIds",
-      "description": "An array that consists of the information about the check item.",
+      "description": "This parameter is deprecated. You do not need to configure it.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start time of the check. The value specifies a point in time in a day.",
+      "description": "The start hour of the check time window, expressed as an hour of the day. The start and end times must fall within one of the following time ranges. Valid values: 0, 6, 12, 18.\n\n- **0~6:** If the start time is 0, set the end time to 6.\n- **6~12:** If the start time is 6, set the end time to 12.\n- **12~18:** If the start time is 12, set the end time to 18.\n- **18~24:** If the start time is 18, set the end time to 24.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SystemConfig",
-      "description": "Specifies whether to use the configuration automatically generated by the system. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to use the system-generated configuration. Valid values:\n- **true:** Yes.\n- **false:** No.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Vendors",
-      "description": "The cloud service providers.",
+      "description": "The list of cloud vendors.",
       "position": "Query",
       "type": "RepeatList",
       "required": false

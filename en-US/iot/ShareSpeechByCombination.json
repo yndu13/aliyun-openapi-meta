@@ -1,54 +1,55 @@
 {
   "name": "ShareSpeechByCombination",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AudioFormat",
-      "description": "The audio format. Valid values: **wav**, **mp3**, and **amr**.",
+      "description": "The audio format. Only **wav**, **mp3**, and **amr** formats are supported.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "CombinationList",
-      "description": "The combined content that you want to broadcast. The following types of content can be broadcasted:\n\n*   The speeches that are pushed to the device. You must specify the identifiers of the speeches.\n\n*   The custom content that you specify based on the supported format of the device.\n\n    For example, you can create a custom speech about the amount of money in the format of `{$xxx}`. xxx is the specific amount. If you specify `{$1000}`, the device broadcasts **CNY 1000**.\n\nThe device broadcasts the audio files in the sequence of the values that you specify in CombinationList.",
+      "description": "The combination speech content, which includes the following types:\n\n- Speech corpus that has been successfully pushed to the device. Specify the identifier of the corpus.\n\n- Dynamic content supported for playback. Specify the content based on the specific rules supported by the device.\n    \n    Example: Amount, in the format of `{$xxx}`, where xxx is the specific amount. For example, `{$1000}` causes the device to broadcast **1000 yuan**.\n    \nThe device plays back the content in the order specified in CombinationList.",
       "position": "Body",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "DeviceName",
-      "description": "The **DeviceName** of the device. If you specify this parameter, you must also specify the **ProductKey** parameter.",
+      "description": "The **DeviceName** of the device.\nIf you specify this parameter, you must also specify **ProductKey**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "IotId",
-      "description": "The ID of the device. You can call the [QuerySpeechDevice](~~280408~~) operation to obtain the ID.\n\n> If you specify this parameter, you do not need to specify the **ProductKey** and **DeviceName** parameters. **IotId** specifies a globally unique identifier (GUID) of the device, which corresponds to a combination of **ProductKey** and **DeviceName**. If you specify the **IotId**, **ProductKey**, and **DeviceName** parameters, the value of the **IotId** parameter takes precedence.",
+      "description": "The device ID. You can obtain this parameter by calling [QuerySpeechDevice](~~280408~~).\n\n>If you specify this parameter, you do not need to specify **ProductKey** or **DeviceName**. **IotId** is a globally unique identifier of a device and corresponds to a combination of **ProductKey** and **DeviceName** on a one-to-one basis. If you specify both **IotId** and the combination of **ProductKey** and **DeviceName**, **IotId** takes precedence.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The instance ID. You can view the **ID** of the instance on the **Overview** page in the IoT Platform console.\n\n>  If your instance has an ID, you must specify this parameter. Otherwise, the request fails. If no Overview page exists or no instance ID is displayed, you do not need to specify this parameter.\n\nFor more information, see the [Overview](~~356505~~) topic of IoT instances.",
+      "description": "The instance ID. You can view the **ID** of the current instance on the **Overview** page in the IoT Platform console.\n\n><notice>\n- If an ID value is available, you must specify this parameter. Otherwise, the call fails.\n- If no **Overview** page or ID value is available, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The **ProductKey** of the product to which the device belongs. If you specify this parameter, you must also specify the **DeviceName** parameter.",
+      "description": "The **ProductKey** of the product to which the device belongs. If you specify this parameter, you must also specify **DeviceName**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SpeechId",
-      "description": "The unique ID of the combined speech that you want to broadcast. This ID is issued by IoT Platform to the device.\n\n>  If you do not specify this parameter, IoT Platform automatically generates an ID. If you need to retry broadcasting the speech, you must specify the ID to prevent repeated broadcasting.",
+      "description": "The unique speech ID delivered to the device.\n><notice>\nIf you do not specify this parameter, the system automatically generates one. If you retry a speech broadcast for business purposes, specify the speech ID of the retry to avoid duplicate business broadcasts.\n></notice>",
       "position": "Body",
       "type": "String",
       "required": false

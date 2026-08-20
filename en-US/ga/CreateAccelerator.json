@@ -7,70 +7,70 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Default value: false. Valid values:\n\n*   **false:** disables automatic payment. If you select this option, you must go to the Order Center to complete the payment after an order is generated.\n*   **true:** enables automatic payment. Payments are automatically completed.",
+      "description": "Specifies whether to enable automatic payment. Valid values:\n\n- **false** (default): Disables automatic payment. After an order is generated, go to the Order Hub to complete the payment.\n\n- **true**: Enables automatic payment. The system automatically completes the payment.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal for the GA instance. Default value: false. Valid values:\n\n*   **true:** enables auto-renewal.\n*   **false:** disables auto-renewal.",
+      "description": "Specifies whether to enable auto-renewal for the instance. Valid values:\n\n- **true**: Yes.\n\n- **false** (default): No.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenewDuration",
-      "description": "The auto-renewal duration. Unit: months.\n\nValid values: **1** to **12**. Default value: **1**.\n\n>  This parameter takes effect only when **AutoRenew** is set to **true**.",
+      "description": "The auto-renewal duration. Unit: month.\n\nValid values: **1** to **12**. Default value: **1**.\n\n> This parameter is valid only when **AutoRenew** is set to **true**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to automatically use coupons when making payments. Default value: false. Valid values:\n\n*   **true:** automatically pays bill by using coupons.\n*   **false:** does not automatically pay bills by using coupons.\n\n>  This parameter takes effect only when **AutoPay** is set to **true**.",
+      "description": "Specifies whether to automatically apply coupons to your bills. Valid values:\n\n- **true**: Yes.\n\n- **false** (default): No.\n\n> This parameter is valid only when **AutoPay** is set to **true**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Bandwidth",
-      "description": "",
+      "description": "The bandwidth of the standard GA instance. Unit: **Mbps**.\n\nValid values: 200 to 5000.\n\n> This parameter is required and valid only when the access mode of the acceleration area is Anycast.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "BandwidthBillingType",
-      "description": "The bandwidth billing method.\n\n*   **BandwidthPackage:** billed based on bandwidth plans.\n*   **CDT:** billed based on data transfer.\n*   **CDT95:** billed based on the 95th percentile bandwidth. The billing is managed by Cloud Data Transfer (CDT). This bandwidth billing method is not available by default. Contact your Alibaba Cloud account manager for more information.",
+      "description": "The bandwidth billing method.\n\n- **BandwidthPackage**: Billed by bandwidth plan.\n\n- **CDT**: Billed by data transfer.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "A client token that is used to ensure the idempotence of the request.\n\nGenerate a parameter value from your client to make sure that the value is unique among different requests. The ClientToken parameter can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. The **RequestId** may be different for each request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true:** performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Performs a dry run. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\n- **false** (default): Sends a normal request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Duration",
-      "description": "The subscription duration of the GA instance.\n\n*   If the **PricingCycle** parameter is set to **Month**, the valid values for the **Duration** parameter are **1** to **9**.\n*   If the **PricingCycle** parameter is set to **Year**, the valid values for the **Duration** parameter are **1** to **3**.\n\n>  If the **InstanceChargeType** parameter is set to **PREPAY**, you must configure this parameter.",
+      "description": "The subscription duration.\n\n- If **PricingCycle** is set to **Month**, the valid values for **Duration** are **1** to **9**.\n\n- If **PricingCycle** is set to **Year**, the valid values for **Duration** are **1** to **3**.\n\n> This parameter is required if **InstanceChargeType** (the billing method of the GA instance) is set to **PREPAY** (subscription).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the GA instance.\n\n*   PREPAY (default): subscription\n*   POSTPAY: pay-as-you-go",
+      "description": "The billing method of the GA instance.\n\n- PREPAY (default): subscription.\n\n- POSTPAY: pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -84,28 +84,28 @@
     },
     {
       "name": "Name",
-      "description": "The name of the GA instance.\n\nThe name must be 2 to 128 characters in length and can contain digits, underscores (\\_), and hyphens (-). It must start with a letter.",
+      "description": "The name of the GA instance.\n\nThe name must be 1 to 128 characters in length, start with a letter, and can contain digits, underscores (\\_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "The billing cycle of the GA instance. Valid values:\n\n*   **Month:** billed on a monthly basis.\n*   **Year:** billed on an annual basis.\n\n>  If the **InstanceChargeType** parameter is set to **PREPAY**, you must configure this parameter.",
+      "description": "The billing cycle. Valid values:\n\n- **Month**: Billed by month.\n\n- **Year**: Billed by year.\n\n> This parameter is required if **InstanceChargeType** (the billing method of the GA instance) is set to **PREPAY** (subscription).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PromotionOptionNo",
-      "description": "The coupon code.",
+      "description": "The coupon code.\n\n> This parameter is available only on the Alibaba Cloud International Website (www\\.alibabacloud.com).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which to create the GA instance. Set the value to **cn-hangzhou**.",
+      "description": "The region ID of the GA instance. Set the value to **cn-hangzhou**.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -119,7 +119,7 @@
     },
     {
       "name": "Spec",
-      "description": "The type of the GA instance. Valid values:\n\n*   **1**: Small Ⅰ.\n*   **2**: Small Ⅱ.\n*   **3**: Small Ⅲ.\n*   **5**: Medium Ⅰ.\n*   **8**: Medium Ⅱ.\n*   **10**: Medium Ⅲ.\n*   **20**: Large Ⅰ.\n*   **30**: Large Ⅱ.\n*   **40**: Large Ⅲ.\n*   **50**: Large IV.\n*   **60**: Large V.\n*   **70**: Large VI.\n*   **80**: Large VII.\n*   **90**: Large VIII.\n*   **100**: Super Large Ⅰ.\n*   **200**: Super Large Ⅱ.\n\n> *   GA instances Large III and above are not available by default. To use these instances, contact your Alibaba Cloud account manager.\n>*   If the **InstanceChargeType** parameter is set to **PREPAY**, you must configure this parameter.\n\nDifferent specifications provide different capabilities. For more information, see [Instance type](~~153127~~).",
+      "description": "The instance type of the GA instance. Valid values:\n\n- **1**: Small I\n\n- **2**: Small II\n\n- **3**: Small III\n\n- **5**: Medium I\n\n- **8**: Medium II\n\n- **10**: Medium III\n\n- **20**: Large I\n\n- **30**: Large II\n\n- **40**: Large III\n\n- **50**: Large IV\n\n- **60**: Large V\n\n- **70**: Large VI\n\n- **80**: Large VII\n\n- **90**: Large VIII\n\n- **100**: Super Large I\n\n- **200**: Super Large II\n\n> * Currently, the Large III and higher instance types are available only to users on the whitelist. To use these instance types, contact your account manager.\n>\n> * This parameter is required if **InstanceChargeType** (the billing method of the GA instance) is set to **PREPAY** (subscription).\n\nThe definitions of different instance types are different. For more information, see [Instance types](~~153127~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -133,12 +133,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the GA instance. The tag key cannot be an empty string.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the GA instance. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag values.",
           "position": "Query",
           "type": "String",
           "required": false

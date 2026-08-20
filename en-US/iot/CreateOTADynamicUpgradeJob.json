@@ -1,129 +1,132 @@
 {
   "name": "CreateOTADynamicUpgradeJob",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DownloadProtocol",
-      "description": "Specifies whether the device supports simultaneous updates of multiple modules. Default value: false. Valid values:\n\n*   **false**\n\n*   **true**: In this case, do not set **OverwriteMode** to **2**.********\n\n    The update tasks for the same module are overwritten. The update tasks that are in progress are not overwritten. The update tasks of the modules do not affect each other.\n\n>*   Only Enterprise Edition instances and new public instances are supported.\n>*   You must use Link SDK for C 4.x to develop the device.\n>*   If you initiate a group-based dynamic update batch, the settings of **MultiModuleMode** and **OverwriteMode** must be the same as those in the existing dynamic update batch of the group.\n\nFor more information, see [Overview](~~58328~~).",
+      "description": "The protocol used to download over-the-air update package. Valid values: **HTTPS** (default) and **MQTT**. After the device receives over-the-air update package download information pushed by IoT Platform, the device uses this protocol to download over-the-air update package.\n\n><notice>To use the MQTT protocol to download over-the-air update package, the following conditions must be met:\n- Supported regions: only China (Shanghai), China (Beijing), and China (Shenzhen).\n- OTA update package: contains only one file, and the file size does not exceed 16 MB.\n- Device SDK: you must use the latest version of the C language Link SDK provided by IoT Platform to develop OTA update and MQTT file download capabilities. For more information, see [OTA update code sample for downloading update packages by using the MQTT protocol](~~330985~~).\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DynamicMode",
-      "description": "Specifies whether to automatically push update tasks from IoT Platform to devices. Default value: true. Valid values:\n\n*   **true**: After an update batch is created, IoT Platform automatically pushes update tasks to the specified online devices.\n\n    In this case, a device can still initiate a request to obtain the information about the over-the-air (OTA) update task from IoT Platform.\n\n*   **false**: A device must initiate a request to obtain the information about the OTA update task from IoT Platform.",
+      "description": "The dynamic update mode. Valid values:\n\n- **1** (default): updates devices that currently meet the update conditions and continuously checks whether devices meet the update conditions to update eligible devices.\n\n- **2**: takes effect only on devices that subsequently report new version numbers.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "FirmwareId",
-      "description": "The **ProductKey** of the product to which the update package belongs.\n\nA **ProductKey** is the unique identifier of a product in IoT Platform. You can view the information about all products within the current Alibaba Cloud account in the IoT Platform console or by calling the [QueryProductList](~~69271~~) operation.",
+      "description": "The ID of the update package. The ID uniquely identifies the update package.\n\nThe update package ID is one of the parameters returned when you call [CreateOTAFirmware](~~147311~~) to create the update package.\n\nYou can call [ListOTAFirmware](~~147450~~) to view the update package ID from the response parameters.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GroupId",
-      "description": "The type of the group. Valid value: **LINK_PLATFORM_DYNAMIC**.\n\n*   If you specify this parameter, you must also specify the **GroupId** parameter. In this case, do not specify the **SrcVersion.N** parameter.\n*   If you do not specify this parameter, you do not need to specify the **GroupId** parameter. In this case, you must specify the **SrcVersion.N** parameter.",
+      "description": "The group ID.\n\n- If you specify this parameter, you must also specify **GroupType** and cannot specify **SrcVersion.N**.\n- If you do not specify this parameter, you do not need to specify **GroupType** and must specify **SrcVersion.N**.\n\nYou can call [QueryDeviceGroupList](~~93356~~) to query the group ID (**GroupId**).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GroupType",
-      "description": "The download protocol of the update package. Valid values: **HTTPS** and **MQTT**. Default value: HTTPS. After the device receives the update package information pushed by IoT Platform, this protocol is used to download the update package.\n\n> If you need to download the update package over MQTT, take note of the following items:\n>*   Your service must be deployed in the China (Shanghai) region.\n>*   The OTA update package can contain only one file, and the size of the file cannot exceed 16 MB.\n>*   You must use the latest version of Link SDK for C to develop the device features to perform OTA updates and download files over MQTT. For more information, see [Sample code](~~330985~~).",
+      "description": "The group type. The only valid value is **LINK_PLATFORM_DYNAMIC** (dynamic group).\n\n- If you specify this parameter, you must also specify **GroupId** and cannot specify **SrcVersion.N**.\n- If you do not specify this parameter, you do not need to specify **GroupId** and must specify **SrcVersion.N**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IotInstanceId",
-      "description": "The ID of the update package.\n\nAn update package ID is returned when you call the [CreateOTAFirmware](~~147311~~) operation to create the update package.\n\nYou can also call the [ListOTAFirmware](~~147450~~) operation to obtain the ID.",
+      "description": "The instance ID. On the **Overview** page in the IoT Platform console, you can view the **ID** of the current instance.\n\n><notice>\n- If this value exists, you must specify this parameter. Otherwise, the call fails.\n- If no <props=\"intl\"><ph>**Overview** page or </ph></props>ID value exists, you do not need to specify this parameter.\n\n></notice>\n\nFor more information about instances, see [Overview](~~356505~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaximumPerMinute",
-      "description": "Specifies whether to overwrite the previous update task. Default value: 1. Valid values:\n\n*   **1**: The previous update task is not overwritten. If a device already has an update task, the previous update task is implemented.\n*   **2**: The previous update task is overwritten. Only the current update task is implemented. In this case, you cannot set **MultiModuleMode** to **true**.\n\n>  The update task that is in progress is not overwritten.",
+      "description": "The maximum number of devices to which the download URL of the update package is pushed per minute. Valid values: 10 to 10000.\n\nIf you do not specify this parameter, the default value 10000 is used.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MultiModuleMode",
-      "description": "The list of firmware versions to be updated.\n\n*   If you specify this parameter, do not specify the **GroupId** and **GroupType** parameters.\n*   If you do not specify this parameter, you must specify the **GroupId** and **GroupType** parameters.\n\n> If you use differential update packages to perform dynamic update tasks on dynamic groups, you do not need to specify this parameter.\n>*   If you use differential update packages to perform dynamic update tasks based on versions, the value of this parameter must be the same as the value of **SrcVersion**.\n>*   You can call the [QueryDeviceDetail](~~69594~~) operation and view the **FirmwareVersion** parameter in the response.\n>*   The version numbers must be unique in the list.\n>*   You can specify a maximum of 10 version numbers.",
+      "description": "Specifies whether the device supports simultaneous multi-module upgrades.\n\n- **false** (default): no. The device does not support simultaneous multi-module upgrades.\n- **true**: yes. The device supports simultaneous multi-module upgrades. In this case, **OverwriteMode** cannot be set to **2**. Upgrade nodes for the same module are overwritten, but upgrade nodes that are in progress are not overwritten.\n\n><notice>\n- Supported instances: Enterprise instances and new public instances.\n- Device SDK: you must use the 4.x version of the C language Link SDK provided by IoT Platform.\n- When initiating a group-based dynamic upgrade batch: the settings of **MultiModuleMode** and **OverwriteMode** must be consistent with the settings in the existing dynamic upgrade batch for the group.\n\n></notice>\n\nFor more information, see [Description of devices supporting simultaneous multi-module upgrades](~~58328~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NeedConfirm",
-      "description": "The ID of the group.\n\n*   If you specify this parameter, you must also specify the **GroupType** parameter. In this case, do not specify the **SrcVersion.N** parameter.\n*   If you do not specify this parameter, you do not need to specify the **GroupType** parameter. In this case, you must specify the **SrcVersion.N** parameter.\n\nYou can call the [QueryDeviceGroupList](~~93356~~) operation to query the **GroupId** parameter.",
+      "description": "Specifies whether to control the OTA upgrade of a device by using a mobile app that you develop. You can use this parameter to allow the mobile app to determine whether the device can perform an over-the-air update.\n\n\n- **false** (default): no. The OTA upgrade node information is obtained based on the **NeedPush** Settings.\n- **true**: yes. The device cannot obtain the OTA upgrade node. After the over-the-air update is confirmed on the app side, the OTA upgrade node information is obtained based on the **NeedPush** Settings.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "NeedPush",
-      "description": "Specifies whether to control the update by using a mobile app. You must develop the mobile app as needed. Default value: false. Valid values:\n\n*   **false**: A device obtains the information about the OTA update task based on the **NeedPush** parameter.\n*   **true**: To perform an OTA update on a device, you must confirm the update by using your mobile app. Then, the device can obtain the information about the OTA update task based on the **NeedPush** parameter.",
+      "description": "Specifies whether IoT Platform proactively pushes over-the-air update task to devices.\n\n- **true** (default): yes. After the batch task is created, IoT Platform proactively pushes over-the-air update task to online devices within over-the-air update scope.\n    \n    In this case, devices can still proactively send requests to IoT Platform to obtain OTA update task information.\n\n- **false**: no. Devices must send requests to IoT Platform to obtain OTA update task information.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "OverwriteMode",
-      "description": "The mode of dynamic update. Default value: 1. Valid values:\n\n*   **1**: constantly updates the devices that meet the conditions.\n*   **2**: updates only the devices that subsequently submit the latest firmware versions.",
+      "description": "Specifies whether to overwrite the previous update task. Valid values:\n\n- **1** (default): does not overwrite. If the device already has an update task, only the existing task is performed.\n- **2**: overwrites. The device performs only the new update task. In this case, **MultiModuleMode** cannot be set to **true**.\n\n> Update tasks that are in progress are not overwritten.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ProductKey",
-      "description": "The automatic retry interval if a device fails to be updated. Unit: minutes. Valid values:\n\n*   **0**: An automatic retry is immediately performed.\n*   **10**: An automatic retry is performed after 10 minutes.\n*   **30**: An automatic retry is performed after 30 minutes.\n*   **60**: An automatic retry is performed after 60 minutes (1 hour).\n*   **1440**: An automatic retry is performed after 1,440 minutes (24 hours).\n\n> The value of the **RetryInterval** parameter must be less than the value of the **TimeoutInMinutes** parameter. Examples:\n>*   If the value of the **TimeoutInMinutes** parameter is set to 60, the maximum value of the **RetryInterval** parameter is 30.\n>*   If the value of the **TimeoutInMinutes** parameter is set to 1440, the maximum value of the **RetryInterval** parameter is 60.\n\nIf the value of the **RetryInterval** parameter is set to 1440, we recommend that you do not specify the **TimeoutInMinutes** parameter. If an update times out, no retry is performed.\n\nIf you do not specify this parameter, no retry is performed.",
+      "description": "The **ProductKey** of the product to which the update package belongs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RetryCount",
-      "description": "The timeout period of the update. If the device is not updated within the specified period, a timeout error occurs. Unit: minutes. Valid values: 1 to 1440.\n\n> *   The timeout period starts from the time when the specified device submits the update progress for the first time. During the update, the update package may be repeatedly pushed to the specified device because the device goes online and offline multiple times. The start time of the update period remains unchanged.\n>*   If an update fails due to timeout, no retry is triggered.\n\nIf you do not specify this parameter, timeout errors do not occur.",
+      "description": "The number of automatic retries.\n\nIf you specify the **RetryInterval** parameter, you must specify this parameter.\n\nValid values:\n\n- **1**: 1 time.\n- **2**: 2 times.\n- **5**: 5 times.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RetryInterval",
-      "description": "The number of automatic retries.\n\nIf you specify the **RetryInterval** parameter, you must specify this parameter.\n\nValid values:\n\n*   **1**: retries once.\n*   **2**: retries twice.\n*   **5**: retries five times.",
+      "description": "The automatic retry interval after a device fails to be updated. Unit: minutes. Valid values:\n\n- **0**: retries immediately.\n- **10**: retries after 10 minutes.\n- **30**: retries after 30 minutes.\n- **60**: retries after 60 minutes (1 hour).\n- **1440**: retries after 1,440 minutes (24 hours).\n\n><notice> The value of **RetryInterval** must be less than the value of **TimeoutInMinutes**. Examples:\n- If the value of **TimeoutInMinutes** is 60 minutes, the maximum value of **RetryInterval** is 30.\n- If the value of **TimeoutInMinutes** is 1440 minutes, the maximum value of **RetryInterval** is 60.\n\nIf you want to set **RetryInterval** to retry after 24 hours, do not specify **TimeoutInMinutes**. After the update times out, no retry is triggered.\n></notice>\n\nIf you do not specify this parameter, no retry is performed.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SrcVersion",
-      "description": "",
+      "description": "The list of firmware versions to be updated.\n\n- If you specify this parameter, you cannot specify **GroupId** or **GroupType**.\n- If you do not specify this parameter, you must specify **GroupId** and **GroupType**.\n\n> - When you initiate a dynamic update task for a delta update package based on versions, the value of this parameter must be the same as the source version (**SrcVersion**) of the delta update package.\nWhen you initiate a dynamic update task for a delta update package based on a dynamic group, you do not need to specify this parameter.\n- You can call [QueryDeviceDetail](~~69594~~) to view the OTA module version **FirmwareVersion** of the device.\n- The list cannot contain duplicate version numbers.\n- A maximum of 10 version numbers can be specified.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the batch tag. Only letters, digits, and periods (.) are supported. The key must be 1 to 30 characters in length. A maximum of 10 batch tags can be added.\n\nBatch tags are sent to the device when IoT Platform pushes the update notification to the device.\n\n> Batch tags are optional. The **Required** column shows **Yes** because if you specify a batch tag (Tag), **Tag.N.Value** and **Tag.N.Key** must be specified in pairs.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "The value of the batch tag. The value must be 1 to 1024 characters in length. A maximum of 10 batch tags can be added. The total length of all batch tag keys and values cannot exceed 4096 characters.\n\n\n> Batch tags are optional. The **Required** column shows **Yes** because if you specify a batch tag (Tag), **Tag.N.Value** and **Tag.N.Key** must be specified in pairs.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -132,7 +135,7 @@
     },
     {
       "name": "TimeoutInMinutes",
-      "description": "The maximum number of devices to which the download URL of the update package is pushed per minute. Valid values: 10 to 10000.\n\nDefault value: 10000.",
+      "description": "The timeout period for the device update. If the device does not complete the update within the specified period, the update fails. Unit: minutes. Valid values: 1 to 1440.\n\n> - The timeout period starts from the time when the device first reports the update progress. If the device goes online and offline multiple times during the update, which triggers IoT Platform to push the update package multiple times, the start time is always the time when the device first reports the update progress.\n- An update failure caused by a timeout does not trigger the automatic retry logic.\n\n\n\n\nIf you do not specify this parameter, no timeout limit is imposed on the device update.",
       "position": "Query",
       "type": "Integer",
       "required": false

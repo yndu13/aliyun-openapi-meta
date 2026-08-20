@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries per page. You can use this parameter together with NextToken.\n\nValid values: 1 to 500.\n\nDefault value: 10.",
+      "description": "The maximum number of entries to return on each page. Use this parameter with NextToken.\n\nValid values: 1 to 500.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the replication pair. Fuzzy search is supported.",
+      "description": "The name of the replication pair. Fuzzy matching is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken. If you specify NextToken, the PageSize and PageNumber request parameters do not take effect, and the TotalCount response parameter is invalid.",
+      "description": "The query token. Set this parameter to the NextToken value returned from the previous call to this operation. You do not need to set this parameter for the first call. If you set NextToken, the PageSize and PageNumber parameters are ignored, and the TotalCount value in the response is invalid.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -35,28 +35,28 @@
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Valid values: 1 to 100.",
+      "description": "The number of entries per page.\nValid values: 1 to 100.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PairIds",
-      "description": "The IDs of replication pairs. You can specify the IDs of one or more replication pairs and separate the IDs with commas (,). Example: `pair-cn-dsa****,pair-cn-asd****`.\n\nThis parameter is empty by default, which indicates that all replication pairs in the specified region are queried. You can specify a maximum of 100 replication pair IDs.",
+      "description": "The IDs of replication pairs. Specify one or more replication pair IDs. The IDs must be in the `pair-cn-dsa****,pair-cn-asd****` format.\n\nIf you leave this parameter empty, all replication pairs in the current region are queried. You can specify up to 100 replication pair IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the primary or secondary disk in the replication pair. You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which async replication is supported.",
+      "description": "The ID of the region where the primary or secondary disk of the replication pair resides. Call the [DescribeRegions](~~354276~~) operation to query the regions that support asynchronous replication.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ReplicaGroupId",
-      "description": "The ID of the replication pair-consistent group. You can specify the ID of a replication pair-consistent group to query the replication pairs in the group. Example: `pg-****`.\n\nThis parameter is empty by default, which indicates that all replication pairs in the specified region are queried.\n\n>  If this parameter is set to`-`, replication pairs that are not added to any replication pair-consistent groups are returned.",
+      "description": "The ID of the replication pair-consistent group. Specify the ID of a replication pair-consistent group to query the replication pairs in the group. The ID must be in the `pg-****` format.\n\nIf you leave this parameter empty, all replication pairs in the current region are queried.\n\n> If you set this parameter to `-`, replication pairs that are not in any replication pair-consistent group are returned.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -70,26 +70,28 @@
     },
     {
       "name": "Site",
-      "description": "The type of the site from which the information of replication pairs is retrieved. Valid value:\n\n*   production: primary site\n*   backup: secondary site\n\nDefault value: production.",
+      "description": "The site from which to query data. Query data from the production site or the disaster recovery site. Valid values:\n\n- production: the production site.\n\n- backup: the disaster recovery site.\n\nDefault value: production.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags. Up to 20 tags are supported.",
+      "description": "The tags. You can specify up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the tag.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the tag.",
           "position": "Query",
           "type": "String",
           "required": false

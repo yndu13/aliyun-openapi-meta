@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AccessType",
-      "description": "The request method. If the parameter is empty, data about all methods is returned. Valid values:\n\n*   **get**\n*   **put**\n*   **list**\n*   **delete**",
+      "description": "The access type. If you leave this parameter empty, aggregated results for all types are returned. Valid values:\n\n- **get**: GET request.\n\n- **put**: PUT request.\n\n- **list**: LIST request.\n\n- **delete**: DELETE request.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,35 +21,35 @@
     },
     {
       "name": "Field",
-      "description": "The type of the request data. Set the value to **acc**.",
+      "description": "The type of data to request. Set the value to **acc**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "NamespaceId",
-      "description": "The namespace ID. If the parameter is empty, data about all namespaces is returned.\n\nYou can specify a maximum number of 30 namespace IDs and separate them with commas (,).",
+      "description": "The ID of the namespace. If you leave this parameter empty, aggregated data for all namespaces is returned.\n\nTo query multiple namespaces, separate the IDs with commas (,). You can specify up to 30 namespace IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResponseType",
-      "description": "The type of the response data. Valid values:\n\n*   **detail**: detailed data\n*   **total**: summary data\n\nDefault value: **detail**.",
+      "description": "The type of data to return in the response. Valid values:\n\n- **detail**: detailed data\n\n- **total**: summary data\n\nThe default value is **detail**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SplitBy",
-      "description": "The key that is used to group data. Valid values: **type** and **namespace**.\n\n*   **type**: Data is grouped by time. The data in the last 5 minutes is returned.\n*   **namespace**: Data is grouped by namespace and is not padded with zeros.\n*   Default value: **type**.\n\nIf **ResponseType** is set to **total**, data to return is not grouped by **namespace** but by **type**.",
+      "description": "The key to group data by. Valid values:\n\n- **type**: Data is grouped by time and returned at a 5-minute granularity.\n\n- **namespace**: Data is grouped by namespace. Data points with a value of 0 are not returned.\n\n- If empty, the default is **type**.\n\nIf you leave this parameter empty, the default value is **type**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nThe minimum data granularity is 1 hour. If you do not specify this parameter, the data in the last seven days is returned.",
+      "description": "The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nThe minimum time granularity is 1 hour. If you do not specify this parameter, data from the last 7 days is queried by default.",
       "position": "Query",
       "type": "String",
       "required": false

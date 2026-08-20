@@ -6,15 +6,22 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AuthModel",
+      "description": "The authentication mode. Default value: RAM authentication mode.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n*   true: enables auto-renewal.\n*   false: disables auto-renewal. If you select this value, you must manually renew the instance.",
+      "description": "The renewal method. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenewPeriod",
-      "description": "The auto-renewal period. The unit of the auto-renewal period is specified by RenewalDurationUnit. Default value: Month.\n\n>  This parameter takes effect only if you set AutoRenew to true. Default value: 1.",
+      "description": "The auto-renewal epoch. The unit is specified by the RenewalDurationUnit value. Default unit: month.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -28,105 +35,112 @@
     },
     {
       "name": "Edition",
-      "description": "",
+      "description": "The deployment architecture of the serverless instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EncryptedInstance",
-      "description": "Specifies whether to enable storage encryption for the instance. This parameter is available only for exclusive instances.",
+      "description": "This feature is available only for dedicated instances. Specifies whether to enable data storage encryption for the instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceName",
-      "description": "The name of the instance. We recommend that you specify a name that does not exceed 64 characters in length.",
+      "description": "The instance name. The name can be up to 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance edition. Valid values if you create a subscription instance:\n\n*   professional: Professional Edition.\n*   enterprise: Enterprise Edition\n*   vip: Enterprise Platinum Edition\n\nIf you create a serverless instance, you do not need to specify this parameter.",
+      "description": "The instance type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KmsKeyId",
-      "description": "The ID of the Key Management Service (KMS)-managed key used for storage encryption. This parameter is available only for exclusive instances and required only if you set EncryptedInstance to true. The key must meet the following conditions:\n\n*   The key cannot be a service key.\n*   The key must be in the Enabled state.\n*   The key must be a symmetric key.\n*   The key must be used for encryption and decryption.\n*   After the key is expired or deleted, you cannot read or write data and exceptions can occur in the ApsaraMQ for RabbitMQ instance.",
+      "description": "This feature is available only for dedicated instances. This parameter is required when EncryptedInstance is set to true. The ID of the KMS key used for data encryption at rest. The key must meet the following requirements:",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ListenerMode",
+      "description": "Specifies whether to enable only the TLS-encrypted port for the instance. This parameter is supported only for dedicated reserved + elastic and Platinum instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxConnections",
-      "description": "The maximum number of connections that can be established to the instance.\n\nConfigure this parameter based on the values provided on the [ApsaraMQ for RocketMQ buy page](https://common-buy.aliyun.com/?commodityCode=ons_onsproxy_pre).",
+      "description": "The maximum number of connections.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MaxEipTps",
-      "description": "The maximum number of Internet-based TPS on the instance.\n\nConfigure this parameter based on the values provided on the [ApsaraMQ for RocketMQ buy page](https://common-buy.aliyun.com/?commodityCode=ons_onsproxy_pre).",
+      "description": "The peak public network TPS. Unit: TPS.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "MaxPrivateTps",
-      "description": "The maximum number of virtual private cloud (VPC)-based transactions per second (TPS) on the instance.\n\nConfigure this parameter based on the values provided on the [ApsaraMQ for RocketMQ buy page](https://common-buy.aliyun.com/?commodityCode=ons_onsproxy_pre).",
+      "description": "The private network TPS. Unit: transactions per second.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PaymentType",
-      "description": "The billing method of the instance. Valid values:\n\n*   Subscription: subscription instance\n*   PayAsYouGo: serverless instance",
+      "description": "The payment type. Valid values:",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Period",
-      "description": "The subscription period. The unit of the subscription period is specified by periodCycle.\n\n>  This parameter takes effect only if you set PaymentType to Subscription. Default value: 1.",
+      "description": "The subscription period. Unit: periodCycle.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodCycle",
-      "description": "The unit of the subscription period. Valid values:\n\n*   Month\n*   Year\n\nThis parameter is valid only if you set PaymentType to Subscription. Default value: Month.",
+      "description": "The unit of the subscription period. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProvisionedCapacity",
-      "description": "",
+      "description": "The provisioned TPS capacity for reserved + elastic instances.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "QueueCapacity",
-      "description": "The number of queues on the instance.\n\nConfigure this parameter based on the values provided on the [ApsaraMQ for RocketMQ buy page](https://common-buy.aliyun.com/?commodityCode=ons_onsproxy_pre).",
+      "description": "The number of queues. Unit: count.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RenewStatus",
-      "description": "The renewal status. This parameter is the same as AutoRenew. You can configure one of these parameters. Valid value:\n\n*   AutoRenewal\n\n>  If you configure both this parameter and AutoRenew, the value of this parameter is used.",
+      "description": "The renewal status. This parameter is equivalent to autoRenew. You only need to configure one of them. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RenewalDurationUnit",
-      "description": "The unit of the auto-renewal period. Valid values:\n\n*   Month\n*   Year",
+      "description": "The unit of the auto-renewal epoch. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
@@ -139,48 +153,64 @@
       "required": false
     },
     {
+      "name": "SecurityGroupId",
+      "description": "The security group ID used to create a PrivateLink endpoint.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
       "name": "ServerlessChargeType",
-      "description": "The billing method of the serverless instance. Valid value:\n\n*   onDemand: You are charged based on your actual usage.",
+      "description": "The billing type of the serverless instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "ServerlessSwitch",
+      "description": "The elastic switch.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "StorageSize",
-      "description": "The storage capacity. Unit: GB. Valid values:\n\n*   Professional Edition and Enterprise Edition instances: Set the value to 0.\n\n>  The value 0 specifies that storage space is available for Professional Edition and Enterprise Edition instances, but no storage fees are generated.\n\n*   Enterprise Platinum Edition instances: Set the value to m × 100, where m is an integer that ranges from 7 to 28.",
+      "description": "The message storage space. Unit: GB. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SupportEip",
-      "description": "Specifies whether elastic IP addresses (EIPs) are supported. Valid values:\n\n*   True\n*   False",
+      "description": "Specifies whether public network access is supported. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SupportTracing",
-      "description": "Specifies whether to enable the message trace feature. Valid values:\n\n*   true\n*   false\n\n> \n\n*   Enterprise Platinum Edition instances allow you to retain message traces for 15 days free of charge. If you create an Enterprise Platinum Edition instance, you can set this parameter only to true and TracingStorageTime only to 15.\n\n*   For instances of other editions, you can set this parameter to true or false.",
+      "description": "Specifies whether to enable the message tracing feature. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "",
+      "description": "The resource tags.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The resource tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The resource tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -189,10 +219,24 @@
     },
     {
       "name": "TracingStorageTime",
-      "description": "The retention period of messages. Unit: days. Valid values:\n\n*   3\n*   7\n*   15\n\nThis parameter is valid only if you set SupportTracing to true.",
+      "description": "The retention period for message traces. Unit: days. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
+    },
+    {
+      "name": "VpcId",
+      "description": "The VPC ID used to create a PrivateLink endpoint.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "VswitchIds",
+      "description": "The vSwitch IDs used to create a PrivateLink endpoint when creating an instance.",
+      "position": "Query",
+      "type": "Json",
+      "required": true
     }
   ]
 }

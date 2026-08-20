@@ -7,110 +7,112 @@
   "parameters": [
     {
       "name": "CenId",
-      "description": "The ID of the Cloud Enterprise Network (CEN) instance.",
+      "description": "The Cloud Enterprise Network (CEN) instance ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.\n\n>  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The ClientToken value can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the RequestId value as the ClientToken value. The RequestId value may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the flow log.\n\nThe description is optional. If you enter a description, it must be 1 to 256 characters in length, and cannot start with http:// or https://.",
+      "description": "The description of the flow log.\n\nThe description can be empty or 1 to 256 characters in length, and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FlowLogId",
-      "description": "The ID of the flow log.",
+      "description": "The flow log ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FlowLogName",
-      "description": "The name of the flow log.\n\nThe name is optional. If you enter a name, it must be 1 to 128 characters in length, and cannot start with http:// or https://.",
+      "description": "The name of the flow log.\n\nThe name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FlowLogVersion",
-      "description": "The flow log version.\n\nFlow logs are automatically created in the latest version, which is **3**.",
+      "description": "The version of the flow log.\n\nWhen a flow log is created, the latest version supported by the system is automatically used. The current version is **3**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Interval",
-      "description": "The time window for collecting log data. Unit: seconds Valid values: **60** or **600** Default value: **600**.",
+      "description": "The capture window duration of the flow log. Unit: seconds. Valid values: **60** or **600**. Default value: **600**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LogStoreName",
-      "description": "The name of the Logstore where the flow log is stored.\n\nThe name must be 3 to 63 characters in length, and can contain lowercase letters, digits, underscores (\\_), and hyphens (-). It must start or end with a lowercase letter or a digit.",
+      "description": "The name of the Logstore that stores the captured traffic.\n\nThe Logstore name must be 3 to 63 characters in length, and must start and end with a lowercase letter or digit. It can contain only lowercase letters, digits, hyphens (-), and underscores (_).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number of the page to return. Default value: **1**.",
+      "description": "The page number. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Minimum value: **1**. Default value: **20**.",
+      "description": "The number of entries per page for paging queries. Minimum value: **1**. Default value: **20**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "The name of the project where the flow log is stored.\n\nThe name must be 3 to 63 characters in length, and can contain lowercase letters, digits, and hyphens (-). It must start or end with a lowercase letter or a digit.",
+      "description": "The name of the project that stores the captured traffic.\n\nThe project name must be 3 to 63 characters in length, and must start and end with a lowercase letter or digit. It can contain only lowercase letters, digits, and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the flow log is deployed.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.",
+      "description": "The region ID of the flow log.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the flow log. Valid values:\n\n*   **Active**: The flow log is enabled.\n*   **Inactive**: The flow log is disabled.",
+      "description": "The status of the flow log. Valid values:\n\n- **Active**: activated.\n\n- **Inactive**: not activated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The information about the tags.\n\nYou can specify at most 20 tags in each call.",
+      "description": "The tag information.\n\nYou can specify up to 20 tags at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource.\n\nThe tag key cannot be an empty string. The tag key can be up to 64 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys at a time.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource.\n\nThe tag value can be an empty string or up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.\n\nEach tag key corresponds to one tag value. You can specify up to 20 tag values at a time.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -119,14 +121,14 @@
     },
     {
       "name": "TransitRouterAttachmentId",
-      "description": "The ID of the network instance connection.",
+      "description": "The network instance connection ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterId",
-      "description": "The ID of the transit router.",
+      "description": "The transit router instance ID.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,30 @@
+{
+  "name": "ModifySlsDispatchConfig",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "DetailConfig",
+      "description": "要修改的详细的配置。\n<details>\n<summary>版本1的格式</summary>\n{\"global\":{\"slsRegionId\":\"cn-hangzhou\",\"logTime\":180,\"logStorage\":1000}}\n</details>\n\n<details>\n<summary>版本2的格式</summary>\n{\"cn\":{\"slsRegionId\":\"cn-hangzhou\",\"logTime\":180,\"logStorage\":3000},\"intl\":{\"slsRegionId\":\"ap-southeast-1\",\"logTime\":180,\"logStorage\":2000}}\n</details>\n各字段含义如下：\n\n- slsRegionId：用户投递的目标RegionId。\n- logTime：日志存储时长，单位（天）。\n- logStorage：日志存储容量，单位（GB），传入的容量之和不应大于用户购买的总容量。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "LogVersion",
+      "description": "日志版本。1:代表有1个logStore，2:代表有两个logStore。\n\n\n><notice>如果ModifyType=version，则LogVersion要填写目标版本，如果ModifyType=config，则LogVersion要填写用户当前版本。></notice>",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "ModifyType",
+      "description": "修改类型。可选值：\n\n- version：版本改变。比如由1（投递目标为1个logstore）变为2(投递目标为2个logstore)。\n\n- config：配置改变。比如修改日志投递区域，日志存储时长等。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

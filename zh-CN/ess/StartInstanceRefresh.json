@@ -1,5 +1,6 @@
 {
   "name": "StartInstanceRefresh",
+  "deprecated": false,
   "protocol": "HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -20,6 +21,7 @@
       "sub_parameters": [
         {
           "name": "Percentage",
+          "description": "伸缩组中新实例占总实例的占比，到达该占比时任务自动暂停。取值范围：1 ～100 （%）。\n\n> 需要从小到大设置，且最后一个进度百分比需要为100。",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -73,6 +75,13 @@
       "description": "是否跳过和期望配置匹配的实例。\n\n> 系统会根据期望伸缩配置的 ID 界定是否匹配，不会对比具体的配置项。\n\n取值范围：\n\n- true：跳过。当启动实例刷新任务时，系统会检查每个实例的配置。对于已经使用期望配置创建的实例，不执行刷新操作。\n- false：不跳过。在启动实例刷新任务后，刷新任务启动时所有伸缩组中的实例。\n\n默认值：true。",
       "position": "Query",
       "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Strategy",
+      "description": "实例刷新任务的运行策略，取值范围：\n\n* Rolling：实例刷新任务通过创建新实例，释放旧实例的方式进行实例刷新。\n* ReplaceSystemDisk：在原有实例基础上更新系统盘，通过指定 DesiredConfiguration.image 更新实例系统盘。\n\n默认值：Rolling。",
+      "position": "Query",
+      "type": "String",
       "required": false
     }
   ]

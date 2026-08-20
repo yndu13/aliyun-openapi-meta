@@ -7,70 +7,63 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable the automatic payment feature for the new instance. Valid values:\n\n1.  **true**: enables the feature. You must make sure that your account balance is sufficient.\n2.  **false**: disables the feature. An unpaid order is generated.\n\n>  Default value: true. If your account balance is insufficient, you can set the AutoPay parameter to false to generate an unpaid order. Then, you can log on to the ApsaraDB RDS console to complete the payment.",
+      "description": "Specifies whether to enable the Buffer Pool Extension (BPE) feature for a general-purpose ESSD. Valid values:\n\n- **1**: enables the feature.\n\n- **0**: does not enable the feature.\n\n> For more information about BPE, see [Buffer Pool Extension](~~2527067~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "BackupId",
-      "description": "The backup set ID.\n\nYou can call the DescribeBackups operation to query the backup set ID.\n\n>  You must specify at least one of the **BackupId** or **RestoreTime** parameters.",
+      "description": "The ID of the backup set.\n\nYou can call the DescribeBackups operation to query the backup list.\n\n> You must specify at least one of **BackupId** and **RestoreTime**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupType",
-      "description": "The type of backup that is used to restore the data of the original instance. Valid values:\n\n*   **FullBackup**\n*   **IncrementalBackup**",
-      "position": "Query",
-      "type": "String",
-      "required": false
-    },
-    {
-      "name": "BpeEnabled",
-      "description": "A reserved parameter. You do not need to specify this parameter.",
+      "description": "The backup type. Valid values:\n\n- **FullBackup**: full backup.\n\n- **IncrementalBackup**: incremental backup.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BurstingEnabled",
-      "description": "An invalid parameter. You do not need to specify this parameter.",
+      "description": "This parameter is discontinued. You no longer need to specify this parameter.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Category",
-      "description": "The RDS edition of the instance. Valid values:\n\n*   **Basic**: RDS Basic Edition.\n*   **HighAvailability**: RDS High-availability Edition.\n*   **AlwaysOn**: RDS Cluster Edition for ApsaraDB RDS for SQL Server.\n*   **cluster**: RDS Cluster Edition for ApsaraDB RDS for MySQL.\n*   **Finance**: RDS Enterprise Edition. This edition is available only on the China site (aliyun.com).\n\n**Serverless instances**\n\n*   **serverless_basic**: RDS Basic Edition. This edition is available only for serverless instances that run MySQL and PostgreSQL.\n*   **serverless_standard**: RDS High-availability Edition for ApsaraDB RDS for MySQL\n*   **serverless_ha**: RDS High-availability Edition for ApsaraDB RDS for SQL Server\n\n>  You do not need to configure this parameter. The value of this parameter is the same as that of the original instance.",
+      "description": "The edition of the instance. Valid values:\n\n- **Basic**\n\n- **HighAvailability**\n\n- **AlwaysOn**: Cluster Edition for SQL Server.\n\n- **cluster**: Cluster Edition for MySQL.\n\n- **Finance**: Enterprise Edition. This edition is available only on the China site (aliyun.com).\n\n**Serverless instances**\n\n- **serverless\\_basic**: Serverless Basic Edition. This edition is available only for instances that run MySQL and PostgreSQL.\n\n- **serverless\\_standard**: Serverless Standard Edition for MySQL.\n\n- **serverless\\_ha**: Serverless High-availability Edition for SQL Server.\n\n> You do not need to specify this parameter. The new instance is of the same edition as the source instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client-generated token that ensures the idempotence of the request. The token must be unique across requests and can be up to 64 ASCII characters long.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomExtraInfo",
-      "description": "",
+      "description": "Specifies whether to enable the I/O burst feature for a general-purpose ESSD.\n\n- **true**: enables the feature.\n\n- **false**: does not enable the feature.\n\n> For more information about the I/O burst feature, see [What is a general-purpose ESSD?](~~2340501~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceClass",
-      "description": "The instance type of the new instance. For information, see [Primary ApsaraDB RDS instance types](~~26312~~).\n\n> By default, the new instance uses the same instance type as the original primary instance.",
+      "description": "The instance type of the new instance. For more information, see [Instance types](~~26312~~).\n\n> If you do not specify this parameter, the new instance uses the instance type of the source instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceDescription",
-      "description": "The instance name. The value must be 2 to 255 characters in length The value can contain letters, digits, underscores (\\_), and hyphens (-), and must start with a letter.\n\n>  The value cannot start with http:// or https://.",
+      "description": "The description of the instance. The description must be 2 to 255 characters in length. It must start with a letter or a Chinese character, and can contain letters, Chinese characters, digits, underscores (\\_), and hyphens (-).\n\n> The description cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -84,147 +77,140 @@
     },
     {
       "name": "DBInstanceStorage",
-      "description": "The storage capacity of the new instance. Unit: GB. You can increase the storage capacity in increments of 5 GB. For more information, see [Primary ApsaraDB RDS instance types](~~26312~~).\n\n> By default, the new instance has the same storage capacity as the original primary instance.",
+      "description": "The storage capacity of the new instance. Unit: GB. The value must be a multiple of 5. For more information, see [Instance types](~~26312~~).\n\n> If you do not specify this parameter, the new instance uses the storage capacity of the source instance.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DBInstanceStorageType",
-      "description": "The storage type of the new instance. Valid values:\n\n*   **general_essd** (recommend): general Enterprise SSD (ESSD)\n*   **local_ssd**: local SSD\n*   **cloud_ssd**: standard SSD\n*   **cloud_essd**: performance level 1 (PL1) ESSD\n*   **cloud_essd2**: PL2 ESSD\n*   **cloud_essd3**: PL3 ESSD\n\n>  Serverless instances support only PL1 ESSDs and general ESSDs.",
+      "description": "The storage type of the instance. Valid values:\n\n- **general\\_essd**: general-purpose enhanced SSD (ESSD). Recommended.\n\n- **local\\_ssd**: local SSD.\n\n- **cloud\\_ssd**: standard SSD.\n\n- **cloud\\_essd**: PL1 ESSD.\n\n- **cloud\\_essd2**: PL2 ESSD.\n\n- **cloud\\_essd3**: PL3 ESSD.\n\n> Serverless instances support only PL1 ESSDs and general-purpose ESSDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DbNames",
-      "description": "The name of the database. If you specify more than one database, the value is in the following format: `Original database name 1,Original database name 2`.",
+      "description": "The names of the databases that you want to clone. Format: `Source database 1,Source database 2`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DedicatedHostGroupId",
-      "description": "The ID of the dedicated cluster.",
+      "description": "The dedicated cluster ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeletionProtection",
-      "description": "Specifies whether to enable the release protection feature for the new instance. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to enable the release protection feature. Valid values:\n\n- **true**: enables the feature.\n\n- **false** (default): disables the feature.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceNetworkType",
-      "description": "The network type of the new instance. Valid values:\n\n*   **VPC**\n*   **Classic**\n\n> By default, the new instance has the same network type as the original primary instance.",
+      "description": "The network type of the instance. Valid values:\n\n- **VPC**\n\n- **Classic**\n\n> By default, the network type of the new instance is the same as that of the source instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IoAccelerationEnabled",
-      "description": "A reserved parameter.",
+      "description": "A parameter that is related to serverless instances. Specify this parameter only when you clone data to a serverless instance.\n\n> This parameter is supported only on the China site (aliyun.com).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "The billing method of the instance. Valid values:\n\n*   **Postpaid**: pay-as-you-go.\n*   **Prepaid**: subscription.\n*   **Serverless**: serverless. This value is not supported for instances that run MariaDB. For more information, see [Overview of serverless ApsaraDB RDS for MySQL instances](~~411291~~), [Overview of serverless ApsaraDB RDS for SQL Server instances](~~604344~~), and [Overview of serverless ApsaraDB RDS for PostgreSQL instances](~~607742~~).",
+      "description": "The billing method of the instance. Valid values:\n\n- **Postpaid**: pay-as-you-go.\n\n- **Prepaid**: subscription.\n\n- **Serverless**: This billing method is not supported for MariaDB instances. For more information, see [Overview of serverless ApsaraDB RDS for MySQL instances](~~411291~~), [Overview of serverless ApsaraDB RDS for SQL Server instances](~~604344~~), and [Overview of serverless ApsaraDB RDS for PostgreSQL instances](~~607742~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Period",
-      "description": "The unit that is used to calculate the billing cycle of the new instance. This parameter takes effect only when you select the subscription billing method for the new instance. Valid values:\n\n*   **Year**\n*   **Month**\n\n>  If you set the PayType parameter to **Prepaid**, you must specify this parameter.",
+      "description": "The unit of the subscription duration. Valid values:\n\n- **Year**\n\n- **Month**\n\n> If the **PayType** parameter is set to **Prepaid**, you must specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateIpAddress",
-      "description": "The internal IP address of the new instance, which must be within the CIDR block supported by the specified vSwitch. The system automatically assigns an internal IP address based on the values of the **VPCId** and **VSwitchId** parameters.",
+      "description": "The internal IP address of the new instance. The IP address must be within the CIDR block of the specified vSwitch. The system automatically assigns an IP address based on the **VPCId** and **VSwitchId** parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID. You can call the DescribeRegions operation to query the most recent region list.",
+      "description": "The region ID. You can call the DescribeRegions operation to query the latest regions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RestoreTable",
-      "description": "Specifies whether to restore only the databases and tables that you specify. The value **1** specifies to restore only the specified databases and tables. If you do not want to restore only the specified databases or tables, you do not need to specify this parameter.",
+      "description": "Specifies whether to restore data to specific databases and tables. Set this parameter to **1**. If you do not want to restore data to specific databases or tables, do not specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RestoreTime",
-      "description": "The point in time to which you want to restore data. The point in time must fall within the specified backup retention period. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.\n\n> You must specify at least one of the **BackupId** and **RestoreTime** parameters.",
-      "position": "Query",
-      "type": "String",
-      "required": false
-    },
-    {
-      "name": "ServerlessConfig",
-      "description": "The specifications for the serverless instance. You must specify this parameter only when you restore data to a new serverless instance.\n\n>  This parameter is available only on the China site (aliyun.com).",
+      "description": "The point in time to which you want to restore data. The point in time must be within the backup retention period. Specify the time in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.\n\n> You must specify at least one of **BackupId** and **RestoreTime**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TableMeta",
-      "description": "The information about the database and table that you want to restore. The value is in the following format: `[{\"type\":\"db\",\"name\":\"Name of Database 1\",\"newname\":\"New name of Database 1\",\"tables\":[{\"type\":\"table\",\"name\":\"Name of Table 1 in Database 1\",\"newname\":\"New name of Table 1\"},{\"type\":\"table\",\"name\":\"Name of Table 2 in Database 1\",\"newname\":\"New name of Table 2\"}]},{\"type\":\"db\",\"name\":\"Name of Database 2\",\"newname\":\"New name of Database 2\",\"tables\":[{\"type\":\"table\",\"name\":\"Name of Table 1 in Database 2\",\"newname\":\"New name of Table 1\"},{\"type\":\"table\",\"name\":\"Name of Table 2 in Database 2\",\"newname\":\"New name of Table 2\"}]}]`",
+      "description": "The databases and tables that you want to restore. This parameter is required if you set the **RestoreTable** parameter to **1**. The value is a JSON string in the following format:\n`[{\"type\":\"db\",\"name\":\"Name of database 1\",\"newname\":\"Name of new database 1\",\"tables\":[{\"type\":\"table\",\"name\":\"Name of table 1 in database 1\",\"newname\":\"Name of new table 1\"},{\"type\":\"table\",\"name\":\"Name of table 2 in database 1\",\"newname\":\"Name of new table 2\"}]},{\"type\":\"db\",\"name\":\"Name of database 2\",\"newname\":\"Name of new database 2\",\"tables\":[{\"type\":\"table\",\"name\":\"Name of table 1 in database 2\",\"newname\":\"Name of new table 1\"},{\"type\":\"table\",\"name\":\"Name of table 2 in database 2\",\"newname\":\"Name of new table 2\"}]}]`",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UsedTime",
-      "description": "The subscription duration of the new instance. Valid values:\n\n*   If you set the **Period** parameter to **Year**, the value of the UsedTime parameter ranges from **1 to 3**.\n*   If you set the **Period** parameter to **Month**, the value of the UsedTime parameter ranges from **1 to 9**.\n\n> If you set the PayType parameter to **Prepaid**, you must also specify this parameter.",
+      "description": "The subscription duration of the instance. Valid values:\n\n- If you set the **Period** parameter to **Year**, the value of the UsedTime parameter is **1**, **2**, or **3**.\n\n- If you set the **Period** parameter to **Month**, the value of the UsedTime parameter ranges from **1** to **9**.\n\n> If the **PayType** parameter is set to **Prepaid**, you must specify this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "VPCId",
-      "description": "The ID of the virtual private cloud (VPC).\n\n>  Make sure that the VPC belongs to the required region.",
+      "description": "The ID of the virtual private cloud (VPC).\n\n> Make sure that the VPC belongs to the required region.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch. The vSwitch must belong to the zone that is specified by **ZoneId**.\n\n*   If you set **InstanceNetworkType** to **VPC**, you must also specify this parameter.\n*   If you specify the **ZoneSlaveId1** parameter, you must specify the IDs of two vSwitches for this parameter and separate the IDs with a comma (,).",
+      "description": "The ID of the vSwitch. The vSwitch must be in the same availability zone as specified by the **ZoneId** parameter.\n\n- The **InstanceNetworkType** parameter must be set to **VPC**.\n\n- If you specify **ZoneSlaveId1**, which specifies the ID of a secondary availability zone, you must specify two vSwitch IDs that are separated by a comma (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the primary instance. You can call the DescribeRegions operation to query the zone ID.\n\n>  Set this value to the zone ID of the original instance.",
+      "description": "The ID of the primary availability zone. You can call the DescribeRegions operation to query the latest availability zones.\n\n> Defaults to the availability zone of the source instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneIdSlave1",
-      "description": "The zone ID of the secondary instance. If you set the ZoneIdSlave1 parameter and the **ZoneId** parameter to the same value, the single-zone deployment method is used. If you set the ZoneIdSlave1 parameter and the **ZoneId** parameter to different values, the multi-zone deployment method is used.",
+      "description": "The ID of the secondary availability zone. If the value of this parameter is the same as the value of the **ZoneId** parameter, the instance is deployed in a single availability zone. If the value is different, the instance is deployed in multiple availability zones.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneIdSlave2",
-      "description": "The zone ID of the logger instance. If you set the ZoneIdSlave2 parameter to the same value as the **ZoneId** parameter, the single-zone deployment method is used. If you set the ZoneIdSlave2 parameter to a different value from the **ZoneId** parameter, the multi-zone deployment method is used.",
+      "description": "<props=\"intl\">\n\nThe ID of the logger availability zone. If the value of this parameter is the same as the value of the **ZoneId** parameter, the instance is deployed in a single availability zone. If the value is different, the instance is deployed in multiple availability zones.\n\n</props>\n\n<props=\"china\">\n\nThe ID of the secondary or logger availability zone. If the value of this parameter is the same as the value of the **ZoneId** parameter, the instance is deployed in a single availability zone. If the value is different, the instance is deployed in multiple availability zones.\n\n</props>",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "DataPolicy",
-      "description": "The data migration policy. Valid values:\n\n*   abandon: does not migrate data. This is the default value.\n*   force_transfer: forcibly migrates data.\n*   try_transfer: Migrate data as much as possible.",
+      "description": "The data migration policy. Valid values:\n\n- `abandon`: Does not migrate data. This is the default value.\n\n- `force_transfer`: Forces data migration.\n\n- `try_transfer`: Attempts to migrate data.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,23 +21,29 @@
     },
     {
       "name": "OpsType",
-      "description": "The type of the O\\&M task. Valid values:\n\n*   immediate\n*   scheduled",
+      "description": "The type of the O\\&M task. Valid values:\n\n- `immediate`: Executes the task immediately.\n\n- `scheduled`: Executes the task at the specified time.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Password",
-      "description": "The password of the instance. This parameter is optional. If you do not specify this parameter, a random password is used.\n\nThe password must be 8 to 30 characters in length. The password must contain uppercase letters, lowercase letters, digits, and special characters.\n\nNote that you cannot enter a password for scheduled execution.",
+      "description": "The instance password. This parameter is optional. If you do not specify a password, the system generates a random one.\n\nThe password must be 8 to 30 characters long and contain uppercase letters, lowercase letters, and digits.\n\nNote: This parameter is not supported for scheduled execution.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlanTime",
-      "description": "The execution time of the reservation. The timestamp is measured in milliseconds. If the OpsType parameter is set to scheduled, this parameter is required.",
+      "description": "The scheduled execution time. This must be a Unix timestamp in milliseconds. This parameter is required when `OpsType` is set to `scheduled`.",
       "position": "Query",
       "type": "Long",
+      "required": false
+    },
+    {
+      "name": "PlanUtcTime",
+      "position": "Query",
+      "type": "String",
       "required": false
     },
     {

@@ -1,19 +1,20 @@
 {
   "name": "DescribeVpnConnectionLogs",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "From",
-      "description": "The start time of the flow log. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.\n\n>  If you specify **From**, you must specify **To** or **MinutePeriod**.",
+      "description": "The start time of the log. Only UNIX timestamps in seconds are supported. For example, 1671003744 represents 2022-12-14 15:42:24.\n\n> If you specify **From**, you must also specify **To** or **MinutePeriod**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "MinutePeriod",
-      "description": "The interval at which log data is collected. Valid values: **1** to **10**. Unit: minutes.\n\n>  If you do not specify **From** and **To**, you must specify **MinutePeriod**.",
+      "description": "The log period. Valid values: **1** to **10**. Unit: minutes.\n\n> If you do not specify **From** or **To**, you must specify **MinutePeriod**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -27,28 +28,28 @@
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Valid values: **1** to **50**. Default value: **10**.",
+      "description": "The number of entries per page for paging. Valid values: **1** to **50**. Default value: **10**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the IPsec-VPN connection.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the IPsec-VPN connection.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query region IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "To",
-      "description": "The end time of the flow log. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.\n\n>  If you specify **To**, you must specify **From** or **MinutePeriod**.",
+      "description": "The end time of the log. Only UNIX timestamps in seconds are supported. For example, 1671004344 represents 2022-12-14 15:52:24.\n\n> If you specify **To**, you must also specify **From** or **MinutePeriod**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TunnelId",
-      "description": "The ID of the IPsec-VPN connection.\n\nThis parameter is available only for a dual-tunnel IPsec-VPN connection.",
+      "description": "The tunnel ID of the IPsec-VPN connection.\n\nThis parameter is supported only for IPsec-VPN connections in dual-tunnel mode.",
       "position": "Query",
       "type": "String",
       "required": false

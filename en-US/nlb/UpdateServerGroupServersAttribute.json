@@ -7,71 +7,77 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token used to ensure the idempotence of the request.\n\nYou can use the client to generate this value. Ensure that the value is unique among all requests. Only ASCII characters are allowed.\n\n>  If you do not specify this parameter, the value of **RequestId** is used.**** **RequestId** of each request is different.",
+      "description": "The client token used to ensure the idempotence of the request.\n\nYou can use the client to generate this value. Ensure that the value is unique among all requests. Only ASCII characters are allowed.\n\n>  If you do not specify this parameter, the value of **RequestId** is used.**** **RequestId** of each request is different.\n",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run, without sending the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and sends the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run, without sending the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and sends the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.\n",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the NLB instance.\n\nYou can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.",
+      "description": "The region ID of the NLB instance.\n\nYou can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.\n",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerGroupId",
-      "description": "The server group ID.",
+      "description": "The server group ID.\n",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Servers",
-      "description": "The backend servers. You can specify at most 200 backend servers in each call.",
+      "description": "The backend servers. You can specify at most 200 backend servers in each call.\n",
       "position": "Body",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Description",
+          "description": "The description of the backend server.\n\nThe description must be 2 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at sings (@), underscores (\\_), and hyphens (-).\n",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Port",
+          "description": "The port used by the backend server. Valid values: **1** to **65535**.\n\n>  This parameter cannot be modified.\n",
           "position": "FormData",
           "type": "Integer",
           "required": true
         },
         {
           "name": "ServerId",
+          "description": "The backend server ID.\n\n*   If the server group is of the **Instance** type, set this parameter to the IDs of servers of the **Ecs**, **Eni**, or **Eci** type.\n*   If the server group is of the **Ip** type, set this parameter to IP addresses.\n",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "ServerIp",
+          "description": "The IP addresses of servers. If the server group type is **Ip**, set the ServerId parameter to IP addresses.\n",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ServerType",
+          "description": "The type of the backend server. Valid values:\n\n*   **Ecs**: Elastic Compute Service (ECS) instance\n*   **Eni**: elastic network interface (ENI)\n*   **Eci**: elastic container instance\n*   **Ip**: IP address\n",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Weight",
+          "description": "The weight of the backend server. Valid values: **0** to **100**. Default value: **100**. If the value is set to **0**, no requests are forwarded to the server.\n",
           "position": "FormData",
           "type": "Integer",
           "required": false

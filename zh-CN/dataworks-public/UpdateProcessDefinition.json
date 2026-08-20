@@ -1,0 +1,134 @@
+{
+  "name": "UpdateProcessDefinition",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "ApprovalNodes",
+      "description": "审批节点列表。注意：系统策略不生效。",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "AccountType",
+          "description": "节点审批人类型：\n- DataWorksProjectRole 空间角色\n- DataWorksProjectMember 空间成员\n- TableAdministrator 表负责人\n- TableOrProjectAdministrator 表或空间管理员\n- AliyunResourceOwner 阿里云账号\n- MaxComputeRole MC管理员\n- DLFAdmin DlfLegacy管理员\n- DLFNextAdmin DLFNext管理员\n- TenantRole 租户角色\n- EmrAdministrator Emr管理员\n- LindormAdministrator Lindorm管理员\n- AliyunRamUser RAM子账号\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Assignees",
+          "description": "当AccountType为不同类型，对应不同语义：\n- DataWorksProjectMember声明空间成员UserId\n- DataWorksProjectRole声明空间角色code\n- MaxComputeRole声明MC的角色\n- TenantRole声明租户角色code\n- AliyunRamUser声明RAM userId\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ExtensionProperties",
+          "description": "当 `AccountType ` 为不同类型，需要提供不同额外声明：\n\n- `DataWorksProjectMember`: key 为 projectId, value 为空间成员 UserId，多个使用逗号分割\n- `MaxComputeRole`: key 为 MaxCompute 的 project, value 为 MC 中 role name，多个使用逗号分割",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "description": "节点名称\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "ClientToken",
+      "description": "幂等参数。用于避免多次调用导致操作重复。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Description",
+      "description": "流程定义描述\n",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Id",
+      "description": "流程定义ID\n",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Name",
+      "description": "流程定义名称\n",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "NotificationServices",
+      "description": "通知服务声明",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Channel",
+          "description": "通知渠道，枚举\n\n- Mail\n- Sms\n- DingRobot\n- Weixin",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Extension",
+          "description": "扩展信息，JSON 格式，如 {\"atAll\":\"true\"} 声明是否@所有人",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Receiver",
+          "description": "Channel 为DingRobot/Weixin时需指定 WebhookUrl\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "RuleConditions",
+      "description": "条件规则列表。注意：系统策略不生效。",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Expression",
+          "description": "条件表达式((#type=='typeValue')).如 ((#odpsProject=='PX_BEIJING_TEST'))",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Scope",
+          "description": "规则生效阶段：\n- **Deployment** 用于判定\"提交申请时是否匹配该审批策略\n- **Running** 用于审批流程执行判定是否免审批【仅支持MaxCompute类型】\n",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "description": "条件类型，枚举：\n\n- `odpsProject`, \n- `hologresInstanceId`\n- `sensibleLevel`, \n- `tableGuid`, \n- `projectId`",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

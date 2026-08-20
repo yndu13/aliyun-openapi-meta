@@ -7,54 +7,56 @@
   "parameters": [
     {
       "name": "AccountDescription",
-      "description": "The description of the database account.\n\n*   The description cannot start with `http://` or `https://`.\n*   The description can be up to 256 characters in length.",
+      "description": "The description of the account.\n\n- Cannot start with `http://` or `https://`.\n\n- Be up to 256 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AccountName",
-      "description": "The name of the database account.\n\n*   The name must start with a lowercase letter and end with a lowercase letter or a digit.\n*   The name can contain lowercase letters, digits, and underscores (\\_).\n*   The name must be 2 to 16 characters in length.\n*   Reserved account names such as root, admin, and opsadmin cannot be used.",
+      "description": "The name of the database account. The name must meet the following requirements:\n\n- Start with a lowercase letter and end with a lowercase letter or a digit.\n\n- Contain only lowercase letters, digits, and underscores (\\_).\n\n- Be 2 to 16 characters in length.\n\n- Cannot be a reserved name, such as root, admin, or opsadmin.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AccountPassword",
-      "description": "The password of the database account.\n\n*   The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.\n*   Special characters include `! @ # $ % ^ & * ( ) _ + - =`\n*   The password must be 8 to 32 characters in length.",
+      "description": "The password of the database account. The password must meet the following requirements:\n\n- Contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.\n\n- The special characters are `!@#$%^&*()_+-=`.\n\n- Be 8 to 32 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AccountType",
-      "description": "The type of the database account. Valid values:\n\n*   **Normal**: standard account. Up to 256 standard accounts can be created for a cluster.\n*   **Super** (default): privileged account. Only a single privileged account can be created for a cluster.\n\n>  If a cluster does not have accounts, you can specify this parameter to create a privileged account or standard account. If a cluster has a privileged account, you must set this parameter to Normal to create a standard account. Otherwise, the operation fails. After an account is created, the privileged account has permissions on all databases of the cluster. The standard account does not have permissions and must be granted permissions on specific databases by the privileged account. For more information, see GRANT.",
+      "description": "The type of the account. Valid values:\n\n- **Normal**: A standard account. A cluster can have a maximum of 256 standard accounts.\n\n- **Super** (default): A privileged account. Only one privileged account can be created for a cluster.\n\n> * If a cluster has no accounts, you can create a privileged account or a standard account. If a privileged account already exists in the cluster, you must set this parameter to Normal to create a standard account.\n>\n> * After an account is created, the privileged account has permissions on all databases in the cluster. A standard account has no permissions by default. A privileged account must be used to grant permissions on specific databases to the standard account. For more information, see [Grant permissions to a user](~~123662~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBClusterId",
-      "description": "The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.\n\n> You can call the [DescribeDBClusters](~~129857~~) operation to view cluster IDs.",
+      "description": "The ID of the Data Warehouse Edition (V3.0) cluster.\n\n> Call the [DescribeDBClusters](~~129857~~) operation to query the cluster ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of tag \\`N\\`. You can specify up to 20 tags. \\`N\\` is the serial number of the tag and must be a unique integer that starts from 1.\n\n> The tag key can be up to 64 characters in length. It cannot start with `aliyun`, `acs:`, `http://`, or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of tag \\`N\\`. \\`N\\` corresponds to the \\`N\\` in \\`Tag.N.Key\\`.\n\n> The tag value can be up to 64 characters in length. It cannot start with `aliyun`, `acs:`, `http://`, or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

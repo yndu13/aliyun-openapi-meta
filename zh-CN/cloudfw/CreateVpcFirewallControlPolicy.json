@@ -1,5 +1,6 @@
 {
   "name": "CreateVpcFirewallControlPolicy",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -13,7 +14,7 @@
     },
     {
       "name": "ApplicationName",
-      "description": "VPC边界防火墙访问控制策略支持的应用类型。取值：\n\n- **FTP**\n- **HTTP**\n- **HTTPS**\n- **MySQL**\n- **SMTP**\n- **SMTPS**\n- **RDP**\n- **VNC**\n- **SSH**\n- **Redis**\n- **MQTT**\n- **MongoDB**\n- **Memcache**\n- **SSL**\n- **ANY**（表示支持所有的应用类型）",
+      "description": "VPC边界防火墙访问控制策略支持的应用类型。取值：\n\n- **FTP**\n- **HTTP**\n- **HTTPS**\n- **MySQL**\n- **SMTP**\n- **SMTPS**\n- **RDP**\n- **VNC**\n- **SSH**\n- **Redis**\n- **MQTT**\n- **MongoDB**\n- **Memcache**\n- **SSL**\n- **ANY**（表示支持所有的应用类型）\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -34,7 +35,7 @@
     },
     {
       "name": "DestPort",
-      "description": "VPC边界防火墙访问控制策略中流量访问的目的端口。\n\n> 当**DestPortType**为`port`时，设置该参数。",
+      "description": "VPC边界防火墙访问控制策略中流量访问的目的端口。\n\n> 当**DestPortType**为`port`时，设置该参数。当 Proto 为 TCP/UDP/ICMP 时，DestPort（配合 DestPortType=port）或 DestPortGroup（配合 DestPortType=group）为条件必填，否则返回 ErrorParametersDestPort(400)。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -62,7 +63,7 @@
     },
     {
       "name": "DestinationType",
-      "description": "VPC边界防火墙访问控制策略中的目的地址类型。取值：\n\n- **net**：目的网段（CIDR）\n- **group**：目的地址簿\n- **domain**：目的域名",
+      "description": "VPC边界防火墙访问控制策略中的目的地址类型。取值：\n\n- **net**：目的网段（CIDR）\n- **group**：目的地址簿\n- **domain**：目的域名\n",
       "position": "Query",
       "type": "String",
       "required": true
@@ -125,14 +126,14 @@
     },
     {
       "name": "RepeatEndTime",
-      "description": "访问控制策略的策略有效期的重复结束时间。例如：23:30，必须为整点或半点时间，且大于重复开始时间至少半小时。\n> 当RepeatType为Permanent、None时，RepeatEndTime为空。当RepeatType为Daily、Weekly、Monthly时，RepeatEndTime必须有值，您需要设置重复结束时间。",
+      "description": "访问控制策略的策略有效期的重复结束时间。例如：23:30，必须为整点或半点时间，且大于重复开始时间至少半小时。\n> 当RepeatType为Permanent、None时，RepeatEndTime为空。当RepeatType为Daily、Weekly、Monthly时，RepeatEndTime必须有值，您需要设置重复结束时间。格式为 HH:MM（24小时制），例如 08:00",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatStartTime",
-      "description": "访问控制策略的策略有效期的重复开始时间。例如：08:00，必须为整点或半点时间，且小于重复结束时间至少半小时。\n> 当RepeatType为Permanent、None时，RepeatStartTime为空。当RepeatType为Daily、Weekly、Monthly时，RepeatStartTime必须有值，您需要设置重复开始时间。",
+      "description": "访问控制策略的策略有效期的重复开始时间。例如：08:00，必须为整点或半点时间，且小于重复结束时间至少半小时。\n> 当RepeatType为Permanent、None时，RepeatStartTime为空。当RepeatType为Daily、Weekly、Monthly时，RepeatStartTime必须有值，您需要设置重复开始时间。\n格式为 HH:MM（24小时制），例如 08:00",
       "position": "Query",
       "type": "String",
       "required": false
@@ -146,14 +147,14 @@
     },
     {
       "name": "Source",
-      "description": "VPC边界防火墙访问控制策略中的源地址。\n\n- 当SourceType为`net`时，Source为源CIDR。\n- 当SourceType为`group`时，Source为源地址簿名称。",
+      "description": "VPC边界防火墙访问控制策略中的源地址。\n\n- 当SourceType为`net`时，Source为源CIDR。\n- 当SourceType为`group`时，Source为源地址簿名称。\n",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SourceType",
-      "description": "VPC边界防火墙访问控制策略中的源地址类型。取值：\n\n- **net**：源网段（CIDR）\n\n- **group**：源地址簿",
+      "description": "VPC边界防火墙访问控制策略中的源地址类型。取值：\n\n- **net**：源网段（CIDR）\n\n- **group**：源地址簿\n",
       "position": "Query",
       "type": "String",
       "required": true

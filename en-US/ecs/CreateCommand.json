@@ -7,82 +7,84 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. **ClientToken** supports only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CommandContent",
-      "description": "The Base64-encoded content of the command. Take note of the following items:\n\n*   The value must be Base64-encoded and cannot exceed 18 KB in size.\n\n*   You can use custom parameters in the command content. To enable the custom parameter feature, you must set `EnableParameter` to true.\n\n    *   Custom parameters are defined in the `{{}}` format. Within `{{}}`, the spaces and line feeds before and after the parameter names are ignored.\n    *   You can specify up to 20 custom parameters.\n    *   A custom parameter name can contain only letters, digits, underscores (\\_), and hyphens (-). The name is case-insensitive. The ACS:: prefix cannot be used to specify non-built-in environment parameters.\n    *   Each custom parameter name can be up to 64 bytes in length.\n\n*   You can specify built-in environment parameters as custom parameters in a command. When you run the command, Cloud Assistant automatically uses the environment parameter values for the custom parameters. You can specify the following built-in environment variables:\n\n    *   `{{ACS::RegionId}}`: the region ID.\n\n    *   `{{ACS::AccountId}}`: the UID of the Alibaba Cloud account.\n\n    *   `{{ACS::InstanceId}}`: the instance ID. If you want to run the command on multiple instances and specify `{{ACS::InstanceId}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following versions:\n\n        *   Linux: 2.2.3.309\n        *   Windows: 2.1.3.309\n\n    *   `{{ACS::InstanceName}}`: the instance name. If you want to run the command on multiple instances and specify `{{ACS::InstanceName}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following versions:\n\n        *   Linux: 2.2.3.344\n        *   Windows: 2.1.3.344\n\n    *   `{{ACS::InvokeId}}`: the ID of the task. If you want to specify `{{ACS::InvokeId}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following versions:\n\n        *   Linux: 2.2.3.309\n        *   Windows: 2.1.3.309\n\n    *   `{{ACS::CommandId}}`: the command ID. If you want to call the [RunCommand](~~141751~~) operation to run the command and specify `{{ACS::CommandId}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following versions:\n\n        *   Linux: 2.2.3.309\n        *   Windows: 2.1.3.309",
+      "description": "The Base64-encoded content of the command.\n\n- The value of this parameter must be Base64-encoded and cannot exceed 24 KB in size after Base64 encoding.\n- The command content supports custom parameters. To enable the custom parameter feature, specify `EnableParameter=true`:\n    - Custom parameters are defined by enclosing the parameter name in `{{}}`. Spaces and line breaks before and after the parameter name in `{{}}` are ignored.\n    - The number of custom parameters cannot exceed 20.\n    - Custom parameter names can contain only letters (a-z, A-Z), digits (0-9), hyphens (-), and underscores (_). The acs:: prefix for specifying non-built-in environment parameters is not supported. Other characters are not supported. Parameter names are case-insensitive.\n    - Each parameter name cannot exceed 64 bytes in length.\n\n- You can specify built-in environment parameters as custom parameters. When the command is run, Cloud Assistant automatically replaces the parameters with the corresponding values from the environment without requiring manual assignment. The following built-in environment parameters are supported:\n    - `{{ACS::RegionId}}`: the region ID.\n    - `{{ACS::AccountId}}`: the UID of the Alibaba Cloud account.\n    - `{{ACS::InstanceId}}`: the instance ID. When the command is sent to multiple instances and you want to use `{{ACS::InstanceId}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following:\n        - Linux: 2.2.3.309\n        - Windows: 2.1.3.309\n    - `{{ACS::InstanceName}}`: the instance name. When the command is sent to multiple instances and you want to use `{{ACS::InstanceName}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following:\n        - Linux: 2.2.3.344\n        - Windows: 2.1.3.344\n\n    - `{{ACS::InvokeId}}`: the command execution ID. To use `{{ACS::InvokeId}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following:\n        - Linux: 2.2.3.309\n        - Windows: 2.1.3.309\n     \n    - `{{ACS::CommandId}}`: the command ID. When you run a command by calling the [RunCommand](~~141751~~) operation and want to use `{{ACS::CommandId}}` as a built-in environment parameter, make sure that the Cloud Assistant Agent version is not earlier than the following:\n        - Linux: 2.2.3.309\n        - Windows: 2.1.3.309",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ContentEncoding",
-      "description": "The encoding mode of the command content (CommandContent). Valid values:\n\n*   PlainText: The command content is not encoded.\n*   Base64: The command content is Base64-encoded.\n\nDefault value: Base64.\n\n> If the specified value of this parameter is invalid, Base64 is used by default.",
+      "description": "The encoding mode of the command content (CommandContent). Valid values:\n\n- PlainText: no encoding. The content is transmitted in plaintext.\n\n- Base64: Base64 encoding.\n\nDefault value: Base64.\n\n>If an invalid value is specified, it is treated as Base64.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the command. The description supports all character sets and can be up to 512 characters in length.",
+      "description": "The command description. All character sets are supported. The description cannot exceed 512 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableParameter",
-      "description": "Specifies whether to use custom parameters in the command.\n\nDefault value: false.",
+      "description": "Specifies whether the command uses custom parameters.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Launcher",
-      "description": "The launcher for script execution. The value cannot exceed 1 KB in length.",
+      "description": "The bootstrap program for script execution. The value cannot exceed 1 KB in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the command. The name supports all character sets and can be up to 128 characters in length.",
+      "description": "The command name. All character sets are supported. The name cannot exceed 128 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which to create the command. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the command.",
+      "description": "The ID of the resource group to which the command belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the command.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the command. Valid values of N: 1 to 20. The tag key cannot be an empty string.\n\nIf you use a single tag to filter resources, the resource count with the specified tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count that have all specified tags attached cannot exceed 1000. If the resource count exceeds 1000, use the [ListTagResources](~~110425~~) operation to query resources.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the command. Valid values of N: 1 to 20. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -91,21 +93,21 @@
     },
     {
       "name": "Timeout",
-      "description": "he maximum timeout period for the command execution on the instance. Unit: seconds. When a command that you created cannot be run, the command times out. When a command execution times out, Cloud Assistant Agent forcefully terminates the command process by canceling the PID. \n\nDefault value: 60.",
+      "description": "The maximum timeout period for the command to run on ECS instances. Unit: seconds. If the command cannot be run for some reason, a timeout occurs. After the timeout, the command process is forcefully terminated by canceling the PID of the command.\n\nDefault value: 60.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The command type. Valid values:\n\n*   RunBatScript: batch commands. These commands are applicable to Windows instances.\n*   RunPowerShellScript: PowerShell commands. These commands are applicable to Windows instances.\n*   RunShellScript: shell commands. These commands are applicable to Linux instances.",
+      "description": "The type of the command. Valid values: \n\n- RunBatScript: creates a Bat script to run on Windows instances.\n- RunPowerShellScript: creates a PowerShell script to run on Windows instances.\n- RunShellScript: creates a Shell script to run on Linux instances.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "WorkingDir",
-      "description": "The execution path of the command on ECS instances. The value can be up to 200 characters in length.\n\nDefault values:\n\n*   For Linux instance, the default value is the home directory of the root user, which is the `/root` directory.\n*   For Windows instances, the default value is the directory where the Cloud Assistant Agent process resides, such as `C:\\Windows\\System32\\`.\n\n>  If you set WorkingDir to a directory other than default ones, make sure that the directory exists on the instances.",
+      "description": "The directory where the command is run on the ECS instance. The value cannot exceed 200 characters in length.\n\nDefault value: \n- Linux instances: the home directory of the root user, which is `/root`.  \n- Windows instances: the directory where the Cloud Assistant Agent process is located, such as `C:\\Windows\\System32`.\n\n>If you set this parameter to a different directory, make sure that the directory exists on the instance.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,23 +7,9 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to automatically complete the payment of the bandwidth plan. Valid values:\n\n*   **true**: yes\n*   **false** (default): no\n\nIf you set the parameter to false, go to Billing Management to complete the payment after you call this operation. The instance is created only after you complete the payment.",
+      "description": "Specifies whether to enable automatic payment for the bill of the bandwidth plan instance. Valid values:\n\n- **true**: enables automatic payment.\n\n- **false** (default): disables automatic payment.\n\nIf you set this parameter to false, go to the Order Center in the console to complete the payment after you invoke this operation. Otherwise, the instance cannot be created.",
       "position": "Query",
       "type": "Boolean",
-      "required": false
-    },
-    {
-      "name": "AutoRenew",
-      "description": "Specifies whether to enable the auto-renewal feature. Valid values:\n\n*   **true**: enables auto-renewal.\n*   **false** (default): disables auto-renewal.\n\n> Only subscription bandwidth plans support auto-renewal.",
-      "position": "Query",
-      "type": "Boolean",
-      "required": false
-    },
-    {
-      "name": "AutoRenewDuration",
-      "description": "The auto-renewal duration. Unit: months. Valid values: **0** to **2147483647**. Default value: **1**.",
-      "position": "Query",
-      "type": "Integer",
       "required": false
     },
     {
@@ -35,75 +21,77 @@
     },
     {
       "name": "BandwidthPackageChargeType",
-      "description": "The billing method of the bandwidth plan. Set the value to **PREPAY**, which indicates that the billing method is pay-as-you-go.",
+      "description": "The billing method of the bandwidth plan. Valid values: **PREPAY**, which indicates the subscription billing method.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can be up to 64 ASCII characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the bandwidth plan.",
+      "description": "The description of the bandwidth plan.\n\nThe description can be empty or 1 to 256 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GeographicRegionAId",
-      "description": "The area where the network instance is deployed. Valid values:\n\n*   **China**: Chinese mainland\n*   **North-America**: North America\n*   **Asia-Pacific**: Asia Pacific\n*   **Europe**: Europe",
+      "description": "The area to which the network instance belongs. Valid values:\n\n- **China**: the Chinese mainland.\n- **North-America**: North America.\n- **Asia-Pacific**: Asia Pacific.\n- **Europe**: Europe.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "GeographicRegionBId",
-      "description": "The area where the other network instance is deployed. Valid values: Valid values:\n\n*   **China**: Chinese mainland\n*   **North-America**: North America\n*   **Asia-Pacific**: Asia Pacific\n*   **Europe**: Europe",
+      "description": "The area to which the other network instance belongs. Valid values:\n\n- **China**: the Chinese mainland.\n- **North-America**: North America.\n- **Asia-Pacific**: Asia Pacific.\n- **Europe**: Europe.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Name",
-      "description": "The name of the bandwidth plan.\n\nThe name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\\_), and hyphens (-). The name must start with a letter and cannot start with `http://` or `https://`.",
+      "description": "The name of the bandwidth plan.\n\nThe name can be empty or 1 to 128 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The subscription duration of the bandwidth plan. Default value: 1.\n\n*   If **PricingCycle** is set to **Month**, set **Period** to a value from **1** to **3** or **6**.\n*   If **PricingCycle** is set to **Year**, set **Period** to a value from **1** to **3**.\n\n> This parameter is required when **BandwidthPackageChargeType** is set to **PREPAY**.",
+      "description": "The subscription duration of the bandwidth plan. Default value: 1.\n\n- If **PricingCycle** is set to **Month**, valid values for **Period** are **1** to **3** and **6**.\n- If **PricingCycle** is set to **Year**, valid values for **Period** are **1** to **3**.\n\n> This parameter is required when **BandwidthPackageChargeType** is set to **PREPAY**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "The billing cycle of the bandwidth plan. Valid values:\n\n*   **Month** (default): billed on a monthly basis.\n*   **Year**: billed on an annual basis.",
+      "description": "The billing cycle of the bandwidth plan. Valid values:\n\n- **Month** (default): billed on a monthly basis.\n\n- **Year**: billed on a yearly basis.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The information about the tags.\n\nYou can specify at most 20 tags in each call.",
+      "description": "The tag information.\n\nYou can specify up to 20 tags at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource.\n\nThe tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys at a time.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource.\n\nThe tag value cannot be empty. The tag value can be up to 128 characters in length and cannot start with aliyun or acs:. The tag value cannot contain http:// or https://.\n\nEach tag key has a unique tag value. You can specify up to 20 tag values at a time.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "AddressIpVersion",
-      "description": "The protocol. Valid values:\n\n*   **IPv4** (default)\n*   **DualStack**\n\n>  You can set the protocol to DualStack only for endpoint services whose backend resource type is NLB. An endpoint service supports dual-stack only if its backend resources support dual-stack.",
+      "description": "The protocol version. Valid values:\n\n- **IPv4**: IPv4 (default).\n- **DualStack**: dual-stack.\n> Only endpoint services whose backend resource type is nlb or gwlb support the DualStack IP address protocol. If the endpoint service supports dual-stack, the backend resources must also support dual-stack.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoAcceptEnabled",
-      "description": "Specifies whether to automatically accept endpoint connection requests. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to automatically accept endpoint connections. Valid values:\n\n- **true**: automatically accept endpoint connections.\n\n- **false** (default): do not automatically accept endpoint connections.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -28,46 +28,49 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request.\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n- **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\n- **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, an HTTP 2xx status code is returned and the operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Payer",
-      "description": "The payer. Valid values:\n\n*   **Endpoint**: service consumer\n*   **EndpointService**: service provider",
+      "description": "The payer. Valid values:\n\n- **Endpoint**: service consumer.\n\n- **EndpointService**: service provider.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the endpoint service.\n\nYou can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.",
+      "description": "The region ID of the endpoint service.\n\nYou can call the [DescribeRegions](~~469325~~) operation to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Resource",
-      "description": "The service resources of the endpoint service. You can create at most 10 resources. After the resource is created, you can continue to add service resources to the endpoint.",
+      "description": "The service resources of the endpoint service. You can add up to 10 resources during creation. After creation, you can add more resources by adding service resources to the endpoint.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ResourceId",
+          "description": "The ID of the service resource to add to the endpoint service.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceType",
+          "description": "The EPS resource type to add to the endpoint service. You can add up to 20 service resources to an endpoint service. Valid values:\n\n- **slb**: Classic Load Balancer (CLB).\n\n- **alb**: Application Load Balancer (ALB).\n- **nlb**: Network Load Balancer (NLB).\n- **gwlb**: Gateway Load Balancer (GWLB).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ZoneId",
+          "description": "The zone ID.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -90,40 +93,42 @@
     },
     {
       "name": "ServiceResourceType",
-      "description": "The type of the service resource. Valid values:\n\n*   **slb**: Classic Load Balancer (CLB) instance\n*   **alb**: Application Load Balancer (ALB) instance\n*   **nlb**: Network Load Balancer (NLB) instance\n\n>  You cannot access TCP/SSL listeners configured for NLB instances.",
+      "description": "The EPS resource type. Valid values:\n\n- **slb**: Classic Load Balancer (CLB).\n\n- **alb**: Application Load Balancer (ALB).\n- **nlb**: Network Load Balancer (NLB).\n- **gwlb**: Gateway Load Balancer (GWLB).\n\n> Access to TCPSSL listeners of NLB is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServiceSupportIPv6",
-      "description": "Specifies whether to enable IPv6 for the endpoint service. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether the endpoint service supports IPv6. Valid values:\n\n- **true**: supported.\n\n- **false** (default): not supported.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "SupportedRegionList",
-      "description": "",
+      "description": "The list of regions supported by the endpoint service. Service consumers can initiate endpoint connections from the regions in the list.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the resource.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the instance. You can specify up to 20 tag keys. The tag key cannot be an empty string.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the instance. You can specify up to 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -132,7 +137,7 @@
     },
     {
       "name": "ZoneAffinityEnabled",
-      "description": "Specifies whether to first resolve the domain name of the nearest endpoint that is associated with the endpoint service. Valid values:\n\n*   **true**\n*   **false** (default)",
+      "description": "Specifies whether to support zone affinity for the endpoint domain name of the endpoint service. Valid values:\n\n- **true**: supported.\n\n- **false** (default): not supported.",
       "position": "Query",
       "type": "Boolean",
       "required": false

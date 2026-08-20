@@ -7,119 +7,126 @@
   "parameters": [
     {
       "name": "Accessibility",
-      "description": "",
+      "description": "Specifies the dataset's visibility.\n\n- `PUBLIC`: The dataset is publicly accessible.\n\n- `PRIVATE`: The dataset is privately accessible.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataSourceTypes",
-      "description": "The storage types of the data source. Multiple data source types are separated by commas (,). Valid values:\n\n*   NAS: File Storage NAS (NAS).\n*   OSS: Object Storage Service (OSS).",
+      "description": "The data source type. To specify multiple types, separate them with commas (,). Valid values:\n\n- `NAS`: The data source is NAS.\n\n- `OSS`: The data source is OSS.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataTypes",
-      "description": "The dataset types. Multiple dataset types are separated by commas (,). Valid values:\n\n*   Video: video\n*   COMMON: common\n*   TEXT: text\n*   PIC: picture\n*   AUDIO: audio",
+      "description": "The data type of the dataset. To specify multiple data types, separate them with commas (,). Valid values:\n\n- `VIDEO`: video.\n\n- `COMMON`: general.\n\n- `TEXT`: text.\n\n- `PIC`: image.\n\n- `AUDIO`: audio.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DatasetIds",
+      "description": "A comma-separated list of dataset IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Edition",
-      "description": "",
+      "description": "The dataset edition. Valid values:\n\n- `BASIC`: Basic edition. Does not support file metadata management.\n\n- `ADVANCED`: Advanced edition. This edition is supported only for OSS datasets. Each version can manage metadata for up to 1 million files.\n\n- `LOGICAL`: Logical edition. This edition is supported only for OSS datasets and is suitable for most use cases. Each version can manage metadata for up to 1 million files. You must use an SDK with this edition.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Label",
-      "description": "The dataset tag, which is used to filter datasets. Datasets whose tag key or tag value contains a specified string are filtered.",
+      "description": "A label used to filter datasets. The operation returns datasets whose label key or value contains the specified string.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The dataset name. Fuzzy search based on the dataset name is supported.",
+      "description": "The dataset name. Fuzzy search is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Order",
-      "description": "The order of specific fields of the entries on the returned page. Valid values: ASC and DESC. Default value: ASC.\n\n*   ASC: The entries are sorted in ascending order.\n*   DESC: The entries are sorted in descending order.",
+      "description": "The sort order for the results, based on the `SortBy` parameter. The default is `ASC`.\n\n- `ASC`: ascending order.\n\n- `DESC`: descending order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. Pages start from page 1. Default value: 1.",
+      "description": "The page number for the paged query. Starts at 1. The default is 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Default value: 10.",
+      "description": "The number of datasets to return per page. The default is 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Properties",
-      "description": "The dataset properties. Multiple properties are separated by commas (,). Valid values:\n\n*   DIRECTORY\n*   FILE",
+      "description": "The dataset properties. To specify multiple properties, separate them with commas (,). Valid values:\n\n- `DIRECTORY`: A folder.\n\n- `FILE`: A file.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Provider",
-      "description": "The dataset provider. If the value pai is returned, the dataset is a public dataset provided by PAI.",
+      "description": "The dataset provider. Set this parameter to `pai` to query public datasets on the PAI platform.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ShareScope",
-      "description": "",
+      "description": "A filter for shared datasets.\n\n- `TO_ME`: Returns only datasets shared with you.\n\n- `BY_ME`: Returns only datasets that you have shared with others and displays details of the sharing configuration.\n\n- If this parameter is omitted or empty, the operation returns all datasets in the current workspace, including those shared with you.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SortBy",
-      "description": "The field used for sorting.",
+      "description": "The sort field.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceDatasetId",
-      "description": "The ID of the iTAG labeled dataset that is used as the source dataset.",
+      "description": "The source dataset ID for an iTAG annotation set.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceId",
-      "description": "The data source ID.\n\n*   If SourceType is set to USER, the value of SourceId is a custom string.\n*   If SourceType is set to ITAG, the value of SourceId is the ID of the labeling job of iTAG.\n*   If SourceType is set to PAI_PUBLIC_DATASET, SourceId is empty by default.",
+      "description": "The source ID. The value of this parameter varies based on the `SourceTypes` value:\n\n- If `SourceTypes` is `USER`, you can specify a custom value for `SourceId`.\n\n- If `SourceTypes` is `ITAG`, `SourceId` is the ID of the iTAG task.\n\n- If `SourceTypes` is `PAI_PUBLIC_DATASET`, this parameter is empty by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceTypes",
-      "description": "The source types. Multiple source types are separated by commas (,). Valid values:\n\n*   PAI-PUBLIC-DATASET: a public dataset of Platform for AI (PAI).\n*   ITAG: a dataset generated from a labeling job of iTAG.\n*   USER: a dataset registered by a user.",
+      "description": "The source type. To specify multiple types, separate them with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WorkspaceId",
-      "description": "The ID of the workspace to which the dataset belongs. You can call [ListWorkspaces](~~449124~~) to obtain the workspace ID. If you do not specify this parameter, the default workspace is used. If the default workspace does not exist, an error is reported.",
+      "description": "The ID of the workspace that contains the dataset. For information about how to obtain the workspace ID, see [ListWorkspaces](~~449124~~).\nIf this parameter is not specified, the default workspace is used. An error is returned if the default workspace does not exist.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,44 +7,49 @@
   "parameters": [
     {
       "name": "Scene",
-      "description": "1",
+      "description": "1.",
       "position": "Body",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "Task",
-      "description": "1",
+      "description": "1.",
       "position": "Body",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "DataId",
+          "description": "The data ID. All IDs must be unique within a single request.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ImageTimeMillisecond",
+          "description": "The creation or editing time of the image, in milliseconds.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "ImageURL",
+          "description": "The URL of the image to be detected. HTTP and HTTPS protocols are supported. We recommend that you use an OSS link in the China (Shanghai) region. If the file is stored locally or in an OSS link outside the China (Shanghai) region, see [File URL processing](~~155645~~).\n\n> If you use an OSS link in the China (Shanghai) region, the system automatically converts the OSS link to an internal network address before downloading the file, so calling this operation does not incur OSS traffic charges.",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Interval",
+          "description": "The frame capture interval, used specifically for GIF or long image detection. A GIF image can be understood as an array of images, and one image is extracted for detection every **interval** images. Frames are captured from a GIF only when this parameter is specified. Long images support both long vertical images and long horizontal images.\n\n- Long vertical images (height greater than 400 pixels, height-to-width ratio greater than 2.5): the total number of images is calculated by rounding down `height/width`, and the image is split accordingly.\n\n- Long horizontal images (width greater than 400 pixels, width-to-height ratio greater than 2.5): the total number of images is calculated by rounding down `width/height`, and the image is split accordingly.\n\n> By default, only the first frame of a GIF or long image is detected. The interval parameter instructs the backend to skip frames at the specified interval during detection to reduce detection costs. Use this parameter together with the maxFrames parameter. For example, if you set interval to 2 and maxFrames to 100, every other frame is detected when detecting a long image or GIF, up to a maximum of 100 frames. Billing is based on the actual number of frames detected.",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "MaxFrames",
+          "description": "The maximum number of frames to capture, used specifically for GIF or long image detection. Default value: 1.\nWhen interval × maxFrames is less than the total number of images contained in the image, the frame capture interval is automatically adjusted to `total number of images / maxFrames` to improve overall detection accuracy.",
           "position": "FormData",
           "type": "Integer",
           "required": false

@@ -7,77 +7,77 @@
   "parameters": [
     {
       "name": "AccessPointId",
-      "description": "The ID of the access point to which the VBR belongs.\n\nYou can call the [DescribeAccessPoints](~~36062~~) operation to obtain the IDs of access points.\n\n>  This parameter is required if the VBR is connected to an Express Connect circuit.",
+      "description": "The ID of the access point to which the VBR belongs. \n\nYou can call the [DescribeAccessPoints](~~36062~~) operation to query the access point ID of the Express Connect circuit.  \n          \n> This parameter is required in Express Connect circuit scenarios.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Valid values:\n\n*   **false** (default): The automatic payment is disabled. If you select this option, you must go to the Order Center to complete the payment after an order is generated.\n*   **true**: The automatic payment is enabled. Payments are automatically complete after an order is generated.\n\n>  This parameter is required if **InstanceChargeType** is set to **PrePaid**.",
+      "description": "Specifies whether to enable automatic payment. Valid values: \n          \n- **false** (default): Automatic payment is disabled. After an order is generated, go to the Order Center to complete the payment.   \n\n- **true**: Automatic payment is enabled. The order is automatically paid.   \n\n> This parameter is required when **InstanceChargeType** is set to **PrePaid**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n*   **false** (default)\n*   **true**",
+      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n- **false** (default): Auto-renewal is disabled.\n- **true**: Auto-renewal is enabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests.\n\n>  If you do not specify this parameter, the system automatically uses the request ID as the client token. The request ID may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request. \n\nThe client generates the value of this parameter. Ensure that the value is unique among different requests. \n\n> If you do not specify this parameter, the system uses the RequestId of the API request as the ClientToken. The RequestId may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the router interface.\n\nThe description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.",
+      "description": "The description of the router interface.  \n\nThe description must be 2 to 256 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FastLinkMode",
-      "description": "Specifies whether the VBR that is created in the Fast Link mode is uplinked to the router interface. The Fast Link mode helps automatically connect router interfaces that are created for the VBR and its peer VPC. Valid values:\n\n*   **true**\n*   **false**\n\n> \n\n*   This parameter takes effect only if **RouterType** is set to **VBR** and **OppositeRouterType** is set to **VRouter**.\n\n*   If **FastLinkMode** is set to **true**, **Role** must be set to **InitiatingSide**. In this case, **AccessPointId**, **OppositeRouterType**, **OpppsiteRouterId**, and **OppositeInterfaceOwnerId** are required.",
+      "description": "Specifies whether the router interface on the VBR is created in fast link mode. Fast link mode allows the router interfaces on the VBR and VPC to be automatically connected after they are created. Valid values:\n\n- **true**: yes.\n- **false** (default): no.\n\n> - This parameter takes effect only when **RouterType** is set to **VBR** and **OppositeRouterType** is set to **VRouter**.\n> - When **FastLinkMode** is set to **true**, **Role** must be set to **InitiatingSide**, and **AccessPointId**, **OppositeRouterType**, **OppositeRouterId**, and **OppositeInterfaceOwnerId** are required.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckSourceIp",
-      "description": "The source IP address that is used to perform health checks. The source IP address must be an idle IP address of the local virtual private cloud (VPC).\n\n>  You can set this parameter when an Express Connect circuit is used.",
+      "description": "The source IP address for health checks. The IP address must be an unused IP address in the local VPC. \n\n> You can specify this parameter in Express Connect circuit scenarios.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckTargetIp",
-      "description": "The destination IP address that is used to perform health checks.\n\n>  This parameter is required if you specify **HealthCheckSourceIp**",
+      "description": "The destination IP address for health checks. \n\n> This parameter is required when **HealthCheckSourceIp** is specified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the router interface. Valid values:\n\n*   **PrePaid**: subscription\n*   **PostPaid**: pay-as-you-go",
+      "description": "The billing method of the router interface. Valid values: \n\n- **PrePaid**: subscription.\n\n- **PostPaid**: pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the router interface.\n\nThe name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\\_), and hyphens (-).",
+      "description": "The name of the router interface.  \n\nThe name must be 2 to 128 characters in length and must start with a letter or a Chinese character. It can contain digits, periods (.), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OppositeAccessPointId",
-      "description": "The ID of the access point to which the peer belongs.\n\n>  This parameter is required if the peer router interface is associated with a VBR. The specified value cannot be changed after the router interface is created.",
+      "description": "The ID of the access point to which the peer belongs.\n\n> This parameter is required when the peer router interface is on a VBR. This parameter cannot be modified after the router interface is created.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -91,14 +91,14 @@
     },
     {
       "name": "OppositeInterfaceOwnerId",
-      "description": "The ID of the Alibaba Cloud account to which the peer router interface belongs.",
+      "description": "The Alibaba Cloud account ID of the owner of the peer router interface.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OppositeRegionId",
-      "description": "The ID of the region in which the acceptor is deployed.",
+      "description": "The region ID of the accepter.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -112,82 +112,84 @@
     },
     {
       "name": "OppositeRouterType",
-      "description": "The type of router that is associated with the peer router interface. Valid values:\n\n*   **VRouter**\n*   **VBR**",
+      "description": "The type of the router associated with the peer router interface. Valid values: \n\n- **VRouter**: vRouter.\n\n- **VBR**: Virtual Border Router.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The subscription duration. Valid values:\n\n*   Valid values when PricingCycle is set to Month: **1 to 9**.\n*   Valid values when PricingCycle is set to Year: **1 to 3**.\n\n>  This parameter is required if **InstanceChargeType** is set to **PrePaid**.",
+      "description": "The subscription duration. Valid values: \n\n- If you select monthly billing, the valid values are **1** to **9**.\n\n- If you select yearly billing, the valid values are **1** to **3**.\n\n> This parameter is required when **InstanceChargeType** is set to **PrePaid**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "The billing cycle of the subscription. Valid values:\n\n*   **Month** (default)\n*   **Year**\n\n>  This parameter is required if **InstanceChargeType** is set to **PrePaid**.",
+      "description": "The billing cycle of the subscription. Valid values:\n\n- **Month** (default): monthly billing.\n\n- **Year**: yearly billing.\n\n> This parameter is required when **InstanceChargeType** is set to **PrePaid**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the router interface belongs.\n\nYou can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.",
+      "description": "The region ID of the router interface.\n\nYou can call the [DescribeRegions](~~36063~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.\n\nFor more information about resource group, see [What is Resource Management?](~~94475~~)",
+      "description": "The resource group ID.\n\nFor more information about resource groups, see [What is a resource group?](~~2381067~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Role",
-      "description": "The role of the router interface. Valid values:\n\n*   **InitiatingSide**: requester\n*   **AcceptingSide**: acceptor",
+      "description": "The role of the router interface. Valid values: \n  \n- **InitiatingSide**: requester.   \n\n- **AcceptingSide**: accepter.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouterId",
-      "description": "The ID of the router that is associated with the router interface.",
+      "description": "The ID of the router associated with the router interface.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RouterType",
-      "description": "The type of router that is associated with the router interface. Valid values:\n\n*   **VRouter**\n*   **VBR**",
+      "description": "The type of the router associated with the router interface. Valid values: \n\n- **VRouter**: vRouter.\n\n- **VBR**: Virtual Border Router.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Spec",
-      "description": "The specification of the router interface and the corresponding bandwidth. Valid values:\n\n*   **Mini.2**: 2 Mbit/s\n*   **Mini.5**: 5 Mbit/s\n*   **Small.1**: 10 Mbit/s\n*   **Small.2**: 20 Mbit/s\n*   **Small.5**: 50 Mbit/s\n*   **Middle.1**: 100 Mbit/s\n*   **Middle.2**: 200 Mbit/s\n*   **Middle.5**: 500 Mbit/s\n*   **Large.1**: 1,000 Mbit/s\n*   **Large.2**: 2,000 Mbit/s\n*   **Large.5**: 5,000 Mbit/s\n*   **Xlarge.1**: 10,000 Mbit/s\n\n>  If **Role** is set to **AcceptingSide**, set **Spec** to **Negative**. This indicates that you do not need to specify the specification when you create an acceptor router interface.",
+      "description": "The specification of the router interface. The available specifications and corresponding bandwidth values are as follows: \n          \n- **Mini.2**: 2 Mbps   \n\n- **Mini.5**: 5 Mbps   \n\n- **Small.1**: 10 Mbps   \n\n- **Small.2**: 20 Mbps   \n \n- **Small.5**: 50 Mbps   \n\n- **Middle.1**: 100 Mbps   \n\n- **Middle.2**: 200 Mbps   \n\n- **Middle.5**: 500 Mbps   \n\n- **Large.1**: 1000 Mbps   \n\n- **Large.2**: 2000 Mbps   \n\n- **Large.5**: 5000 Mbps   \n\n- **Xlarge.1**: 10000 Mbps  \n\n> When **Role** is set to **AcceptingSide** (accepter), set **Spec** to **Negative**. No specification is required when you create an accepter router interface.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tags",
-      "description": "The tag to add to the resource.",
+      "description": "The tags of the resource.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. You must specify at least 1 and can specify at most 20 tag keys. The tag key cannot be an empty string.\n\nA tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the resource. You can specify at most 20 tag values. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

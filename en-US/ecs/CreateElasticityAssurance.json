@@ -1,120 +1,125 @@
 {
   "name": "CreateElasticityAssurance",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "AssuranceTimes",
-      "description": "The total number of times that the elasticity assurance can be used. Set the value to Unlimited. This value specifies that the elasticity assurance can be used for an unlimited number of times within its validity period.\n\nDefault value: Unlimited.",
+      "description": "The total number of times that the elasticity assurance can be applied. Valid values: Unlimited. Currently, only the unlimited mode is supported within the service validity period.\n\nDefault value: Unlimited.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal for the elasticity assurance. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n- true: Auto-renewal is enabled.\n- false: Auto-renewal is disabled.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenewPeriod",
-      "description": "The auto-renewal period. Unit: month. Valid values: 1, 2, 3, 6, 12, 24, and 36.\n\n*   Default value when `PeriodUnit` is set to Month: 1.\n*   Default value when `PeriodUnit` is set to Year: 12.\n\n>  If you set `AutoRenew` to `true`, you must specify this parameter.",
+      "description": "The auto-renewal period. Unit: months. Valid values: 1, 2, 3, 6, 12, 24, and 36.\n\n\n\n- If `PeriodUnit=Month`, the default value is 1.\n\n- If `PeriodUnit=Year`, the default value is 12.\n\n\n> This parameter is required when `AutoRenew` is set to `True`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that you want to use to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The `token` can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the elasticity assurance. The description must be 2 to 256 characters in length. It cannot start with `http://` or `https://`.\n\nThis parameter is empty by default.",
+      "description": "The description of the elasticity assurance service. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceAmount",
-      "description": "The total number of instances of an instance type for which you want to reserve capacity.\n\nValid values: 1 to 1000.\n\n>  You must specify this parameter.",
+      "description": "The total number of instances to be reserved for a single instance type.\n\nValid values: 1 to 1000.\n\n><notice>This parameter is required.></notice>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InstanceCpuCoreCount",
-      "description": "> This parameter is no longer used.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance type. An elasticity assurance can be created to reserve the capacity of a single instance type.",
+      "description": "The instance type. Currently, you can configure an elasticity assurance service for only one instance type.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "Period",
-      "description": "The validity period of the elasticity assurance. The unit of the validity period is determined by the value of `PeriodUnit`. Specifies whether to check the image used by the instance supports hot migration. Valid values:\n\n*   When the value of `PeriodUnit` is `Month`, the valid values are 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n*   When the value of `PeriodUnit` is `Year`, the valid values are 1, 2, 3, 4, and 5.\n*   When the value of `PeriodUnit` is `Day`, the valid values are 1 to 365.\n\nDefault value: 1",
+      "description": "The purchase duration. The unit of the duration is determined by the `PeriodUnit` parameter. Valid values:\n\n- If `PeriodUnit` is set to `Month`: 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n- If `PeriodUnit` is set to `Year`: 1, 2, 3, 4, and 5.\n- If `PeriodUnit` is set to `Day`: 1 to 365.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the validity period of the elasticity assurance. Valid values:\n\n*   Month\n\n*   Year\n\n*   Day\n\n    **\n\n    **Note** If you set `PeriodUnit` to `Day`, you must specify RecurrenceRules to create a time-segmented elasticity assurance.\n\nDefault value: Year.",
+      "description": "The unit of the purchase duration. Valid values:\n\n- Month: month.\n- Year: year.\n- Day: day.\n  > When `PeriodUnit` is set to `Day`, you must also specify RecurrenceRules to create a time-sharing elasticity assurance.\n\nDefault value: Year.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.MatchCriteria",
-      "description": "The type of the private pool with which you want to associate the elasticity assurance. Valid values:\n\n*   Open: open private pool. If you use the elasticity assurance to create ECS instances, the open private pool that is associated with the elasticity assurance is automatically matched. If no capacity is available in the open private pool, resources in the public pool are automatically used to create the ECS instances.\n*   Target: targeted private pool. If you use the elasticity assurance to create ECS instances, the specified private pool that is associated with the elasticity assurance is automatically matched. If no capacity is available in the private pool, the ECS instances fail to be created.\n\nDefault value: Open.",
+      "description": "The match mode of the elasticity assurance service. Valid values:\n\n- Open: open mode. The system automatically matches the capacity of open private pools when instances are started. If no matching private pool capacity is available, public pool resources are used to start the instances.\n- Target: targeted mode. Instances are started by using the capacity of the specified private pool. If the specified private pool capacity is unavailable, the instances fail to start.\n\nDefault value: Open.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.Name",
-      "description": "The name of the elasticity assurance. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://` or `https://`. It can contain letters, digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the elasticity assurance service. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain digits, colons (:), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RecurrenceRules",
-      "description": "The assurance schedules based on which the capacity reservation takes effect.\n\n>  Time-segmented elasticity assurances are available only in specific regions and to specific users. To use time-segmented elasticity assurances, [submit a ticket](https://smartservice.console.aliyun.com/service/create-ticket-intl).",
+      "description": "The recurrence rules for the time-sharing elasticity assurance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "EndHour",
+          "description": "The end time of the time-sharing assurance. The value must be on the hour.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "RecurrenceType",
+          "description": "The type of the recurrence rule. Valid values:\n- Daily: daily recurrence.\n- Weekly: weekly recurrence.\n- Monthly: monthly recurrence.\n\n> You must specify both `RecurrenceType` and `RecurrenceValue`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RecurrenceValue",
+          "description": "The value of the recurrence rule.\n\n- If `RecurrenceType` is set to `Daily`, you can specify only one value. Valid values: 1 to 31. The value specifies the interval in days between recurrences.\n- If `RecurrenceType` is set to `Weekly`, you can specify multiple values separated by commas (,). The values for Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, and Saturday are 0, 1, 2, 3, 4, 5, and 6. For example, `1,2` specifies Monday and Tuesday.\n- If `RecurrenceType` is set to `Monthly`, the format is `A-B`. Valid values of A and B: 1 to 31. B must be greater than or equal to A. For example, `1-5` specifies the 1st to 5th day of each month.\n\n> You must specify both `RecurrenceType` and `RecurrenceValue`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartHour",
+          "description": "The effective period start hour of the time-sharing assurance. The value must be on the hour.\n\n> You must specify both `StartHour` and `EndHour`, and the difference between them must be at least 4 hours.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -123,40 +128,42 @@
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region in which to create the elasticity assurance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the elasticity assurance service. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the elasticity assurance.",
+      "description": "The ID of the resource group to which the elasticity assurance service belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The time when the elasticity assurance takes effect. The default value is the time when the CreateElasticityAssurance operation is called to create the elasticity assurance. Specify the time in the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC. For more information, see [ISO 8601](~~25696~~).",
+      "description": "The effective period start time of the elasticity assurance service. By default, the service takes effect when the operation is invoked. Specify the time in the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC. For more information, see [ISO 8601](~~25696~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the elasticity assurance.",
+      "description": "The tags of the elasticity assurance service.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the elasticity assurance service. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:` or contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the elasticity assurance service. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:` or contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -165,7 +172,7 @@
     },
     {
       "name": "ZoneId",
-      "description": "The ID of the zone in which to create the elasticity assurance. An elasticity assurance can be used to reserve resources within a single zone.",
+      "description": "The zone ID within the region of the elasticity assurance service. Currently, you can create an elasticity assurance service in only one zone.",
       "position": "Query",
       "type": "RepeatList",
       "required": true

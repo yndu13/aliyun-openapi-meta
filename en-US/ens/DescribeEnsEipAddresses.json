@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "AllocationId",
-      "description": "The ID of the EIP that you want to query. You can specify up to 50 EIP IDs. Separate multiple IDs with commas (,).",
+      "description": "The ID of the EIP instance. You can specify up to 50 IDs, separated by commas.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AssociatedInstanceId",
-      "description": "The ID of the instance with which you want to associate the EIP.",
+      "description": "The ID of the associated cloud service instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AssociatedInstanceType",
-      "description": "The type of the instance that is associated with the EIP. Valid values:\n\n*   **EnsInstance**: ENS instance in a VPC\n*   **SlbInstance**: SLB instance",
+      "description": "The type of the cloud service instance to associate with the EIP. Valid values:\n\n- **EnsInstance**: an ENS instance of the VPC type.\n\n- **SlbInstance**: an SLB instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipAddress",
-      "description": "The EIP that you want to query. You can specify up to 50 EIPs. Separate multiple EIPs with commas (,).",
+      "description": "The IP address of the EIP. You can specify up to 50 IP addresses, separated by commas.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -42,23 +42,30 @@
     },
     {
       "name": "EnsRegionId",
-      "description": "The ID of the Edge Node Service (ENS) node.",
+      "description": "The ID of the ENS node.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnsRegionIds",
-      "description": "The IDs of edge nodes. You can specify 1 to 100 IDs.",
+      "description": "An array of 1 to 100 ENS node IDs.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "IcmpReplyEnabled",
-      "description": "",
+      "description": "Specifies whether to enable ICMP reply. Valid values:\n\n- **true** (default): enabled\n\n- **false**: disabled",
       "position": "Query",
       "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "LockReason",
+      "description": "The reason the EIP is locked.\n\n- **financial**: The EIP is locked due to an overdue payment.",
+      "position": "Query",
+      "type": "String",
       "required": false
     },
     {
@@ -70,14 +77,21 @@
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page. Maximum value: 100. Default value: 10.",
+      "description": "The number of entries to return on each page. Maximum value: 100. Default value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Standby",
-      "description": "Specifies whether the EIP is a secondary EIP. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether the EIP is a standby EIP. Valid values:\n\n- **true**: The EIP is a standby EIP.\n\n- **false**: The EIP is not a standby EIP.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "The status of the EIP. Valid values: Associating, Unassociating, InUse, and Available.",
       "position": "Query",
       "type": "String",
       "required": false

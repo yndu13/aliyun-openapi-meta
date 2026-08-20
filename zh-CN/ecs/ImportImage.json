@@ -35,7 +35,7 @@
     },
     {
       "name": "DetectionStrategy",
-      "description": "镜像检测策略，不配置此参数时不触发检测。仅支持标准（Standard）检测模式。\n\n>目前已支持大部分的Linux/Windows版本，关于镜像检测项与操作系统限制说明，请参见[镜像检测概述](~~439819~~)和[镜像检测操作系统限制](~~475800~~)。",
+      "description": "镜像检测策略，不配置此参数时不触发检测。仅支持标准（Standard）检测模式。\n\n>目前已支持大部分的Linux/Windows版本，关于镜像检测项与操作系统限制说明，请参见[镜像检测概述](~~439819~~)和[镜像检测操作系统限制](~~475800~~)。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,36 +49,42 @@
       "sub_parameters": [
         {
           "name": "Device",
+          "description": "指定DiskDeviceMapping.N.Device在自定义镜像中的设备名。\n\n> 该参数即将停止使用，为提高代码兼容性，建议您尽量不要使用该参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskImSize",
+          "description": "自定义镜像大小。单位：GiB。\n\n该空间由系统盘和数据盘组成，您必须保证系统盘的空间大小大于等于导入的镜像文件大小。取值范围：\n\n- N=1时，表示系统盘，取值范围：1 GiB~2048 GiB。\n- N=2~17时，表示数据盘。取值范围：1 GiB~2048 GiB。\n\n当您将源镜像文件上传至OSS后，可以在OSS Bucket中查看镜像文件的大小。\n\n>该参数即将被弃用，为提高兼容性，请尽量使用`DiskDeviceMapping.N.DiskImageSize`参数。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "DiskImageSize",
+          "description": "导入镜像后，自定义镜像的空间大小。\n\n该空间由系统盘和数据盘组成，您必须保证系统盘的空间大小大于等于导入的镜像文件大小。取值范围：\n\n- N=1时，表示系统盘，取值范围：1 GiB~2048 GiB。\n- N=2~17时，表示数据盘。取值范围：1 GiB~2048 GiB。\n\n当您将源镜像文件上传至OSS后，可以在OSS Bucket中查看镜像文件的大小。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Format",
+          "description": "镜像格式。取值范围：\n\n- RAW。\n- VHD。\n- QCOW2。\n- VMDK（邀测中）。\n\n默认值：无，表示阿里云自动检测镜像格式，以检测格式为准。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OSSBucket",
+          "description": "镜像文件所在的OSS Bucket。\n\n> 首次导入镜像到该OSS Bucket前，请参见本文档的**接口说明**添加RAM授权策略，否则会报错`NoSetRoletoECSServiceAccount`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "OSSObject",
+          "description": "镜像上传至OSS Bucket后，保存在Bucket中的镜像文件的文件名（key）。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -164,12 +170,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "镜像的标签键。N的取值范围：1~20。一旦传入该值，则不允许为空字符串。最多支持128个字符，不能以`aliyun`或者`acs:`开头，不能包含`http://`或者`https://`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "镜像的标签值。N的取值范围：1~20。一旦传入该值，允许为空字符串。最多支持128个字符，不能以`acs:`开头，不能包含`http://`或者`https://`。",
           "position": "Query",
           "type": "String",
           "required": false

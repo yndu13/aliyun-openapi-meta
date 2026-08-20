@@ -1,0 +1,94 @@
+{
+  "name": "GetNisNetworkMetrics",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AccountIds",
+      "description": "显式传递子账号ID。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false
+    },
+    {
+      "name": "BeginTime",
+      "description": "起始时间，单位**ms**，格式**unix**时间戳。未指定时默认查最近1小时。起始时间最早可选择7天前。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "Dimensions",
+      "description": "具体业务的Metric查询参数集合。各场景参数说明，请参见[GetNisNetworkMetrics](~~2833348~~)。",
+      "position": "Query",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "Name",
+          "description": "过滤条件的名字。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "过滤条件的值。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "EndTime",
+      "description": "结束时间，单位**ms**，格式**unix**时间戳。未指定时默认查最近1小时。只指定了BeginTime时查BeginTime之后的一小时。结束时间距起始时间最多24小时。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "MetricName",
+      "description": "指标名。取值：\n\n-   bps：每秒比特数。\n-   pps：每秒包数。\n-   rtt：tcp协议建立连接时的往返延迟。\n-   RetransmitRate：重传率。\n-   RatelimitDropPps：限速丢包速率。\n-   ActiveSessionCount：并发会话数。\n-   NewSessionPerSecond：每秒新建会话数。\n-   BandwidthUtilization：带宽利用率。\n-   passRate：巡检通过率。\n> 选定时间范围内RTT无数据，是因为该时间段里，此连接是长连接，没有触发首次建连。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "RegionNo",
+      "description": "地域ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ResourceType",
+      "description": "按流量转发所使用的阿里云网络资源类型进行分析，取值：\n\n- AccessInternetIpV4：所有阿里云公网类型IPv4。\n- AccessInternetIpV4Limited：所有受地域限速的阿里云公网类型IPv4。\n- ElasticIP：弹性公网EIP（IPv4）。\n- PublicIpEcs：绑定在ECS的固定公网IP（IPv4）。\n- PublicIpClb：绑定在CLB的固定公网IP（IPv4）。\n- NAT：通过SNAT的访问公网流量。\n- TR：流经云企业网转发路由器的流量。\n- TRAttachment：流经云企业网连接实例的流量，包括地域内连接和跨地域连接，地域内连接具备出入方向，跨地域连接仅具备出方向。\n- VBR：流经边界路由器的流量。\n- GA：流经全球加速的流量。\n- IntranetProbing：内网质量探测数据。\n- NisInspectionHistoryReportScore：巡检历史评分。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanBy",
+      "description": "排序方式，默认TimestampAscending，取值：\n\n- TimestampAscending：按时间正向排序。\n- TimestampDescending：按时间逆向排序。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StepMinutes",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "UseCrossAccount",
+      "description": "是否使用多账号访问模式，保留参数，暂不支持。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    }
+  ]
+}

@@ -1,24 +1,27 @@
 {
   "name": "ListCloudAssetInstances",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CloudAssetQueryData",
-      "description": "Query data list based on keywords.",
+      "description": "The data list queried by keyword.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Data",
+          "description": "The query content.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Operator",
+          "description": "The query operator. Currently, only INCLUDE is supported.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -27,25 +30,28 @@
     },
     {
       "name": "CloudAssetTypes",
-      "description": "The details of the cloud asset.",
+      "description": "The list of assets of the cloud asset instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "AssetSubType",
+          "description": "The subtype of the cloud service.\n\n> For details, refer to AssetSubType in the [GetCloudAssetCriteria](~~GetCloudAssetCriteria~~) operation.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "AssetType",
+          "description": "The type of the cloud asset.\n\n> For details, refer to AssetType in the [GetCloudAssetCriteria](~~GetCloudAssetCriteria~~) operation.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Vendor",
+          "description": "The server vendor. Valid values:\n\n- **0**: Alibaba Cloud asset\n- **1**: Off-cloud asset\n- **2**: IDC asset\n- **3**, **4**, **5**, **7**: Other cloud assets\n- **8**: Lightweight asset",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -54,35 +60,41 @@
     },
     {
       "name": "Criteria",
-      "description": "The search conditions for assets. The value of this parameter is in the JSON format and contains the following fields:\n\n*   **name**: the name of the search condition.\n\n*   **value**: the value of the search condition.\n\n*   **logicalExp**: the logical relation for multiple search conditions. Valid values:\n\n    *   **OR**: The search conditions use a logical **OR**.\n    *   **AND**: The search conditions use a logical **AND**.\n\n> You can call the [GetCloudAssetCriteria](~~GetCloudAssetCriteria~~) operation to query supported search conditions.",
+      "description": "The conditions used to search for assets. This parameter is in JSON format and contains the following fields:\n- **name**: the search item.\n- **value**: the value of the search item.\n- **logicalExp**: the logical relationship between multiple search item values. Valid values:\n    - **OR**: indicates that multiple search item values have an **OR** relationship.\n    - **AND**: indicates that multiple search item values have an **AND** relationship.\n> You can call the [GetCloudAssetCriteria](~~GetCloudAssetCriteria~~) operation to query the supported search conditions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CurrentPage",
-      "description": "The number of the page to return.",
+      "description": "The number of the current page to return in paginated queries.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "IsSaleData",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "LogicalExp",
-      "description": "The logical relation for multiple search conditions. Valid values:\n\n*   **OR**: The search conditions use a logical **OR**.\n*   **AND**: The search conditions use a logical **AND**.",
+      "description": "The logical relationship between multiple search conditions. Valid values:\n\n- **OR**: indicates that multiple search conditions have an **OR** relationship.\n- **AND**: indicates that multiple search conditions have an **AND** relationship.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Maximum value: 100. Default value: 20.",
+      "description": "The maximum number of rows that can be displayed per page. Maximum value: 100. Default value: 20.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance.",
+      "description": "The ID of the region where the instance resides.",
       "position": "Query",
       "type": "String",
       "required": false

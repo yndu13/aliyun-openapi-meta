@@ -1,26 +1,34 @@
 {
   "name": "RefreshObjectCaches",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Force",
-      "description": "When the comparison between the source content and the source site resources is consistent, should the resources within the corresponding range be forcibly refreshed. The default is false.\n\n*   **true**: purges all resources in the range that corresponds to the type of the purge task. If you set this parameter to true, when the requested resource matches the resource in the range that corresponds to the type of the purge task, the POP retrieves the resource from the origin server, returns the resource to the client, and caches the resource.\n*   **false**: purges the changed resources in the range that corresponds to the type of the purge task. If you set this parameter to false, when the requested resource matches the resource in the range that corresponds to the type of the purge task, the POP obtains the Last-Modified parameter of the resource from the origin server. If the obtained value of the Last-Modified parameter is the same as that of the cached resource, the cached resource is returned. Otherwise, the POP retrieves the resource from the origin server, returns the resource to the client, and caches the resource.\n\n>  This parameter takes effect only when the ObjectType parameter is not set to File.",
+      "description": "Specifies whether to directly delete the cache on CDN points of presence. Default value: false.\n\n- **true**: Directly deletes the cache on CDN points of presence. This means the specified cached resources are immediately removed from all CDN points of presence. The next request for the resource must access the origin server to retrieve the latest version, which is then cached again. This ensures that all subsequent requests return the latest content after the deletion. This option is suitable for scenarios that require immediate cache updates, such as emergency security vulnerability fixes or publishing critical updates. Note that this may temporarily increase the load on the origin server because all related requests need to access the origin server.\n\n- **false**: Marks the cache on CDN points of presence as expired. After a cached resource is marked as expired, the next request for the resource triggers the CDN point of presence to authenticate the latest version through origin fetch. If the version matches the current row cache, the cached resource is returned directly. If not, the latest resource is retrieved through origin fetch, returned to the user, and cached again. This method allows gradual cache updates instead of immediate full purge. It is suitable for scenarios that require smoothing transitions and reduces the increased origin server load that may result from deleting a large amount of cache at once.\n\n> This parameter takes effect only when you use folder refresh, regex-based refresh, or parameter-filtering refresh.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ObjectPath",
-      "description": "*   If you submit multiple URLs or directories at a time, separate them with line breaks (\\n) or (\\r\\n).\n*   The total number of domain names contained all URLs in a submitted task cannot exceed 10.",
+      "description": "- To commit multiple URLs or multiple folders at a time, separate them with line feed characters.\n- The total number of domain names across all URLs in a single committed node must not exceed 10.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "ObjectType",
-      "description": "The type of the object that you want to refresh. Valid values:\n\n*   **File** (default): refreshes one or more files.\n*   **Directory**: refreshes the files in one or more directories.\n*   **Regex**: refreshes content based on regular expressions.\n*   **ExQuery**: omits parameters after the question mark in the URL and refreshes content.\n\nIf you set the ObjectType parameter to File or Directory, you can view [Refresh and prefetch resources](~~27140~~) to obtain more information. If you set the ObjectType parameter to Regex, you can view [Configure URL refresh rules that contain regular expressions](~~146195~~) to obtain more information.\n\nIf you set the ObjectType parameter to Directory, the resources in the directory that you want to refresh are marked as expired. You cannot delete the directory. If clients request resources on POPs that are marked as expired, Alibaba Cloud CDN checks whether the resources on your origin server are updated. If resources are updated, Alibaba Cloud CDN retrieves the latest version of the resources and returns the resources to the clients. Otherwise, the origin server returns the 304 status code.",
+      "description": "The refresh type. Valid values:\n\n- **File** (default): URL.\n- **Directory**: folder.\n- **Regex**: regex-based refresh.\n- **IgnoreParams**: parameter-filtering refresh. Parameter filtering removes the `?` and all characters after `?` from a request URL. In a parameter-filtering refresh, you commit a URL with parameters removed through the API. The committed URL is then matched against cached resource URLs after their parameters are removed. If a cached resource URL matches the committed URL after parameter filtering, the CDN point of presence executes a refresh on the cached resource.\n\n> - For the feature description of URL refresh and folder refresh, refer to [Refresh and prefetch resources](~~64936~~).\n> - A file refresh directly deletes the resource from the point of presence. When a new request arrives, the latest resource is retrieved through origin fetch. Other refresh types refresh only changed resources by default. To force a refresh, set the Force parameter to true. For more information, see the metric description of the Force parameter.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ReplicaTag",
+      "description": "This parameter is not active.",
       "position": "Body",
       "type": "String",
       "required": false

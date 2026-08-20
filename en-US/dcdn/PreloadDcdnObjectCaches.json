@@ -1,40 +1,41 @@
 {
   "name": "PreloadDcdnObjectCaches",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Area",
-      "description": "The acceleration region in which you want to prefetch content. If you do not specify a region, the value overseas is used.\n\n*   **domestic**: Chinese mainland\n*   **overseas**: outside the Chinese mainland",
+      "description": "The prefetch region. Valid values:\n- **domestic**: the Chinese mainland only.\n- **overseas**: global (excluding the Chinese mainland).\n\nIf you do not specify this parameter, the prefetch region defaults to the DCDN acceleration region configured for your domain name:\n\n- If the acceleration region of the domain name is **Chinese Mainland Only**, the prefetch region is the Chinese mainland only.\n- If the acceleration region of the domain name is **Global**, the prefetch region is global.\n- If the acceleration region of the domain name is **Global (Excluding the Chinese Mainland)**, the prefetch region is global (excluding the Chinese mainland).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "L2Preload",
-      "description": "Specifies whether to prefetch content to POPs. Valid values:\n\n*   **true**: prefetches content to nodes that include L2 DCDN nodes.\n*   **false**: prefetches content to L2 POPs or L3 POPs.",
+      "description": "Specifies whether to prefetch content directly to L2 nodes. Valid values:\n\n- **true**: The prefetch node hierarchy must include L2 nodes.\n\n- **false** (default): Only origin-layer nodes are prefetched. Origin-layer nodes can be L2 nodes or L3 nodes.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ObjectPath",
-      "description": "The path of the content that you want to prefetch. Separate multiple URLs with line feed characters (\\n) or a pair of carriage return and line feed characters (\\r\\n).",
+      "description": "The URLs to prefetch. The format is **accelerated domain name/file to prefetch**.\n>Separate multiple URLs with line breaks. Each URL can be up to 1,024 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "QueryHashkey",
-      "description": "",
+      "description": "This parameter is used when certain rules (such as URL rewrite or parameter filtering) are configured. It specifies whether to enable hashkey query mode when executing prefetch tasks. Valid values:\n- false: default mode. This mode is used when this parameter is not specified. The submitted URL is directly used as the hashkey of the prefetched file.\n- true: queries the actual hashkey used by the prefetch URL based on the domain name configuration.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "WithHeader",
-      "description": "The custom header for prefetch in the JSON format.",
+      "description": "The custom prefetch headers. Specify the value in JSON format.",
       "position": "Query",
       "type": "String",
       "required": false

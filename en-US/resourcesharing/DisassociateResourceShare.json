@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "ResourceArns",
-      "description": "",
+      "description": "A list of the Alibaba Cloud Resource Names (ARNs) of the shared resources.\n\nYou can disassociate up to five shared resources in a single request.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceOwner",
-      "description": "The owner of the resource share. Valid values:\n\n*   Self: The resource share belongs to the current account. This is the default value. For resource sharing within a resource directory, if you are a resource owner and you want to disassociate resources or principals from a resource share, set this parameter to Self.\n*   OtherAccounts: The resource share belongs to another account. For resource sharing outside a resource directory, if you are a principal and you want to exit a resource share, set this parameter to OtherAccounts.",
+      "description": "The owner of the resource share. Valid values:\n\n- `Self` (default): The resource share is owned by the current account. Use this value when a resource owner disassociates shared resources or principals from a resource share within a Resource Directory.\n\n- `OtherAccounts`: The resource share is owned by another account. Use this value when a principal leaves a resource share that was created by an account outside your Resource Directory.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,19 +28,21 @@
     },
     {
       "name": "Resources",
-      "description": "The information about the resources.",
+      "description": "A list of shared resources to disassociate from the resource share.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ResourceId",
+          "description": "The ID of the shared resource.\n\nYou can disassociate up to five shared resources in a single request.\n\n> The `Resources.N.ResourceId` and `Resources.N.ResourceType` parameters must be specified in pairs.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceType",
+          "description": "The type of the shared resource.\n\nYou can disassociate up to five shared resources in a single request.\n\nFor a list of supported resource types, see [Services that work with Resource Sharing](~~450526~~).\n\n> The `Resources.N.ResourceId` and `Resources.N.ResourceType` parameters must be specified in pairs.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -49,7 +51,7 @@
     },
     {
       "name": "Targets",
-      "description": "The information about the principals.",
+      "description": "A list of principals to disassociate from the resource share.",
       "position": "Query",
       "type": "RepeatList",
       "required": false

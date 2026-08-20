@@ -13,6 +13,12 @@
       "required": false
     },
     {
+      "name": "AutoInstallCloudAssistant",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "AutoReleaseTime",
       "description": "按量付费实例的自动释放时间。按照[ISO 8601](~~25696~~)标准表示，使用UTC+0时间。格式为：`yyyy-MM-ddTHH:mm:ssZ`。\n\n- 如果秒（`ss`）取值不是`00`，则自动取为当前分钟（`mm`）开始时。\n\n- 最短释放时间为当前时间一小时之后。",
       "position": "Query",
@@ -48,6 +54,12 @@
       "required": false
     },
     {
+      "name": "CloudAssistantRegion",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "DataDisk",
       "description": "数据盘规格。",
       "position": "Query",
@@ -56,24 +68,28 @@
       "sub_parameters": [
         {
           "name": "Category",
+          "description": "磁盘种类。取值：\n- **cloud_efficiency**：高效云盘\n- **cloud_ssd**：全闪云盘\n- **local_hdd**：本地HDD盘\n- **local_ssd**：本地SSD盘",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
+          "description": "是否加密云盘。取值范围：\n\n- true：是\n\n- false（默认值）：否",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KMSKeyId",
+          "description": "云盘使用的KMS密钥ID。取值范围：\n\n- true：是\n\n- false（默认值）：否\n\n> 如果Encrypted置为true，KMSKeyId为空时则使用服务默认密钥。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "数据盘大小，单位：GiB。",
           "position": "Query",
           "type": "Long",
           "required": false
@@ -85,6 +101,12 @@
       "description": "实例释放保护属性，指定是否支持通过控制台或API释放实例。取值范围： \n\n-  true：开启实例释放保护。\n-  false：关闭实例释放保护。\n\n默认值：false。\n\n> 该属性仅适用于按量付费实例，且只能限制手动释放操作，对系统释放操作不生效。",
       "position": "Query",
       "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "DeploymentSetId",
+      "position": "Query",
+      "type": "String",
       "required": false
     },
     {
@@ -306,12 +328,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "自定义标签key",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "标签值。不可超过128个字符，不能以`aliyun`或`acs:`开头，不能包含`http://`或者`https://`。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -337,6 +361,18 @@
       "description": "交换机ID。\n\n>只能在节点级调度使用，区域级调度时配置该参数会报错。",
       "position": "Query",
       "type": "String",
+      "required": false
+    },
+    {
+      "name": "VpdId",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "VpdVSwitchIds",
+      "position": "Query",
+      "type": "Json",
       "required": false
     }
   ]

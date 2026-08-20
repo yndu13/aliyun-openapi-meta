@@ -1,67 +1,76 @@
 {
   "name": "ModifyCasterProgram",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "CasterId",
-      "description": "The ID of the production studio.\n\n*   If the production studio was created by calling the [CreateCaster](~~2848009~~) operation, check the value of the response parameter CasterId to obtain the ID.\n*   If the production studio was created by using the ApsaraVideo Live console, obtain the ID on the **Production Studio Management** page. To go to the page, log on to the **ApsaraVideo Live console** and click **Production Studios** in the left-side navigation pane.\n\n>  You can find the ID of the production studio in the Instance ID/Name column.",
+      "description": "The ID of the production studio.\n\n- If you create a production studio by calling the [CreateCaster]() operation, use the value of the CasterId parameter that is returned in the response.\n\n- If you create a production studio in the ApsaraVideo Live console, go to the **Production Studio** > **Cloud Production Studio** page to view the ID.\n\n> The name of the production studio in the list on the Cloud Production Studio page is the production studio ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Episode",
-      "description": "The episodes.",
+      "description": "The program information.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "ComponentId",
+          "description": "The list of component IDs. The components are layered from bottom to top in the order they are listed. The components are switched in sync with the video source.\n\n- This parameter is required and takes effect only when the node type is **Component**.\n\n- If the node type is **Resource**, the components are attached to the video source and switched in sync.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "EndTime",
+          "description": "The end time. The time is in UTC. The format is *yyyy-MM-dd*T*HH:mm:ss*Z.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EpisodeId",
+          "description": "The program ID. If you add a program for the production studio by calling the [AddCasterEpisode]() operation, use the value of the EpisodeId parameter that is returned in the response.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EpisodeName",
+          "description": "The program name.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EpisodeType",
+          "description": "The program type. Valid values:\n\n- **Resource**: video source.\n\n- **Component**: component.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ResourceId",
+          "description": "The ID of the video source. If you add a video source for the production studio by calling the [AddCasterVideoResource]() operation, use the value of the ResourceId parameter that is returned in the response.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartTime",
+          "description": "The start time. The time is in UTC. The format is *yyyy-MM-dd*T*HH:mm:ss*Z.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SwitchType",
+          "description": "The switch policy. This parameter is valid only when the node type is **Resource**.\n\n- **TimeFirst**: time-first. This is the only valid policy for live stream video sources.\n\n- **ContentFirst**: content-first.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -70,7 +79,7 @@
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false

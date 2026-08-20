@@ -1,5 +1,6 @@
 {
   "name": "CreateAutoProvisioningGroup",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -19,6 +20,12 @@
       "required": false
     },
     {
+      "name": "CandidateOptions",
+      "position": "Query",
+      "type": "Struct",
+      "required": false
+    },
+    {
       "name": "ClientToken",
       "description": "保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符，且不能超过64个字符。更多信息，请参见[如何保证幂等性](~~25693~~)。",
       "position": "Query",
@@ -34,6 +41,7 @@
       "sub_parameters": [
         {
           "name": "DiskCategory",
+          "description": "实例数据盘类型。您可通过该参数指定多种候选磁盘类型，指定顺序作为各磁盘类型的优先级顺序，当某一种磁盘不可用时，自动更换磁盘类型。取值范围：\n\n-   cloud_efficiency：高效云盘。\n-   cloud_ssd：SSD云盘。\n-   cloud_essd：ESSD云盘。\n-   cloud：普通云盘。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -63,7 +71,6 @@
     },
     {
       "name": "ExecutionMode",
-      "description": "",
       "position": "Query",
       "type": "String",
       "required": false
@@ -91,18 +98,21 @@
       "sub_parameters": [
         {
           "name": "AssumeRoleFor",
+          "description": ">该参数正在邀测中，暂不支持使用。",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "RoleType",
+          "description": ">该参数正在邀测中，暂不支持使用。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Rolearn",
+          "description": ">该参数正在邀测中，暂不支持使用。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -132,84 +142,98 @@
       "sub_parameters": [
         {
           "name": "AutoSnapshotPolicyId",
+          "description": "数据盘采用的自动快照策略 ID。\n\n当您设置该参数后，需要注意：\n- 仅创建一次性同步交付类型的弹性供应组（AutoProvisioningGroupType=instant）时，该参数生效。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "BurstingEnabled",
+          "description": "是否开启Burst（性能突发）。取值范围：\n\n- true：是。\n- false：否。\n\n>当DiskCategory取值为cloud_auto时才支持设置该参数。更多信息，请参见[ESSD AutoPL云盘](~~368372~~)。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Category",
+          "description": "数据盘N的云盘类型。N的取值范围为1~16。取值范围：\n\n- cloud_efficiency：高效云盘。\n- cloud_ssd：SSD云盘。\n- cloud_essd：ESSD云盘。\n- cloud：普通云盘。\n\n对于I/O优化实例，默认值为cloud_efficiency。对于非I/O优化实例，默认值为cloud。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeleteWithInstance",
+          "description": "数据盘是否随实例释放。取值范围：\n- true：数据盘随实例释放。\n- false：数据盘不随实例释放。\n\n默认值：true。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Description",
+          "description": "数据盘的描述。长度为2~256个英文或中文字符，不能以`http://`和`https://`开头。同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Device",
+          "description": "数据盘的挂载点。同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskName",
+          "description": "数据盘名称。长度为2~128个英文或中文字符。必须以大小写字母或中文开头，不能以`http://`和`https://`开头。可以包含数字、半角句号（.）、半角冒号（:）、下划线（_）或者短划线（-）。\n\n默认值：空。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "EncryptAlgorithm",
+          "description": ">该参数暂未开放使用。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
+          "description": "数据盘N是否加密。取值范围：\n\n- true：加密。\n- false：不加密。\n\n默认值：false。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KmsKeyId",
+          "description": "数据盘对应的KMS密钥ID。同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "创建ESSD云盘作为数据盘使用时，设置云盘的性能等级。N的取值必须和`LaunchConfiguration.DataDisk.N.Category`中的N保持一致。取值范围：\n\n- PL0：单盘最高随机读写IOPS 1万。\n- PL1（默认）：单盘最高随机读写IOPS 5万。\n- PL2：单盘最高随机读写IOPS 10万。\n- PL3：单盘最高随机读写IOPS 100万。\n\n有关如何选择ESSD性能等级，请参见[ESSD云盘](~~122389~~)。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ProvisionedIops",
+          "description": "ESSD AutoPL云盘预配置的读写IOPS。可能值：0~min{50,000, 1000*容量-基准性能}。\n\n基准性能=min{1,800+50*容量, 50000}。\n\n\n>当DiskCategory取值为cloud_auto时才支持设置该参数。更多信息，请参见[ESSD AutoPL云盘](~~368372~~)。\n",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "Size",
+          "description": "第N个数据盘的容量大小，N的取值范围为1~16，单位为GiB。取值范围：\n\n- cloud_efficiency：20~32768。\n- cloud_ssd：20~32768。\n- cloud_essd：具体取值范围与`LaunchConfiguration.DataDisk.N.PerformanceLevel`的取值有关。\n    - PL0：40~32768。\n    - PL1：20~32768。\n    - PL2：461~32768。\n    - PL3：1261~32768\n- cloud：5~2000。\n\n> 该参数的取值必须大于等于参数`LaunchConfiguration.DataDisk.N.SnapshotId`指定的快照的大小。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
+          "description": "创建数据盘N使用的快照。N的取值范围为1~16。\n\n指定该参数后，参数`LaunchConfiguration.DataDisk.N.Size`会被忽略，实际创建的云盘大小为指定的快照的大小。不能使用早于2013年7月15日（含）创建的快照，请求会报错被拒绝。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -225,7 +249,7 @@
     },
     {
       "name": "LaunchConfiguration.HostName",
-      "description": "实例主机名称。限制说明如下：\n\n- 半角句号（.）和短划线（-）不能作为首尾字符，更不能连续使用。\n- Windows实例：字符长度为2~15，不支持半角句号（.），不能全是数字。允许大小写英文字母、数字和短划线（-）。\n- 其他类型实例（Linux等）：字符长度为2~64，支持多个半角句号（.），点之间为一段，每段允许大小写英文字母、数字和短划线（-）。\n- 不支持同时设置`LaunchConfiguration.HostName`与`LaunchConfiguration.HostNames.N`，否则会返回报错信息。\n- 同时指定启动模板与启动配置信息时，优先使用启动模板。",
+      "description": "实例主机名称。限制说明如下：\n\n- 半角句号（.）和短划线（-）不能作为首尾字符，更不能连续使用。\n- Windows实例：字符长度为2~15，不支持半角句号（.），不能全是数字。允许大小写英文字母、数字和短划线（-）。\n- 其他类型实例（Linux等）：字符长度为2~64，支持多个半角句号（.），点之间为一段，每段允许大小写英文字母、数字和短划线（-）。\n- 不支持同时设置`LaunchConfiguration.HostName`与`LaunchConfiguration.HostNames.N`，否则会返回报错信息。\n- 同时指定启动模板与启动配置信息时，优先使用启动模板。\n\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -302,7 +326,7 @@
     },
     {
       "name": "LaunchConfiguration.Password",
-      "description": "实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是：\n\n``()`~!@#$%^&*-_+=|{}`[]`:;'<>,.?/``\n\n其中，Windows实例不能以正斜线（/）为密码首字符。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。",
+      "description": "实例的密码。长度为8至30个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是：\n\n``()`~!@#$%^&*-_+=|{}`[]`:;'<>,.?/``\n\n其中，Windows实例不能以正斜线（/）为密码首字符。\n\n同时指定启动模板与启动配置信息时，优先使用启动模板。\n\n\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -400,12 +424,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "实例的标签键。N的取值范围：1~20。一旦传入该值，则不允许为空字符串。最多支持128个字符，不能以aliyun和acs:开头，不能包含`http://`或`https://`。同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "实例的标签值。N的取值范围：1~20。一旦传入该值，可以为空字符串。最多支持128个字符，不能以acs:开头，不能包含`http://`或者`https://`。同时指定启动模板与启动配置信息时，优先使用启动模板。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -428,78 +454,91 @@
       "sub_parameters": [
         {
           "name": "Architectures",
+          "description": "实例规格所属的架构类型列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "BurstablePerformance",
+          "description": "是否为性能突发实例规格。取值范围：\n\n- Exclude：不包含性能突发实例规格。\n- Include：包含性能突发实例规格。\n- Required：只包含性能突发实例规格。\n\n默认值：Include。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Cores",
+          "description": "实例规格的vCPU内核数目列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ExcludedInstanceTypes",
+          "description": "需要排除的实例规格列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "ImageId",
+          "description": "镜像ID，您可以通过该参数设置当前资源池使用的镜像，如果没有设置则默认使用 `LaunchConfiguration.ImageId`或者启动模板里配置的镜像信息。您可以通过[DescribeImages](~~25534~~)查询可用的镜像资源。\n注：仅当`AutoProvisioningGroupType = instant` 时支持该参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceFamilyLevel",
+          "description": "实例规格族级别，用于筛选符合要求的实例规格范围。取值范围：\n\n- EntryLevel：入门级，即共享型实例规格。成本更低，但是无法保证实例计算性能的稳定。适用于平时CPU使用率低的业务场景。更多信息，请参见[共享型](~~108489~~)。\n- EnterpriseLevel：企业级。性能稳定，资源独享，适用于对稳定性要求高的业务场景。更多信息，请参见[实例规格族](~~25378~~)。\n- CreditEntryLevel：积分入门级，即突发性能实例。通过CPU积分来保证计算性能，适用于平时CPU使用率低、偶有突发CPU使用率的情况。更多信息，请参见[突发性能实例](~~59977~~)。\n\nN的取值范围：1~10。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceType",
+          "description": "扩展启动模板对应的实例规格，N的取值范围：1~20。取值范围：请参见[实例规格族](~~25378~~)。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "MaxPrice",
+          "description": "扩展启动模板中，抢占式实例的价格上限。\n\n> 设置了`LaunchTemplateConfig`后，`LaunchTemplateConfig.N.MaxPrice`为必选参数。",
           "position": "Query",
           "type": "Double",
           "required": false
         },
         {
           "name": "MaxQuantity",
+          "description": ">该参数正在邀测中，暂不支持使用。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Memories",
+          "description": "实例规格的内存大小列表。",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Priority",
+          "description": "扩展启动模板的优先级，取值为0时优先级最高。取值范围：0 ~ +∞。\n\n",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "VSwitchId",
+          "description": "扩展启动模板中，ECS实例加入的虚拟交换机的ID。扩展模板中启动的ECS实例的可用区由虚拟交换机决定。\n\n> 设置了`LaunchTemplateConfig`后，`LaunchTemplateConfig.N.VSwitchId`为必选参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "WeightedCapacity",
+          "description": "扩展启动模板中，实例规格的权重。取值越高，单台实例满足计算力需求的能力越大，所需的实例数量越小。取值范围：大于0。\n\n您可以根据指定实例规格的计算力和集群单节点最低计算力得出权重值。假设单节点最低计算力为8 vCPU、60 GiB，则：\n\n- 8 vCPU、60 GiB的实例规格权重可以设置为1。\n- 16 vCPU、120 GiB的实例规格权重可以设置为2。",
           "position": "Query",
           "type": "Double",
           "required": false
@@ -613,6 +652,7 @@
       "sub_parameters": [
         {
           "name": "DiskCategory",
+          "description": "实例系统盘类型。您可通过该参数指定多种候选磁盘类型，指定顺序作为各磁盘类型的优先级顺序，当某一种磁盘不可用时，自动更换磁盘类型。取值范围：\n\n-   cloud_efficiency：高效云盘。\n-   cloud_ssd：SSD云盘。\n-   cloud_essd：ESSD云盘。\n-   cloud：普通云盘。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -628,12 +668,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "弹性供应组的标签键。\n\nN 的取值范围：1~20。一旦传入该值，则不允许为空字符串。最多支持 128 个字符，不能以aliyun和acs:开头，不能包含http://或者https://。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "弹性供应组的标签值。\n\nN 的取值范围：1~20。一旦传入该值，允许为空字符串。最多支持 128 个字符，不能包含http://或者https://。",
           "position": "Query",
           "type": "String",
           "required": false

@@ -7,54 +7,56 @@
   "parameters": [
     {
       "name": "NextToken",
-      "description": "The query token.\n\n>  If a query does not return all results, you can specify the returned **NextToken** parameter in the next query to obtain more results.",
+      "description": "The query token.\n> If a single request does not return all results, you can pass the **NextToken** value returned from the previous request in the subsequent request to continue the query.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the data migration, data synchronization, or change tracking instance resides. For more information, see [List of supported regions](~~141033~~).",
+      "description": "The region ID. Specify this parameter to indicate the region where the instance resides. For more information, see [Supported regions](~~141033~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "Resource group ID.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceId",
-      "description": "The instance ID for data migration, synchronization, and subscription, which can be obtained by calling [DescribeDtsJobs](~~209702~~).  > - N indicates the Nth instance ID being passed. For example, ResourceId.0 represents the first instance ID; ResourceId.1 represents the second instance ID. Up to 50 instance IDs can be queried simultaneously. - At least one of this parameter and **Tag.N.Key** must be provided.",
+      "description": "The ID of the data migration, data synchronization, or change tracking instance. You can call [DescribeDtsJobs](~~209702~~) to query instance IDs.\n> - N specifies the sequence number of the instance ID. For example, ResourceId.0 specifies the first instance ID, and ResourceId.1 specifies the second instance ID. You can query 1 to 50 instance IDs at a time.\n- You must specify at least one of this parameter and **Tag.N.Key**.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "ResourceType",
-      "description": "The resource type. Valid value: **ALIYUN::DTS::INSTANCE**.",
+      "description": "The resource type. Set the value to **ALIYUN::DTS::INSTANCE**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The value corresponding to the tag key.",
+      "description": "The tag value that corresponds to the tag key.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.\n> - N specifies the sequence number of the tag key. For example, Tag.0.Key specifies the first tag key, and Tag.1.Key specifies the second tag key. You can query 1 to 20 tag keys at a time.\n- You must specify at least one of this parameter and **ResourceId.N**. An empty string is not allowed.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.\n> - N specifies the sequence number of the tag value. For example, Tag.0.Value specifies the first tag value, and Tag.1.Value specifies the second tag value. You can query 1 to 20 tag values at a time.\n- An empty string is allowed.",
           "position": "Query",
           "type": "String",
           "required": false

@@ -1,66 +1,69 @@
 {
   "name": "ModifyMetricRuleBlackList",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Category",
-      "description": "The category of the cloud service. For example, ApsaraDB for Redis supports the standard architecture, the cluster architecture, and the read/write splitting architecture. In this case, the valid values of this parameter for ApsaraDB for Redis include `kvstore_standard`, `kvstore_sharding`, and `kvstore_splitrw`.",
+      "description": "The category of the Alibaba Cloud service. For example, ApsaraDB for Redis has `kvstore_standard` (Standard Edition), `kvstore_sharding` (Cluster Edition), and `kvstore_splitrw` (read/write splitting Edition).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EffectiveTime",
-      "description": "The time range within which the blacklist policy is effective. Take note of the following information:\n\n*   If you do not configure this parameter, the blacklist policy is permanently effective.\n\n*   If you configure this parameter, the blacklist policy is effective only within the specified time range. Examples:\n\n    *   `03:00-04:59`: The blacklist policy is effective from 03:00 to 05:00 local time. 05:00 local time is excluded.\n    *   `03:00-04:59 UTC+0700`: The blacklist policy is effective from 03:00 to 05:00 (UTC+7). 05:00 (UTC+7) is excluded.",
+      "description": "The effective period of the alert blacklist policy. The implications of whether this parameter is set are as follows:\n\n- If you do not set this parameter, the alert blacklist policy is permanently effective.\n\n- If you set this parameter, the alert blacklist policy is effective only within the specified time range. The following two format examples are supported:\n    - `03:00-04:59`: The alert blacklist policy is effective from 03:00 to 05:00 (exclusive) in local time.\n    - `03:00-04:59 UTC+0700`: The alert blacklist policy is effective from 03:00 to 05:00 (exclusive) in UTC+7.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableEndTime",
-      "description": "The timestamp when the blacklist policy expires.\n\nUnit: milliseconds.",
+      "description": "The end timestamp until which the alert blacklist policy takes effect.\n\nUnit: milliseconds.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableStartTime",
-      "description": "The timestamp when the blacklist policy starts to take effect.\n\nUnit: milliseconds.",
+      "description": "The start timestamp from which the alert blacklist policy takes effect.\n\nUnit: milliseconds.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Id",
-      "description": "The ID of the blacklist policy.\n\nFor information about how to obtain the ID of a blacklist policy, see [DescribeMetricRuleBlackList](~~457257~~).",
+      "description": "The ID of the alert blacklist policy.\n\nFor information about how to obtain the ID of an alert blacklist policy, see [DescribeMetricRuleBlackList](~~457257~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Instances",
-      "description": "The IDs of the instances that belong to the specified cloud service.",
+      "description": "The list of instances of the specified Alibaba Cloud service in the alert blacklist policy.",
       "position": "Query",
       "type": "RepeatList",
       "required": true
     },
     {
       "name": "Metrics",
-      "description": "The metrics of the instance.\n\n*   If you do not configure this parameter, the blacklist policy applies to all metrics of the specified cloud service.\n*   If you configure this parameter, the blacklist policy applies only to the current metric.",
+      "description": "The monitoring metrics of the instances.\n\n- If you do not set this parameter, the alert blacklist policy applies to all monitoring metrics of the specified Alibaba Cloud service.\n\n- If you set this parameter, the alert blacklist policy applies only to the specified monitoring metrics.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "MetricName",
+          "description": "The monitoring metrics name.\n\nValid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Resource",
+          "description": "The extension dimension information of the instance. For example, `{\"device\":\"C:\"}` indicates that the alert blacklist policy applies to all C drives of the ECS instance.\n\nValid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -69,28 +72,28 @@
     },
     {
       "name": "Name",
-      "description": "The name of the blacklist policy.",
+      "description": "The name of the alert blacklist policy.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Namespace",
-      "description": "The namespace of the cloud service.\n\nFor more information about the namespaces of cloud services, see [Appendix 1: Metrics](~~163515~~).",
+      "description": "The namespace of the Alibaba Cloud service.\n\nFor information about the namespaces of Alibaba Cloud services, see [Cloud service monitoring metrics](~~163515~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ScopeType",
-      "description": "The effective scope of the blacklist policy. Valid values:\n\n*   USER: The blacklist policy takes effect only within the current Alibaba Cloud account.\n*   GROUP (default): The blacklist policy takes effect only within the specified application group. For information about how to obtain the ID of an application group, see [DescribeMonitorGroups](~~115032~~).",
+      "description": "The effective scope of the alert blacklist policy. Valid values:\n\n- USER: The alert blacklist policy takes effect only within the current Alibaba Cloud account.\n\n- GROUP (default): The alert blacklist policy takes effect in the specified application group. You must specify an application group.\n  For information about how to obtain the application group ID, see [DescribeMonitorGroups](~~115032~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ScopeValue",
-      "description": "The IDs of the application groups.\n\n>  This parameter is required only when `ScopeType` is set to `GROUP`.",
+      "description": "The list of application group IDs.\n\n> This parameter is required only when `ScopeType` is set to `GROUP`.",
       "position": "Query",
       "type": "String",
       "required": false

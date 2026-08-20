@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "CenId",
-      "description": "云企业网实例ID。",
+      "description": "云企业网实例ID。\n\n>  前置依赖：该 CEN 实例必须已通过 Cbn.CreateCen 接口预先创建。",
       "position": "Query",
       "type": "String",
       "required": true
@@ -22,6 +22,13 @@
     {
       "name": "FirewallVSwitchCidrBlock",
       "description": "防火墙所使用vSwitch网段, 需配置子网掩码不大于29位且不与网络规划冲突的网段来分配给创建防火墙过程所需vSwitch网段，用以自动创建防火墙安全VPC内的交换机（Cloud_Firewall_VSWITCH）进行流量引流处理。交换机网段必须是防火墙VPC网段的子网。\n\n如果不填此参数, 则默认自动分配网段10.219.219.216/29。\n\n> 参数仅本CEN本地域首次创建VPC防火墙时有效。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "FirewallVSwitchZoneId",
+      "description": "防火墙交换机所属的可用区 ID。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,7 +70,7 @@
     },
     {
       "name": "NetworkInstanceId",
-      "description": "创建VPC边界防火墙的VPC实例ID。",
+      "description": "创建VPC边界防火墙的VPC实例ID。\n\n>  前置依赖：该 VPC 必须已通过 Cbn.AttachCenChildInstance 接口加入到上述 CenId 指定的云企业网中。",
       "position": "Query",
       "type": "String",
       "required": true

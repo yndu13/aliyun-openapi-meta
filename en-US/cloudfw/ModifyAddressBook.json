@@ -7,28 +7,65 @@
   "parameters": [
     {
       "name": "AckLabels",
-      "description": "",
+      "description": "The list of labels for pods in the ACK cluster.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "AckNamespaces",
-      "description": "",
+      "description": "The list of namespaces for pods in the ACK cluster.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "AddressList",
-      "description": "The addresses in the address book. Separate multiple addresses with commas (,). If you set GroupType to **ip**, **port**, or **domain**, you must specify this parameter.\n\n*   If you set GroupType to **ip**, you must specify IP addresses for the address book. Example: 1.2.XX.XX/32,1.2.XX.XX/24.\n*   If you set GroupType to **port**, you must specify port numbers or port ranges for the address book. Example: 80/80,100/200.\n*   If you set GroupType to **domain**, you must specify domain names for the address book. Example: demo1.aliyun.com,demo2.aliyun.com.",
+      "description": "The addresses in the address book. Separate multiple addresses with commas (,). Use a space to separate an address from its description. This parameter is required when GroupType is set to **ip**, **port**, or **domain**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "AssetMemberUids",
+      "description": "The list of member accounts in the asset address book.",
+      "position": "Query",
+      "type": "Json",
+      "required": false
+    },
+    {
+      "name": "AssetRegionResourceTypes",
+      "description": "The cloud address book, including the list of regions and resource types.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "AssetRegionId",
+          "description": "The asset region ID.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "ResourceType",
+          "description": "The asset type.",
+          "position": "Query",
+          "type": "Struct",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "AutoAddTagEcs",
-      "description": "Specifies whether to automatically add public IP addresses of Elastic Compute Service (ECS) instances to the address book if the instances match the specified tags. Valid values:\n\n*   **1**: yes\n*   **0**: no",
+      "description": "Indicates whether the public IP addresses of Elastic Compute Service (ECS) instances that match the specified tags are automatically added to the address book.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ClientToken",
+      "description": "The idempotency token.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -41,6 +78,13 @@
       "required": true
     },
     {
+      "name": "DryRun",
+      "description": "Specifies whether to perform a dry run.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
       "name": "GroupName",
       "description": "The name of the address book.",
       "position": "Query",
@@ -49,21 +93,21 @@
     },
     {
       "name": "GroupUuid",
-      "description": "The ID of the address book.\n\n>  To modify the address book, you must provide the ID of the address book. You can call the [DescribeAddressBook](~~138869~~) operation to query the ID.",
+      "description": "The unique ID of the address book.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Lang",
-      "description": "The language of the content within the request and response. Valid values:\n\n*   **zh**: Chinese (default)\n*   **en**: English",
+      "description": "The language type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModifyMode",
-      "description": "Modification mode with the following values:\n\n- **Cover**: Use the value of the AddressList parameter to overwrite the original address book.\n- **Append**: After the original address book, append addresses using the value of the AddressList parameter.\n- **Delete**: Delete addresses using the value of the AddressList parameter from the address book.\n\n>When GroupType is **ip**, **ipv6**, **port**, or **domain**, if this parameter is not configured, the default is to use the **Cover** method to modify the address book.\n><notice>When GroupType is **tag**, this parameter must be empty.</notice>",
+      "description": "The modification mode.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -77,19 +121,21 @@
     },
     {
       "name": "TagList",
-      "description": "The ECS tags that you want to match.",
+      "description": "The list of ECS tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "TagKey",
+          "description": "The key of the ECS tag.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "TagValue",
+          "description": "The value of the ECS tag.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -98,7 +144,7 @@
     },
     {
       "name": "TagRelation",
-      "description": "The logical relationship among ECS tags. Valid values:\n\n*   **and**: Only the public IP addresses of ECS instances that match all the specified tags can be added to the address book.\n*   **or**: The public IP addresses of ECS instances that match one of the specified tags can be added to the address book.",
+      "description": "The logical relationship among multiple ECS tags.",
       "position": "Query",
       "type": "String",
       "required": false

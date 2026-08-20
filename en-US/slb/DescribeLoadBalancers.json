@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "Address",
-      "description": "The IP address that the CLB instance uses to provide services.",
+      "description": "The service address of the CLB instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AddressIPVersion",
-      "description": "The IP version that is used by the CLB instance. Valid values: **ipv4** and **ipv6**.",
+      "description": "The IP version. Set the value to **ipv4** or **ipv6**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AddressType",
-      "description": "The network type of the CLB instance. Valid values:\n\n*   **internet:** After an Internet-facing CLB instance is created, the system assigns a public IP address to the CLB instance. Then, the CLB instance can forward requests over the Internet.\n*   **intranet:** After an internal-facing CLB instance is created, the system assigns a private IP address to the CLB instance. Then, the CLB instance can forward requests only over internal networks.",
+      "description": "The network type of the CLB instance. Valid values:\n\n- **internet**: An Internet-facing CLB instance. The system assigns a public IP address to the instance. The instance can forward requests from the Internet.\n\n- **intranet**: An internal-facing CLB instance. The system assigns a private IP address to the instance. The instance can forward requests only within internal networks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetChargeType",
-      "description": "The metering method of Internet data transfer. Valid values:\n\n*   **paybybandwidth:** pay-by-bandwidth.\n*   **paybytraffic:** pay-by-data-transfer.",
+      "description": "The billing method of the Internet-facing CLB instance. Valid values:\n\n- **paybybandwidth**: pay-by-bandwidth.\n\n- **paybytraffic**: pay-by-data-transfer.\n\n<props=\"china\">\n\nIf **PayType** is set to **PrePay**, only pay-by-bandwidth is supported. If **InstanceChargeType** is set to **PayByCLCU**, only pay-by-data-transfer is supported.\n\n</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoadBalancerId",
-      "description": "The ID of the CLB instance.\n\nYou can specify up to 10 IDs. Separate multiple IDs with commas (,).",
+      "description": "The ID of the CLB instance.\n\nYou can specify up to 10 IDs, separated by commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoadBalancerName",
-      "description": "The name of the CLB instance.\n\nThe name must be 1 to 80 characters in length, and can contain digits, periods (.), underscores (\\_), and hyphens (-). The name must start with a letter.\n\nYou can specify up to 10 names. Separate multiple names with commas (,).",
+      "description": "The name of the CLB instance.\n\nThe name must be 1 to 80 characters in length. It must start with a letter or a Chinese character. It can contain letters, digits, periods (.), underscores (\\_), and hyphens (-).\n\nYou can specify up to 10 names. Separate multiple names with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LoadBalancerStatus",
-      "description": "The status of the CLB instance. Valid values:\n\n*   **inactive:** The CLB instance is disabled. CLB instances in the inactive state do not forward traffic.\n*   **active:** The CLB instance runs as expected. By default, newly created CLB instances are in the **active** state.\n*   **locked:** The CLB instance is locked. After a CLB instance expires, it is locked for seven days. A locked CLB instance cannot forward traffic and you cannot perform operations on the locked CLB instance. However, other settings such as the IP address are retained.",
+      "description": "The state of the instance. Valid values:\n\n- **inactive**: The instance is stopped. Listeners of an instance in this state do not forward traffic.\n\n- **active**: The instance is running. This is the default state of an instance after it is created.\n\n- **locked**: The instance is locked. An instance enters the locked state after it expires. This state lasts for seven days. You cannot perform operations on the instance. The instance does not forward traffic, but its IP address and other configurations are retained.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MasterZoneId",
-      "description": "The ID of the primary zone to which the CLB instance belongs.",
+      "description": "The ID of the primary zone of the CLB instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetworkType",
-      "description": "The network type of the internal-facing CLB instance. Valid values:\n\n*   **vpc**: VPC\n*   **Classic**: classic network",
+      "description": "The network type of the internal-facing CLB instance. Valid values:\n\n- **vpc**: a VPC.\n\n- **classic**: a classic network.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -77,21 +77,21 @@
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page.\n\nValid values: **1** to **100**.\n\n>  If you specify the **PageSize** parameter, you must also specify the **PageNumber** parameter.",
+      "description": "The number of entries to return on each page.\n\nValid values: **1** to **100**.\n\n> If you set **PageSize**, you must also set **PageNumber**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "The billing method of the CLB instance. Valid values:\n\n*   Set the value to **PayOnDemand**.",
+      "description": "The billing method of the CLB instance. Valid values:\n\n- **PayOnDemand**: pay-as-you-go.\n\n<props=\"china\">\n\n- **PrePay**: subscription.\n\n</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the CLB instance is deployed.\n\nYou can call the [DescribeRegions](~~2401682~~) operation to query the most recent region list.",
+      "description": "The region ID of the Classic Load Balancer (CLB) instance.\n\nYou can call the [DescribeRegions](~~2401682~~) operation to query region IDs.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -112,33 +112,35 @@
     },
     {
       "name": "ServerIntranetAddress",
-      "description": "The private IP address of the backend server that is added to the CLB instance.\n\nYou can specify multiple IP addresses. Separate multiple IP addresses with commas (,).",
+      "description": "The internal IP address of the added backend server.\n\nYou can specify multiple IP addresses. Separate them with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlaveZoneId",
-      "description": "The ID of the secondary zone to which the CLB instance belongs.\n\nCLB instances on Alibaba Finance Cloud do not support cross-zone deployment.",
+      "description": "The ID of the secondary zone of the CLB instance.\n\nThe multi-zone feature is not available for Alibaba Finance Cloud users.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The list of tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of tag N. Valid values of N: 1 to **20**. The tag key cannot be an empty string.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of tag N. Valid values of N: 1 to **20**. The tag value can be an empty string.\nThe tag value can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -147,7 +149,7 @@
     },
     {
       "name": "Tags",
-      "description": "The tags that are added to the CLB instance. The tags must be key-value pairs that are contained in a JSON dictionary.\n\nYou can specify up to 10 tags in each call.",
+      "description": "The tags that are added to the CLB instance. The value is a JSON dictionary that consists of tag keys and tag values.\n\nYou can add up to 10 tags in each request.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -14,14 +14,14 @@
     },
     {
       "name": "EncryptionType",
-      "description": "加密方式。",
+      "description": "The encryption method.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "GlobalPermissions",
-      "description": "",
+      "description": "The global permission information.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -35,35 +35,35 @@
     },
     {
       "name": "Roles",
-      "description": "The role of the user account.  In Oracle mode, this parameter unspecified is left unspecified.  In MySQL mode, the super administrator account has ALL PRIVILEGES, and you can leave this parameter unspecified.  You need to specify the account information for a general user account. By default, the account information is a JSON array that contains the information of the role and the schema (Oracle mode) or database (MySQL mode).  Valid values: ReadWrite: a role that has the read and write privileges, namely ALL PRIVILEGES. ReadOnly: a role that has only the read-only privilege SELECT. DDL: a role that has DDL privileges such as CREATE, DROP, ALTER, SHOW VIEW, and CREATE VIEW. DML: a role that has DML privileges such as SELECT, INSERT, UPDATE, DELETE, and SHOW VIEW.",
+      "description": "The role information of the user.  \nFor standard users, specify the account information as a JSON-formatted character string. The value is an array that contains Database (MySQL pattern) information and role information (Role). Roles include the following types:  \n  - Read and write permission (ReadWrite): ALL PRIVILEGES.\n  - Read-only permission (ReadOnly): SELECT.\n  - DDL permission (DDL): CREATE, DROP, ALTER, SHOW VIEW, CREATE VIEW.\n- DML permission: SELECT, INSERT, UPDATE, DELETE, SHOW VIEW.\n- DML permission (DML): SELECT, INSERT, UPDATE, DELETE, SHOW VIEW.\n\n> <br><ul><li> Oracle pattern: leave this parameter empty.</li><li> MySQL pattern: the superuser account has ALL PRIVILEGES by default. Leave this parameter empty.  </li></ul>",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TenantId",
-      "description": "The ID of the tenant.",
+      "description": "The tenant ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UserName",
-      "description": "The name of the database account.  You cannot use reserved keywords, such as SYS and root.",
+      "description": "The name of the database account.  \nCertain reserved keywords such as SYS and root cannot be used.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UserPassword",
-      "description": "The password of the database account.  It must be 10 to 32 characters in length and contain three types of the following characters: uppercase letters, lowercase letters, digits, and special characters. The special characters are ! @ # $ % \\ ^ \\ & \\ * ( ) _ + - =",
+      "description": "The password of the database account.\n\n> <br>The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The password must be 10 to 32 characters in length. Special characters include: !@#$%^\\*()_+-=.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UserType",
-      "description": "The type of the database account. Valid values: Admin: the super administrator account. Normal: a general account.",
+      "description": "The type of the user. Valid values:  \n\n- Normal: standard account.\n- Admin: superuser account.\n- ReadonlyAccount: read-only account. Only MySQL tenants support read-only accounts.",
       "position": "Body",
       "type": "String",
       "required": true

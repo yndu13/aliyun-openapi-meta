@@ -1,26 +1,40 @@
 {
   "name": "ModifyCreateVulWhitelist",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
-      "name": "Reason",
-      "description": "The reason why you add the vulnerability to the whitelist.",
+      "name": "ClientToken",
+      "description": "The client token that is used to ensure the idempotence of the request. Different requests must use different tokens. The token supports only ASCII characters and cannot exceed 64 characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
+      "name": "Reason",
+      "description": "The reason for adding the vulnerability to the whitelist.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ResourceDirectoryAccountId",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
       "name": "TargetInfo",
-      "description": "The applicable scope of the whitelist. The value of this parameter is in the JSON format and contains the following fields:\n\n*   **type**: the type of the applicable scope. Valid values:\n\n    *   **GroupId**: the ID of a server group.\n    *   **Uuid**: the UUID of a server.\n\n*   **uuids**: the UUIDs of servers. This field is of the string type.\n\n*   **groupIds**: the IDs of server groups. This field is of the long type.\n\n>  If you leave this parameter empty, the applicable scope is all servers. If you set the **type** field to **GroupId**, you must also specify the **groupIds** field. If you set the **type** field to **Uuid**, you must also specify the **uuids** field.",
+      "description": "The scope in which the whitelist takes effect. The value is a JSON string that contains the following fields:\n- **type**: The scope type. Valid values:\n    - **GroupId**: server group\n    - **Uuid**: host asset\n- **uuids**: The collection of host asset UUIDs. The field type is String.\n- **groupIds**: The collection of server group IDs. The field type is Long.\n> If this parameter is left empty, the whitelist takes effect on all hosts. If **type** is set to **GroupId**, **groupIds** cannot be empty. If **type** is set to **Uuid**, **uuids** cannot be empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Whitelist",
-      "description": "The information about the vulnerability that you want to add to the whitelist. The value is a JSON string that contains the following fields:\n\n*   **Status**: the status of the vulnerability.\n\n*   **GmtLast**: the timestamp when the vulnerability was last detected. Unit: milliseconds.\n\n*   **LaterCount**: the number of vulnerabilities that have the medium priority.\n\n*   **AsapCount**: the number of vulnerabilities that have the high priority.\n\n*   **Name**: the name of the vulnerability.\n\n*   **Type**: the type of the vulnerability. Valid values:\n\n    *   **cve**: Linux software vulnerability\n    *   **sys**: Windows system vulnerability\n    *   **cms**: Web-CMS vulnerability\n    *   **app**: application vulnerability\n    *   **emg**: urgent vulnerability\n\n*   **Related**: the Common Vulnerabilities and Exposures (CVE) ID of the vulnerability.\n\n*   **HandledCount**: the number of handled vulnerabilities.\n\n*   **AliasName**: the alias of the vulnerability.\n\n*   **RuleModifyTime**: the time when the vulnerability was last disclosed.\n\n*   **NntfCount**: the number of vulnerabilities that have the low priority.\n\n*   **TotalFixCount**: the total number of fixed vulnerabilities.\n\n*   **Tags**: the tag that is added to the vulnerability.\n\n>  You can call the [DescribeGroupedVul](~~DescribeGroupedVul~~) operation to query the information about the vulnerability that you want to add to the whitelist.",
+      "description": "The information about the vulnerability to add to the whitelist. The value is a JSON string that contains the following fields:\n\n- **Status**: The vulnerability status.\n- **GmtLast**: The timestamp when the vulnerability was last detected. Unit: milliseconds.\n- **LaterCount**: The number of medium-priority vulnerabilities.\n- **AsapCount**: The number of high-priority vulnerabilities.\n- **Name**: The vulnerability name.\n- **Type**: The vulnerability type. Valid values:\n\n    - **cve**: Linux software vulnerability\n    - **sys**: Windows system vulnerability\n    - **cms**: Web-CMS vulnerability\n    - **app**: application vulnerability\n    - **emg**: emergency vulnerability\n\n- **Related**: The CVE ID of the vulnerability.\n- **HandledCount**: The number of handled vulnerabilities.\n- **AliasName**: The alias of the vulnerability.\n- **RuleModifyTime**: The time when the vulnerability was last published.\n- **NntfCount**: The number of low-priority vulnerabilities.\n- **TotalFixCount**: The total number of fixed vulnerabilities.\n- **Tags**: The vulnerability tags.\n\n> You can call the [DescribeGroupedVul](~~DescribeGroupedVul~~) operation to obtain the vulnerability information to add to the whitelist.",
       "position": "Query",
       "type": "String",
       "required": true

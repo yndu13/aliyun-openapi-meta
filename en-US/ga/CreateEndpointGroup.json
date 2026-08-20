@@ -14,105 +14,105 @@
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token used to ensure request idempotence.\n\nYou can generate this token, but you must ensure it is unique for each request. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. Each request has a unique **RequestId**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the endpoint group.\n\nThe description can be up to 200 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the endpoint group.\n\nThe description can be up to 200 characters long and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run, without sending the actual request. Valid values:\n\n*   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, a 2xx HTTP status code is returned.\n*   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request format, and service limits. If the request fails the dry run, the system returns an error message. If the request passes the dry run, the system returns an HTTP 2xx status code.\n\n- **false** (default): sends a normal request. If the request passes the check, the system returns an HTTP 2xx status code and creates the endpoint group.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EndpointConfigurations",
-      "description": "The configurations of the endpoints in the endpoint group.",
+      "description": "The endpoint configurations.",
       "position": "Query",
       "type": "Array",
       "required": false
     },
     {
       "name": "EndpointGroupRegion",
-      "description": "The ID of the region in which to create the endpoint group.",
+      "description": "The ID of the region where the endpoint group is deployed.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndpointGroupType",
-      "description": "The type of the endpoint group. Valid values:\n\n*   **default** (default): a default endpoint group.\n*   **virtual**: a virtual endpoint group.\n\n>  When you call this operation to create a virtual endpoint group for a Layer 4 listener, make sure that a default endpoint group is created.",
+      "description": "The type of the endpoint group. Valid values:\n\n- **default** (default): a default endpoint group.\n\n- **virtual**: a virtual endpoint group.\n\n> Before you create a virtual endpoint group for a Layer 4 listener, make sure that you have created a default endpoint group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointIpVersion",
-      "description": "",
+      "description": "The IP version used to communicate with the backend service. Valid values:\n\n- **IPv4** (default): GA uses only IPv4 to communicate with the backend service.\n\n- **IPv6**: GA uses only IPv6 to communicate with the backend service.\n\n- **ProtocolAffinity**: GA uses the same IP version as the client request to communicate with the backend service.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointProtocolVersion",
-      "description": "The backend service protocol. Valid values:\n\n*   **HTTP1.1** (default)\n*   **HTTP2**\n\n>  This parameter is required only when you set the EndpointRequestProtocol parameter to HTTPS.",
+      "description": "The version of the backend service protocol. Valid values:\n\n- **HTTP1.1** (default): HTTP/1.1.\n\n- **HTTP2**: HTTP/2.\n\n> This parameter is available only when `EndpointRequestProtocol` is set to HTTPS.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndpointRequestProtocol",
-      "description": "The protocol that is used by the backend service. Default value: HTTP. Valid values:\n\n*   **HTTP**\n*   **HTTPS**\n\n> *   You can set this parameter only when the listener that is associated with the endpoint group uses **HTTP** or **HTTPS**.\n>*   For an **HTTP** listener, the backend service protocol must be **HTTP**.",
+      "description": "The protocol used by the backend service. Valid values:\n\n- **HTTP** (default)\n\n- **HTTPS**\n\n> * This parameter is available only for endpoint groups of **HTTP** or **HTTPS** listeners.\n>\n> * For an **HTTP** listener, the backend service protocol must be **HTTP**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckEnabled",
-      "description": "Specifies whether to enable the health check feature. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to enable health checks. Valid values:\n\n- **true**: enables health checks.\n\n- **false**: disables health checks.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckHost",
-      "description": "",
+      "description": "The domain name used for health checks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckIntervalSeconds",
-      "description": "The interval at which health checks are performed. Unit: seconds.",
+      "description": "The health check interval, in seconds.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckPath",
-      "description": "The path to which to send health check requests.",
+      "description": "The path used for health checks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthCheckPort",
-      "description": "The port that is used for health checks.",
+      "description": "The port used for health checks.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "HealthCheckProtocol",
-      "description": "The protocol over which to send health check requests. Valid values:\n\n*   **tcp** or **TCP**\n*   **http** or **HTTP**\n*   **https** or **HTTPS**",
+      "description": "The protocol used for health checks. Valid values:\n\n- **tcp** or **TCP**: TCP\n\n- **http** or **HTTP**: HTTP\n\n- **https** or **HTTPS**: HTTPS",
       "position": "Query",
       "type": "String",
       "required": false
@@ -126,26 +126,28 @@
     },
     {
       "name": "Name",
-      "description": "The name of the endpoint group.\n\nThe name must be 1 to 128 characters in length and can contain letters, digits, periods (.), underscores (\\_), and hyphens (-). The name must start with a letter.",
+      "description": "The name of the endpoint group.\n\nThe name must be 1 to 128 characters long, start with a letter or a Chinese character, and can contain digits, periods (.), underscores (\\_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PortOverrides",
-      "description": "The port mappings.",
+      "description": "The listener-to-endpoint port mappings.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "EndpointPort",
+          "description": "The endpoint port for the port mapping.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "ListenerPort",
+          "description": "The listener port for the port mapping.\n\n> - For TCP listeners, you cannot configure port mappings for virtual endpoint groups. If a listener is associated with a virtual endpoint group, you cannot configure port mappings for the default endpoint group. If a default endpoint group has port mappings configured, you cannot add a virtual endpoint group.\n>\n> - After you configure port mappings, you cannot change the listener protocol, except for switching between HTTP and HTTPS.\n>\n> - When you modify the listener port range, the new range must include all listener ports used in port mappings. For example, if the listener port range is 80-82 and the listener ports are mapped to endpoint ports 100-102, you cannot change the listener port range to 80-81.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -154,26 +156,28 @@
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the GA instance is deployed. Set the value to **cn-hangzhou**.",
+      "description": "The ID of the region where the Global Accelerator (GA) instance is deployed. Set the value to **cn-hangzhou**.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "Tags of GA instances.",
+      "description": "The tags of the endpoint group.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. The tag key cannot be an empty string.\n\nThe tag key can be up to 64 characters long and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. The tag value can be an empty string.\n\nThe tag value can be up to 128 characters long and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag values.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -182,14 +186,14 @@
     },
     {
       "name": "ThresholdCount",
-      "description": "The number of consecutive health check failures that must occur before a healthy endpoint group is considered unhealthy, or the number of consecutive health check successes that must occur before an unhealthy endpoint group is considered healthy.\n\nValid values: **2** to **10**. Default value: **3**.",
+      "description": "The number of consecutive health checks that must succeed or fail before an endpoint's status changes between healthy and unhealthy. Valid values: **2** to **10**. Default value: **3**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TrafficPercentage",
-      "description": "The traffic ratio for the endpoint group when the specified listener is associated with multiple endpoint groups.\n\nValid values: **1** to **100**.",
+      "description": "The percentage of traffic distributed to the endpoint group when the listener is associated with multiple endpoint groups. Valid values: **1** to **100**.",
       "position": "Query",
       "type": "Integer",
       "required": false

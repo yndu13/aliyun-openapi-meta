@@ -14,7 +14,7 @@
     },
     {
       "name": "Expression",
-      "description": "WAF规则集表达式。",
+      "description": "WAF 规则集的匹配表达式。只有当请求命中该表达式时，本规则集下的规则才会继续匹配。\n\n示例：\n- `http.host eq \"example.com\"` — 仅主机为 example.com 的请求进入本规则集\n- `starts_with(http.uri.path, \"/api/\")` — 仅 /api/ 前缀的请求进入\n\n> 表达式完整语法与可用字段集以服务端 wirefilter 方言为准。",
       "position": "Body",
       "type": "String",
       "required": true
@@ -28,35 +28,35 @@
     },
     {
       "name": "Name",
-      "description": "WAF规则集名称。",
+      "description": "WAF 规则集名称。\n\n**命名建议**：字母/数字 + 下划线组合，便于后续引用。具体字符集、长度上限、唯一性约束以 WAF 规则集服务端命名规范为准。",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Phase",
-      "description": "WAF运行阶段。",
+      "description": "WAF 规则集属于的运行阶段。\n\n- `http_whitelist`：白名单规则\n- `http_custom`：自定义规则\n- `http_managed`：托管规则\n- `http_anti_scan`：扫描防护规则\n- `http_ratelimit`：频次控制规则\n\n> 说明：各 phase 下具体支持的字段（Expression 匹配域、Action 取值等）不同，详见对应 phase 的规则配置文档。",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "Rules",
-      "description": "WAF规则集下的规则配置列表。",
+      "description": "WAF 规则集下的规则配置列表，每个元素对应一条规则。\n\n- 每条规则的字段结构以 `WafRuleConfig` 数据结构为准（Expression、Action、Name 等）。",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Shared",
-      "description": "WAF批量规则共享配置。",
+      "description": "当本规则集包含多条规则时，可在此指定多条规则的共享字段（如统一的 Action、Name 前缀等）。\n\n> 字段结构以 `WafBatchRuleShared` 数据结构为准。若不共享属性，可不传此字段。",
       "position": "Body",
       "type": "Json",
       "required": false
     },
     {
       "name": "Status",
-      "description": "WAF规则集状态。",
+      "description": "WAF 规则集的启用状态。\n\n- `on`：启用。规则集中的规则将参与匹配与拦截。\n- `off`：停用。规则集保留，但不参与匹配。\n\n> 完整取值以服务端 enum 为准。",
       "position": "Body",
       "type": "String",
       "required": true

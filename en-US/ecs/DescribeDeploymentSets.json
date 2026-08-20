@@ -7,63 +7,70 @@
   "parameters": [
     {
       "name": "DeploymentSetIds",
-      "description": "The IDs of deployment sets. The value can be a JSON array that consists of deployment set IDs in the format of `[\"ds-xxxxxxxxx\", \"ds-yyyyyyyyy\", ... \"ds-zzzzzzzzz\"]`. You can specify up to 100 deployment set IDs in each request. Separate the deployment set IDs with commas (,).",
+      "description": "The IDs of deployment sets. The value can be a JSON array that consists of multiple deployment set IDs in the format of `[\"ds-xxxxxxxxx\", \"ds-yyyyyyyyy\", … \"ds-zzzzzzzzz\"]`. A maximum of 100 IDs are supported. Separate multiple IDs with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeploymentSetName",
-      "description": "The name of the deployment set. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `http://` or `https://`. The name can contain digits, letters, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the deployment set. The name must be 2 to 128 characters in length and can contain characters that are categorized as letter in Unicode, including English letters, Chinese characters, and digits. The name can also contain colons (:), underscores (_), periods (.), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Domain",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Granularity",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetworkType",
-      "description": ">  This parameter is deprecated.",
+      "description": "> This parameter is deprecated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number.\n\nPages start from page 1.\n\nDefault value: 1.",
+      "description": "The page number of the deployment set list.\n\nMinimum value: 1.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page.\n\nValid values: 1 to 50.\n\nDefault value: 10.",
+      "description": "The number of entries per page for a paged query.\n\nMaximum value: 50.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the deployment set. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the deployment set. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Strategy",
-      "description": "The deployment strategy. Valid values:\n\n*   Availability: high availability strategy\n*   AvailabilityGroup: high availability group strategy",
+      "description": "The deployment strategy. Valid values:\n\n- Availability: high availability.\n- AvailabilityGroup: high availability for deployment set groups.\n- LowLatency: low network latency.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Type",
+      "description": "The deployment type. Valid values:\n- host: physical server\n- sw: vSwitch\n- rack: rack\n\nDefault value: host.",
       "position": "Query",
       "type": "String",
       "required": false

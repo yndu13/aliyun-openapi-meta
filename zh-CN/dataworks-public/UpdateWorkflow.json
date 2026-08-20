@@ -21,18 +21,21 @@
       "sub_parameters": [
         {
           "name": "Type",
+          "description": "依赖类型。\n- CrossCycleDependsOnChildren：跨周期依赖一级子节点\n- CrossCycleDependsOnSelf：跨周期依赖自己\n- CrossCycleDependsOnOtherNode：跨周期依赖其他节点\n- Normal：同周期依赖",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "UpstreamOutput",
+          "description": "上游任务的输出标识符。（`同周期依赖`且设置input内容时，返回此字段）",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "UpstreamTaskId",
+          "description": "上游任务的Id。（`跨周期依赖其他节点`与`同周期依赖`未设置input内容时，返回此字段，其他情况不返回）",
           "position": "FormData",
           "type": "Long",
           "required": false
@@ -62,7 +65,7 @@
     },
     {
       "name": "InstanceMode",
-      "description": "实例生成模式。\n\n- T+1（第二天生成）\n- Immediately（立即生成）。注意：工作流定时时间在工作流发布时间点十分钟后的周期实例才会正常生成。全量转实例期间（23:30~24:00点期间）不能进行实时转实例，可以提交发布工作流，但提交后不会重新生成实例。",
+      "description": "实例生成模式。\n\n- T+1（第二天生成）\n- Immediately（立即生成）。注意：工作流定时时间在工作流发布时间点十分钟后的周期实例才会正常生成。全量转实例期间（22:00~24:00点期间）不能进行实时转实例，可以提交发布工作流，但提交后不会重新生成实例。",
       "position": "Body",
       "type": "String",
       "required": false
@@ -104,12 +107,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签键。",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "标签值。",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -125,120 +130,140 @@
       "sub_parameters": [
         {
           "name": "BaseLineId",
+          "description": "基线ID。",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "ClientUniqueCode",
+          "description": "任务的客户端唯一码，用于实现异步和幂等。创建时如果不指定，系统将自动生成，该代码将与资源ID进行唯一绑定。更新、删除资源时如果指定该参数，应与创建时的客户端唯一码保持统一。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "DataSource",
+          "description": "关联数据源信息。",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Dependencies",
+          "description": "依赖信息。注意，此字段未填或为空数组时将默认删除所有Dependencies配置。",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Description",
+          "description": "描述信息。",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "EnvType",
+          "description": "项目环境。\n- Prod：生产\n- Dev：开发",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Id",
+          "description": "任务ID。填写此字段会对相应任务执行全量更新，未填写此字段则会创建新任务。",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "Inputs",
+          "description": "输入信息。注意，此字段为空时将默认删除所有Inputs配置。",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Name",
+          "description": "任务的名称。",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "Outputs",
+          "description": "输出信息。注意，此字段为空时将默认删除所有Outputs配置。",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Owner",
+          "description": "责任人的账号ID。",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "RerunInterval",
+          "description": "重试时间间隔，单位秒。",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "RerunMode",
+          "description": "任务是否允许重跑的配置。\n- AllDenied：失败或成功都不可重跑\n- FailureAllowed：只有失败可重跑\n- AllAllowed：失败或成功均可重跑",
           "position": "FormData",
           "type": "String",
           "required": true
         },
         {
           "name": "RerunTimes",
+          "description": "重试次数，当任务设置为可重跑时生效。",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "RuntimeResource",
+          "description": "运行环境配置，如资源组信息。",
           "position": "FormData",
           "type": "Struct",
           "required": true
         },
         {
           "name": "Script",
+          "description": "运行脚本信息。",
           "position": "FormData",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Tags",
+          "description": "任务标签列表。注意，此字段未填或为空数组时将默认删除所有Tags配置。",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Timeout",
+          "description": "任务执行超时时间，单位秒。",
           "position": "FormData",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Trigger",
+          "description": "任务触发方式。",
           "position": "FormData",
           "type": "Struct",
           "required": true
         },
         {
           "name": "Type",
+          "description": "任务类型。",
           "position": "FormData",
           "type": "String",
           "required": true

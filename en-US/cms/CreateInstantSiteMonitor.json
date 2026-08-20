@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "Address",
-      "description": "The URL or IP address that you want to test.",
+      "description": "The URL or IP address of the synthetic monitoring task.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "AgentGroup",
-      "description": "",
+      "description": "The type of detection points. Valid values: PC and MOBILE. PC indicates fixed-line network detection points. MOBILE indicates mobile network detection points. Default value: PC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IspCities",
-      "description": "The detection points. If you leave this parameter empty, the system randomly selects three detection points.\n\nThe value is a `JSON array`. Example: {\"city\":\"546\",\"isp\":\"465\"},{\"city\":\"572\",\"isp\":\"465\"},{\"city\":\"738\",\"isp\":\"465\"}. The values of the city field indicate Beijing, Hangzhou, and Qingdao.\n\nFor information about how to obtain detection points, see [DescribeSiteMonitorISPCityList](~~115045~~).\n\n> You must specify one of the `IspCities` and `RandomIspCity` parameters.",
+      "description": "The detection point information. If this parameter is left empty, the system randomly selects three detection points.\n\nThe value is in `JSONArray` format. Example: [{\"city\":\"546\",\"isp\":\"465\", \"type\":\"IDC\"},{\"city\":\"572\",\"isp\":\"465\", \"type\":\"LASTMILE\"},{\"city\":\"738\",\"isp\":\"465\"}], which correspond to Beijing, Hangzhou, and Qingdao respectively.\n\nThe type field specifies the detection point type. When AgentGroup is set to PC, valid values are IDC and LASTMILE. IDC indicates detection points deployed in data centers. LASTMILE indicates detection points deployed in end-user homes that use fixed-line networks. The type field is optional and defaults to IDC. When AgentGroup is set to MOBILE, this field does not need to be specified.\n\nFor information about how to obtain detection point information, see [DescribeSiteMonitorISPCityList](~~115045~~).\n\n> You must specify either `IspCities` or `RandomIspCity`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OptionsJson",
-      "description": "The extended options of the protocol that is used by the instant test task. The options vary based on the protocol.",
+      "description": "The advanced extended options for the protocol type of the synthetic monitoring task. Different protocol types correspond to different extended options.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RandomIspCity",
-      "description": "The number of detection points.\n\n> \n\n*   You must specify one of the `IspCities` and `RandomIspCity` parameters. If you specify the `RandomIspCity` parameter, the `IspCities` parameter automatically becomes invalid.",
+      "description": "The number of detection points.\n\n> - You must specify either `IspCities` or `RandomIspCity`.- If you set the `RandomIspCity` parameter, the `IspCities` parameter becomes invalid.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "TaskName",
-      "description": "The name of the instant test task.\n\nThe name must be 4 to 100 characters in length, and can contain letters, digits, and underscores (\\_).",
+      "description": "The name of the synthetic monitoring task.\n\n<props=\"china\">The name must be 4 to 100 characters in length and can contain letters, digits, underscores (_), and Chinese characters.</props>\n\n\n<props=\"intl\">The name must be 4 to 100 characters in length and can contain letters, digits, and underscores (_).</props>\n\n<props=\"partner\">The name must be 4 to 100 characters in length and can contain letters, digits, and underscores (_).</props>",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TaskType",
-      "description": "The type of the instant test task. Valid values: HTTP, PING, TCP, UDP, and DNS.",
+      "description": "The type of the synthetic monitoring task.\nValid values: HTTP, PING, TCP, UDP, and DNS.",
       "position": "Query",
       "type": "String",
       "required": true

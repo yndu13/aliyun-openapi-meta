@@ -7,40 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a unique value from your client for this parameter. ClientToken supports only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** as the **ClientToken**. The **RequestId** is different for each request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run.\n*   **false** (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Sends a check request without modifying the service resource.\n\n- **false** (default): Sends a normal request.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EcrId",
-      "description": "The ECR ID.",
+      "description": "The ID of the Express Connect Router (ECR) instance.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "TransitModeList",
-      "description": "The cross-region forwarding modes.",
+      "description": "The list of inter-region forwarding modes.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Mode",
+          "description": "The inter-region forwarding mode of the ECR. Valid values:\n\n- **ECMP**: The load balancing mode.\n\n- **NearBy**: The nearby forwarding mode.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RegionId",
+          "description": "The region where the ECR instance is deployed.",
           "position": "FormData",
           "type": "String",
           "required": false

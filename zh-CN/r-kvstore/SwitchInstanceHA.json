@@ -20,6 +20,13 @@
       "required": false
     },
     {
+      "name": "SourceNodeId",
+      "description": "分片原 MASTER 节点的节点 ID",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "SwitchMode",
       "description": "执行时间，取值：\n* **0**：立即执行，默认值。\n* **1**：在可维护时间段执行。\n\n> 您可以调用[ModifyInstanceMaintainTime](~~473775~~)修改实例的可维护时间段。",
       "position": "Query",
@@ -28,7 +35,21 @@
     },
     {
       "name": "SwitchType",
-      "description": "切换模式，取值：\n* **AvailablePriority**：可用性优先，不考虑主备延迟，立即执行主备切换，可能会丢失少量数据。\n* **ReliabilityPriority**：可靠性优先，确保主备同步无延迟时才执行主备切换，不会丢失数据。该模式在写入量较大且持续存在同步延迟的场景下，可能会造成主备切换失败。\n\n> 您需要根据业务场景对数据、服务等方面的需求进行衡量，然后选取切换模式。",
+      "description": "切换模式，取值：\n* **ReliabilityPriority (默认值)**：可靠性优先，确保主备同步无延迟时才执行主备切换，不会丢失数据。该模式在写入量较大且持续存在同步延迟的场景下，可能会造成主备切换失败。\n* **AvailablePriority**：可用性优先，不考虑主备延迟，立即执行主备切换，可能会丢失少量数据。\n\n\n> 您需要根据业务场景对数据、服务等方面的需求进行衡量，然后选取切换模式。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetNodeId",
+      "description": "切换后目标 MASTER 节点的节点 ID",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TargetShardName",
+      "description": "实例分片名",
       "position": "Query",
       "type": "String",
       "required": false

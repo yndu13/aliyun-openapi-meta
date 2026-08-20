@@ -41,8 +41,14 @@
       "required": false
     },
     {
+      "name": "BusinessInfo",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "ClientToken",
-      "description": "用于保证请求的幂等性，防止重复提交请求。由客户端生成该参数值，要保证在不同请求间唯一，最大值不超过64个ASCII字符，且该参数值中不能包含非ASCII字符。",
+      "description": "用于保证请求的幂等性，防止重复提交请求。由客户端生成该参数值，要保证在不同请求间唯一，最大值不超过64个ASCII字符，且该参数值中不能包含非ASCII字符。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -77,42 +83,49 @@
       "sub_parameters": [
         {
           "name": "Category",
+          "description": "数据盘类型，取值：\n\n- **cloud_efficiency**：高效云盘。\n- **cloud_ssd**：SSD云盘。\n- **cloud_essd**（默认）：ESSD云盘。\n- **cloud_auto**：高性能云盘。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeleteWithInstance",
+          "description": "预留参数，暂不支持。",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Device",
+          "description": "数据盘的挂载点。\n\n>该参数仅用于全镜像（整机镜像）场景。您可以通过将此参数设置为全镜像中数据盘对应的挂载点，并修改对应的**DataDisk.Size**和**DataDisk.Category**参数，达到修改全镜像中数据盘磁盘种类和大小的目的。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
+          "description": "是否加密云盘。取值范围：\n- **true**：是\n- **false**（默认）：否",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "数据盘为ESSD云盘时的性能等级。ESSD云盘的性能差异请参见[ESSD云盘](~~2859916~~)。取值：\n\n- **PL0**\n- **PL1**（默认）\n- **PL2**\n- **PL3**",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "数据盘大小，单位为GiB。取值范围：\n\n- cloud_efficiency：20~32,768。\n- cloud_ssd：20~32,768。\n- cloud_auto：1~65,536。\n- cloud_essd：具体取值范围与**DataDisk.PerformanceLevel**的取值有关。\n  - PL0：1~65,536。\n  - PL1：20~65,536。\n  - PL2：461~65,536。\n  - PL3：1,261~65,536。\n\n如果指定了**DataDisk.SnapshotId**参数且其对应的快照容量大于**DataDisk.Size**的值，则创建的云盘大小与快照相同。如果快照容量小于**DataDisk.Size**的值，则创建的云盘大小将为**DataDisk.Size**的值。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
+          "description": "创建数据盘使用的快照。\n\n- 如果**DataDisk.SnapshotId**对应的快照容量大于**DataDisk.Size**的值，则创建的云盘大小与快照相同。如果快照容量小于**DataDisk.Size**的值，则创建的云盘大小将为**DataDisk.Size**的值。\n- 不支持使用快照创建弹性临时盘。\n- 2013年7月15日及以前的快照不能用来创建云盘。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -211,6 +224,12 @@
       "required": false
     },
     {
+      "name": "NetworkOptions",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Password",
       "description": "实例的账号密码。长度为 8 至 30 个字符，必须同时包含大小写英文字母、数字和特殊符号中的三类字符。特殊符号可以是：`()~!@#$%^&*-_+=|{}[]:;'<>,.?/`。",
       "position": "Query",
@@ -240,7 +259,6 @@
     },
     {
       "name": "PrivateIpAddress",
-      "description": "实例私网 IP 地址。专有网络 VPC 类型 ECS 实例设置私网 IP 地址时，必须从虚拟交换机（VSwitchId）的空闲网段中选择。",
       "position": "Query",
       "type": "String",
       "required": false
@@ -289,7 +307,6 @@
     },
     {
       "name": "SecurityGroupIds",
-      "description": "将实例同时加入多个安全组。目前关联的安全组数量限制最大数量为10\n您需要注意：不支持同时设置SecurityGroupId和SecurityGroupIds.N。",
       "position": "Query",
       "type": "Json",
       "required": false
@@ -324,12 +341,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "标签键。可以同时创建N个标签键，N的取值范围：**1~20**。不允许传入空字符串。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "标签键对应的标签值。可以同时创建N个标签值，N的取值范围：**1~20**。允许传入空字符串。",
           "position": "Query",
           "type": "String",
           "required": false

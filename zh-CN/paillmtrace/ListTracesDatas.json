@@ -21,18 +21,21 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "过滤参数名称，支持若干预定义参数和用户自定义参数。\n\n1. 预定义参数，大小写不敏感，包括：'serviceid', 'servicename', 'input', 'output', 'status', 'tracetype', 'tracename'。这些预定义参数对应的span属性如下：\n\nserviceid: resources.service.id\n\nservicename: resources.service.name\n\ninput: attributes.input.value\n\noutput: attributes.output.value\n\nstatus: statusCode\n\ntracetype: parentSpanId是0的span，attributes.gen_ai.span.kind\n\ntracename: parentSpanId是0的span，spanName\n\n2. 自定义参数，大小写敏感。：\n用户可以自定义参数名称。这个名称会作为一个以attributes开头的json路径的后缀。服务端以这个json路径为位置，按operator和value，筛选符合条件的span。\n\n比如用户自定义key为 foo.bar，那么服务端会在attributes.foo.bar 这个位置执行筛选。比如用户自定义key为 gen_ai.FOO.BAR，那么服务端会在attributes.gen_ai.FOO.BAR 这个位置执行筛选。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Operator",
+          "description": "参数运算符。大小写不敏感。目前支持：‘=’，’contains‘，'startswith'。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "过滤参数取值。对于contains操作，大小写敏感。其它操作，大小写不敏感。",
           "position": "Query",
           "type": "String",
           "required": false

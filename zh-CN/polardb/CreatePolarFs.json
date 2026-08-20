@@ -1,0 +1,193 @@
+{
+  "name": "CreatePolarFs",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AccelerateStorageSize",
+      "description": "加速空间，基础班开启加速，单位GB。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "AccelerateSwitch",
+      "description": "加速启动，取值范围如下：\n\n- **ONLY**：仅开启加速。\n- **ON**：开启冷叔据+加速。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AccelerateType",
+      "description": "加速类型，取值为范围如下： \n\n- **juice**：文件系统加速。\n- **alluxio**：透明加速。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AuthorizedUserIds",
+      "description": "冷存版实例授权账号列表，用`,`分隔",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "AutoRenew",
+      "description": "是否自动续费，取值范围如下：\n\n- **true**：自动续费。\n- **false**：不自动续费。\n\n默认为**false**。\n\n> 当参数**PayType**取值为**Prepaid**时，该参数才生效。\n",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "AutoUseCoupon",
+      "description": "是否自动使用优惠券，取值范围如下：\n- **true**：使用优惠券（默认值）。\n- **false**：不使用优惠券。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "CreationCategory",
+      "description": "产品系列，取值范围如下：\n\n- **basic**：基础版（默认值）\n- **cold**：冷存版\n- **high_performance**：高性能版",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "CustomBucketCount",
+      "description": "Bucket 数量。\n\n> 仅开启加速（文件系统加速）场景必填",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "CustomBucketPath",
+      "description": "bucket路径。\n\n> 仅开启加速（文件系统加速）场景必填",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "CustomBucketPathList",
+      "description": "Bucket及对应路径信息。\n\n> 透明加速场景必填",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "Bucket",
+          "description": "自定义存储bucket",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Path",
+          "description": "自定义存储path",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "CustomOssAk",
+      "description": "自定义ak",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "CustomOssSk",
+      "description": "自定义sk",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBClusterId",
+      "description": "集群ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "DBType",
+      "description": "所属数据库生态，取值范围如下：\n- **MySQL**\n- **PostgreSQL**",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PayType",
+      "description": "付费类型，取值范围如下： \n\n- **Postpaid**：按量付费\n- **Prepaid**：预付费（包年包月）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Period",
+      "description": "若付费类型为**Prepaid**时，该参数为必传参数。指定预付费集群为包年或包月类型。 \n\n- **Year**：包年。即选择包年包月时，单位为年。\n- **Month**：包月。即选择包年包月时，单位为月。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PromotionCode",
+      "description": "优惠券编号，不填时使用默认优惠券",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "地域ID。\n>您可以通过接口[DescribeRegions](~~98041~~)查看地域ID详情。 ",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "StorageSpace",
+      "description": "存储空间，单位 GB。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "StorageType",
+      "description": "高性能存储类型取值如下：\n- **ESSDPL0**\n- **ESSDPL1**\n\n基础版存储类型取值如下：\n- **city_redundancy(同城冗余)**\n\n冷存版存储类型取值如下：\n- **city_redundancy(同城冗余)**\n- **local_redundancy (本地冗余)**",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "UsedTime",
+      "description": "若付费类型为**Prepaid**时，该参数为必传参数。\n- 当**Period**为**Month**时，**UsedTime**取值为整数类型，取值范围为`[1-9]`。\n- 当**Period**为**Year**时，**UsedTime**取值为整数类型，取值范围为`[1-3]`。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "VPCId",
+      "description": "专有网络ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "VSwitchId",
+      "description": "虚拟交换机ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ZoneId",
+      "description": "可用区id。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

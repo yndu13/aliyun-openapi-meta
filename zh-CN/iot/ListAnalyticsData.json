@@ -1,5 +1,6 @@
 {
   "name": "ListAnalyticsData",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -20,30 +21,35 @@
       "sub_parameters": [
         {
           "name": "BetweenEnd",
+          "description": "服务API请求参数表示范围时的终止值。\n\n您可在**数据API**的API详情页面，查看请求参数的取值范围。具体操作，请参见[查看与使用](~~206247~~)。\n> 当**Condition.N.Operate**取值为`BETWEEN`或`bt`时，该参数必传，且不传**Condition.N.Value**。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "BetweenStart",
+          "description": "服务API请求参数表示范围时的起始值。\n\n您可在**数据API**的API详情页面，查看请求参数的取值范围。具体操作，请参见[查看与使用](~~206247~~)。\n> 当**Condition.N.Operate**取值为`BETWEEN`或`bt`时，该参数必传，且不传**Condition.N.Value**。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FieldName",
+          "description": "对应服务API设置的请求参数名。\n\n您可在**数据API**的API详情页面，查看**请求参数**的值。具体操作，请参见[查看与使用](~~206247~~)。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Operate",
+          "description": "比较运算符。\n\n仅支持`bt`、`eq`、`neq`、`rlike`、`in`或`nin`，及其对应的操作符`BETWEEN`、`=`、`!=`、`LIKE`、`IN`、`NIN`。\n\n您可在**数据API**的API详情页面，查看请求参数的对应操作符。具体操作，请参见[查看与使用](~~206247~~)。\n\n- `BETWEEN`：请求参数赋值为特定范围。\n- `=`：请求参数赋值为特定值。\n- `!=`：请求参数赋值不为特定值。\n- `LIKE`：请求参数赋值以特定值为首。\n- `IN`：请求参数赋值属于特定集合。\n- `NIN`：请求参数赋值不属于特定集合。\n\n例如，数据集有6条记录（对应的`time`分别为`abcd`、`abce`、`abcf`、`abcg`、`aabc`和`abbc`），调用该接口时，`Condition.N.FieldName=\"time\"`：\n\n- 如果`Condition.N.Operate=\"LIKE\"`、`Condition.N.Value=\"abc\"`，则返回`time=abcd`、`time=abce`、`time=abcf`和`time=abcg`的所有记录。\n- 如果`Condition.N.Operate=\"IN\"`、`Condition.N.Value=\"[abcd,abce,abcf]\"`，则返回`time=abcd`、`time=abce`和`time=abcf`的所有记录。\n\n> 如果该参数取值为`BETWEEN`，则**Condition.N.BetweenStart**和**Condition.N.BetweenEnd**必传。如果该参数取值不为`BETWEEN`，则**Condition.N.Value**必传。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
+          "description": "比较值。即服务API请求参数的赋值。\n\n您可在**数据API**的API详情页面，查看请求参数的赋值情况。具体操作，请参见[查看与使用](~~206247~~)。\n\n> 当**Condition.N.Operate**取值不为`BETWEEN`或`bt`时，该参数必传，且不传**Condition.N.BetweenStart**和**Condition.N.BetweenEnd**。",
           "position": "Query",
           "type": "String",
           "required": false
@@ -73,7 +79,7 @@
     },
     {
       "name": "PageSize",
-      "description": "每页显示结果的条数。\n\n返回结果中，每页显示的记录数量。最大取值100，最小取值1，默认取值为100。\n> 开启分页时必传。",
+      "description": "每页显示结果的条数。\n\n返回结果中，每页显示的记录数量。最大取值100，最小取值1，默认取值为100。\n> 开启分页时必传。\n",
       "position": "Query",
       "type": "Integer",
       "required": false

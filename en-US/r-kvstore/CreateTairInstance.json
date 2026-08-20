@@ -14,63 +14,63 @@
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal for the instance. Valid values:\n\n*   **true**: enables auto-renewal.\n*   **false** (default): disables auto-renewal.",
+      "description": "Specifies whether to enable auto-renewal for the instance. Valid values:\n\n- **true**: Enable auto-renewal.\n\n- **false** (default): Disable auto-renewal.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoRenewPeriod",
-      "description": "The subscription duration that is supported by auto-renewal. Unit: month. Valid values: **1**, **2**, **3**, **6**, and **12**.\n\n>  This parameter is required if the **AutoRenew** parameter is set to **true**.",
+      "description": "The auto-renewal duration. Unit: month. Valid values: **1**, **2**, **3**, **6**, and **12**.\n\n> This parameter is required only when the **AutoRenew** parameter is set to **true**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to use a coupon. Valid values:\n\n*   **true**: uses a coupon.\n*   **false** (default): does not use a coupon.",
+      "description": "Specifies whether to use a coupon. Valid values:\n\n- **true**: Use a coupon.\n\n- **false** (default): Do not use a coupon.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BackupId",
-      "description": "You can set the BackupId parameter to the backup set ID of the source instance. The system uses the data stored in the backup set to create an instance. You can call the [DescribeBackups](~~473823~~) operation to query the backup set ID. If the source instance is a cluster instance, set the BackupId parameter to the backup set IDs of all shards of the source instance, separated by commas (,). Example: \"10\\*\\*,11\\*\\*,15\\*\\*\".\n\n>  If your instance is a cloud-native cluster instance, we recommend that you use [DescribeClusterBackupList](~~2679168~~) to query the backup set ID of the cluster instance, such as cb-xx. Then, set the ClusterBackupId request parameter to the backup set ID to clone the cluster instance. This eliminates the need to specify the backup set ID of each shard.",
+      "description": "The ID of the backup set from the source instance. The system creates a new instance based on the data in this backup set. You can call the [DescribeBackups](~~473823~~) operation to query the backup set ID. If the source instance is a cluster instance, you must specify the backup ID for each shard, separated by commas, for example, \"10\\*\\*,11\\*\\*,15\\*\\*\".\n\n> If your instance is a cloud-native cluster instance, we recommend that you call the [DescribeClusterBackupList](~~2679168~~) operation to query the cluster backup ID, such as `cb-xx`. Then, specify the cluster backup ID for the `ClusterBackupId` parameter to clone the cluster instance. This avoids the need to specify the backup ID of each shard.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BusinessInfo",
-      "description": "The ID of the promotional event or the business information.",
+      "description": "The business information. This can be the ID of a promotion or a business context.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ChargeType",
-      "description": "The billing method of the instance. Valid values:\n\n*   **PrePaid** (default): subscription\n*   **PostPaid**: pay-as-you-go",
+      "description": "The billing method of the instance. Valid values:\n\n- **PrePaid** (default): The subscription billing method.\n\n- **PostPaid**: The pay-as-you-go billing method.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests and is case-sensitive. The token can contain only ASCII characters and cannot exceed 64 characters in length.",
+      "description": "A client-generated token that ensures the idempotence of the request. The token must be unique among different requests. It is case-sensitive and cannot exceed 64 ASCII characters in length.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterBackupId",
-      "description": "This parameter is supported for specific new cluster instances. You can query the backup set ID by calling the [DescribeClusterBackupList](~~2679168~~) operation.\n\n*   If this parameter is supported, you can specify the backup set ID. In this case, you do not need to specify the **BackupId** parameter.\n*   If this parameter is not supported, set the BackupId parameter to the IDs of backup sets in all shards of the source instance, separated by commas (,). Example: \"2158\\*\\*\\*\\*20,2158\\*\\*\\*\\*22\".",
+      "description": "The ID of the cluster backup set. Some instances that use the cluster architecture support cluster backup sets. You can call the [DescribeClusterBackupList](~~2679168~~) operation to query for cluster backup set IDs.\n\n- If this feature is supported, you can specify this parameter and leave the **BackupId** parameter empty.\n\n- If this feature is not supported, you must specify the backup ID of each shard of the source instance for the `BackupId` parameter. Separate the backup IDs with commas, for example, \"2158\\*\\*\\*\\*20,2158\\*\\*\\*\\*22\".",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConnectionStringPrefix",
-      "description": "The prefix of the endpoint. The prefix must be 8 to 40 characters in length and can contain lowercase letters and digits. It must start with a lowercase letter.\n\n>  The endpoint must be in the \\<prefix>.redis.rds.aliyuncs.com format.",
+      "description": "The prefix of the connection string. It must start with a lowercase letter, consist of lowercase letters and digits, and be 8 to 40 characters in length.\n\n> The full connection string is in the format of `<prefix>-<instance ID>.redis.rds.aliyuncs.com`.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -84,208 +84,224 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs a dry run and does not create the instance. The system prechecks the request parameters, request format, service limits, and available resources. If the request fails the dry run, an error code is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.\n*   **false** (false): performs a dry run and performs the actual request. If the request passes the dry run, the instance is directly created.",
+      "description": "Specifies whether to perform a precheck for this request. Valid values:\n\n- **true**: Performs a precheck and does not create the instance. The system checks the request parameters, request format, service limits, and available inventory. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.\n\n- **false** (default): Sends a normal request and creates the instance after the request passes the precheck.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EngineVersion",
-      "description": "The database engine version. Default value: **1.0**. The parameter value varies based on the Tair instance series.\n\n*   To create a Tair DRAM-based instance (Tair_rdb) that is compatible with Redis 5.0, 6.0, or 7.0, set this parameter to **5.0**, **6.0**, or **7.0**.\n*   To create a Tair persistent memory-optimized instance (tair_scm) that is compatible with Redis 6.0, set this parameter to **1.0**.\n*   To create a Tair ESSD-based instance (tair_essd) that is compatible with Redis 6.0, set this parameter to **1.0**. To create a Tair SSD-based instance that is compatible with Redis 6.0, set this parameter to **2.0**.",
+      "description": "The database version. Default value: **1.0**. The valid values depend on the Tair instance series:\n\n- **tair\\_rdb**: Tair memory-enhanced instances are compatible with Redis 5.0, Redis 6.0, and Redis 7.0. Set the value to **5.0**, **6.0**, or **7.0**.\n\n- **tair\\_scm**: Tair persistent memory-optimized instances are compatible with Redis 6.0. Set the value to **1.0**.\n\n- **tair\\_essd**: Tair disk-based instances (ESSD/SSD) are compatible with Redis 6.0. Set the value to **1.0** to create an ESSD-based instance or **2.0** to create an SSD-based instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GlobalInstanceId",
-      "description": "Specifies whether to use the created instance as a child instance of a distributed instance.\n\n*   If you want the created instance to be used as the first child instance, enter **true**.\n*   If you want the created instance to be used as the second or third child instance, enter the ID of the distributed instance, such as gr-bp14rkqrhac\\*\\*\\*\\*.\n*   If you do not want the created instance to be used as a distributed instance, leave the parameter empty.\n\n>  If you want the created instance to be used as a distributed instance, the created instance must be a Tair DRAM-based instance.",
+      "description": "Specifies whether to create the instance as a child instance in a distributed instance. By using this parameter, you can create a distributed instance.\n\n- To create the first child instance, set this parameter to **true**.\n\n- To create the second or third child instance, specify the ID of the distributed instance, such as `gr-bp14rkqrhac****`.\n\n- If you do not want to create a distributed instance, do not specify this parameter.\n\n> To be created as a child instance of a distributed instance, the new instance must be a Tair memory-enhanced instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "GlobalSecurityGroupIds",
-      "description": "The global IP whitelist templates of the instance. Separate multiple IP whitelist templates with commas (,). Each IP whitelist template must be unique.",
+      "description": "The IDs of the global IP whitelist templates for the instance. To specify multiple template IDs, separate them with commas. The IDs cannot be repeated.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceClass",
-      "description": "The instance series. For more information, see the following topics:\n\n*   [DRAM-based instances](~~2527112~~)\n*   [Persistent memory-optimized instances](~~2527110~~)\n*   [ESSD/SSD-based instances](~~2527111~~)",
+      "description": "The instance type. For more information, see the following topics:\n\n- [Memory-enhanced instance types](~~2527112~~)\n\n- [Persistent memory-optimized instance types](~~2527110~~)\n\n- [Disk-based instance types](~~2527111~~)",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceEndpointType",
-      "description": "",
+      "description": "The type of connection string to use when creating a cloud-native, dual-zone instance with the read/write splitting architecture. If you do not specify this parameter, the default value `AzIndependentEndpoint` is used.\n\n- **AzIndependentEndpoint** (**default**): Zone-specific connection string. The primary and secondary zones each provide an independent connection string, allowing clients to connect to the nearest zone.\n\n- **UnifiedEndpoint**: Unified connection string. A single connection string is provided to access nodes in both the primary and secondary zones, but this may cause cross-zone access.\n\n><notice>\n\nThis parameter applies only to cloud-native, dual-zone instances with the read/write splitting architecture. Other instance types support only zone-specific connection strings.\n\n></notice>\n\n><notice>\n\nThe `UnifiedEndpoint` option is available only to users on a whitelist. If a non-whitelisted user specifies this value, the request fails. To request access, submit a ticket.\n\n></notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceName",
-      "description": "The name of the instance. The name must meet the following requirements:\n\n*   The name must be 2 to 80 characters in length.\n*   The name must start with a letter and cannot contain spaces or special characters. Special characters include `@ / : = \" < > { [ ] }`",
+      "description": "The name of the instance. The name must meet the following requirements:\n\n- It must be 2 to 80 characters in length.\n\n- It must start with an uppercase or lowercase letter or a Chinese character. It cannot contain spaces or the following special characters: `@/:=”<>{[]}`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance series. Valid values:\n\n*   **tair_rdb**: Tair DRAM-based instance\n*   **tair_scm**: Tair persistent memory-optimized instance\n*   **tair_essd**: Tair ESSD/SSD-based instance",
+      "description": "The Tair instance series, which determines the storage medium. Valid values:\n\n- **tair\\_rdb**: memory-enhanced\n\n- **tair\\_scm**: persistent memory-optimized\n\n- **tair\\_essd**: disk-based",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
+      "name": "MaintainEndTime",
+      "description": "The end time of the maintenance window. Specify the time in the *HH:mm*Z format (UTC). For example, to end the maintenance at 02:00 (UTC+8), set this parameter to `18:00Z`.\n\n> The maintenance window must be at least one hour long.\n\n> If this parameter is not specified, the maintenance window ends at 22:00 UTC (06:00 UTC+8) by default.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "MaintainStartTime",
+      "description": "The start time of the maintenance window. Specify the time in the *HH:mm*Z format (UTC). For example, to start the maintenance at 01:00 (UTC+8), set this parameter to `17:00Z`.\n\n> If this parameter is not specified, the maintenance window starts at 18:00 UTC (02:00 UTC+8) by default.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "ParamGroupId",
-      "description": "The ID of the parameter template. The instance is created based on the parameters in the parameter template. The ID must be unique.",
+      "description": "The ID of the parameter template. The instance is created by using the parameters defined in this template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Password",
-      "description": "The password that is used to connect to the instance. The password must meet the following requirements:\n\n*   The password must be 8 to 32 characters in length.\n*   The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. Special characters include `! @ # $ % ^ & * ( ) _ + - =`",
+      "description": "The password of the instance. The password must meet the following requirements:\n\n- It must be 8 to 32 characters in length.\n\n- It must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The supported special characters are `!@#$%^&*()_+-=`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The subscription duration. Valid values: **1**, 2, 3, 4, 5, 6, 7, 8, **9**, **12**, **24**,**36**, and **60**. Unit: month.\n\n>  This parameter is required only if the **ChargeType** parameter is set to **PrePaid**.",
+      "description": "The subscription duration, in months. Valid values: **1**, **2**, **3**, **4**, **5**, **6**, 7, 8, 9, 12, 24, 36, and 60.\n\n> This parameter is required only when you set the `ChargeType` parameter to `PrePaid`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Port",
-      "description": "The service port number of the instance. Valid values: 1024 to 65535. Default value: 6379.",
+      "description": "The service port of the instance. Valid values: 1 to 65535. Default value: 6379.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PrivateIpAddress",
-      "description": "The internal IP address of the instance.\n\n>  The IP address must be within the CIDR block of the vSwitch to which you want the instance to connect. You can call the [DescribeVSwitches](~~35748~~) operation of VPC to query the CIDR block information.",
+      "description": "The private IP address of the instance.\n\n> The IP address must be within the CIDR block of the vSwitch to which the instance belongs. You can call the [DescribeVSwitches](~~35748~~) operation to query the CIDR block information.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReadOnlyCount",
-      "description": "The number of read replicas in the primary zone. This parameter applies only to cloud-native read/write splitting instances. Valid values: 1 to 9.\n\n>  The sum of the values of this parameter and the SlaveReadOnlyCount parameter cannot exceed 9.",
+      "description": "The number of read-only nodes in the primary zone. This parameter is applicable only to cloud-native instances that use the read/write splitting architecture.\n\n- If the instance uses the standard architecture, the valid values are 1 to 9.\n\n- If the instance uses the cluster architecture, specify the number of read-only nodes per shard. The valid values are 1 to 4.\n\n> If you create a multi-zone instance, you can use this parameter and the `SlaveReadOnlyCount` parameter to customize the number of read-only nodes in the primary and secondary zones.\n>\n> - If the instance uses the standard architecture, the sum of `ReadOnlyCount` and `SlaveReadOnlyCount` cannot exceed 9.\n>\n> - If the instance uses the cluster architecture, the sum of `ReadOnlyCount` and `SlaveReadOnlyCount` cannot exceed 4.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RecoverConfigMode",
-      "description": "Specifies whether to restore the account, kernel parameter, and whitelist information from the original backup set when you create an instance from the specified backup set. For example, if you want to restore the account information, set the parameter to `{\"account\":true}`.\n\nThis parameter is empty by default, which indicates that the account, kernel parameter, and whitelist information is not restored from the original backup set.\n\n>  This parameter applies only to cloud-native cluster instances. The account, kernel parameter, and whitelist information must be stored in the original backup set. You can call the [DescribeBackups](~~473823~~) operation to check whether the RecoverConfigMode configurations in the specified backup set contain the preceding information.",
+      "description": "When creating an instance from a backup set, specifies whether to restore configurations such as account information (`account`), kernel parameters (`config`), and whitelists (`whitelist`) from the source backup set. To restore a specific configuration, specify its keyword. To restore multiple configurations, separate the keywords with commas.\n\nIf this parameter is not specified, no configurations are restored from the source backup set.\n\n> This parameter applies only to cloud-native instances, and the source backup set must contain the specified configuration information. You can call the [DescribeBackups](~~473823~~) operation and check the `RecoverConfigMode` parameter in the response to check if the backup set contains the information.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID. You can call the [DescribeRegions](~~473763~~) operation to query the most recent region list.",
+      "description": "The ID of the region where you want to create the instance. You can call the [DescribeRegions](~~473763~~) operation to query available regions.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ReplicaCount",
-      "description": "The number of replica nodes in the primary zone. This parameter applies only to cloud-native multi-replica cluster instances. Valid values: 1 to 4.\n\n> \n\n*   The sum of the values of this parameter and the SlaveReplicaCount parameter cannot exceed 4.\n\n*   You can specify only one of the ReplicaCount and ReadOnlyCount parameters.\n\n*   Master-replica instances do not support multiple replicas.",
+      "description": "The number of replica nodes in the primary zone. This parameter is applicable only to cloud-native, multi-replica cluster instances. You can use this parameter to customize the number of replica nodes. Valid values: 1 to 4.\n\n> If you create a multi-zone instance, you can use this parameter and the `SlaveReplicaCount` parameter to customize the number of replica nodes in the primary and secondary zones. The sum of `ReplicaCount` and `SlaveReplicaCount` cannot exceed 4.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group that you want to manage.\n\n> \n\n*   You can query resource group IDs in the console or by calling the [ListResourceGroups](~~158855~~) operation. For more information, see [View the basic information about a resource group](~~151181~~).\n\n*   Before you modify the resource group to which an instance belongs, you can call the [ListResources](~~158866~~) operation to view the current resource group of the instance.",
+      "description": "The ID of the resource group to which the instance belongs.\n\n> - You can call the [ListResourceGroups](~~158855~~) operation or use the Resource Management console to query the IDs of resource groups. For more information, see [View basic information of a resource group](~~151181~~).\n>\n> - Before you change the resource group of an instance, you can call the [ListResources](~~158866~~) operation to view the current resource group of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RestoreTime",
-      "description": "If data flashback is enabled for the source instance, you can use this parameter to specify a point in time within the backup retention period of the source instance. The system uses the backup data of the source instance at the point in time to create an instance. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.",
+      "description": "If point-in-time recovery (PITR) is enabled for the source instance, you can specify a point in time within the backup retention period. The system creates a new instance by using the backup data of the source instance at that point in time. Specify the time in the *yyyy-MM-dd*T*HH:mm:ss*Z format (UTC).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecondaryZoneId",
-      "description": "The ID of the secondary zone. You can call the [DescribeRegions](~~473763~~) operation to query the ID of the secondary zone.\n\n>  You cannot specify multiple zone IDs or set this parameter to a value that is the same as that of the ZoneId parameter.",
+      "description": "The ID of the secondary zone. You can call the [DescribeRegions](~~473763~~) operation to query available zones.\n\n> The value of this parameter cannot be the same as the value of the `ZoneId` parameter. You cannot specify a multi-zone ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ShardCount",
-      "description": "The number of data nodes in the instance. Valid values:\n\n*   **1** (default): You can create a [standard instance](~~52228~~) that contains only one data node.\n*   **2** to **32**: You can create a [cluster instance](~~52228~~) that contains the specified number of data nodes.\n\n>  When the **InstanceType** parameter is set to **tair_rdb** or **tair_scm**, this parameter can be set to a value in the range of **2** to **32**. Only DRAM-based and persistent memory-optimized instances support the cluster architecture.",
+      "description": "The number of shards in the instance. Valid values:\n\n- **1** (default): Creates a standard architecture instance with a single shard.\n\n- From **2** to **32**: Creates a cluster architecture instance with the specified number of shards.\n\n> You can specify a value from **2** to **32** for this parameter only when you set the **InstanceType** parameter to `tair_rdb` or `tair_scm`. Only memory-enhanced and persistent memory-optimized instances support the cluster architecture.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ShardType",
-      "description": "The shard type of the instance. Valid values:\n\n*   **MASTER_SLAVE** (default): runs in a master-replica architecture that provides high availability.\n*   **STAND_ALONE**: runs in a standalone architecture. If the only node fails, the system creates a new instance and switches the workloads to the new instance. This may cause data loss. You can set the ShardType parameter to this value only if the instance uses the **single-zone** deployment mode. If you set the ShardType parameter to this value, you cannot create cluster or read/write splitting instances.",
+      "description": "The architecture type of the instance. Valid values:\n\n- **MASTER\\_SLAVE** (default): The primary/replica architecture, which provides high availability.\n\n- **STAND\\_ALONE**: single-replica. This architecture uses a single node. If the node fails, data is lost, and the system automatically creates a new, empty instance. This architecture is supported only for **single-zone** deployments and does not support cluster or read/write splitting architectures.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlaveReadOnlyCount",
-      "description": "The number of read replicas in the secondary zone when you create a multi-zone read/write splitting instance. The sum of the values of this parameter and the ReadOnlyCount parameter cannot exceed 9.\n\n> When you create a multi-zone read/write splitting instance, you must specify both SlaveReadOnlyCount and SecondaryZoneId.",
+      "description": "The number of read-only nodes in the secondary zone.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SlaveReplicaCount",
-      "description": "The number of replica nodes in the secondary zone when you create a cloud-native multi-replica cluster instance deployed across multiple zones. The sum of the values of this parameter and the ReplicaCount parameter cannot exceed 4.\n\n>  When you create a cloud-native multi-replica cluster instance deployed across multiple zones, you must specify both SlaveReplicaCount and SecondaryZoneId.",
+      "description": "The number of replica nodes in the secondary zone.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SrcDBInstanceId",
-      "description": "If you want to create an instance based on the backup set of an existing instance, set this parameter to the ID of the source instance.\n\n>  After you specify the SrcDBInstanceId parameter, use the **BackupId**, **ClusterBackupId** (recommended for cloud-native cluster instances), or **RestoreTime** parameter to specify the backup set or the specific point in time that you want to use to create an instance. The SrcDBInstanceId parameter must be used in combination with one of the preceding three parameters.",
+      "description": "To create an instance from a backup set of an existing instance, specify the ID of the source instance.\n\n> You must also specify the backup data by using one of the following parameters: **BackupId**, **ClusterBackupId**, or **RestoreTime**. We recommend that you use `ClusterBackupId` for cloud-native instances that use a cluster architecture.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Storage",
-      "description": "The storage capacity of the ESSD/SSD-based instance. The valid values vary based on the instance type. For more information, see [ESSD/SSD-based instances](~~2527111~~).\n\n>  This parameter is required only when you set the **InstanceType** parameter to **tair_essd** to create an ESSD-based instance. If you create a Tair **SSD**-based instance, the Storage parameter is automatically specified based on predefined specifications. You do not need to specify this parameter.",
+      "description": "The storage space of the disk-based instance. The valid values of this parameter vary based on the instance type. For more information, see [Disk-based instance types](~~2527111~~).\n\n> This parameter is required only when you set the **InstanceType** parameter to `tair_essd` to create a Tair instance that uses an ESSD. For Tair instances that use standard `SSD`s, the storage capacity is determined by the instance type and you do not need to specify this parameter.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "StorageType",
-      "description": "The storage type. Valid values: **essd_pl1**, **essd_pl2**, and **essd_pl3**.\n\n>  This parameter is required only when you set the **InstanceType** parameter to **tair_essd** to create an ESSD-based instance.\n\nEnumerated values:\n\n*   essd_pl0\n*   essd_pl1\n*   essd_pl2\n*   essd_pl3",
+      "description": "The storage type. Valid values: **essd\\_pl1**, **essd\\_pl2**, and **essd\\_pl3**.\n\n> This parameter is required only when you set the **InstanceType** parameter to `tair_essd` to create a Tair instance that uses an Enhanced SSD (ESSD).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "Details of the tags.",
+      "description": "The tags of the instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the tag.\n\n> A single request can contain up to five key-value pairs.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the tag.\n\n> **N** specifies the Nth tag in the request. For example, **Tag.1.Value** specifies the value of the first tag, and **Tag.2.Value** specifies the value of the second tag.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -294,21 +310,21 @@
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch that belongs to the VPC. You can call the [DescribeVpcs](~~35739~~) operation to query vSwitch IDs.",
+      "description": "The ID of the vSwitch in the specified VPC. You can call the VPC API operation [DescribeVSwitches](~~35739~~) to obtain the vSwitch ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC. You can call the [DescribeVpcs](~~35739~~) operation to query VPC IDs.",
+      "description": "The ID of the Virtual Private Cloud (VPC) where you want to create the instance. You can call the [DescribeVpcs](~~35739~~) operation to query available VPCs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ZoneId",
-      "description": "The ID of the primary zone. You can call the [DescribeRegions](~~473763~~) operation to query the most recent zone list.\n\n>  You can also set the SecondaryZoneId parameter to specify the secondary zone. The primary and secondary nodes will then be deployed in the specified primary and secondary zones to implement the master-replica zone-disaster recovery architecture. For example, you can set the ZoneId parameter to cn-hangzhou-h and the SecondaryZoneId parameter to cn-hangzhou-g.",
+      "description": "The ID of the primary zone where you want to create the instance. You can call the [DescribeRegions](~~473763~~) operation to query available zones.\n\n> You can also specify a secondary zone by using the `SecondaryZoneId` parameter. This deploys the primary and replica nodes in different zones within the same region for a high-availability primary/replica architecture. For example, you can set `ZoneId` to `cn-hangzhou-h` and `SecondaryZoneId` to `cn-hangzhou-g`.",
       "position": "Query",
       "type": "String",
       "required": false

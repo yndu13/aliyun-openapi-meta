@@ -1,0 +1,74 @@
+{
+  "name": "CreateParameter",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "Description",
+      "description": "The description of the parameter.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Name",
+      "description": "The parameter name. It must be unique within the workspace, be prefixed with `workspace.`, and not exceed 255 characters. The part of the name after the prefix must start with a letter and can contain only letters, digits, and underscores (\\_).",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Owner",
+      "description": "The account ID of the owner.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ProjectId",
+      "description": "The workspace ID. This parameter is required when `Scope` is set to `Project`.",
+      "position": "Body",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "Properties",
+      "description": "The value configurations for the parameter. A configuration for the production environment is required. If you provide duplicate configurations for an environment, only the first one is used.",
+      "position": "Body",
+      "type": "Json",
+      "required": true,
+      "sub_parameters": [
+        {
+          "name": "EnvType",
+          "description": "The environment.\n\n- `Prod`: production environment\n\n- `Dev`: development environment",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Value",
+          "description": "The value of the parameter. The value can contain Chinese characters, letters, digits, and the following special characters: /, :, ., \\[, ], ,, \\, ', \", \\_, =, ?, space, carriage return, line feed, +, -, \\*, %, &, @, !, $, #, {, and }.",
+          "position": "FormData",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Scope",
+      "description": "The scope of the parameter. The default value is `Project`. No other values are currently supported.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Type",
+      "description": "The type of the parameter.\n\n- `PlainConstant`: plaintext constant.\n\n- `SecretConstant`: secret constant.\n\n- `Variable`: variable.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

@@ -7,103 +7,105 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n>  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a value for this parameter on your client to make sure that the value is unique among different requests. \\`ClientToken\\` can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the request as the **ClientToken**. The **RequestId** of each request is unique.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the flow log.\n\n> The description can be empty or 1 to 256 characters in length. It cannot start with http:// or https://.",
+      "description": "The description of the flow log.\n\n> The description can be empty or 0 to 256 characters in length. It cannot start with \\`http\\://\\` or \\`https\\://\\`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   **true**: performs only a dry run.\n*   **false** (default): performs a dry run and performs the actual request.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run to check the request without modifying service resources.\n\n- **false** (Default): sends the request.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EcrId",
-      "description": "The ID of the ECR.",
+      "description": "The ID of the Express Connect Router (ECR) instance.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "FlowLogName",
-      "description": "The name of the flow log.\n\n> The name can be empty or 1 to 128 characters in length and cannot start with http:// or https://.",
+      "description": "The name of the flow log.\n\n> The name can be empty or 0 to 128 characters in length. It cannot start with \\`http\\://\\` or \\`https\\://\\`.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The VBR ID.",
+      "description": "The ID of the VBR instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceType",
-      "description": "The type of network instance. Valid values:\n\n*   **VBR**",
+      "description": "The type of the network instance. Valid value:\n\n- **VBR**: a virtual border router (VBR) instance.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Interval",
-      "description": "The time window for collecting log data. Unit: seconds. Valid values:\n\n- **60**\n- **600**\n\nDefault value: **600**.",
+      "description": "The aggregation interval for a flow log to capture traffic. Unit: seconds. Valid values:\n\n- **60**\n\n- **600**\n\nDefault value: **600**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LogStoreName",
-      "description": "The Logstore that stores the captured traffic data.\n\n*   If a Logstore is already created in the selected region, enter the name of the Logstore.\n*   If no Logstores are created in the selected region, enter a name and the system automatically creates a Logstore. The name of the Logstore. The name must meet the following requirements:\n*   The name must be unique in a project.\n*   It can contain only lowercase letters, digits, hyphens (-), and underscores (\\_).\n*   The name must start and end with a lowercase letter or a digit.\n*   The name must be 3 to 63 characters in length.",
+      "description": "The Logstore that stores the captured traffic.\n\n- If you have created a Logstore in the current region, enter the name of the Logstore.\n\n- If you have not created a Logstore in the current region, specify a custom name for the Logstore. The system automatically creates the Logstore. The naming conventions for the Logstore name are as follows:\n\n- The Logstore name must be unique within the same project.\n\n- It can contain only lowercase letters, digits, hyphens (-), and underscores (\\_).\n\n- It must start and end with a lowercase letter or a digit.\n\n- It must be 3 to 63 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProjectName",
-      "description": "The project that stores the captured traffic data.\n\n*   If a project is already created in the selected region, enter the name of the project.\n*   If no projects are created in the selected region, enter a name and the system automatically creates a project.\n\nThe project name must be unique in a region. You cannot change the name after the project is created. The name must meet the following requirements:\n\n*   The name must be globally unique.\n*   The name can contain only lowercase letters,\n*   digits, and hyphens (-).\n*   The name must start and end with a lowercase letter or a digit.\n*   The name must be 3 to 63 characters in length.",
+      "description": "The project that stores the captured traffic.\n\n- If you have created a project in the current region, enter the name of the project.\n\n- If you have not created a project in the current region, specify a custom name for the project. The system automatically creates the project.\n\nThe project name must be globally unique within an Alibaba Cloud region and cannot be modified after it is created. The naming conventions are as follows:\n\n- The project name must be globally unique.\n\n- It can contain only lowercase letters, digits, and hyphens (-).\n\n- It must start and end with a lowercase letter or a digit.\n\n- It must be 3 to 63 characters in length.\n\n- The length must be 3 to 63 characters.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "",
+      "description": "The ID of the resource group to which the flow log instance belongs.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "SamplingRate",
-      "description": "The sampling proportion. Valid values:\n\n- **1:4096**\n- **1:2048**\n- **1:1024**\n\nDefault value: **1:4096**.",
+      "description": "The sampling ratio. Valid values:\n\n- **1:4096**\n\n- **1:2048**\n\n- **1:1024**\n\nDefault value: **1:4096**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "",
+      "description": "The tags.\n\nYou can add up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the resource. If you specify this parameter, you cannot leave it empty. The tag key can be up to 128 characters in length. It cannot start with aliyun or acs: and cannot contain http\\:// or https\\://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. The tag value can be an empty string. The tag value can be up to 128 characters in length. It cannot start with acs: and cannot contain http\\:// or https\\://.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -112,7 +114,7 @@
     },
     {
       "name": "TargetSlsRegionId",
-      "description": "",
+      "description": "The region of the project to which you want to deliver logs. This parameter is required only for cross-region log delivery.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,31 +7,35 @@
   "parameters": [
     {
       "name": "AcrRegistryInfo",
-      "description": "The information about the Container Registry Enterprise Edition instance.",
+      "description": "The information about the Container Registry (ACR) Enterprise Edition instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Domain",
+          "description": "The domain names of the ACR Enterprise Edition instance. By default, all domain names of the instance are used. You can specify one or more domain names. Separate multiple domain names with commas (,).",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "InstanceId",
+          "description": "The ID of the ACR Enterprise Edition instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceName",
+          "description": "The name of the ACR Enterprise Edition instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RegionId",
+          "description": "The region where the ACR Enterprise Edition instance is located.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -40,49 +44,49 @@
     },
     {
       "name": "AutoMatchImageCache",
-      "description": "Specifies whether to enable reuse of image cache layers. If you enable this feature and the image cache that you want to create and an existing image cache contain duplicate image layers, the system reuses the duplicate image layers to create the new image cache. This accelerates the creation of the image cache. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to enable reuse of image cache layers. If you enable this feature, the system reuses the image layers of existing image caches to accelerate the creation of image caches. Valid values:\n\n- true\n\n- false\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure the idempotence of a request?](~~25693~~)",
+      "description": "The client token that is used to ensure the idempotence of the request. Generate a value that is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipInstanceId",
-      "description": "The ID of the elastic IP address (EIP). If you want to pull public images, you must make sure that the elastic container instance can access the Internet. To enable Internet access, you can configure an EIP or a NAT gateway for the instance.",
+      "description": "The elastic IP address (EIP). To pull images from the Internet, ensure that the ECI instance has Internet access. Configure an EIP or a NAT Gateway to enable Internet access.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EliminationStrategy",
-      "description": "The elimination policy for the image cache. This parameter is empty by default, which indicates that the image cache is always retained.\n\nYou can set this parameter to LRU, which indicates that the image cache can be automatically deleted. When the number of image caches reaches the quota, the system automatically deletes the image caches whose EliminationStrategy parameter is set to LRU and that are least recently used.",
+      "description": "The eviction policy for the image cache. By default, the image cache is never evicted.\n\nSet this parameter to \\`LRU\\` to allow automatic deletion. If you set the policy to \\`LRU\\`, when the number of image caches reaches the quota, the system automatically deletes the least recently used caches.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Flash",
-      "description": "Specifies whether to enable the instant image cache feature. The feature can accelerate the creation of image caches. Valid values:\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to enable the instant image cache feature. This feature accelerates the creation of image caches. Valid values:\n\n- true\n\n- false\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FlashCopyCount",
-      "description": "The number of duplicates of temporary local snapshots. By default, the system creates one snapshot for each image cache. If you use the image cache to create multiple elastic container instances at a time, we recommend that you configure this parameter to create multiple snapshot duplicates for the image cache. We recommend that you create one snapshot duplicate for creation of every 1,000 elastic container instances.\n\n> If you enable the instant image cache feature by setting Flash to true, a local snapshot is first created during the creation of the image cache. After the local snapshot is created, regular snapshots start to be created. After the regular snapshots are created, the local snapshot is automatically deleted.",
+      "description": "The number of local snapshot replicas. By default, one snapshot is created for one image cache. If the image cache is used to create multiple ECI instances in batches, configure this parameter to create multiple snapshot replicas. We recommend creating one snapshot replica for every 1,000 ECI instances.\n\n> If the instant image cache feature is enabled (Flash is set to true), the system first creates local snapshots. After the local snapshots are created, the system starts to create standard snapshots. After the standard snapshots are created, the local snapshots are automatically deleted.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Image",
-      "description": "Container images that are used to create the image cache.",
+      "description": "The list of container images used to create the image cache.\n\n> If you want to trigger an in-place upgrade of the image cache without updating the image list, you must still pass the image list. Otherwise, the image data is not updated to the latest version. Only the metadata is refreshed.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -103,32 +107,35 @@
     },
     {
       "name": "ImageCacheSize",
-      "description": "The size of the image cache. Unit: GiB. Default value: 20.",
+      "description": "The size of the image cache. The default value is 20 GiB.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ImageRegistryCredential",
-      "description": "The information about the image repository.",
+      "description": "The credentials of the image repository.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Password",
+          "description": "The password for the image repository.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Server",
+          "description": "The address of the image repository. Do not include the `http://` or `https://` prefix.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "UserName",
+          "description": "The username for the image repository.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -137,54 +144,56 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the image cache.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the image cache belongs.",
+      "description": "The ID of the resource group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RetentionDays",
-      "description": "The retention period of the image cache. Unit: days. When the retention period elapses, the image cache expires and is deleted. By default, image caches never expire.\n\n> The image caches that fail to be created are retained for only 1 day.",
+      "description": "The retention period of the image cache in days. The image cache expires and is cleared after the retention period ends. By default, the image cache never expires.\n\n> Image caches that failed to be created are retained for only one day.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group to which the image cache belongs.",
+      "description": "The ID of the security group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StandardCopyCount",
-      "description": "The number of duplicates of regular snapshots. By default, the system creates one snapshot for each image cache. If you use the image cache to create multiple elastic container instances at a time, we recommend that you configure this parameter to create multiple snapshot duplicates for the image cache. We recommend that you create one snapshot duplicate for creation of every 1,000 elastic container instances.\n\n> If you disable the instant image cache feature by setting Flash to false, only regular snapshots are generated when you create an image cache.",
+      "description": "The number of standard snapshot replicas. By default, one snapshot is created for one image cache. If the image cache is used to create multiple ECI instances in batches, configure this parameter to create multiple snapshot replicas. We recommend creating one snapshot replica for every 1,000 ECI instances.\n\n> If the instant image cache feature is disabled (Flash is set to false), only standard snapshots are created when the image cache is being created.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the image cache. A maximum of 20 tags can be added to the image cache.",
+      "description": "The tags to attach to the image cache. You can attach up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the tag.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the tag.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -193,7 +202,7 @@
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch to which the image cache is connected.",
+      "description": "The ID of the vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,33 +1,34 @@
 {
   "name": "SetDcdnFullDomainsBlockIP",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "BlockInterval",
-      "description": "The duration for which IP addresses or CIDR blocks are blocked. Unit: seconds. The value **0** specifies that IP addresses or CIDR blocks are permanently blocked. This parameter is available only if you set **OperationType** to **block**.",
+      "description": "The block duration. Unit: seconds. A value of **0** indicates a permanent block. This parameter is valid only when **OperationType** is set to **block**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IPList",
-      "description": "The IP addresses that you want to block or unblock. Separate multiple IP addresses with commas (,). You can specify up to 1,000 IP addresses.",
+      "description": "The IP addresses or CIDR blocks to block or unblock. Separate multiple entries with commas (,). You can specify a maximum of 1,000 IP addresses or CIDR blocks.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "OperationType",
-      "description": "The action that you want to perform. Valid values:\n\n*   **block**\n*   **unblock**",
+      "description": "The action to perform. Valid values:\n\n- **block**: Blocks the specified IP addresses.\n\n- **unblock**: Unblocks the specified IP addresses.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UpdateType",
-      "description": "The type of the blocking duration. This parameter is available only if you set **OperationType** to **block**. Valid values:\n\n*   **cover**: the blocking duration that is specified in the request takes effect.\n*   **uncover**: the longer one of the blocking duration that is specified in the request and the remaining blocking duration takes effect.\n*   Default value: cover.",
+      "description": "The update type for the block duration. This parameter is valid only when **OperationType** is set to **block**. Valid values:\n\n- **cover**: The new block duration overwrites the existing one.\n\n- **uncover**: The longer of the new and existing block durations is used.\n\n- If you do not specify this parameter, the default value cover is used.",
       "position": "Body",
       "type": "String",
       "required": false

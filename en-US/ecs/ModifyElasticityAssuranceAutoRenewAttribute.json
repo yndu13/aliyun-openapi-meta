@@ -1,40 +1,41 @@
 {
   "name": "ModifyElasticityAssuranceAutoRenewAttribute",
+  "deprecated": false,
   "protocol": "HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Period",
-      "description": "The auto-renewal period for the elasticity assurance.\n\n*   Valid values when `PeriodUnit` is set to `Year`: 1, 3, and 5.\n*   Valid values when `PeriodUnit` is set to `Month`: 1.\n\nDefault value: 1.",
+      "description": "The auto-renewal period of the instance.\n\n\n\n- If `PeriodUnit` is set to `Year`, valid values: 1, 3, and 5.\n\n- If `PeriodUnit` is set to `Month`, valid values: 1.\n\n\n\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the renewal duration. Valid values:\n\n*   Month\n*   Year\n\nDefault value: Month.",
+      "description": "The unit of the renewal period. Valid values:\n\n- Month: month\n\n- Year: year\n\nDefault value: Month.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.Id",
-      "description": "The IDs of elasticity assurances.\n\n>  You can renew up to 50 elasticity assurances at a time.",
+      "description": "The list of elasticity assurance service IDs to modify.\n\n> You can modify up to 50 elasticity assurance services at a time.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the elasticity assurance belongs. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the elasticity assurance service. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RenewalStatus",
-      "description": "The auto-renewal status of the elasticity assurance. Valid values:\n\n*   AutoRenewal: Auto-renewal is enabled for the elasticity assurance.\n*   Normal: Auto-renewal is disabled for the elasticity assurance.\n*   NotRenewal: The elasticity assurance is not renewed. The system no longer sends an expiration notification but sends only a renewal notification three days before the elasticity assurance expires. You can change the value of this parameter from NotRenewal to `Normal` for an elasticity assurance, and then manually renew the elasticity assurance. Alternatively, you can set the RenewalStatus parameter to AutoRenewal.",
+      "description": "The auto-renewal status of the instance. Valid values:\n\n- AutoRenewal: Auto-renewal is enabled.\n\n- Normal: Auto-renewal is disabled.\n\n- NotRenewal: The instance will not be renewed. After this value is specified, the system no longer sends expiration reminders and sends only a non-renewal reminder three days before the expiration date. You can change the value for an elasticity assurance service from NotRenewal to Normal and then manually renew the service or enable auto-renewal.",
       "position": "Query",
       "type": "String",
       "required": false

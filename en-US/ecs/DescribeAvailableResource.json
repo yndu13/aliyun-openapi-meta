@@ -7,112 +7,112 @@
   "parameters": [
     {
       "name": "Cores",
-      "description": "",
+      "description": "The number of vCPU cores of the instance type. For valid values, see [Instance family](~~25378~~).\n\nThis parameter takes effect only when DestinationResource is set to InstanceType.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DataDiskCategory",
-      "description": "",
+      "description": "The category of the data disk. Valid values: \n         \n- cloud: basic disk.\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- ephemeral_ssd: local SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud_auto: ESSD AutoPL disk.\n<props=\"china\">\n- cloud_essd_entry: ESSD Entry disk.\n</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DedicatedHostId",
-      "description": "",
+      "description": "The ID of the dedicated host.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationResource",
-      "description": "",
+      "description": "The type of resource to query. Valid values: \n         \n- Zone: zone.\n- IoOptimized: I/O optimized.\n- InstanceType: instance type.\n- Network: network type.\n- ddh: dedicated host.\n- SystemDisk: system disk.\n- DataDisk: data disk.\n\n> When DestinationResource is set to `SystemDisk`, you must specify InstanceType because system disks are restricted by instance types.\n\nFor more information about how to set the DestinationResource parameter, see the **operation description** section of this topic.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceChargeType",
-      "description": "",
+      "description": "The billing method of the resource. For more information, see [Billing overview](~~25398~~). Valid values: \n       \n- PrePaid: subscription.  \n- PostPaid: pay-as-you-go.\n\nDefault value: PostPaid.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "",
+      "description": "The instance type. For more information, see [Instance family](~~25378~~). You can also invoke [DescribeInstanceTypes](~~25620~~) to query the most recent instance type list.\n\nFor more information about how to set the InstanceType parameter, see the **operation description** section at the beginning of this topic.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IoOptimized",
-      "description": "",
+      "description": "Specifies whether the instance is an I/O optimized instance. Valid values:\n\n- none: non-I/O optimization.\n- optimized: I/O optimization.\n\nDefault value: optimized.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Memory",
-      "description": "",
+      "description": "The memory size of the instance type. Unit: GiB. For valid values, see [Instance family](~~25378~~).\n\nThis parameter takes effect only when DestinationResource is set to InstanceType.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "NetworkCategory",
-      "description": "",
+      "description": "The network type. Valid values: \n        \n- vpc: virtual private cloud (VPC).\n- classic: classic network. The classic network is deprecated. For more information, see [Deprecation notice](~~2833134~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "",
+      "description": "The ID of the destination region. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceType",
-      "description": "",
+      "description": "The type of the resource. Valid values:\n\n- instance: ECS instance.\n- disk: cloud disk.\n- reservedinstance: reserved instance.\n- ddh: dedicated host.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Scope",
-      "description": "",
+      "description": "The scope of the reserved instance. Valid values:\n         \n- Region: regional.\n- Zone: zonal.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotDuration",
-      "description": "",
+      "description": "The protection period of the spot instance. Unit: hours. Default value: 1. Valid values:\n- 1: After a spot instance is created, Alibaba Cloud ensures that the instance is not automatically released within 1 hour. After 1 hour, the system compares the bid price with the market price and checks the resource inventory to determine whether to retain automatic release the instance.\n- 0: After a spot instance is created, Alibaba Cloud does not ensure that the instance runs for 1 hour. The system compares the bid price with the market price and checks the resource inventory to determine whether to retain automatic release the instance.\n\nAlibaba Cloud sends an ECS system event notification 5 minutes before the instance is released. Spot instances are billed by second. Select an appropriate protection period based on the expected task execution duration.\n\n> This parameter takes effect only when `InstanceChargeType` is set to `PostPaid` and `SpotStrategy` is set to `SpotWithPriceLimit` or `SpotAsPriceGo`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SpotStrategy",
-      "description": "",
+      "description": "The bidding policy for pay-as-you-go instances. Valid values: \n         \n- NoSpot: a regular pay-as-you-go instance.\n- SpotWithPriceLimit: a spot instance with a maximum bid price.\n- SpotAsPriceGo: a spot instance for which the system automatically bids at up to the pay-as-you-go price.\n\nDefault value: NoSpot.\n\nThis parameter takes effect only when `InstanceChargeType` is set to `PostPaid`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDiskCategory",
-      "description": "",
+      "description": "The category of the system disk. Valid values: \n         \n- cloud: basic disk.\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- ephemeral_ssd: local SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud_auto: ESSD AutoPL disk.\n<props=\"china\">\n- cloud_essd_entry: ESSD Entry disk.\n</props>\n\nDefault value description:\n\n- If InstanceType is set to a retired instance type, the default value is `cloud`.\n- In other cases, the default value is `cloud_efficiency`.<props=\"china\"> After January 30, 2026, for instance types that support only cloud_essd, the default value is changed from cloud_efficiency to cloud_essd PL0. For more information, see [Change notice](https://www.aliyun.com/notice/117844).</props>\n\n> When ResourceType is set to instance and DestinationResource is set to DataDisk, the SystemDiskCategory parameter is required. If you do not specify this parameter, the default value takes effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "",
+      "description": "The zone ID.\n\nDefault value: null. All zones in the specified region (RegionId) that match the query conditions are returned.",
       "position": "Query",
       "type": "String",
       "required": false

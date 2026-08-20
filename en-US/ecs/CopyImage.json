@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that you want to use to ensure the idempotence of the request. You can use the client to generate the value, but you ensure sure that the value is unique among different requests. **The token can contain only ASCII characters and cannot exceed 64 characters in length.** For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. **ClientToken** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationDescription",
-      "description": "The description of the image copy. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the copied image. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationImageName",
-      "description": "The name of the new image. The name must be 2 to 128 characters in length. The name must start with a letter and cannot contain `http://` or `https://`. The name cannot start with `acs:` or `aliyun`. The name can contain letters, digits, periods (.), colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the copied image. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with `aliyun` or `acs:`. The name cannot contain `http://` or `https://`. The name can contain digits, periods (.), colons (:), underscores (_), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DestinationRegionId",
-      "description": "The ID of the destination region to which the source custom image is copied.",
+      "description": "The ID of the destination region to which the image is copied.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Specifies whether to check the image used by the instance supports hot migration. Valid values:\n\n*   true: performs only a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized RAM users, and missing parameter values. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   false: performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.\n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n\n- true: performs only a dry run. The system checks whether your AccessKey pair is valid, whether Resource Access Management (RAM) user authorization is complete, and whether the required parameters are specified. If the request fails the dry run, an error message is returned. If the request passes the dry run, the error code `DryRunOperation` is returned.\n- false: performs a dry run and sends the request. If the request passes the dry run, a 2XX HTTP status code is returned and the operation is Normal.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EncryptAlgorithm",
-      "description": "> This parameter is unavailable.",
+      "description": "> This parameter is not publicly available.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Encrypted",
-      "description": "Specifies whether to encrypt the new image.\n\n*   true\n*   false\n\nDefault value: false.",
+      "description": "Specifies whether to encrypt the copied image.\n\n- true: encrypts the copied image.\n- false: does not encrypt the copied image.\n- Not specified: determined by the backend. For more information, see the supplementary description below.\n\nDefault value: not specified.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -63,40 +63,42 @@
     },
     {
       "name": "KMSKeyId",
-      "description": "The ID of the key used to encrypt the image copy.",
+      "description": "The ID of the key used to encrypt the image.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the source custom image. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the source custom image. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which to assign the new image. If you do not specify this parameter, the new image is assigned to the default resource group.\n\n>  If you call the CopyImage operation as a Resource Access Management (RAM) user who does not have the permissions to manage the default resource group and do not specify `ResourceGroupId`, the `Forbidden: User not authorized to operate on the specified resource` error message is returned. You must specify the ID of a resource group that the RAM user has the permissions to manage or grant the RAM user the permissions to manage the default resource group before you call the CopyImage operation again.",
+      "description": "The resource group ID of the copied image. If you do not set this parameter, the copied image belongs to the default resource group.\n\n> If you are a Resource Access Management (RAM) user and invoke this operation with the `ResourceGroupId` parameter left empty, take note of the following: if the RAM user does not have permissions on the default resource group, the error message `Forbidden: User not authorized to operate on the specified resource` is returned. Set the `ResourceGroupId` parameter to a resource group ID that the RAM user has permissions on, or grant the RAM user permissions on the default resource group by using the corresponding Alibaba Cloud account before you invoke this operation again. The `ResourceGroupId` parameter determines which resource group the replicated image belongs to.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The list of tags.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the copied image. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the copied image. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:`. The tag value cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false

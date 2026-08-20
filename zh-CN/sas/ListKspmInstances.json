@@ -1,0 +1,74 @@
+{
+  "name": "ListKspmInstances",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "CloudAssetTypes",
+      "description": "Kubernetes资产的资产类型信息列表。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "AssetSubType",
+          "description": "产品的子类型。\n资产的类型-子类型。取值：\n\n- **0**：Workload\n    *  **0**：Pod\n    *  **1**：DaemonSet\n    *  **2**：StatefulSet\n- **1**：Service\n    *  **0**：Service\n- **2**：Namespace\n    *  **0**：Namespace\n- **3**：Authorization\n    *  **0**：Role\n    *  **1**：ClusterRole\n    *  **2**：ClusterRoleBinding\n    *  **3**：RoleBinding\n    *  **4**：ServiceAccount\n- **4**：Storage\n    *  **0**：PersistentVolume\n    *  **1**：PersistentVolumeClaim\n    *  **2**：StorageClass\n- **5**：Container\n    *  **0**：Image\n- **6**：Network\n    *  **0**：Route\n    *  **0**：Ingress\n- **7**：Configuration\n    *  **0**：ConfigMap\n- **8**：Policies\n    *  **0**：LimitRanges\n    *  **1**：ResourceQuota",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "AssetType",
+          "description": "资产的类型。取值：\n\n- **0**：Workload\n- **1**：Service\n- **2**：Namespace\n- **3**：Authorization\n- **4**：Storage\n- **5**：Container\n- **6**：Network\n- **7**：Configuration\n- **8**：Policies",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "Vendor",
+          "description": "资产厂商。这里固定取值**200**。",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Criteria",
+      "description": "设置搜索资产的条件。该参数JSON格式，输入参数时注意大小写。包含一下字段：\n\n- **name**：检索项\n- **value**：检索项值\n- **logicalExp**：多条件时，检索项之间的关系，取值：\n    - **OR**：表示多个条件间为**或**的关系。\n    - **AND**：表示多个条件间为**与**的关系。\n> 支持使用地域、实例名称、实例ID、告警状态、风险状态、标签搜索条件。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "CurrentPage",
+      "description": "设置从返回结果的第几页开始显示查询结果。默认值为1，表示从第1页开始显示。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "LogicalExp",
+      "description": "设置多个搜索条件间生效的逻辑关系。取值：\n\n- **OR**：表示多个搜索条件之间是**或**的关系。\n- **AND**：表示多个搜索条件之间是**与**的关系。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PageSize",
+      "description": "分页查询时，显示的每页数据的最大条数。默认值为20。",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "实例所在的地域的ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

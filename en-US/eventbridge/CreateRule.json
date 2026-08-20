@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "Description",
-      "description": "The description of the event bus.",
+      "description": "The description of the event rule.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,55 +21,63 @@
     },
     {
       "name": "EventTargets",
-      "description": "The event targets.",
+      "description": "A list of event targets.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "ConcurrentConfig",
+          "description": "The concurrency control configuration.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "DeadLetterQueue",
+          "description": "The dead-letter queue. If an event fails to be processed or exceeds the retry limit, it is sent to the dead-letter queue. Supported services for the dead-letter queue include Message Queue for Apache RocketMQ, Message Service (MNS), Message Queue for Apache Kafka, and EventBridge event buses.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "Endpoint",
+          "description": "The delivery endpoint for events.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ErrorsTolerance",
+          "description": "The fault tolerance policy. Valid values:<br>`ALL`: Enables fault tolerance. Execution continues even if an error occurs. After all retry attempts fail, the event is sent to the dead-letter queue (if configured) or discarded.<br>`NONE`: Disables fault tolerance. Execution is blocked if an error occurs and all retry attempts fail.<br><br>",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Id",
+          "description": "The custom ID of the event target.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "ParamList",
+          "description": "The parameters for the event target.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "PushRetryStrategy",
+          "description": "The push retry strategy. Valid values:<br>`BACKOFF_RETRY`: A backoff retry strategy where the system makes three retry attempts at random intervals of 10 to 20 seconds.<br>`EXPONENTIAL_DECAY_RETRY`: An exponential decay retry strategy where the system makes 176 retry attempts over 24 hours. The interval starts at 1 second and doubles with each of the first 10 attempts (up to 512 seconds). Subsequent retries occur every 512 seconds.<br><br>",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Type",
+          "description": "The type of the event target. For more information, see [Event target parameters](~~185887~~).",
           "position": "Query",
           "type": "String",
           "required": true
@@ -78,7 +86,7 @@
     },
     {
       "name": "FilterPattern",
-      "description": "The event pattern, in JSON format. Valid values: stringEqual and stringExpression. You can specify up to five expressions in the map data structure in each field.\n\nYou can specify up to five expressions in the map data structure in each field.",
+      "description": "The event pattern, in JSON format. Supported pattern types are `stringEqual` and `stringExpression`. Each field can contain a maximum of five expressions in a map structure.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -92,7 +100,7 @@
     },
     {
       "name": "Status",
-      "description": "The status of the event rule. Valid values: ENABLE: enables the event rule. It is the default status of the event rule. DISABLE: disables the event rule.",
+      "description": "The status of the event rule. Valid values: `ENABLE`: The rule is enabled. This is the default value. `DISABLE`: The rule is disabled.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "GlobalPermissions",
-      "description": "",
+      "description": "Global permissions.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The type of the privilege modification operation.   \nValid values:  \nupdate: updates all privileges. This is the default value.  \nadd: adds a privilege.  \ndelete: deletes a privilege.",
+      "description": "The OceanBase cluster ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "ModifyType",
-      "description": "The name of the table.",
+      "description": "The type of permission modification.<br>\nThis parameter is not required for a tenant in MySQL mode. For a tenant in Oracle mode, specify one of the following operations:<br>\n\n- Add: `ADD`.\n\n- Delete: `DELETE`.\n\n- Update: `UPDATE`.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "TenantId",
-      "description": "The operation that you want to perform.   \nSet the value to **ModifyTenantUserRoles**.",
+      "description": "The tenant ID.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UserName",
-      "description": "The role of the database account.",
+      "description": "The name of the database account.<br>\nYou cannot use reserved keywords, such as `SYS` or `root`.<br>",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UserRole",
-      "description": "The type of the account. Valid values:   \n- Admin: the super administrator account.   \n- Normal: a general account.",
+      "description": "The role information for the database account.\n\n- For a tenant in MySQL mode, you must pass all databases and their corresponding permissions. Permissions for any database not included in the request will be revoked. To revoke all permissions, pass an empty array (`[]`).\n\n- For a tenant in Oracle mode, specify only the databases, tables, and corresponding permissions that you want to modify.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "UserType",
-      "description": "",
+      "description": "The type of the user account. Valid values: `Normal` and `Admin`.",
       "position": "Body",
       "type": "String",
       "required": false

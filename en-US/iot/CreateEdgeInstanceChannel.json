@@ -1,37 +1,41 @@
 {
   "name": "CreateEdgeInstanceChannel",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "ChannelName",
-      "description": "",
+      "description": "The name of the driver channel. The name can contain Chinese characters, letters, digits, and underscores (_). The name must be 1 to 30 characters in length.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Configs",
-      "description": "",
+      "description": "The configuration list.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Content",
+          "description": "The configuration content.\n\n- If the value of **Configs.N.Format** is KV or JSON, specify the configuration content. For more information about the format of the configuration content, see [Driver channel configurations](~~172321~~).\n\n- If the value of **Configs.N.Format** is FILE, specify the Object Storage Service (OSS) address. Call the [CreateOssPreSignedAddress](~~155858~~) operation to obtain the OSS address.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Format",
+          "description": "The format of the configuration. Valid values: KV (key-value pair), JSON (JSON format), FILE (configuration file).",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Key",
+          "description": "The key of the configuration. This parameter is used to distinguish configurations when multiple configurations exist.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -40,21 +44,21 @@
     },
     {
       "name": "DriverId",
-      "description": "",
+      "description": "The ID of the driver. On the **Driver Management** page of the [IoT Platform console](https://iot.console.aliyun.com/le/instance/list), hover over the name of the target driver to obtain the ID.\n\nYou can also call the [QueryEdgeDriver](~~155776~~) operation to obtain the ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InstanceId",
-      "description": "",
+      "description": "The ID of the edge instance. On the **Edge Instances** page of the [IoT Platform console](https://iot.console.aliyun.com/le/instance/list), hover over the name of the target edge instance to obtain the ID.\n\nYou can also call the [QueryEdgeInstance](~~135214~~) operation to obtain the ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "IotInstanceId",
-      "description": "",
+      "description": "The instance ID. Leave this parameter empty for the public instance. Specify this parameter for Enterprise instances.",
       "position": "Query",
       "type": "String",
       "required": false

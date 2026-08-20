@@ -7,84 +7,84 @@
   "parameters": [
     {
       "name": "AutoUseCoupon",
-      "description": "",
+      "description": "Specifies whether to automatically use coupons. Valid values:\n* true (default): Uses coupons.\n* false: Does not use coupons.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. The token is case-sensitive.",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the value. Make sure that the value is unique among different requests. The token is case-sensitive and can contain a maximum of 64 ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CloudProvider",
-      "description": "",
+      "description": "The cloud service provider of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBClusterId",
-      "description": "The ID of the cluster.",
+      "description": "The cluster ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBNodeTargetClass",
-      "description": "The specifications of all nodes. For more information, see [Specifications of computing nodes](~~102542~~).",
+      "description": "The target specifications for all nodes. For more information, see [Compute node specifications](~~102542~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBNodeType",
-      "description": "The type of the node. Valid values:\n\n*   RO\n*   STANDBY\n*   DLNode",
+      "description": "The node type. Set this parameter to DLNode only when you change the node specifications of an AI node.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModifyType",
-      "description": "The type of the configuration change. Valid values:\n\n*   **Upgrade**\n*   **Downgrade**",
+      "description": "The type of the specification change. Valid values: \n* **Upgrade**: upgrades the specifications.\n* **Downgrade**: downgrades the specifications.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "PlannedEndTime",
-      "description": "The latest start time to upgrade the specifications within the scheduled time period. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.\n\n> *   The value of this parameter must be at least 30 minutes later than the value of PlannedStartTime.\n>*   By default, if you specify `PlannedStartTime` but do not specify PlannedEndTime, the latest start time of the task is set to `Value of PlannedEndTime + 30 minutes`. For example, if you set `PlannedStartTime` to `2021-01-14T09:00:00Z` and you do not specify PlannedEndTime, the latest start time of the task is `2021-01-14T09:30:00Z`.",
+      "description": "The latest start time of the scheduled specification change task. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format (UTC).\n> * The latest time must be at least 30 minutes later than the start time.\n> * If `PlannedStartTime` is set but this parameter is not specified, the latest time defaults to `start time + 30 minutes`. For example, if `PlannedStartTime` is set to `2021-01-14T09:00:00Z` and this parameter is left empty, the task starts no later than `2021-01-14T09:30:00Z`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlannedFlashingOffTime",
-      "description": "",
+      "description": "The planned transient disconnection time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlannedStartTime",
-      "description": "The earliest start time to upgrade the specifications within the scheduled time period. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.\n\n>*   This parameter takes effect only when `ModifyType` is set to `Upgrade`.\n>*   The earliest start time of the task can be a point in time within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, you can specify a point in the time that ranges from `2021-01-14T09:00:00Z` to `2021-01-15T09:00:00Z`.\n>*   If this parameter is left empty, the upgrade task is immediately performed.",
+      "description": "The earliest start time of the scheduled specification change task. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format (UTC).\n> * This parameter takes effect when `ModifyType` is set to `Upgrade` or `Downgrade`.\n> * The start time must be within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, the valid range for the start time is from `2021-01-14T09:00:00Z` to `2021-01-15T09:00:00Z`.\n> * If this parameter is left empty, the specification change task is immediately executed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PromotionCode",
-      "description": "",
+      "description": "The coupon code. If this parameter is not specified, the default coupon is used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubCategory",
-      "description": "The category of the cluster. Valid values:\n\n*   **normal_exclusive**: dedicated.\n*   **normal_general**: genera-purpose.",
+      "description": "The cluster sub-series. Valid values:\n\n- **normal_exclusive**: Dedicated\n\n- **normal_general**: General-purpose\n\nThis parameter is required when you change specifications between Dedicated and General-purpose.",
       "position": "Query",
       "type": "String",
       "required": false

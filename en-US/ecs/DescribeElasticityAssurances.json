@@ -1,40 +1,41 @@
 {
   "name": "DescribeElasticityAssurances",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the instance. Set the value to PostPaid. Only pay-as-you-go instances can be created by using elasticity assurances.\n\nDefault value: PostPaid.",
+      "description": "The billing method of instances. Valid values: PostPaid. Only pay-as-you-go is supported.\n\nDefault value: PostPaid.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance type.",
+      "description": "The instance type. You can use the instance type to query only active elasticity assurance services. Released services can only be queried by using `PrivatePoolOptions.Ids`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries to return on each page.\n\nValid values: 1 to 100.\n\nDefault value: 10.",
+      "description": "The maximum number of entries per page for a paged query.\n\nMaximum value: 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the request to retrieve a new page of results. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token for the elasticity assurance service query. Obtain the value from the result of the previous request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PackageType",
-      "description": "The type of the elasticity assurance. Valid values:\n\n*   ElasticityAssurance: the general-purpose elasticity assurance. RecurrenceRules is not specified for a general-purpose elasticity assurance.\n*   TimeDivisionElasticityAssurance: the time-segmented elasticity assurance. RecurrenceRules is specified for a time-segmented assurance.",
+      "description": "The type of the elasticity assurance service. Valid values:\n\n- ElasticityAssurance: standard elasticity assurance (used when RecurrenceRules is not specified).\n\n- TimeDivisionElasticityAssurance: time-division elasticity assurance (used when RecurrenceRules is specified).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -48,47 +49,49 @@
     },
     {
       "name": "PrivatePoolOptions.Ids",
-      "description": "The IDs of the elasticity assurances. The value can be a JSON array that consists of up to 100 elasticity assurance IDs. Separate the IDs with commas (,).",
+      "description": "The list of elasticity assurance service IDs. The value can be a JSON array that consists of up to 100 IDs. Separate multiple IDs with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the elasticity assurances. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The ID of the region to which the elasticity assurance service belongs. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group. If you configure this parameter to query resources, up to 1,000 resources that belong to the specified resource group can be displayed in the response.\n\n> Resources in the default resource group are displayed in the response regardless of whether you configure this parameter.",
+      "description": "The ID of the resource group. When you use this parameter to filter resources, the resource count cannot exceed 1000.\n\n>Filtering by the default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Status",
-      "description": "The status of the elasticity assurance. Valid values:\n\n*   All: All states.\n*   Deactivated: The elasticity assurance is pending activation. This state is in invitational preview.\n*   Preparing: The elasticity assurance is being prepared.\n*   Prepared: The elasticity assurance is to take effect.\n*   Active: The elasticity assurance is in effect.\n*   Released: The elasticity assurance is released.\n\nIf you do not specify this parameter, elasticity assurances in states other than Pending and Released are queried.",
+      "description": "The status of the elasticity assurance service. Valid values:\n\n- All: all states.\n- Deactived: pending activation (this state is in invitational preview).\n- Preparing: being prepared.\n- Prepared: pending effectiveness.\n- Active: active.\n- Released: released.\n\nIf you do not specify this parameter, elasticity assurance services in all states except Pending and Released are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags.",
+      "description": "The list of tag key-value pairs bound to the elasticity assurance service.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. N indicates that you can set multiple tag keys for filtering. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with the specified tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count of resources that have all specified tags attached cannot exceed 1000. If the resource count exceeds 1000, call the [ListTagResources](~~110425~~) operation to query resources.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value. N indicates that you can set multiple tag values for filtering. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -97,7 +100,7 @@
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the elasticity assurances.",
+      "description": "The zone ID in the region to which the elasticity assurance service belongs.",
       "position": "Query",
       "type": "String",
       "required": false

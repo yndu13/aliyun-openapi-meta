@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "ImageQuality",
-      "description": "The quality of the output image. This parameter is also available in the earlier DecodeBlindWatermark operation.\n\nHigher image quality indicates a larger image size and higher watermark resolution quality.",
+      "description": "A parameter from the earlier DecodeBlindWatermark API. It specifies the quality of the output image. The default value is 90. The value must be in the range of 70 to 100.\n\nA higher quality results in a larger image size and better watermark parsing quality.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Model",
-      "description": "The watermark algorithm model. This parameter is also available in the earlier DecodeBlindWatermark operation. Valid values: FFT, FFT_FULL, DWT, and DWT_IBG. Default value: FFT.\n\nIf this parameter is left empty, the CreateDecodeBlindWatermarkTask operation is called. Otherwise, the earlier DecodeBlindWatermark operation is called.",
+      "description": "A parameter from the earlier DecodeBlindWatermark API. It specifies the watermark algorithm model. Valid values include FFT, FFT\\_FULL, DWT, and DWT\\_IBG. The default value is FFT.\n\nIf this parameter is left empty, the new version of the blind watermarking feature is used. Otherwise, the earlier version is used.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Notification",
-      "description": "The notification settings. For information about the asynchronous notification format, see [Asynchronous message examples](~~2743997~~).",
+      "description": "The notification configuration. For more information, click Notification. For the format of asynchronous notification messages, see [Asynchronous notification message format](~~2743997~~).",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "OriginalImageURI",
-      "description": "The OSS URI of the image before the blind watermark is added. This parameter is also available in the earlier DecodeBlindWatermark operation.\n\nDo not specify this parameter when you set the Model parameter to DWT or DWT_IBG.\n\nSpecify the OSS URI in the `oss://<bucket>/<object>` format, where `<bucket>` is the name of the bucket in the same region as the current project and `<object>` is the path of the object with the extension included.",
+      "description": "A parameter from the earlier DecodeBlindWatermark API. It specifies the OSS URI of the image before the blind watermark was added.\n\nThis parameter is not required when Model is set to DWT or DWT\\_IBG.\n\nThe OSS URI must be in the `oss://<bucket>/<object>` format. `<bucket>` is the name of the OSS bucket that is in the same region as the current project. `<object>` is the full path of the file, including the file name extension.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProjectName",
-      "description": "The name of the project.[](~~478153~~)\n\n>  The project specified in the request must match the one in the EncodeBlindWatermark request to encode the blind watermark.",
+      "description": "The project name. For information about how to obtain the project name, see [Create a project](~~478153~~).\n><notice>The project name must be the same as the one used to add the blind watermark with the [EncodeBlindWatermark](~~2743655~~) operation. Otherwise, the watermark cannot be extracted.></notice>",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SourceURI",
-      "description": "The OSS URI of the image.\n\nSpecify the OSS URI in the `oss://<bucket>/<object>` format, where `<bucket>` is the name of the bucket in the same region as the current project and `<object>` is the path of the object with the extension included.",
+      "description": "The Object Storage Service (OSS) URI of the image.\n\nThe OSS URI must be in the `oss://<bucket>/<object>` format. `<bucket>` is the name of the OSS bucket that is in the same region as the current project. `<object>` is the full path of the file, including the file name extension.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "StrengthLevel",
-      "description": "The level of watermark extraction. A higher level indicates a longer time and a higher quality. Valid values:\n\n*   low\n*   medium\n*   high",
+      "description": "The watermark extraction level, which controls the extraction precision. A higher level indicates a longer processing time and a better extraction effect. Valid values:\n\n- low\n\n- medium\n\n- high",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetURI",
-      "description": "The OSS URI of the output image. This parameter is also available in the earlier DecodeBlindWatermark operation.\n\nSpecify the OSS URI in the `oss://<bucket>/<object>` format, where `<bucket>` is the name of the bucket in the same region as the current project and `<object>` is the path of the object with the extension included.",
+      "description": "A parameter from the earlier DecodeBlindWatermark API. It specifies the OSS URI where the image is saved after the blind watermark is parsed.\n\nThe OSS URI must be in the `oss://<bucket>/<object>` format. `<bucket>` is the name of the OSS bucket that is in the same region as the current project. `<object>` is the full path of the file, including the file name extension.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WatermarkType",
-      "description": "The type of the watermark. Valid value: text.\n\nNo image watermarks are supported.",
+      "description": "The type of the embedded watermark. Valid value: text\n\n(Image watermarks are not supported. Therefore, this parameter can only be set to text.)",
       "position": "Query",
       "type": "String",
       "required": false

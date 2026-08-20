@@ -48,11 +48,34 @@
       "required": false
     },
     {
+      "name": "Receivers",
+      "description": "收件人列表，数量不得超过 100，与 ReceiversName 二选一。Receivers 和 ReceiversName 同时设置，优先使用 ReceiversName。\n\n示例：[{\"To\":[\"Jackie@example.com\"],\"TemplateData\":{\"UserName\":\"Jackie\"}},{\"To\":[\"Tom@example.com\"],\"TemplateData\":{\"UserName\":\"Tom\"}}]",
+      "position": "Body",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "TemplateData",
+          "description": "邮件模板参数，json map 数据类型",
+          "position": "FormData",
+          "type": "Struct",
+          "required": false
+        },
+        {
+          "name": "To",
+          "description": "收件人列表，数组类型",
+          "position": "FormData",
+          "type": "RepeatList",
+          "required": false
+        }
+      ]
+    },
+    {
       "name": "ReceiversName",
       "description": "预先创建且上传了收件人的收件人列表名称。\n\n注意：\n\n收件人列表人数不得高于剩余日额度，否则会发信失败。\n\n收信人列表需要在触发任务之后至少10分钟后再删除，否则容易引起发信失败。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "ReplyAddress",
@@ -76,11 +99,18 @@
       "required": false
     },
     {
+      "name": "TemplateContent",
+      "description": "自定义邮件内容，直接指定发送内容无需预先创建模板，与TemplateName 二选一。如果 TemplateContent 和\nTemplateName 同时存在，优先使用 TemplateName。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "TemplateName",
       "description": "预先创建且通过审核的模板名称。",
       "position": "Query",
       "type": "String",
-      "required": true
+      "required": false
     },
     {
       "name": "UnSubscribeFilterLevel",

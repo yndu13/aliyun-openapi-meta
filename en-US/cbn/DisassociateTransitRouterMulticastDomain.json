@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must make sure that it is unique among all requests. The client token can contain only ASCII characters.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether only to precheck the API request. Valid values:\n\n- **true**: prechecks the request but does not disassociate the vSwitch from the multicast domain. The system checks the required parameters, the request format, and the service limits. If the request fails the check, an error message is returned. If the request passes the check, the DryRunOperation error code is returned.\n- **false** (default): sends the request. The vSwitch is disassociated from the multicast domain after the request passes the precheck.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run without disassociating the vSwitch from the multicast domain. The system checks the required parameters, request format, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the error code `DryRunOperation` is returned.\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, the vSwitch is disassociated from the multicast domain.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "TransitRouterAttachmentId",
-      "description": "The ID of the virtual private cloud (VPC) connection.\n\nA connection ID is generated after a VPC to which the vSwitch belongs is connected to a transit router.",
+      "description": "The ID of the VPC connection.\n\nThis parameter specifies the ID of the VPC connection that was generated after the Virtual Private Cloud (VPC) to which the vSwitch belongs was connected to the transit router instance.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -35,7 +35,7 @@
     },
     {
       "name": "VSwitchIds",
-      "description": "The IDs of vSwitches.",
+      "description": "The list of vSwitch IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": false

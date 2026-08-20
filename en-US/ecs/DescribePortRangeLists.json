@@ -7,61 +7,63 @@
   "parameters": [
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries per page.\n\n*   Maximum value: 100\n*   Default value: 10.",
+      "description": "The number of entries per page for a paged query.\n\n- Maximum value: 100.\n\n- Default value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.",
+      "description": "The pagination token. Set this parameter to the NextToken value returned in the previous call. You do not need to set this parameter for the first request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PortRangeListId",
-      "description": "The ID of the port list. Valid values of N: 0 to 100.",
+      "description": "The ID of the port range list. Valid values of N: 0 to 100.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "PortRangeListName",
-      "description": "The name of the port list. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http://, https://, com.aliyun, or com.alibabacloud. The name can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-).",
+      "description": "The name of the port range list. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. The name cannot start with http://, https://, com.aliyun, or com.alibabacloud. The name can contain letters, Chinese characters, digits, colons (:), underscores (_), periods (.), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID. You can call the [DescribeRegions](~~2679950~~) operation to query the most recent region list.",
+      "description": "The region ID. You can call [DescribeRegions](~~2679950~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group. If you specify this parameter to query resources, up to 1,000 resources that belong to the specified resource group can be returned in the response. You can call the [ListResourceGroups](~~2716558~~) operation to query the most recent resource group list.\n\n>  A default resource group is not supported.",
+      "description": "The resource group ID. When you use this parameter to filter resources, the resource count cannot exceed 1000. You can invoke [ListResourceGroups](~~2716558~~) to query the list of resource groups.\n\n>Filtering by the default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags that are added to the port list.",
+      "description": "The tags bound to the port range list.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the instance. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with this tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count of resources that have all specified tags attached cannot exceed 1000. If the resource count exceeds 1000, call [ListTagResources](~~110425~~) to query resources.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false

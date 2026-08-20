@@ -7,91 +7,91 @@
   "parameters": [
     {
       "name": "AutoConfigRoute",
-      "description": "Specifies whether to automatically configure routes. Valid values:\n\n*   **true** (default)\n*   **false**",
+      "description": "Specifies whether to automatically configure routes. Valid values:\n\n- **true** (default): Automatically configures routes.\n\n- **false**: Does not automatically configure routes.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "BgpConfig",
-      "description": "This parameter is supported if you create an IPsec-VPN connection in single-tunnel mode.\n\nBGP configuration:\n\n*   **BgpConfig.EnableBgp**: specifies whether to enable BGP. Valid values: **true** and **false** (default).\n\n*   **BgpConfig.LocalAsn:** the autonomous system number (ASN) on the Alibaba Cloud side. Valid values: **1** to **4294967295**. Default value: **45104**.\n\n    You can enter a value in two segments separated by a period (.). Each segment is 16 bits in length. Enter the number in each segment in decimal format.\n\n    For example, if you enter 123.456, the ASN is 8061384. The ASN is calculated by using the following formula: 123 × 65536 + 456 = 8061384.\n\n*   **BgpConfig.TunnelCidr**: The CIDR block of the IPsec tunnel. The CIDR block must fall within 169.254.0.0/16 and the mask of the CIDR block must be 30 bits in length. The CIDR block cannot be 169.254.0.0/30, 169.254.1.0/30, 169.254.2.0/30, 169.254.3.0/30, 169.254.4.0/30, 169.254.5.0/30, 169.254.6.0/30, or 169.254.169.252/30.\n\n    > The CIDR block of the IPsec tunnel for each IPsec-VPN connection on a VPN gateway must be unique.\n\n*   **LocalBgpIp**: the BGP address on the Alibaba Cloud side. It must be an IP address that falls within the CIDR block of the IPsec tunnel.\n\n> - Before you add BGP configurations, we recommend that you learn about how BGP works and the limits. For more information, see [Configure BGP dynamic routing](~~2638220~~).\n> - We recommend that you use a private ASN to establish BGP connections to Alibaba Cloud. Refer to the relevant documentation for the private ASN range.",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in single-tunnel mode.\n\nThe BGP configuration:\n\n- **BgpConfig.EnableBgp**: specifies whether to enable BGP. Valid values: **true** or **false** (default).\n- **BgpConfig.LocalAsn**: the autonomous system number (ASN) on the Alibaba Cloud side. Valid values: **1** to **4294967295**. Default value: **45104**.\n    \n    You can enter the ASN in the two-segment notation: the first 16 bits.the last 16 bits. Each segment is entered in decimal format.\n    \n    For example, if you enter 123.456, the ASN is 123 × 65536 + 456 = 8061384.\n- **BgpConfig.TunnelCidr**: the CIDR block of the IPsec tunnel. The CIDR block must be a /30 subnet within 169.254.0.0/16, and cannot be 169.254.0.0/30, 169.254.1.0/30, 169.254.2.0/30, 169.254.3.0/30, 169.254.4.0/30, 169.254.5.0/30, 169.254.6.0/30, or 169.254.169.252/30.\n    > The IPsec tunnel CIDR block of each IPsec-VPN connection under a VPN gateway instance must be unique.\n- **LocalBgpIp**: the BGP IP address on the Alibaba Cloud side. This address must be an IP address within the IPsec tunnel CIDR block.\n\n>- Before you configure BGP, we recommend that you familiarize yourself with how BGP dynamic routing works and its limits. For more information, see [Configure BGP dynamic routing](~~2638220~~).\n>- We recommend that you use a private ASN to establish a BGP connection with Alibaba Cloud. Refer to the relevant documentation for the private ASN range.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** of each API request is different.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomerGatewayId",
-      "description": "When you create an IPsec-VPN connection in single-tunnel mode, this parameter is required.\n\nThe ID of the customer gateway.",
+      "description": "This parameter is supported and required when you create an IPsec-VPN connection in single-tunnel mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "",
+      "description": "Specifies whether to perform a dry run. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EffectImmediately",
-      "description": "Specifies whether to immediately start IPsec negotiations. Valid values:\n\n*   **true**: immediately starts IPsec negotiations.\n*   **false** (default): starts IPsec negotiations when inbound traffic is detected.",
+      "description": "Specifies whether the IPsec-VPN connection configuration takes effect immediately. Valid values:\n\n- **true**: The system immediately initiates IPsec protocol negotiation after the configuration is complete.\n\n- **false** (default): The system initiates IPsec protocol negotiation only when inbound traffic is detected.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableDpd",
-      "description": "This parameter is available if you create an IPsec-VPN connection in single-tunnel mode.\n\nSpecifies whether to enable the dead peer detection (DPD) feature. Valid values:\n\n*   **true** (default) The initiator of the IPsec-VPN connection sends DPD packets to verify the existence and availability of the peer. If no feedback is received from the peer within a specified period of time, the connection fails. ISAKMP SAs and IPsec SAs are deleted. The IPsec tunnel is also deleted.\n*   **false**",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in single-tunnel mode.\n\nSpecifies whether to enable the Dead Peer Detection (DPD) feature. Valid values:\n\n- **true** (default): DPD is enabled. The IPsec initiator sends DPD packets to check whether the peer device is alive. If no correct response is received within the specified period of time, the peer is considered disconnected. The ISAKMP SA and the corresponding IPsec SA are deleted, and the security tunnel is also deleted.\n\n- **false**: DPD is disabled. The IPsec initiator does not send DPD probe packets.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableNatTraversal",
-      "description": "This parameter is available if you create an IPsec-VPN connection in single-tunnel mode.\n\nSpecifies whether to enable NAT traversal. Valid values:\n\n*   **true** (default) After NAT traversal is enabled, the initiator does not check the UDP ports during IKE negotiations and can automatically discover NAT gateway devices along the VPN tunnel.\n*   **false**",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in single-tunnel mode.\n\nSpecifies whether to enable NAT traversal. Valid values:\n\n- **true** (default): Enables NAT traversal. After NAT traversal is enabled, the IKE negotiation process skips UDP port number verification and can discover NAT gateway devices in the VPN tunnel.\n\n- **false**: Disables NAT traversal.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EnableTunnelsBgp",
-      "description": "This parameter is available if you create an IPsec-VPN connection in dual-tunnel mode.\n\nSpecifies whether to enable the BGP feature for the tunnel. Valid values: **true** and **false**. Default value: false.",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in dual-tunnel mode.\n\nSpecifies whether to enable BGP for the tunnel. Valid values: **true** or **false** (default).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckConfig",
-      "description": "This parameter is available if you create an IPsec-VPN connection in single-tunnel mode.\n\nThe health check configuration:\n\n*   **HealthCheckConfig.enable**: specifies whether to enable health checks. Valid values: **true** and **false**. Default value: false.\n*   **HealthCheckConfig.dip**: the destination IP address configured for health checks.\n*   **HealthCheckConfig.sip:** the source IP address that is used for health checks.\n*   **HealthCheckConfig.interval**: the time interval of health check retries. Unit: seconds. Default value: **3**.\n*   **HealthCheckConfig.retry**: the maximum number of health check retries. Default value: **3**.",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in single-tunnel mode.\n\nHealth check configuration:\n\n- **HealthCheckConfig.enable**: Specifies whether to enable health checks. Valid values: **true** or **false** (default).\n\n- **HealthCheckConfig.dip**: The destination IP address of the health check.\n\n- **HealthCheckConfig.sip**: The source IP address of the health check.\n\n- **HealthCheckConfig.interval**: The retry interval of the health check. Unit: seconds. Default value: **3**.\n\n- **HealthCheckConfig.retry**: The number of retry packets sent during the health check. Default value: **3**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IkeConfig",
-      "description": "This parameter is supported if you create an IPsec-VPN connection in single-tunnel mode.\n\nThe configurations of Phase 1 negotiations:\n\n*   **IkeConfig.Psk**: the pre-shared key that is used for identity authentication between the VPN gateway and the on-premises data center.\n\n    *   The key cannot contain spaces. The key must be 1 to 100 characters in length, and can contain digits, letters, and the following special characters: ``~!\\`@#$%^&*()_-+={}[]|;:',.<>/?``\n\n    *   If you do not specify a pre-shared key, the system randomly generates a 16-bit string as the pre-shared key. You can call the [DescribeVpnConnection](~~2526951~~) operation to query the pre-shared key that is automatically generated by the system.\n\n        > The pre-shared key of the IPsec-VPN connection must be the same as the authentication key of the on-premises data center. Otherwise, connections between the on-premises data center and the VPN gateway cannot be established.\n\n*   **IkeConfig.IkeVersion**: the version of the Internet Key Exchange (IKE) protocol. Valid values: **ikev1** and **ikev2**. Default value: **ikev1**.\n\n    Compared with IKEv1, IKEv2 simplifies the security association (SA) negotiation process and provides better support for scenarios with multiple CIDR blocks.\n\n*   **IkeConfig.IkeMode**: the negotiation mode of IKE. Valid values: **main** and **aggressive**. Default value: **main**.\n\n    *   **main:** This mode offers higher security during negotiations.\n    *   **aggressive:** This mode is faster and has a higher success rate.\n\n*   **IkeConfig.IkeEncAlg**: the encryption algorithm that is used in Phase 1 negotiations.\n\n    Valid values: **aes**, **aes192**, **aes256**, **des**, and **3des**. Default value: **aes**.\n\n*   **IkeConfig.IkeAuthAlg**: the authentication algorithm that is used in Phase 1 negotiations.\n\n    Valid values: **md5**, **sha1**, **sha256**, **sha384**, and **sha512**. Default value: **md5**.\n\n*   **IkeConfig.IkePfs**: the Diffie-Hellman key exchange algorithm that is used in Phase 1 negotiations. Valid values: **group1**, **group2**, **group5**, and **group14**. Default value: **group2**.\n\n*   **IkeConfig.IkeLifetime**: the SA lifetime as a result of Phase 1 negotiations. Unit: seconds Valid values: **0** to **86400**. Default value: **86400**.\n\n*   **IkeConfig.LocalId**: the identifier of the VPN gateway. It can be up to 100 characters in length and cannot contain space characters. The default value is the IP address of the VPN gateway.\n\n*   **IkeConfig.RemoteId**: the identifier of the customer gateway. It can be up to 100 characters in length and cannot contain space characters. The default value is the IP address of the customer gateway.",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in single-tunnel mode.\n\nPhase 1 negotiation configuration:\n           \n- **IkeConfig.Psk**: The pre-shared key used for identity authentication between the VPN gateway and the on-premises data center.\n\n    - The key must be 1 to 100 characters in length and can contain digits, uppercase letters, lowercase letters, and the following characters. It cannot contain spaces. ```~!\\`@#$%^&*()_-+={}[]|;:',.<>/?```\n    - If you do not specify a pre-shared key, the system generates a random string as the pre-shared key. You can call the [DescribeVpnConnection](~~2526951~~) operation to query the pre-shared key automatically generated by the system.     \n\n        > The pre-shared key on the IPsec-VPN connection side must be the same as the authentication key on the on-premises data center side. Otherwise, the connection between the on-premises data center and the VPN gateway cannot be established.\n\n- **IkeConfig.IkeVersion**: The version of the Internet Key Exchange protocol. Valid values: **ikev1** and **ikev2**. Default value: **ikev1**.  \n\n    Compared with IKEv1, IKEv2 simplifies the SA negotiation process and provides better support for multi-CIDR-block scenarios.\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Chinese SM-based, only **ikev1** is supported for the IKE version.</ph></props>\n\n- **IkeConfig.IkeMode**: The negotiation mode of the IKE version. Valid values: **main** and **aggressive**. Default value: **main**.   \n\n    - **main**: Main mode. This mode offers high negotiation security.\n    - **aggressive**: Aggressive mode. This mode supports rapid negotiation and a higher success rate.\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Chinese SM-based, only **main** is supported for the negotiation mode.</ph></props>\n\n- **IkeConfig.IkeEncAlg**: The encryption algorithm used in Phase 1 negotiation.\n\n   <props=\"intl\"><ph>Valid values: **aes**, **aes192**, **aes256**, **des**, and **3des**. Default value: **aes**. </ph></props>\n\n   <props=\"china\">If the VPN gateway instance type is normal, valid values are **aes**, **aes192**, **aes256**, **des**, and **3des**. Default value: **aes**.</props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Chinese SM-based, the value is **sm4** (default).</ph></props>\n\n- **IkeConfig.IkeAuthAlg**: The authentication algorithm used in Phase 1 negotiation.\n\n   <props=\"intl\"><ph>Valid values: **md5**, **sha1**, **sha256**, **sha384**, and **sha512**. Default value: **md5**.</ph></props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is normal, valid values are **md5**, **sha1**, **sha256**, **sha384**, and **sha512**. Default value: **md5**.</ph></props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Chinese SM-based, the value is **sm3** (default).</ph></props>\n\n- **IkeConfig.IkePfs**: The Diffie-Hellman key exchange algorithm used in Phase 1 negotiation. Valid values: **group1**, **group2**, **group5**, and **group14**. Default value: **group2**.   \n\n- **IkeConfig.IkeLifetime**: The lifetime of the SA generated in Phase 1 negotiation. Unit: seconds. Valid values: **0** to **86400**. Default value: **86400**.   \n\n- **IkeConfig.LocalId**: The identifier of the VPN gateway. The value is limited to 100 characters and cannot contain spaces. Default value: the IP address of the VPN gateway. \n\n- **IkeConfig.RemoteId**: The identifier of the customer gateway. The value is limited to 100 characters and cannot contain spaces. Default value: the IP address of the customer gateway.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IpsecConfig",
-      "description": "This parameter is available if you create an IPsec-VPN connection in single-tunnel mode.\n\nThe configurations of Phase 2 negotiations:\n\n*   **IpsecConfig.IpsecEncAlg**: the encryption algorithm that is used in Phase 2 negotiations.\n\n    Valid values: **aes**, **aes192**, **aes256**, **des**, and **3des**. Default value: **aes**.\n\n*   **IpsecConfig. IpsecAuthAlg**: the authentication algorithm that is used in Phase 2 negotiations.\n\n    Valid values: **md5**, **sha1**, **sha256**, **sha384**, and **sha512**. Default value: **md5**.\n\n*   **IpsecConfig. IpsecPfs**: the DH key exchange algorithm that is used in Phase 2 negotiations. Valid values: **disabled**, **group1**, **group2**, **group5**, and **group14**. Default value: **group2**.\n\n*   **IpsecConfig. IpsecLifetime**: the SA lifetime that is determined by Phase 2 negotiations. Unit: seconds. Valid values: **0** to **86400**. Default value: **86400**.",
+      "description": "This parameter is supported when you create a single-tunnel IPsec-VPN connection.\n\nThe configuration of Phase 2 negotiation:\n\n- **IpsecConfig.IpsecEncAlg**: The encryption algorithm used in Phase 2 negotiation.\n\n   <props=\"intl\"><ph>Valid values: **aes**, **aes192**, **aes256**, **des**, or **3des**. Default value: **aes**. </ph></props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Standard, valid values are **aes**, **aes192**, **aes256**, **des**, or **3des**. Default value: **aes**.</ph></props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Chinese SM, the value is **sm4** (default).</ph></props>\n\n- **IpsecConfig.IpsecAuthAlg**: The authentication algorithm used in Phase 2 negotiation.\n\n   <props=\"intl\"><ph>Valid values: **md5**, **sha1**, **sha256**, **sha384**, or **sha512**. Default value: **md5**.</ph></props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Standard, valid values are **md5**, **sha1**, **sha256**, **sha384**, or **sha512**. Default value: **md5**.</ph></props>\n\n   <props=\"china\"><ph>If the VPN gateway instance type is Chinese SM, the value is **sm3** (default).</ph></props>\n\n- **IpsecConfig.IpsecPfs**: The Diffie-Hellman key exchange algorithm used in Phase 2 negotiation. Valid values: **disabled**, **group1**, **group2**, **group5**, or **group14**. Default value: **group2**.\n\n- **IpsecConfig.IpsecLifetime**: The lifetime of the security association (SA) established in Phase 2 negotiation. Unit: seconds. Valid values: **0** to **86400**. Default value: **86400**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LocalSubnet",
-      "description": "The CIDR block of the virtual private cloud (VPC) that needs to communicate with the on-premises database. The CIDR block is used in Phase 2 negotiations.\n\nSeparate multiple CIDR blocks with commas (,). Example: 192.168.1.0/24,192.168.2.0/24.\n\nThe following routing modes are supported:\n\n*   If you set **LocalSubnet** and **RemoteSubnet** to 0.0.0.0/0, the routing mode of the IPsec-VPN connection is set to Destination Routing Mode.\n*   If you set **LocalSubnet** and **RemoteSubnet** to specific CIDR blocks, the routing mode of the IPsec-VPN connection is set to Protected Data Flows.",
+      "description": "The CIDR block on the VPC side that needs to communicate with the on-premises data center. This is used for Phase 2 negotiation.\n\nSeparate multiple CIDR blocks with commas (,). Example: 192.168.1.0/24,192.168.2.0/24.\n\nDescription of the routing mode for the IPsec-VPN connection:\n\n- If both **LocalSubnet** and **RemoteSubnet** are set to 0.0.0.0/0, the destination routing mode is used.\n- If both **LocalSubnet** and **RemoteSubnet** are set to specific CIDR blocks, the protected data flow mode is used.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -105,40 +105,42 @@
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the IPsec-VPN connection is created. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.",
+      "description": "The region ID of the IPsec-VPN connection. You can call [DescribeRegions](~~36063~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RemoteCaCertificate",
-      "description": "This parameter is available if you create an IPsec-VPN connection in single-tunnel mode.\n\nThe certificate authority (CA) certificate. If the VPN gateway is of the ShangMi (SM) type, you need to configure a CA certificate for the peer gateway device.\n\n*   If an SM VPN gateway is used to create the IPsec-VPN connection, this parameter is required.\n*   If a standard VPN gateway is used to create the IPsec-VPN connection, leave this parameter empty.",
+      "description": "This parameter is supported when you create an IPsec-VPN connection in single-tunnel mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RemoteSubnet",
-      "description": "The CIDR block of the on-premises database that needs to communicate with the VPC. The CIDR block is used in Phase 2 negotiations.\n\nSeparate multiple CIDR blocks with commas (,). Example: 192.168.3.0/24,192.168.4.0/24.\n\nThe following routing modes are supported:\n\n*   If you set **LocalSubnet** and **RemoteSubnet** to 0.0.0.0/0, the routing mode of the IPsec-VPN connection is set to Destination Routing Mode.\n*   If you set **LocalSubnet** and **RemoteSubnet** to specific CIDR blocks, the routing mode of the IPsec-VPN connection is set to Protected Data Flows.",
+      "description": "The CIDR block of the on-premises data center that needs to communicate with the VPC. This is used for Phase 2 negotiation.\n\nSeparate multiple CIDR blocks with commas (,). Example: 192.168.3.0/24,192.168.4.0/24.\n\nDescription of the IPsec-VPN connection routing mode:\n\n- If both **LocalSubnet** and **RemoteSubnet** are set to 0.0.0.0/0, the destination routing mode is used.\n- If both **LocalSubnet** and **RemoteSubnet** are set to specific CIDR blocks, the protected data flow mode is used.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tags",
-      "description": "The tag value.\n\nThe tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.\n\nEach tag key corresponds to one tag value. You can specify up to 20 tag values in each call.",
+      "description": "The list of tags to add to the IPsec-VPN connection.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key. This value cannot be an empty string.\n\nThe tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.\n\nYou can specify up to 20 tag keys at a time.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -147,14 +149,14 @@
     },
     {
       "name": "TunnelOptionsSpecification",
-      "description": "The tunnel configurations.\n\n*   You can specify parameters in the **TunnelOptionsSpecification** array when you create an IPsec-VPN connection in dual tunnel mode.\n*   When you create an IPsec-VPN connection in dual tunnel mode, you must add configurations of the active and standby tunnels for the IPsec-VPN connection. Each IPsec-VPN connection supports only one active tunnel and one standby tunnel.",
+      "description": "The tunnel configurations.",
       "position": "Body",
       "type": "Array",
       "required": false
     },
     {
       "name": "VpnGatewayId",
-      "description": "The ID of the VPN gateway.",
+      "description": "The instance ID of the VPN gateway.",
       "position": "Query",
       "type": "String",
       "required": true

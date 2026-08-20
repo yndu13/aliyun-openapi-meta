@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "FileSystemId",
-      "description": "文件系统ID。\n\n- CPFS：必须以`cpfs-`开头，例如cpfs-099394bd928c****。\n\n- CPFS智算版：必须以`bmcpfs-`开头，例如bmcpfs-290w65p03ok64ya****\n。",
+      "description": "文件系统ID。\n\n- CPFS通用版：必须以`cpfs-`开头，例如cpfs-099394bd928c****。\n\n- CPFS智算版：必须以`bmcpfs-`开头，例如bmcpfs-290w65p03ok64ya****\n。",
       "position": "Query",
       "type": "String",
       "required": true
@@ -21,12 +21,14 @@
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "筛选键的名称。\n\n取值：\n\n- DataFlowIds: 根据数据流动ID筛选。\n- TaskIds：根据数据流动任务的ID筛选。\n- Originator：根据数据流动任务的发起者筛选。\n- TaskActions：根据数据流动任务的类型筛选。\n- DataTypes：根据数据流动任务的数据类型筛选。\n- Status：根据数据流动状态筛选。\n- CreateTimeBegin：筛选指定时间后创建的数据流动任务。\n- CreateTimeEnd：筛选指定时间前创建的数据流动任务。\n- StartTimeBegin：筛选指定时间后启动的数据流动任务。\n- StartTimeEnd：筛选指定时间前启动的数据流动任务。\n- EndTimeBegin：筛选指定时间后结束的数据流动任务。\n- EndTimeEnd：筛选指定时间前结束的数据流动任务。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "筛选键的值。该参数不支持通配符。\n\n- Key取值为DataFlowIds时，Value取值为数据流动ID或数据流动ID的一部分。可以是一个或一组DataFlowId，数据流动ID最多可设置10个。例如，`df-194433a5be31****`或`df-194433a512a2****,df-234533a5be31****`。\n- 当Key取值为TaskId时，Value取值为数据流动任务ID或数据流动任务ID的部分。可以是一个或一组数据流动任务ID，数据流动任务ID最多可设置10个。例如，`task-38aa8e890f45****`或`task-38aa8e890f45****,task-29ae8e890f45****`。\n- 当Key取值为TaskActions时，Value取值为数据流动的任务类型，包括**Import**，**Export**、**Evict**、**Inventory**、**StreamImport**和**StreamExport**。支持组合查询。目前 CPFS 智算版只支持 Import、Export、StreamImport 和 StreamExport。StreamImport 和 StreamExport 仅 CPFS 智算版 2.6.0 版本及以上版本支持。\n- 当Key取值为DataTypes时，Value取值为数据流动任务的数据类型，包括MetaAndData、Metadata和Data。支持组合查询。\n- 当Key取值为Originator时，Value取值为数据流动任务的发起者，包括User，System。\n- 当Key取值为Status时，Value取值为数据流动任务的状态，包括Pending、Executing、Failed、Completed、Canceling和Canceled。支持组合查询。\n- 当Key取值为CreateTimeBegin时，Value取值为数据流动任务创建时间最小值。格式为`yyyy-MM-ddThh:mmZ`。\n- 当Key取值为CreateTimeEnd时，Value取值为数据流动任务创建时间最大值。格式为`yyyy-MM-ddThh:mmZ`。\n- 当Key取值为StartTimeBegin时，Value取值为数据流动任务启动时间最小值。格式为`yyyy-MM-ddThh:mmZ`。\n- 当Key取值为StartTimeEnd时，Value取值为数据流动任务启动时间最大值。格式为`yyyy-MM-ddThh:mmZ`。\n- 当Key取值为EndTimeBegin时，Value取值为数据流动任务结束时间最小值。格式为`yyyy-MM-ddThh:mmZ`。\n- 当Key取值为EndTimeEnd时，Value取值为数据流动任务结束时间最大值。格式为`yyyy-MM-ddThh:mmZ`。",
           "position": "Query",
           "type": "String",
           "required": false

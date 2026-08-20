@@ -7,54 +7,56 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotency of requests?](~~25693~~)",
+      "description": "The tags for the virtual node.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterDNS",
-      "description": "The IP address of the DNS server. If `dnsPolicy=ClusterFirst` is configured for the Elastic Container Instance pod, Elastic Container Instance uses the configuration to provide DNS services to containers. You can configure multiple IP addresses. Separate multiple IP addresses with commas (,).",
+      "description": "A client token that you can use to ensure the idempotence of the request. The client generates the token, but you must ensure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterDomain",
-      "description": "The domain name of the cluster. If this parameter is specified, in addition to the search domain of the host, Kubelet configures all containers to search for the specified domain name.",
+      "description": "The IP address of the DNS server. If the dnsPolicy of an Elastic Container Instance (ECI) pod is set to `ClusterFirst`, the pod uses this IP address for the DNS service.\nYou can specify multiple IP addresses. Use commas (,) to separate the IP addresses.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomResources",
-      "description": "The custom resources that are supported by the virtual node. If a custom resource is specified in the request of an Elastic Container Instance pod, the pod is scheduled to run on the virtual node that supports the custom resource. You can use the `Resource name = Number of resources` format to specify custom resources. Separate multiple resources with commas (,).",
+      "description": "The domain name of the cluster. Kubelet configures all containers to search for this domain name in addition to the search domain of the host.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the virtual node.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the virtual node.",
+      "description": "The tags of the virtual node.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -63,14 +65,14 @@
     },
     {
       "name": "VirtualNodeId",
-      "description": "The ID of the virtual node.",
+      "description": "The name of the virtual node.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VirtualNodeName",
-      "description": "The name of the virtual node.",
+      "description": "The custom resources that the virtual node supports. If an ECI pod requests the custom resources, the pod is scheduled to the virtual node.\nThe value must be in the `resource_name=resource_count` format. Use commas (,) to separate multiple resources.",
       "position": "Query",
       "type": "String",
       "required": false

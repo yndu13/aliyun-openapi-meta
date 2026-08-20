@@ -1,5 +1,6 @@
 {
   "name": "CreateOTAFirmware",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -34,7 +35,7 @@
     },
     {
       "name": "FirmwareSize",
-      "description": "OTA升级包文件的大小，单位：字节。\n\n><notice> 仅当OTA升级包中添加一个文件时，才可传入此参数。若不传入，则采用对象存储（OSS）中升级包文件的大小。\n></notice>",
+      "description": "OTA升级包文件的大小，单位：字节。\n\n><notice> 仅当OTA升级包中添加一个文件时，才可传入此参数。若不传入，则采用对象存储（OSS）中升级包文件的大小。\n></notice> ",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -69,30 +70,35 @@
       "sub_parameters": [
         {
           "name": "FileMd5",
+          "description": "OTA升级包文件的MD5值。\n\n>OTA升级包中添加多个升级包文件时，可传入此参数。若不传入，则采用对象存储（OSS）中升级包文件的MD5值。\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Name",
+          "description": "OTA升级包文件名称，长度限制为1~32个字符。支持最多添加20个文件名称，且多个升级包文件的名称不能重复。\n\n\n><notice> OTA升级包中添加多个升级包文件时，必须传入此参数。\n></notice>",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SignValue",
+          "description": "OTA升级包文件的签名值。使用**SignMethod**对升级包文件内容加签计算得出的值。\n\n>OTA升级包中添加多个升级包文件时，可传入此参数。若不传入，则采用对象存储（OSS）中升级包文件的MD5值作为升级包签名值。\n",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
+          "description": "OTA升级包文件的大小，单位：字节。\n\n>OTA升级包中添加多个升级包文件时，可传入此参数。若不传入，则采用对象存储（OSS）中升级包文件的大小。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Url",
+          "description": "OTA升级包文件的URL，即升级包文件在对象存储（OSS）上的存储地址。您可调用[GenerateOTAUploadURL](~~147310~~)为每个升级包文件生成文件URL。\n\n><notice>OTA升级包中添加多个升级包文件时，必须传入此参数。\n></notice>",
           "position": "Query",
           "type": "String",
           "required": false
@@ -101,7 +107,7 @@
     },
     {
       "name": "NeedToVerify",
-      "description": "是否需要在创建批量升级任务前通过升级包验证。\n\n- **true**（默认）：需要\n\n- **false**：不需要",
+      "description": "是否需要在创建批量升级任务前通过升级包验证。\n\n- **true**（默认）：需要\n\n- **false**：不需要\n",
       "position": "Query",
       "type": "Boolean",
       "required": false

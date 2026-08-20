@@ -1,59 +1,62 @@
 {
   "name": "CreateDedicatedHostCluster",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "DedicatedHostClusterName",
-      "description": "The name of the host group. It must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-).\n\nThis parameter is left empty by default.",
+      "description": "The name of the dedicated host cluster. The name must be 2 to 128 characters in length and can contain letters, digits, and Unicode characters that are categorized as letter characters. The name can also contain colons (:), underscores (_), periods (.), and hyphens (-).\n\nDefault value: null.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the host group. It must be 2 to 256 characters in length, and cannot start with `http://` or `https://`.\n\nThis parameter is left empty by default.",
+      "description": "The description of the dedicated host cluster. The description must be 2 to 256 characters in length. The description cannot start with `http://` or `https://`.\n\nDefault value: null.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\n*   true: performs only a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized Resource Access Management (RAM) users, and missing parameter values. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n*   false: performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.\n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n\n- true: sends a check request without querying resource status. The system checks the request for potential issues, including invalid AccessKey pairs, the authorization status of the Resource Access Management (RAM) user, and missing parameter values. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n- false: sends a Normal request. If the request passes the check, a 2XX HTTP status code is returned and the resource status is queried.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the host group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the dedicated host cluster. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The resource group ID of the host group.",
+      "description": "The ID of the resource group to which the dedicated host cluster belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags of the host group.",
+      "description": "The tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The tag key of the dedicated host cluster. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The tag value of the dedicated host cluster. Valid values of N: 1 to 20. The tag value cannot be an empty string. The tag value can be up to 64 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -62,7 +65,7 @@
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the host group. You can call the [DescribeZones](~~25610~~) operation to query the most recent zone list.",
+      "description": "The zone ID of the dedicated host cluster. You can call [DescribeZones](~~25610~~) to query the zones in a region.",
       "position": "Query",
       "type": "String",
       "required": true

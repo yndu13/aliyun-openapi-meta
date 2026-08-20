@@ -1,0 +1,58 @@
+{
+  "name": "MountTableToCategory",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "/",
+  "parameters": [
+    {
+      "name": "CategoryId",
+      "description": "目标叶子目录 ID，与 CategoryPath 二选一（优先生效），可通过 ListAssetCategories 查询；与 CategoryPath 都不传时仅解绑该表现有目录",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "CategoryPath",
+      "description": "目标目录路径（层级用 / 分隔），逐层定位已有目录，最深 4 层；最终目录必须是叶子目录",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "CreateMissingCategory",
+      "description": "CategoryPath 对应目录不存在时是否逐层创建，默认 false 直接报 404，避免误传路径凭空造目录",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "DbId",
+      "description": "数据库ID，可以调用[ListDatabases](~~141873~~)接口获取。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ParentCategoryId",
+      "description": "CategoryPath 的起始父目录 ID，留空表示从根目录开始",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "TableName",
+      "description": "表名",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Tid",
+      "description": "租户ID。\n> 取自系统右上角头像处悬停展示的租户ID信息，详情请参见[查看租户信息](~~181330~~)。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    }
+  ]
+}

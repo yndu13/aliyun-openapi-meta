@@ -21,14 +21,14 @@
     },
     {
       "name": "Items",
-      "description": "更新后的列表内容项，以JSON数组格式提供。",
+      "description": "更新后的列表内容（JSON 数组字符串，例 `[\"1.1.1.1\",\"2.2.2.2\"]`）。\n\n**全量覆盖语义**：传入的 `Items` 会完全覆盖原有列表内容，不是追加。\n\n> ⚠️ **不传或传空时，原列表内容会被清空**。若需保留原项并追加，请先调用 `GetList` 取现有 `Items`，拼接后一次性提交。\n\n**元素格式**：与列表创建时的 `Kind` 相关（UpdateList 不支持修改 Kind）：\n- Kind = `ip`：每个元素必须为合法 IP 地址或 CIDR，不合法时返回 `WrongValueMatched`\n- 其他 Kind：元素格式以约定为准，数量受租户 quota `NumberItemsPerList` 限制（仅 `ip` Kind 不受此限制）",
       "position": "Body",
       "type": "Json",
       "required": true
     },
     {
       "name": "Name",
-      "description": "更新后的列表名称。",
+      "description": "更新后的自定义列表名称（需同时传入；不传保持原名称）。\n\n**命名规则**：仅支持字母、数字、下划线（`^\\w{1,64}$`），长度 1–64；",
       "position": "Body",
       "type": "String",
       "required": true

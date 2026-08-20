@@ -1,75 +1,76 @@
 {
   "name": "DescribeInstancesFullStatus",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
   "parameters": [
     {
       "name": "EventId",
-      "description": "The IDs of the system events. You can specify up to 100 event IDs in a single request.",
+      "description": "The list of event IDs. You can specify up to 100 event IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "EventPublishTime.End",
-      "description": "The end of the time range during which system events are published. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The end of the time range during which the events are published. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventPublishTime.Start",
-      "description": "The beginning of the time range during which system events are published. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The start of the time range during which the events are published. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventType",
-      "description": "The type of the system event. This parameter is valid only when InstanceEventType.N is not specified. Valid values:\n\n*   SystemMaintenance.Reboot: The instance is restarted due to system maintenance.\n*   SystemFailure.Reboot: The instance is restarted due to a system failure.\n*   InstanceFailure.Reboot: The instance is restarted due to an instance failure.\n*   InstanceExpiration.Stop: The subscription instance is stopped due to expiration.\n*   InstanceExpiration.Delete: The subscription instance is released due to expiration.\n*   AccountUnbalanced.Stop: The pay-as-you-go instance is stopped due to an overdue payment.\n*   AccountUnbalanced.Delete: The pay-as-you-go instance is released due to an overdue payment.",
+      "description": "The type of a system event. The EventType parameter takes effect only when InstanceEventType.N is not specified. Valid values: \n\n- SystemMaintenance.Reboot: The instance is restarted due to system maintenance. \n- SystemFailure.Reboot: The instance is restarted due to a system failure.\n- InstanceFailure.Reboot: The instance is restarted due to an instance failure.\n- InstanceExpiration.Stop: The subscription instance is stopped due to expiration.\n- InstanceExpiration.Delete: The subscription instance is released due to expiration.\n- AccountUnbalanced.Stop: The pay-as-you-go instance is stopped due to an overdue payment.\n- AccountUnbalanced.Delete: The pay-as-you-go instance is released due to an overdue payment.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HealthStatus",
-      "description": "The health status of the instance. Valid values:\n\n*   Impaired\n*   Warning: The instance performance may be degraded due to maintenance or technical issues.\n*   Maintaining\n*   Initializing\n*   InsufficientData\n*   NotApplicable\n\nAll the values are case-sensitive.",
+      "description": "The health status of the instance. Valid values: \n\n- Impaired: The service is impaired. \n- Warning: The instance performance may be degraded due to maintenance.\n- Maintaining: The instance is under maintenance.\n- Initializing: The instance is being initialized. \n- InsufficientData: The data is insufficient. \n- NotApplicable: Not applicable.\n\nThe values are case-sensitive.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceEventType",
-      "description": "The types of system events. You can specify up to 30 event types in a single request.",
+      "description": "The list of instance system event types. You can specify up to 30 instance event types.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The IDs of the instances. You can specify up to 100 instance IDs in a single request.",
+      "description": "The list of instance IDs. You can specify up to 100 instance IDs.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "NotBefore.End",
-      "description": "The end of the time range during which O\\&M tasks related to scheduled system events are executed. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The end of the time range during which the events are scheduled to execute. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NotBefore.Start",
-      "description": "The beginning of the time range during which O\\&M tasks related to scheduled system events are executed. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
+      "description": "The start of the time range during which the events are scheduled to execute. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. The value must be a positive integer.\n\nDefault value: 1.",
+      "description": "The page number of the results. Valid values: positive integers.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -83,14 +84,14 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.",
+      "description": "The region ID of the instance. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Status",
-      "description": "The lifecycle status of the instance. Valid values:\n\n*   Starting\n*   Running\n*   Stopped",
+      "description": "The lifecycle status of the instance. Valid values: \n- Starting: The instance is being started.\n- Running: The instance is running.\n- Stopped: The instance is stopped.",
       "position": "Query",
       "type": "String",
       "required": false

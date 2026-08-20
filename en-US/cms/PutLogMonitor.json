@@ -1,30 +1,34 @@
 {
   "name": "PutLogMonitor",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "POST|PUT",
   "pathPattern": "",
   "parameters": [
     {
       "name": "Aggregates",
-      "description": "The aggregation logic.",
+      "description": "The aggregate function definitions.",
       "position": "Query",
       "type": "RepeatList",
       "required": true,
       "sub_parameters": [
         {
           "name": "Alias",
+          "description": "The alias of the aggregate function. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "FieldName",
+          "description": "The name of the original field for aggregation. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Function",
+          "description": "The statistical method used to aggregate log data within a statistical period. Valid values of N: 1 to 10. Valid values:\n- count: counts the number of occurrences.\n- sum: calculates the sum.\n- avg: calculates the average.\n- max: returns the maximum value.\n- min: returns the minimum value.\n- countps: calculates the average count per second for the specified field within the statistical period.\n- sumps: calculates the average sum per second for the specified field within the statistical period.\n- distinct: counts the number of occurrences of the specified field after deduplication within the statistical period.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -40,19 +44,21 @@
     },
     {
       "name": "Groupbys",
-      "description": "The dimension based on which the data is grouped. This parameter is equivalent to the GROUP BY clause in SQL statements. If no dimension is specified, all data is aggregated based on the aggregate function.",
+      "description": "The dimensions used for spatial aggregation. This is equivalent to the Group By clause in SQL, which groups monitoring data by specified dimensions. If no dimension is specified, all monitoring data is aggregated based on the aggregate function.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Alias",
+          "description": "The alias of the Group By field. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "FieldName",
+          "description": "The name of the Group By field. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -68,42 +74,42 @@
     },
     {
       "name": "MetricExpress",
-      "description": "The extended field. The extended field allows you to perform basic operations on the aggregation results.\n\nFor example, you have calculated TotalNumber and 5XXNumber by aggregating the data. TotalNumber indicates the total number of HTTP requests, and 5XXNumber indicates the number of HTTP requests whose status code is greater than 499. You can calculate the server error rate by adding the following formula to the extended field: 5XXNumber/TotalNumber\\*100.\n\nJSON format: {\"extend\":{\"errorPercent\":\"5XXNumber/TotalNumber\\*100\"}}. Description:\n\n*   extend: required.\n*   errorPercent: the alias of the field generated in the calculation result. You can specify the alias as needed.\n*   5XXNumber/TotalNumber\\*100: the calculation expression.",
+      "description": "The extended field. The extended field provides arithmetic operations on the results of the statistical methods.\n\nFor example, if you configure the total number of HTTP status code requests (TotalNumber) and the number of requests with HTTP status codes greater than 499 (5xxNumber) in the statistical methods, you can use the extended field to calculate the server error rate: 5xxNumber/TotalNumber*100.\n\nJSON format: {\"extend\":{\"errorPercent\":\"5xxNumber/TotalNumber*100\"}}. Field description:\n\n- extend: required.\n\n- errorPercent: the alias of the new field generated from the calculation result. You can specify a custom name. \n\n- errorPercent: the calculation expression for existing fields.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MetricName",
-      "description": "The metric name. For more information about the metrics for cloud services, see [Appendix 1: Metrics](~~163515~~).",
+      "description": "The metric name. For information about the metrics supported by CloudMonitor for Alibaba Cloud services, see [Cloud service monitoring metrics](~~163515~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SlsLogstore",
-      "description": "The name of the Simple Log Service Logstore.",
+      "description": "The name of the Log Service Logstore.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SlsProject",
-      "description": "The name of the Simple Log Service project.",
+      "description": "The name of the Log Service project.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SlsRegionId",
-      "description": "The region in which the Simple Log Service project resides.",
+      "description": "The region where the Log Service project resides.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tumblingwindows",
-      "description": "The size of the tumbling window for calculation. Unit: seconds. CloudMonitor performs aggregation for each tumbling window.",
+      "description": "The tumbling window size for pre-aggregation. Unit: seconds. CloudMonitor performs an aggregation calculation on the data at the specified interval.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -117,25 +123,28 @@
     },
     {
       "name": "ValueFilter",
-      "description": "The condition that is used to filter logs. The ValueFilter and ValueFilterRelation parameters are used in pair. The filter condition is equivalent to the WHERE clause in SQL statements. If no filter condition is specified, all logs are processed. For example, logs contain the Level and Error fields. If you need to calculate the number of times that logs of the Error level appear every minute, you can set the filter condition to Level=Error and count the number of logs that meet this condition.",
+      "description": "The filter rules, used together with ValueFilterRelation. This is equivalent to the Where clause in SQL. If this parameter is not specified, all data is processed. For example, if the log contains Level and Error fields and you want to count the number of Error occurrences per minute, you can define the statistical method to sum the Level field with the condition Level=Error.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The name of the log field to match. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Operator",
+          "description": "The matching method for the field value. Valid values of N: 1 to 10. Valid values:\n- `contain`: contains.\n- `notContain`: does not contain.\n- `>`: greater than.\n- `<`: less than.\n- `>=`: greater than or equal to.\n- `<=`: less than or equal to.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the log field to match. Valid values of N: 1 to 10.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -144,7 +153,7 @@
     },
     {
       "name": "ValueFilterRelation",
-      "description": "The logical operator that is used between log filter conditions. Valid values:\n\n*   and\n*   or\n\n>  The ValueFilterRelation and `ValueFilter.N.Key` parameters must be used in pair.",
+      "description": "The logical operator used to combine log filter conditions. Valid values:\n\n- and\n\n- or\n\n> This parameter must be used together with `ValueFilter.N.Key`.",
       "position": "Query",
       "type": "String",
       "required": true

@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "GroupIds",
-      "description": "The IDs of the replication pair-consistent groups. You can specify the IDs of one or more replication pair-consistent groups. Separate the IDs with commas (,).\n\nThis parameter is empty by default, which indicates that all replication pair-consistent groups in the specified region are queried. You can specify up to the IDs of 100 replication pair-consistent groups.",
+      "description": "The IDs of the replication pair-consistent groups. You can specify one or more group IDs. Separate multiple IDs with a comma (,).\n\nIf you do not specify this parameter, all replication pair-consistent groups in the current region are queried. You can specify up to 100 group IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The maximum number of entries per page. You can use this parameter together with NextToken.\n\nValid values: 1 to 500.\n\nDefault value: 10.",
+      "description": "The maximum number of entries to return on a single page. You can use this parameter with NextToken.\n\nValid values: 1 to 500.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the replication pair-consistent group. You can perform a fuzzy search.",
+      "description": "The name of the replication group. Fuzzy search is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken. If you specify NextToken, the PageSize and PageNumber request parameters do not take effect, and the TotalCount response parameter is invalid.",
+      "description": "The query token. Set this parameter to the NextToken value returned from the previous call to this operation. You do not need to set this parameter for the first call. If you set NextToken, the PageSize and PageNumber parameters are ignored, and the TotalCount in the response is invalid.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The number of the page to return.",
+      "description": "The page number.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values: 1 to 100.",
+      "description": "The number of entries per page.\nValid values: 1 to 100.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region to which the replication pair-consistent group belongs.",
+      "description": "The region ID of the replication pair-consistent group.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -63,26 +63,28 @@
     },
     {
       "name": "Site",
-      "description": "The type of the site from which the information of replication pair-consistent groups is retrieved. This parameter is used for scenarios where data is replicated across zones in replication pairs.\n\n*   If this parameter is not specified, information such as the status of replication pair-consistent groups at the primary site is queried and returned.\n\n*   Otherwise, information such as the state of replication pairs at the site specified by the Site parameter is queried and returned. Valid values:\n\n    *   production: primary site\n    *   backup: secondary site",
+      "description": "The site to query. This parameter is used when replication pairs are deployed across zones.\n\n- If you do not specify this parameter, the records and status information of replication pairs at the production site are returned.\n\n- If you specify this parameter, only the records and status information of replication pairs at the specified site are returned. Valid values:\n\n  - production: The production site.\n\n  - backup: The disaster recovery site.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags to add to the replication pair-consistent group. You can specify up to 20 tags.",
+      "description": "The tags. The list can contain up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
+          "description": "The key of the tag of the replication pair-consistent group.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
+          "description": "The value of the tag of the replication pair-consistent group.",
           "position": "Query",
           "type": "String",
           "required": false

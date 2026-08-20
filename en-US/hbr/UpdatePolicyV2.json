@@ -7,112 +7,126 @@
   "parameters": [
     {
       "name": "PolicyDescription",
-      "description": "The description of the backup policy.",
+      "description": "The policy description.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyId",
-      "description": "The ID of the backup policy.",
+      "description": "The policy ID.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PolicyName",
-      "description": "The name of the backup policy.",
+      "description": "The policy name.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Rules",
-      "description": "The rules in the backup policy.",
+      "description": "The list of policy rules.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "ArchiveDays",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which the backup is transitioned to archive storage. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "BackupType",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup type. Set the value to **COMPLETE**, which indicates full backup.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "ColdArchiveDays",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which the backup is transitioned to cold archive storage. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "DataSourceFilters",
+          "description": "This parameter is required only when **RuleType** is set to **TAG**. The data source filter rules.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Immutable",
+          "description": "This parameter is valid only when **PolicyType** is set to **UDM_ECS_ONLY**. Specifies whether to enable backup locking.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KeepLatestSnapshots",
+          "description": "Specifies whether to retain at least one backup version. Valid values:\n- 0: do not retain.\n- 1: retain.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "ReplicationRegionId",
+          "description": "This parameter is required only when **RuleType** is set to **REPLICATION**. The ID of the destination region for replication.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Retention",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION** or **REPLICATION**.\n- If **RuleType** is set to **TRANSITION**: the retention period of the backup. Minimum value: 1. Unit: days.\n- If **RuleType** is set to **REPLICATION**: the retention period of the cross-region backup. Minimum value: 1. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
         },
         {
           "name": "RetentionRules",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The special retention rules.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "RuleId",
+          "description": "The rule ID.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "RuleType",
+          "description": "The rule type. Each policy must have at least one **BACKUP** rule and exactly one **TRANSITION** rule. Valid values:\n- **BACKUP**: backup rule.\n- **TRANSITION**: lifecycle rule.\n- **REPLICATION**: replication rule.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Schedule",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup schedule settings. Supported formats:\n- `I|{startTime}|{interval}`: specifies that a backup job is run at the {interval} from {startTime}. For example, `I|1631685600|P1D` specifies that a backup job is run once a day starting from 2021-09-15 14:00:00.\n\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * interval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n- `C|{startTime}|{crontab}`: specifies that a backup job is run based on the {crontab} expression from {startTime}. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is run at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * crontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs that are scheduled for past times are not compensated. If the previous backup job is not completed, the next backup job is not triggered.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "TagFilters",
+          "description": "This parameter is required only when **RuleType** is set to **TAG**. The resource tag filter rules.",
           "position": "FormData",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "VaultId",
+          "description": "This parameter is required only when RuleType is set to BACKUP. The backup vault ID.",
           "position": "FormData",
           "type": "String",
           "required": false

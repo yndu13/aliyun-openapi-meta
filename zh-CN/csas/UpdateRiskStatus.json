@@ -1,0 +1,44 @@
+{
+  "name": "UpdateRiskStatus",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "RiskConfirm",
+      "description": "人工确认的风险结论。当 `Status` 取值为 `Processed` 时必填；当 `Status` 取值为 `Unprocess` 或 `Processing` 时，请勿传入该参数。取值：\n* `Risk`：确认为有风险。\n* `Ignore`：确认为无风险。\n* `Invalid`：确认为误报。\n",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RiskConfirmDesc",
+      "description": "风险事件处置说明。长度为 1~128 个字符。\n",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RiskId",
+      "description": "风险事件 ID。取值来源：\n* `ListRiskItems`：查询风险事件列表。\n",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "RiskScene",
+      "description": "风险场景。可选，未填写时系统会根据 RiskId 自动补全。取值：\n* account_share：账号共享。\n* account_stolen：账号被盗。\n* device_share：设备共享。\n* remote_logon：异地登录。\n* sensitive_data_leakage：敏感数据外发。\n* `compressed_archive_exfil`：内网数据压缩外发。\n* lateral_scanning：横向扫描。\n* ai_skill_malware：恶意 Skill。\n* ai_config_check：AI 配置检查。\n* openclaw_vulnerability：OpenClaw 漏洞。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "风险事件处置状态。取值：\n* `Unprocess`：未处理。\n* `Processing`：处理中。\n* `Processed`：已处理。\n",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

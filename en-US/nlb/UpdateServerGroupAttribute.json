@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token used to ensure the idempotence of the request.\n\nYou can use the client to generate the token. Ensure that the token is unique among different requests. Only ASCII characters are allowed.\n\n>  If you do not specify this parameter, the value of **RequestId** is used.**** The value of **RequestId** is different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the value, but you must ensure that it is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not set this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** may be different for each API request.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "ConnectionDrainEnabled",
-      "description": "Specifies whether to enable connection draining. Valid values:\n\n*   **true**\n*   **false**",
+      "description": "Specifies whether to enable connection draining. Valid values:\n\n- **true**: Enabled.\n\n- **false**: Disabled.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ConnectionDrainTimeout",
-      "description": "Specify a timeout period for connection draining. Unit: seconds. Valid values: **0** to **900**.",
+      "description": "The timeout period of connection draining. Unit: seconds. Valid values: **0** to **900**.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n*   **true**: validates the request without performing the operation. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the validation, the corresponding error message is returned. If the request passes the validation, the `DryRunOperation` error code is returned.\n*   **false** (default): validates the request and performs the operation. If the request passes the validation, a 2xx HTTP status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run. The system checks the required parameters, request syntax, and business rules. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n- **false** (default): performs a dry run and sends the request. If the check succeeds, an HTTP 2xx status code is returned and the operation is performed.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckConfig",
-      "description": "Health check configurations.",
+      "description": "The health check configuration.",
       "position": "Body",
       "type": "Struct",
       "required": false
     },
     {
       "name": "IpVersionAffinityMode",
-      "description": "",
+      "description": "The traffic scheduling policy in dual-stack mode:\n\n- NonAffinity (default): non-affinity mode. Traffic is forwarded to healthy backend servers based on the scheduling algorithm regardless of the IP protocol version of the source.\n- Affinity: affinity mode. Traffic is forwarded based on the IP protocol version of the request source. IPv4 requests are forwarded only to IPv4 backend servers, and IPv6 requests are forwarded only to IPv6 backend servers.\n> This parameter takes effect only when **AddressIPVersion** is set to **DualStack**.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "PreserveClientIpEnabled",
-      "description": "Specifies whether to enable client IP preservation. Valid values:\n\n*   **true**\n*   **false**\n\n>  You cannot set this parameter to **true** if **PreserveClientIpEnabled** is set to **false** and the server group is associated with a listener that uses **SSL over TCP**.",
+      "description": "Specifies whether to enable client IP preservation. Valid values:\n\n- **true**: Enabled.\n\n- **false**: Disabled.\n\n>  If **PreserveClientIpEnabled** is set to **false** and the server group is associated with a **TCPSSL** listener, you cannot change the value of this parameter to **true**.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the NLB instance is deployed.\n\nYou can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.",
+      "description": "The region ID of the Network Load Balancer (NLB) instance. \n\nYou can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n*   **Wrr**: weighted round-robin. Backend servers with higher weights receive more requests.\n*   **Wlc**: weighted least connections. Requests are distributed based on the weight and load of each backend server. The load refers to the number of connections on a backend server. If multiple backend servers have the same weight, requests are forwarded to the backend server with the least connections.\n*   **rr**: Requests are forwarded to backend servers in sequence.\n*   **sch**: source IP hash. Requests from the same source IP address are forwarded to the same backend server.\n*   **tch**: consistent hashing based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same four factors are forwarded to the same backend server.\n*   **qch**: QUIC ID hash. Requests that contain the same QUIC ID are forwarded to the same backend server.\n\n>  QUIC ID hash is supported only when the backend protocol is set to UDP.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **Wrr**: weighted round-robin. Backend servers with higher weights receive more requests than those with lower weights.\n\n- **Wlc**: weighted least connections. Requests are distributed based on the weight and the number of connections to backend servers. If two backend servers have the same weight, the backend server that has fewer connections is expected to receive more requests.\n\n- **rr**: round-robin. Requests are distributed to backend servers in sequence.\n\n- **sch**: source IP hashing. Requests from the same source IP address are distributed to the same backend server.\n\n- **tch**: four-element hashing. It is consistent hashing based on four elements (source IP address, destination IP address, source port, and destination port). Requests from the same stream are distributed to the same backend server.\n\n- **qch**: QUIC ID hashing. Requests with the same QUIC ID are distributed to the same backend server.\n\n> QUIC ID hashing is supported only when the backend protocol is UDP.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -77,7 +77,7 @@
     },
     {
       "name": "ServerGroupName",
-      "description": "The new name of the server group.\n\nThe name must be 2 to 128 characters in length, can contain digits, periods (.), underscores (\\_), and hyphens (-), and must start with a letter.",
+      "description": "The new name of the server group.\n\nThe name must be 2 to 128 characters in length, and must start with an uppercase letter, lowercase letter, or Chinese character. It can contain digits, periods (.), underscores (_), and hyphens (-).",
       "position": "Body",
       "type": "String",
       "required": false

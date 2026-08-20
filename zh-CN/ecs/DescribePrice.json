@@ -1,5 +1,6 @@
 {
   "name": "DescribePrice",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST",
   "pathPattern": "",
@@ -34,24 +35,28 @@
       "sub_parameters": [
         {
           "name": "Category",
+          "description": "第N块数据盘的云盘种类。取值范围：\n\n- cloud：普通云盘。\n- cloud_efficiency：高效云盘。\n- cloud_ssd：SSD云盘。\n- ephemeral_ssd：本地SSD盘。\n- cloud_essd：ESSD云盘。\n- cloud_auto：ESSD AutoPL云盘。\n<props=\"china\">\n- cloud_essd_entry：ESSD Entry云盘。\n</props>\n\nN的取值范围：1~16。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
+          "description": "第N块数据盘类型为ESSD云盘时，区分性能等级。仅当`DataDisk.N.Category=cloud_essd`时该参数有效。取值范围：\n\n- PL0。\n- PL1（默认）。\n- PL2。\n- PL3。\n\nN的取值范围：1~16。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ProvisionedIops",
+          "description": "ESSD AutoPL云盘预配置的读写IOPS。可能值：0~min{50,000, 1000*容量-基准性能}。\n\n基准性能=min{1,800+50*容量, 50000}。\n\n>当`DiskCategory`取值为`cloud_auto`时才支持设置该参数。更多信息，请参见[ESSD AutoPL云盘](~~368372~~)。",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "Size",
+          "description": "第N块数据盘的容量大小，内存单位为GiB。取值范围：\n\n- cloud：5~2000。\n- cloud_efficiency：20~32768。\n- cloud_ssd：20~32768。\n- cloud_auto：1~32768。\n<props=\"china\">\n- cloud_essd_entry：10~32768。\n</props>\n- cloud_essd：具体取值范围与`DataDisk.N.PerformanceLevel`的取值有关。\t\n    - PL0：1~32768。\n    - PL1：20~32768。\n    - PL2：461~32768。\n    - PL3：1261~32768。\n- ephemeral_ssd：5~800。\n\nN的取值范围：1~16。",
           "position": "Query",
           "type": "Long",
           "required": false
@@ -172,14 +177,14 @@
     },
     {
       "name": "InstanceNetworkType",
-      "description": "实例的网络类型。取值范围：\n\n- classic：实例的网络类型为经典网络（Classic）。\n- vpc：实例的网络类型为专有网络（VPC）。\n\n默认值：vpc。",
+      "description": "实例的网络类型。取值范围：\n\n- vpc：专有网络。\n- classic：经典网络。经典网络功能已下线，详情请参见[下线公告](~~2833134~~)。\n\n默认值：vpc。",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "实例的资源规格。参数`ResourceType`的值为`instance`时，您必须同时指定该参数。更多详情，请参见[实例规格族](~~25378~~)，也可以调用[DescribeInstanceTypes](~~25620~~)接口获得最新的规格表。",
+      "description": "实例的资源规格。参数`ResourceType`的值为`instance`时，您必须同时指定该参数。更多详情，请参见[实例规格族](~~25378~~)，也可以调用[DescribeInstanceTypes](~~25620~~)接口获得最新的规格表。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -193,7 +198,7 @@
     },
     {
       "name": "InternetChargeType",
-      "description": "网络带宽计费方式。取值范围：\n\n- PayByBandwidth：按固定带宽计费。\n- PayByTraffic：按带宽流量计费。\n\n默认值：PayByTraffic。",
+      "description": "网络带宽计费方式。取值范围：\n\n- PayByBandwidth：按固定带宽计费。\n- PayByTraffic：按带宽流量计费。\n\n默认值：PayByTraffic。\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -228,7 +233,7 @@
     },
     {
       "name": "Period",
-      "description": "云服务器ECS的计费时长。取值范围：\n\n<props=\"china\">\n- 当参数PriceUnit取值为Month时：1~9。\n- 当参数PriceUnit取值为Year时：1~5。\n- 当参数PriceUnit取值为Hour时：1。\n- 当参数PriceUnit取值为Week时：1~4。\n\n</props>\n\n<props=\"intl\">\n- 当参数PriceUnit取值为Month时：1~9。\n- 当参数PriceUnit取值为Year时：1~5。\n- 当参数PriceUnit取值为Hour时：1。\n\n</props>\n\n默认值：1。",
+      "description": "云服务器ECS的计费时长。取值范围：\n\n<props=\"china\">\n- 当参数PriceUnit取值为Month时：1~9。\n- 当参数PriceUnit取值为Year时：1~5。\n- 当参数PriceUnit取值为Hour时：1。\n- 当参数PriceUnit取值为Week时：1~4。\n\n</props>\n\n<props=\"intl\">\n- 当参数PriceUnit取值为Month时：1~9。\n- 当参数PriceUnit取值为Year时：1~5。\n- 当参数PriceUnit取值为Hour时：1。\n\n</props>\n\n默认值：1。\n\n\n",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -242,7 +247,7 @@
     },
     {
       "name": "PriceUnit",
-      "description": "查询云服务器ECS不同计费周期的价格。取值范围：\n\n<props=\"china\">\n- Month：按月计费的价格单位。\n- Year：按年计费的价格单位。\n- Hour（默认）：按小时计费的价格单位。\n- Week：按周计费的价格单位。\n\n</props>\n\n<props=\"intl\">\n- Month：按月计费的价格单位。\n- Year：按年计费的价格单位。\n- Hour（默认）：按小时计费的价格单位。\n\n</props>",
+      "description": "查询云服务器ECS不同计费周期的价格。取值范围：\n\n<props=\"china\">\n- Month：按月计费的价格单位。\n- Year：按年计费的价格单位。\n- Hour（默认）：按小时计费的价格单位。\n- Week：按周计费的价格单位。\n\n</props>\n\n<props=\"intl\">\n- Month：按月计费的价格单位。\n- Year：按年计费的价格单位。\n- Hour（默认）：按小时计费的价格单位。\n\n</props>\n",
       "position": "Query",
       "type": "String",
       "required": false
@@ -256,24 +261,28 @@
       "sub_parameters": [
         {
           "name": "EndHour",
+          "description": "分时保障结束时间，取值必须为整点。",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "RecurrenceType",
+          "description": "重复规则的策略类型。取值范围：\n-  Daily：按天重复。\n- Weekly：按周重复。\n- Monthly：按月重复。\n\n> 必须同时指定`RecurrenceType`和`RecurrenceValue`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RecurrenceValue",
+          "description": "重复规则执行数值。\n\n- `RecurrenceType`为`Daily`时，只能填一个值，取值范围：1~31。表示每几天执行一次。\n- `RecurrenceType`为`Weekly`时，可以填入多个值，多个值间使用半角逗号（,）隔开。周日、周一、周二、周三、周四、周五、周六的值依次为：0,1,2,3,4,5,6。例如`1,2`表示周一和周二执行。\n- `RecurrenceType`为`Monthly`时，格式为`A-B`。A、B的取值范围为1~31，并且B必须大于等于A。例如：`1-5`表示每月的1~5日重复执行。\n\n> 必须同时指定`RecurrenceType`和`RecurrenceValue`。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartHour",
+          "description": "分时保障生效时间，取值必须为整点。\n\n> 同时指定StartHour和EndHour，且两者至少需要相差4小时。",
           "position": "Query",
           "type": "Integer",
           "required": false

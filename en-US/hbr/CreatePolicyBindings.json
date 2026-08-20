@@ -7,79 +7,91 @@
   "parameters": [
     {
       "name": "PolicyBindingList",
-      "description": "The data sources that you want to bind to the backup policy.",
+      "description": "The list of policy bindings.",
       "position": "Query",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "AdvancedOptions",
+          "description": "The advanced options.",
           "position": "Query",
           "type": "Struct",
           "required": false
         },
         {
           "name": "CrossAccountRoleName",
+          "description": "The RAM role name created in the source account for cross-account backup.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "CrossAccountType",
+          "description": "The cross-account backup type. Default value: SELF_ACCOUNT. Valid values: \n- **SELF_ACCOUNT**: Backup within the same account.\n- **CROSS_ACCOUNT**: Cross-account backup.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "CrossAccountUserId",
+          "description": "The Alibaba Cloud UID of the source account for cross-account backup.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "DataSourceId",
+          "description": "The data source ID. The value has different meanings depending on the **SourceType** field:\n- **UDM_ECS**: The ECS instance ID.\n- **OSS**: The OSS bucket name.\n- **NAS**: The Alibaba Cloud NAS file system ID.\n- **COMMON_NAS**: The on-premises NAS instance ID.\n- **ECS_FILE**: The ECS instance ID.\n- **File**: The Cloud Backup client ID.\n- **COMMON_FILE_SYSTEM**: The CPFS backup data source ID.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Disabled",
+          "description": "Specifies whether the policy is suspended for this data source.\n- true: Suspended.\n- false: Not suspended.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Exclude",
+          "description": "This parameter can be configured when **SourceType** is set to **ECS_FILE**, **File**, **NAS**, **COMMON_NAS**, or **COMMON_FILE_SYSTEM**. Specifies the file types to exclude from the backup. All files of these types are not backed up. The value can be up to 255 characters in length.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Include",
+          "description": "This parameter can be configured when **SourceType** is set to **ECS_FILE**, **File**, **NAS**, **COMMON_NAS**, or **COMMON_FILE_SYSTEM**. Specifies the file types to include in the backup. All files of these types are backed up. The value can be up to 255 characters in length.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PolicyBindingDescription",
+          "description": "The description of the policy binding.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Source",
+          "description": "The value has different meanings depending on the SourceType value:\n- **OSS**: The prefix to back up. If not specified, the entire bucket root directory is backed up. Only a single prefix is supported. To back up /backup, specify /backup.\n- **ECS_FILE**: The file directories to back up. If not specified, all directories are backed up. Multiple directories are supported. To back up files under /a and /b, specify [\"/a\", \"/b\"].\n- **File**: The file directories to back up. If not specified, all directories are backed up. Multiple directories are supported. To back up files under /a and /b, specify [\"/a\", \"/b\"].\n- **COMMON_FILE_SYSTEM**: Required. The source paths to back up. Multiple paths are supported. To back up /a and /b, specify [\"/a\", \"/b\"]. To back up the root path, specify [\"/\"].\n- **COMMON_NAS**: Required. The source path to back up. Only a single path is supported. To back up /a, specify [\"/a\"]. To back up the root path, specify [\"/\"].\n- **OTS**: The list of data tables to back up. If not specified, all data tables are backed up. Multiple data tables are supported. To back up tables a and b, specify [\"a\", \"b\"].",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourceType",
+          "description": "The data source type. Valid values:\n- **UDM_ECS**: ECS full server backup.\n- **OSS**: OSS backup.\n- **NAS**: Alibaba Cloud NAS backup.\n- **COMMON_NAS**: On-premises NAS backup.\n- **ECS_FILE**: ECS File Backup Essential Edition.\n- **File**: On-premises file backup.\n- **COMMON_FILE_SYSTEM**: CPFS backup.\n- **OTS**: Tablestore backup.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SpeedLimit",
+          "description": "This parameter is required only when **SourceType** is set to **ECS_FILE** or **File**. Specifies the backup traffic control. The format is `{start}{end}{bandwidth}`. Multiple traffic control configurations are separated by delimiters, and the time ranges must not overlap.\n\n- **start**: The start hour.\n- **end**: The end hour.\n- **bandwidth**: The rate limit, in KB/s.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -88,7 +100,7 @@
     },
     {
       "name": "PolicyId",
-      "description": "The ID of the backup policy.",
+      "description": "The policy ID.",
       "position": "Body",
       "type": "String",
       "required": false

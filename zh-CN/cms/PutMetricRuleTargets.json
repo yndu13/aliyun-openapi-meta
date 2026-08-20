@@ -1,12 +1,13 @@
 {
   "name": "PutMetricRuleTargets",
+  "deprecated": false,
   "protocol": "HTTP|HTTPS",
   "method": "GET|POST|PUT",
   "pathPattern": "",
   "parameters": [
     {
       "name": "RuleId",
-      "description": "报警规则ID。\n\n关于如何获取报警规则ID，请参见[DescribeMetricRuleList](~~114941~~)。",
+      "description": "报警规则ID。\n\n关于如何获取报警规则ID，请参见[DescribeMetricRuleList](~~114941~~)。\n",
       "position": "Query",
       "type": "String",
       "required": true
@@ -20,24 +21,28 @@
       "sub_parameters": [
         {
           "name": "Arn",
+          "description": "资源ARN。目前支持轻量消息队列（原 MNS），弹性伸缩ESS，日志服务SLS，函数计算FC。\n\n轻量消息队列（原 MNS）的ARN参数说明如下：\n\n`acs:mns:{regionId}:{userId}:/{资源类型}/{资源名称}/message`。\n\n- {regionId}：轻量消息队列（原 MNS）或主题所在地域。\n- {userId}：资源所属的阿里云账号。\n- {资源类型}`：接收报警的资源类型。取值：\n\n  - **queues**：队列。\n  - **topics**：主题。\n\n- {资源名称}：资源名称。\n\n  - 如果资源类型为**queues**，则资源名称为队列名称。\n  - 如果资源类型为**topics**，则资源名称为主题名称。\n\n弹性伸缩的ARN：\n\nacs:ess:{regionId}:{userId}:scalingGroupId/{伸缩组id}:scalingRuleId/{伸缩规则id}\n\n日志服务的ARN：\n\nacs:log:{regionId}:{userId}:project/{project名称}/logstore/{日志库名称}\n\n函数计算的ARN：\n\nacs:fc:{regionId}:{userId}:services/{服务名称}/functions/{函数名称}",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Id",
+          "description": "报警触发目标ID。\n\n关于如何获取报警触发目标ID，请参见[DescribeMetricRuleTargets](~~121592~~)。",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "JsonParams",
+          "description": "报警回调的JSON格式参数。",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Level",
+          "description": "报警级别。取值：\n\n- INFO：信息。\n- WARN：警告。\n- CRITICAL：紧急。",
           "position": "Query",
           "type": "String",
           "required": false
