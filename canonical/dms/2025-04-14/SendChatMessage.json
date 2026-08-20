@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cn-hangzhou",
-      "help_en": "The Data Management unit you are currently in. If you select an analytics database, this information is used to correctly connect to your Data Management instance through Data Management. You can go to the DAS console to view your current Data Management unit. If you are a user of Alibaba Cloud China Website (www.aliyun.com), set this parameter to cn-hangzhou",
+      "help_en": "The Data Management unit you are currently in. If you select an analytics database, this information is used to correctly connect to your Data Management instance. You can go to the DAS console to view your current Data Management unit. If you are a user on the Alibaba Cloud China Website (www.aliyun.com), you can directly enter cn-hangzhou",
       "help_zh": "您当前所在的DMS单元。若您选择分析数据库，该信息将用于后续通过DMS正确连接到您的DMS实例。您可前往DMS控制台查看您当前所在的DMS单元，若您是阿里云中国站用户，可以直接填入cn-hangzhou",
       "location": "query",
       "name": "dms_unit",
@@ -35,7 +35,7 @@
     },
     {
       "example": "sess_***",
-      "help_en": "The session ID. This parameter is required. You can obtain the SessionId by calling the CreateAgentSession operation",
+      "help_en": "The session ID. This is a required field. You can obtain the SessionId by calling CreateAgentSession",
       "help_zh": "会话 ID，必须字段。您可以通过CreateAgentSession获取SessionId",
       "location": "query",
       "name": "session_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "agent_***",
-      "help_en": "The agent ID. This parameter is required. You can obtain the current AgentId from the response of the CreateAgentSession operation. Agent resources have a lifecycle, so the AgentId you need to specify may change with each request",
+      "help_en": "The agent ID. This is a required field. You can obtain the current AgentId from the response of the CreateAgentSession operation. Agent resources have a lifecycle, so the AgentId you need to specify may change with each request",
       "help_zh": "AgentId，必填。您可通过CreateAgentSession接口的返回值获取当前的AgentID。Agent资源存在生命周期，因此您每次请求需要填入的AgentID可能变化",
       "location": "query",
       "name": "agent_id",
@@ -74,7 +74,7 @@
     },
     {
       "example": "primary",
-      "help_en": "The message type. Default value: `[primary]`",
+      "help_en": "The message type. Default value: `[primary]`.\n\nUnder normal circumstances, when interacting with the Agent, the message type is `[primary]`.\n\nWhen the message is a response to the Agent's Human-in-Loop question, the type should be `[additional]`.\n\nWhen the message is intended to trigger a report generation, the type should be `[report]`.\n\nWhen the message is intended to cancel the current session, the type should be `[cancel]`",
       "help_zh": "消息类型，默认为 `[primary]`。  \n\n常规情况下，和Agent交互，消息类型为 `[primary]`\n\n当该消息为响应Agent的Human-in-Loop问题时，类型应当是`[additional]`\n\n当该消息是要触发一次报告绘制时，类型应当是 `[report]`\n\n当该消息是要取消当前会话时，类型应当是`[cancel]`",
       "location": "query",
       "name": "message_type",
@@ -87,7 +87,7 @@
     },
     {
       "example": "0",
-      "help_en": "Important",
+      "help_en": "Important\n\nWhen this message is a reply to an Agent message (for example, the Agent asks a clarifying question through ASK_HUMAN), set reply_to to the exact Checkpoint number carried in that Agent message. If this message is not a targeted reply, such as requesting the Agent to perform further in-depth analysis after the analysis is complete, leave reply_to empty or set it to \"0\".\n\nThis field affects how the Agent decides to process the message. Passing an incorrect value may cause the analysis results to fall short of expectations",
       "help_zh": "重要\n\n当本消息是回复Agent消息（如：Agent通过 ASK_HUMAN进行问题澄清），则reply_to应当精确传入这条Agent消息携带的 Checkpoint 序号。若本消息无针对性的回复，如分析完成后要求Agent进一步深度分析，则 reply_to 可不填入或者填入\"0\"。  \n\n该字段会影响Agent决策如何处理该消息，若传递错误可能导致分析效果不及预期",
       "location": "query",
       "name": "reply_to",
@@ -100,7 +100,7 @@
     },
     {
       "example": "{\"version\":\"v0\"}",
-      "help_en": "The quoted content. This parameter is typically used when interacting with the agent",
+      "help_en": "The quoted content. This is typically used when interacting with the agent",
       "help_zh": "传入当前引用内容，通常在与Agent交互时使用",
       "location": "query",
       "name": "quoted_message",
@@ -113,7 +113,7 @@
     },
     {
       "example": "请提供计算GMV的口径。",
-      "help_en": "The specific question that the agent asks the user through Human-in-Loop. This parameter is required when the message type is `additional`",
+      "help_en": "This is a required field when the message type is `additional`. Specify the specific question that the agent asks the user through Human-in-Loop",
       "help_zh": "当消息类型为`additional`时为必须字段，传入Agent通过Human-in-Loop向用户提问的具体问题",
       "location": "query",
       "name": "question",
@@ -141,7 +141,7 @@
         },
         {
           "example": "remote_data_center",
-          "help_en": "The data source type. Valid values: `[remote_data_center, database]`, indicating that the analysis is performed on a file or a database",
+          "help_en": "The data source type. Valid values: `[remote_data_center, database]`, indicating whether the analysis is for a file or a database",
           "help_zh": "数据源类型。可取值`[remote_data_center, database]`，分别表示本次分析是文件或者数据库",
           "name": "data_source_type",
           "options": [
@@ -177,7 +177,7 @@
         },
         {
           "example": "23******",
-          "help_en": "The ID of the database in Data Management",
+          "help_en": "The database ID in Data Management",
           "help_zh": "数据库在DMS的ID",
           "name": "dms_database_id",
           "options": [
@@ -189,7 +189,7 @@
         },
         {
           "example": "12******",
-          "help_en": "The ID of the instance in Data Management",
+          "help_en": "The instance ID in Data Management",
           "help_zh": "实例在DMS的ID",
           "name": "dms_instance_id",
           "options": [
@@ -244,7 +244,7 @@
                     "element": {
                       "type": "string"
                     },
-                    "help_en": "The list of columns that are allowed to be queried in the current table. If this parameter is not specified, all columns can be queried. If this parameter is specified, SQL statements that exceed the allowed scope are blocked. For example, syntax such as SELECT * is blocked. To ensure the analysis effectiveness of DataAgent, avoid specifying columns that exceed the allowed scope in the prompts, knowledge, or instructions modules of DataAgent. Otherwise, SQL statements without the required permissions are generated and blocked, which reduces the analysis speed and effectiveness of DataAgent",
+                    "help_en": "The list of columns that are allowed to be queried in the current table. If this parameter is not specified, all columns can be queried. If specified, SQL statements that exceed the allowed scope are blocked. For example, syntax such as SELECT * is blocked. To ensure DataAgent analysis effectiveness, avoid specifying columns beyond the allowed scope in the DataAgent prompts, knowledge, or instructions modules. Otherwise, SQL statements without proper permissions are generated and blocked, which reduces DataAgent analysis speed and effectiveness",
                     "help_zh": "当前表允许查询的字段列表。若不填表示都可以查询。若填写，超过允许范围的SQL将会被禁止执行，如类似SELECT * 的语法将会被禁止。为了保证DataAgent分析效果，请注意DataAgent的提示词、知识、指示等模块尽量不要给出超过范围的字段，以免生成无权限SQL被禁止执行，导致降低DataAgent分析速度以及分析效果",
                     "name": "allowed_columns",
                     "options": [
@@ -256,8 +256,8 @@
                   },
                   {
                     "example": "region = 'east'",
-                    "help_en": "The required row filter condition for the current table. If this parameter is not specified, it is ignored. If this parameter is specified, the query condition is appended to all SQL statements that involve this table. Verify the validity of the condition before specifying it",
-                    "help_zh": "当前表必须携带的行过滤条件。若不填写则忽略；若填写，会在所有涉及这个表的SQL语句后拼入查询条件。请注意校验填入条件的合法性",
+                    "help_en": "The required row filter condition for the current table. If this parameter is not specified, it is ignored. If specified, all SQL statements involving this table are validated to check whether they include the filter field and whether the WHERE condition meets the constraint. SQL statements that do not meet the constraint are rejected. Ensure the validation condition format is correct",
+                    "help_zh": "当前表必须携带的行过滤条件。若不填写则忽略；若填写，会在所有涉及这个表的SQL语句里校验是否携带了该过滤字段以及where条件是否满足约束，不满足的SQL会被拒绝执行。请注意校验条件格式",
                     "name": "required_row_filter",
                     "options": [
                       "--required-row-filter"
@@ -268,7 +268,7 @@
                   },
                   {
                     "example": "sample_table",
-                    "help_en": "The name of the table to which the permission constraint rule applies",
+                    "help_en": "The table name to which the permission constraint rule applies",
                     "help_zh": "权限约束规则生效的表名",
                     "name": "table_name",
                     "options": [
@@ -292,7 +292,7 @@
               "type": "array"
             }
           ],
-          "help_en": "The permission constraints for querying the current data source. The permission constraint feature is available through a canary release. This parameter does not take effect for users who are not included in the canary release",
+          "help_en": "The permission constraints for querying the current data source. The permission constraint feature is in canary release. This field does not take effect for users who are not included in the canary release",
           "help_zh": "对当前数据源查询的权限约束。权限约束功能灰度开放生效，不在灰度范围内的用户填写该字段将无法生效",
           "name": "permission",
           "options": [
@@ -329,7 +329,7 @@
           "type": "array"
         }
       ],
-      "help_en": "The data source information. This parameter can be left empty. Only one data source can be specified for this parameter. Use the DataSources parameter instead",
+      "help_en": "The data source information. This parameter can be left empty. This parameter supports only one data source. Use the DataSources parameter instead",
       "help_zh": "数据源信息，可为空。此参数仅能传入一个数据源，建议更换为DataSources参数",
       "location": "query",
       "name": "data_source",
@@ -393,7 +393,7 @@
         },
         {
           "example": "ENGLISH",
-          "help_en": "Only Chinese and English are supported. Default value: Chinese. Only uppercase values are supported",
+          "help_en": "Currently only Chinese and English are supported. The default value is Chinese. Only uppercase is supported",
           "help_zh": "当前只支持中英文，默认是中文，只支持大写",
           "name": "language",
           "options": [
@@ -417,7 +417,7 @@
         },
         {
           "example": "ANALYSIS",
-          "help_en": "The mode:",
+          "help_en": "The mode. Valid values:\nASK_DATA: data query mode.\nANALYSIS: analysis mode.\nINSIGHT: insight mode",
           "help_zh": "模式：\nASK_DATA 问数模式\nANALYSIS 分析模式\nINSIGHT 洞察模式",
           "name": "mode",
           "options": [
@@ -429,7 +429,7 @@
         },
         {
           "example": "disable",
-          "help_en": "Specifies whether to enable the plan. Valid values: disable, enable, and force. Default value: enable",
+          "help_en": "Specifies whether to enable the plan. Valid values: disable, enable, force. Default value: enable",
           "help_zh": "是否开启计划，可选[disable, enable, force]，默认值是enable",
           "name": "plan_mode",
           "options": [
@@ -500,7 +500,7 @@
           "type": "bool"
         }
       ],
-      "help_en": "The special configuration for the current session. For the same session, only the configuration specified in the first SendMessage call takes effect",
+      "help_en": "The special configuration for the current session. For the same session, only the configuration passed with the first SendMessage call takes effect",
       "help_zh": "本次会话的特殊配置。同一个Session只有第一次SendMessage的时候带下来的配置才会生效",
       "location": "query",
       "name": "session_config",
@@ -542,7 +542,7 @@
           },
           {
             "example": "remote_data_center",
-            "help_en": "The data source type. Valid values: remote_data_center and database, indicating that the analysis is performed on a file or a database",
+            "help_en": "The data source type. Valid values: remote_data_center, database, indicating whether the analysis is for a file or a database",
             "help_zh": "数据源类型。可取值[remote_data_center, database]，分别表示本次分析是文件或者数据库",
             "name": "data_source_type",
             "options": [
@@ -578,7 +578,7 @@
           },
           {
             "example": "123****",
-            "help_en": "The ID of the database in Data Management",
+            "help_en": "The database ID in Data Management",
             "help_zh": "数据库在 DMS 的 ID",
             "name": "dms_database_id",
             "options": [
@@ -590,7 +590,7 @@
           },
           {
             "example": "248*****",
-            "help_en": "The ID of the instance in Data Management",
+            "help_en": "The instance ID in Data Management",
             "help_zh": "实例在 DMS 的 ID",
             "name": "dms_instance_id",
             "options": [
@@ -645,7 +645,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The list of columns that are allowed to be queried in the current table. If this parameter is not specified, all columns can be queried. If this parameter is specified, SQL statements that exceed the allowed scope are blocked. For example, syntax such as SELECT * is blocked. To ensure the analysis effectiveness of DataAgent, avoid specifying columns that exceed the allowed scope in the prompts, knowledge, or instructions modules of DataAgent. Otherwise, SQL statements without the required permissions are generated and blocked, which reduces the analysis speed and effectiveness of DataAgent",
+                      "help_en": "The list of columns that are allowed to be queried in the current table. If this parameter is not specified, all columns can be queried. If specified, SQL statements that exceed the allowed scope are blocked. For example, syntax such as SELECT * is blocked. To ensure DataAgent analysis effectiveness, avoid specifying columns beyond the allowed scope in the DataAgent prompts, knowledge, or instructions modules. Otherwise, SQL statements without proper permissions are generated and blocked, which reduces DataAgent analysis speed and effectiveness",
                       "help_zh": "当前表允许查询的字段列表。若不填表示都可以查询。若填写，超过允许范围的 SQL 将会被禁止执行，如类似 SELECT * 的语法将会被禁止。为了保证 DataAgent 分析效果，请注意 DataAgent 的提示词、知识、指示等模块尽量不要给出超过范围的字段，以免生成无权限 SQL 被禁止执行，导致降低 DataAgent 分析速度以及分析效果",
                       "name": "allowed_columns",
                       "options": [
@@ -657,8 +657,8 @@
                     },
                     {
                       "example": "region = 'east'",
-                      "help_en": "The required row filter condition for the current table. If this parameter is not specified, it is ignored. If this parameter is specified, the query condition is appended to all SQL statements that involve this table. Verify the validity of the condition before specifying it",
-                      "help_zh": "当前表必须携带的行过滤条件。若不填写则忽略；若填写，会在所有涉及这个表的 SQL 语句后拼入查询条件。请注意校验填入条件的合法性",
+                      "help_en": "The required row filter condition for the current table. If this parameter is not specified, it is ignored. If specified, all SQL statements involving this table are validated to check whether they include the filter field and whether the WHERE condition meets the constraint. SQL statements that do not meet the constraint are rejected. Ensure the validation condition format is correct",
+                      "help_zh": "当前表必须携带的行过滤条件。若不填写则忽略；若填写，会在所有涉及这个表的SQL语句里校验是否携带了该过滤字段以及where条件是否满足约束，不满足的SQL会被拒绝执行。请注意校验条件格式",
                       "name": "required_row_filter",
                       "options": [
                         "--required-row-filter"
@@ -669,7 +669,7 @@
                     },
                     {
                       "example": "sample_table",
-                      "help_en": "The name of the table to which the permission constraint rule applies",
+                      "help_en": "The table name to which the permission constraint rule applies",
                       "help_zh": "权限约束规则生效的表名",
                       "name": "table_name",
                       "options": [
@@ -693,7 +693,7 @@
                 "type": "array"
               }
             ],
-            "help_en": "The permission constraints for querying the current data source. The permission constraint feature is available through a canary release. This parameter does not take effect for users who are not included in the canary release",
+            "help_en": "The permission constraints for querying the current data source. The permission constraint feature is in canary release. This field does not take effect for users who are not included in the canary release",
             "help_zh": "对当前数据源查询的权限约束。权限约束功能灰度开放生效，不在灰度范围内的用户填写该字段将无法生效",
             "name": "permission",
             "options": [
@@ -762,7 +762,7 @@
             },
             {
               "example": "default",
-              "help_en": "The report theme. Valid values: default, journal, legacy, and neobrutalism",
+              "help_en": "The report theme. Valid values: default, journal, legacy, neobrutalism",
               "help_zh": "报告主题。当前支持[default,journal,legacy,neobrutalism]",
               "name": "report_theme",
               "options": [
@@ -774,7 +774,7 @@
             },
             {
               "example": "WebReport",
-              "help_en": "The service type. Valid values: TextReport and WebReport, indicating that the task generates a text report or a web report. Only WebReport is currently supported",
+              "help_en": "The service type. Valid values: TextReport, WebReport, indicating whether the task generates a text report or a web report. Currently only WebReport is supported",
               "help_zh": "服务类型。可填入TextReport和WebReport，表示本次任务是要生成一个文字报告或者网页报告。当前只支持WebReport类型",
               "name": "report_type",
               "options": [
@@ -823,7 +823,7 @@
     },
     {
       "example": "my-bucket",
-      "help_en": "The OSS bucket of the user. If this parameter is not specified, the analysis data is securely stored in the built-in storage",
+      "help_en": "The user OSS bucket. If this parameter is not specified, analysis data is securely stored in the built-in storage",
       "help_zh": "用户OSS的Bucket，若不填，分析过程将安全存储在内置存储中",
       "location": "query",
       "name": "user_oss_bucket",

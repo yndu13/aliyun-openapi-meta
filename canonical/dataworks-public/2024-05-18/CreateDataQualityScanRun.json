@@ -3,7 +3,7 @@
   "cmd_full_name": "dataworks-public create-data-quality-scan-run",
   "cmd_name": "create-data-quality-scan-run",
   "deprecated": false,
-  "description_en": "Triggers the specified data quality scan and returns the run ID",
+  "description_en": "Triggers the execution of a specified data quality monitoring task and returns the run instance ID",
   "description_zh": "触发指定数据质量监控任务的执行，并返回运行实例ID",
   "kebab_example": "",
   "method": "POST",
@@ -24,7 +24,7 @@
   "parameters": [
     {
       "example": "20000001",
-      "help_en": "The data quality scan ID",
+      "help_en": "The ID of the data quality monitoring task",
       "help_zh": "数据质量监控ID",
       "location": "formData",
       "name": "data_quality_scan_id",
@@ -53,7 +53,7 @@
         "fields": [
           {
             "example": "triggerTime",
-            "help_en": "The name of the parameter. The only supported value is:\n\ntriggerTime\n\nNo other scheduling parameters are currently supported",
+            "help_en": "The parameter name. Currently supported parameter:\ntriggerTime\n\nOther scheduling parameters are not supported",
             "help_zh": "参数名，目前支持参数为：\ntriggerTime\n\n暂不支持其它调度参数",
             "name": "name",
             "options": [
@@ -65,7 +65,7 @@
           },
           {
             "example": "1775812636",
-            "help_en": "The parameter value.\n\nIf the parameter name is triggerTime, this value must be the trigger time as a timestamp",
+            "help_en": "The parameter value:\nIf the parameter name is triggerTime, the value must be the timestamp of the scheduling time",
             "help_zh": "参数值：\n当参数名为triggerTime时，参数值应为调度时间的时间戳",
             "name": "value",
             "options": [
@@ -78,7 +78,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The parameters for the run. The `triggerTime` parameter is required",
+      "help_en": "The parameter settings used during the actual run. The `triggerTime` parameter is required",
       "help_zh": "实际运行时，使用的参数设置，其中必传参数`triggerTime`",
       "location": "formData",
       "name": "parameters",
@@ -94,7 +94,7 @@
       "fields": [
         {
           "example": "0.25",
-          "help_en": "The number of compute units (CUs) to reserve from the resource group for the data quality scan",
+          "help_en": "The CU configuration reserved for the resource group when running the data quality monitoring task",
           "help_zh": "资源组运行数据质量监控时预留的CU配置",
           "name": "cu",
           "options": [
@@ -118,7 +118,7 @@
         },
         {
           "example": "i-xxxxxx",
-          "help_en": "The image configuration for running the data quality scan on the resource group",
+          "help_en": "The image settings used when running the data quality monitoring task on the resource group",
           "help_zh": "使用资源组运行数据质量监控时的镜像设置",
           "name": "image",
           "options": [
@@ -129,7 +129,7 @@
           "type": "string"
         }
       ],
-      "help_en": "Specifies the scheduling resource group used to run the data quality scan. This object uses the same data structure as the scheduling API",
+      "help_en": "The schedule resource group used when the data quality monitoring task runs. This shares the same data structure as the scheduling API",
       "help_zh": "数据质量监控运行时，所使用的调度资源组，与调度API共用相同的数据结构",
       "location": "formData",
       "name": "runtime_resource",

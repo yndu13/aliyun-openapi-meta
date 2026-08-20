@@ -3,7 +3,7 @@
   "cmd_full_name": "fc update-function",
   "cmd_name": "update-function",
   "deprecated": false,
-  "description_en": "Updates a function's configuration",
+  "description_en": "Updates function information",
   "description_zh": "更新函数信息",
   "kebab_example": "",
   "method": "PUT",
@@ -59,7 +59,7 @@
   "parameters": [
     {
       "example": "my-func",
-      "help_en": "The name of the function",
+      "help_en": "The function name",
       "help_zh": "函数名称",
       "location": "path",
       "name": "function_name",
@@ -1227,6 +1227,28 @@
     {
       "fields": [
         {
+          "help_en": "The ID of the ACR Enterprise Edition image repository instance. Used in pair with MicroSandbox images. This parameter is optional. If not provided, the server resolves it as needed",
+          "help_zh": "ACR 企业版镜像仓库实例 ID。与 MicroSandbox 镜像配对使用；可选，未提供时由服务端按需解析",
+          "name": "acr_instance_id",
+          "options": [
+            "--acr-instance-id"
+          ],
+          "raw_name": "acrInstanceId",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "help_en": "The image address",
+          "help_zh": "镜像地址",
+          "name": "image",
+          "options": [
+            "--image"
+          ],
+          "raw_name": "image",
+          "required": false,
+          "type": "string"
+        },
+        {
           "help_en": "The osType",
           "help_zh": "The osType",
           "name": "os_type",
@@ -1247,6 +1269,141 @@
           "raw_name": "readyCommand",
           "required": false,
           "type": "string"
+        },
+        {
+          "fields": [
+            {
+              "fields": [
+                {
+                  "example": "abc***",
+                  "help_en": "The image repository password",
+                  "help_zh": "镜像仓库密码",
+                  "name": "password",
+                  "options": [
+                    "--password"
+                  ],
+                  "raw_name": "password",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "example": "admin",
+                  "help_en": "The image repository username",
+                  "help_zh": "镜像仓库用户名",
+                  "name": "user_name",
+                  "options": [
+                    "--user-name"
+                  ],
+                  "raw_name": "userName",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "help_en": "The authentication credentials for the image repository",
+              "help_zh": "镜像仓库的认证信息",
+              "name": "auth_config",
+              "options": [
+                "--auth-config"
+              ],
+              "raw_name": "authConfig",
+              "required": false,
+              "type": "object"
+            },
+            {
+              "fields": [
+                {
+                  "help_en": "Whether to skip certificate verification",
+                  "help_zh": "是否跳过证书验证",
+                  "name": "insecure",
+                  "options": [
+                    "--insecure"
+                  ],
+                  "raw_name": "insecure",
+                  "required": false,
+                  "type": "bool"
+                },
+                {
+                  "example": "cm9vdF9jYV9jZXJ0",
+                  "help_en": "The certificate authority (CA) certificate of the image repository",
+                  "help_zh": "镜像仓库CA证书",
+                  "name": "root_ca_cert_base64",
+                  "options": [
+                    "--root-ca-cert-base64"
+                  ],
+                  "raw_name": "rootCaCertBase64",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "help_en": "The certificate information of the image repository",
+              "help_zh": "镜像仓库的证书信息",
+              "name": "cert_config",
+              "options": [
+                "--cert-config"
+              ],
+              "raw_name": "certConfig",
+              "required": false,
+              "type": "object"
+            },
+            {
+              "fields": [
+                {
+                  "example": "sg-xxxxxxxxxxxxxx",
+                  "help_en": "The ID of the security group that can be used to connect to the image repository",
+                  "help_zh": "可以连通镜像仓库的SecurityGroup ID",
+                  "name": "security_group_id",
+                  "options": [
+                    "--security-group-id"
+                  ],
+                  "raw_name": "securityGroupId",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "example": "vsw-xxxxxxxxxxxxxx",
+                  "help_en": "The ID of the vSwitch that can be used to connect to the image repository",
+                  "help_zh": "可以连通镜像仓库的VSwitch ID",
+                  "name": "vswitch_id",
+                  "options": [
+                    "--vswitch-id"
+                  ],
+                  "raw_name": "vSwitchId",
+                  "required": false,
+                  "type": "string"
+                },
+                {
+                  "example": "vpc-xxxxxxxxxxxxxx",
+                  "help_en": "The ID of the virtual private cloud (VPC) that can be used to connect to the image repository",
+                  "help_zh": "可以连通镜像仓库的VPC ID",
+                  "name": "vpc_id",
+                  "options": [
+                    "--vpc-id"
+                  ],
+                  "raw_name": "vpcId",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "help_en": "The network information of the image repository",
+              "help_zh": "镜像仓库的网络信息",
+              "name": "network_config",
+              "options": [
+                "--network-config"
+              ],
+              "raw_name": "networkConfig",
+              "required": false,
+              "type": "object"
+            }
+          ],
+          "help_en": "The configuration of the image repository",
+          "help_zh": "镜像仓库的配置信息",
+          "name": "registry_config",
+          "options": [
+            "--registry-config"
+          ],
+          "raw_name": "registryConfig",
+          "required": false,
+          "type": "object"
         },
         {
           "help_en": "The startCommand",
@@ -1724,7 +1881,7 @@
   "protocol": "HTTP|HTTPS",
   "v1_body_parameters": [
     {
-      "help_en": "The function's configuration",
+      "help_en": "The function information",
       "help_zh": "函数信息",
       "name": "body",
       "param_style": "json",

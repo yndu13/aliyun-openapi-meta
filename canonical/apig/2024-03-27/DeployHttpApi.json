@@ -99,8 +99,8 @@
           "fields": [
             {
               "example": "SingleService",
-              "help_en": "The API publish scenario",
-              "help_zh": "API发布场景",
+              "help_en": "The API publish scenario. Backend configurations cannot be specified during publishing. Configure them in advance by using UpdateHttpApi or UpdateHttpApiOperation before publishing",
+              "help_zh": "API发布场景。发布时不允许指定后端配置，须通过 UpdateHttpApi 或 UpdateHttpApiOperation 预先配置后再发布",
               "name": "backend_scene",
               "options": [
                 "--backend-scene"
@@ -241,7 +241,7 @@
                   },
                   {
                     "example": "HTTP",
-                    "help_en": "The service protocol. Valid values:\nHTTP.\nHTTPS",
+                    "help_en": "The Terms of Service. Valid values:\nHTTP.\nHTTPS",
                     "help_zh": "服务协议:\nHTTP。\nHTTPS",
                     "name": "protocol",
                     "options": [
@@ -277,7 +277,7 @@
                   },
                   {
                     "example": "49",
-                    "help_en": "The weight. Valid values: 1 to 100. This parameter takes effect only in the by-ratio scenario",
+                    "help_en": "The weight. Valid values: 1 to 100. This parameter takes effect only in ratio-based scenarios",
                     "help_zh": "权重，范围[1,100]，仅在按比例场景下有效",
                     "name": "weight",
                     "options": [
@@ -290,8 +290,8 @@
                 ],
                 "type": "object"
               },
-              "help_en": "The existing service configurations. In the single service scenario, only one entry is allowed. In the by-ratio or by-content scenarios, multiple entries are allowed",
-              "help_zh": "已有服务配置，单服务场景下仅允许配置一个条目，按比例、按内容等场景下允许配置多个条目",
+              "help_en": "The existing service configurations. In the single-service scenario, only one entry is allowed. In ratio-based or content-based scenarios, multiple entries are allowed. Backend configurations cannot be specified during publishing. Configure them in advance by using UpdateHttpApi or UpdateHttpApiOperation before publishing",
+              "help_zh": "已有服务配置，单服务场景下仅允许配置一个条目，按比例、按内容等场景下允许配置多个条目。发布时不允许指定后端配置，须通过 UpdateHttpApi 或 UpdateHttpApiOperation 预先配置后再发布",
               "name": "service_configs",
               "options": [
                 "--service-configs"
@@ -328,7 +328,7 @@
             "fields": [
               {
                 "example": "Publish",
-                "help_en": "The operation type",
+                "help_en": "The action type",
                 "help_zh": "操作类型",
                 "name": "action",
                 "options": [
@@ -353,7 +353,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The operation-level deployment control list",
+          "help_en": "The operation-level publish control list",
           "help_zh": "Operation级别的发布控制列表",
           "name": "operation_deployments",
           "options": [
@@ -379,7 +379,7 @@
         },
         {
           "example": "apr-xxx\n",
-          "help_en": "The historical version number. If this field is specified, the publish information is based on the historical version",
+          "help_en": "The historical version number. If specified, the publish uses the information from this historical version",
           "help_zh": "历史版本号，若指定该字段，发布信息以历史版本信息为准",
           "name": "revision_id",
           "options": [
@@ -390,8 +390,8 @@
           "type": "string"
         }
       ],
-      "help_en": "The REST API deployment configuration. Required when the HTTP API being published is a REST API",
-      "help_zh": "Rest API部署配置。当发布HTTP API为Rest API必填",
+      "help_en": "The REST API deployment configuration. Required when the HTTP API being published is a REST API. At least one of revisionId, environment, or gatewayId must be provided to identify the publish target",
+      "help_zh": "Rest API部署配置。当发布HTTP API为Rest API必填。revisionId、environment、gatewayId 三者须至少提供其一，用于定位发布目标",
       "location": "body",
       "name": "rest_api_config",
       "options": [

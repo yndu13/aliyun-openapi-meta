@@ -2,8 +2,8 @@
   "cmd_full_name": "ddoscoo config-layer4-rule-attribute",
   "cmd_name": "config-layer4-rule-attribute",
   "deprecated": false,
-  "description_en": "修改端口规则属性",
-  "description_zh": "修改端口规则属性",
+  "description_en": "Includes session persistence and DDoS mitigation policies",
+  "description_zh": "包括会话保持和DDoS防护策略",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -20,8 +20,9 @@
   },
   "parameters": [
     {
-      "help_en": "The InstanceId",
-      "help_zh": "The InstanceId",
+      "example": "ddoscoo-cn-XXXXX",
+      "help_en": "The instance ID",
+      "help_zh": "要操作的实例ID",
       "location": "query",
       "name": "instance_id",
       "options": [
@@ -44,8 +45,9 @@
       "type": "string"
     },
     {
-      "help_en": "The ForwardProtocol",
-      "help_zh": "The ForwardProtocol",
+      "example": "TCP",
+      "help_en": "The forwarding protocol. Valid values: TCP, UDP",
+      "help_zh": "转发协议，取值：TCP、UDP。 ",
       "location": "query",
       "name": "forward_protocol",
       "options": [
@@ -56,8 +58,9 @@
       "type": "string"
     },
     {
-      "help_en": "The FrontendPort",
-      "help_zh": "The FrontendPort",
+      "example": "233",
+      "help_en": "The frontend port",
+      "help_zh": "前端端口",
       "location": "query",
       "name": "frontend_port",
       "options": [
@@ -68,8 +71,9 @@
       "type": "int"
     },
     {
-      "help_en": "The Config",
-      "help_zh": "The Config",
+      "example": "{\"Slimit\":{\"CpsEnable\":1,\"MaxconnEnable\":1,\"Cps\":1,\"Maxconn\":1},\"Sla\":{\"CpsEnable\":1,\"MaxconnEnable\":1,\"Cps\":100,\"Maxconn\":1000},\"PayloadLen\":{\"Min\":0,\"Max\":6000}}",
+      "help_en": "The configuration information. Pass a JSON string of the TcpConfig or UdpConfig object.\n\nThe TcpConfig structure contains the following fields:\n\nPersistenceTimeout, Integer, required. The timeout period of session persistence, in seconds. Default value: 0, which indicates that session persistence is disabled.\nSynproxy, String, required. The False Source setting in the DDoS mitigation policy. Valid values: off, on.\nNodataConn, String, required. The Empty Connection setting in the DDoS mitigation policy. Valid values: off, on.\nSla, Struct, required. The destination rate limiting configuration. For more information, see Sla.\nSlimit, Struct, required. The source rate limiting configuration. For more information, see Slimit.\nPayloadLen, Struct, required. The packet length filtering configuration. For more information, see PayloadLen.\n\nThe UdpConfig structure contains the following fields:\n\nPersistenceTimeout, Integer, required. The timeout period of session persistence, in seconds. Default value: 0, which indicates that session persistence is disabled.\nSynproxy, String, required. The False Source setting in the DDoS mitigation policy. Valid values: off, on.\nNodataConn, String, required. The Empty Connection setting in the DDoS mitigation policy. Valid values: off, on.\nSla, Struct, required. The destination rate limiting configuration. For more information, see Sla.\nSlimit, Struct, required. The source rate limiting configuration. For more information, see Slimit.\nPayloadLen, Struct, required. The packet length filtering configuration. For more information, see PayloadLen.\n\nThe Sla structure contains the following fields:\n\nCps, Integer, required. The maximum number of new connections to a destination IP address in the DDoS mitigation policy. Valid values: 100 to 100000.\nMaxconn, Integer, required. The maximum number of concurrent connections to a destination IP address in the DDoS mitigation policy. Valid values: 1000 to 1000000.\nCpsEnable, Integer, required. Specifies whether to enable Cps. Valid values: 0 (disable cps), 1 (default, enable cps).\nMaxconnEnable, Integer, required. Specifies whether to enable Maxconnection. Valid values: 0 (disable maxconn), 1 (default, enable maxconn).\n\nThe Slimit structure contains the following fields:\n\nCps, Integer, required. The maximum number of new connections from a source IP address in the DDoS mitigation policy. Valid values: 100 to 100000.\nMaxconn, Integer, required. The maximum number of concurrent connections from a source IP address in the DDoS mitigation policy. Valid values: 1000 to 1000000.\nCpsEnable, Integer, required. Specifies whether to enable Cps. Valid values: 0 (disable cps), 1 (default, enable cps).\nMaxconnEnable, Integer, required. Specifies whether to enable Maxconnection. Valid values: 0 (disable maxconn), 1 (default, enable maxconn).\nCpsMode, Integer, required. The source new connection rate limiting switch. Valid values: 1 (off), 2 (automatic).\n\nThe PayloadLen structure contains the following fields:\n\nMin, Integer, required. The minimum packet length for the Packet Length Limit setting in the DDoS mitigation policy. Valid values: 0 to 6000.\nMax, Integer, required. The maximum packet length for the Packet Length Limit setting in the DDoS mitigation policy. Valid values: 0 to 6000",
+      "help_zh": "配置信息，传入TcpConfig或UdpConfig对象JSON串。\n\nTcpConfig的具体结构描述见如下：\n\nPersistenceTimeout，Integer类型，必选，会话保持的超时时间，单位为秒。默认为0，表示关闭。\nSynproxy，String类型，必选，DDoS防护策略的虚假源，取值：off、on。\nNodataConn，String类型，必选，DDoS防护策略的空连接，取值：off、on。\nSla，Struct类型，必选，目的限制配置。具体结构描述见Sla。\nSlimit，Struct类型，必选，源限制配置。具体结构描述见Slimit。\nPayloadLen，Struct类型，必选，包过滤配置。具体结构描述见PayloadLen。\n\nUdpConfig的具体结构描述如下：\n\nPersistenceTimeout，Integer类型，必选，会话保持的超时时间，单位为秒。默认为0，表示关闭。\nSynproxy，String类型，必选，DDoS防护策略的虚假源，取值：off、on。\nNodataConn，String类型，必选，DDoS防护策略的空连接，取值：off、on。\nSla，Struct类型，必选，目的限制配置。具体结构描述见Sla。\nSlimit，Struct类型，必选，源限制配置。具体结构描述见Slimit。\nPayloadLen，Struct类型，必选，包过滤配置。具体结构描述见PayloadLen。\n\nSla的具体结构描述如下：\n\nCps，Integer类型，必选，DDoS防护策略/目的新建连接限速，取值范围：100~100,000。\nMaxconn，Integer类型，必选，DDoS防护策略/目的并发连接限速，取值范围：1,000~1,000,000。\nCpsEnable，Integer类型，必选，是否开启Cps，取值：0（禁用cps）、1（默认，启用cps）。\nMaxconnEnable，Integer类型，必选，是否开启Maxconnection，取值：0（禁用maxconn）、1（默认，启用maxconn）。\n\nSlimit的具体结构描述如下：\n\nCps，Integer类型，必选，DDoS防护策略/源新建连接限速，取值范围：100~100,000。\nMaxconn，Integer类型，必选，DDoS防护策略/源并发连接限速，取值范围：1,000~1,000,000。\nCpsEnable，Integer类型，必选，是否开启Cps，取值：0（禁用cps）、1（默认，启用cps）。\nMaxconnEnable，Integer类型，必选，是否开启Maxconnection，取值：0（禁用maxconn）、1（默认，启用maxconn）。\nCpsMode，Integer类型，必选，源新建连接限速开关，取值：1（关闭）、2（自动）。\n\nPayloadLen的具体结构描述如下：\n\nMin，Integer类型，必选，DDoS防护策略/包长度过滤，包长度的最小值，取值范围为0~6,000。\nMax，Integer类型，必选，DDoS防护策略/包长度过滤，包长度的最大值，取值范围为0~6,000",
       "location": "query",
       "name": "config",
       "options": [

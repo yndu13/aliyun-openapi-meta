@@ -3,7 +3,8 @@
   "cmd_full_name": "ddoscoo modify-block-status",
   "cmd_name": "modify-block-status",
   "deprecated": false,
-  "description_zh": "ModifyBlockStatus",
+  "description_en": "Modifies the Diversion from Origin Server configuration of an Anti-DDoS Proxy (Chinese Mainland) instance",
+  "description_zh": "设置DDoS高防（中国内地）实例的近源流量压制",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -20,8 +21,9 @@
   },
   "parameters": [
     {
-      "help_en": "The Status",
-      "help_zh": "The Status",
+      "example": "do",
+      "help_en": "Specifies the status of the Diversion from Origin Server policy. Valid values:\n\ndo: enables the policy.\nundo: disables the policy",
+      "help_zh": "设置近源流量压制的状态。取值：\n\ndo：表示开启近源流量压制。\nundo：表示关闭近源流量压制",
       "location": "query",
       "name": "status",
       "options": [
@@ -32,8 +34,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Duration",
-      "help_zh": "The Duration",
+      "example": "60",
+      "help_en": "The blocking period. Valid values: 15 to 43200. Unit: minutes.\n\nIf you set Status to do, you must also specify this parameter",
+      "help_zh": "要封禁的时长。取值范围：15~43200，单位：分钟。\n\nStatus为do（表示开启近源流量压制）时，该参数必选",
       "location": "query",
       "name": "duration",
       "options": [
@@ -44,8 +47,9 @@
       "type": "int"
     },
     {
-      "help_en": "The InstanceId",
-      "help_zh": "The InstanceId",
+      "example": "ddoscoo-cn-mp91j1ao****",
+      "help_en": "The ID of the Anti-DDoS Proxy (Chinese Mainland) instance to manage.\n\nYou can call the https://help.aliyun.com/document_detail/157459.html operation to query the IDs of all Anti-DDoS Proxy instances",
+      "help_zh": "要操作的DDoS高防（中国内地）实例的ID。\n\n您可以调用https://help.aliyun.com/document_detail/157459.html查询所有DDoS高防实例的ID信息",
       "location": "query",
       "name": "instance_id",
       "options": [
@@ -59,8 +63,9 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The Lines",
-      "help_zh": "The Lines",
+      "example": "ct",
+      "help_en": "An array consisting of the Internet service provider (ISP) lines from which traffic is blocked",
+      "help_zh": "要封禁的线路列表",
       "location": "query",
       "name": "lines",
       "options": [
@@ -74,32 +79,5 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "name": "Duration",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "name": "InstanceId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Lines",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": true,
-      "type": "array"
-    },
-    {
-      "name": "Status",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

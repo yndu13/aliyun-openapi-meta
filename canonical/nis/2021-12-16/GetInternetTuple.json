@@ -3,7 +3,7 @@
   "cmd_full_name": "nis get-internet-tuple",
   "cmd_name": "get-internet-tuple",
   "deprecated": true,
-  "description_en": "Queries the rankings of Internet traffic data in the form of 1-tuple, 2-tuple, or 5-tuple. Internet traffic data can be ranked by metrics such as traffic volumes and the number of packets",
+  "description_en": "Retrieves Internet traffic details ranked by tuple granularity (1-tuple, 2-tuple, or 5-tuple), with support for sorting by metrics such as traffic volume and packet count",
   "description_zh": "调用GetInternetTuple接口，获取公网流量详情数据排名，覆盖一元组、二元组、五元组粒度，支持按流量、包数等指标排序",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cn-shanghai",
-      "help_en": "The ID of the region for which you want to query the Internet traffic",
+      "help_en": "The region ID of the Internet traffic to query",
       "help_zh": "要查询的公网流量的地域ID",
       "location": "query",
       "name": "region_id",
@@ -35,7 +35,7 @@
     },
     {
       "example": "1",
-      "help_en": "The type of the tuple. Valid values:\n\n1: 1-tuple\n2: 2-tuple\n5: 5-tuple",
+      "help_en": "The tuple type of the query. Valid values:\n1: one-tuple.\n2: two-tuple.\n5: five-tuple",
       "help_zh": "查询的元组类型。取值： \n1：表示一元组。 \n2：表示二元组。 \n5：表示五元组",
       "location": "query",
       "name": "tuple_type",
@@ -48,7 +48,7 @@
     },
     {
       "example": "1684373600099",
-      "help_en": "The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC",
+      "help_en": "The start time of the query, in millisecond timestamp",
       "help_zh": "查询起始时间的毫秒时间戳",
       "location": "query",
       "name": "begin_time",
@@ -61,7 +61,7 @@
     },
     {
       "example": "1684373700099",
-      "help_en": "The end of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC",
+      "help_en": "The end time of the query, in millisecond timestamp",
       "help_zh": "查询结束时间的毫秒时间戳",
       "location": "query",
       "name": "end_time",
@@ -74,7 +74,7 @@
     },
     {
       "example": "in",
-      "help_en": "The direction of the Internet traffic that you want to query. Valid values:\n\nin: inbound\nout: outbound",
+      "help_en": "The traffic direction to query. Valid values:",
       "help_zh": "查询流量方向，取值：\n\nin：入云方向。\nout：出云方向",
       "location": "query",
       "name": "direction",
@@ -87,7 +87,7 @@
     },
     {
       "example": "ByteCount",
-      "help_en": "The metric for data ranking. Default value: ByteCount. This value indicates that Internet traffic data is ranked by traffic volume.\n\nValid values:\n\nRtt\nByteCount\nPacketCount\nRetransmitRate",
+      "help_en": "The metric by which data is sorted. Default value: ByteCount, which sorts data by traffic volume",
       "help_zh": "数据排序的指标。默认值：ByteCount，表示按流量排序",
       "location": "query",
       "name": "order_by",
@@ -100,7 +100,7 @@
     },
     {
       "example": "112.74.XX.XX",
-      "help_en": "The local IP address",
+      "help_en": "The Alibaba Cloud IP address",
       "help_zh": "阿里云端IP",
       "location": "query",
       "name": "cloud_ip",
@@ -113,7 +113,7 @@
     },
     {
       "example": "443",
-      "help_en": "The local port.\n\nThis parameter is required only if you set GroupBy to CloudPort",
+      "help_en": "The Alibaba Cloud port",
       "help_zh": "阿里云端端口。 \n仅TupleType配置为5时，才需要配置该参数",
       "location": "query",
       "name": "cloud_port",
@@ -126,7 +126,7 @@
     },
     {
       "example": "122.112.XX.XX",
-      "help_en": "The remote IP address.\n\nThis parameter is required only when you set TupleType to 2 or 5",
+      "help_en": "The remote IP address",
       "help_zh": "对端IP。\n仅TupleType配置为2或5时，才需要配置该参数",
       "location": "query",
       "name": "other_ip",
@@ -139,7 +139,7 @@
     },
     {
       "example": "40002",
-      "help_en": "The remote port.\n\nThis parameter is required only when you set TupleType to 5",
+      "help_en": "The remote port",
       "help_zh": "对端端口。\n仅TupleType配置为5时，才需要配置该参数",
       "location": "query",
       "name": "other_port",
@@ -152,7 +152,7 @@
     },
     {
       "example": "eip-sample*",
-      "help_en": "The ID of the Alibaba Cloud instance",
+      "help_en": "The Alibaba Cloud instance ID",
       "help_zh": "阿里云端实例ID",
       "location": "query",
       "name": "instance_id",
@@ -165,7 +165,7 @@
     },
     {
       "example": "6",
-      "help_en": "The protocol number.\n\nAll protocols are supported. This parameter is required only when you set TupleType to 5",
+      "help_en": "The protocol number",
       "help_zh": "协议号。 \n支持全部协议， 仅TupleType配置为5时，才需要配置该参数",
       "location": "query",
       "name": "protocol",
@@ -178,7 +178,7 @@
     },
     {
       "example": "desc",
-      "help_en": "The order in which instances are ranked by Internet traffic. Valid values:\n\ndesc: the descending order\nasc: the ascending order",
+      "help_en": "The sort order of traffic data",
       "help_zh": "流量数据的排序方式。 \ndesc：从大到小排序。 \nasc：从小到大排序",
       "location": "query",
       "name": "sort",
@@ -191,7 +191,7 @@
     },
     {
       "example": "10",
-      "help_en": "Specifies top-N traffic data to display. Default value: 10. This value specifies to display top-10 traffic data by default. Max value: 100",
+      "help_en": "The number of top-ranked entries to display. Default value: 10, which displays the top 10 entries. Maximum value: 100",
       "help_zh": "展示排序靠前的数据。默认值：10。表示默认展示排序前10的数据。最大值：100",
       "location": "query",
       "name": "topn",
@@ -203,8 +203,8 @@
       "type": "int"
     },
     {
-      "example": "Alibaba",
-      "help_en": "The local Internet service provider (ISP).\n\nIn most cases, the value is Alibaba or Alibaba Cloud",
+      "example": "阿里巴巴",
+      "help_en": "The cloud Internet Service Provider (ISP)",
       "help_zh": "云端运营商。\n通常为“阿里巴巴”或“阿里云”",
       "location": "query",
       "name": "cloud_isp",
@@ -216,8 +216,8 @@
       "type": "string"
     },
     {
-      "example": "China Mobile",
-      "help_en": "The remote ISP.\n\nThis parameter is required if you want to view the information about the remote ISP",
+      "example": "移动",
+      "help_en": "The remote ISP",
       "help_zh": "对端运营商。 \n查看运营商情况时，请指定此参数",
       "location": "query",
       "name": "other_isp",
@@ -229,8 +229,8 @@
       "type": "string"
     },
     {
-      "example": "China",
-      "help_en": "The remote country.\n\nThis parameter is required only if you set TupleType to 2 or 5",
+      "example": "中国",
+      "help_en": "The remote country",
       "help_zh": "对端国家。\n仅TupleType配置为2或5时，才需要配置该参数",
       "location": "query",
       "name": "other_country",
@@ -242,8 +242,8 @@
       "type": "string"
     },
     {
-      "example": "Hangzhou",
-      "help_en": "The remote city.\n\nThis parameter is required only if you set TupleType to 2 or 5",
+      "example": "杭州市",
+      "help_en": "The remote city",
       "help_zh": "对端城市。\n仅TupleType配置为2或5时，才需要配置该参数",
       "location": "query",
       "name": "other_city",
@@ -258,7 +258,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The instance IDs for filtering",
+      "help_en": "The list of instance IDs for batch filtering",
       "help_zh": "批量过滤时的实例ID列表",
       "location": "query",
       "name": "instance_list",
@@ -274,7 +274,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The local IP addresses for filtering",
+      "help_en": "The list of cloud IP addresses for batch filtering",
       "help_zh": "批量过滤时的云上IP列表",
       "location": "query",
       "name": "cloud_ip_list",
@@ -288,7 +288,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to enable the multi-account management feature. Default value: false. This value specifies that the multi-account management feature is disabled.\n\nBy default, the multi-account management feature is not available. If you want to use this feature, contact your account manager to apply for permissions",
+      "help_en": "Specifies whether to use the multi-account management feature. Default value: false, which indicates that the feature is not used.\nThe multi-account management feature is not enabled by default. To use this feature, contact your account manager to request access",
       "help_zh": "是否使用多账号管理功能。默认值：false。表示不使用。 \n多账号管理功能默认不开放，如需使用，请联系商务经理申请使用权限",
       "location": "query",
       "name": "use_multi_account",
@@ -303,7 +303,7 @@
       "element": {
         "type": "int"
       },
-      "help_en": "The IDs of member accounts",
+      "help_en": "The list of member account IDs",
       "help_zh": "成员账号ID列表",
       "location": "query",
       "name": "account_ids",

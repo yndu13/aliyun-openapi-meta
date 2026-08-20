@@ -3,7 +3,7 @@
   "cmd_full_name": "ens create-cluster-node-pool",
   "cmd_name": "create-cluster-node-pool",
   "deprecated": false,
-  "description_en": "A node pool is a logical group of nodes with the same properties, enabling unified management and operations such as node upgrades and autoscaling. A node pool's automated features also reduce operations costs. For example, it can automatically remediate OS CVE vulnerabilities, recover failed nodes, and upgrade the kubelet and containerd. Call `CreateClusterNodePool` to create a node pool",
+  "description_en": "Creates a node pool for a cluster. A node pool is a logical collection of nodes that share the same attributes, allowing unified management and O&M operations such as node upgrades and elastic scaling. You can further use the automated O&M capabilities of node pools, including automatic OS CVE vulnerability patching, automatic faulty node recovery, and automatic kubelet and containerd version upgrades, to reduce O&M costs",
   "description_zh": "节点池是具有相同属性的一组节点的逻辑集合，允许对节点进行统一的管理和运维，例如节点升级、弹性伸缩等。您可以进一步使用节点池的自动化运维能力，使用OS CVE漏洞自动修复、故障节点自动恢复、kubelet和containerd版本自动升级等功能，降低运维成本。您可以调用CreateClusterNodePool为集群创建节点池",
   "kebab_example": "",
   "method": "POST",
@@ -67,7 +67,7 @@
             "fields": [
               {
                 "example": "cloud_efficiency",
-                "help_en": "The category of the data disk",
+                "help_en": "The cloud disk type",
                 "help_zh": "磁盘类型",
                 "name": "category",
                 "options": [
@@ -79,7 +79,7 @@
               },
               {
                 "example": "80",
-                "help_en": "The size of the data disk, in GB. The value must be at least 20 and a multiple of 10",
+                "help_en": "The size of the data cloud disk. Unit: GB. Minimum value: 20. The value increments by 10",
                 "help_zh": "数据盘大小（单位GB，最小20G，以10为步长递增）",
                 "name": "size",
                 "options": [
@@ -92,7 +92,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The data disks to attach to the instances",
+          "help_en": "The size of data cloud disks",
           "help_zh": "数据盘磁盘大小。\n单位：GB",
           "name": "data_disks",
           "options": [
@@ -104,7 +104,7 @@
         },
         {
           "example": "3",
-          "help_en": "The desired number of instances in the node pool",
+          "help_en": "The desired number of instances",
           "help_zh": "期望实例数",
           "name": "desired_size",
           "options": [
@@ -116,7 +116,7 @@
         },
         {
           "example": "m-6734fzvcwcv2o8jj201cpa7ox",
-          "help_en": "The ID of the image for the instances",
+          "help_en": "The image ID of the instance",
           "help_zh": "实例镜像id",
           "name": "image_id",
           "options": [
@@ -128,7 +128,7 @@
         },
         {
           "example": "PostPaid",
-          "help_en": "The billing method for the instances",
+          "help_en": "The billing type of the instance",
           "help_zh": "实例计费类型",
           "name": "instance_charge_type",
           "options": [
@@ -142,7 +142,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The instance types for the node pool",
+          "help_en": "The list of instance types for nodes in the node pool",
           "help_zh": "节点池节点实例规格列表",
           "name": "instance_types",
           "options": [
@@ -154,7 +154,7 @@
         },
         {
           "example": "key-pair-name",
-          "help_en": "The name of the key pair for the instances. You must specify either this parameter or `Password`",
+          "help_en": "The key pair for the instance. This parameter is mutually exclusive with password",
           "help_zh": "实例密钥对（和password二选一）",
           "name": "key_pair_name",
           "options": [
@@ -166,7 +166,7 @@
         },
         {
           "example": "some-test-password",
-          "help_en": "The password for the instances in the node pool. You must specify either this parameter or `KeyPairName`",
+          "help_en": "The password used when the node pool creates instances. This parameter is mutually exclusive with key pair",
           "help_zh": "节点池创建实例时使用的密码，和密钥对二选一",
           "name": "password",
           "options": [
@@ -178,7 +178,7 @@
         },
         {
           "example": "cloud_efficiency",
-          "help_en": "The category of the system disk. Valid values: `local_ssd`, `local_hdd`, `cloud_efficiency`, and `cloud_ssd`",
+          "help_en": "The type of the system cloud disk. Valid values: local_ssd, local_hdd, cloud_efficiency, and cloud_ssd",
           "help_zh": "系统盘类型，枚举值:local_ssd、local_hdd、cloud_efficiency、cloud_ssd",
           "name": "system_disk_category",
           "options": [
@@ -190,7 +190,7 @@
         },
         {
           "example": "80",
-          "help_en": "The size of the system disk, in GB. The value must be at least 20 and a multiple of 10",
+          "help_en": "The size of the system cloud disk. Unit: GB. Minimum value: 20. The value must be a multiple of 10",
           "help_zh": "系统盘规格（单位GB，最小20，必须是10的倍数）",
           "name": "system_disk_size",
           "options": [
@@ -204,7 +204,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The IDs of the vSwitches used by the instances",
+          "help_en": "The vSwitches used by instances",
           "help_zh": "实例使用的vswitch",
           "name": "vswitch_ids",
           "options": [
@@ -231,7 +231,7 @@
       "fields": [
         {
           "example": "ZWNobyBvawo=",
-          "help_en": "A Base64-encoded script to run on an instance after it is created but before it joins the cluster",
+          "help_en": "The script that is executed after the machine is created and before it joins the cluster. The content must be Base64-encoded",
           "help_zh": "机器创建后，接入集群前执行的脚本，内容需要base64",
           "name": "pre_user_data",
           "options": [
@@ -243,7 +243,7 @@
         },
         {
           "example": "ZWNobyBvawo=",
-          "help_en": "A Base64-encoded script to run on an instance after it joins the cluster",
+          "help_en": "The script that is executed after the machine is created and after it joins the cluster. The content must be Base64-encoded",
           "help_zh": "机器创建后，接入集群后执行的脚本，内容需要base64",
           "name": "user_data",
           "options": [
@@ -254,7 +254,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The Kubernetes configuration",
+      "help_en": "The cluster-related configuration",
       "help_zh": "集群相关配置",
       "location": "query",
       "name": "kubernetes_config",

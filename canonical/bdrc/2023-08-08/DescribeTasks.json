@@ -3,7 +3,7 @@
   "cmd_full_name": "bdrc describe-tasks",
   "cmd_name": "describe-tasks",
   "deprecated": false,
-  "description_en": "Retrieves asynchronous tasks",
+  "description_en": "Queries a list of asynchronous tasks",
   "description_zh": "查询异步任务列表",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "RUNNING",
-      "help_en": "Specifies the status of tasks to query. If this parameter is omitted, the API returns tasks in all states. Valid values: `CREATED`, `RUNNING`, `COMPLETE`, `FAILED`, `EXPIRED`, and `CANCELED`",
+      "help_en": "The task status. Valid values:\nCREATED: The task is created.\nRUNNING: The task is running.\nCOMPLETE: The task is completed successfully.\nFAILED: The task failed.\nEXPIRED: The task has expired.\nCANCELED: The task has been canceled",
       "help_zh": "CREATED: 创建, RUNNING: 正在执行, COMPLETE: 任务成功完成, FAILED: 任务执行失败, EXPIRED: 任务已过期, CANCELED: 任务已被取消",
       "location": "query",
       "name": "task_status",
@@ -35,7 +35,7 @@
     },
     {
       "example": "cae**********699",
-      "help_en": "A pagination token. To retrieve the next page of results, set this parameter to the `NextToken` value from the response of the previous API call. For more information, see the API description above",
+      "help_en": "The pagination token. Set this parameter to the value of NextToken that is returned from the previous API call. For more information about how to view the returned data, see the operation description above",
       "help_zh": "查询凭证（Token），取值为上一次API调用返回的NextToken参数值。有关本接口查看返回数据的设置方式，请参见上文接口说明",
       "location": "query",
       "name": "next_token",
@@ -48,7 +48,7 @@
     },
     {
       "example": "10",
-      "help_en": "The maximum number of entries to return per page. The valid range is 10 to 500. If this parameter is omitted or its value is less than 10, a default value of 10 is used. Values greater than 500 are treated as 500",
+      "help_en": "The maximum number of entries to return. Valid values: 10 to 500. Default value: If this parameter is not specified or is set to a value less than 10, the default value is 10. If the value is greater than 500, the default value is 500",
       "help_zh": "返回的最大数。取值范围：10~500。默认值：当不设置值或者设置的值小于10，默认值为10。当设置的值大于500时，默认值为500",
       "location": "query",
       "name": "max_results",
@@ -61,8 +61,8 @@
     },
     {
       "example": "UPDATE_RESOURCES",
-      "help_en": "The TaskType",
-      "help_zh": "The TaskType",
+      "help_en": "The task type",
+      "help_zh": "任务类型",
       "location": "query",
       "name": "task_type",
       "options": [
@@ -75,37 +75,5 @@
   ],
   "pathPattern": "/api/v1/tasks",
   "product_code": "BDRC",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "help_en": "The maximum number of entries to return per page. The valid range is 10 to 500. If this parameter is omitted or its value is less than 10, a default value of 10 is used. Values greater than 500 are treated as 500",
-      "help_zh": "返回的最大数。取值范围：10~500。默认值：当不设置值或者设置的值小于10，默认值为10。当设置的值大于500时，默认值为500",
-      "name": "MaxResults",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "help_en": "A pagination token. To retrieve the next page of results, set this parameter to the `NextToken` value from the response of the previous API call. For more information, see the API description above",
-      "help_zh": "查询凭证（Token），取值为上一次API调用返回的NextToken参数值。有关本接口查看返回数据的设置方式，请参见上文接口说明",
-      "name": "NextToken",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "Specifies the status of tasks to query. If this parameter is omitted, the API returns tasks in all states. Valid values: `CREATED`, `RUNNING`, `COMPLETE`, `FAILED`, `EXPIRED`, and `CANCELED`",
-      "help_zh": "CREATED: 创建, RUNNING: 正在执行, COMPLETE: 任务成功完成, FAILED: 任务执行失败, EXPIRED: 任务已过期, CANCELED: 任务已被取消",
-      "name": "TaskStatus",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "TaskType",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

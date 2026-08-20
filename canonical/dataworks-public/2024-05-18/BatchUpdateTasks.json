@@ -3,7 +3,7 @@
   "cmd_full_name": "dataworks-public batch-update-tasks",
   "cmd_name": "batch-update-tasks",
   "deprecated": false,
-  "description_en": "Performs incremental updates on multiple tasks at a time",
+  "description_en": "Updates multiple nodes in batches by using incremental updates",
   "description_zh": "以增量更新的方式，批量更新多个任务",
   "kebab_example": "",
   "method": "POST",
@@ -40,7 +40,7 @@
                 "type": "string"
               }
             ],
-            "help_en": "Associated data source information",
+            "help_en": "The associated data source information",
             "help_zh": "关联数据源信息",
             "name": "data_source",
             "options": [
@@ -64,7 +64,7 @@
           },
           {
             "example": "Prod",
-            "help_en": "The project environment.\n\nProd: Production\n\nDev: Development",
+            "help_en": "The project environment. Valid values:\nProd: production\nDev: development",
             "help_zh": "项目环境。\nProd：生产\nDev：开发",
             "name": "env_type",
             "options": [
@@ -76,7 +76,7 @@
           },
           {
             "example": "1234",
-            "help_en": "The task ID",
+            "help_en": "The node ID",
             "help_zh": "任务ID",
             "name": "id",
             "options": [
@@ -100,7 +100,7 @@
           },
           {
             "example": "1000",
-            "help_en": "The account ID of the task owner",
+            "help_en": "The account ID of the node owner",
             "help_zh": "任务的责任人的账号ID",
             "name": "owner",
             "options": [
@@ -112,7 +112,7 @@
           },
           {
             "example": "60",
-            "help_en": "The retry interval in seconds",
+            "help_en": "The retry time interval, in seconds",
             "help_zh": "重试时间间隔，单位秒",
             "name": "rerun_interval",
             "options": [
@@ -124,7 +124,7 @@
           },
           {
             "example": "AllAllowed",
-            "help_en": "The rerun mode. Valid values:\n\nAllDenied: The task cannot be rerun.\n\nFailureAllowed: The task can be rerun only after it fails.\n\nAllAllowed: The task can always be rerun",
+            "help_en": "Specifies whether the node can be rerun. Valid values:\nAllDenied: The node cannot be rerun regardless of whether it succeeds or fails.\nFailureAllowed: The node can be rerun only after it fails.\nAllAllowed: The node can be rerun regardless of whether it succeeds or fails",
             "help_zh": "任务是否允许重跑的配置。\nAllDenied：失败或成功都不可重跑\nFailureAllowed：只有失败可重跑\nAllAllowed：失败或成功均可重跑",
             "name": "rerun_mode",
             "options": [
@@ -136,7 +136,7 @@
           },
           {
             "example": "3",
-            "help_en": "The number of retry attempts. Takes effect when the task is configured to allow reruns",
+            "help_en": "The number of retries. This parameter takes effect only when the node is configured to allow reruns",
             "help_zh": "重试次数，当任务设置为可重跑时生效",
             "name": "rerun_times",
             "options": [
@@ -150,7 +150,7 @@
             "fields": [
               {
                 "example": "0.25",
-                "help_en": "The default number of compute units (CUs) configured for task running",
+                "help_en": "The compute unit (CU) consumption configured for node execution",
                 "help_zh": "任务运行配置CU消耗",
                 "name": "cu",
                 "options": [
@@ -162,7 +162,7 @@
               },
               {
                 "example": "i-xxxxxx",
-                "help_en": "The image ID used in the task runtime configuration",
+                "help_en": "The image ID configured for node execution",
                 "help_zh": "任务运行配置的镜像ID",
                 "name": "image",
                 "options": [
@@ -174,7 +174,7 @@
               },
               {
                 "example": "S_res_group_524258031846018_1684XXXXXXXXX",
-                "help_en": "The identifier of the scheduling resource group used in the task runtime configuration",
+                "help_en": "The identifier of the schedule resource group configured for node execution",
                 "help_zh": "任务运行配置的调度资源组标识符",
                 "name": "resource_group_id",
                 "options": [
@@ -185,7 +185,7 @@
                 "type": "string"
               }
             ],
-            "help_en": "Runtime environment configurations, such as resource group information",
+            "help_en": "The runtime environment configuration, such as resource group information",
             "help_zh": "运行环境配置，如资源组信息",
             "name": "runtime_resource",
             "options": [
@@ -225,7 +225,7 @@
               ],
               "type": "object"
             },
-            "help_en": "The list of task tags",
+            "help_en": "The list of node tags",
             "help_zh": "任务标签列表",
             "name": "tags",
             "options": [
@@ -237,7 +237,7 @@
           },
           {
             "example": "3600",
-            "help_en": "The task execution timeout in seconds. The value should be greater than 3600",
+            "help_en": "The timeout period for node execution, in seconds. The value must be greater than 3600",
             "help_zh": "任务执行超时时间，单位秒。取值应大于3600",
             "name": "timeout",
             "options": [
@@ -251,7 +251,7 @@
             "fields": [
               {
                 "example": "00 00 00 * * ?",
-                "help_en": "The cron expression. Takes effect when type=Scheduler",
+                "help_en": "The cron expression. This parameter takes effect only when type is set to Scheduler",
                 "help_zh": "Cron表达式，type=Scheduler时生效",
                 "name": "cron",
                 "options": [
@@ -263,7 +263,7 @@
               },
               {
                 "example": "9999-01-01 00:00:00",
-                "help_en": "The expiration time of periodic triggering. Takes effect only when type is set to Scheduler. The value of this parameter is in the`yyyy-mm-dd hh:mm:ss` format",
+                "help_en": "The time when the periodic trigger expires. This parameter takes effect only when type is set to Scheduler. Format: `yyyy-mm-dd hh:mm:ss`",
                 "help_zh": "周期触发失效时间，type=Scheduler时生效。格式为`yyyy-mm-dd hh:mm:ss`",
                 "name": "end_time",
                 "options": [
@@ -275,7 +275,7 @@
               },
               {
                 "example": "Normal",
-                "help_en": "The running mode of the task after it is triggered. This parameter takes effect only if the Type parameter is set to Scheduler. Valid values:\n\nPause\n\nSkip\n\nNormal",
+                "help_en": "The running mode when the node is triggered. This parameter takes effect only when type is set to Scheduler. Valid values:\nPause: paused\nSkip: dry run\nNormal: normal execution",
                 "help_zh": "触发时的运行模式，type=Scheduler时生效。\nPause：暂停\nSkip：空跑\nNormal：正常运行",
                 "name": "recurrence",
                 "options": [
@@ -287,7 +287,7 @@
               },
               {
                 "example": "1970-01-01 00:00:00",
-                "help_en": "The time when periodic triggering takes effect. This parameter takes effect only if the Type parameter is set to Scheduler. The value of this parameter is in the `yyyy-mm-dd hh:mm:ss` format",
+                "help_en": "The effective period of the epoch trigger. This parameter takes effect only when type is set to Scheduler. Format: `yyyy-mm-dd hh:mm:ss`",
                 "help_zh": "周期触发生效时间，type=Scheduler时生效。格式为`yyyy-mm-dd hh:mm:ss`",
                 "name": "start_time",
                 "options": [
@@ -299,7 +299,7 @@
               },
               {
                 "example": "Scheduler",
-                "help_en": "The trigger type. Valid values:\n\nScheduler: periodically triggered\n\nManual",
+                "help_en": "The trigger type. Valid values:\nScheduler: triggered by scheduling cycle\nManual: manually triggered",
                 "help_zh": "触发方式类型。\nScheduler：调度周期触发\nManual：手动触发",
                 "name": "type",
                 "options": [
@@ -310,7 +310,7 @@
                 "type": "string"
               }
             ],
-            "help_en": "The task trigger configurations",
+            "help_en": "The trigger configuration of the node",
             "help_zh": "任务触发方式",
             "name": "trigger",
             "options": [
@@ -323,7 +323,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The list of tasks",
+      "help_en": "The list of nodes",
       "help_zh": "任务列表",
       "location": "formData",
       "name": "tasks",

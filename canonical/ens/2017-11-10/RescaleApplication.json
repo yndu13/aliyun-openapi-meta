@@ -3,7 +3,7 @@
   "cmd_full_name": "ens rescale-application",
   "cmd_name": "rescale-application",
   "deprecated": false,
-  "description_en": "Scales resources in an asynchronous manner and deploys or releases the container",
+  "description_en": "Calls the RescaleApplication operation to asynchronously scale resources in or out and complete container deployment or release operations",
   "description_zh": "调用RescaleApplication异步执行资源扩/缩容，并完成容器部署/释放操作",
   "kebab_example": "",
   "method": "GET|POST",
@@ -21,7 +21,7 @@
   "parameters": [
     {
       "example": "474bdef0-d149-4695-abfb-52912d9143f0",
-      "help_en": "The ID of the application. You can query the application ID by calling the ListApplications operation",
+      "help_en": "The application ID. You can obtain this value by calling the ListApplications operation",
       "help_zh": "应用ID，您可通过查询ListApplications接口获取",
       "location": "query",
       "name": "app_id",
@@ -34,7 +34,7 @@
     },
     {
       "example": "Add",
-      "help_en": "The scaling operation. The value must be of the enumerated data type. Valid values:\n\nAdd: adds new resources.\n\nDel: releases resources",
+      "help_en": "The scaling action for resources. Valid values:\nAdd: Provisions new resources.\nDel: Releases resources",
       "help_zh": "扩缩容资源动作。枚举类型，取值：\nAdd：生产新资源。\nDel：释放资源",
       "location": "query",
       "name": "rescale_type",
@@ -47,7 +47,7 @@
     },
     {
       "example": "RegionId",
-      "help_en": "The level of resource scaling. The value is of the enumeration type. Valid values:\n\nAreaIspCode (default): scales resources based on the Internet service provider (ISP).\n\nRegionId: scales resources based on the edge node.\n\nInstanceId: scales resources based on the instance ID. Resource scale-out specifies resource hosting and scale-in specifies resource release.\n\nDefault value: AreaIspCode",
+      "help_en": "The level of the scaling region. Valid values:\n\nAreaIspCode: region ISP.\nRegionId: edge zone.\nInstanceId: instance. Scale-out indicates resource hosting. Scale-in indicates resource release.\n\nDefault value: AreaIspCode",
       "help_zh": "扩缩容区域级别。枚举类型，取值范围：\n\nAreaIspCode：区域运营商\nRegionId：边缘节点\nInstanceId：实例，扩容代表资源托管 / 缩容代表资源释放\n\n默认值AreaIspCode",
       "location": "query",
       "name": "rescale_level",
@@ -60,7 +60,7 @@
     },
     {
       "example": "[{\\\"regionCode\\\": \\\"cn-wuxi-telecom_unicom_cmcc-3\\\",    \\\"ispCode\\\": \\\"telecom\\\",    \\\"count\\\": 2\t},{    \\\"regionCode\\\": \\\"cn-shanghai-cmcc\\\",    \\\"count\\\": 4\t}]",
-      "help_en": "The required resources. The value must be a JSON string",
+      "help_en": "The scaling resource requirements. The value is a string in JSON array format",
       "help_zh": "扩缩容资源需求，Json数组格式的字符串",
       "location": "query",
       "name": "resource_selector",
@@ -73,7 +73,7 @@
     },
     {
       "example": "v2",
-      "help_en": "The version number of the application deployment package. By default, the stable version number is used. This parameter takes effect only when you perform resource scale-out",
+      "help_en": "The application deployment version for new resources. This parameter takes effect only when resources are added. Default value: the stable version number of the application",
       "help_zh": "仅新增资源时有效，新增资源的应用部署版本号，默认为应用的稳定版版本号",
       "location": "query",
       "name": "to_app_version",
@@ -86,7 +86,7 @@
     },
     {
       "example": "1800",
-      "help_en": "The timeout period for asynchronous scaling. Unit: seconds. Default value: 300",
+      "help_en": "The timeout period for asynchronous scaling, in seconds. Default value: 300",
       "help_zh": "异步扩缩容的超时时间，单位秒。默认300",
       "location": "query",
       "name": "timeout",

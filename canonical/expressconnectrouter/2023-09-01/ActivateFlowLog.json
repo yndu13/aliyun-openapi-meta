@@ -3,7 +3,7 @@
   "cmd_full_name": "expressconnectrouter activate-flow-log",
   "cmd_name": "activate-flow-log",
   "deprecated": false,
-  "description_en": "Activates log delivery for a flow log",
+  "description_en": "Enables log delivery for a flow log",
   "description_zh": "流日志开启日志投递",
   "kebab_example": "",
   "method": "POST",
@@ -24,7 +24,7 @@
   "parameters": [
     {
       "example": "ecr-mezk2idmsd0vx2****",
-      "help_en": "The ID of the Express Connect Router (ECR) instance",
+      "help_en": "The Express Connect Router (ECR) instance ID",
       "help_zh": "专线网关实例ID",
       "location": "formData",
       "name": "ecr_id",
@@ -37,7 +37,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to perform a dry run. Valid values:\n\ntrue: Performs a dry run to check the request. The system does not activate log delivery.\n\nfalse (default): Sends the request",
+      "help_en": "Specifies whether to perform only a dry run. Valid values:\ntrue: Sends a check request without modifying EPS resources.\nfalse (default): Sends a normal request",
       "help_zh": "是否只预检此次请求。取值：\ntrue：发送检查请求，不会修改服务资源。\nfalse（默认值）：发送正常请求",
       "location": "formData",
       "name": "dry_run",
@@ -50,7 +50,7 @@
     },
     {
       "example": "02fb3da4-130e-11e9-8e44-00****",
-      "help_en": "A client token to ensure the idempotence of the request.\n\nGenerate a unique token on your client for each request. The token can contain only ASCII characters.\n\nIf you do not specify this parameter, the system uses the RequestId as the ClientToken. The RequestId may be different for each request",
+      "help_en": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a unique value from your client to ensure that different requests have unique ClientToken values. ClientToken supports only ASCII characters.\n\nIf you do not specify this parameter, the system uses the RequestId of the API request as the ClientToken. The RequestId may differ for each API request",
       "help_zh": "客户端Token，用于保证请求的幂等性。\n\n从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符。\n\n若您未指定，则系统自动使用API请求的RequestId作为ClientToken标识。每次API请求的RequestId可能不一样",
       "location": "formData",
       "name": "client_token",
@@ -62,9 +62,9 @@
       "type": "string"
     },
     {
-      "example": "flowlog-m5evbtbpt****\n",
-      "help_en": "The ID of the flow log instance",
-      "help_zh": "流日志实例ID",
+      "example": "ecr-flog-m5evbtbpt****\n",
+      "help_en": "The flow log instance ID.\nThe flow log must be in the DEACTIVATE state. After you invoke DeactivateFlowLog, the flow log enters the DEACTIVATING transitional state. Use polling by invoking DescribeFlowLogs and wait until the status changes to DEACTIVATE before invoking this operation",
+      "help_zh": "流日志实例ID。\nFlowLog 必须处于 DEACTIVATE 状态。调用 DeactivateFlowLog 后 FlowLog 先进入 DEACTIVATING 过渡态，需通过 DescribeFlowLogs 轮询等待状态变为 DEACTIVATE 后再调用本接口",
       "location": "formData",
       "name": "flow_log_id",
       "options": [
@@ -92,7 +92,7 @@
   "protocol": "HTTPS",
   "v1_parameters": [
     {
-      "help_en": "A client token to ensure the idempotence of the request.\n\nGenerate a unique token on your client for each request. The token can contain only ASCII characters.\n\nIf you do not specify this parameter, the system uses the RequestId as the ClientToken. The RequestId may be different for each request",
+      "help_en": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a unique value from your client to ensure that different requests have unique ClientToken values. ClientToken supports only ASCII characters.\n\nIf you do not specify this parameter, the system uses the RequestId of the API request as the ClientToken. The RequestId may differ for each API request",
       "help_zh": "客户端Token，用于保证请求的幂等性。\n\n从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符。\n\n若您未指定，则系统自动使用API请求的RequestId作为ClientToken标识。每次API请求的RequestId可能不一样",
       "name": "ClientToken",
       "position": "body",
@@ -100,7 +100,7 @@
       "type": "string"
     },
     {
-      "help_en": "Specifies whether to perform a dry run. Valid values:\n\ntrue: Performs a dry run to check the request. The system does not activate log delivery.\n\nfalse (default): Sends the request",
+      "help_en": "Specifies whether to perform only a dry run. Valid values:\ntrue: Sends a check request without modifying EPS resources.\nfalse (default): Sends a normal request",
       "help_zh": "是否只预检此次请求。取值：\ntrue：发送检查请求，不会修改服务资源。\nfalse（默认值）：发送正常请求",
       "name": "DryRun",
       "position": "body",
@@ -108,7 +108,7 @@
       "type": "bool"
     },
     {
-      "help_en": "The ID of the Express Connect Router (ECR) instance",
+      "help_en": "The Express Connect Router (ECR) instance ID",
       "help_zh": "专线网关实例ID",
       "name": "EcrId",
       "position": "body",
@@ -116,8 +116,8 @@
       "type": "string"
     },
     {
-      "help_en": "The ID of the flow log instance",
-      "help_zh": "流日志实例ID",
+      "help_en": "The flow log instance ID.\nThe flow log must be in the DEACTIVATE state. After you invoke DeactivateFlowLog, the flow log enters the DEACTIVATING transitional state. Use polling by invoking DescribeFlowLogs and wait until the status changes to DEACTIVATE before invoking this operation",
+      "help_zh": "流日志实例ID。\nFlowLog 必须处于 DEACTIVATE 状态。调用 DeactivateFlowLog 后 FlowLog 先进入 DEACTIVATING 过渡态，需通过 DescribeFlowLogs 轮询等待状态变为 DEACTIVATE 后再调用本接口",
       "name": "FlowLogId",
       "position": "body",
       "required": true,

@@ -3,8 +3,8 @@
   "cmd_full_name": "ddoscoo associate-web-cert",
   "cmd_name": "associate-web-cert",
   "deprecated": false,
-  "description_en": "绑定证书",
-  "description_zh": "绑定证书",
+  "description_en": "Associates an SSL certificate with a forwarding rule of a website service",
+  "description_zh": "为网站业务转发规则关联SSL证书",
   "kebab_example": "",
   "method": "POST",
   "multi_version": true,
@@ -23,8 +23,9 @@
   },
   "parameters": [
     {
-      "help_en": "The Domain",
-      "help_zh": "The Domain",
+      "example": "www.aliyun.com",
+      "help_en": "The domain name of the website service.\nThe domain name must have a website forwarding rule configured. You can call https://help.aliyun.com/document_detail/91724.html to query all domain names",
+      "help_zh": "网站业务的域名。\n域名必须已配置网站业务转发规则。您可以调用https://help.aliyun.com/document_detail/91724.html查询所有域名",
       "location": "formData",
       "name": "domain",
       "options": [
@@ -35,8 +36,9 @@
       "type": "string"
     },
     {
-      "help_en": "The CertId",
-      "help_zh": "The CertId",
+      "example": "2404693",
+      "help_en": "The certificate ID.\nIf you specify the certificate ID, you do not need to specify CertName, Cert, or Key. This parameter cannot be used together with CertIdentifier",
+      "help_zh": "证书ID。\n传入证书ID后，无需传入CertName、Cert和Key。不能与CertIdentifier同时传入",
       "location": "formData",
       "name": "cert_id",
       "options": [
@@ -47,8 +49,9 @@
       "type": "int"
     },
     {
-      "help_en": "The CertName",
-      "help_zh": "The CertName",
+      "example": "example-cert\n",
+      "help_en": "The certificate name. \n\nThe name of the certificate to associate. This parameter must be used together with Cert and Key",
+      "help_zh": "证书名称。 \n\n要关联的证书名称。该参数必须与Cert和Key一同使用",
       "location": "formData",
       "name": "cert_name",
       "options": [
@@ -59,8 +62,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Cert",
-      "help_zh": "The Cert",
+      "example": "-----BEGIN CERTIFICATE----- 62EcYPWd2Oy1vs6MTXcJSf*************************************************************************************************************************************************************************ZIo2ZUhl02SIDNggIEeg== -----END CERTIFICATE-----\n",
+      "help_en": "The public key of the certificate to associate. This parameter must be used together with CertName and Key. \n\nIf you specify CertName, Cert, and Key, you do not need to specify CertId",
+      "help_zh": "要关联的证书公钥。该参数必须与CertName和Key一同使用。 \n\n传入CertName、Cert和Key后，无需传入CertId",
       "location": "formData",
       "name": "cert",
       "options": [
@@ -71,8 +75,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Key",
-      "help_zh": "The Key",
+      "example": "-----BEGIN RSA PRIVATE KEY----- DADTPZoOHd9WtZ3UKHJT**************************************************************************************************************************************************************************qf0YF8bv5UK5G04RtKadOw== -----END RSA PRIVATE KEY-----\n",
+      "help_en": "The private key of the certificate to associate. This parameter must be used together with CertName and Cert. \n\nIf you specify CertName, Cert, and Key, you do not need to specify CertId",
+      "help_zh": "要关联的证书私钥。该参数必须与CertName和Cert一同使用。 \n\n传入CertName、Cert和Key后，无需传入CertId",
       "location": "formData",
       "name": "key",
       "options": [
@@ -83,8 +88,9 @@
       "type": "string"
     },
     {
-      "help_en": "The CertIdentifier",
-      "help_zh": "The CertIdentifier",
+      "example": "9430680-cn-hangzhou\n",
+      "help_en": "The global certificate ID, which is in the format of certificate ID + \"-cn-hangzhou\". For example, if the certificate ID is 123, set CertIdentifier to \"123-cn-hangzhou\".\nThis parameter cannot be used together with CertId",
+      "help_zh": "全局证书ID，证书ID+\"-cn-hangzhou\"。如果证书ID=123，则CertIdentifier=“123-cn-hangzhou”。\n不能与CertId同时传入",
       "location": "formData",
       "name": "cert_identifier",
       "options": [
@@ -95,8 +101,9 @@
       "type": "string"
     },
     {
-      "help_en": "The CertRegion",
-      "help_zh": "The CertRegion",
+      "example": "cn-hangzhou",
+      "help_en": "The region where the certificate is stored. Valid values: cn-hangzhou and ap-southeast-1. Default value: cn-hangzhou",
+      "help_zh": "证书所在地域。支持cn-hangzhou和ap-southeast-1，默认cn-hangzhou ",
       "location": "formData",
       "name": "cert_region",
       "options": [
@@ -109,49 +116,5 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS",
-  "v1_body_parameters": [
-    {
-      "name": "Cert",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "CertId",
-      "position": "body",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "name": "CertIdentifier",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "CertName",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "CertRegion",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "Domain",
-      "position": "body",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Key",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

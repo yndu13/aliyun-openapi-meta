@@ -3,7 +3,8 @@
   "cmd_full_name": "ddoscoo add-auto-cc-blacklist",
   "cmd_name": "add-auto-cc-blacklist",
   "deprecated": false,
-  "description_zh": "AddAutoCcBlacklist",
+  "description_en": "Adds IP addresses to the blacklist for an Anti-DDoS Pro instance",
+  "description_zh": "添加针对DDoS高防实例的黑名单IP",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -20,8 +21,9 @@
   },
   "parameters": [
     {
-      "help_en": "The InstanceId",
-      "help_zh": "The InstanceId",
+      "example": "ddoscoo-cn-mp91j1ao****",
+      "help_en": "The ID of the Anti-DDoS Pro instance.\n\nCall the DescribeInstanceIds operation to query the IDs of all Anti-DDoS Pro instances",
+      "help_zh": "DDoS高防实例的ID。\n您可以调用DescribeInstanceIds查询所有DDoS高防实例的ID信息",
       "location": "query",
       "name": "instance_id",
       "options": [
@@ -32,8 +34,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Blacklist",
-      "help_zh": "The Blacklist",
+      "example": "[{\"src\":\"198.51.XX.XX\"},{\"src\":\"198.52.XX.XX\"}]",
+      "help_en": "The IP addresses to add to the blacklist. This is a JSON array. Each object in the array contains the following field:\n\nsrc: String. Required. The IP address to add.\n\nYou can add up to 2,000 IP addresses per request",
+      "help_zh": "黑名单IP的详细信息，使用JSON格式的字符串表述，具体结构如下。\nsrc：String类型，必选，黑名单IP。\n黑名单中最多支持手动添加2000个IP。多个IP地址间使用空格或换行方式分割",
       "location": "query",
       "name": "blacklist",
       "options": [
@@ -44,8 +47,9 @@
       "type": "string"
     },
     {
-      "help_en": "The ExpireTime",
-      "help_zh": "The ExpireTime",
+      "example": "300",
+      "help_en": "The expiration time for the blacklist entries, in seconds. Valid values: 300 to 604800",
+      "help_zh": "过期时间，可自定义。取值范围：300~604800，单位：秒",
       "location": "query",
       "name": "expire_time",
       "options": [
@@ -58,25 +62,5 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "name": "Blacklist",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "ExpireTime",
-      "position": "query",
-      "required": true,
-      "type": "int"
-    },
-    {
-      "name": "InstanceId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

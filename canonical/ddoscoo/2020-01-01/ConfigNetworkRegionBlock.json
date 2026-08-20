@@ -3,8 +3,8 @@
   "cmd_full_name": "ddoscoo config-network-region-block",
   "cmd_name": "config-network-region-block",
   "deprecated": false,
-  "description_en": "设置区域封禁",
-  "description_zh": "设置区域封禁",
+  "description_en": "Configures location blacklist settings for an Anti-DDoS Pro or Anti-DDoS Premium instance area",
+  "description_zh": "设置针对DDoS高防实例的区域封禁",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -21,8 +21,9 @@
   },
   "parameters": [
     {
-      "help_en": "The InstanceId",
-      "help_zh": "The InstanceId",
+      "example": "ddoscoo-cn-mp91j1ao****",
+      "help_en": "The ID of the Anti-DDoS Pro or Anti-DDoS Premium instance.\nYou can call https://help.aliyun.com/document_detail/157459.html to query the IDs of all Anti-DDoS Pro or Anti-DDoS Premium instances",
+      "help_zh": "DDoS高防实例的ID。\n您可以调用https://help.aliyun.com/document_detail/157459.html查询所有DDoS高防实例的ID信息",
       "location": "query",
       "name": "instance_id",
       "options": [
@@ -33,8 +34,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Config",
-      "help_zh": "The Config",
+      "example": "{\"RegionBlockSwitch\":\"on\",\"Countries\":[],\"Provinces\":[11,12,13,14,15,21,22,23,31,32,33,34,35,36,37,41,42,43,44,45,46,50,51,52,53,54,61,62,63,64,65,71,81,82]}",
+      "help_en": "The configuration of the location blacklist, expressed as a JSON string with the following structure:\nRegionBlockSwitch: String type. Required. The switch status of the location blacklist. Valid values:\n    - on: enabled\n    - off: disabled\nCountries: Array type. Optional. The list of international region codes to block.\n    > For more information about international region codes, see https://help.aliyun.com/document_detail/167926.html.\n\n\nProvinces: Array type. Optional. The list of China region codes to block.\n\n    > For more information about China region codes, see https://help.aliyun.com/document_detail/167926.html.\n\n    For example, `[11,12]` indicates Beijing and Tianjin",
+      "help_zh": "区域封禁的配置信息，使用JSON格式的字符串表述，具体结构如下。\nRegionBlockSwitch：String类型，必选，区域封禁的开关状态。取值：\n    - on：开启\n    - off：关闭\nCountries：Array类型，可选，要封禁的国际地域代码列表。\n    > 关于国际地域代码的详细信息，请参见https://help.aliyun.com/document_detail/167926.html。\n。\n\nProvinces：Array类型，可选，要封禁的中国地域代码列表。\n\n    > 关于中国地域代码的详细信息，请参见https://help.aliyun.com/document_detail/167926.html。\n\n    例如，`[11,12]`表示北京市和天津市",
       "location": "query",
       "name": "config",
       "options": [
@@ -47,19 +49,5 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "name": "Config",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "InstanceId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

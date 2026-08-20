@@ -263,10 +263,34 @@
             {
               "fields": [
                 {
+                  "help_en": "Specifies whether to filter by migration rule. Valid values:\ntrue: Only migrated rules (migration_status is not 0 or NULL).\nfalse: Only native rules (migration_status = 0)",
+                  "help_zh": "是否迁移规则：true=仅迁移规则（migration_status 非0或 NULL）；false=仅原生规则（migration_status=0）",
+                  "name": "is_migrated",
+                  "options": [
+                    "--is-migrated"
+                  ],
+                  "raw_name": "isMigrated",
+                  "required": false,
+                  "type": "bool"
+                }
+              ],
+              "help_en": "The migration status filter",
+              "help_zh": "迁移状态过滤",
+              "name": "migration_status",
+              "options": [
+                "--migration-status"
+              ],
+              "raw_name": "migrationStatus",
+              "required": false,
+              "type": "object"
+            },
+            {
+              "fields": [
+                {
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsContacts",
+                  "help_en": "规则的通知联系人列表包含数组中任一值（OR 语义），对应 V1 notification.contacts",
                   "help_zh": "规则的通知联系人列表包含数组中任一值（OR 语义），对应 V1 notification.contacts",
                   "name": "contains_contacts",
                   "options": [
@@ -280,7 +304,7 @@
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsCustomWebhooks",
+                  "help_en": "规则的自定义 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.customWebhooks",
                   "help_zh": "规则的自定义 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.customWebhooks",
                   "name": "contains_custom_webhooks",
                   "options": [
@@ -294,7 +318,7 @@
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsDingWebhooks",
+                  "help_en": "规则的钉钉 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.dingWebhooks",
                   "help_zh": "规则的钉钉 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.dingWebhooks",
                   "name": "contains_ding_webhooks",
                   "options": [
@@ -308,7 +332,7 @@
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsFsWebhooks",
+                  "help_en": "规则的飞书 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.fsWebhooks",
                   "help_zh": "规则的飞书 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.fsWebhooks",
                   "name": "contains_fs_webhooks",
                   "options": [
@@ -322,7 +346,7 @@
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsGroups",
+                  "help_en": "规则的通知联系人组列表包含数组中任一值（OR 语义），对应 V1 notification.groups",
                   "help_zh": "规则的通知联系人组列表包含数组中任一值（OR 语义），对应 V1 notification.groups",
                   "name": "contains_groups",
                   "options": [
@@ -336,7 +360,7 @@
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsSlackWebhooks",
+                  "help_en": "规则的 Slack Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.slackWebhooks",
                   "help_zh": "规则的 Slack Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.slackWebhooks",
                   "name": "contains_slack_webhooks",
                   "options": [
@@ -350,7 +374,7 @@
                   "element": {
                     "type": "string"
                   },
-                  "help_en": "The containsWxWebhooks",
+                  "help_en": "规则的企业微信 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.wxWebhooks",
                   "help_zh": "规则的企业微信 Webhook 列表包含数组中任一值（OR 语义），对应 V1 notification.wxWebhooks",
                   "name": "contains_wx_webhooks",
                   "options": [
@@ -361,7 +385,7 @@
                   "type": "array"
                 }
               ],
-              "help_en": "The notificationChannels",
+              "help_en": "通知渠道/对象过滤（与 V1 notificationFilterJson 语义对齐；字段间 OR：任一字段有值被规则包含即返回该规则；字段内 OR：同一字段多值中规则包含任一即可）",
               "help_zh": "通知渠道/对象过滤（与 V1 notificationFilterJson 语义对齐；字段间 OR：任一字段有值被规则包含即返回该规则；字段内 OR：同一字段多值中规则包含任一即可）",
               "name": "notification_channels",
               "options": [
@@ -400,7 +424,7 @@
                 {
                   "fields": [
                     {
-                      "help_en": "The eq",
+                      "help_en": "精确匹配",
                       "help_zh": "精确匹配",
                       "name": "eq",
                       "options": [
@@ -411,7 +435,7 @@
                       "type": "string"
                     }
                   ],
-                  "help_en": "The entityDomain",
+                  "help_en": "实体域过滤（精确匹配）",
                   "help_zh": "实体域过滤（精确匹配）",
                   "name": "entity_domain",
                   "options": [
@@ -427,7 +451,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The in",
+                      "help_en": "命中集合中任意一个（OR 语义）",
                       "help_zh": "命中集合中任意一个（OR 语义）",
                       "name": "in",
                       "options": [
@@ -441,7 +465,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The notIn",
+                      "help_en": "排除集合中任意一个（NOT IN 语义）",
                       "help_zh": "排除集合中任意一个（NOT IN 语义）",
                       "name": "not_in",
                       "options": [
@@ -452,7 +476,7 @@
                       "type": "array"
                     }
                   ],
-                  "help_en": "The entityType",
+                  "help_en": "实体类型过滤（集合包含/排除）",
                   "help_zh": "实体类型过滤（集合包含/排除）",
                   "name": "entity_type",
                   "options": [
@@ -489,7 +513,7 @@
                 {
                   "fields": [
                     {
-                      "help_en": "The eq",
+                      "help_en": "精确匹配",
                       "help_zh": "精确匹配",
                       "name": "eq",
                       "options": [
@@ -500,7 +524,7 @@
                       "type": "string"
                     }
                   ],
-                  "help_en": "The productCategory",
+                  "help_en": "云监控产品类别过滤（精确匹配）",
                   "help_zh": "云监控产品类别过滤（精确匹配）",
                   "name": "product_category",
                   "options": [
@@ -516,7 +540,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The in",
+                      "help_en": "命中集合中任意一个（OR 语义）：ALL/UMODEL_ENTITY/CLOUD_INSTANCE/GROUP_V1/GROUP_V2/TAG",
                       "help_zh": "命中集合中任意一个（OR 语义）：ALL/UMODEL_ENTITY/CLOUD_INSTANCE/GROUP_V1/GROUP_V2/TAG",
                       "name": "in",
                       "options": [
@@ -530,7 +554,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The notIn",
+                      "help_en": "排除集合中任意一个（NOT IN 语义）",
                       "help_zh": "排除集合中任意一个（NOT IN 语义）",
                       "name": "not_in",
                       "options": [
@@ -541,7 +565,7 @@
                       "type": "array"
                     }
                   ],
-                  "help_en": "The relationType",
+                  "help_en": "关系类型过滤（集合包含/排除）",
                   "help_zh": "关系类型过滤（集合包含/排除）",
                   "name": "relation_type",
                   "options": [
@@ -557,7 +581,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The contains",
+                      "help_en": "命中列表中任意一个（OR 语义）",
                       "help_zh": "命中列表中任意一个（OR 语义）",
                       "name": "contains",
                       "options": [
@@ -571,7 +595,7 @@
                       "element": {
                         "type": "string"
                       },
-                      "help_en": "The notContains",
+                      "help_en": "全部不包含",
                       "help_zh": "全部不包含",
                       "name": "not_contains",
                       "options": [
@@ -582,7 +606,7 @@
                       "type": "array"
                     }
                   ],
-                  "help_en": "The resources",
+                  "help_en": "资源列表过滤（contains / notContains）",
                   "help_zh": "资源列表过滤（contains / notContains）",
                   "name": "resources",
                   "options": [
@@ -629,7 +653,7 @@
             },
             {
               "example": "i-bp1abcxxxxxxxx",
-              "help_en": "The observeResourceInstanceId",
+              "help_en": "[Deprecated] Filters by a single resource entity ID. This field is retained only for backward compatibility with legacy SDKs. For new integrations, use observeResourceList.contains instead. If this field is not empty and observeResourceList is not specified, it is equivalent to observeResourceList.contains=[observeResourceInstanceId]",
               "help_zh": "[已废弃] 资源实例 ID 单值过滤；仅为兼容历史 SDK 保留，新接入请改用 observeResourceList.contains。当本字段非空且 observeResourceList 未填时，等价于 observeResourceList.contains=[observeResourceInstanceId]",
               "name": "observe_resource_instance_id",
               "options": [
@@ -755,7 +779,7 @@
                   "type": "string"
                 }
               ],
-              "help_en": "The status",
+              "help_en": "告警状态过滤",
               "help_zh": "告警状态过滤",
               "name": "status",
               "options": [
@@ -804,7 +828,7 @@
               "type": "object"
             }
           ],
-          "help_en": "The filter",
+          "help_en": "The filter conditions (sibling fields are combined with AND)",
           "help_zh": "过滤条件（同级字段 AND）",
           "name": "filter",
           "options": [

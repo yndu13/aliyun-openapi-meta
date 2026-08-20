@@ -20,6 +20,7 @@
       "cpu": "cpu",
       "credential_configuration": "credentialConfiguration",
       "description": "description",
+      "disable_public_network_access": "disablePublicNetworkAccess",
       "enable_agent": "enableAgent",
       "enable_pre_stop": "enablePreStop",
       "environment_variables": "environmentVariables",
@@ -47,7 +48,7 @@
   "parameters": [
     {
       "example": "my-template",
-      "help_en": "The name of the template",
+      "help_en": "The template name",
       "help_zh": "模板名称",
       "location": "path",
       "name": "template_name",
@@ -60,7 +61,7 @@
     },
     {
       "example": "clientToken",
-      "help_en": "A unique client token to ensure request idempotency",
+      "help_en": "The client token",
       "help_zh": "客户端令牌",
       "location": "query",
       "name": "client_token",
@@ -89,7 +90,7 @@
       "fields": [
         {
           "example": "arms-license-key-123456",
-          "help_en": "The armsLicenseKey",
+          "help_en": "应用实时监控服务（ARMS）的许可证密钥",
           "help_zh": "应用实时监控服务（ARMS）的许可证密钥",
           "name": "arms_license_key",
           "options": [
@@ -101,7 +102,7 @@
         },
         {
           "example": "default-cms-1760xxxxxxxx5983-cn-hangzhou",
-          "help_en": "The cmsWorkspace",
+          "help_en": "CMS 2.0 工作空间",
           "help_zh": "CMS 2.0 工作空间",
           "name": "cms_workspace",
           "options": [
@@ -113,7 +114,7 @@
         },
         {
           "example": "true",
-          "help_en": "The enableArms",
+          "help_en": "是否启用应用实时监控服务（ARMS）",
           "help_zh": "是否启用应用实时监控服务（ARMS）",
           "name": "enable_arms",
           "options": [
@@ -407,6 +408,20 @@
     },
     {
       "example": "true",
+      "help_en": "是否禁止公网访问",
+      "help_zh": "是否禁止公网访问",
+      "location": "body",
+      "name": "disable_public_network_access",
+      "options": [
+        "--disable-public-network-access"
+      ],
+      "param_style": "json",
+      "raw_name": "disablePublicNetworkAccess",
+      "required": false,
+      "type": "bool"
+    },
+    {
+      "example": "true",
       "help_en": "Sandbox Agent toggle  ",
       "help_zh": "Sandbox Agent 开关",
       "location": "body",
@@ -420,7 +435,7 @@
       "type": "bool"
     },
     {
-      "help_en": "The enablePreStop",
+      "help_en": "是否开启实例销毁前回调",
       "help_zh": "是否开启实例销毁前回调",
       "location": "body",
       "name": "enable_pre_stop",
@@ -763,7 +778,7 @@
     },
     {
       "example": "10",
-      "help_en": "The preStopTimeoutInSeconds",
+      "help_en": "实例销毁前回调超时时间（秒）",
       "help_zh": "实例销毁前回调超时时间（秒）",
       "location": "body",
       "name": "pre_stop_timeout_in_seconds",
@@ -822,7 +837,7 @@
             "fields": [
               {
                 "example": "2024-01-01T08:00:00",
-                "help_en": "The expiration time of the policy",
+                "help_en": "The time when the policy expires",
                 "help_zh": "策略失效时间",
                 "name": "end_time",
                 "options": [
@@ -870,7 +885,7 @@
               },
               {
                 "example": "20",
-                "help_en": "The target instance count for the policy",
+                "help_en": "The number of target instances for the policy",
                 "help_zh": "策略目标实例数",
                 "name": "target",
                 "options": [
@@ -895,7 +910,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The scheduled scaling policies",
+          "help_en": "The scheduled scale-out policies",
           "help_zh": "定时扩容策略",
           "name": "scheduled_policies",
           "options": [
@@ -954,7 +969,7 @@
   "protocol": "HTTPS",
   "v1_body_parameters": [
     {
-      "help_en": "The request body for the template update",
+      "help_en": "The request parameters for updating the template",
       "help_zh": "更新模板请求参数",
       "name": "body",
       "param_style": "json",

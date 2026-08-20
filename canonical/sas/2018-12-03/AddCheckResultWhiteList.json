@@ -3,7 +3,7 @@
   "cmd_full_name": "sas add-check-result-white-list",
   "cmd_name": "add-check-result-white-list",
   "deprecated": false,
-  "description_en": "Adds the check items of the configuration assessment feature to the whitelist",
+  "description_en": "Adds check items to the whitelist for cloud platform configuration checks",
   "description_zh": "云平台配置检查把检查项加入白名单",
   "kebab_example": "",
   "method": "GET|POST",
@@ -24,7 +24,7 @@
       "element": {
         "type": "int"
       },
-      "help_en": "The IDs of the check items.\n\nYou can call the [ListCheckResult](~~ListCheckResult~~) operation to query the IDs of the check items",
+      "help_en": "The IDs of the check items.\nCall the [ListCheckResult](~~ListCheckResult~~) operation to obtain this parameter",
       "help_zh": "检查项ID集合。\n调用[ListCheckResult](~~ListCheckResult~~)接口获取该参数",
       "location": "query",
       "name": "check_ids",
@@ -38,7 +38,7 @@
     },
     {
       "example": "WHITE",
-      "help_en": "The type of the rule. Default value: WHITE. Valid value:\n\nWHITE: Add check items to the whitelist",
+      "help_en": "The rule type. Default value: WHITE. Valid values:\nWHITE: adds to the whitelist",
       "help_zh": "规则类型。默认WHITE。取值：\nWHITE: 加白名单",
       "location": "query",
       "name": "rule_type",
@@ -51,7 +51,7 @@
     },
     {
       "example": "test",
-      "help_en": "The description. The value of this parameter can be up to 65,535 bytes in length",
+      "help_en": "The remarks. Maximum length: 65,535 bytes",
       "help_zh": "备注信息。最大65535个字节",
       "location": "query",
       "name": "remark",
@@ -63,10 +63,22 @@
       "type": "string"
     },
     {
+      "help_en": "The client token that is used to ensure the idempotence of the request. Different requests should use different tokens. The token supports only ASCII characters and cannot exceed 64 characters in length",
+      "help_zh": "客户端 Token，用于保证请求幂等性。不同请求应使用不同的 Token；只支持 ASCII 字符，长度不超过 64 个字符",
+      "location": "query",
+      "name": "client_token",
+      "options": [
+        "--client-token"
+      ],
+      "raw_name": "ClientToken",
+      "required": false,
+      "type": "string"
+    },
+    {
       "element": {
         "type": "string"
       },
-      "help_en": "IDs of the cloud product instances that need to be whitelisted. Separate multiple IDs with a comma (,)",
+      "help_en": "The instance IDs of the cloud service instances to add to the whitelist. Separate multiple instance IDs with commas (,)",
       "help_zh": "需要加白的云产品实例ID。多个ID使用英文逗号（,）隔开",
       "location": "query",
       "name": "instance_ids",

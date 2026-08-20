@@ -3,7 +3,7 @@
   "cmd_full_name": "csas update-private-access-application",
   "cmd_name": "update-private-access-application",
   "deprecated": false,
-  "description_en": "Modifies an internal-facing access application under the current Alibaba Cloud account",
+  "description_en": "Modifies a private access application under the current Alibaba Cloud account",
   "description_zh": "修改当前阿里云账号下内网访问应用",
   "kebab_example": "",
   "method": "POST",
@@ -24,7 +24,7 @@
   "parameters": [
     {
       "example": "pa-application-e12860ef6c48****",
-      "help_en": "The ID of the internal-facing access application. You can obtain the value from the following operations:\n[ListPrivateAccessApplications](~~ListPrivateAccessApplications~~): lists internal-facing access applications.\n[CreatePrivateAccessApplication](~~CreatePrivateAccessApplication~~): creates an internal-facing access application",
+      "help_en": "The ID of the private access application. You can obtain the value from:\n[ListPrivateAccessApplications](~~ListPrivateAccessApplications~~): Lists private access applications.\n[CreatePrivateAccessApplication](~~CreatePrivateAccessApplication~~): Creates a private access application",
       "help_zh": "内网访问应用ID。取值来源：\n[ListPrivateAccessApplications](~~ListPrivateAccessApplications~~)：批量查询内网访问应用。\n[CreatePrivateAccessApplication](~~CreatePrivateAccessApplication~~)：创建内网访问应用",
       "location": "formData",
       "name": "application_id",
@@ -37,7 +37,7 @@
     },
     {
       "example": "这是一条内网访问应用",
-      "help_en": "The description of the internal-facing access application. The description must be 1 to 128 characters in length and can contain Chinese characters, uppercase and lowercase letters, digits, periods (.), underscores (_), hyphens (-), and spaces",
+      "help_en": "The description of the private access application. The description must be 1 to 128 characters in length and can contain Chinese characters, letters, digits, periods (.), underscores (_), hyphens (-), and spaces",
       "help_zh": "内网访问应用描述。长度为1~128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）、短划线（-）和空格",
       "location": "formData",
       "name": "description",
@@ -52,7 +52,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The addresses of the internal-facing access application. You can specify up to 1000 addresses",
+      "help_en": "The addresses of the private access application. You can specify up to 1000 addresses",
       "help_zh": "内网访问应用地址集合。最多可输入1000个内网访问应用地址",
       "location": "formData",
       "name": "addresses",
@@ -94,7 +94,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The port ranges of the internal-facing access application. You can specify up to 65535 port ranges. Multiple port ranges cannot be duplicate or overlap",
+      "help_en": "The port ranges of the private access application. You can specify up to 65535 port ranges. Multiple port ranges cannot overlap",
       "help_zh": "内网访问应用端口范围集合。最多可输入65535个端口范围。多个端口范围不可重复或重叠",
       "location": "formData",
       "name": "port_ranges",
@@ -108,7 +108,7 @@
     },
     {
       "example": "All",
-      "help_en": "The protocol of the internal-facing access application. Valid values:\nAll: all protocols.\nTCP\nUDP",
+      "help_en": "The protocol of the private access application. Valid values:\nAll: all protocols.\nTCP\nUDP",
       "help_zh": "内网访问应用协议。取值：\nAll：全部。\nTCP\nUDP",
       "location": "formData",
       "name": "protocol",
@@ -121,7 +121,7 @@
     },
     {
       "example": "Enabled",
-      "help_en": "The status of the internal-facing access application. Valid values:\nEnabled: enabled.\nDisabled: disabled",
+      "help_en": "The status of the private access application. Valid values:\nEnabled: enabled.\nDisabled: disabled",
       "help_zh": "内网访问应用状态。取值：\nEnabled：开启。\nDisabled：关闭",
       "location": "formData",
       "name": "status",
@@ -136,7 +136,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The IDs of internal-facing access tags. You can associate up to 6 custom internal-facing access tags with each internal-facing access application",
+      "help_en": "The IDs of private access tags. A private access application can be associated with up to 6 custom private access tags",
       "help_zh": "内网访问标签ID集合。1个内网访问应用最多可关联6个自定义类型的内网访问标签",
       "location": "formData",
       "name": "tag_ids",
@@ -150,7 +150,7 @@
     },
     {
       "example": "Cover",
-      "help_en": "The modification type of the internal-facing access application. Valid values:\nCover (default): overwrites the original addresses, port ranges, and tag IDs with the values of the Addresses, PortRanges, and TagIds parameters.\nAppend: adds the values of the Addresses, PortRanges, and TagIds parameters to the original addresses, port ranges, and tag IDs",
+      "help_en": "The modification type of the private access application. Valid values:\nCover (default): overwrites the original addresses, port ranges, and tag IDs with the values of the Addresses, PortRanges, and TagIds parameters.\nAppend: appends the values of the Addresses, PortRanges, and TagIds parameters to the original addresses, port ranges, and tag IDs",
       "help_zh": "内网访问应用的修改类型。取值：\nCover（默认）：使用Addresses、PortRanges、TagIds参数的值覆盖原地址、端口范围、标签ID集合。\nAppend：在原地址、端口范围、标签ID集合中分别增加Addresses、PortRanges、TagIds参数中输入的值",
       "location": "formData",
       "name": "modify_type",
@@ -747,7 +747,7 @@
       "type": "object"
     },
     {
-      "help_en": "The ConfigMode",
+      "help_en": "The configuration mode. Valid values:\nEmpty string: default mode.\nPrecise: precise mode",
       "help_zh": "配置模式，枚举值：\n空字符串：默认模式。\nPrecise：精细模式",
       "location": "formData",
       "name": "config_mode",
@@ -818,7 +818,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The AddressGroups",
+      "help_en": "The application address groups. This parameter can be specified when ConfigMode is set to Precise. This parameter cannot be specified when ConfigMode is an empty string",
       "help_zh": "应用地址组。在ConfigMode为Precise时可传；在ConfigMode为空字符串时不可传",
       "location": "formData",
       "name": "address_groups",
@@ -831,7 +831,7 @@
       "type": "array"
     },
     {
-      "help_en": "The Name",
+      "help_en": "The application name",
       "help_zh": "应用名称",
       "location": "formData",
       "name": "name",
@@ -1031,137 +1031,5 @@
   ],
   "pathPattern": "",
   "product_code": "csas",
-  "protocol": "HTTP|HTTPS",
-  "v1_body_parameters": [
-    {
-      "help_zh": "应用地址组。在ConfigMode为Precise时可传；在ConfigMode为空字符串时不可传",
-      "name": "AddressGroups",
-      "param_style": "flat",
-      "position": "body",
-      "required": false,
-      "type": "array"
-    },
-    {
-      "help_en": "The addresses of the internal-facing access application. You can specify up to 1000 addresses",
-      "help_zh": "内网访问应用地址集合。最多可输入1000个内网访问应用地址",
-      "name": "Addresses",
-      "param_style": "flat",
-      "position": "body",
-      "required": false,
-      "type": "array"
-    },
-    {
-      "help_en": "The ID of the internal-facing access application. You can obtain the value from the following operations:\n[ListPrivateAccessApplications](~~ListPrivateAccessApplications~~): lists internal-facing access applications.\n[CreatePrivateAccessApplication](~~CreatePrivateAccessApplication~~): creates an internal-facing access application",
-      "help_zh": "内网访问应用ID。取值来源：\n[ListPrivateAccessApplications](~~ListPrivateAccessApplications~~)：批量查询内网访问应用。\n[CreatePrivateAccessApplication](~~CreatePrivateAccessApplication~~)：创建内网访问应用",
-      "name": "ApplicationId",
-      "position": "body",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_zh": "配置模式，枚举值：\n空字符串：默认模式。\nPrecise：精细模式",
-      "name": "ConfigMode",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The description of the internal-facing access application. The description must be 1 to 128 characters in length and can contain Chinese characters, uppercase and lowercase letters, digits, periods (.), underscores (_), hyphens (-), and spaces",
-      "help_zh": "内网访问应用描述。长度为1~128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）、短划线（-）和空格",
-      "name": "Description",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The browser access mode parameter: the Layer 7 application configuration",
-      "help_zh": "浏览器访问模式参数：7层应用配置",
-      "name": "L7Config",
-      "param_style": "json",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The browser access mode parameter: the prefix of the mapped proxy domain name. The prefix must be 3 to 20 characters in length and can contain lowercase letters, digits, and hyphens (-)",
-      "help_zh": "浏览器访问模式参数：映射代理域名前缀。长度为3-20个字符，支持小写英文字母、数字和短划线（-）",
-      "name": "L7ProxyDomainAutomaticPrefix",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The browser access mode parameter: the custom proxy domain name",
-      "help_zh": "浏览器访问模式参数：自定代理域名",
-      "name": "L7ProxyDomainCustom",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The browser access mode parameter: the private proxy domain name",
-      "help_zh": "浏览器访问模式参数：私有代理域名",
-      "name": "L7ProxyDomainPrivate",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The modification type of the internal-facing access application. Valid values:\nCover (default): overwrites the original addresses, port ranges, and tag IDs with the values of the Addresses, PortRanges, and TagIds parameters.\nAppend: adds the values of the Addresses, PortRanges, and TagIds parameters to the original addresses, port ranges, and tag IDs",
-      "help_zh": "内网访问应用的修改类型。取值：\nCover（默认）：使用Addresses、PortRanges、TagIds参数的值覆盖原地址、端口范围、标签ID集合。\nAppend：在原地址、端口范围、标签ID集合中分别增加Addresses、PortRanges、TagIds参数中输入的值",
-      "name": "ModifyType",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_zh": "应用名称",
-      "name": "Name",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The port ranges of the internal-facing access application. You can specify up to 65535 port ranges. Multiple port ranges cannot be duplicate or overlap",
-      "help_zh": "内网访问应用端口范围集合。最多可输入65535个端口范围。多个端口范围不可重复或重叠",
-      "name": "PortRanges",
-      "param_style": "flat",
-      "position": "body",
-      "required": false,
-      "type": "array"
-    },
-    {
-      "help_en": "The protocol of the internal-facing access application. Valid values:\nAll: all protocols.\nTCP\nUDP",
-      "help_zh": "内网访问应用协议。取值：\nAll：全部。\nTCP\nUDP",
-      "name": "Protocol",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The status of the internal-facing access application. Valid values:\nEnabled: enabled.\nDisabled: disabled",
-      "help_zh": "内网访问应用状态。取值：\nEnabled：开启。\nDisabled：关闭",
-      "name": "Status",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The IDs of internal-facing access tags. You can associate up to 6 custom internal-facing access tags with each internal-facing access application",
-      "help_zh": "内网访问标签ID集合。1个内网访问应用最多可关联6个自定义类型的内网访问标签",
-      "name": "TagIds",
-      "param_style": "flat",
-      "position": "body",
-      "required": false,
-      "type": "array"
-    },
-    {
-      "help_zh": "未授权应用访问申请配置",
-      "name": "UnauthorizedAccessConfig",
-      "param_style": "json",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

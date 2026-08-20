@@ -3,7 +3,8 @@
   "cmd_full_name": "ddoscoo modify-web-ai-protect-mode",
   "cmd_name": "modify-web-ai-protect-mode",
   "deprecated": false,
-  "description_zh": "ModifyWebAIProtectMode",
+  "description_en": "Changes the mode of the intelligent protection feature for a website",
+  "description_zh": "设置网站业务AI智能防护的模式",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -20,8 +21,9 @@
   },
   "parameters": [
     {
-      "help_en": "The ResourceGroupId",
-      "help_zh": "The ResourceGroupId",
+      "example": "default",
+      "help_en": "The ID of the resource group to which the instance belongs in Resource Management. This parameter is empty by default, which indicates that the instance belongs to the default resource group",
+      "help_zh": "DDoS高防实例在资源管理产品中所属的资源组ID。默认为空，即属于默认资源组",
       "location": "query",
       "name": "resource_group_id",
       "options": [
@@ -32,8 +34,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Domain",
-      "help_zh": "The Domain",
+      "example": "www.aliyun.com",
+      "help_en": "The domain name of the website.\n\nA forwarding rule must be configured for the domain name. You can call the https://help.aliyun.com/document_detail/474212.html operation to query all domain names",
+      "help_zh": "网站业务的域名。\n域名必须已配置网站业务转发规则。您可以调用https://help.aliyun.com/document_detail/474212.html查询所有域名",
       "location": "query",
       "name": "domain",
       "options": [
@@ -44,8 +47,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Config",
-      "help_zh": "The Config",
+      "example": "{\"AiTemplate\":\"level60\",\"AiMode\":\"defense\"}",
+      "help_en": "The details of the Intelligent Protection policy. This parameter is a JSON string. The string contains the following fields:\n\nAiTemplate: the level of the Intelligent Protection policy. This field is required and must be of the STRING type. Valid values:\n\n    *   level30: the Low level\n    *   level60: the Normal level\n    *   level90: the Strict level\n\nAiMode: the mode of the Intelligent Protection policy. This field is required and must be of the string type. Valid values:\n\n    *   watch: the Warning mode\n    *   defense: the Defense mode",
+      "help_zh": "AI智能防护配置的详细信息，使用JSON格式的字符串表述，具体结构如下。\nAiTemplate：String类型，必选，AI智能防护功能的防护等级。取值：\n    - level30：宽松\n    - level60：正常\n    - level90：严格\nAiMode：String类型，必选，AI智能防护功能的防护模式。取值：\n    - watch：预警模式\n    - defense：防护模式",
       "location": "query",
       "name": "config",
       "options": [
@@ -58,25 +62,5 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "name": "Config",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Domain",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "ResourceGroupId",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

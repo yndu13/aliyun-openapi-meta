@@ -33,8 +33,14 @@
     "CreateSession": {
       "cmd_name": "create-session",
       "deprecated": false,
-      "description_en": "Creates an explicit session resource. The system automatically generates a unique SessionID, pre-allocates a function instance, and binds it to the session. You can specify TTL and IdleTimeout. This operation applies to the HEADER_FIELD or GENERATED_COOKIE affinity types, enabling session warm-up and configuration initialization. After the call, you can include the session in InvokeFunction requests for request routing",
+      "description_en": "Creates an explicit session resource. The system automatically generates a unique SessionID, pre-allocates a function instance, and binds it to the session. You can specify TTL and IdleTimeout. This operation applies to the HEADER_FIELD or GENERATED_COOKIE affinity types to implement session warm-up and configuration initialization. After the call, you can include the session in InvokeFunction requests for request routing",
       "description_zh": "创建一个显式会话资源。系统自动生成唯一 SessionID，预分配函数实例并绑定会话，支持指定 TTL 和 IdleTimeout。适用于 HEADER_FIELD 或 GENERATED_COOKIE 亲和类型，实现会话预热与配置初始化，调用后即可在 InvokeFunction 请求携带，用于路由请求"
+    },
+    "CreateSnapshot": {
+      "cmd_name": "create-snapshot",
+      "deprecated": false,
+      "description_en": "Creates a user snapshot from a normal and unexpired micro-sandbox session",
+      "description_zh": "从正常且未过期的微沙箱会话中创建用户快照"
     },
     "CreateTrigger": {
       "cmd_name": "create-trigger",
@@ -105,8 +111,14 @@
     "DeleteSession": {
       "cmd_name": "delete-session",
       "deprecated": false,
-      "description_en": "Deletes the specified session and prohibits new requests from being routed to it. Clears the session metadata from the database, so subsequent requests with the same session ID are treated as new sessions. Releases resources and performs session cleanup. In session isolation scenarios, terminates running requests and releases the instance bound to the session. In non-session isolation scenarios, allows running requests to continue and gracefully terminates them",
+      "description_en": "Deletes a specified session, blocks new request routing, and purges session metadata from the database. Subsequent requests from the client carrying the same SessionID are treated as a new session. This operation releases resources and cleans up the session. In session isolation scenarios, the system stops running requests and releases instances bound to the session. In non-session isolation scenarios, running requests continue to run and terminate gracefully",
       "description_zh": "删除指定会话，禁止新请求路由，会话元数据从数据库清除，客户携带相同 SessionID 的后续请求视为新会话。实现资源释放与会话清理。在会话隔离场景下，系统将中止运行的请求，释放会话绑定的实例。非会话隔离场景下，正在运行中的请求将继续运行，优雅终止"
+    },
+    "DeleteSnapshot": {
+      "cmd_name": "delete-snapshot",
+      "deprecated": false,
+      "description_en": "Deletes a user MicroSandbox snapshot",
+      "description_zh": "删除用户 MicroSandbox 快照"
     },
     "DeleteTrigger": {
       "cmd_name": "delete-trigger",
@@ -171,7 +183,7 @@
     "GetFunction": {
       "cmd_name": "get-function",
       "deprecated": false,
-      "description_en": "Retrieves information about a function",
+      "description_en": "Retrieves function information",
       "description_zh": "获取函数信息"
     },
     "GetFunctionCode": {
@@ -209,6 +221,12 @@
       "deprecated": false,
       "description_en": "Retrieves the details of a specified session, including the session ID, associated function, affinity type, lifecycle configuration, status, and instance information. This operation queries the current metadata of a single session and supports exact matching by functionName and qualifier for external system monitoring and debugging. Only sessions in the Active state can be queried",
       "description_zh": "获取指定会话的详细信息，包括 SessionID、关联函数、亲和类型、生命周期配置、状态及实例信息。用于查询单个会话当前元数据，支持按 functionName 和 qualifier 精确定位，便于外部系统监控与调试，仅支持查询 Active 状态的会话"
+    },
+    "GetSnapshot": {
+      "cmd_name": "get-snapshot",
+      "deprecated": false,
+      "description_en": "Retrieves snapshot information",
+      "description_zh": "获取快照信息"
     },
     "GetTrigger": {
       "cmd_name": "get-trigger",
@@ -299,6 +317,12 @@
       "deprecated": false,
       "description_en": "Lists sessions in Active or Expired status under a specified function. Supports filtering by qualifier, status, and session ID, and supports paged query. Returns basic session properties for batch viewing of session distribution and status, facilitating operations management and external system integration, and improving session visibility and management capability",
       "description_zh": "列举指定函数下Active/Expired 状态的会话列表，支持按 qualifier、状态、会话ID过滤，分页查询。返回会话基础属性，用于批量查看会话分布与状态，助力运维监控和外部系统集成，提升会话可见性与管理能力"
+    },
+    "ListSnapshots": {
+      "cmd_name": "list-snapshots",
+      "deprecated": false,
+      "description_en": "Lists snapshot information",
+      "description_zh": "列出快照信息"
     },
     "ListTagResources": {
       "cmd_name": "list-tag-resources",
@@ -399,7 +423,7 @@
     "UpdateFunction": {
       "cmd_name": "update-function",
       "deprecated": false,
-      "description_en": "Updates a function's configuration",
+      "description_en": "Updates function information",
       "description_zh": "更新函数信息"
     },
     "UpdateSession": {

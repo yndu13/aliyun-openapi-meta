@@ -20,6 +20,7 @@
       "cpu": "cpu",
       "credential_configuration": "credentialConfiguration",
       "description": "description",
+      "disable_public_network_access": "disablePublicNetworkAccess",
       "disk_size": "diskSize",
       "enable_agent": "enableAgent",
       "enable_pre_stop": "enablePreStop",
@@ -66,7 +67,7 @@
       "fields": [
         {
           "example": "arms-license-key-123456",
-          "help_en": "The armsLicenseKey",
+          "help_en": "应用实时监控服务（ARMS）的许可证密钥",
           "help_zh": "应用实时监控服务（ARMS）的许可证密钥",
           "name": "arms_license_key",
           "options": [
@@ -78,7 +79,7 @@
         },
         {
           "example": "default-cms-1760xxxxxxxx5983-cn-hangzhou",
-          "help_en": "The cmsWorkspace",
+          "help_en": "CMS 2.0 工作空间",
           "help_zh": "CMS 2.0 工作空间",
           "name": "cms_workspace",
           "options": [
@@ -90,7 +91,7 @@
         },
         {
           "example": "true",
-          "help_en": "The enableArms",
+          "help_en": "是否启用应用实时监控服务（ARMS）",
           "help_zh": "是否启用应用实时监控服务（ARMS）",
           "name": "enable_arms",
           "options": [
@@ -315,7 +316,7 @@
           "type": "object"
         }
       ],
-      "help_en": "The container configuration. Only images based on the Browser or Code Interpreter base image are allowed",
+      "help_en": "The container configuration. Only images based on the Browser or Code Interpreter base images are allowed",
       "help_zh": "容器配置，只允许基于 Browser/Code Interpreter 基础镜像的 image",
       "location": "body",
       "name": "container_configuration",
@@ -383,6 +384,20 @@
       "type": "string"
     },
     {
+      "example": "true",
+      "help_en": "Specifies whether to disable public network access",
+      "help_zh": "是否禁止公网访问",
+      "location": "body",
+      "name": "disable_public_network_access",
+      "options": [
+        "--disable-public-network-access"
+      ],
+      "param_style": "json",
+      "raw_name": "disablePublicNetworkAccess",
+      "required": false,
+      "type": "bool"
+    },
+    {
       "example": "10240",
       "help_en": "The disk size",
       "help_zh": "磁盘大小",
@@ -410,7 +425,7 @@
       "type": "bool"
     },
     {
-      "help_en": "Specifies whether to enable the pre-stop callback before an instance is terminated",
+      "help_en": "Specifies whether to enable the pre-stop callback before an instance is destroyed",
       "help_zh": "是否开启实例销毁前回调",
       "location": "body",
       "name": "enable_pre_stop",
@@ -753,7 +768,7 @@
     },
     {
       "example": "10",
-      "help_en": "The timeout period for the pre-stop callback before an instance is terminated. Unit: seconds",
+      "help_en": "The timeout period for the pre-stop callback before an instance is destroyed. Unit: seconds",
       "help_zh": "实例销毁前回调超时时间（秒）",
       "location": "body",
       "name": "pre_stop_timeout_in_seconds",
@@ -781,7 +796,7 @@
     },
     {
       "example": "26000",
-      "help_en": "The sandbox time-to-live (TTL). Unit: seconds",
+      "help_en": "The sandbox time-to-live (TTL) period. Unit: seconds",
       "help_zh": "沙箱存活时间（秒）",
       "location": "body",
       "name": "sandbox_ttl_in_seconds",
@@ -812,7 +827,7 @@
             "fields": [
               {
                 "example": "2024-01-01T08:00:00",
-                "help_en": "The expiration time of the policy",
+                "help_en": "The time when the policy expires",
                 "help_zh": "策略失效时间",
                 "name": "end_time",
                 "options": [
@@ -860,7 +875,7 @@
               },
               {
                 "example": "20",
-                "help_en": "The target instance count for the policy",
+                "help_en": "The number of target instances for the policy",
                 "help_zh": "策略目标实例数",
                 "name": "target",
                 "options": [
@@ -885,7 +900,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The scheduled scaling policies",
+          "help_en": "The scheduled scale-out policies",
           "help_zh": "定时扩容策略",
           "name": "scheduled_policies",
           "options": [
@@ -909,7 +924,7 @@
       "type": "object"
     },
     {
-      "help_en": "The template configuration. This is a flexible object structure that varies based on the templateType value",
+      "help_en": "The template configuration. This is a flexible object structure that varies based on the templateType",
       "help_zh": "模板配置（灵活的对象结构，根据 templateType 不同而不同）",
       "location": "body",
       "name": "template_configuration",
@@ -972,7 +987,7 @@
   "protocol": "HTTPS",
   "v1_body_parameters": [
     {
-      "help_en": "CreateTemplate request parameters",
+      "help_en": "The request parameters for creating a template",
       "help_zh": "创建模板请求参数",
       "name": "body",
       "param_style": "json",

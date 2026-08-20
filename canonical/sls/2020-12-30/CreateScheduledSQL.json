@@ -3,7 +3,7 @@
   "cmd_full_name": "sls create-scheduled-sql",
   "cmd_name": "create-scheduled-sql",
   "deprecated": false,
-  "description_en": "Creates a scheduled SQL job in a specified project",
+  "description_en": "Creates a scheduled query job in the specified project",
   "description_zh": "在指定的Project下创建一个定时SQL任务",
   "kebab_example": "",
   "method": "POST",
@@ -46,7 +46,7 @@
       "fields": [
         {
           "example": "log2log",
-          "help_en": "The data format. Valid values: log2log, log2metric, and metric2metric",
+          "help_en": "The write mode. Three configurations are supported: log2log, log2metric, and metric2metric",
           "help_zh": "支持三种配置：log2log、log2metric、metric2metric",
           "name": "data_format",
           "options": [
@@ -58,7 +58,7 @@
         },
         {
           "example": "cn-hangzhou-intranet.log.aliyuncs.com",
-          "help_en": "The endpoint",
+          "help_en": "The destination endpoint",
           "help_zh": "目标Endpoint",
           "name": "dest_endpoint",
           "options": [
@@ -70,7 +70,7 @@
         },
         {
           "example": "dest-logstore-demo",
-          "help_en": "The destination Logstore",
+          "help_en": "The destination logstore",
           "help_zh": "目标库",
           "name": "dest_logstore",
           "options": [
@@ -94,7 +94,7 @@
         },
         {
           "example": "acs:ram::123456789:role/aliyunlogetlrole",
-          "help_en": "The ARN of the RAM role that is assumed to write data to the destination Logstore",
+          "help_en": "The ARN of the role used to write data to the destination",
           "help_zh": "写目标授权角色ARN",
           "name": "dest_role_arn",
           "options": [
@@ -103,6 +103,18 @@
           "raw_name": "destRoleArn",
           "required": true,
           "type": "string"
+        },
+        {
+          "example": "true",
+          "help_en": "Specifies whether to ensure accurate computation results",
+          "help_zh": "确保计算结果精确",
+          "name": "force_complete",
+          "options": [
+            "--force-complete"
+          ],
+          "raw_name": "forceComplete",
+          "required": false,
+          "type": "bool"
         },
         {
           "example": "1712592000",
@@ -118,7 +130,7 @@
         },
         {
           "example": "@m-1m",
-          "help_en": "The start time of the SQL time window",
+          "help_en": "The start of the SQL time window",
           "help_zh": "SQL时间窗口开始",
           "name": "from_time_expr",
           "options": [
@@ -129,8 +141,20 @@
           "type": "string"
         },
         {
+          "example": "1",
+          "help_en": "The concurrency",
+          "help_zh": "并发",
+          "name": "max_concurrency",
+          "options": [
+            "--max-concurrency"
+          ],
+          "raw_name": "maxConcurrency",
+          "required": false,
+          "type": "int"
+        },
+        {
           "example": "20",
-          "help_en": "The maximum number of SQL timeouts allowed. Valid values: 1 to 100",
+          "help_en": "The maximum number of retries upon SQL timeout. Valid values: 1 to 100",
           "help_zh": "SQL超时最大次数，取值范围1～100",
           "name": "max_retries",
           "options": [
@@ -142,7 +166,7 @@
         },
         {
           "example": "600",
-          "help_en": "The maximum timeout period of SQL analysis. Unit: seconds. Valid values: 60 to 1800",
+          "help_en": "The maximum timeout period for SQL execution. Unit: seconds. Valid values: 60 to 1800",
           "help_zh": "SQL超时最长时间，单位：秒，取值范围60~1800",
           "name": "max_run_time_in_seconds",
           "options": [
@@ -154,7 +178,7 @@
         },
         {
           "example": "{\n  addLabels: \"{}\",\n  hashLabels: \"[]\",\n  labelKeys: \"[\\\"your label1\\\",\\\"your label2\\\"]\",\n  metricKeys: \"[\\\"your Indicator1\\\",\\\"your Indicator2\\\"]\",\n  metricName: \"\",\n  timeKey: \"\"\n}",
-          "help_en": "The SQL configurations. For more information, see https://help.aliyun.com/document_detail/286459.html",
+          "help_en": "The SQL configuration. For more information, see https://help.aliyun.com/document_detail/286459.html",
           "help_zh": "SQL配置。更多信息请参见https://help.aliyun.com/document_detail/286459.html",
           "name": "parameters",
           "options": [
@@ -169,7 +193,7 @@
         },
         {
           "example": "enhanced",
-          "help_en": "The type of the resource pool. The value enhanced specifies an enhanced resource pool",
+          "help_en": "The resource pool type. A value of enhanced indicates the enhanced resource pool",
           "help_zh": "资源池类型（enhanced表示增强型）",
           "name": "resource_pool",
           "options": [
@@ -181,7 +205,7 @@
         },
         {
           "example": "acs:ram::123456789:role/aliyunlogetlrole",
-          "help_en": "The Alibaba Cloud Resource Name (ARN) of the Resource Access Management (RAM) role that is assigned to the Scheduled SQL job",
+          "help_en": "The Alibaba Cloud Resource Name (ARN) of the role used to execute the SQL statement",
           "help_zh": "执行SQL授权角色ARN",
           "name": "role_arn",
           "options": [
@@ -193,7 +217,7 @@
         },
         {
           "example": "* | select *",
-          "help_en": "The query statement of the Scheduled SQL job",
+          "help_en": "The analytic statement of the scheduled query",
           "help_zh": "定时SQL分析语句",
           "name": "script",
           "options": [
@@ -205,7 +229,7 @@
         },
         {
           "example": "source-logstore-demo",
-          "help_en": "The source Logstore",
+          "help_en": "The source logstore",
           "help_zh": "源库",
           "name": "source_logstore",
           "options": [
@@ -217,7 +241,7 @@
         },
         {
           "example": "searchQuery",
-          "help_en": "The type of the query statement",
+          "help_en": "The SQL type",
           "help_zh": "SQL类型",
           "name": "sql_type",
           "options": [
@@ -241,7 +265,7 @@
         },
         {
           "example": "@m",
-          "help_en": "The end time of the SQL time window",
+          "help_en": "The end of the SQL time window",
           "help_zh": "SQL时间窗口结束",
           "name": "to_time_expr",
           "options": [
@@ -250,6 +274,17 @@
           "raw_name": "toTimeExpr",
           "required": true,
           "type": "string"
+        },
+        {
+          "help_en": "Specifies whether to use the Exactly-Once write protocol",
+          "help_zh": "使用 exactly-once 协议写数据",
+          "name": "using_exactly_once",
+          "options": [
+            "--using-exactly-once"
+          ],
+          "raw_name": "usingExactlyOnce",
+          "required": false,
+          "type": "bool"
         }
       ],
       "help_en": "The configuration of the job",
@@ -294,7 +329,7 @@
     },
     {
       "example": "sql-123456789-123456",
-      "help_en": "The job name. The name must be unique within a project.\n\nThe naming convention is as follows:\n\nThe name can contain only lowercase letters, digits, hyphens (-), and underscores (_).\n\nThe name must start and end with a lowercase letter or a digit.\n\nThe name must be 2 to 64 characters in length",
+      "help_en": "The name of the job. The naming rules are as follows:\n\nJob names must be unique within the same project.\nThe name can contain only lowercase letters, digits, hyphens (-), and underscores (_).\nThe name must start and end with a lowercase letter or digit.\nThe name must be 2 to 64 characters in length",
       "help_zh": "作业名称。其命名规则如下：\n\n同一个 Project 下，作业的名称不可重复。\n只能包括小写字母、数字、短划线（-）和下划线（_）。\n必须以小写字母或者数字开头和结尾。\n长度为 2-64 字符",
       "location": "body",
       "name": "name",
@@ -381,7 +416,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The scheduling configuration for the job",
+      "help_en": "The scheduling configuration of the job",
       "help_zh": "任务调度配置",
       "location": "body",
       "name": "schedule",
@@ -399,7 +434,7 @@
   "protocol": "HTTP|HTTPS",
   "v1_body_parameters": [
     {
-      "help_en": "The configurations of the scheduled SQL job",
+      "help_en": "The configuration of the scheduled query job",
       "help_zh": "定时SQL任务配置",
       "name": "body",
       "param_style": "json",

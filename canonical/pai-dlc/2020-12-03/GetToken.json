@@ -3,7 +3,7 @@
   "cmd_full_name": "pai-dlc get-token",
   "cmd_name": "get-token",
   "deprecated": false,
-  "description_en": "Obtains the sharing token of a DLC job. This token is used to view the information about the shared job",
+  "description_en": "Retrieves a sharing token for a DLC job, which is used to view information about the shared task",
   "description_zh": "获取DLC任务的分享令牌（Token），用于查看分享任务的相关信息",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "job",
-      "help_en": "The type of the job that you want to share. Valid values: job and tensorboard",
+      "help_en": "The type of the task to share. Valid values: job and tensorboard",
       "help_zh": "分享的任务类型，只可指定job或者tensorboard",
       "location": "query",
       "name": "target_type",
@@ -35,7 +35,7 @@
     },
     {
       "example": "dlc*******",
-      "help_en": "The ID of the job to be shared",
+      "help_en": "The ID of the task to share",
       "help_zh": "等待分享的任务的ID",
       "location": "query",
       "name": "target_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "60",
-      "help_en": "The time when the share link expires. Default value: 604800. Minimum value: 0. Unit: seconds",
+      "help_en": "The expiration time of the sharing link in seconds. Default value: 604800. Minimum value: 0",
       "help_zh": "分享链接过期时间（默认为604800秒），最小值为0",
       "location": "query",
       "name": "expire_time",
@@ -58,9 +58,78 @@
       "raw_name": "ExpireTime",
       "required": false,
       "type": "int"
+    },
+    {
+      "fields": [
+        {
+          "help_en": "The EnableCrossAccountAccess",
+          "help_zh": "The EnableCrossAccountAccess",
+          "name": "enable_cross_account_access",
+          "options": [
+            "--enable-cross-account-access"
+          ],
+          "raw_name": "EnableCrossAccountAccess",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "help_en": "The EnableLogDownloadJob",
+          "help_zh": "The EnableLogDownloadJob",
+          "name": "enable_log_download_job",
+          "options": [
+            "--enable-log-download-job"
+          ],
+          "raw_name": "EnableLogDownloadJob",
+          "required": false,
+          "type": "bool"
+        }
+      ],
+      "help_en": "The TokenSettings",
+      "help_zh": "The TokenSettings",
+      "location": "query",
+      "name": "token_settings",
+      "options": [
+        "--token-settings"
+      ],
+      "raw_name": "TokenSettings",
+      "required": false,
+      "type": "object"
     }
   ],
   "pathPattern": "/api/v1/tokens",
   "product_code": "pai-dlc",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "v1_parameters": [
+    {
+      "help_en": "The expiration time of the sharing link in seconds. Default value: 604800. Minimum value: 0",
+      "help_zh": "分享链接过期时间（默认为604800秒），最小值为0",
+      "name": "ExpireTime",
+      "position": "query",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "help_en": "The ID of the task to share",
+      "help_zh": "等待分享的任务的ID",
+      "name": "TargetId",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The type of the task to share. Valid values: job and tensorboard",
+      "help_zh": "分享的任务类型，只可指定job或者tensorboard",
+      "name": "TargetType",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "TokenSettings",
+      "param_style": "json",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    }
+  ]
 }

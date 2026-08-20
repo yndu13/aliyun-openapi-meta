@@ -3,6 +3,7 @@
   "cmd_full_name": "apig batch-import-http-apis",
   "cmd_name": "batch-import-http-apis",
   "deprecated": false,
+  "description_en": "批量导入HTTP API",
   "description_zh": "批量导入 HTTP API",
   "kebab_example": "",
   "method": "POST",
@@ -18,6 +19,7 @@
       "dry_run": "dryRun",
       "gateway_id": "gatewayId",
       "resource_group_id": "resourceGroupId",
+      "spec_content_base64": "specContentBase64",
       "spec_file_url": "specFileUrl",
       "spec_oss_config": "specOssConfig",
       "strategy": "strategy",
@@ -33,7 +35,7 @@
   },
   "parameters": [
     {
-      "help_en": "The allowUpdate",
+      "help_en": "是否允许覆盖更新已有的API，设置为true时gatewayId必填",
       "help_zh": "是否允许覆盖更新已有的API，设置为true时gatewayId必填",
       "location": "body",
       "name": "allow_update",
@@ -47,7 +49,7 @@
     },
     {
       "example": "Http",
-      "help_en": "The apiType",
+      "help_en": "API类型",
       "help_zh": "API类型",
       "location": "body",
       "name": "api_type",
@@ -60,7 +62,8 @@
       "type": "string"
     },
     {
-      "help_en": "The dryRun",
+      "example": "true",
+      "help_en": "预检功能，不进行导入只检查定义。三种ZIP来源均支持；specFileUrl或specOssConfig预检继续返回可重放的importRequest，specContentBase64预检仅返回检查结果并省略importRequest",
       "help_zh": "预检功能，不进行导入只检查定义",
       "location": "body",
       "name": "dry_run",
@@ -74,7 +77,7 @@
     },
     {
       "example": "gw-xxx",
-      "help_en": "The gatewayId",
+      "help_en": "网关实例ID。REST API在withGatewayExtension为true或allowUpdate为true时必填；HTTP API批量导入必须传入",
       "help_zh": "网关实例ID。REST API在withGatewayExtension为true或allowUpdate为true时必填；HTTP API批量导入必须传入",
       "location": "body",
       "name": "gateway_id",
@@ -88,7 +91,7 @@
     },
     {
       "example": "rg-xxx",
-      "help_en": "The resourceGroupId",
+      "help_en": "资源组ID",
       "help_zh": "资源组ID",
       "location": "body",
       "name": "resource_group_id",
@@ -101,8 +104,21 @@
       "type": "string"
     },
     {
+      "help_en": "OAS ZIP包原始字节的标准Base64编码。解码后最大10 MiB；不能与specFileUrl或specOssConfig同时传入。支持dryRun预检并返回检查结果，但Base64预检任务结果不返回可重放的importRequest",
+      "help_zh": "OAS ZIP包原始字节的标准Base64编码。解码后最大10 MiB；不能与specFileUrl或specOssConfig同时传入。支持dryRun预检并返回检查结果，但Base64预检任务结果不返回可重放的importRequest",
+      "location": "body",
+      "name": "spec_content_base64",
+      "options": [
+        "--spec-content-base64"
+      ],
+      "param_style": "json",
+      "raw_name": "specContentBase64",
+      "required": false,
+      "type": "string"
+    },
+    {
       "example": "https://oss-cn-hangzhou.aliyuncs.com/my-bucket/imports/batch.zip",
-      "help_en": "The specFileUrl",
+      "help_en": "OAS ZIP文件的下载地址，需要支持免验证下载；支持OSS URL或后端白名单域名，下载后的ZIP最大30 MiB。未传specContentBase64时，specFileUrl和specOssConfig至少传入一个；两者同传时优先使用specFileUrl",
       "help_zh": "OAS ZIP文件的下载地址，需要支持免验证下载；支持OSS URL或后端白名单域名。specFileUrl和specOssConfig至少传入一个",
       "location": "body",
       "name": "spec_file_url",
@@ -118,7 +134,7 @@
       "fields": [
         {
           "example": "my-bucket",
-          "help_en": "The bucketName",
+          "help_en": "OSS Bucket名称",
           "help_zh": "OSS Bucket名称",
           "name": "bucket_name",
           "options": [
@@ -130,7 +146,7 @@
         },
         {
           "example": "imports/batch.zip",
-          "help_en": "The objectKey",
+          "help_en": "OSS Object Key",
           "help_zh": "OSS Object Key",
           "name": "object_key",
           "options": [
@@ -142,7 +158,7 @@
         },
         {
           "example": "cn-hangzhou",
-          "help_en": "The regionId",
+          "help_en": "OSS所在地域ID",
           "help_zh": "OSS所在地域ID",
           "name": "region_id",
           "options": [
@@ -153,7 +169,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The specOssConfig",
+      "help_en": "OAS文件的OSS配置，ZIP包格式，下载后的ZIP最大30 MiB。未传specContentBase64时，specFileUrl和specOssConfig至少传入一个；两者同传时优先使用specFileUrl",
       "help_zh": "OAS文件的OSS配置，ZIP包格式。specFileUrl和specOssConfig至少传入一个",
       "location": "body",
       "name": "spec_oss_config",
@@ -162,12 +178,12 @@
       ],
       "param_style": "json",
       "raw_name": "specOssConfig",
-      "required": true,
+      "required": false,
       "type": "object"
     },
     {
       "example": "ExistFirst",
-      "help_en": "The strategy",
+      "help_en": "导入时的冲突合并策略，默认ExistFirst",
       "help_zh": "导入时的冲突合并策略，默认ExistFirst",
       "location": "body",
       "name": "strategy",
@@ -180,7 +196,8 @@
       "type": "string"
     },
     {
-      "help_en": "The withGatewayExtension",
+      "example": "false",
+      "help_en": "是否携带网关扩展配置导入。HTTP API批量导入必须设置为true",
       "help_zh": "是否携带网关扩展配置导入。HTTP API批量导入必须设置为true",
       "location": "body",
       "name": "with_gateway_extension",
@@ -198,6 +215,7 @@
   "protocol": "HTTPS",
   "v1_body_parameters": [
     {
+      "help_en": "批量导入配置",
       "help_zh": "批量导入配置",
       "name": "body",
       "param_style": "json",

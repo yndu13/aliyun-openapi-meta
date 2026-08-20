@@ -3,7 +3,8 @@
   "cmd_full_name": "ddoscoo add-auto-cc-whitelist",
   "cmd_name": "add-auto-cc-whitelist",
   "deprecated": false,
-  "description_zh": "AddAutoCcWhitelist",
+  "description_en": "Adds whitelist IP addresses for an Anti-DDoS Pro or Anti-DDoS Premium instance",
+  "description_zh": "添加针对DDoS高防实例的白名单IP",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -20,8 +21,9 @@
   },
   "parameters": [
     {
-      "help_en": "The InstanceId",
-      "help_zh": "The InstanceId",
+      "example": "ddoscoo-cn-mp91j1ao****",
+      "help_en": "The ID of the Anti-DDoS Pro or Anti-DDoS Premium instance for which you want to add whitelist IP addresses.\n\nYou can invoke https://help.aliyun.com/document_detail/157459.html to query the IDs of all Anti-DDoS Pro or Anti-DDoS Premium instances",
+      "help_zh": "要添加白名单IP的DDoS高防实例的ID。\n\n您可以调用https://help.aliyun.com/document_detail/157459.html查询所有DDoS高防实例的ID",
       "location": "query",
       "name": "instance_id",
       "options": [
@@ -32,8 +34,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Whitelist",
-      "help_zh": "The Whitelist",
+      "example": "[{\"src\":\"192.XX.XX.1\"},{\"src\":\"192.XX.XX.2\"}]",
+      "help_en": "The configuration of the whitelist IP addresses to add. This parameter is a string that is converted from a JSON array. Each element in the JSON array is a whitelist IP struct that contains the following field:\n\nsrc: String | Required | The IP address to add to the whitelist",
+      "help_zh": "要添加的白名单IP的配置。使用JSON数组转化的字符串表示。JSON数组的每个元素是一个白名单IP结构体，具体包含以下参数：\n\nsrc：String类型 | 必选 | 要添加到白名单的IP地址",
       "location": "query",
       "name": "whitelist",
       "options": [
@@ -44,8 +47,9 @@
       "type": "string"
     },
     {
-      "help_en": "The ExpireTime",
-      "help_zh": "The ExpireTime",
+      "example": "0",
+      "help_en": "[Deprecated] This parameter is deprecated.\n\nThis parameter specifies the validity period of blacklist IP addresses. Whitelist IP addresses are permanently valid by default. You do not need to set this parameter",
+      "help_zh": "该参数已废弃。\n\n该参数表示黑名单IP的有效期。白名单IP默认永久有效，无需设置该参数",
       "location": "query",
       "name": "expire_time",
       "options": [
@@ -58,25 +62,5 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "name": "ExpireTime",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "name": "InstanceId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Whitelist",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

@@ -3,7 +3,7 @@
   "cmd_full_name": "paistudio operate-node",
   "cmd_name": "operate-node",
   "deprecated": false,
-  "description_en": "Use OperateNode to manage nodes",
+  "description_en": "Operates on a specified node",
   "description_zh": "您可以通过OperateNode对节点进行操作",
   "kebab_example": "",
   "method": "POST",
@@ -42,7 +42,7 @@
     },
     {
       "example": "Cordon",
-      "help_en": "The operation to perform.\n\nCordon: Disables scheduling on the node.\n\nUncordon: Enables scheduling on the node.\n\nDrain: Evicts pods from the node",
+      "help_en": "The operation. Valid values:\nCordon: disables scheduling\nUncordon: enables scheduling\nDrain: evicts pods",
       "help_zh": "操作\nCordon：禁止调度\nUncordon：启动调度\nDrain：驱逐Pod",
       "location": "body",
       "name": "operation",
@@ -160,6 +160,30 @@
         {
           "fields": [
             {
+              "help_en": "The target disk capacity after the change",
+              "help_zh": "变更磁盘容量目标",
+              "name": "new_disk_size",
+              "options": [
+                "--new-disk-size"
+              ],
+              "raw_name": "NewDiskSize",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "help_en": "The ResizeDiskParameters",
+          "help_zh": "The ResizeDiskParameters",
+          "name": "resize_disk_parameters",
+          "options": [
+            "--resize-disk-parameters"
+          ],
+          "raw_name": "ResizeDiskParameters",
+          "required": false,
+          "type": "object"
+        },
+        {
+          "fields": [
+            {
               "example": "quota1ci8g793pgm",
               "help_en": "Quota ID. You can use this ID when you start a workspace or disable scheduling nodes",
               "help_zh": "Quota Id，启动工作空间禁止调度节点时使用",
@@ -195,7 +219,7 @@
           "type": "object"
         }
       ],
-      "help_en": "The parameter settings for the node operation",
+      "help_en": "The node operation parameter settings",
       "help_zh": "节点操作参数配置",
       "location": "body",
       "name": "operation_parameters",
@@ -209,7 +233,7 @@
     },
     {
       "example": "rgaekzbrflewn6jjq",
-      "help_en": "The ID of the resource group that contains the node",
+      "help_en": "The ID of the resource group to which the resource node belongs",
       "help_zh": "资源节点所属资源组Id",
       "location": "body",
       "name": "resource_group_id",

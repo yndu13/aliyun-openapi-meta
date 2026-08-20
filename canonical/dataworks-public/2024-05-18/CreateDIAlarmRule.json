@@ -3,7 +3,7 @@
   "cmd_full_name": "dataworks-public create-di-alarm-rule",
   "cmd_name": "create-di-alarm-rule",
   "deprecated": false,
-  "description_en": "Creates an alert rule for a synchronization task",
+  "description_en": "Creates an alert rule for a data integration task",
   "description_zh": "创建数据集成报警规则",
   "kebab_example": "",
   "method": "GET",
@@ -35,7 +35,7 @@
     },
     {
       "example": "Heartbeat",
-      "help_en": "The metric type in the alert rule. Valid values:\n\nHeartbeat\n\nFailoverCount\n\nDelay\n\nDdlReport\n\nResourceUtilization",
+      "help_en": "The alert metric type. Valid values:\nHeartbeat: task status alert.\nFailoverCount: failover count alert.\nDelay: task latency alert.\nDdlReport: DDL notification.\nResourceUtilization: resource group utilization",
       "help_zh": "告警指标类型，可选的枚举值：\nHeartbeat（任务状态报警）\nFailoverCount（failover次数报警）\nDelay（任务延迟报警）\nDdlReport（DDL通知）\nResourceUtilization（资源组使用率）",
       "location": "query",
       "name": "metric_type",
@@ -61,7 +61,7 @@
     },
     {
       "example": "1",
-      "help_en": "The ID of the synchronization task with which the alert rule is associated",
+      "help_en": "The task ID associated with the alert rule",
       "help_zh": "任务ID，是告警规则关联的任务ID",
       "location": "query",
       "name": "di_job_id",
@@ -74,7 +74,7 @@
     },
     {
       "example": "ABFUOEUOTRTRJKE",
-      "help_en": "The client token that is used to ensure the idempotence of the request",
+      "help_en": "The idempotency parameter",
       "help_zh": "幂等参数",
       "location": "query",
       "name": "client_token",
@@ -105,7 +105,7 @@
             "element": {
               "type": "string"
             },
-            "help_en": "This parameter is deprecated and replaced by the DdlTypes parameter",
+            "help_en": "[Deprecated] Use the DdlTypes parameter instead",
             "help_zh": "该字段已废弃，请使用DdlTypes字段",
             "name": "ddl_report_tags",
             "options": [
@@ -119,7 +119,7 @@
             "element": {
               "type": "string"
             },
-            "help_en": "The types of DDL operations for which the alert rule takes effect",
+            "help_en": "The list of DDL types that take effect. This parameter takes effect only when the metric type is DDL notification",
             "help_zh": "在DDL通知的时候才生效，需要生效的DDL列表",
             "name": "ddl_types",
             "options": [
@@ -131,7 +131,7 @@
           },
           {
             "example": "10",
-            "help_en": "The time interval for alert calculation. Unit: minutes",
+            "help_en": "The time window for alert calculation. Unit: minutes",
             "help_zh": "告警计算时间区间，单位分钟",
             "name": "duration",
             "options": [
@@ -143,7 +143,7 @@
           },
           {
             "example": "Warning",
-            "help_en": "The severity level. Valid values:\n\nWarning\n\nCritical",
+            "help_en": "The severity level. Valid values:\nWarning\nCritical",
             "help_zh": "严重程度，可选的枚举值：\nWarning\nCritical",
             "name": "severity",
             "options": [
@@ -155,7 +155,7 @@
           },
           {
             "example": "10",
-            "help_en": "The alert threshold.\n\nIf the alert rule is for task status, you do not need to specify a threshold.\n\nIf the alert rule is for failovers, you must specify the number of failovers.\n\nIf the alert rule is for latency, you must specify the latency duration, in seconds",
+            "help_en": "The alert threshold.\nTask status alert: no threshold is required.\nFailover count alert: the threshold is the number of failovers.\nTask latency alert: the threshold is the latency duration. Unit: seconds",
             "help_zh": "告警阈值。\n任务状态报警：无需填写阈值。\nfailover次数报警：阈值为failover次数。\n任务延迟报警：阈值为延迟时长，单位秒",
             "name": "threshold",
             "options": [
@@ -168,7 +168,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The conditions that can trigger the alert rule",
+      "help_en": "The list of alert trigger conditions. Multiple conditions are supported",
       "help_zh": "告警触发条件列表，支持多条件",
       "location": "query",
       "name": "trigger_conditions",
@@ -184,7 +184,7 @@
       "fields": [
         {
           "example": "5",
-          "help_en": "This parameter is deprecated and replaced by the MuteInterval parameter",
+          "help_en": "[Deprecated] Use the MuteInterval parameter instead",
           "help_zh": "该字段已废弃，请使用MuteInterval进行配置",
           "name": "inhibition_interval",
           "options": [
@@ -196,7 +196,7 @@
         },
         {
           "example": "5",
-          "help_en": "The duration of the alert suppression interval. Default value: 5. Unit: minutes",
+          "help_en": "The alert mute interval. Unit: minutes. Default value: 5",
           "help_zh": "告警抑制间隔时长，单位分钟，默认5分钟",
           "name": "mute_interval",
           "options": [
@@ -213,7 +213,7 @@
                 "element": {
                   "type": "string"
                 },
-                "help_en": "The alert notification method. Valid values:\n\nMail\n\nPhone\n\nSms\n\nDing",
+                "help_en": "The notification channel. Valid values:\nMail: email.\nPhone: phone call.\nSms: text message.\nDing: DingTalk",
                 "help_zh": "通道，可选的枚举值：\nMail（邮件）\nPhone（电话）\nSms（短信）\nDing（钉钉）",
                 "name": "channels",
                 "options": [
@@ -225,7 +225,7 @@
               },
               {
                 "example": "Warning",
-                "help_en": "The severity level. Valid values:\n\nWarning\n\nCritical",
+                "help_en": "The severity level. Valid values:\nWarning\nCritical",
                 "help_zh": "严重程度，可选的枚举值：\nWarning\nCritical",
                 "name": "severity",
                 "options": [
@@ -238,7 +238,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The alert notification methods",
+          "help_en": "The alert notification channels",
           "help_zh": "告警通知渠道",
           "name": "notification_channels",
           "options": [
@@ -253,7 +253,7 @@
             "fields": [
               {
                 "example": "DingToken",
-                "help_en": "The recipient type. Valid values: AliyunUid, DingToken, FeishuToken, and WebHookUrl",
+                "help_en": "The receiver type. Valid values: AliyunUid, DingToken, FeishuToken, and WebHookUrl",
                 "help_zh": "接收方类型，取值范围：AliyunUid/DingToken/FeishuToken/WebHookUrl",
                 "name": "receiver_type",
                 "options": [
@@ -267,7 +267,7 @@
                 "element": {
                   "type": "string"
                 },
-                "help_en": "The recipient.\n\nIf the ReceiverType parameter is set to AliyunUid, set this parameter to the Alibaba Cloud account ID of a user.\n\nIf the ReceiverType parameter is set to DingToken, set this parameter to the token of a DingTalk chatbot",
+                "help_en": "The receiver values.\nIf the receiver type is AliyunUid, the value is the Alibaba Cloud account ID.\nIf the receiver type is DingToken, the value is the DingTalk token",
                 "help_zh": "接收方取值。\n当接收方类型为阿里云ID时，接收方取值为具体阿里云用户ID。\n当接收方类型为钉钉token时，接收方取值为具体钉钉token值",
                 "name": "receiver_values",
                 "options": [
@@ -280,7 +280,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The settings of alert notification recipients",
+          "help_en": "The alert notification receivers",
           "help_zh": "告警通知接收方",
           "name": "notification_receivers",
           "options": [

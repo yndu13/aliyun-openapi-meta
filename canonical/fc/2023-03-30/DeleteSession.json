@@ -3,7 +3,7 @@
   "cmd_full_name": "fc delete-session",
   "cmd_name": "delete-session",
   "deprecated": false,
-  "description_en": "Deletes the specified session and prohibits new requests from being routed to it. Clears the session metadata from the database, so subsequent requests with the same session ID are treated as new sessions. Releases resources and performs session cleanup. In session isolation scenarios, terminates running requests and releases the instance bound to the session. In non-session isolation scenarios, allows running requests to continue and gracefully terminates them",
+  "description_en": "Deletes a specified session, blocks new request routing, and purges session metadata from the database. Subsequent requests from the client carrying the same SessionID are treated as a new session. This operation releases resources and cleans up the session. In session isolation scenarios, the system stops running requests and releases instances bound to the session. In non-session isolation scenarios, running requests continue to run and terminate gracefully",
   "description_zh": "删除指定会话，禁止新请求路由，会话元数据从数据库清除，客户携带相同 SessionID 的后续请求视为新会话。实现资源释放与会话清理。在会话隔离场景下，系统将中止运行的请求，释放会话绑定的实例。非会话隔离场景下，正在运行中的请求将继续运行，优雅终止",
   "kebab_example": "",
   "method": "DELETE",
@@ -35,7 +35,7 @@
     },
     {
       "example": "test-session-id-1",
-      "help_en": "The ID of the session to be deleted",
+      "help_en": "The session ID to delete",
       "help_zh": "需要删除的会话Id值",
       "location": "path",
       "name": "session_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "aliasName1",
-      "help_en": "The function alias or version associated with the session to be deleted",
+      "help_en": "The function alias or version associated with the session ID to delete",
       "help_zh": "需要删除的SessionId关联的函数别名或版本信息",
       "location": "query",
       "name": "qualifier",
@@ -73,7 +73,7 @@
       "type": "string"
     },
     {
-      "help_en": "The function alias or version associated with the session to be deleted",
+      "help_en": "The function alias or version associated with the session ID to delete",
       "help_zh": "需要删除的SessionId关联的函数别名或版本信息",
       "name": "qualifier",
       "position": "query",
@@ -81,7 +81,7 @@
       "type": "string"
     },
     {
-      "help_en": "The ID of the session to be deleted",
+      "help_en": "The session ID to delete",
       "help_zh": "需要删除的会话Id值",
       "name": "sessionId",
       "position": "path",

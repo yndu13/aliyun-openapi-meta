@@ -3,7 +3,7 @@
   "cmd_full_name": "pvtz add-user-vpc-authorization",
   "cmd_name": "add-user-vpc-authorization",
   "deprecated": false,
-  "description_en": "Grants cross-account authorization for a VPC",
+  "description_en": "Adds cross-account VPC authorization",
   "description_zh": "添加跨账号VPC授权",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "141339776561****",
-      "help_en": "The ID of the Alibaba Cloud account that owns the authorized resources.\n\nOnly Alibaba Cloud accounts are supported. RAM users are not supported. You can associate accounts only if they are on the same site, such as the China site (aliyun.com) or the international site (alibabacloud.com). Cross-site association is not supported",
+      "help_en": "The ID of the Alibaba Cloud account that owns the authorized resource.\nCross-account authorization only supports Alibaba Cloud accounts (primary accounts) and does not support RAM users. Only accounts within the same site can be associated, such as between Alibaba Cloud China Website (www.aliyun.com) accounts or between Alibaba Cloud International Website (www.alibabacloud.com) accounts. Cross-site association is not supported, such as between a China Website account and an International Website account",
       "help_zh": "授权资源的所属用户主账号ID。\n跨账号设置生效范围，只支持主账号， 不支持RAM子账号使用。只支持站内账号之间关联，例如中国站账号之间，或者是国际站账号之间。不支持跨站关联，比如中国站账号和国际站账号之间",
       "location": "query",
       "name": "authorized_user_id",
@@ -35,7 +35,7 @@
     },
     {
       "example": "123456",
-      "help_en": "The verification code.\n\nIf AuthChannel is empty or set to AUTH_CODE, specify the verification code.\n\nIn other cases, you can enter a random 6-digit number, such as 123456",
+      "help_en": "The verification code.\n\nIf AuthChannel is empty or set to AUTH_CODE, specify the verification code.  \nIn other cases, specify a random 6-digit number, such as 123456",
       "help_zh": "验证码。\n\n“授权渠道（AuthChannel）”为空或为“验证码授权（AUTH_CODE）”传指定验证码。  \n其他情况传随机6位数即可。例123456",
       "location": "query",
       "name": "auth_code",
@@ -43,12 +43,12 @@
         "--auth-code"
       ],
       "raw_name": "AuthCode",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
       "example": "NORMAL",
-      "help_en": "The authorization type. Valid values:\n\nNORMAL: standard authorization.\n\nCLOUD_PRODUCT: cloud product authorization",
+      "help_en": "The authorization type. Valid values:\n\nNORMAL: normal authorization.\nCLOUD_PRODUCT: cloud product authorization",
       "help_zh": "授权类型。取值：\n\nNORMAL：普通授权。\nCLOUD_PRODUCT：云产品授权",
       "location": "query",
       "name": "auth_type",
@@ -61,7 +61,7 @@
     },
     {
       "example": "AUTH_CODE",
-      "help_en": "The authorization channel. Valid values:\n\nAUTH_CODE: authorization by verification code.\n\nRESOURCE_DIRECTORY: authorization by Resource Directory.\n\nDefault: AUTH_CODE",
+      "help_en": "The authorization channel. Valid values:\n\nAUTH_CODE: verification code authorization.\nRESOURCE_DIRECTORY: resource directory authorization.\n\nDefault value: AUTH_CODE",
       "help_zh": "授权渠道。取值：\n\nAUTH_CODE：验证码授权。\nRESOURCE_DIRECTORY: 资源目录授权。\n\n默认：AUTH_CODE",
       "location": "query",
       "name": "auth_channel",

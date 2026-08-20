@@ -2,8 +2,8 @@
   "cmd_full_name": "ddoscoo config-health-check",
   "cmd_name": "config-health-check",
   "deprecated": false,
-  "description_en": "修改健康检查",
-  "description_zh": "修改健康检查",
+  "description_en": "Configures Layer 4 or Layer 7 health checks",
+  "description_zh": "调用ConfigHealthCheck配置四层或七层健康检查",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": true,
@@ -20,8 +20,9 @@
   },
   "parameters": [
     {
-      "help_en": "The InstanceId",
-      "help_zh": "The InstanceId",
+      "example": "ddoscoo-cn-XXXXXX",
+      "help_en": "The instance ID",
+      "help_zh": "要操作的实例ID",
       "location": "query",
       "name": "instance_id",
       "options": [
@@ -32,8 +33,9 @@
       "type": "string"
     },
     {
-      "help_en": "The ForwardProtocol",
-      "help_zh": "The ForwardProtocol",
+      "example": "tcp",
+      "help_en": "The forwarding protocol. Valid values: \n\nTCP (Layer 4)\nUDP (Layer 4)\nHTTP (Layer 7)",
+      "help_zh": "转发协议，取值： \n\nTCP（四层）\nUDP（四层）\nHTTP（七层）",
       "location": "query",
       "name": "forward_protocol",
       "options": [
@@ -44,8 +46,9 @@
       "type": "string"
     },
     {
-      "help_en": "The FrontendPort",
-      "help_zh": "The FrontendPort",
+      "example": "233",
+      "help_en": "The frontend port",
+      "help_zh": "前端端口",
       "location": "query",
       "name": "frontend_port",
       "options": [
@@ -56,8 +59,9 @@
       "type": "int"
     },
     {
-      "help_en": "The HealthCheck",
-      "help_zh": "The HealthCheck",
+      "example": "{\"Type\":\"tcp\",\"Timeout\":10,\"Port\":80,\"Interval\":10,\"Up\":10,\"Down\":40}\"}",
+      "help_en": "The JSON string of the HealthCheck object. The following parameters are included:\n\nType: String. Required. The protocol type. Valid values: TCP (Layer 4) and HTTP (Layer 7).\nDomain: String. Optional. The domain name for Layer 7 health checks.\nUri: String. Optional. The health check path for Layer 7 health checks.\nTimeout: Integer. Optional. The response timeout period for Layer 4 health checks.\nPort: Integer. Optional. The health check port for Layer 4 health checks.\nInterval: Integer. Optional. The health check interval for Layer 4 health checks.\nUp: Integer. Optional. The healthy threshold for Layer 4 health checks.\nDown: Integer. Optional. The unhealthy threshold for Layer 4 health checks",
+      "help_zh": "传入HealthCheck对象JSON串，具体结构描述如下：\n\nType，String类型，必选，协议类型。取值：TCP（四层）、HTTP（七层）。\nDomain，String类型，可选，健康检查/七层健康检查/域名。\nUri，String类型，可选，健康检查/七层健康检查/检查路径。\nTimeout，Integer类型，可选，健康检查/四层健康检查/响应超时时间。\nPort，Integer类型，可选，健康检查/四层健康检查/检查端口。\nInterval，Integer类型，可选，健康检查/四层健康检查/检查间隔。\nUp，Integer类型，可选，健康检查/四层健康检查/健康阈值。\nDown，Integer类型，可选，健康检查/四层健康检查/不健康阈值",
       "location": "query",
       "name": "health_check",
       "options": [

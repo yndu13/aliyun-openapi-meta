@@ -37,7 +37,7 @@
     },
     {
       "example": "STANDARD",
-      "help_en": "The policy type. Valid values:\nSTANDARD: general backup policy. Supports backing up all data source types except ECS full-server backup.\nUDM_ECS_ONLY: full-server backup policy. Supports only ECS full-server backup.\n\nIf you do not specify the policy type, Cloud Backup automatically sets the policy type based on whether a backup vault is specified in the policy rules:\nA backup vault is specified in the policy rules: STANDARD\nNo backup vault is specified in the policy rules: UDM_ECS_ONLY",
+      "help_en": "The policy type. Valid values:\nSTANDARD: general backup policy. Supports backing up data sources other than ECS full-server backup.\nUDM_ECS_ONLY: full-server backup policy. Supports only ECS full-server backup.\n\nIf the policy type is not specified, Cloud Backup automatically sets the policy type based on whether a backup vault is specified in the policy rules:\nBackup vault specified in policy rules: STANDARD\nBackup vault not specified in policy rules: UDM_ECS_ONLY",
       "help_zh": "策略类型，支持：\nSTANDARD：通用备份策略，支持备份除ECS整机备份以外的数据源。\nUDM_ECS_ONLY：整机备份策略，仅支持备份ECS整机。\n\n若未指定策略类型，云备份服务将按照策略规则中是否指定备份库自动设置策略类型：\n策略规则中指定备份库：STANDARD\n策略规则中未指定备份库：UDM_ECS_ONLY",
       "location": "formData",
       "name": "policy_type",
@@ -64,6 +64,18 @@
     {
       "element": {
         "fields": [
+          {
+            "example": "90",
+            "help_en": "This parameter is required only when RuleType is set to TRANSITION. The number of days after which a backup is automatically moved to the archive tier. Backups must be retained in the standard tier for at least 30 days and in the archive tier for at least 60 days. Unit: days",
+            "help_zh": "仅当RuleType=TRANSITION时，需要配置该参数。备份完成多少天后自动转入归档层，备份在标准层至少保留30天，转入归档层后至少保留60天。单位：天",
+            "name": "archive_days",
+            "options": [
+              "--archive-days"
+            ],
+            "raw_name": "ArchiveDays",
+            "required": false,
+            "type": "int"
+          },
           {
             "example": "COMPLETE",
             "help_en": "This parameter is required only when RuleType is set to BACKUP. The backup type. Set the value to COMPLETE, which specifies full backup",
@@ -120,7 +132,7 @@
           },
           {
             "example": "true",
-            "help_en": "This parameter takes effect only when PolicyType is set to UDM_ECS_ONLY. Specifies whether to enable backup locking",
+            "help_en": "This parameter is valid only when PolicyType is set to UDM_ECS_ONLY. Specifies whether to enable backup lock",
             "help_zh": "仅当PolicyType为UDM_ECS_ONLY时，该字段有效。表示是否开启备份锁定",
             "name": "immutable",
             "options": [
@@ -132,7 +144,7 @@
           },
           {
             "example": "1",
-            "help_en": "Specifies whether to retain at least one backup version. Valid values:\n0: do not retain\n1: retain",
+            "help_en": "Specifies whether to retain at least one backup version. Valid values:\n0: do not retain.\n1: retain",
             "help_zh": "是否开启保留至少一个备份版本。\n0 - 不保留\n1 - 保留",
             "name": "keep_latest_snapshots",
             "options": [
@@ -144,7 +156,7 @@
           },
           {
             "example": "cn-shanghai",
-            "help_en": "This parameter is required only when RuleType is set to REPLICATION. The destination region ID for replication",
+            "help_en": "This parameter is required only when RuleType is set to REPLICATION. The ID of the destination region for replication",
             "help_zh": "仅当RuleType取值为REPLICATION时，需要配置该参数。复制的目标地域ID",
             "name": "replication_region_id",
             "options": [
@@ -156,7 +168,7 @@
           },
           {
             "example": "7",
-            "help_en": "This parameter is required only when RuleType is set to BACKUP, TRANSITION, or REPLICATION.\nIf RuleType is set to BACKUP: the retention period of the backup. This value has a lower priority than the Retention value of the rule whose RuleType is TRANSITION. Minimum value: 1. Maximum value: 364635. Unit: days.\nIf RuleType is set to TRANSITION: the retention period of the backup. Minimum value: 1. Maximum value: 364635. Unit: days.\nIf RuleType is set to REPLICATION: the retention period of the cross-region backup. Minimum value: 1. Maximum value: 364635. Unit: days",
+            "help_en": "This parameter is required only when RuleType is set to BACKUP, TRANSITION, or REPLICATION.\nRuleType set to BACKUP: the retention period of backups. The priority is lower than the Retention value of the rule with RuleType=TRANSITION. Minimum value: 1. Maximum value: 364635. Unit: days.\nRuleType set to TRANSITION: the retention period of backups. Minimum value: 1. Maximum value: 364635. Unit: days.\nRuleType set to REPLICATION: the retention period of cross-region backups. Minimum value: 1. Maximum value: 364635. Unit: days",
             "help_zh": "仅当RuleType取值为BACKUP，TRANSITION或REPLICATION时，需要配置该参数。\nRuleType取值为BACKUP：备份保留时间，优先级低于RuleType=TRANSITION的规则的Retention，最小值为1，最大值为364635，单位为天。\nRuleType取值为TRANSITION：备份保留时间，最小值为1，最大值为364635，单位为天。\nRuleType取值为REPLICATION：异地备份保留时间，最小值为1，最大值为364635，单位为天",
             "name": "retention",
             "options": [
@@ -195,7 +207,7 @@
                 },
                 {
                   "example": "1",
-                  "help_en": "The backup to which the rule applies. Currently, only the first backup is supported. Set the value to 1",
+                  "help_en": "Specifies which backup the rule applies to. Currently, only the first backup is supported. Set the value to 1",
                   "help_zh": "针对第几个备份生效，当前仅支持第1个备份，值为1",
                   "name": "which_snapshot",
                   "options": [
@@ -232,7 +244,7 @@
           },
           {
             "example": "I|1648647166|P1D",
-            "help_en": "This parameter is required only when RuleType is set to BACKUP. The backup schedule settings. The following formats are supported:\n`I|{startTime}|{interval}`: specifies that a backup job is executed at the specified interval starting from {startTime}. For example, `I|1631685600|P1D` specifies that a backup job is executed once a day starting from 2021-09-15 14:00:00.\n\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ninterval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n`C|{startTime}|{crontab}`: specifies that a backup job is executed based on the {crontab} expression starting from {startTime}. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is executed at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ncrontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs for past time periods are not compensated. If the previous backup job is not completed, the next backup job is not triggered",
+            "help_en": "This parameter is required only when RuleType is set to BACKUP. The backup schedule settings. Supported formats:\n`I|{startTime}|{interval}`: specifies that a backup job is executed at the specified interval starting from the start time. For example, `I|1631685600|P1D` specifies that a backup job is executed once a day starting from 2021-09-15 14:00:00.\n\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ninterval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n`C|{startTime}|{crontab}`: specifies that a backup job is executed based on the crontab expression starting from the start time. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is executed at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ncrontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs for past time periods are not compensated. If the previous backup job is not completed, the next backup job is not triggered",
             "help_zh": "仅当RuleType取值为BACKUP时，需要配置该参数。备份定时设置。可选格式：\n`I|{startTime}|{interval}`：表示从{startTime}开始每隔{interval}的时间执行一次备份任务。例如`I|1631685600|P1D`表示从2021-09-15 14:00:00开始每隔一天备份一次。\n\nstartTime：备份起始时间，UNIX时间，单位为秒。\ninterval： ISO8601时间间隔。例如：`PT1H`表示间隔一小时。`P1D`表示间隔一天。\n`C|{startTime}|{crontab}`：表示从{startTime}开始根据{crontab}表达式执行备份任务。例如`C|1631685600|0 0 2 ? * 3,5,7`表示从2021-09-15 14:00:00开始每周二, 周四和周六的02:00:00执行备份。\nstartTime：备份起始时间，UNIX时间，单位为秒。\ncrontab： crontab表达式。例如：`0 0 2 ? * 3,5,7`表示每周二, 周四和周六的02:00:00。\n\n不会补偿已过去时间的备份任务。如果上一次备份任务没有完成，不会触发下一次备份任务",
             "name": "schedule",
             "options": [

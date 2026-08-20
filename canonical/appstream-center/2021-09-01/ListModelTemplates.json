@@ -50,8 +50,8 @@
         "type": "string"
       },
       "example": "OpenClaw",
-      "help_en": "The Agent provider list. If both this parameter and AgentProvider are specified, AgentProvider takes precedence and this list is ignored",
-      "help_zh": "Agent提供商列表（与 AgentProvider 同时传时以 AgentProvider 为准，本列表被忽略）",
+      "help_en": "The Agent provider list. Supports Common. If specified together with AgentProvider, AgentProvider takes precedence and this list is ignored. To query Common model groups, explicitly include COMMON in the platform filter",
+      "help_zh": "Agent提供商列表（支持 Common；与 AgentProvider 同时传时以 AgentProvider 为准，本列表被忽略）；查询 Common 模型分组时须在平台筛选中显式包含 COMMON",
       "location": "query",
       "name": "agent_provider_list",
       "options": [
@@ -80,8 +80,8 @@
         "type": "string"
       },
       "example": "ENTERPRISE",
-      "help_en": "The Agent platform list. If both this parameter and AgentPlatform are specified, AgentPlatform takes precedence and this list is ignored",
-      "help_zh": "Agent平台列表（与 AgentPlatform 同时传时以 AgentPlatform 为准，本列表被忽略）",
+      "help_en": "The Agent platform list. Supports COMMON. If specified together with AgentPlatform, AgentPlatform takes precedence and this list is ignored. Defaults to ENTERPRISE if no platform filter is specified. To query Common model groups, explicitly include COMMON. If filtering by Provider simultaneously, set the value to Common",
+      "help_zh": "Agent平台列表（支持 COMMON；与 AgentPlatform 同时传时以 AgentPlatform 为准，本列表被忽略）；平台筛选均未传时默认 ENTERPRISE，查询 Common 模型分组须显式包含 COMMON，如同时按 Provider 过滤，取值为 Common",
       "location": "query",
       "name": "agent_platform_list",
       "options": [
@@ -120,6 +120,44 @@
       "raw_name": "HasModel",
       "required": false,
       "type": "bool"
+    },
+    {
+      "example": "ALL_USER",
+      "help_en": "The authorization scope filter. Valid values: ALL_USER, USER_MIXED, or RESOURCE_MIXED (strictly uppercase. Case variants or unknown values return InvalidParameter). If not specified, no filtering is applied. Unlike create/update operations, the filter scenario allows RESOURCE_MIXED (to filter non-Common model groups)",
+      "help_zh": "授权范围筛选，取值 ALL_USER / USER_MIXED / RESOURCE_MIXED（严格大写，大小写变体与未知取值报 InvalidParameter）；不传时不过滤。与创建/更新接口不同，过滤场景允许 RESOURCE_MIXED（即筛选非 Common 模型分组）",
+      "location": "query",
+      "name": "ref_scope",
+      "options": [
+        "--ref-scope"
+      ],
+      "raw_name": "RefScope",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The model group name. Fuzzy match is supported",
+      "help_zh": "模型分组名称，模糊匹配",
+      "location": "query",
+      "name": "name",
+      "options": [
+        "--name"
+      ],
+      "raw_name": "Name",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "User",
+      "help_en": "The template source filter. Valid values:\nUser: tenant-created (default if not specified).\nSystem: system preset",
+      "help_zh": "模板来源筛选：User-租户自建（不传时默认），System-系统预置",
+      "location": "query",
+      "name": "source",
+      "options": [
+        "--source"
+      ],
+      "raw_name": "Source",
+      "required": false,
+      "type": "string"
     },
     {
       "example": "20",
