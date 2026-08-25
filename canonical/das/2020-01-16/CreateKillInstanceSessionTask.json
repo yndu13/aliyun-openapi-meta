@@ -3,7 +3,7 @@
   "cmd_full_name": "das create-kill-instance-session-task",
   "cmd_name": "create-kill-instance-session-task",
   "deprecated": false,
-  "description_en": "Creates a task that terminates sessions",
+  "description_en": "Calls the CreateKillInstanceSessionTask operation to create a task that terminates sessions",
   "description_zh": "调用CreateKillInstanceSessionTask接口，创建结束会话的任务",
   "kebab_example": "",
   "method": "GET|POST",
@@ -35,7 +35,7 @@
     },
     {
       "example": "pi-bp1v203xzzh0a****",
-      "help_en": "The node ID.\n\nThis parameter must be specified if the database instance is a PolarDB for MySQL cluster. If you do not specify a node ID and set KillAllSessions to true, the system traverses all nodes in the PolarDB for MySQL cluster and terminates the active sessions on each node",
+      "help_en": "The node ID.\n\nFor PolarDB for MySQL instances, provide the node ID. If no node ID is provided and the KillAllSessions request parameter is set to true (terminate all sessions), the system traverses all nodes of the PolarDB for MySQL instance and terminates ongoing sessions on each node",
       "help_zh": "节点ID。\n\n对于PolarDB MySQL版实例，需要提供节点ID。如果没有提供节点ID，并且请求参数KillAllSessions配置为true（即结束全部会话），将会遍历PolarDB MySQL版实例所有节点，并结束每个节点上正在进行的会话",
       "location": "query",
       "name": "node_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "testUser",
-      "help_en": "The database account that has the permissions to terminate sessions",
+      "help_en": "The database account that has the permission to terminate sessions",
       "help_zh": "具有结束会话权限的数据库账号",
       "location": "query",
       "name": "db_user",
@@ -74,7 +74,7 @@
     },
     {
       "example": "['db_user1','db_user2']",
-      "help_en": "The account whose sessions do not need to be terminated.\n\nSet this parameter to a JSON array. Separate database accounts with commas (,). Example: ['Database account 1','Database account 2']",
+      "help_en": "The list of accounts whose sessions will not be terminated.\n\nThe data is in JSONArray format, such as ['DatabaseAccount1','DatabaseAccount2']. Separate multiple database accounts with commas (,)",
       "help_zh": "忽略账号列表，该列表中账号的会话不会被结束。\n\n数据格式为JSONArray字符串，例如['数据库账号1','数据库账号2']，数据库账号间用英文逗号（,）分隔",
       "location": "query",
       "name": "ignored_users",
@@ -87,7 +87,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to terminate all sessions.\n\ntrue\n\nfalse\n\nIf you set this parameter to true, sessions of the accounts that are specified by IgnoredUsers, sessions of internal O\\&M accounts of Alibaba Cloud, and Binlog Dump sessions are not terminated",
+      "help_en": "Specifies whether to terminate all sessions.\n\ntrue: Yes.\n\nfalse: No.\n\nWhen this parameter is set to true, sessions of accounts specified in the IgnoredUsers request parameter, sessions of Alibaba Cloud internal operations accounts, and Binlog Dump sessions are not terminated",
       "help_zh": "是否结束全部会话。\n\ntrue：是。\n\nfalse：否。\n\n该参数取值为true时，请求参数IgnoredUsers中账号的会话、阿里云内部运维账号的会话和Binlog Dump会话都不会被结束",
       "location": "query",
       "name": "kill_all_sessions",
@@ -100,7 +100,7 @@
     },
     {
       "example": "[10805639,10805623,10805645,10805553,10805566,10805616]",
-      "help_en": "The IDs of sessions that need to be terminated.\n\nSet this parameter to a JSON array. Separate session IDs with commas (,). Example: ['Session ID1','Session ID2']. If KillAllSessions is set to true, this parameter does not take effect",
+      "help_en": "The list of session IDs to be terminated.\n\nThe data is in JSONArray format, such as [SessionID1,SessionID2]. Separate multiple session IDs with commas (,). If the KillAllSessions request parameter is set to true (terminate all sessions), this list is ignored",
       "help_zh": "需要被结束的会话ID列表。\n\n数据格式为JSONArray，例如[会话ID1,会话ID2]，会话ID间用英文逗号（,）分隔。如果请求参数KillAllSessions取值为true（即结束全部会话），该列表会被忽略",
       "location": "query",
       "name": "session_ids",

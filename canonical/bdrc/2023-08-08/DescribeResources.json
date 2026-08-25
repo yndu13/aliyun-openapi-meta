@@ -3,7 +3,7 @@
   "cmd_full_name": "bdrc describe-resources",
   "cmd_name": "describe-resources",
   "deprecated": false,
-  "description_en": "Query resources",
+  "description_en": "Queries a list of resources",
   "description_zh": "查询资源列表",
   "kebab_example": "",
   "method": "GET",
@@ -21,6 +21,12 @@
   },
   "parameters": [
     {
+      "enum": [
+        "ACS::ECS::Instance",
+        "ACS::OSS::Bucket",
+        "ACS::NAS::FileSystem",
+        "ACS::OTS::Instance"
+      ],
       "example": "ACS::ECS::Instance",
       "help_en": "The resource type",
       "help_zh": "资源类型",
@@ -35,7 +41,7 @@
     },
     {
       "example": "i-0003***110",
-      "help_en": "The resource ID. For example, for an instance, this is the instance ID",
+      "help_en": "The resource ID. For example, if the resource to query is an instance, this parameter can be understood as the InstanceId",
       "help_zh": "资源ID。例如，当待查询的资源为实例时，可以理解为InstanceId",
       "location": "query",
       "name": "resource_id",
@@ -48,7 +54,7 @@
     },
     {
       "example": "rule-000c***yc9",
-      "help_en": "A filter for rules that failed the scoring",
+      "help_en": "The filter for rules with failed scores",
       "help_zh": "评分失败的规则过滤",
       "location": "query",
       "name": "failed_rule_template",
@@ -61,7 +67,7 @@
     },
     {
       "example": "cae**********699",
-      "help_en": "The pagination token. The service returns a token if the response is truncated. To retrieve the next page of results, include this token in your next request. If no token is returned, all results have been retrieved",
+      "help_en": "The pagination token. If there is a next page, this field has a return value. If this parameter returns data, a next page exists. Use the returned NextToken as a request parameter to obtain the next page of data. Repeat until the return value is Null, which indicates that all data has been retrieved",
       "help_zh": "分页游标，如果有下一页，则该字段有返回值。说明 该参数只要返回数据，则说明还有下一页。您可以将返回的NextToken作为请求参数再次获得下一页的数据，直到返回为Null，表示获取到了所有的数据",
       "location": "query",
       "name": "next_token",
@@ -74,9 +80,11 @@
     },
     {
       "example": "10",
-      "help_en": "The page size. Default: 10. Maximum: 100. Values less than 10 are set to 10, and values greater than 100 are set to 100",
+      "help_en": "The number of entries per page for a paged query. Maximum value: 100. Default value: If the value is not set or is less than 10, the default value is 10. If the value is greater than 100, the default value is 100",
       "help_zh": "分页查询时每页行数。最大值为100。默认值：当不设置值或设置的值小于10时，默认值为10。当设置的值大于100时，默认值为100",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "max_results",
       "options": [
         "--max-results"
@@ -87,7 +95,7 @@
     },
     {
       "example": "protectionScore",
-      "help_en": "The sort key",
+      "help_en": "The sort field",
       "help_zh": "排序方式",
       "location": "query",
       "name": "sort_by",
@@ -99,8 +107,12 @@
       "type": "string"
     },
     {
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
       "example": "ASC",
-      "help_en": "The sort order",
+      "help_en": "The sort order. Valid values: ASC (ascending) and DESC (descending)",
       "help_zh": "ASC: 升序, DESC: 降序",
       "location": "query",
       "name": "sort_order",
@@ -112,6 +124,12 @@
       "type": "string"
     },
     {
+      "enum": [
+        "STANDARD",
+        "ARCHIVE",
+        "IA",
+        "COLD_ARCHIVE"
+      ],
       "example": "ARCHIVE",
       "help_en": "The storage class",
       "help_zh": "存储类型",
@@ -125,6 +143,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "LRS",
+        "ZRS"
+      ],
       "example": "LRS",
       "help_en": "The data redundancy type",
       "help_zh": "数据冗余类型",
@@ -139,8 +161,8 @@
     },
     {
       "example": "rc-000***123",
-      "help_en": "The ID of the resource category",
-      "help_zh": "资源分类ID",
+      "help_en": "The resource category ID. You can specify multiple resource category IDs separated by commas (,)",
+      "help_zh": "资源分类ID。支持使用英文逗号（,）分隔传入多个资源分类ID",
       "location": "query",
       "name": "resource_category_id",
       "options": [
@@ -165,8 +187,8 @@
     },
     {
       "example": "acs:ecs:cn-hangzhou:123***7890:instance/i-123***7890",
-      "help_en": "The Resource ARN",
-      "help_zh": "资源ARN",
+      "help_en": "The resource ARN. You can specify multiple resource ARNs separated by commas (,)",
+      "help_zh": "资源ARN。支持使用英文逗号（,）分隔传入多个资源ARN",
       "location": "query",
       "name": "resource_arn",
       "options": [
@@ -181,7 +203,7 @@
         "type": "int"
       },
       "example": "[123***7890]",
-      "help_en": "A list of resource owner IDs. Use this parameter for cross-account scenarios. If you omit this parameter, the service returns data for the current account by default",
+      "help_en": "The list of resource owner IDs. This parameter is used in cross-account scenarios. If left empty, data of the current account is retrieved by default",
       "help_zh": "资源所有者ID列表，在跨账号场景使用，置空时默认获取当前账号的数据",
       "location": "query",
       "name": "resource_owner_ids",

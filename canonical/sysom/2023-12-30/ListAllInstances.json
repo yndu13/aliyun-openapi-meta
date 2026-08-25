@@ -3,7 +3,7 @@
   "cmd_full_name": "sysom list-all-instances",
   "cmd_name": "list-all-instances",
   "deprecated": false,
-  "description_en": "This API is used to retrieve a list of managed/unmanaged instances along with their instance information",
+  "description_en": "Retrieves a list of managed or unmanaged instances along with their instance information",
   "description_zh": "此接口用于获取已纳管/未纳管实例列表并带有实例信息",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cn-hangzhou",
-      "help_en": "Region ID",
+      "help_en": "The region ID",
       "help_zh": "地域ID",
       "location": "query",
       "name": "region",
@@ -34,8 +34,13 @@
       "type": "string"
     },
     {
+      "enum": [
+        "ecs",
+        "eflo",
+        "all"
+      ],
       "example": "ecs",
-      "help_en": "Instance type",
+      "help_en": "The instance type",
       "help_zh": "实例类型",
       "location": "query",
       "name": "instance_type",
@@ -47,8 +52,16 @@
       "type": "string"
     },
     {
+      "enum": [
+        "managed",
+        "unmanaged",
+        "install",
+        "uninstall",
+        "upgrade",
+        "all"
+      ],
       "example": "managed",
-      "help_en": "Management type",
+      "help_en": "The management type",
       "help_zh": "纳管类型",
       "location": "query",
       "name": "managed_type",
@@ -61,7 +74,7 @@
     },
     {
       "example": "{}",
-      "help_en": "List of filter information",
+      "help_en": "The list of filter conditions",
       "help_zh": "过滤信息列表",
       "location": "query",
       "name": "filters",
@@ -74,7 +87,7 @@
     },
     {
       "example": "1",
-      "help_en": "Current page number",
+      "help_en": "The current page number",
       "help_zh": "当前所在分页",
       "location": "query",
       "name": "current",
@@ -87,7 +100,7 @@
     },
     {
       "example": "10",
-      "help_en": "Number of entries returned per page. Default value: pageSize=10",
+      "help_en": "The number of entries per page. Default value: 10",
       "help_zh": "每页返回数目，默认 pageSize=10",
       "location": "query",
       "name": "page_size",
@@ -100,7 +113,7 @@
     },
     {
       "example": "01fc4a0b-f199-4885-9861-b4054a310fe7",
-      "help_en": "Plugin ID",
+      "help_en": "The plugin ID",
       "help_zh": "插件ID",
       "location": "query",
       "name": "plugin_id",
@@ -113,7 +126,7 @@
     },
     {
       "example": "100",
-      "help_en": "Maximum number of records to retrieve at a time",
+      "help_en": "The maximum number of records to retrieve in a single request",
       "help_zh": "一次获取的最大记录数",
       "location": "query",
       "name": "max_results",
@@ -126,7 +139,7 @@
     },
     {
       "example": "U+w1wv2R4ZWR5oZLXD0+Dp4dD+2BRJj42DLT6GrZysw=",
-      "help_en": "Pagination token.\nIf this parameter is not empty, more data is available",
+      "help_en": "The pagination token.\nIf this parameter is not empty, more data is available",
       "help_zh": "分页游标。\n如果该参数不为空，表示还有更多数据",
       "location": "query",
       "name": "next_token",
@@ -136,9 +149,119 @@
       "raw_name": "nextToken",
       "required": false,
       "type": "string"
+    },
+    {
+      "help_en": "The X-Debug-Id",
+      "help_zh": "The X-Debug-Id",
+      "location": "query",
+      "name": "x_debug_id",
+      "options": [
+        "--x-debug-id"
+      ],
+      "raw_name": "X-Debug-Id",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The x-sysom-invoke-source",
+      "help_zh": "The x-sysom-invoke-source",
+      "location": "query",
+      "name": "x_sysom_invoke_source",
+      "options": [
+        "--x-sysom-invoke-source"
+      ],
+      "raw_name": "x-sysom-invoke-source",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "/api/v1/am/instance/listAllInstances",
   "product_code": "SysOM",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "v1_parameters": [
+    {
+      "name": "X-Debug-Id",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The current page number",
+      "help_zh": "当前所在分页",
+      "name": "current",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The list of filter conditions",
+      "help_zh": "过滤信息列表",
+      "name": "filters",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The instance type",
+      "help_zh": "实例类型",
+      "name": "instanceType",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The management type",
+      "help_zh": "纳管类型",
+      "name": "managedType",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The maximum number of records to retrieve in a single request",
+      "help_zh": "一次获取的最大记录数",
+      "name": "maxResults",
+      "position": "query",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "help_en": "The pagination token.\nIf this parameter is not empty, more data is available",
+      "help_zh": "分页游标。\n如果该参数不为空，表示还有更多数据",
+      "name": "nextToken",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The number of entries per page. Default value: 10",
+      "help_zh": "每页返回数目，默认 pageSize=10",
+      "name": "pageSize",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The plugin ID",
+      "help_zh": "插件ID",
+      "name": "pluginId",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The region ID",
+      "help_zh": "地域ID",
+      "name": "region",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "x-sysom-invoke-source",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    }
+  ]
 }

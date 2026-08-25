@@ -32,6 +32,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "123",
       "help_en": "The ID of the node group",
       "help_zh": "节点分组ID",
@@ -58,6 +59,12 @@
       "type": "string"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "DOWNLINK_PACKET",
+        "UPLINK_PACKET",
+        "INVALID_PACKET"
+      ],
       "example": "UPLINK_PACKET",
       "help_en": "The packet category. Valid values:\n\nDOWNLINK_PACKET: downlink packet\nUPLINK_PACKET: uplink packet",
       "help_zh": "数据包分类。取值：\n\nDOWNLINK_PACKET：下行包\nUPLINK_PACKET：上行包",
@@ -71,10 +78,12 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "1",
       "help_en": "The page number, starting from 1",
       "help_zh": "分页页码，从1开始",
       "location": "query",
+      "minimum": "1",
       "name": "page_number",
       "options": [
         "--page-number"
@@ -84,10 +93,13 @@
       "type": "int"
     },
     {
+      "docRequired": true,
       "example": "2",
       "help_en": "The page size. The value must be greater than or equal to 1",
       "help_zh": "分页大小，大于等于1",
       "location": "query",
+      "maximum": "300",
+      "minimum": "0",
       "name": "page_size",
       "options": [
         "--page-size"
@@ -97,6 +109,7 @@
       "type": "int"
     },
     {
+      "docRequired": true,
       "example": "1514736000000",
       "help_en": "The start time of the query. The value is a UNIX timestamp in milliseconds",
       "help_zh": "查询开始时间，毫秒为单位的UNIX时间戳",
@@ -110,6 +123,7 @@
       "type": "int"
     },
     {
+      "docRequired": true,
       "example": "1514736000000",
       "help_en": "The end time of the query. The value is a UNIX timestamp in milliseconds",
       "help_zh": "查询结束时间，毫秒为单位的UNIX时间戳",
@@ -123,6 +137,10 @@
       "type": "int"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "LOG_MILLIS"
+      ],
       "example": "LOG_MILLIS",
       "help_en": "The sorting field. Valid values: LOG_MILLIS, which indicates sorting by time",
       "help_zh": "排序字段，取值：LOG_MILLIS，表示按照时间排序",
@@ -132,7 +150,7 @@
         "--sorting-field"
       ],
       "raw_name": "SortingField",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -228,7 +246,7 @@
       "help_zh": "排序字段，取值：LOG_MILLIS，表示按照时间排序",
       "name": "SortingField",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     }
   ]

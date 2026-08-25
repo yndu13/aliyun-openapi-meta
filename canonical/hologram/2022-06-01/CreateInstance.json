@@ -73,6 +73,10 @@
       "type": "bool"
     },
     {
+      "enum": [
+        "PrePaid",
+        "PostPaid"
+      ],
       "example": "PostPaid",
       "help_en": "The billing method. Valid values:\n\nPrePaid: Subscription.\n\nPostPaid: Pay-as-you-go.\n\nThis parameter is ignored for shared instances. Shared instances use defined specifications and the default billing method is pay-as-you-go",
       "help_zh": "付费类型。取值：\nPrePaid：包年包月。\nPostPaid: 按量付费。\nShared实例类型会忽略该参数。Shared是一种固定规格类型，收费类型默认为PostPaid",
@@ -147,6 +151,8 @@
       "help_en": "The number of gateways. Valid values: [2, 50].\n\nYou must specify this parameter only for virtual warehouse instances",
       "help_zh": "网关数量，取值[2, 50]。\n\n只有Warehouse类型需要指定该参数",
       "location": "body",
+      "maximum": "50",
+      "minimum": "2",
       "name": "gateway_count",
       "options": [
         "--gateway-count"
@@ -185,6 +191,13 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Standard",
+        "Follower",
+        "Warehouse",
+        "Shared",
+        "Serverless"
+      ],
       "example": "Standard",
       "help_en": "The instance type. Valid values:\n\nStandard: General-purpose instance.\n\nFollower: Read-only secondary instance.\n\nWarehouse: Virtual warehouse instance.\n\nShared: Shared instance.\n\nServerless: Serverless instance",
       "help_zh": "实例类型。取值：\nStandard：通用型。\nFollower：只读从实例。\nWarehouse：计算组型。\nShared：共享型。\nSeverless：Serverless型",
@@ -213,6 +226,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Month",
+        "Hour"
+      ],
       "example": "Month",
       "help_en": "The billing cycle. Valid values:\n\nMonth: The instance is billed on a monthly basis.\n\nHour: The instance is billed on an hourly basis.\n\nSubscription instances support only `Month`.\n\nPay-as-you-go instances support only `Hour`.\n\nFor shared instances, the value is automatically set to `Hour`",
       "help_zh": "计费周期。取值：\nMonth：按月计费。\nHour：按小时计费。\n\nPrePaid 只支持Month\nPostPaid 只支持Hour\nShared类型自动设为Hour，无需指定",

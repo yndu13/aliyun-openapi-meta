@@ -62,6 +62,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "NonAffinity",
+        "Affinity"
+      ],
       "example": "Affinity",
       "help_en": "The traffic scheduling policy in dual-stack mode:\n\nNonAffinity (default): non-affinity mode. Traffic is forwarded to healthy backend servers based on the scheduling algorithm, regardless of the IP protocol version of the source.\nAffinity: affinity mode. Traffic is forwarded based on the IP protocol version of the request source. IPv4 requests are forwarded only to IPv4 backend servers, and IPv6 requests are forwarded only to IPv6 backend servers.\nThis parameter takes effect only when AddressIPVersion is set to DualStack",
       "help_zh": "双栈模式下的流量调度策略：\n\nNonAffinity（默认）：无亲和模式，转发时不区分来源的IP协议版本，按照调度算法向健康的后端转发。\nAffinity：亲和模式，转发时根据请求来源的IP协议版本亲和转发，IPv4请求仅转发至IPv4后端，IPv6请求仅转发至IPv6后端。\n仅AddressIPVersion为DualStack时，该参数生效",
@@ -131,6 +135,8 @@
       "help_en": "The timeout period of connection draining. Unit: seconds.\nValid values: 0 to 900",
       "help_zh": "设置连接优雅中断超时时间。单位：秒。\n取值范围：0~900",
       "location": "formData",
+      "maximum": "3600",
+      "minimum": "0",
       "name": "connection_drain_timeout",
       "options": [
         "--connection-drain-timeout"
@@ -242,6 +248,10 @@
           "type": "array"
         },
         {
+          "enum": [
+            "HTTP1.0",
+            "HTTP1.1"
+          ],
           "example": "HTTP1.0",
           "help_en": "The HTTP version for health checks. Valid values: HTTP1.0 (default) and HTTP1.1.\n\nThis parameter takes effect only when HealthCheckType is set to HTTP",
           "help_zh": "健康检查HTTP协议版本，取值：HTTP1.0（默认值）或HTTP1.1。\n\n仅HealthCheckType为HTTP时，该参数生效",

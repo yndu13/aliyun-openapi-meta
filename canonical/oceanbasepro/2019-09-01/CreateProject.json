@@ -74,6 +74,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "MIGRATION",
+        "SYNC"
+      ],
       "example": "MIGRATION",
       "help_en": "The type of the job, which can be `MIGRATION` (indicating a data migration task) or `SYNC` (indicating a data synchronization task)",
       "help_zh": "任务的类型，包括 `MIGRATION`（表示数据迁移任务）和 `SYNC`（表示数据同步任务）",
@@ -633,6 +637,8 @@
                           "example": "3",
                           "help_en": "The partition size, with a value range of [1, 1024]",
                           "help_zh": "分区范围，取值范围为  [1,1024]",
+                          "maximum": "1024",
+                          "minimum": "1",
                           "name": "partition_size",
                           "options": [
                             "--partition-size"
@@ -642,6 +648,11 @@
                           "type": "int"
                         },
                         {
+                          "enum": [
+                            "KEY",
+                            "RANGE",
+                            "NONE"
+                          ],
                           "example": "RANGE",
                           "help_en": "Partition type",
                           "help_zh": "分区类型",
@@ -1602,6 +1613,10 @@
           "type": "array"
         },
         {
+          "enum": [
+            "SPECIFIC",
+            "WILDCARD"
+          ],
           "example": "SPCEIFIC",
           "help_en": "The transfer object mapping mode, which includes `SPECIFIC` (indicating specific objects) and `WILDCARD` (indicating pattern matching)",
           "help_zh": "传输对象映射模式，包括 `SPECIFIC`（表示指定对象）和 `WILDCARD`（表示匹配规则）",
@@ -1865,6 +1880,11 @@
           "type": "string"
         },
         {
+          "enum": [
+            "ALL",
+            "WITHOUT_UNIQUE_ROW_ID",
+            "WITH_UNIQUE_ROW_ID"
+          ],
           "example": "ALL",
           "help_en": "Supported table types include ALL (all tables), WITH_UNIQUE_ROW_ID (tables with a unique row identity), and WITHOUT_UNIQUE_ROW_ID (tables without a unique row identity). The default value is ALL.  ",
           "help_zh": "支持的表类型。包括 ALL（所有表）、WITH_UNIQUE_ROW_ID（有唯一行标识的表）和 WITHOUT_UNIQUE_ROW_ID（无唯一行标识的表），默认值为 ALL",
@@ -1905,6 +1925,12 @@
     {
       "fields": [
         {
+          "enum": [
+            "IGNORE_BYTE_IF_BYTE_USED",
+            "FORCE_CHAR_IF_BYTE_USED",
+            "EXPAND_LEN_IF_BYTE_USED",
+            "DO_NOTHING_IF_BYTE_USED"
+          ],
           "example": "DO_NOTHING_IF_BYTE_USED",
           "help_en": "The byte/char conversion strategy. Enumeration values include `IGNORE_BYTE_IF_BYTE_USED`, `FORCE_CHAR_IF_BYTE_USED`, `EXPAND_LEN_IF_BYTE_USED`, and `DO_NOTHING_IF_BYTE_USED` (default value)",
           "help_zh": "byte/char 转换方案，枚举值包括 `IGNORE_BYTE_IF_BYTE_USED`、`FORCE_CHAR_IF_BYTE_USED`、`EXPAND_LEN_IF_BYTE_USED` 和 `DO_NOTHING_IF_BYTE_USED`（默认值）",
@@ -1982,6 +2008,11 @@
           "type": "bool"
         },
         {
+          "enum": [
+            "STEADY",
+            "NORMAL",
+            "FAST"
+          ],
           "example": "NORMAL",
           "help_en": "The concurrent speed for full migration, including STEADY, NORMAL, and FAST.  \n<notice>If a full migration step exists, FullTransferSpeedMode must be specified; you can specify NORMAL.</notice>",
           "help_zh": "全量迁移并发速度，包括 STEADY、NORMAL 和 FAST。\n<notice>如果有全量迁移步骤，则 FullTransferSpeedMode 必传，可以传 NORMAL。></notice>",
@@ -1994,6 +2025,11 @@
           "type": "string"
         },
         {
+          "enum": [
+            "STEADY",
+            "NORMAL",
+            "FAST"
+          ],
           "example": "NORMAL",
           "help_en": "The concurrent speed for full validation, including STEADY, NORMAL, and FAST.  \n<notice>If a full validation step exists, FullVerifySpeedMode must be specified; you can specify NORMAL.</notice>",
           "help_zh": "全量校验并发速度，包括 STEADY、NORMAL 和 FAST。\n<notice>如果有全量校验步骤，则 FullVerifySpeedMode 必传，可以传 NORMAL。></notice>",
@@ -2006,6 +2042,10 @@
           "type": "string"
         },
         {
+          "enum": [
+            "ALL",
+            "NEWEST"
+          ],
           "example": "NEWEST",
           "help_en": "The validation mode for HBase objects, including NEWEST and ALL",
           "help_zh": "HBase 对象的校验模式，包括 NEWEST 和 ALL",
@@ -2018,6 +2058,10 @@
           "type": "string"
         },
         {
+          "enum": [
+            "ALL",
+            "NEWEST"
+          ],
           "example": "NEWEST",
           "help_en": "The migration pattern for HBase objects, which includes NEWEST and ALL",
           "help_zh": "HBase 对象的迁移模式，包括 NEWEST 和 ALL",
@@ -2182,6 +2226,8 @@
           "example": "64",
           "help_en": "The number of threads used for incremental synchronization. The default value is 64",
           "help_zh": "增量同步的线程数，默认值为 64",
+          "maximum": "1024",
+          "minimum": "1",
           "name": "incr_sync_concurrency",
           "options": [
             "--incr-sync-concurrency"
@@ -2309,6 +2355,8 @@
           "example": "64",
           "help_en": "The number of threads used for reverse incremental synchronization. The default value is 64",
           "help_zh": "反向增量同步线程数，默认值为 64",
+          "maximum": "1024",
+          "minimum": "1",
           "name": "incr_sync_concurrency",
           "options": [
             "--incr-sync-concurrency"

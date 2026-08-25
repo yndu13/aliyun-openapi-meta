@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "...",
-      "help_en": "Parameter deprecated, no need to fill in",
+      "help_en": "This parameter is deprecated and does not need to be specified",
       "help_zh": "参数弃用，无需填写",
       "location": "query",
       "name": "request_pars",
@@ -34,6 +34,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "mse-cn-m7r1yurp00e",
       "help_en": "The ID of the instance",
       "help_zh": "实例的ID",
@@ -47,8 +48,9 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "zeekr-clueboss.yml",
-      "help_en": "The ID of the data",
+      "help_en": "The data ID",
       "help_zh": "数据ID",
       "location": "query",
       "name": "data_id",
@@ -60,6 +62,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "prod",
       "help_en": "The group",
       "help_zh": "分组",
@@ -90,7 +93,7 @@
         "fields": [
           {
             "example": "127.0.0.1",
-            "help_en": "The canary release rule. For a beta release, you can specify one or more client IP addresses for this parameter. You must separate multiple IP addresses with commas (,). For a tag-based canary release, the value is in the format of Tag name=Tag value. You must separate multiple tag values with commas (,)",
+            "help_en": "The canary release rule. If it is a Beta canary release, this field contains the IP addresses of the canary release clients, separated by commas. If it is a tag-based canary release, this field contains tag_name=tag_value, with multiple tag values separated by commas",
             "help_zh": "灰度规则，如果是Beta灰度，此处是灰度的客户端的ip，使用逗号分隔；如果是标签灰度，此处是 标签名=标签值，多个标签值使用逗号分隔",
             "name": "gray_rule",
             "options": [
@@ -102,7 +105,7 @@
           },
           {
             "example": "test",
-            "help_en": "The canary version name",
+            "help_en": "The name of the canary release version",
             "help_zh": "灰度版本名称",
             "name": "gray_rule_name",
             "options": [
@@ -114,7 +117,7 @@
           },
           {
             "example": "100",
-            "help_en": "The canary version priority",
+            "help_en": "The priority of the canary release version",
             "help_zh": "灰度版本优先级",
             "name": "gray_rule_priority",
             "options": [
@@ -125,8 +128,12 @@
             "type": "int"
           },
           {
+            "enum": [
+              "Tags",
+              "Beta"
+            ],
             "example": "Tags",
-            "help_en": "Canary rule type",
+            "help_en": "The type of the canary release rule",
             "help_zh": "灰度规则类型",
             "name": "gray_rule_type",
             "options": [
@@ -139,7 +146,7 @@
         ],
         "type": "object"
       },
-      "help_en": "Additional canary release rule list, when matching listeners, the additional canary release rules will be merged with existing rules for matching",
+      "help_en": "The list of additional canary release rules. When performing listener matching, the additional canary release rules are merged with existing rules for matching",
       "help_zh": "额外的灰度规则列表，在进行listener匹配时会将额外的灰度规则和现有的规则合并进行匹配",
       "location": "query",
       "name": "ext_gray_rules",
@@ -153,7 +160,7 @@
     },
     {
       "example": "zh",
-      "help_en": "The language of the response. Valid values:\n\nzh: Chinese\nen: English",
+      "help_en": "The language of the response. Valid values:\n\nzh: Chinese.\nen: English",
       "help_zh": "返回信息的语言类型：\n\nzh：中文\nen：英文",
       "location": "query",
       "name": "accept_language",

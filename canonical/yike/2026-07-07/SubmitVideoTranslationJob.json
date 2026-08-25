@@ -3,8 +3,8 @@
   "cmd_full_name": "yike submit-video-translation-job",
   "cmd_name": "submit-video-translation-job",
   "deprecated": false,
-  "description_en": "Submits a video translation task that supports subtitle translation, voice translation, and on-screen text translation",
-  "description_zh": "用于提交视频翻译任务，支持字幕、声音及画面文字翻译等功能",
+  "description_en": "Submits an asynchronous video translation task that supports subtitle translation, voice translation, main subtitle erasure, and on-screen text translation",
+  "description_zh": "提交异步视频翻译任务，支持字幕翻译、声音翻译、主字幕擦除和画面文字翻译",
   "kebab_example": "",
   "method": "POST",
   "multi_version": true,
@@ -24,8 +24,8 @@
   "parameters": [
     {
       "example": "VoiceTranslate",
-      "help_en": "The job type. Valid values:\nSubtitleTranslate\nVoiceTranslate",
-      "help_zh": "任务类型，支持：\nSubtitleTranslate\nVoiceTranslate",
+      "help_en": "The job type. SubtitleTranslate indicates subtitle translation. VoiceTranslate indicates voice translation",
+      "help_zh": "任务类型。SubtitleTranslate 表示字幕翻译，VoiceTranslate 表示声音翻译",
       "location": "formData",
       "name": "job_type",
       "options": [
@@ -36,9 +36,9 @@
       "type": "string"
     },
     {
-      "example": "{\"Video\":\"oss://bucket/path/input.mp4\"}",
-      "help_en": "The input configuration JSON string:\nVideo\nAudio\nSubtitle\n\n<notice>Currently, only OSS addresses under the calling account are supported as input.</notice>",
-      "help_zh": "输入配置 JSON 字符串：\nVideo\nAudio\nSubtitle\n\n<notice>当前仅支持调用账号下 oss 地址输入</notice>",
+      "example": "{\"VideoMediaId\":\"media-video-001\"}",
+      "help_en": "The input configuration JSON string. You must specify either Video or VideoMediaId, but not both. You can specify at most one of Audio or AudioMediaId. Subtitle is optional",
+      "help_zh": "输入配置 JSON 字符串。Video 与 VideoMediaId 必须且只能填写一个；Audio 与 AudioMediaId 最多填写一个；可选填写 Subtitle",
       "location": "formData",
       "name": "input",
       "options": [
@@ -49,9 +49,9 @@
       "type": "string"
     },
     {
-      "example": "{\"OssUri\":\"oss://bucket/output/\"}",
-      "help_en": "The output configuration JSON string. The OssUri value must be a folder",
-      "help_zh": "输出配置 JSON 字符串。其中 OssUri 要求为文件夹",
+      "example": "{\"OssUri\":\"oss://example-bucket/video-translation/output/\"}",
+      "help_en": "The output configuration JSON string. OssUri is an optional customer OSS output directory. If not specified, a signed URL of the service-owned artifact is returned",
+      "help_zh": "输出配置 JSON 字符串。OssUri 为可选的客户 OSS 输出目录；未指定时返回服务自有产物的签名 URL",
       "location": "formData",
       "name": "output",
       "options": [
@@ -63,8 +63,8 @@
     },
     {
       "example": "{\"SourceLanguage\":\"zh\",\"TargetLanguage\":\"en\",\"NeedDetext\":false,\"NeedVisualTranslate\":false}",
-      "help_en": "The job parameters JSON string",
-      "help_zh": "任务参数 JSON 字符串",
+      "help_en": "The job parameters JSON string. It must contain at least SourceLanguage and TargetLanguage. You can also configure main subtitle erasure, voice translation, on-screen text translation, and final editing",
+      "help_zh": "任务参数 JSON 字符串，至少包含 SourceLanguage 和 TargetLanguage，并可配置主字幕擦除、声音翻译、画面文字翻译及最终剪辑",
       "location": "formData",
       "name": "job_parameters",
       "options": [
@@ -75,9 +75,9 @@
       "type": "string"
     },
     {
-      "example": "title",
-      "help_en": "If not specified, the service generates a default title",
-      "help_zh": "未传时服务生成默认标题",
+      "example": "产品介绍视频英译",
+      "help_en": "The job title. If not specified, the service generates a default title",
+      "help_zh": "任务标题。未填写时由服务生成默认标题",
       "location": "formData",
       "name": "title",
       "options": [
@@ -88,9 +88,9 @@
       "type": "string"
     },
     {
-      "example": "description",
-      "help_en": "The job description",
-      "help_zh": "任务说明",
+      "example": "将中文产品介绍视频翻译为英文。",
+      "help_en": "The job description, used to record business purposes or processing requirements",
+      "help_zh": "任务说明，用于记录业务用途或处理要求",
       "location": "formData",
       "name": "description",
       "options": [
@@ -101,9 +101,9 @@
       "type": "string"
     },
     {
-      "example": "{}",
-      "help_en": "The custom user data JSON string",
-      "help_zh": "用户自定义数据 JSON 字符串",
+      "example": "{\"NotifyAddress\":\"mns://account.mns.cn-shanghai.aliyuncs.com/queues/video-translation-result\"}",
+      "help_en": "The custom user data JSON string. It can contain the asynchronous notification address NotifyAddress",
+      "help_zh": "用户自定义数据 JSON 字符串，可包含异步通知地址 NotifyAddress",
       "location": "formData",
       "name": "user_data",
       "options": [
@@ -114,9 +114,9 @@
       "type": "string"
     },
     {
-      "example": "****3e761e9d11edba640c42a1b7****",
-      "help_en": "The user-level idempotency key",
-      "help_zh": "用户维度幂等键",
+      "example": "vt-client-20260820-001",
+      "help_en": "The user-level idempotency token, up to 40 characters. If the same user submits a request with the same token, the original job is returned",
+      "help_zh": "用户维度的幂等令牌，最长 40 个字符。相同用户使用同一令牌重复提交时返回原任务",
       "location": "formData",
       "name": "client_token",
       "options": [

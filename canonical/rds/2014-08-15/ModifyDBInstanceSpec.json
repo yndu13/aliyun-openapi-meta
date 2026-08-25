@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "rm-uf6wjk5****",
       "help_en": "The instance ID. You can call https://help.aliyun.com/document_detail/610396.html to query the instance ID",
       "help_zh": "实例ID，可调用https://help.aliyun.com/document_detail/610396.html获取",
@@ -51,6 +52,7 @@
       "help_en": "The https://help.aliyun.com/document_detail/26312.html. Unit: GB. You can call https://help.aliyun.com/document_detail/610393.html to query the available storage capacity range for the target instance type",
       "help_zh": "https://help.aliyun.com/document_detail/26312.html，单位GB，可调用https://help.aliyun.com/document_detail/610393.html接口查询目标实例规格中可用的存储空间范围。\n\n本参数和DBInstanceClass参数两者至少传入一项。\n调用https://help.aliyun.com/document_detail/610394.html可以查看实例当前的存储空间大小",
       "location": "query",
+      "minimum": "5",
       "name": "db_instance_storage",
       "options": [
         "--db-instance-storage"
@@ -125,6 +127,13 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Up",
+        "Down",
+        "Auto",
+        "TempUpgrade",
+        "Serverless"
+      ],
       "example": "Up",
       "help_en": "The type of specification change. Valid values:\n\nUp (default): upgrade of a subscription instance or upgrade/downgrade of a pay-as-you-go instance.\nDown: downgrade of a subscription instance.\nTempUpgrade: elastic specification change of a subscription ApsaraDB RDS for SQL Server instance. This value is required for elastic specification changes.\nServerless: configuration of elastic settings for a serverless instance.\n\nIf you want to change only the DBInstanceStorageType parameter, for example, from standard SSD to ESSD, leave this parameter empty",
       "help_zh": "实例变配类型，取值：\n\nUp（默认值）：包年包月实例的升级和按量付费实例的升级/降级。\nDown：包年包月实例的降级。\nTempUpgrade：包年包月SQL Server实例的弹性变配，弹性变配必填。\nServerless：Serverless实例调整弹性设置时配置。\n\n如果仅变更DBInstanceStorageType参数，例如将SSD云盘变更为ESSD云盘，则此参数留空",
@@ -409,6 +418,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "optimized",
+        "none"
+      ],
       "example": "optimized",
       "help_en": "Specifies whether to enable the MySQL https://help.aliyun.com/document_detail/2858761.html. Valid values:",
       "help_zh": "MySQLhttps://help.aliyun.com/document_detail/2858761.html开关，取值：\n\noptimized：开启\nnone：关闭",

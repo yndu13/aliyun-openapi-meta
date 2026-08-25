@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID",
       "help_zh": "地域ID。\n\n您可以通过https://help.aliyun.com/document_detail/98041.html接口查看可用地域",
@@ -47,6 +48,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "X86",
+        "ARM"
+      ],
       "example": "X86",
       "help_en": "The CPU architecture. Valid values:",
       "help_zh": "CPU 架构。取值范围如下：\nX86\nARM",
@@ -60,6 +65,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "MySQL",
       "help_en": "The database engine type. Valid values:",
       "help_zh": "数据库引擎类型，取值范围如下： \n\nMySQL\nPostgreSQL\nOracle",
@@ -73,6 +79,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "5.6",
       "help_en": "The database engine version",
       "help_zh": "数据库引擎版本号。\nMySQL版本号取值范围如下： \n    * 5.6\n    * 5.7\n    * 8.0\nPostgreSQL版本号取值范围如下：\n    * 11\n    * 14\n    * 15\n    <props=\"china\">\n      \n      > PolarDB PostgreSQL版中如需创建Serverless集群，版本号只支持14。 \n    \n    </props>\nOracle版本号取值范围如下：\n    * 11\n    * 14",
@@ -86,6 +93,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "polar.mysql.x4.medium",
       "help_en": "The node specifications. For details, see the following topics:",
       "help_zh": "节点规格，详情请参见如下文档：\n\nPolarDB MySQL版：https://help.aliyun.com/document_detail/102542.html。\nPolarDB PostgreSQL版（兼容Oracle）：https://help.aliyun.com/document_detail/207921.html。\nPolarDB PostgreSQL版：https://help.aliyun.com/document_detail/209380.html。\n\nPolarDB MySQL集群版如需创建Serverless集群，请传入polar.mysql.sl.small。\nPolarDB MySQL标准版如需创建Serverless集群，请传入polar.mysql.sl.small.c。\nPolarDB PostgreSQL集群版如需创建Serverless集群，请传入polar.pg.sl.small。\nPolarDB PostgreSQL标准版如需创建Serverless集群，请传入polar.pg.sl.small.c。\nPolarDB PostgreSQL版（兼容Oracle）如需创建Serverless集群，请传入polar.o.sl.small",
@@ -95,7 +103,7 @@
         "--db-node-class"
       ],
       "raw_name": "DBNodeClass",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -125,6 +133,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "Postpaid",
       "help_en": "The billing method. Valid values:",
       "help_zh": "付费类型，取值范围如下： \n\nPostpaid：按量付费。\nPrepaid：预付费（包年包月）",
@@ -363,6 +372,8 @@
       "help_en": "The storage space for the space-based billing (subscription) plan. Unit: GB",
       "help_zh": "按空间计费（包年包月）的存储空间。单位：GB。\nPolarDB MySQL企业版存储空间的取值范围：10~50000。\nPolarDB MySQL标准版存储空间的取值范围：20~64000。\n标准版存储类型为ESSDAUTOPL时，存储空间的取值范围：40~64000，步长最小为10，即只能填写40、50、60...以此类推",
       "location": "query",
+      "maximum": "100000",
+      "minimum": "10",
       "name": "storage_space",
       "options": [
         "--storage-space"
@@ -479,6 +490,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "true",
+        "false"
+      ],
       "example": "true",
       "help_en": "Specifies whether to enable No-activity Suspension. Valid values:",
       "help_zh": "是否开启无活动暂停。取值：\n\ntrue：开启\n\nfalse：关闭（默认）\n仅Serverless集群支持该参数",
@@ -544,6 +559,13 @@
       "type": "int"
     },
     {
+      "enum": [
+        "ON",
+        "OFF",
+        "STANDBY",
+        "3AZ",
+        "EQUAL"
+      ],
       "example": "ON",
       "help_en": "Specifies whether the hot standby cluster is enabled. Valid values:",
       "help_zh": "是否开启热备集群。取值范围如下：\n\nON（默认）：开启存储热备集群。\nOFF：关闭热备集群。\nSTANDBY：开启热备集群。\nEQUAL：开启存储热备和计算热备。\n3AZ：多可用区数据强一致。\nSTANDBY 仅对PolarDB PostgreSQL版生效",
@@ -557,6 +579,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "ON",
+        "OFF"
+      ],
       "example": "ON",
       "help_en": "Specifies whether to enable multi-zone strong data consistency for the cluster. Valid values:",
       "help_zh": "集群是否开启了多可用区数据强一致。取值范围如下：\n\nON：表示开启了多可用区数据强一致，适用于标准版3AZ场景。\n\nOFF：表示未开启多可用区数据强一致",
@@ -609,6 +635,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "ON",
+        "OFF"
+      ],
       "example": "ON",
       "help_en": "Specifies whether to enable the Binlog feature. Valid values:",
       "help_zh": "开启Binlog功能，取值范围如下：\n\nON：集群开启Binlog功能。\nOFF：集群关闭Binlog功能。\n当参数DBType为MySQL时，该参数才生效",
@@ -622,6 +652,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "ON",
+        "OFF"
+      ],
       "example": "ON",
       "help_en": "Specifies whether to enable the X-Engine storage engine. Valid values:",
       "help_zh": "开启X-Engine存储引擎功能，取值范围如下：\n\nON：集群开启X-Engine引擎。\nOFF：集群关闭X-Engine引擎。\n当参数CreationOption不等于CreateGdnStandby，DBType为MySQL且DBVersion为8.0时，该参数才生效。开启X-Engine引擎的节点内存规格必须大于等于8 GB",
@@ -648,6 +682,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Postpaid",
+        "Prepaid"
+      ],
       "example": "Prepaid",
       "help_en": "The billing type for storage. Valid values:",
       "help_zh": "存储计费类型。取值范围如下：\n\nPostpaid：按容量计费（按量付费）。\nPrepaid：按空间计费（包年包月）",
@@ -661,6 +699,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Enable",
+        "Disable"
+      ],
       "example": "Enable",
       "help_en": "Specifies whether to enable automatic storage scaling for the Standard Edition cluster. Valid values:",
       "help_zh": "标准版集群是否开启存储自动扩容。取值范围如下：\n\nEnable：开启存储自动扩容。\nDisable：关闭存储自动扩容",
@@ -678,6 +720,8 @@
       "help_en": "The upper limit of automatic storage scaling for the Standard Edition cluster. Unit: GB",
       "help_zh": "设置标准版集群存储自动扩容上限，单位：GB。\n\n取值最大为32000",
       "location": "query",
+      "maximum": "64000",
+      "minimum": "20",
       "name": "storage_upper_bound",
       "options": [
         "--storage-upper-bound"
@@ -700,6 +744,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "true",
+        "false"
+      ],
       "example": "false",
       "help_en": "Specifies whether to enable I/O performance burst for the ESSD AutoPL cloud disk. Valid values:",
       "help_zh": "ESSD AutoPL云盘是否开启IO性能突发。取值：\n\ntrue：开启\nfalse：不开启（默认）\n\n当StorageType为ESSDAUTOPL时才支持该参数",
@@ -1000,7 +1048,7 @@
       "help_zh": "节点规格，详情请参见如下文档：\n\nPolarDB MySQL版：https://help.aliyun.com/document_detail/102542.html。\nPolarDB PostgreSQL版（兼容Oracle）：https://help.aliyun.com/document_detail/207921.html。\nPolarDB PostgreSQL版：https://help.aliyun.com/document_detail/209380.html。\n\nPolarDB MySQL集群版如需创建Serverless集群，请传入polar.mysql.sl.small。\nPolarDB MySQL标准版如需创建Serverless集群，请传入polar.mysql.sl.small.c。\nPolarDB PostgreSQL集群版如需创建Serverless集群，请传入polar.pg.sl.small。\nPolarDB PostgreSQL标准版如需创建Serverless集群，请传入polar.pg.sl.small.c。\nPolarDB PostgreSQL版（兼容Oracle）如需创建Serverless集群，请传入polar.o.sl.small",
       "name": "DBNodeClass",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {

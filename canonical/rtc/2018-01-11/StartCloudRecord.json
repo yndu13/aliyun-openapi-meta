@@ -51,10 +51,13 @@
       "help_en": "The template ID",
       "help_zh": "模版ID",
       "location": "query",
+      "maxLength": "128",
+      "minLength": "1",
       "name": "template_id",
       "options": [
         "--template-id"
       ],
+      "pattern": "^[\\w.-]+$",
       "raw_name": "TemplateId",
       "required": true,
       "type": "string"
@@ -64,15 +67,23 @@
       "help_en": "The task ID of this cloud recording task. Only one task ID is supported. The task ID can contain letters, digits, underscores (_), and hyphens (-). Maximum length: 55 bytes",
       "help_zh": "本次云端录制的任务ID，仅支持传单个ID。由大小写字母、数字、下划线、短划线（-）组成，最大55字节",
       "location": "query",
+      "maxLength": "55",
+      "minLength": "1",
       "name": "task_id",
       "options": [
         "--task-id"
       ],
+      "pattern": "^[0-9a-zA-Z_-]+$",
       "raw_name": "TaskId",
       "required": false,
       "type": "string"
     },
     {
+      "enum": [
+        "1",
+        "2",
+        "3"
+      ],
       "example": "2",
       "help_en": "The cropping mode. Valid values:\n\n1: Crop while maintaining the aspect ratio.\n\n2: Pad while maintaining the aspect ratio. Default value.\n\n3: Stretch to fill the area",
       "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边（默认值）。\n3：拉伸铺满",
@@ -147,6 +158,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "disable",
+        "enable"
+      ],
       "example": "disable",
       "help_en": "Enable or disable annotation",
       "help_zh": "标注开关",
@@ -166,6 +181,7 @@
           "example": "LTAX***",
           "help_en": "The AccessKey. Grant the RAM user associated with this AccessKey the write permission on the Object Storage Service product of the corresponding cloud provider. Otherwise, the recording files cannot be written to the bucket",
           "help_zh": "accessKey。该密钥对应的子账号，请添加对应云厂商对象存储产品写权限，否则会导致结果文件写入失败",
+          "minLength": "1",
           "name": "access_key",
           "options": [
             "--access-key"
@@ -178,6 +194,7 @@
           "example": "test-bucket-for-recording",
           "help_en": "The bucket name",
           "help_zh": "存储桶名称",
+          "minLength": "1",
           "name": "bucket",
           "options": [
             "--bucket"
@@ -190,6 +207,7 @@
           "example": "https://aliyuns.dalian.oss.com",
           "help_en": "The private endpoint for Apsara Stack",
           "help_zh": "专有云时，私网连接地址",
+          "minLength": "1",
           "name": "endpoint",
           "options": [
             "--endpoint"
@@ -214,6 +232,7 @@
           "example": "APb6qWYEzKtYxE***",
           "help_en": "The SecretKey",
           "help_zh": "secretKey",
+          "minLength": "1",
           "name": "secret_key",
           "options": [
             "--secret-key"
@@ -226,6 +245,7 @@
           "example": "1",
           "help_en": "The storage platform. Valid values:\n\n| vendor | Object Storage Service  | Remarks       |\n| ------ | ----------------------- | ------------- |\n| 1      | AliYun OSS              | Alibaba Cloud |\n| 2      | AliYun Apsara Stack OSS | Apsara Stack  |",
           "help_zh": "存储平台。取值：\n\n| vendor | 对象存储产品 | 备注 |\n|--------|---------|---------|\n| 1 | AliYun OSS | 阿里云  |\n| 2| AliYun 专有云OSS | 阿里云专有云  |",
+          "minimum": "1",
           "name": "vendor",
           "options": [
             "--vendor"
@@ -266,6 +286,11 @@
                   "type": "float"
                 },
                 {
+                  "enum": [
+                    "streamOnly",
+                    "backup",
+                    "always"
+                  ],
                   "example": "backup",
                   "help_en": "When to display the background image.\n\nstreamOnly: Display only when the current user has a video stream. Default value.\n\nbackup: Display only when the current user does not have a video stream.\n\nalways: Always display",
                   "help_zh": "显示时机。\nstreamOnly：当前用户有视频流时显示（默认值）。\nbackup：当前用户无视频流时显示。\nalways：总是显示",
@@ -302,6 +327,11 @@
                   "type": "int"
                 },
                 {
+                  "enum": [
+                    "1",
+                    "2",
+                    "3"
+                  ],
                   "example": "2",
                   "help_en": "The cropping mode. Valid values:\n\n1: Crop while maintaining the aspect ratio.\n\n2: Pad while maintaining the aspect ratio.\n\n3: Stretch to fill the area",
                   "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -317,6 +347,8 @@
                   "example": "https://aliyun.com/123xx.jpg",
                   "help_en": "The image URL",
                   "help_zh": "图片地址",
+                  "maxLength": "1024",
+                  "minLength": "1",
                   "name": "url",
                   "options": [
                     "--url"
@@ -390,6 +422,11 @@
                   "type": "float"
                 },
                 {
+                  "enum": [
+                    "streamOnly",
+                    "backup",
+                    "always"
+                  ],
                   "example": "backup",
                   "help_en": "When to display the watermark.\n\nstreamOnly: Display only when the current user has a video stream. Default value.\n\nbackup: Display only when the current user does not have a video stream.\n\nalways: Always display",
                   "help_zh": "水印显示时机。\nstreamOnly：当前用户有视频流时显示（默认值）。\nbackup：当前用户无视频流时显示。\nalways：总是显示",
@@ -426,6 +463,11 @@
                   "type": "int"
                 },
                 {
+                  "enum": [
+                    "1",
+                    "2",
+                    "3"
+                  ],
                   "example": "2",
                   "help_en": "The cropping mode. Valid values:\n\n1: Crop while maintaining the aspect ratio.\n\n2: Pad while maintaining the aspect ratio.\n\n3: Stretch to fill the area",
                   "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -441,6 +483,8 @@
                   "example": "https://aliyun.com/123xx.jpg",
                   "help_en": "The image content cannot be updated during streaming",
                   "help_zh": "对应的图片内容在推流期间不支持更新",
+                  "maxLength": "1024",
+                  "minLength": "1",
                   "name": "url",
                   "options": [
                     "--url"
@@ -499,6 +543,11 @@
             "type": "array"
           },
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "3",
             "help_en": "The cropping mode. Valid values:\n\n1: Crop while maintaining the aspect ratio.\n\n2: Pad while maintaining the aspect ratio.\n\n3: Stretch to fill the area",
             "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -546,6 +595,12 @@
             "type": "string"
           },
           {
+            "enum": [
+              "video",
+              "camera",
+              "screen",
+              "whiteboard"
+            ],
             "example": "video",
             "help_en": "The media type of the pane. Valid values:\n\nvideo: Camera or screen-sharing stream. Default value.\n\ncamera: Camera stream.\n\nscreen: Screen-sharing stream.\n\nwhiteboard: Whiteboard",
             "help_zh": "单元格媒体类型。取值：\nvideo：用户摄像头或者屏幕共享流（默认值）。\ncamera：摄像头流。\nscreen：共享屏幕流。\nwhiteboard：白板",
@@ -646,6 +701,11 @@
                   "type": "object"
                 },
                 {
+                  "enum": [
+                    "streamOnly",
+                    "backup",
+                    "always"
+                  ],
                   "example": "backup",
                   "help_en": "When to display the watermark.\n\nstreamOnly: Display only when the current user has a video stream. Default value.\n\nbackup: Display only when the current user does not have a video stream.\n\nalways: Always display",
                   "help_zh": "水印显示时机。\nstreamOnly：当前用户有视频流时显示（默认值）。\nbackup：当前用户无视频流时显示。\nalways：总是显示",
@@ -757,6 +817,8 @@
                   "example": "文字水印",
                   "help_en": "The watermark content",
                   "help_zh": "水印内容",
+                  "maxLength": "128",
+                  "minLength": "1",
                   "name": "texture",
                   "options": [
                     "--texture"
@@ -803,6 +865,10 @@
             "type": "array"
           },
           {
+            "enum": [
+              "cameraFirst",
+              "screenFirst"
+            ],
             "example": "cameraFirst",
             "help_en": "The order in which video sources are filled when SourceType is set to video.\n\nscreenFirst: Prioritize screen sharing. Default value.\n\ncameraFirst: Prioritize camera streams",
             "help_zh": "SourceType为video时，填充顺序。\nscreenFirst，屏幕共享优先（默认值）\ncameraFirst，摄像头优先",
@@ -883,6 +949,11 @@
             "type": "float"
           },
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "2",
             "help_en": "The cropping mode. Valid values:\n\n1: Crop while maintaining the aspect ratio.\n\n2: Pad while maintaining the aspect ratio.\n\n3: Stretch to fill the area",
             "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -910,6 +981,8 @@
             "example": "https://aliyun.com/123xxx.jpg",
             "help_en": "The image URL. The image content cannot be updated during stream ingest",
             "help_zh": "图片地址。对应的图片内容在推流期间不支持更新",
+            "maxLength": "1024",
+            "minLength": "1",
             "name": "url",
             "options": [
               "--url"
@@ -986,6 +1059,11 @@
             "type": "float"
           },
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "2",
             "help_en": "The cropping mode. Valid values:\n\n1: Crop while maintaining the aspect ratio.\n\n2: Pad while maintaining the aspect ratio.\n\n3: Stretch to fill the area",
             "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -1025,6 +1103,8 @@
             "example": "https://aliyun.com/123.jpg",
             "help_en": "The image URL",
             "help_zh": "图片地址",
+            "maxLength": "1024",
+            "minLength": "1",
             "name": "url",
             "options": [
               "--url"
@@ -1272,6 +1352,8 @@
             "example": "文字水印",
             "help_en": "The watermark content",
             "help_zh": "水印内容",
+            "maxLength": "128",
+            "minLength": "1",
             "name": "texture",
             "options": [
               "--texture"
@@ -1560,6 +1642,8 @@
           "example": "255",
           "help_en": "B",
           "help_zh": "B",
+          "maximum": "255",
+          "minimum": "-1",
           "name": "b",
           "options": [
             "--b"
@@ -1572,6 +1656,8 @@
           "example": "255",
           "help_en": "G",
           "help_zh": "G",
+          "maximum": "255",
+          "minimum": "-1",
           "name": "g",
           "options": [
             "--g"
@@ -1584,6 +1670,8 @@
           "example": "255",
           "help_en": "R",
           "help_zh": "R",
+          "maximum": "255",
+          "minimum": "-1",
           "name": "r",
           "options": [
             "--r"
@@ -1611,6 +1699,8 @@
           "example": "255",
           "help_en": "B",
           "help_zh": "B",
+          "maximum": "255",
+          "minimum": "0",
           "name": "b",
           "options": [
             "--b"
@@ -1623,6 +1713,8 @@
           "example": "255",
           "help_en": "G",
           "help_zh": "G",
+          "maximum": "255",
+          "minimum": "0",
           "name": "g",
           "options": [
             "--g"
@@ -1635,6 +1727,8 @@
           "example": "255",
           "help_en": "R",
           "help_zh": "R",
+          "maximum": "255",
+          "minimum": "0",
           "name": "r",
           "options": [
             "--r"
@@ -1673,6 +1767,10 @@
           "type": "array"
         },
         {
+          "enum": [
+            "white",
+            "black"
+          ],
           "example": "white",
           "help_en": "The type of user list. \\`black\\` for blacklist, \\`white\\` for whitelist",
           "help_zh": "用户名单类型，黑名单：black，白名单：white",
@@ -1698,6 +1796,10 @@
       "type": "object"
     },
     {
+      "enum": [
+        "0",
+        "1"
+      ],
       "help_en": "0: Composite recording. Default value.\n1: Individual recording. Individual recording does not support updates",
       "help_zh": " 0: 合流录制（默认值）\n 1: 单流录制 （单流录制不支持更新）",
       "location": "query",
@@ -1740,6 +1842,11 @@
                 "type": "array"
               },
               {
+                "enum": [
+                  "mic",
+                  "camera",
+                  "screen-cast"
+                ],
                 "help_en": "The stream type. Valid values:\n\nmic: Audio stream",
                 "help_zh": "流类型，取值：\nmic: 音频流",
                 "name": "stream_type",
@@ -1751,6 +1858,9 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "white"
+                ],
                 "example": "white",
                 "help_en": "The type of blacklist or whitelist for individual stream recording.\n\nwhite: Whitelist. Records this stream",
                 "help_zh": "单流录制流黑白名单类型\nwhite: 白名单，表示录制该流",
@@ -1780,6 +1890,11 @@
             {
               "fields": [
                 {
+                  "enum": [
+                    "64",
+                    "128",
+                    "192"
+                  ],
                   "help_en": "The bitrate in kbps",
                   "help_zh": "码率，单位kbps",
                   "name": "bitrate",
@@ -1791,6 +1906,10 @@
                   "type": "int"
                 },
                 {
+                  "enum": [
+                    "mp3",
+                    "aac"
+                  ],
                   "help_en": "The audio codec format. Optional:\n\nmp3\n\naac",
                   "help_zh": "音频编解码格式，可选:\nmp3\naac",
                   "name": "codec",
@@ -1802,6 +1921,13 @@
                   "type": "string"
                 },
                 {
+                  "enum": [
+                    "16000",
+                    "32000",
+                    "48000",
+                    "8000",
+                    "44100"
+                  ],
                   "help_en": "The sample rate. Optional:\n\n8000\n\n16000\n\n32000\n\n44100\n\n48000",
                   "help_zh": "采样率，可选：\n8000\n16000\n32000\n44100\n48000",
                   "name": "sample_rate",
@@ -1824,6 +1950,12 @@
               "type": "object"
             },
             {
+              "enum": [
+                "mp3",
+                "aac",
+                "mp4",
+                "ts"
+              ],
               "example": "aac",
               "help_en": "The recording file container.\n\nmp3\n\naac\n\nmp4\n\nts",
               "help_zh": "录制文件容器。\nmp3\naac\nmp4\nts",

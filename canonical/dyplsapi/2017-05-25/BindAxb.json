@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "FC10000016848****",
       "help_en": "The key of the phone number pool.\n\nLog on to the Phone Number Protection console (https://dypls.console.aliyun.com/dypls.htm#/account) and view the key of the phone number pool on the Number Pool Management page",
       "help_zh": "号码池Key。\n\n在号码隐私保护控制台，号码池管理 (https://dyplsnext.console.aliyun.com/number-pool)页面获取号码池Key",
@@ -30,10 +31,11 @@
         "--pool-key"
       ],
       "raw_name": "PoolKey",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "139****0000",
       "help_en": "Phone number A in the AXB binding.\n\nPhone number A can be set to a mobile phone number or a landline phone number. The landline phone number must be added with an area code, and no hyphen is required between the area code and the landline phone number",
       "help_zh": "AXB中间号的A号码。\n\nA号码可设置为手机号码或固定电话，固定电话请加区号，区号和固定电话之间不需要连字符。\n如果您的业务需要修改已绑定的号码，可以调用https://help.aliyun.com/document_detail/110253.html接口进行修改，控制台可以绑定或解绑号码，暂时不支持修改已绑定的号码",
@@ -47,6 +49,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "136****0000",
       "help_en": "Phone number B in the AXB binding. If phone number A is used to call phone number X, the call is forwarded to phone number B. Phone number B can be set to a mobile phone number or a landline phone number. The landline phone number must be added with an area code, and no hyphen is required between the area code and the landline phone number.\n\nIf you need to update phone number B, call the https://help.aliyun.com/document_detail/110253.html operation",
       "help_zh": "AXB中间号的B号码。\n\nB号码可设置为手机号码或固定电话，固定电话请加区号，区号和固定电话中间不需要连字符。\n如果您的业务需要修改已绑定的号码，可以调用https://help.aliyun.com/document_detail/110253.html接口进行修改，控制台可以绑定或解绑号码，暂时不支持修改已绑定的号码",
@@ -56,7 +59,7 @@
         "--phone-nob"
       ],
       "raw_name": "PhoneNoB",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -73,6 +76,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "2021-09-05 12:00:00",
       "help_en": "The expiration time of the AXB binding.\n\nThe expiration time must be more than 1 minute later than the time when you call this API operation",
       "help_zh": "号码绑定的过期时间。\n\n必须晚于当前绑定时间1分钟以上，时间精确到秒。\n号码绑定过期时间内，您可随时进行手动解绑。\n若您对正在通话中的号码进行解绑，不会影响本次通话",
@@ -138,6 +142,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "CONTROL_AX_DISABLE",
+        "CONTROL_BX_DISABLE",
+        "CONTROL_CLEAR_DISABLE"
+      ],
       "example": "CONTROL_AX_DISABLE",
       "help_en": "The status of the one-way call restriction. Valid values:\n\nCONTROL_AX_DISABLE: Phone number A cannot be used to call phone number X.\nCONTROL_BX_DISABLE: Phone number B cannot be used to call phone number X",
       "help_zh": "单次呼叫限制的状态。取值：\n\nCONTROL_AX_DISABLE：A号码无法呼叫X号码。\nCONTROL_BX_DISABLE：B号码无法呼叫X号码",
@@ -207,6 +216,8 @@
       "help_en": "The maximum ringing duration for each number in sequential ringing. Unit: seconds. The value ranges from 5 to 20",
       "help_zh": "顺振时长。单位：秒。取值范围为5~20",
       "location": "query",
+      "maximum": "180",
+      "minimum": "0",
       "name": "call_timeout",
       "options": [
         "--call-timeout"

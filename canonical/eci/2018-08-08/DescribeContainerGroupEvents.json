@@ -141,6 +141,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "EciService",
+        "K8sAgent"
+      ],
       "example": "K8sAgent",
       "help_en": "The event source. Valid values:\n\nEciService\n\nK8sAgent\n\nIf you leave this parameter empty, all events are queried",
       "help_zh": "事件源。取值范围：\n\nEciService\nK8sAgent\n\n默认为空，查询所有事件",
@@ -158,6 +162,8 @@
       "help_en": "Returns only new events to enable incremental polling",
       "help_zh": "返回最近几秒内新增的事件，用于轮询增量事件",
       "location": "query",
+      "maximum": "3600",
+      "minimum": "60",
       "name": "since_second",
       "options": [
         "--since-second"
@@ -171,6 +177,8 @@
       "help_en": "The maximum number of ECI instances to return. Default value: 200.\n\nThe response may contain fewer entries than the specified value",
       "help_zh": "限定此次返回资源（ECI实例）的数量。默认为200个。\n\n返回结果可能小于指定的数量，但不会多于指定的数量",
       "location": "query",
+      "maximum": "200",
+      "minimum": "1",
       "name": "limit",
       "options": [
         "--limit"

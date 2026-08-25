@@ -3,7 +3,7 @@
   "cmd_full_name": "ens describe-ha-vips",
   "cmd_name": "describe-ha-vips",
   "deprecated": false,
-  "description_en": "Queries high-availability virtual IP addresses (HAVIPs)",
+  "description_en": "Queries high-availability virtual IP addresses (HaVips)",
   "description_zh": "调用DescribeHaVips接口查询高可用虚拟IP（HaVip）",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "n-57gqcdfvx6n****",
-      "help_en": "The ID of the network",
+      "help_en": "The network ID",
       "help_zh": "网络ID",
       "location": "query",
       "name": "network_id",
@@ -35,7 +35,7 @@
     },
     {
       "example": "vsw-5****",
-      "help_en": "The ID of the vSwitch",
+      "help_en": "The vSwitch ID",
       "help_zh": "交换机ID",
       "location": "query",
       "name": "vswitch_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "havip-5p14t****",
-      "help_en": "The ID of the HAVIP",
+      "help_en": "The HaVip instance ID",
       "help_zh": "HaVip实例ID",
       "location": "query",
       "name": "ha_vip_id",
@@ -61,7 +61,7 @@
     },
     {
       "example": "10.5.XX.XX\n",
-      "help_en": "The IP address of the HAVIP",
+      "help_en": "The IP address of the HaVip instance",
       "help_zh": "HaVip 实例的 IP 地址",
       "location": "query",
       "name": "ha_vip_address",
@@ -74,7 +74,7 @@
     },
     {
       "example": "cn-beijing-cmcc",
-      "help_en": "The ID of the region",
+      "help_en": "The region ID",
       "help_zh": "地域ID",
       "location": "query",
       "name": "ens_region_id",
@@ -87,7 +87,7 @@
     },
     {
       "example": "test",
-      "help_en": "The name of the HAVIP",
+      "help_en": "The name of the HaVip instance",
       "help_zh": "HaVip 实例的名称",
       "location": "query",
       "name": "name",
@@ -99,8 +99,14 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Creating",
+        "Available",
+        "InUse",
+        "Deleting"
+      ],
       "example": "Available",
-      "help_en": "The status of the HAVIP. Valid values:\n\nCreating\n\nAvailable\n\nInUse\n\nDeleting",
+      "help_en": "The HaVip status. Valid values:\nCreating: The HaVip is being created.\nAvailable: The HaVip is available.\nInUse: The HaVip is in use.\nDeleting: The HaVip is being deleted",
       "help_zh": "HaVip状态。取值：\nCreating：创建中。\nAvailable：可用。\nInUse: 使用中。\nDeleting：删除中",
       "location": "query",
       "name": "status",
@@ -115,7 +121,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The IDs of edge nodes. You can specify 1 to 100 IDs",
+      "help_en": "The IDs of ENS nodes. Array length: 1 to 100",
       "help_zh": "ENS节点ID数组。数组长度：1~100",
       "location": "query",
       "name": "ens_region_ids",
@@ -129,7 +135,7 @@
     },
     {
       "example": "1",
-      "help_en": "The page number",
+      "help_en": "The current page number",
       "help_zh": "当前页码",
       "location": "query",
       "name": "page_number",
@@ -142,7 +148,7 @@
     },
     {
       "example": "10",
-      "help_en": "The number of entries per page",
+      "help_en": "The number of entries per page in a paged query. Settings for paging",
       "help_zh": "分页查询时设置的每页行数",
       "location": "query",
       "name": "page_size",

@@ -3,7 +3,7 @@
   "cmd_full_name": "cas list-tag-resources",
   "cmd_name": "list-tag-resources",
   "deprecated": false,
-  "description_en": "获取资源对应的标签",
+  "description_en": "Retrieves the tags associated with a resource",
   "description_zh": "获取资源对应的标签",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cn-hangzhou",
-      "help_en": "The RegionId",
+      "help_en": "The region ID",
       "help_zh": "地域id",
       "location": "query",
       "name": "region_id",
@@ -35,7 +35,7 @@
     },
     {
       "example": "instance",
-      "help_en": "The ResourceType",
+      "help_en": "The resource type. Default value: instance",
       "help_zh": "资源类型。默认值：instance",
       "location": "query",
       "name": "resource_type",
@@ -48,7 +48,7 @@
     },
     {
       "example": "1d2db86sca4384811e0b5e8707e68181f",
-      "help_en": "The NextToken",
+      "help_en": "The pagination token for the next query. If this parameter is empty, no more results exist",
       "help_zh": "下一个查询开始token，nexttoken为空说明没有下一个",
       "location": "query",
       "name": "next_token",
@@ -63,8 +63,8 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The ResourceId",
-      "help_zh": "资源id",
+      "help_en": "The resource ID. ResourceId and Tag cannot both be empty. At least one of ResourceId.N or (Tag.N.Key, Tag.N.Value) must be specified",
+      "help_zh": "资源id。ResourceId和Tag不能同时为空（ResourceId.N 及 (Tag.N.Key,Tag.N.Value) 至少存在一个）",
       "location": "query",
       "name": "resource_id",
       "options": [
@@ -80,7 +80,7 @@
         "fields": [
           {
             "example": "testKey1",
-            "help_en": "The Key",
+            "help_en": "The key of the tag to query. You can specify multiple keys. N is a positive integer",
             "help_zh": "要查询的标签的key，可有多个。n为正整数",
             "name": "key",
             "options": [
@@ -92,7 +92,7 @@
           },
           {
             "example": "testValue1",
-            "help_en": "The Value",
+            "help_en": "The tag value. Valid values of N: 1 to 20",
             "help_zh": "标签值。n的取值范围：1~20",
             "name": "value",
             "options": [
@@ -105,8 +105,8 @@
         ],
         "type": "object"
       },
-      "help_en": "The Tag",
-      "help_zh": "查询到的实例和标签的信息",
+      "help_en": "The information about instances and tags. ResourceId and Tag cannot both be empty. At least one of ResourceId.N or (Tag.N.Key, Tag.N.Value) must be specified",
+      "help_zh": "查询到的实例和标签的信息。ResourceId和Tag不能同时为空（ResourceId.N 及 (Tag.N.Key,Tag.N.Value) 至少存在一个）",
       "location": "query",
       "name": "tag",
       "options": [
@@ -119,7 +119,7 @@
     },
     {
       "example": "20",
-      "help_en": "The MaxResults",
+      "help_en": "The maximum number of entries to return. Default value: 20",
       "help_zh": "分页参数：结果集的最大数量，默认值为20",
       "location": "query",
       "name": "max_results",
@@ -133,65 +133,5 @@
   ],
   "pathPattern": "",
   "product_code": "cas",
-  "protocol": "HTTPS",
-  "v1_parameters": [
-    {
-      "help_zh": "分页参数：结果集的最大数量，默认值为20",
-      "name": "MaxResults",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "help_zh": "下一个查询开始token，nexttoken为空说明没有下一个",
-      "name": "NextToken",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_zh": "地域id",
-      "name": "RegionId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_zh": "资源id",
-      "name": "ResourceId",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": false,
-      "type": "array"
-    },
-    {
-      "help_zh": "资源类型。默认值：instance",
-      "name": "ResourceType",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_zh": "查询到的实例和标签的信息",
-      "name": "Tag",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": false,
-      "sub_parameters": [
-        {
-          "name": "Key",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "Value",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "type": "array"
-    }
-  ]
+  "protocol": "HTTPS"
 }

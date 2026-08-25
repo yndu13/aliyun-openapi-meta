@@ -36,6 +36,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "test-app",
       "help_en": "The application name",
       "help_zh": "应用名称",
@@ -49,10 +50,13 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "test-job",
       "help_en": "The node name",
       "help_zh": "任务名称",
       "location": "formData",
+      "maxLength": "200",
+      "minLength": "1",
       "name": "name",
       "options": [
         "--name"
@@ -66,6 +70,7 @@
       "help_en": "The node description",
       "help_zh": "任务描述",
       "location": "formData",
+      "maxLength": "300",
       "name": "description",
       "options": [
         "--description"
@@ -75,6 +80,34 @@
       "type": "string"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "xxljob",
+        "dify_workflow",
+        "script_groovy",
+        "script_shell",
+        "script_python",
+        "script_php",
+        "script_nodejs",
+        "script_powershell",
+        "http",
+        "status_branch",
+        "condition_branch",
+        "dependent",
+        "manual",
+        "callback_branch",
+        "script_cmd",
+        "sql",
+        "dify_agent",
+        "openclaw",
+        "bailian",
+        "a2a",
+        "langgraph",
+        "hermes",
+        "matrix",
+        "qwenpaw",
+        "elastic"
+      ],
       "example": "xxljob",
       "help_en": "The node type",
       "help_zh": "任务类型",
@@ -88,16 +121,19 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "1",
       "help_en": "The routing strategy. Valid values:\n1: round robin\n2: random\n3: first\n4: last\n5: least frequently used\n6: least recently used\n7: consistent hashing\n8: shard broadcast",
       "help_zh": "路由策略。具体取值如下：\n1: 轮询\n2: 随机\n3: 第一个\n4: 最后一个\n5: 最不经常使用\n6: 最近最久未使用\n7: 一致性哈希\n8: 分片广播",
       "location": "formData",
+      "maximum": "20",
+      "minimum": "1",
       "name": "route_strategy",
       "options": [
         "--route-strategy"
       ],
       "raw_name": "RouteStrategy",
-      "required": true,
+      "required": false,
       "type": "int"
     },
     {
@@ -118,6 +154,8 @@
       "help_en": "The maximum number of concurrent instances",
       "help_zh": "最大并发数",
       "location": "formData",
+      "maximum": "200",
+      "minimum": "1",
       "name": "max_concurrency",
       "options": [
         "--max-concurrency"
@@ -179,6 +217,15 @@
       "type": "string"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "-1",
+        "1",
+        "2",
+        "3",
+        "5",
+        "100"
+      ],
       "example": "-1",
       "help_en": "The time type. Valid values:\n-1: none<br/>\n1: cron<br/>\n3: fix_rate<br/>\n5: one_time<br/>\n100: api",
       "help_zh": "时间类型：\n-1: none<br/>\n1：cron<br/>\n3：fix_rate<br/>\n5：one_time<br/>\n100:：api",
@@ -231,6 +278,12 @@
       "type": "string"
     },
     {
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
       "example": "1",
       "help_en": "The start time type",
       "help_zh": "开始时间类型",
@@ -274,6 +327,7 @@
       "help_en": "The priority. Valid values:\n1: low\n5: medium\n10: high\n15: very high",
       "help_zh": "优先级:\n1: 低\n5: 中\n10: 高\n15: 非常高",
       "location": "formData",
+      "minimum": "1",
       "name": "priority",
       "options": [
         "--priority"
@@ -421,6 +475,11 @@
       "element": {
         "fields": [
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "1",
             "help_en": "The Notification Recipient type. Valid values:\n\n1: alert contact\n\n2: alert contact group",
             "help_zh": "通知对象类型,取值如下：\n\n1：报警联系人\n\n2：报警联系人组",
@@ -460,6 +519,11 @@
       "type": "array"
     },
     {
+      "enum": [
+        "1",
+        "2",
+        "3"
+      ],
       "example": "1",
       "help_en": "The client blocking strategy. Valid values:\n1: serial execution on a single machine\n2: ignore subsequent scheduling\n3: override previous scheduling",
       "help_zh": "客户端阻塞处理策略。\n1: 单机串行\n2: 忽略后续调度\n3: 覆盖之前调度",
@@ -473,6 +537,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "0",
+        "1"
+      ],
       "example": "1",
       "help_en": "The node status. Default value: enabled. Valid values:\n0: disabled\n1: enabled",
       "help_zh": "任务状态，默认为启用状态。\n0: 禁用\n1: 启用",
@@ -512,6 +580,16 @@
       "type": "int"
     },
     {
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
       "example": "1",
       "help_en": "The dependency strategy",
       "help_zh": "依赖策略",

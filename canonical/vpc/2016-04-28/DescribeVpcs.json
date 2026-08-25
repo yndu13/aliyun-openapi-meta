@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "vpc-bp1b1xjllp3ve5yze****",
-      "help_en": "The ID of the VPC. \n\nYou can specify up to 20 VPC IDs. Separate multiple IDs with commas (,)",
+      "help_en": "The ID of the VPC. \n\nYou can specify up to 20 VPC IDs. Separate multiple VPC IDs with commas (,)",
       "help_zh": "VPC的ID。 \n\n最多支持指定20个VPC ID，多个VPC的ID之间用半角逗号（,）隔开。 ",
       "location": "query",
       "name": "vpc_id",
@@ -34,6 +34,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID of the VPC. \n\nYou can call the https://help.aliyun.com/document_detail/448570.html operation to query the region ID",
       "help_zh": "VPC所在的地域ID。 \n\n您可以通过调用https://help.aliyun.com/document_detail/448570.html接口获取地域ID",
@@ -74,7 +75,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to perform a dry run. Valid values:\n\ntrue: performs a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized RAM users, and missing parameter values. If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\nfalse (default): sends a normal request. If the request passes the check, an HTTP 2xx status code is returned and the operation is performed",
+      "help_en": "Specifies whether to perform a dry run. Valid values:\n\ntrue: performs a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized Resource Access Management (RAM) users, and missing parameter values. If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\nfalse (default): sends a Normal request, and the resource status is directly queried after the request passes the authorization check. An HTTP 2xx status code is returned",
       "help_zh": "是否只预检此次请求，取值：\n\ntrue：发送检查请求，不会查询资源状况。检查项包括AccessKey是否有效、RAM用户的授权情况和是否填写了必需参数。如果检查不通过，则返回对应错误。如果检查通过，会返回错误码`DryRunOperation`。\n\nfalse（默认值）：发送正常请求，通过检查后返回HTTP 2xx状态码并直接查询资源状况",
       "location": "query",
       "name": "dry_run",
@@ -103,6 +104,7 @@
       "help_en": "The page number. Default value: 1",
       "help_zh": "列表的页码，默认值为1",
       "location": "query",
+      "minimum": "1",
       "name": "page_number",
       "options": [
         "--page-number"
@@ -113,9 +115,11 @@
     },
     {
       "example": "10",
-      "help_en": "The number of entries per page for paging queries. Maximum value: 50. Default value: 10",
+      "help_en": "The number of entries per page in paging queries. Maximum value: 50. Default value: 10",
       "help_zh": "分页查询时每页的行数，最大值为50，默认值为10。  ",
       "location": "query",
+      "maximum": "50",
+      "minimum": "1",
       "name": "page_size",
       "options": [
         "--page-size"
@@ -126,7 +130,7 @@
     },
     {
       "example": "253460731706911258",
-      "help_en": "The Alibaba Cloud account ID of the VPC owner",
+      "help_en": "The Alibaba Cloud account ID that owns the VPC",
       "help_zh": "VPC所属的阿里云账号ID",
       "location": "query",
       "name": "vpc_owner_id",
@@ -152,7 +156,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to query VPCs that have IPv6 CIDR blocks enabled in the specified region. The default value is empty, which means no filtering is applied based on IPv6 enablement. Valid values:\n\nfalse: IPv6 is not enabled.\ntrue: IPv6 is enabled",
+      "help_en": "Specifies whether to query VPCs that have IPv6 CIDR blocks enabled in the specified region. The default value is empty, which means no filtering is performed based on IPv6 enablement. Valid values:\n\nfalse: IPv6 is not enabled.\ntrue: IPv6 is enabled",
       "help_zh": "是否查询指定地域下开启IPv6网段的VPC，默认为空值（空值则不根据是否开启IPv6网段做过滤），取值：\n\nfalse：不开启。\ntrue：开启",
       "location": "query",
       "name": "enable_ipv6",
@@ -219,7 +223,7 @@
       "type": "string"
     },
     {
-      "help_en": "Specifies whether to perform a dry run. Valid values:\n\ntrue: performs a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized RAM users, and missing parameter values. If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\nfalse (default): sends a normal request. If the request passes the check, an HTTP 2xx status code is returned and the operation is performed",
+      "help_en": "Specifies whether to perform a dry run. Valid values:\n\ntrue: performs a dry run. The system checks the request for potential issues, including invalid AccessKey pairs, unauthorized Resource Access Management (RAM) users, and missing parameter values. If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\nfalse (default): sends a Normal request, and the resource status is directly queried after the request passes the authorization check. An HTTP 2xx status code is returned",
       "help_zh": "是否只预检此次请求，取值：\n\ntrue：发送检查请求，不会查询资源状况。检查项包括AccessKey是否有效、RAM用户的授权情况和是否填写了必需参数。如果检查不通过，则返回对应错误。如果检查通过，会返回错误码`DryRunOperation`。\n\nfalse（默认值）：发送正常请求，通过检查后返回HTTP 2xx状态码并直接查询资源状况",
       "name": "DryRun",
       "position": "query",
@@ -227,7 +231,7 @@
       "type": "bool"
     },
     {
-      "help_en": "Specifies whether to query VPCs that have IPv6 CIDR blocks enabled in the specified region. The default value is empty, which means no filtering is applied based on IPv6 enablement. Valid values:\n\nfalse: IPv6 is not enabled.\ntrue: IPv6 is enabled",
+      "help_en": "Specifies whether to query VPCs that have IPv6 CIDR blocks enabled in the specified region. The default value is empty, which means no filtering is performed based on IPv6 enablement. Valid values:\n\nfalse: IPv6 is not enabled.\ntrue: IPv6 is enabled",
       "help_zh": "是否查询指定地域下开启IPv6网段的VPC，默认为空值（空值则不根据是否开启IPv6网段做过滤），取值：\n\nfalse：不开启。\ntrue：开启",
       "name": "EnableIpv6",
       "position": "query",
@@ -251,7 +255,7 @@
       "type": "int"
     },
     {
-      "help_en": "The number of entries per page for paging queries. Maximum value: 50. Default value: 10",
+      "help_en": "The number of entries per page in paging queries. Maximum value: 50. Default value: 10",
       "help_zh": "分页查询时每页的行数，最大值为50，默认值为10",
       "name": "PageSize",
       "position": "query",
@@ -298,7 +302,7 @@
       "type": "array"
     },
     {
-      "help_en": "The ID of the VPC. \n\nYou can specify up to 20 VPC IDs. Separate multiple IDs with commas (,)",
+      "help_en": "The ID of the VPC. \n\nYou can specify up to 20 VPC IDs. Separate multiple VPC IDs with commas (,)",
       "help_zh": "VPC的ID。 \n\n最多支持指定20个VPC ID，多个VPC的ID之间用半角逗号（,）隔开",
       "name": "VpcId",
       "position": "query",
@@ -314,7 +318,7 @@
       "type": "string"
     },
     {
-      "help_en": "The Alibaba Cloud account ID of the VPC owner",
+      "help_en": "The Alibaba Cloud account ID that owns the VPC",
       "help_zh": "VPC所属的阿里云账号ID",
       "name": "VpcOwnerId",
       "position": "query",

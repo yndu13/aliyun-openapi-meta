@@ -47,6 +47,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "dds.mongos.standard",
       "help_en": "The instance type of the shard or Mongos node. For more information, see https://help.aliyun.com/document_detail/57141.html",
       "help_zh": "Shard节点或Mongos节点的规格，规格详情请参见https://help.aliyun.com/document_detail/57141.html",
@@ -56,7 +57,7 @@
         "--node-class"
       ],
       "raw_name": "NodeClass",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -112,6 +113,14 @@
       "type": "bool"
     },
     {
+      "enum": [
+        "Immediately",
+        "MaintainTime",
+        "0",
+        "1",
+        "TimePoint",
+        "2"
+      ],
       "example": "Immediately",
       "help_en": "The effective time of the configuration change. Valid values:\n\nImmediately (default): The change takes effect immediately.\n\nMaintainTime: The change takes effect during the O\\&M window of the instance",
       "help_zh": "变更配置的生效时间，取值说明： \nImmediately（默认值）：立即生效。\nMaintainTime：实例可运维时间段内生效。 ",
@@ -138,6 +147,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "UPGRADE",
+        "DOWNGRADE"
+      ],
       "example": "UPGRADE",
       "help_en": "The order type. Valid values:\n\nUPGRADE: upgrades the instance configuration.\n\nDOWNGRADE: downgrades the instance configuration",
       "help_zh": "订单类型，取值说明：\nUPGRADE：升配。\nDOWNGRADE：降配 ",
@@ -155,6 +168,8 @@
       "help_en": "The number of read-only nodes in the shard node.\n\nValid values: 0 to 5. The value must be an integer",
       "help_zh": "调整Shard节点中只读节点的个数。\n\n取值范围：0~5（整数）",
       "location": "query",
+      "maximum": "5",
+      "minimum": "0",
       "name": "readonly_replicas",
       "options": [
         "--readonly-replicas"
@@ -307,7 +322,7 @@
       "help_zh": "Shard节点或Mongos节点的规格，规格详情请参见https://help.aliyun.com/document_detail/57141.html",
       "name": "NodeClass",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {

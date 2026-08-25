@@ -3,7 +3,7 @@
   "cmd_full_name": "ddosbgp attach-to-policy",
   "cmd_name": "attach-to-policy",
   "deprecated": false,
-  "description_en": "Associates protection objects with a mitigation policy",
+  "description_en": "Associates protection objects with mitigation policies",
   "description_zh": "防护对象关联防护策略",
   "kebab_example": "",
   "method": "GET|POST",
@@ -38,12 +38,13 @@
         "fields": [
           {
             "example": "112.124.241.***",
-            "help_en": "The IP address of the protection object",
-            "help_zh": "防护对象的IP地址",
+            "help_en": "The IP address of the protection object.\nPrerequisite: The IP address must be added to the Anti-DDoS Origin instance by calling the AddIp operation in advance, and you must call the DescribeInstanceList operation to verify that the IP address has been added to the Anti-DDoS Origin instance",
+            "help_zh": "防护对象的IP地址。\n前置条件：该 IP 必须提前引用 AddIp API 添加到原生防护实例中并引用 DescribeInstanceList API 检查 IP 已经加入原生防护实例中",
             "name": "ip",
             "options": [
               "--ip"
             ],
+            "pattern": "^(\\d{1,3}\\.){3}\\d{1,3}$",
             "raw_name": "Ip",
             "required": true,
             "type": "string"
@@ -52,6 +53,8 @@
             "example": "8*",
             "help_en": "The port number of the protection object.\nOnly port-specific mitigation policies support this parameter",
             "help_zh": "防护对象的端口号。\n仅端口防护策略支持",
+            "maximum": "65535",
+            "minimum": "1",
             "name": "port",
             "options": [
               "--port"
@@ -73,6 +76,10 @@
             "type": "string"
           },
           {
+            "enum": [
+              "udp",
+              "tcp"
+            ],
             "example": "tcp",
             "help_en": "The protocol type of the protection object. Valid values:\n\ntcp: Transmission Control Protocol.\nudp: User Datagram Protocol.\nOnly port-specific mitigation policies support this parameter",
             "help_zh": "防护对象的协议类型，取值：\n\ntcp：表示传输控制协议。\nudp：表示用户数据报协议。\n仅端口防护策略支持",
@@ -101,7 +108,7 @@
     },
     {
       "example": "2",
-      "help_en": "The version of the port-specific mitigation policy. Valid values:\n\nNot specified: Associates the default surf anti-DDoS engine policy.\n2: Associates the new stream anti-DDoS engine policy.\nOnly port-specific mitigation policies support this parameter",
+      "help_en": "The version of the port-specific mitigation policy. Valid values:\n\nNot specified: Associates the default surf mitigation engine policy.\n2: Associates the new stream mitigation engine policy.\nOnly port-specific mitigation policies support this parameter",
       "help_zh": "端口防护策略版本，取值：\n\n不填：绑定默认 surf 防护引擎策略。\n2：绑定新版 stream 防护引擎策略。\n仅端口防护策略支持",
       "location": "query",
       "name": "port_version",

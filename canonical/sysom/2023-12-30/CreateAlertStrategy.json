@@ -3,7 +3,7 @@
   "cmd_full_name": "sysom create-alert-strategy",
   "cmd_name": "create-alert-strategy",
   "deprecated": false,
-  "description_en": "Creates an alert push strategy",
+  "description_en": "Creates an alert policy for push notifications",
   "description_zh": "新增推送告警的策略",
   "kebab_example": "",
   "method": "POST",
@@ -30,7 +30,7 @@
   "parameters": [
     {
       "example": "false",
-      "help_en": "Specifies whether the alert strategy is enabled",
+      "help_en": "Specifies whether the alert policy is enabled",
       "help_zh": "告警策略是否生效",
       "location": "body",
       "name": "enabled",
@@ -43,7 +43,7 @@
       "type": "bool"
     },
     {
-      "help_en": "k8s标签",
+      "help_en": "The Kubernetes label",
       "help_zh": "k8s标签",
       "location": "body",
       "name": "k8s_label",
@@ -57,7 +57,7 @@
     },
     {
       "example": "strategy1",
-      "help_en": "The name of the alert strategy",
+      "help_en": "The Policy Name of the alerting policy",
       "help_zh": "告警策略名称",
       "location": "body",
       "name": "name",
@@ -89,7 +89,7 @@
           "element": {
             "type": "int"
           },
-          "help_en": "告警联系人",
+          "help_en": "The alert contacts",
           "help_zh": "告警联系人",
           "name": "destinations",
           "options": [
@@ -114,7 +114,7 @@
           "type": "array"
         }
       ],
-      "help_en": "The details of the alert strategy",
+      "help_en": "The details of the alert policy",
       "help_zh": "告警策略详情",
       "location": "body",
       "name": "strategy",
@@ -125,6 +125,30 @@
       "raw_name": "strategy",
       "required": true,
       "type": "object"
+    },
+    {
+      "help_en": "The X-Debug-Id",
+      "help_zh": "The X-Debug-Id",
+      "location": "query",
+      "name": "x_debug_id",
+      "options": [
+        "--x-debug-id"
+      ],
+      "raw_name": "X-Debug-Id",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The x-sysom-invoke-source",
+      "help_zh": "The x-sysom-invoke-source",
+      "location": "query",
+      "name": "x_sysom_invoke_source",
+      "options": [
+        "--x-sysom-invoke-source"
+      ],
+      "raw_name": "x-sysom-invoke-source",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "/api/v1/alertPusher/alert/createStrategy",
@@ -132,11 +156,34 @@
   "protocol": "HTTPS",
   "v1_body_parameters": [
     {
-      "help_en": "Request body",
+      "help_en": "The request body",
       "help_zh": "请求Body",
       "name": "body",
       "param_style": "json",
       "position": "body",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "v1_parameters": [
+    {
+      "name": "X-Debug-Id",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The request body",
+      "help_zh": "请求Body",
+      "name": "body",
+      "param_style": "json",
+      "position": "body",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "x-sysom-invoke-source",
+      "position": "query",
       "required": false,
       "type": "string"
     }

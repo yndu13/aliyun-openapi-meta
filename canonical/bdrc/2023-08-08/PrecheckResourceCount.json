@@ -3,7 +3,7 @@
   "cmd_full_name": "bdrc precheck-resource-count",
   "cmd_name": "precheck-resource-count",
   "deprecated": false,
-  "description_en": "Prechecks the resource count",
+  "description_en": "Pre-checks the resource count",
   "description_zh": "预检查资源数量",
   "kebab_example": "",
   "method": "POST",
@@ -23,9 +23,15 @@
   },
   "parameters": [
     {
+      "enum": [
+        "ACS::ECS::Instance",
+        "ACS::OSS::Bucket",
+        "ACS::NAS::FileSystem",
+        "ACS::OTS::Instance"
+      ],
       "example": "ACS::ECS::Instance",
-      "help_en": "The resource type",
-      "help_zh": "资源类型",
+      "help_en": "The resource type. Optional. If not specified, no resource type restriction is applied",
+      "help_zh": "资源类型。可选。不填则不限制资源类型",
       "location": "formData",
       "name": "resource_type",
       "options": [
@@ -79,8 +85,8 @@
         ],
         "type": "object"
       },
-      "help_en": "The tag resource matchers",
-      "help_zh": "标签资源匹配器",
+      "help_en": "The tag resource matchers. Required. A list of rules for matching resources by tag. Each item contains Key (the tag key), Operator (the operator, which supports EQUAL for exact tag key-value match, KEY_EXIST for tag key existence, and KEY_EXIST_NOT_EQUAL for tag key existence with a non-matching value), and Values (the list of tag values)",
+      "help_zh": "标签资源匹配器。必填。按标签匹配资源的规则列表，每项包含key（标签键）、operator（操作符，支持EQUAL标签键值相等、KEY_EXIST标签键存在、KEY_EXIST_NOT_EQUAL标签键存在但值不相等）、values（标签值列表）",
       "location": "formData",
       "name": "tag_resource_matchers",
       "options": [

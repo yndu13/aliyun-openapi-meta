@@ -284,6 +284,12 @@
           "type": "string"
         },
         {
+          "enum": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
           "example": "2",
           "help_en": "The method that WAF uses to obtain the originating IP address of the client",
           "help_zh": "WAF获取客户端真实IP的方式",
@@ -420,6 +426,8 @@
           "example": "120",
           "help_en": "The connection timeout period. Unit: seconds",
           "help_zh": "连接超时时长。单位：秒。\n取值范围：1~3600。\n默认值：5",
+          "maximum": "3600",
+          "minimum": "1",
           "name": "connect_timeout",
           "options": [
             "--connect-timeout"
@@ -456,6 +464,8 @@
           "example": "128",
           "help_en": "The maximum number of concurrent connections for HTTP/2 back-to-origin. Valid values: 1 to 512. Default value: 2",
           "help_zh": "HTTP2回源最大并发数。取值范围：1-512，默认值：2，单位：个",
+          "maximum": "512",
+          "minimum": "1",
           "name": "http2_origin_max_concurrency",
           "options": [
             "--http2-origin-max-concurrency"
@@ -480,6 +490,8 @@
           "example": "1000",
           "help_en": "The number of requests that reuse a persistent connection. Valid values: 60 to 1000. Default value: 1000",
           "help_zh": "复用长连接的请求个数。取值范围：60~1000，默认值：1000，单位：个。\n\n开启长连接后，复用多少个长连接",
+          "maximum": "1000",
+          "minimum": "60",
           "name": "keepalive_requests",
           "options": [
             "--keepalive-requests"
@@ -492,6 +504,8 @@
           "example": "15",
           "help_en": "The idle persistent connection timeout period. Valid values: 1 to 60. Default value: 15. Unit: seconds",
           "help_zh": "空闲长连接超时时间，取值范围：1~60，默认15，单位：秒。\n\n复用的长连接空闲多少长后释放",
+          "maximum": "3600",
+          "minimum": "10",
           "name": "keepalive_timeout",
           "options": [
             "--keepalive-timeout"
@@ -516,6 +530,8 @@
           "example": "2",
           "help_en": "The maximum request body size. Valid values: 2 to 10. Default value: 2. Unit: GB",
           "help_zh": "最大请求体大小。取值范围：2~10，默认值：2，单位：G。\n仅旗舰版支持",
+          "maximum": "10",
+          "minimum": "2",
           "name": "max_body_size",
           "options": [
             "--max-body-size"

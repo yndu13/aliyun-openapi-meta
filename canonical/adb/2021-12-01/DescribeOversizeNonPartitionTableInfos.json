@@ -20,6 +20,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "amv-bp11q28kvl688****",
       "help_en": "The cluster ID",
       "help_zh": "集群ID",
@@ -33,6 +34,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID.\n\nYou can call the https://help.aliyun.com/document_detail/143074.html operation to query the most recent region list",
       "help_zh": "地域ID。\n您可以调用https://help.aliyun.com/document_detail/143074.html接口查看地域ID",
@@ -46,6 +48,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "2024-05-11T05:44Z",
       "help_en": "The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC",
       "help_zh": "查询开始时间，UTC时间，格式为：yyyy-MM-ddTHH:mmZ。\n仅当SQL审计状态为开启时，才能查询到SQL审计日志，且只支持查询30天内的SQL审计日志。如果中途关闭了SQL审计，再次打开时，仅能查询到再次打开后的SQL审计日志",
@@ -55,10 +58,11 @@
         "--start-time"
       ],
       "raw_name": "StartTime",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "2024-05-11T05:44Z",
       "help_en": "The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.\n\nThe end time must be later than the start time. The specified time range must be less than seven days",
       "help_zh": "查询结束时间，格式：<i>yyyy-MM-ddTHH:mm:ssZ</i>（UTC时间）。\n查询结束时间需晚于查询开始时间，且与查询开始时间间隔小于7天",
@@ -68,7 +72,7 @@
         "--end-time"
       ],
       "raw_name": "EndTime",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -76,6 +80,8 @@
       "help_en": "The number of entries per page. Valid values:\n\n30\n50\n100\n\nDefault value: 30",
       "help_zh": "每页记录数，取值：\n\n30；\n50；\n100\n\n默认值：30",
       "location": "query",
+      "maximum": "100",
+      "minimum": "30",
       "name": "page_size",
       "options": [
         "--page-size"
@@ -89,6 +95,8 @@
       "help_en": "The page number. Pages start from page 1. Default value: 1",
       "help_zh": "页码，取值为大于0且不超过Integer的最大值。默认值为1",
       "location": "query",
+      "maximum": "2147483647",
+      "minimum": "1",
       "name": "page_number",
       "options": [
         "--page-number"

@@ -3,7 +3,7 @@
   "cmd_full_name": "dyvmsapi single-call-by-video",
   "cmd_name": "single-call-by-video",
   "deprecated": false,
-  "description_en": "Calls a single phone number and plays a voice or video file",
+  "description_en": "Sends a voice file notification or video file notification to a single called number",
   "description_zh": "调用接口给单个被叫号码发送语音文件通知或视频文件通知",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "0571****5678",
-      "help_en": "The outbound number for the video notification. This is the number displayed to the callee.\n\nIf you use a number in common pattern, do not specify this parameter. For more information, see https://help.aliyun.com/document_detail/172104.html.\n\nIf you use a number in exclusive pattern, specify your real number or virtual number.\n  Log on to the Voice Service console (https://dyvms.console.aliyun.com/number/list/normal). On the Real Number Management page, view your purchased real numbers. On the Virtual Number Management page, view the virtual numbers that you created and attached to real numbers",
+      "help_en": "The China calling number (the number displayed to the called party) used to send the video notification.\n\nIf you use a calling number in common pattern, leave this parameter empty. For more information about common pattern, see https://help.aliyun.com/document_detail/172104.html.\nIf you use a calling number in private pattern, specify your real number or virtual number.\nLog on to the Voice Messaging Service console (https://dyvms.console.aliyun.com/number/list/normal). On the Real Number Management page, view the purchased real numbers. On the Virtual Number Management page, view the virtual numbers that have been created and associated with real numbers",
       "help_zh": "发送视频通知的外呼号码（被叫显号）。\n\n如果您使用的外呼号码是公共模式，该参数不填。公共模式详情请参见https://help.aliyun.com/document_detail/172104.html。\n如果您使用的外呼号码是专属模式，请传入您的真实号码或虚拟号码。\n您可以登录语音服务控制台 (https://dyvms.console.aliyun.com/number/list/normal)，在真实号管理页面查看已购买的真实号，在虚拟号管理页面查看已创建并绑定真实号的虚拟号",
       "location": "query",
       "name": "called_show_number",
@@ -34,8 +34,9 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "1590****000",
-      "help_en": "The phone number that receives the video notification.\n\nThe number must be in one of the following formats:\n\nA mobile phone number. Example: 159\\\\0000.\n\nA landline number. Example: 0571\\\\5678.\n\nCountry code+Number. Example: 85200\\\\00",
+      "help_en": "The called number that receives the video notification.\n\nNumber format:\n\nMobile number. Example: 159****0000.\n\nLandline number. Example: 0571****5678.\n\nInternational area code + number. Example: 85200****00",
       "help_zh": "接收视频通知的被叫号码。\n\n号码格式：\n\n手机号码。示例：159****0000。\n\n固话号码。示例：0571****5678。\n\n国际区号+号码。示例：85200****00",
       "location": "query",
       "name": "called_number",
@@ -47,8 +48,9 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "17d37e58-2a09-419f-9b3d-e7e4b4****dd.wav",
-      "help_en": "The voice ID of the voice notification file.\n\nLog on to the Voice Service console (https://dyvms.console.aliyun.com/overview/home) to obtain the voice ID from one of the following pages. The voice notification file must be approved.\n\nOn the Voice Messaging > Voice Notifications > Voice Notification Files page, obtain the Voice ID.\n\nOn the Voice File Management > Voice Notification Files page, obtain the Voice ID",
+      "help_en": "The voice ID of the voice notification file.\n\nLog on to the Voice Messaging Service console (https://dyvms.console.aliyun.com/overview/home) and obtain the voice ID from the following pages. The voice notification file must have passed the review.\n\nObtain the Voice ID on the Voice Messaging > Voice Notification > Voice Notification Files page.\n\nObtain the Voice ID on the Voice File Management > Voice Notification Files page",
       "help_zh": "语音通知文件的语音ID。\n\n您登录语音服务控制台 (https://dyvms.console.aliyun.com/overview/home)在以下页面获取语音ID，该语音通知文件必须已审核通过。\n\n在语音消息>语音通知>语音通知文件页面获取语音ID。\n\n在语音文件管理>语音通知文件页面获取语音ID",
       "location": "query",
       "name": "voice_code",
@@ -74,7 +76,7 @@
     },
     {
       "example": "100",
-      "help_en": "The playback volume of the notification file. Valid values: 0 to 100. The default value is 100",
+      "help_en": "The volume at which the notification file is played. Valid values: 0 to 100. Default value: 100",
       "help_zh": "通知文件播放的音量。取值范围：0~100，默认取值100",
       "location": "query",
       "name": "volume",
@@ -100,7 +102,7 @@
     },
     {
       "example": "abcdefgh",
-      "help_en": "A custom ID that you can specify when you initiate a request. This ID is returned to you in a receipt message.\n\nA string of 1 to 15 characters",
+      "help_en": "The custom ID reserved for the caller when initiating the request. This ID is returned to the caller through the receipt message.\n\nThe value is a string with a length of 1 to 15 characters",
       "help_zh": "发起请求时预留给调用方的自定义ID，最终会通过回执消息将此ID带回给调用方。\n\n字符串类型，长度限制为1~15个字符",
       "location": "query",
       "name": "out_id",
@@ -112,6 +114,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "1120213841979436_20240621103****39_.mp4",
       "help_en": "The ID of the video notification file.\n\nYou can view the IDs of approved video notification files on the Video Notification Files (https://dyvms.console.aliyun.com/videoFiles/list/notify) page",
       "help_zh": "视频通知文件的ID。\n\n您可以在视频通知文件 (https://dyvms.console.aliyun.com/videoFiles/list/notify)页面，查看已审核通过的视频通知文件ID",

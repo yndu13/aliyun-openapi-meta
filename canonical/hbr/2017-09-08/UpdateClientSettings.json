@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "false",
       "help_en": "Specifies whether to use HTTPS to transmit data plane data.\n\ntrue: Uses HTTPS for transmission.\nfalse: Uses HTTP for transmission",
       "help_zh": "是否使用HTTPS传输数据面数据。\n\ntrue表示使用HTTPS传输。\nfalse表示使用HTTP传输",
@@ -30,10 +31,11 @@
         "--use-https"
       ],
       "raw_name": "UseHttps",
-      "required": true,
+      "required": false,
       "type": "bool"
     },
     {
+      "docRequired": true,
       "example": "v-*********************",
       "help_en": "The backup vault ID. This parameter is required for legacy clients",
       "help_zh": "备份仓库ID。旧版客户端时该参数必须配置",
@@ -43,10 +45,11 @@
         "--vault-id"
       ],
       "raw_name": "VaultId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "c-*********************",
       "help_en": "The backup client ID",
       "help_zh": "备份客户端ID",
@@ -77,6 +80,8 @@
       "help_en": "The number of CPU cores used by a single backup job. A value of 0 indicates no limit",
       "help_zh": "单个备份任务使用的CPU核数，0表示不限制",
       "location": "query",
+      "maximum": "999",
+      "minimum": "0",
       "name": "max_cpu_core",
       "options": [
         "--max-cpu-core"
@@ -90,6 +95,8 @@
       "help_en": "The number of concurrent workers for a single backup job. A value of 0 indicates no limit",
       "help_zh": "单个备份任务并发工作数量，0表示不限制",
       "location": "query",
+      "maximum": "999",
+      "minimum": "0",
       "name": "max_worker",
       "options": [
         "--max-worker"
@@ -99,6 +106,11 @@
       "type": "int"
     },
     {
+      "enum": [
+        "DISABLE",
+        "USE_CONTROL_PROXY",
+        "CUSTOM"
+      ],
       "example": "USE_CONTROL_PROXY",
       "help_en": "The data plane proxy setting. Valid values:\nDISABLE: does not use a proxy.\nUSE_CONTROL_PROXY (default): uses the same configuration as the control plane.\nCUSTOM: uses a custom configuration (HTTP protocol)",
       "help_zh": "数据面代理设置。取值范围：\nDISABLE：不使用代理\nUSE_CONTROL_PROXY（默认）：与控制面配置相同\nCUSTOM：自定义配置（HTTP协议）",
@@ -129,6 +141,8 @@
       "help_en": "The port of the custom data plane proxy server host",
       "help_zh": "自定义数据面代理服务器主机端口",
       "location": "query",
+      "maximum": "65536",
+      "minimum": "1",
       "name": "proxy_port",
       "options": [
         "--proxy-port"
@@ -181,6 +195,8 @@
       "help_en": "The maximum memory that the client can use, in bytes. Only version 2.13.0 and later are supported",
       "help_zh": "客户端能够使用的最大内存，单位是bytes。仅支持2.13.0及以上版本",
       "location": "query",
+      "maximum": "1099511627776",
+      "minimum": "0",
       "name": "max_memory",
       "options": [
         "--max-memory"

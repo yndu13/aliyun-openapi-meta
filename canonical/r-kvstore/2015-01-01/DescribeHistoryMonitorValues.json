@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "r-bp1zxszhcgatnx******",
       "help_en": "The ID of the instance",
       "help_zh": "实例ID",
@@ -34,6 +35,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "2022-11-06T00:00:00Z",
       "help_en": "The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC",
       "help_zh": "查询历史监控开始时间点，格式为<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）",
@@ -47,6 +49,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "2022-11-06T00:30:00Z",
       "help_en": "The end of the time range to query. The end time must be later than the start time. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.\n\nYou can query monitoring data within the past month. The maximum time range to query is 7 days",
       "help_zh": "查询历史监控结束时间点，须晚于历史监控开始时间，格式为<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）。\n\n支持查询最近1个月的监控数据，且最大查询范围不能超过7天",
@@ -60,6 +63,13 @@
       "type": "string"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "01m",
+        "05m",
+        "15m",
+        "60m"
+      ],
       "example": "01m",
       "help_en": "This parameter is deprecated and its value is fixed at `01m`.\n\nThe system automatically determines the query interval based on the specified start and end times. For example, if the specified time range is 10 minutes or less, data is aggregated every 5 seconds, and the query results are returned at 5-second intervals.\n\nIf the specified `StartTime` is not at a data aggregation point, the first time point returned by the system is the nearest preceding data aggregation point. For example, if you set StartTime to `2022-01-20T12:01:48Z`, the first time point returned is `2022-01-20T12:01:45Z`.\n\nIf the instance has 32 or more data shards, the minimum data aggregation frequency is 1 minute",
       "help_zh": "本参数已废弃，固定取值为`01m`。\n\n实际会根据查询的开始时间和结束时间自动决定查询的时间间隔。以查询时间范围小于等于10分钟为例，数据聚合频率为5s/次，查询结果会按照5s/次的频率返回。\n查询结果会与实例的数据聚合频率对齐。若您传入的 StartTime 不在数据聚合时间点上，系统返回的首个时间点为最近的数据聚合时间点。例如您传入的 StartTime 为 2022-01-20T12:01:48Z，系统返回的首个时间点为 2022-01-20T12:01:45Z。\n如果实例的数据分片数大于等于32，最小的数据聚合频率为1分钟/次",

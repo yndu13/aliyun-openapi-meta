@@ -22,8 +22,8 @@
   "parameters": [
     {
       "example": "RISKCONTROL_IMS_IMS_BAN_SUBUSER",
-      "help_en": "The event name code",
-      "help_zh": "事件名称编码",
+      "help_en": "The event name code.\nThis parameter does not take effect when the CaseCodes parameter is not empty",
+      "help_zh": "事件名称编码。\n当入参CaseCodes不为空时，该值不生效",
       "location": "query",
       "name": "case_code",
       "options": [
@@ -35,8 +35,8 @@
     },
     {
       "example": "2PTOHhN3YUeaPWzq9FLmpdZ9EOW",
-      "help_en": "The event ID",
-      "help_zh": "事件id",
+      "help_en": "The event ID.\nThis parameter does not take effect when the EventIds parameter is not empty",
+      "help_zh": "事件ID。\n当入参EventIds不为空时，该值不生效",
       "location": "query",
       "name": "event_id",
       "options": [
@@ -61,8 +61,8 @@
     },
     {
       "example": "Executing",
-      "help_en": "The event status. Valid values:\n\nExecuting: Being executed.\nRemoved: Removed.\nAlerting: Alerting.\nEnded: Ended",
-      "help_zh": "事件状态。\n\nExecuting： 执行中\nRemoved： 已解除\nAlerting：告警中\nEnded： 已结束",
+      "help_en": "The event status. Valid values:\n\nExecuting: In progress.\nRemoved: Removed.\nAlerting: Alerting.\nEnded: Ended.\n\nThis parameter does not take effect when the Statuses parameter is not empty",
+      "help_zh": "事件状态。\n\nExecuting： 执行中\nRemoved： 已解除\nAlerting：告警中\nEnded： 已结束\n\n当入参Statuses不为空时，该值不生效",
       "location": "query",
       "name": "status",
       "options": [
@@ -73,6 +73,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "1",
       "help_en": "The current page number. The value must be greater than 0",
       "help_zh": "当前页码，必须大于0",
@@ -82,12 +83,13 @@
         "--current"
       ],
       "raw_name": "Current",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "20",
-      "help_en": "The number of records to display per page. Valid values: 1 to 100",
+      "help_en": "The number of records per page. Valid values: 1 to 100",
       "help_zh": "每页显示的记录数量。范围：1-100",
       "location": "query",
       "name": "page_size",
@@ -95,12 +97,12 @@
         "--page-size"
       ],
       "raw_name": "PageSize",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
       "example": "2026-03-16 15:15:00\n",
-      "help_en": "The start time of the restriction.\n\nFormat: yyyy-MM-dd HH:mm:ss",
+      "help_en": "The start time of the control action.\n\nFormat: yyyy-MM-dd HH:mm:ss",
       "help_zh": "管控开始时间。\n\n格式：yyyy-MM-dd HH:mm:ss",
       "location": "query",
       "name": "punish_start_time",
@@ -113,7 +115,7 @@
     },
     {
       "example": "2026-03-16 15:15:00\n",
-      "help_en": "The end time of the restriction.\n\nFormat: yyyy-MM-dd HH:mm:ss",
+      "help_en": "The end time of the control action.\n\nFormat: yyyy-MM-dd HH:mm:ss",
       "help_zh": "管控结束时间。\n\n格式：yyyy-MM-dd HH:mm:ss",
       "location": "query",
       "name": "punish_end_time",
@@ -126,7 +128,7 @@
     },
     {
       "example": "zh",
-      "help_en": "The language. Default value: zh.\n\nzh: Chinese.\nen: English",
+      "help_en": "The internationalization language. Default value: zh. Valid values:\n\nzh: Chinese.\nen: English",
       "help_zh": "国际化语言。默认zh\n\nzh：中文\nen：英文",
       "location": "query",
       "name": "aliyun_lang",
@@ -136,6 +138,70 @@
       "raw_name": "AliyunLang",
       "required": false,
       "type": "string"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of event name codes",
+      "help_zh": "事件名称编码列表",
+      "location": "query",
+      "name": "case_codes",
+      "options": [
+        "--case-codes"
+      ],
+      "param_style": "json",
+      "raw_name": "CaseCodes",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of control action codes",
+      "help_zh": "管控动作编码列表",
+      "location": "query",
+      "name": "action_codes",
+      "options": [
+        "--action-codes"
+      ],
+      "param_style": "json",
+      "raw_name": "ActionCodes",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of event statuses",
+      "help_zh": "事件状态列表",
+      "location": "query",
+      "name": "statuses",
+      "options": [
+        "--statuses"
+      ],
+      "param_style": "json",
+      "raw_name": "Statuses",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of event IDs",
+      "help_zh": "事件ID列表",
+      "location": "query",
+      "name": "event_ids",
+      "options": [
+        "--event-ids"
+      ],
+      "param_style": "json",
+      "raw_name": "EventIds",
+      "required": false,
+      "type": "array"
     }
   ],
   "pathPattern": "",

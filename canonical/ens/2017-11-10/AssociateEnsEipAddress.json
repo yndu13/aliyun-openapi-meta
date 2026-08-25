@@ -3,7 +3,7 @@
   "cmd_full_name": "ens associate-ens-eip-address",
   "cmd_name": "associate-ens-eip-address",
   "deprecated": false,
-  "description_en": "Associates an elastic IP address (EIP) with a cloud resource that is deployed in the same region",
+  "description_en": "Associates an Elastic IP Address (EIP) with a cloud product instance on the same edge node",
   "description_zh": "调用AssociateEnsEipAddress将弹性公网IP（EIP）绑定到同节点的云产品实例上",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "eip-5sc1sgcrsrwgwdvx44hru****",
-      "help_en": "The ID of the EIP that you want to associate",
+      "help_en": "The ID of the EIP to be associated",
       "help_zh": "待绑定EIP的ID",
       "location": "query",
       "name": "allocation_id",
@@ -35,7 +35,7 @@
     },
     {
       "example": "lb-5saivuir6b1mupxjfbhmk****",
-      "help_en": "The ID of the cloud service with which the EIP is associated.\n\nYou can specify the ID of an Edge Load Balancer (ELB) instance ID",
+      "help_en": "The ID of the cloud product instance to attach the EIP to.\nLoad balancing (ELB) instance IDs are supported",
       "help_zh": "绑定EIP的云产品ID。\n支持负载均衡（ELB）实例ID",
       "location": "query",
       "name": "instance_id",
@@ -47,8 +47,16 @@
       "type": "string"
     },
     {
+      "enum": [
+        "SlbInstance",
+        "EnsInstance",
+        "NatSlbInstance",
+        "Nat",
+        "NetworkInterface",
+        "HaVip"
+      ],
       "example": "SlbInstance",
-      "help_en": "The type of instance with which you want to associate the EIP. Valid values:\n\nNat: NAT gateway.\n\nSlbInstance: Edge Load Balancer (ELB) instance.\n\nNetworkInterface: secondary elastic network interface (ENI).\n\nNatSlbInstance: If you want to associate multiple EIPs with an ELB instance, you need to set the parameter to this value.\n\nEnsInstance (default): ENS instance",
+      "help_en": "The type of the EIP instance. Valid values:\n\nNat: NAT gateway.\nSlbInstance: load balancing (ELB).\nNetworkInterface: secondary network interface controller (NIC).\nNatSlbInstance: select this value when attaching multiple EIPs to an ELB.\nEnsInstance (default): ENS instance",
       "help_zh": "EIP实例的类型，取值：\n\nNat：NAT网关。\nSlbInstance：负载均衡（ELB）。\nNetworkInterface：辅助弹性网卡。\nNatSlbInstance：ELB绑定多EIP时，需要选此值。\nEnsInstance（默认值）：ENS实例",
       "location": "query",
       "name": "instance_type",
@@ -61,7 +69,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether the EIP is a secondary EIP. Valid values:\n\ntrue\n\nfalse",
+      "help_en": "Specifies whether the EIP is a standby EIP. Valid values:\n\ntrue: standby.\n\nfalse: not standby",
       "help_zh": "是否备用EIP。取值：\n\ntrue：备用。\n\nfalse：非备用",
       "location": "query",
       "name": "standby",

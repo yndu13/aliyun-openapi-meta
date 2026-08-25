@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "2",
-      "help_en": "The target type. Valid values:\n\n1: Host detection - detection through snapshots.\n2: Host detection - detection through images.\n3: User snapshot detection.\n2: User custom image detection",
+      "help_en": "The target type. Valid values:\n\n1: Host detection - detection by snapshot.\n2: Host detection - detection by image.\n3: User snapshot detection.\n2: User custom image detection",
       "help_zh": "目标类型。取值：\n\n1：主机检测-通过快照检测\n2：主机检测-通过镜像检测\n3：用户快照检测\n2：用户自定义镜像检测",
       "location": "query",
       "name": "target_type",
@@ -102,8 +102,9 @@
       "type": "string"
     },
     {
-      "help_en": "The RegionId",
-      "help_zh": "The RegionId",
+      "example": "cn-hangzhou",
+      "help_en": "The region ID of the instance to query. Valid values:\n\ncn-hangzhou (default): China.\nap-southeast-1: outside China",
+      "help_zh": "要查询的实例所在地域的ID。取值：\n\ncn-hangzhou（默认值）：中国。\nap-southeast-1：全球（不含中国）",
       "location": "query",
       "name": "region_id",
       "options": [
@@ -112,66 +113,22 @@
       "raw_name": "RegionId",
       "required": false,
       "type": "string"
+    },
+    {
+      "example": "66a9c708-d4a4-4fe",
+      "help_en": "The idempotency key",
+      "help_zh": "幂等Key",
+      "location": "query",
+      "name": "client_token",
+      "options": [
+        "--client-token"
+      ],
+      "raw_name": "ClientToken",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
   "product_code": "Sas",
-  "protocol": "HTTP|HTTPS",
-  "v1_parameters": [
-    {
-      "help_en": "The asset selection identifier",
-      "help_zh": "资产选择标识",
-      "name": "AssetSelectionType",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The image retention period, in days. This parameter takes effect only for host detection and does not take effect for user snapshot detection or user custom image detection",
-      "help_zh": "镜像保留时间，单位为天。此参数仅对主机检测生效，用户快照检测和用户自定义镜像检测场景不生效",
-      "name": "AutoDeleteDays",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "name": "RegionId",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "Specifies whether to enable the cost-saving mode. Valid values:\n\ntrue: Enabled.\nfalse: Disabled",
-      "help_zh": "是否打开省钱模式。取值：\n\ntrue：打开\nfalse：关闭",
-      "name": "ReleaseAfterScan",
-      "position": "query",
-      "required": false,
-      "type": "bool"
-    },
-    {
-      "help_en": "Specifies whether to detect data cloud disks. Valid values:\n\ntrue: Detected.\nfalse: Not detected",
-      "help_zh": "是否检测数据盘。取值：\n\ntrue：检测\nfalse：不检测",
-      "name": "ScanDataDisk",
-      "position": "query",
-      "required": false,
-      "type": "bool"
-    },
-    {
-      "help_en": "The target type. Valid values:\n\n1: Host detection - detection through snapshots.\n2: Host detection - detection through images.\n3: User snapshot detection.\n2: User custom image detection",
-      "help_zh": "目标类型。取值：\n\n1：主机检测-通过快照检测\n2：主机检测-通过镜像检测\n3：用户快照检测\n2：用户自定义镜像检测",
-      "name": "TargetType",
-      "position": "query",
-      "required": true,
-      "type": "int"
-    },
-    {
-      "help_en": "The UUIDs of the assets to be detected.\n\nYou can call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to obtain the UUIDs of servers",
-      "help_zh": "指定待检测的资产UUID。\n\n您可以调用[DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~)接口获取服务器的UUID",
-      "name": "UuidList",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": false,
-      "type": "array"
-    }
-  ]
+  "protocol": "HTTP|HTTPS"
 }

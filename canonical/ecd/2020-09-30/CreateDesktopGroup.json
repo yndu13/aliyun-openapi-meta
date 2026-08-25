@@ -20,6 +20,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID. You can call [DescribeRegions](~~DescribeRegions~~) to query the regions supported by Elastic Desktop Service",
       "help_zh": "地域ID。可以调用[DescribeRegions](~~DescribeRegions~~)获取无影云电脑支持的地域列表",
@@ -33,6 +34,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "b-je9hani001wfn****",
       "help_en": "The cloud computer template ID",
       "help_zh": "云电脑模板ID",
@@ -42,10 +44,11 @@
         "--bundle-id"
       ],
       "raw_name": "BundleId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cn-hangzhou+os-c5cy7q578s8jc****",
       "help_en": "The ID of the office network to which the shared cloud computer belongs",
       "help_zh": "共享型云电脑所属的办公网络ID",
@@ -128,6 +131,8 @@
       "help_en": "The default number of cloud computers to create when you create multiple shared cloud computers. Default value: 1",
       "help_zh": "创建多台共享型云电脑时默认创建的云电脑数量。默认值为1",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "0",
       "name": "default_init_desktop_count",
       "options": [
         "--default-init-desktop-count"
@@ -232,6 +237,8 @@
       "help_en": "The maximum number of cloud computers that can be used for automatic creation for subscription shared cloud computers. This parameter takes effect and is required only when ChargeType is set to PrePaid. Default value: 1. Valid values: 0 to the value of MaxDesktopsCount",
       "help_zh": "包年包月的多台共享型云电脑的自动创建数量上限。即当参数`ChargeType`取值为`PrePaid`时才生效，且为必选值。默认值为1，取值范围为0~`MaxDesktopsCount`",
       "location": "query",
+      "maximum": "500",
+      "minimum": "0",
       "name": "min_desktops_count",
       "options": [
         "--min-desktops-count"
@@ -245,6 +252,8 @@
       "help_en": "The maximum number of pay-as-you-go shared cloud computers. Valid values: 0 to 500",
       "help_zh": "按量付费的多台共享型云电脑的最大数量。取值范围：0~500",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "0",
       "name": "max_desktops_count",
       "options": [
         "--max-desktops-count"
@@ -258,6 +267,8 @@
       "help_en": "Specifies whether to allow automatic creation of cloud computers within subscription shared cloud computers. This parameter takes effect and is required only when ChargeType is set to PrePaid",
       "help_zh": "是否允许包年包月的多台共享型云电脑内自动创建云电脑。即当参数`ChargeType`取值为`PrePaid`时才生效，且为必选值",
       "location": "query",
+      "maximum": "1",
+      "minimum": "0",
       "name": "allow_auto_setup",
       "options": [
         "--allow-auto-setup"
@@ -271,6 +282,8 @@
       "help_en": "The number of reserved cloud computers allowed in pay-as-you-go shared cloud computers. This parameter takes effect and is required only when ChargeType is set to PostPaid. Valid values:",
       "help_zh": "按量付费的多台共享型云电脑内允许预留的云电脑数量。当参数`ChargeType`取值为`PostPaid`时才生效，且为必选值。取值范围： \n0：不预留\nN：预留N台（1≤N≤100）\n\n如果不预留可用云电脑，当终端用户发起连接请求时，系统需要先创建并启动云电脑，然后分配给用户，所需时间相对较长。建议您根据需要预留一定数量的云电脑，保证终端用户的使用体验",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "0",
       "name": "allow_buffer_count",
       "options": [
         "--allow-buffer-count"

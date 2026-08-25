@@ -3,7 +3,7 @@
   "cmd_full_name": "dm config-set-create",
   "cmd_name": "config-set-create",
   "deprecated": false,
-  "description_en": "Creates a configuration set. You can create up to 100 configuration sets",
+  "description_en": "Creates a configuration set. A maximum of 100 configuration sets can be created",
   "description_zh": "创建配置集，上限100个",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "XXX",
-      "help_en": "The name of the configuration set. The name must be unique and can contain up to 50 characters. This parameter is required",
+      "help_en": "The configuration name. This parameter is required. The name can be up to 50 characters in length and must be unique",
       "help_zh": "配置名称：必填。最多 50 个字符，名称不允许重复",
       "location": "query",
       "name": "name",
@@ -35,7 +35,7 @@
     },
     {
       "example": "XXX",
-      "help_en": "The ID of an IP pool to associate with the configuration set. This parameter is optional",
+      "help_en": "The ID of the associated IP pool. This parameter is optional",
       "help_zh": "关联IP池ID，选填",
       "location": "query",
       "name": "ip_pool_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "XXX",
-      "help_en": "A description of the configuration set (up to 50 characters)",
+      "help_en": "The description. The description can be up to 50 characters in length",
       "help_zh": "描述，最多50个字符",
       "location": "query",
       "name": "description",
@@ -70,6 +70,60 @@
       "raw_name": "IsPublicChannelBackoff",
       "required": false,
       "type": "bool"
+    },
+    {
+      "fields": [
+        {
+          "help_en": "The Enabled",
+          "help_zh": "The Enabled",
+          "name": "enabled",
+          "options": [
+            "--enabled"
+          ],
+          "raw_name": "Enabled",
+          "required": false,
+          "type": "bool"
+        },
+        {
+          "element": {
+            "type": "string"
+          },
+          "help_en": "The ForbiddenStatusList",
+          "help_zh": "The ForbiddenStatusList",
+          "name": "forbidden_status_list",
+          "options": [
+            "--forbidden-status-list"
+          ],
+          "raw_name": "ForbiddenStatusList",
+          "required": false,
+          "type": "array"
+        },
+        {
+          "element": {
+            "type": "string"
+          },
+          "help_en": "The ForbiddenSubStatusList",
+          "help_zh": "The ForbiddenSubStatusList",
+          "name": "forbidden_sub_status_list",
+          "options": [
+            "--forbidden-sub-status-list"
+          ],
+          "raw_name": "ForbiddenSubStatusList",
+          "required": false,
+          "type": "array"
+        }
+      ],
+      "help_en": "The ValidationOption",
+      "help_zh": "The ValidationOption",
+      "location": "query",
+      "name": "validation_option",
+      "options": [
+        "--validation-option"
+      ],
+      "param_style": "json",
+      "raw_name": "ValidationOption",
+      "required": false,
+      "type": "object"
     }
   ],
   "pathPattern": "",
@@ -77,7 +131,7 @@
   "protocol": "HTTPS",
   "v1_parameters": [
     {
-      "help_en": "A description of the configuration set (up to 50 characters)",
+      "help_en": "The description. The description can be up to 50 characters in length",
       "help_zh": "描述，最多50个字符",
       "name": "Description",
       "position": "query",
@@ -85,7 +139,7 @@
       "type": "string"
     },
     {
-      "help_en": "The ID of an IP pool to associate with the configuration set. This parameter is optional",
+      "help_en": "The ID of the associated IP pool. This parameter is optional",
       "help_zh": "关联IP池ID，选填",
       "name": "IpPoolId",
       "position": "query",
@@ -99,9 +153,16 @@
       "type": "bool"
     },
     {
-      "help_en": "The name of the configuration set. The name must be unique and can contain up to 50 characters. This parameter is required",
+      "help_en": "The configuration name. This parameter is required. The name can be up to 50 characters in length and must be unique",
       "help_zh": "配置名称：必填。最多 50 个字符，名称不允许重复",
       "name": "Name",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "ValidationOption",
+      "param_style": "json",
       "position": "query",
       "required": false,
       "type": "string"

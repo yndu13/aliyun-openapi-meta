@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID",
       "help_zh": "地域ID",
@@ -73,6 +74,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "nginx-test",
       "help_en": "The name of the ECI instance (container group). Format requirements:\n\nThe name must be 2 to 128 characters in length.\nThe name can contain lowercase letters, digits, and hyphens (-). It cannot start or end with a hyphen",
       "help_zh": "ECI实例名称，即容器组名称。格式要求如下：\n\n长度为2~128个字符。\n支持英文小写字母、数字或者短划线（-），不能以短划线开头或者结尾",
@@ -350,6 +352,8 @@
       "help_en": "The bandwidth of the EIP. Default value: 5 Mbps.\nThis parameter can be set when AutoCreateEip is set to true",
       "help_zh": "EIP的带宽，默认为5 Mbps。    \n当AutoCreateEip取值为true时，可以设置该参数",
       "location": "query",
+      "maximum": "1000000",
+      "minimum": "0",
       "name": "eip_bandwidth",
       "options": [
         "--eip-bandwidth"
@@ -402,6 +406,8 @@
       "help_en": "The inbound bandwidth limit. Unit: Bps",
       "help_zh": "入方向带宽限制。单位：Bps",
       "location": "query",
+      "maximum": "9223372036854775807",
+      "minimum": "0",
       "name": "ingress_bandwidth",
       "options": [
         "--ingress-bandwidth"
@@ -415,6 +421,8 @@
       "help_en": "The outbound bandwidth limit. Unit: Bps",
       "help_zh": "出方向带宽限制。单位：Bps",
       "location": "query",
+      "maximum": "9223372036854775807",
+      "minimum": "0",
       "name": "egress_bandwidth",
       "options": [
         "--egress-bandwidth"
@@ -428,6 +436,8 @@
       "help_en": "The number of physical CPU cores. Only some instance types support custom settings",
       "help_zh": "CPU物理核心数。仅部分规格支持自定义设置",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "0",
       "name": "cpu_options_core",
       "options": [
         "--cpu-options-core"
@@ -441,6 +451,8 @@
       "help_en": "The number of threads per core. Only some instance types support custom settings. Setting this to 1 disables hyper-threading",
       "help_zh": "每核线程数。仅部分规格支持自定义设置。配置为1时表示关闭超线程",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "0",
       "name": "cpu_options_threads_per_core",
       "options": [
         "--cpu-options-threads-per-core"
@@ -467,6 +479,8 @@
       "help_en": "The size of the additional temporary storage space. Unit: GiB.\nFor more information, see https://help.aliyun.com/document_detail/204066.html",
       "help_zh": "增加的临时存储空间大小。单位：GiB。    \n更多信息，请参见https://help.aliyun.com/document_detail/204066.html",
       "location": "query",
+      "maximum": "5000",
+      "minimum": "0",
       "name": "ephemeral_storage",
       "options": [
         "--ephemeral-storage"
@@ -581,6 +595,7 @@
             "example": "100",
             "help_en": "The arguments for the container startup command. Maximum: 10",
             "help_zh": "容器启动命令对应的参数。最多10个",
+            "maximum": "65535",
             "name": "arg",
             "options": [
               "--arg"
@@ -696,6 +711,8 @@
             "example": "registry-vpc.cn-hangzhou.aliyuncs.com/eci_open/nginx:latest",
             "help_en": "The container image",
             "help_zh": "容器镜像",
+            "maximum": "255",
+            "minimum": "1",
             "name": "image",
             "options": [
               "--image"
@@ -1787,6 +1804,7 @@
             "example": "10",
             "help_en": "The container startup arguments",
             "help_zh": "容器启动参数",
+            "maximum": "65535",
             "name": "arg",
             "options": [
               "--arg"

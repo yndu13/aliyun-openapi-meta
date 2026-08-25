@@ -57,8 +57,14 @@
       "type": "string"
     },
     {
+      "enum": [
+        "InstallAndUpgrade",
+        "OnlyInstallNotHasAgent",
+        "OnlyUpgradeHasAgent",
+        "OnlyInstallWithoutStart"
+      ],
       "example": "InstallAndUpgrade",
-      "help_en": "The installation type. Valid values:\nInstallAndUpgrade: installs the component if it does not exist, or updates it if it exists.\nOnlyInstallNotHasAgent: installs the component if it does not exist, or takes no action if it exists.\nOnlyUpgradeHasAgent: takes no action if the component does not exist, or updates it if it exists.\nOnlyInstallWithoutStart: installs the component only without starting the service",
+      "help_en": "The installation type. Valid values:\n\nInstallAndUpgrade: installs the component if it does not exist, or updates it if it exists.\nOnlyInstallNotHasAgent: installs the component if it does not exist, or takes no action if it exists.\nOnlyUpgradeHasAgent: takes no action if the component does not exist, or updates it if it exists.\nOnlyInstallWithoutStart: installs the component only without starting the service",
       "help_zh": "安装类型：\nInstallAndUpgrade：不存在则安装，存在则更新；\nOnlyInstallNotHasAgent：不存在则安装，存在则不操作；\nOnlyUpgradeHasAgent：不存在则不操作，存在则更新；\nOnlyInstallWithoutStart: 只安装组件，不启动服务",
       "location": "body",
       "name": "install_type",
@@ -111,6 +117,30 @@
       "raw_name": "instances",
       "required": true,
       "type": "array"
+    },
+    {
+      "help_en": "The X-Debug-Id",
+      "help_zh": "The X-Debug-Id",
+      "location": "query",
+      "name": "x_debug_id",
+      "options": [
+        "--x-debug-id"
+      ],
+      "raw_name": "X-Debug-Id",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The x-sysom-invoke-source",
+      "help_zh": "The x-sysom-invoke-source",
+      "location": "query",
+      "name": "x_sysom_invoke_source",
+      "options": [
+        "--x-sysom-invoke-source"
+      ],
+      "raw_name": "x-sysom-invoke-source",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "/api/v1/am/agent/install_agent",
@@ -123,6 +153,29 @@
       "name": "body",
       "param_style": "json",
       "position": "body",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "v1_parameters": [
+    {
+      "name": "X-Debug-Id",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The request body",
+      "help_zh": "请求Body",
+      "name": "body",
+      "param_style": "json",
+      "position": "body",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "x-sysom-invoke-source",
+      "position": "query",
       "required": false,
       "type": "string"
     }

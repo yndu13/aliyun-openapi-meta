@@ -3,8 +3,8 @@
   "cmd_full_name": "vpc complete-physical-connection-loa",
   "cmd_name": "complete-physical-connection-loa",
   "deprecated": false,
-  "description_en": "Completes the construction acceptance for an Express Connect circuit",
-  "description_zh": "调用CompletePhysicalConnectionLOA完成施工完竣",
+  "description_en": "Calls CompletePhysicalConnectionLOA to complete the construction and backfill the completion information after the LOA is approved and the line construction is finished",
+  "description_zh": "调用CompletePhysicalConnectionLOA完成施工完竣，用于在 LOA 审批通过、线路施工完成后回填施工完竣",
   "kebab_example": "",
   "method": "GET|POST",
   "multi_version": false,
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "02fb3da4-230e-11e9-8e44-0016e04115b",
-      "help_en": "The client token that is used to ensure the idempotence of the request.\n\nThe client generates the value of this parameter. Ensure that the value is unique among different requests.\n\nIf you do not specify this parameter, the system uses the RequestId of the API request as the ClientToken. The RequestId may differ for each API request",
+      "help_en": "The client token that is used to ensure the idempotence of the request.\n\nThe client generates the value. Ensure that the value is unique among different requests.\n\nIf you do not specify this parameter, the system uses the RequestId of the API request as the ClientToken. The RequestId of each API request may be different",
       "help_zh": "客户端Token，用于保证请求的幂等性。\n\n由客户端生成该参数值，要保证在不同请求间唯一。\n\n若您未指定，则系统自动使用API请求的RequestId作为ClientToken标识。每次API请求的RequestId可能不一样",
       "location": "query",
       "name": "client_token",
@@ -34,6 +34,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cn-shanghai",
       "help_en": "The region ID of the Express Connect circuit.\n\nYou can call the https://help.aliyun.com/document_detail/36063.html operation to query the region ID",
       "help_zh": "物理专线所在的地域ID。\n\n您可以通过调用https://help.aliyun.com/document_detail/36063.html接口获取地域ID",
@@ -47,6 +48,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "pc-bp10tvlhnwkw****",
       "help_en": "The instance ID of the Express Connect circuit",
       "help_zh": "物理专线实例ID",
@@ -61,7 +63,7 @@
     },
     {
       "example": "aaa111****",
-      "help_en": "The line code of the telecommunications service provider",
+      "help_en": "The line code of the carrier",
       "help_zh": "运营商线路编码",
       "location": "query",
       "name": "line_code",
@@ -87,7 +89,7 @@
     },
     {
       "example": "中国其他",
-      "help_en": "The telecommunications service provider. Valid values:\n中国电信\n中国联通\n中国移动\n中国其他",
+      "help_en": "The carrier. Valid values:\n中国电信.\n中国联通.\n中国移动.\n中国其他",
       "help_zh": "运营商主体。取值：\n中国电信。\n中国联通。\n中国移动。\n中国其他",
       "location": "query",
       "name": "line_service_provider",
@@ -100,7 +102,7 @@
     },
     {
       "example": "1388888****",
-      "help_en": "The O&M contact information of the line",
+      "help_en": "The O&M contact information of the line carrier",
       "help_zh": "线路运维联系方式",
       "location": "query",
       "name": "line_sp_contact_info",
@@ -113,7 +115,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether the construction acceptance is completed. Valid values:\ntrue: The construction is completed and reported.\nfalse: Line O&M",
+      "help_en": "Specifies whether the construction is completed. Valid values:\ntrue: Construction is completed.\nfalse: Line O&M",
       "help_zh": "是否施工完竣。取值：\ntrue：完工报竣。\nfalse：线路运维",
       "location": "query",
       "name": "finish_work",

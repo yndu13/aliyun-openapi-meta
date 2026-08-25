@@ -66,7 +66,7 @@
         "fields": [
           {
             "example": "90",
-            "help_en": "This parameter is required only when RuleType is set to TRANSITION. The number of days after which the backup is transitioned to archive storage. Unit: days",
+            "help_en": "This parameter is required only when RuleType is set to TRANSITION. The number of days after which the backup is converted to archive storage. Unit: days",
             "help_zh": "仅当RuleType取值为TRANSITION时，需要配置该参数。备份转为归档的时间，单位为天",
             "name": "archive_days",
             "options": [
@@ -90,7 +90,7 @@
           },
           {
             "example": "365",
-            "help_en": "This parameter is required only when RuleType is set to TRANSITION. The number of days after which the backup is transitioned to cold archive storage. Unit: days",
+            "help_en": "This parameter is required only when RuleType is set to TRANSITION. The number of days after which the backup is converted to cold archive storage. Unit: days",
             "help_zh": "仅当RuleType取值为TRANSITION时，需要配置该参数。备份转为冷归档的时间，单位为天",
             "name": "cold_archive_days",
             "options": [
@@ -144,8 +144,8 @@
           },
           {
             "example": "true",
-            "help_en": "This parameter is valid only when PolicyType is set to UDM_ECS_ONLY. Specifies whether to enable backup locking",
-            "help_zh": "仅当PolicyType为UDM_ECS_ONLY时，该字段有效。表示是否开启备份锁定",
+            "help_en": "This parameter is required only when PolicyType is set to UDM_ECS_ONLY and RuleType is set to SECURITY. Specifies whether to enable backup locking",
+            "help_zh": "仅当PolicyType取值为UDM_ECS_ONLY并且RuleType取值为SECURITY时，需要配置该参数。表示是否开启备份锁定",
             "name": "immutable",
             "options": [
               "--immutable"
@@ -268,7 +268,7 @@
           },
           {
             "example": "I|1648647166|P1D",
-            "help_en": "This parameter is required only when RuleType is set to BACKUP. The backup schedule settings. Supported formats:\n`I|{startTime}|{interval}`: specifies that a backup job is run at the {interval} from {startTime}. For example, `I|1631685600|P1D` specifies that a backup job is run once a day starting from 2021-09-15 14:00:00.\n\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ninterval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n`C|{startTime}|{crontab}`: specifies that a backup job is run based on the {crontab} expression from {startTime}. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is run at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ncrontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs that are scheduled for past times are not compensated. If the previous backup job is not completed, the next backup job is not triggered",
+            "help_en": "This parameter is required only when RuleType is set to BACKUP. The backup schedule settings. Supported formats:\n`I|{startTime}|{interval}`: specifies that a backup job is run at the {interval} from the {startTime}. Example: `I|1631685600|P1D` specifies that a backup job is run once a day starting from 2021-09-15 14:00:00.\n\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ninterval: the ISO 8601 time interval. Example: `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n`C|{startTime}|{crontab}`: specifies that a backup job is run based on the {crontab} expression from the {startTime}. Example: `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is run at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\nstartTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\ncrontab: the crontab expression. Example: `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs for elapsed time periods are not compensated. If the previous backup job is not completed, the next backup job is not triggered",
             "help_zh": "仅当RuleType取值为BACKUP时，需要配置该参数。备份定时设置。可选格式：\n`I|{startTime}|{interval}`：表示从{startTime}开始每隔{interval}的时间执行一次备份任务。例如`I|1631685600|P1D`表示从2021-09-15 14:00:00开始每隔一天备份一次。\n\nstartTime：备份起始时间，UNIX时间，单位为秒。\ninterval： ISO8601时间间隔。例如：`PT1H`表示间隔一小时。`P1D`表示间隔一天。\n`C|{startTime}|{crontab}`：表示从{startTime}开始根据{crontab}表达式执行备份任务。例如`C|1631685600|0 0 2 ? * 3,5,7`表示从2021-09-15 14:00:00开始每周二, 周四和周六的02:00:00执行备份。\nstartTime：备份起始时间，UNIX时间，单位为秒。\ncrontab： crontab表达式。例如：`0 0 2 ? * 3,5,7`表示每周二, 周四和周六的02:00:00。\n\n不会补偿已过去时间的备份任务。如果上一次备份任务没有完成，不会触发下一次备份任务",
             "name": "schedule",
             "options": [

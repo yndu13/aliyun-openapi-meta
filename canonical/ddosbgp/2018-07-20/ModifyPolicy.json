@@ -130,6 +130,8 @@
                 "example": "65535",
                 "help_en": "The end value of the destination port range. Valid values: 0 to 65535",
                 "help_zh": "目的端口范围的结束值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "dst_port_end",
                 "options": [
                   "--dst-port-end"
@@ -142,6 +144,8 @@
                 "example": "0",
                 "help_en": "The start value of the destination port range. Valid values: 0 to 65535",
                 "help_zh": "目的端口范围的起始值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "dst_port_start",
                 "options": [
                   "--dst-port-start"
@@ -163,6 +167,12 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "drop",
+                  "accept",
+                  "ip_rate",
+                  "session_rate"
+                ],
                 "example": "drop",
                 "help_en": "The match action. Valid values:",
                 "help_zh": "匹配动作。取值：\n\naccept：表示放行满足指纹特征的流量。\ndrop：表示丢弃满足指纹特征的流量。\nip_rate：表示对满足指纹特征的流量来源IP进行访问限速。限速值通过RateValue参数设置。\nsession_rate：表示对满足指纹特征的流量来源会话进行访问限速。限速值通过RateValue参数设置",
@@ -178,6 +188,8 @@
                 "example": "1500",
                 "help_en": "The maximum packet length. Valid values: 1 to 1500",
                 "help_zh": "最大包长，取值范围：1~1500",
+                "maximum": "1500",
+                "minimum": "0",
                 "name": "max_pkt_len",
                 "options": [
                   "--max-pkt-len"
@@ -190,6 +202,8 @@
                 "example": "1",
                 "help_en": "The minimum packet length. Valid values: 1 to 1500",
                 "help_zh": "最小包长，取值范围：1~1500",
+                "maximum": "1500",
+                "minimum": "0",
                 "name": "min_pkt_len",
                 "options": [
                   "--min-pkt-len"
@@ -202,6 +216,8 @@
                 "example": "0",
                 "help_en": "The offset. Valid values: 0 to 1500",
                 "help_zh": "偏移量，取值范围：0~1500",
+                "maximum": "1500",
+                "minimum": "0",
                 "name": "offset",
                 "options": [
                   "--offset"
@@ -212,19 +228,26 @@
               },
               {
                 "example": "abcd",
-                "help_en": "The detection payload. Represented in hexadecimal string format",
+                "help_en": "The detection payload, represented in hexadecimal string format",
                 "help_zh": "检测载荷。使用十六进制字符串格式表示",
+                "maxLength": "32",
+                "minLength": "2",
                 "name": "payload_bytes",
                 "options": [
                   "--payload-bytes"
                 ],
+                "pattern": "^([0-9a-fA-f]{2}){1,15}$",
                 "raw_name": "PayloadBytes",
                 "required": false,
                 "type": "string"
               },
               {
+                "enum": [
+                  "tcp",
+                  "udp"
+                ],
                 "example": "udp",
-                "help_en": "The protocol type. Valid values:",
+                "help_en": "The protocol type. Valid values:\n\ntcp: Transmission Control Protocol.\nudp: User Datagram Protocol",
                 "help_zh": "协议类型。取值：\n\ntcp：表示传输控制协议。\nudp：表示用户数据报协议",
                 "name": "protocol",
                 "options": [
@@ -238,6 +261,8 @@
                 "example": "100",
                 "help_en": "The rate limit value. Valid values: 1 to 100000",
                 "help_zh": "限速值。取值范围：1~100000。\n\n匹配后动作为源IP限速或者源Session限速时（MacthAction为ip_rate或session_rate），必须填写该参数",
+                "maximum": "100000",
+                "minimum": "1",
                 "name": "rate_value",
                 "options": [
                   "--rate-value"
@@ -250,6 +275,8 @@
                 "example": "1",
                 "help_en": "The priority number, represented as an integer",
                 "help_zh": "生效顺序号，使用整数表示。\n数字越小，越靠前生效",
+                "maximum": "100",
+                "minimum": "1",
                 "name": "seq_no",
                 "options": [
                   "--seq-no"
@@ -262,6 +289,8 @@
                 "example": "65535",
                 "help_en": "The end value of the source port range. Valid values: 0 to 65535",
                 "help_zh": "源端口范围的结束值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "src_port_end",
                 "options": [
                   "--src-port-end"
@@ -274,6 +303,8 @@
                 "example": "0",
                 "help_en": "The start value of the source port range. Valid values: 0 to 65535",
                 "help_zh": "源端口范围的开始值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "src_port_start",
                 "options": [
                   "--src-port-start"
@@ -296,6 +327,11 @@
           "type": "array"
         },
         {
+          "enum": [
+            "default",
+            "weak",
+            "hard"
+          ],
           "example": "default",
           "help_en": "The protection level of AI-based intelligent protection. Valid values:",
           "help_zh": "AI智能防护的防护等级。取值：\n\ndefault：表示正常。\nweak：表示宽松。\nhard：表示严格",
@@ -311,7 +347,13 @@
           "element": {
             "fields": [
               {
-                "example": "2",
+                "enum": [
+                  "1",
+                  "2",
+                  "observe",
+                  "block"
+                ],
+                "example": "block",
                 "help_en": "The action",
                 "help_zh": "动作",
                 "name": "action",
@@ -329,6 +371,8 @@
                       "example": "abcd",
                       "help_en": "The detection content",
                       "help_zh": "检测内容。\n规则类型为char，必须为ASCII字符串；规则类型为hex，必须为十六进制字符串。最大长度2048",
+                      "maxLength": "4096",
+                      "minLength": "1",
                       "name": "arg",
                       "options": [
                         "--arg"
@@ -353,6 +397,8 @@
                       "example": "1200",
                       "help_en": "The detection window length. Valid values: 1 to 2048",
                       "help_zh": "检测窗口长度，取值范围：1~2048",
+                      "maximum": "2048",
+                      "minimum": "1",
                       "name": "depth",
                       "options": [
                         "--depth"
@@ -426,6 +472,8 @@
                       "example": "0",
                       "help_en": "The detection start position. Valid values: 0 to 2047",
                       "help_zh": "检测起始位置。取值范围：0~2047",
+                      "maximum": "2047",
+                      "minimum": "0",
                       "name": "position",
                       "options": [
                         "--position"
@@ -451,6 +499,8 @@
                 "example": "0",
                 "help_en": "The minimum number of bytes in a session flow that triggers rule matching. Valid values: 0 to 2048",
                 "help_zh": "会话流启动规则匹配的最小字节数，取值范围：0~2048",
+                "maximum": "2048",
+                "minimum": "0",
                 "name": "limited",
                 "options": [
                   "--limited"
@@ -460,6 +510,10 @@
                 "type": "int"
               },
               {
+                "enum": [
+                  "0",
+                  "1"
+                ],
                 "example": "0",
                 "help_en": "The logical operator. Valid values:",
                 "help_zh": "逻辑符。取值：\n\n0：表示命中执行动作。\n\n1：表示未命中执行动作",
@@ -472,8 +526,12 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "hex",
+                  "char"
+                ],
                 "example": "char",
-                "help_en": "The rule type. Valid values:",
+                "help_en": "The rule type. Valid values:\n\nhex: hexadecimal match.\n\nchar: string match",
                 "help_zh": "规则类型。取值：\n\nhex：表示十六进制匹配。\n\nchar：表示字符串匹配",
                 "name": "method",
                 "options": [
@@ -487,6 +545,8 @@
                 "example": "test****",
                 "help_en": "The rule name",
                 "help_zh": "规则名称",
+                "maxLength": "32",
+                "minLength": "1",
                 "name": "name",
                 "options": [
                   "--name"
@@ -499,6 +559,8 @@
                 "example": "1",
                 "help_en": "The rule priority. Valid values: 1 to 100",
                 "help_zh": "规则优先级。取值范围：1~100。\n\n数字越小，优先级越高",
+                "maximum": "100",
+                "minimum": "1",
                 "name": "priority",
                 "options": [
                   "--priority"
@@ -527,6 +589,8 @@
                 "example": "65535",
                 "help_en": "The end value of the destination port range. Valid values: 0 to 65535",
                 "help_zh": "目的端口范围的结束值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "dst_port_end",
                 "options": [
                   "--dst-port-end"
@@ -539,6 +603,8 @@
                 "example": "0",
                 "help_en": "The start value of the destination port range. Valid values: 0 to 65535",
                 "help_zh": "目的端口范围的起始值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "dst_port_start",
                 "options": [
                   "--dst-port-start"
@@ -560,6 +626,9 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "drop"
+                ],
                 "example": "drop",
                 "help_en": "The match action. Valid values:",
                 "help_zh": "匹配动作。取值：\n\ndrop：表示丢弃",
@@ -572,8 +641,12 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "tcp",
+                  "udp"
+                ],
                 "example": "tcp",
-                "help_en": "The protocol type. Valid values:",
+                "help_en": "The protocol type. Valid values:\n\ntcp: Transmission Control Protocol.\nudp: User Datagram Protocol",
                 "help_zh": "协议类型。取值：\n\ntcp：表示传输控制协议。\nudp：表示用户数据报协议",
                 "name": "protocol",
                 "options": [
@@ -587,6 +660,8 @@
                 "example": "1",
                 "help_en": "The priority number, represented as an integer",
                 "help_zh": "生效顺序号，使用整数表示。\n数字越小，越靠前生效",
+                "maximum": "100",
+                "minimum": "1",
                 "name": "seq_no",
                 "options": [
                   "--seq-no"
@@ -599,6 +674,8 @@
                 "example": "65535",
                 "help_en": "The end value of the source port range. Valid values: 0 to 65535",
                 "help_zh": "源端口范围的结束值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "src_port_end",
                 "options": [
                   "--src-port-end"
@@ -611,6 +688,8 @@
                 "example": "0",
                 "help_en": "The start value of the source port range. Valid values: 0 to 65535",
                 "help_zh": "源端口范围的起始值。取值范围：0~65535",
+                "maximum": "65535",
+                "minimum": "0",
                 "name": "src_port_start",
                 "options": [
                   "--src-port-start"
@@ -689,6 +768,12 @@
               "type": "bool"
             },
             {
+              "enum": [
+                "loose",
+                "normal",
+                "strict",
+                "custom"
+              ],
               "example": "normal",
               "help_en": "The SIP protection level",
               "help_zh": "SIP防护等级",
@@ -749,6 +834,8 @@
               "example": "1000",
               "help_en": "The SIP source rate limit value in PPS",
               "help_zh": "SIP源限速值（PPS）",
+              "maximum": "4294967292",
+              "minimum": "0",
               "name": "sip_rate",
               "options": [
                 "--sip-rate"
@@ -761,6 +848,8 @@
               "example": "100",
               "help_en": "The SIP activation threshold in Mbit/s",
               "help_zh": "SIP启动阈值（Mbps）",
+              "maximum": "34359",
+              "minimum": "1",
               "name": "sip_start_mbps",
               "options": [
                 "--sip-start-mbps"
@@ -773,6 +862,8 @@
               "example": "500",
               "help_en": "The SIP activation threshold in PPS",
               "help_zh": "SIP启动阈值（PPS）",
+              "maximum": "2147483647",
+              "minimum": "1",
               "name": "sip_start_pps",
               "options": [
                 "--sip-start-pps"
@@ -799,6 +890,8 @@
                 "example": "120",
                 "help_en": "The duration for which the source IP address is added to the blacklist. Unit: seconds",
                 "help_zh": "源IP加入黑名单的时长。单位秒",
+                "maximum": "2592000",
+                "minimum": "60",
                 "name": "block_expire_seconds",
                 "options": [
                   "--block-expire-seconds"
@@ -811,6 +904,8 @@
                 "example": "60",
                 "help_en": "The statistical period for source rate limiting blacklisting. Unit: seconds",
                 "help_zh": "源限速拉黑的统计周期，单位秒",
+                "maximum": "1200",
+                "minimum": "60",
                 "name": "every_seconds",
                 "options": [
                   "--every-seconds"
@@ -823,6 +918,8 @@
                 "example": "5",
                 "help_en": "The number of times the source IP address exceeds the rate limit within one statistical period",
                 "help_zh": "源IP在1个统计周期内超过限速值的次数",
+                "maximum": "1200",
+                "minimum": "1",
                 "name": "exceed_limit_times",
                 "options": [
                   "--exceed-limit-times"
@@ -832,6 +929,12 @@
                 "type": "int"
               },
               {
+                "enum": [
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
                 "example": "3",
                 "help_en": "The source rate limiting type. Valid values:",
                 "help_zh": "源限速类型。取值：\n\n3：表示源PPS限速。\n\n4：表示源带宽限速。\n\n5：表示源SYN PPS限速。\n\n6：表示源SYN 带宽限速",
@@ -860,8 +963,10 @@
           "fields": [
             {
               "example": "2048",
-              "help_en": "The source bandwidth throttling. Unit: Byte/s",
+              "help_en": "The source bandwidth throttling, in bytes per second",
               "help_zh": "源带宽限速，单位Byte/s",
+              "maximum": "268435456",
+              "minimum": "1024",
               "name": "bps",
               "options": [
                 "--bps"
@@ -872,8 +977,10 @@
             },
             {
               "example": "64",
-              "help_en": "The source PPS rate limit. Unit: Packet/s",
+              "help_en": "The source PPS rate limit, in packets per second",
               "help_zh": "源PPS限速，单位Packet/s",
+              "maximum": "500000",
+              "minimum": "32",
               "name": "pps",
               "options": [
                 "--pps"
@@ -884,8 +991,10 @@
             },
             {
               "example": "2048",
-              "help_en": "The source SYN bandwidth throttling. Unit: Byte/s",
+              "help_en": "The source SYN bandwidth throttling, in bytes per second",
               "help_zh": "源SYN 带宽限速，单位Byte/s",
+              "maximum": "268435456",
+              "minimum": "1024",
               "name": "syn_bps",
               "options": [
                 "--syn-bps"
@@ -896,8 +1005,10 @@
             },
             {
               "example": "64",
-              "help_en": "The source SYN PPS rate limit. Unit: Packet/s",
+              "help_en": "The source SYN PPS rate limit, in packets per second",
               "help_zh": "源SYN PPS限速，单位Packet/s",
+              "maximum": "100000",
+              "minimum": "1",
               "name": "syn_pps",
               "options": [
                 "--syn-pps"
@@ -921,7 +1032,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The IP whitelist",
+          "help_en": "The IP address whitelist",
           "help_zh": "IP白名单列表",
           "name": "white_ip_list",
           "options": [
@@ -957,8 +1068,11 @@
       "type": "object"
     },
     {
+      "enum": [
+        "2"
+      ],
       "example": "2",
-      "help_en": "The version of the port-specific mitigation policy. Valid values:",
+      "help_en": "The version of the port-specific mitigation policy. Valid values:\n\nEmpty: modifies the default surf mitigation engine policy.\n2: modifies the new stream mitigation engine policy.\n\nOnly port-specific mitigation policies are supported",
       "help_zh": "端口防护策略版本，取值：\n\n不填：表示修改默认 surf 防护引擎策略。\n2：表示修改新版 stream 防护引擎策略。\n仅端口防护策略支持",
       "location": "query",
       "name": "port_version",

@@ -47,6 +47,9 @@
       "type": "string"
     },
     {
+      "enum": [
+        "MongoDB"
+      ],
       "example": "MongoDB",
       "help_en": "The database engine. Set the value to MongoDB",
       "help_zh": "数据库引擎。固定取值：MongoDB",
@@ -60,6 +63,18 @@
       "type": "string"
     },
     {
+      "enum": [
+        "3.0",
+        "3.2",
+        "3.4",
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0",
+        "8.0"
+      ],
       "example": "4.4",
       "help_en": "The database version. Valid values:\n\n8.0\n\n7.0\n\n6.0\n\n5.0\n\n4.4\n\n4.2\n\n4.0\n\nFor more information about the constraints on storage engines and database versions, see https://help.aliyun.com/document_detail/61906.html.\n\nWhen you clone an instance by calling this operation, the value of this parameter must be the same as that of the source instance",
       "help_zh": "数据库版本号，取值：\n8.0\n7.0\n6.0\n5.0\n4.4\n4.2\n4.0\n\n关于存储引擎与版本的选择约束，请参见https://help.aliyun.com/document_detail/61906.html。\n调用本接口克隆实例时，该参数值需和源实例保持一致",
@@ -112,6 +127,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "PrePaid",
+        "PostPaid"
+      ],
       "example": "PrePaid",
       "help_en": "The billing method of the instance. Valid values:\n\nPostPaid: pay-as-you-go. This is the default value.\n\nPrePaid: subscription.\n\nIf you set this parameter to PrePaid, you must also specify the Period parameter",
       "help_zh": "实例的付费类型，取值说明：\n\nPostPaid：默认值，后付费（按量付费）。\nPrePaid：预付费（包年包月）。\n\n当该参数的值为PrePaid时，您还需要配置Period参数",
@@ -138,6 +157,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "VPC",
+        "Classic"
+      ],
       "example": "VPC",
       "help_en": "The network type of the instance. Valid values:\n\nVPC: virtual private cloud",
       "help_zh": "实例的网络类型，取值说明：\n\nVPC：专有网络",
@@ -151,6 +174,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "vpc-bp1n3i15v90el48nx****",
       "help_en": "The virtual private cloud (VPC) ID",
       "help_zh": "专有网络（VPC）ID",
@@ -160,10 +184,11 @@
         "--vpc-id"
       ],
       "raw_name": "VpcId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "vsw-bp1vj604nj5a9zz74****",
       "help_en": "The virtual switch ID",
       "help_zh": "虚拟交换机ID",
@@ -173,7 +198,7 @@
         "--vswitch-id"
       ],
       "raw_name": "VSwitchId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -216,6 +241,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "WiredTiger",
+        "RocksDB"
+      ],
       "example": "WiredTiger",
       "help_en": "The storage engine of the instance. Set the value to WiredTiger.\n\nWhen you clone an instance by calling this operation, the value of this parameter must be the same as that of the source instance.\n\nFor more information about the constraints on storage engines and database versions, see https://help.aliyun.com/document_detail/61906.html",
       "help_zh": "实例的存储引擎，取值固定为WiredTiger。\n\n调用本接口克隆实例时，该参数需和源实例保持一致。\n关于存储引擎与版本的选择约束，请参见https://help.aliyun.com/document_detail/61906.html",
@@ -242,6 +271,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "mongodb",
+        "dynamodb"
+      ],
       "example": "mongodb",
       "help_en": "The protocol type of the instance. Valid values:\n\nmongodb: MongoDB protocol.\n\ndynamodb: DynamoDB protocol",
       "help_zh": "访问协议的类型，取值说明：\nmongodb：MongoDB协议。\ndynamodb：DynamoDB协议",
@@ -303,6 +336,8 @@
             "example": "0",
             "help_en": "The number of read-only nodes in the shard node.\n\nValid values: 0 to 5. The default value is 0.\n\nN in the parameter name specifies the serial number of the shard node. For example, ReplicaSet.2.ReadonlyReplicas specifies the number of read-only nodes in the second shard node",
             "help_zh": "设置Shard节点的只读节点个数。\n\n取值范围：0~5（整数），默认值为0。\n参数名中的N代表设置第几个Shard节点中的只读节点个数。例如，ReplicaSet.2.ReadonlyReplicas表示设置第二个Shard节点的只读节点个数",
+            "maximum": "5",
+            "minimum": "0",
             "name": "readonly_replicas",
             "options": [
               "--readonly-replicas"
@@ -553,6 +588,12 @@
       "type": "string"
     },
     {
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
       "example": "1",
       "help_en": "The backup-based instance restoration method.\n\n1: Restore the instance to a specific point in time.\n\n2: Restore a released instance from a specific backup set.\n\n3: Restore the instance from a specific geo-redundant backup set",
       "help_zh": "备份恢复实例。\n\n1: 恢复实例到指定时间点\n2: 恢复已释放实例到指定备份集\n3: 恢复实例到指定的异地备份集",
@@ -895,7 +936,7 @@
       "help_zh": "虚拟交换机ID",
       "name": "VSwitchId",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -903,7 +944,7 @@
       "help_zh": "专有网络（VPC）ID",
       "name": "VpcId",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {

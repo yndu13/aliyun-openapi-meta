@@ -3,7 +3,7 @@
   "cmd_full_name": "sysom list-diagnosis",
   "cmd_name": "list-diagnosis",
   "deprecated": false,
-  "description_en": "Obtain the list of diagnostic history",
+  "description_en": "Retrieves a list of diagnostic history records",
   "description_zh": "获取诊断历史记录列表",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "1",
-      "help_en": "Current page number",
+      "help_en": "The current page number",
       "help_zh": "当前页数",
       "location": "query",
       "name": "current",
@@ -35,7 +35,7 @@
     },
     {
       "example": "10",
-      "help_en": "Page size",
+      "help_en": "The number of entries per page",
       "help_zh": "每页大小",
       "location": "query",
       "name": "page_size",
@@ -48,7 +48,7 @@
     },
     {
       "example": "memgraph",
-      "help_en": "Diagnostic type",
+      "help_en": "The diagnostic type",
       "help_zh": "诊断类型",
       "location": "query",
       "name": "service_name",
@@ -61,7 +61,7 @@
     },
     {
       "example": "[{\\\"key\\\":\\\"region\\\",\\\"value\\\":\\\"cn-beijing\\\"}]",
-      "help_en": "Diagnostic parameters. Different types of diagnostics require different diagnostic parameters. You can use this field to filter records whose parameters match the specified values",
+      "help_en": "The diagnostic parameters. Different diagnostic types require different diagnostic parameters. You can use this field to filter records whose parameters match the specified values",
       "help_zh": "诊断参数，不同类型的诊断要求传递不同的诊断参数，可以使用本字段过滤出参数符合为指定值的记录",
       "location": "query",
       "name": "params",
@@ -74,7 +74,7 @@
     },
     {
       "example": "Running",
-      "help_en": "Execution status of the diagnostic task.\nValid values:\nReady: Ready\nRunning: Running\nSuccess: Execution succeeded\nFail: Execution failed",
+      "help_en": "The execution status of the diagnostic task.\n\nValid values:\nReady: Ready.\nRunning: Running.\nSuccess: Succeeded.\nFail: Failed",
       "help_zh": "诊断任务执行状态。\n取值：\nReady：就绪\nRunning：正在执行\nSuccess：执行成功\nFail：执行失败",
       "location": "query",
       "name": "status",
@@ -84,9 +84,87 @@
       "raw_name": "status",
       "required": false,
       "type": "string"
+    },
+    {
+      "help_en": "The X-Debug-Id",
+      "help_zh": "The X-Debug-Id",
+      "location": "query",
+      "name": "x_debug_id",
+      "options": [
+        "--x-debug-id"
+      ],
+      "raw_name": "X-Debug-Id",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The x-sysom-invoke-source",
+      "help_zh": "The x-sysom-invoke-source",
+      "location": "query",
+      "name": "x_sysom_invoke_source",
+      "options": [
+        "--x-sysom-invoke-source"
+      ],
+      "raw_name": "x-sysom-invoke-source",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "/api/v1/openapi/diagnosis/list_diagnosis",
   "product_code": "SysOM",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "v1_parameters": [
+    {
+      "name": "X-Debug-Id",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The current page number",
+      "help_zh": "当前页数",
+      "name": "current",
+      "position": "query",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "help_en": "The number of entries per page",
+      "help_zh": "每页大小",
+      "name": "pageSize",
+      "position": "query",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "help_en": "The diagnostic parameters. Different diagnostic types require different diagnostic parameters. You can use this field to filter records whose parameters match the specified values",
+      "help_zh": "诊断参数，不同类型的诊断要求传递不同的诊断参数，可以使用本字段过滤出参数符合为指定值的记录",
+      "name": "params",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The diagnostic type",
+      "help_zh": "诊断类型",
+      "name": "service_name",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The execution status of the diagnostic task.\n\nValid values:\nReady: Ready.\nRunning: Running.\nSuccess: Succeeded.\nFail: Failed",
+      "help_zh": "诊断任务执行状态。\n取值：\nReady：就绪\nRunning：正在执行\nSuccess：执行成功\nFail：执行失败",
+      "name": "status",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "x-sysom-invoke-source",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    }
+  ]
 }

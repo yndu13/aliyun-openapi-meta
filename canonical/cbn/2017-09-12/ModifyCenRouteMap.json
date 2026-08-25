@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cen-7qthudw0ll6jmc****",
       "help_en": "The instance ID of the Cloud Enterprise Network (CEN) instance",
       "help_zh": "云企业网实例ID",
@@ -34,6 +35,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The ID of the region where the routing policy is applied.\n\nYou can call the https://help.aliyun.com/document_detail/132080.html operation to query region IDs",
       "help_zh": "路由策略应用的地域ID。\n\n您可以通过调用https://help.aliyun.com/document_detail/132080.html接口获取地域ID",
@@ -47,6 +49,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cenrmap-abcdedfghij****",
       "help_en": "The ID of the routing policy",
       "help_zh": "路由策略的ID",
@@ -73,6 +76,11 @@
       "type": "string"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "Permit",
+        "Deny"
+      ],
       "example": "Permit",
       "help_en": "The action to perform on a route that matches all the match conditions. Valid values:\n\nPermit: permits the route.\n\nDeny: denies the route",
       "help_zh": "所有条件都匹配后的策略行为。取值：\n\nPermit：允许匹配的路由通过。\n\nDeny：拒绝匹配的路由通过",
@@ -90,6 +98,8 @@
       "help_en": "Policy priority of the next associated routing policy.\n\nYou can set policy priority of the next associated routing policy only when MapResult is set to Permit. Only routes that are permitted continue to match the next associated routing policy.\nThe next associated routing policy must have the same region and direction as the current routing policy.\nPolicy priority of the next associated routing policy must be lower than (a number greater than) policy priority of the current routing policy",
       "help_zh": "关联的下一条路由策略的优先级。\n\n仅MapResult取值为Permit时，才支持设置关联策略优先级，且被允许通过的路由才会继续匹配关联的下一条路由策略。\n要关联的下一条路由策略必须和当前路由策略拥有相同的地域和应用方向。\n关联的下一条路由策略的优先级必须低于（数字大于）当前路由策略的优先级",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "1",
       "name": "next_priority",
       "options": [
         "--next-priority"
@@ -99,6 +109,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "Include",
+        "Complete"
+      ],
       "example": "Include ",
       "help_en": "The match mode of the prefix list. Valid values:\n\nInclude: fuzzy match. A match is successful if the route prefix in the match condition contains the route prefix of the route being matched.\n\n For example: A policy that defines 10.10.0.0/16 can fuzzy match the route 10.10.1.0/24.\n\nComplete: exact match. A match is successful only if the route prefix in the match condition is the same as the route prefix of the route being matched. \n\n For example: A policy that defines 10.10.0.0/16 can only exactly match the route 10.10.0.0/16",
       "help_zh": "前缀列表的匹配模式。取值：\n\nInclude：模糊匹配。匹配条件中的路由前缀包含被匹配路由的路由前缀即判定为匹配成功。\n\n 例如：定义10.10.0.0/16的策略可以模糊匹配到10.10.1.0/24的路由。\n\nComplete：精确匹配。匹配条件中的路由前缀必须与被匹配路由的路由前缀一致，才判定为匹配成功。 \n\n 例如：定义10.10.0.0/16的策略仅可以精确匹配到10.10.0.0/16的路由",
@@ -112,6 +126,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Include",
+        "Complete"
+      ],
       "example": "Include",
       "help_en": "The match mode of the AS path list. Valid values:\n\nInclude: fuzzy match. A match is successful if the AS path in the match condition overlaps with the AS path of the route being matched. \n\nComplete: exact match. A match is successful only if the AS path in the match condition is the same as the AS path of the route being matched",
       "help_zh": "AS Path列表的匹配模式。取值：\n\nInclude：模糊匹配，匹配条件中的AS Path与被匹配路由的AS Path有重叠即判定为匹配成功。 \n\nComplete：精确匹配，匹配条件中的AS Path必须与被匹配路由的AS Path一致，才判定为匹配成功。 ",
@@ -125,6 +143,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Include",
+        "Complete",
+        "Contain"
+      ],
       "example": "Include",
       "help_en": "The match mode of the Community. Valid values:\n\nInclude: fuzzy match. A match is successful if the Community in the match condition overlaps with the Community of the route being matched. \n\nComplete: exact match. A match is successful only if the Community in the match condition is the same as the Community of the route being matched.\n\nContain: contains match. A match is successful only if the Community of the route being matched contains all the Communities specified in the match condition",
       "help_zh": "Community的匹配模式。取值：\n\nInclude：模糊匹配，匹配条件中的Community与被匹配路由的Community有重叠即判定为匹配成功。 \n\nComplete：精确匹配，匹配条件中的Community必须与被匹配路由的Community一致，才判定为匹配成功。\n\nContain：包含匹配，被匹配路由的Community必须包含匹配条件中指定的所有Community，才判定为匹配成功",
@@ -138,6 +161,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Additive",
+        "Replace"
+      ],
       "example": "Additive",
       "help_en": "The action to perform on the Community. Valid values:\n\nAdditive: adds the Community to the route.\n\nReplace: replaces the original Community of the route.\n\nThis parameter specifies the action to perform on a route after the route matches the match conditions",
       "help_zh": "Community的执行模式。取值：\n\nAdditive：添加，表示为路由添加Community。\n\nReplace：替换，表示替换路由原有的Community。\n\n本参数表示路由通过匹配条件后，要执行的操作",
@@ -155,6 +182,8 @@
       "help_en": "The priority of the route to be modified.\n\nValid values: 1 to 100. The default priority of a route is 50. A smaller value indicates a higher priority.\n\nThis parameter specifies the action to perform on a route after the route matches the match conditions",
       "help_zh": "修改路由的优先级。\n\n取值范围：1~100。路由的优先级默认为50，取值越小优先级越高。\n\n本参数表示路由通过匹配条件后，要执行的操作",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "preference",
       "options": [
         "--preference"
@@ -164,10 +193,13 @@
       "type": "int"
     },
     {
+      "docRequired": true,
       "example": "10",
       "help_en": "Policy priority of the routing policy. Valid values: 1 to 100. A smaller value indicates a higher priority.\n\nPolicy priority of routing policies in the same region and with the same direction must be unique. When the system executes routing policies, it starts matching conditional statements from the routing policy with the smallest priority number. Specify policy priority based on the expected matching order",
       "help_zh": "路由策略的优先级。取值范围：1~100。优先级数字越小，表示优先级越高。\n\n同地域、同应用方向的路由策略优先级唯一。执行路由策略时，系统从优先级数字最小的路由策略开始匹配条件语句，因此在指定路由策略优先级时，要注意符合期望的匹配顺序",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "1",
       "name": "priority",
       "options": [
         "--priority"

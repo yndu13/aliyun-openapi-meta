@@ -3,7 +3,7 @@
   "cmd_full_name": "das create-cache-analysis-job",
   "cmd_name": "create-cache-analysis-job",
   "deprecated": false,
-  "description_en": "Creates a cache analysis task",
+  "description_en": "Creates a cache analysis task by calling the CreateCacheAnalysisJob operation",
   "description_zh": "调用CreateCacheAnalysisJob接口，创建缓存分析任务",
   "kebab_example": "",
   "method": "GET|POST",
@@ -21,8 +21,9 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "r-bp18ff4a195d****",
-      "help_en": "The ID of the ApsaraDB for Redis instance",
+      "help_en": "The instance ID of the Redis instance",
       "help_zh": "Redis实例ID",
       "location": "query",
       "name": "instance_id",
@@ -35,7 +36,7 @@
     },
     {
       "example": "r-x****-db-0",
-      "help_en": "The ID of the data node on the instance. You can specify this parameter to query the monitoring information about the specified node.\n\nIf you specify the BackupSetId parameter, the system ignores the NodeId parameter. You can call the https://help.aliyun.com/document_detail/473786.html operation to query the node ID",
+      "help_en": "The ID of the data node in the instance. Specify this parameter to query monitoring information of a specific node.\nIf you specify the BackupSetId parameter, this parameter is ignored. You can call the https://help.aliyun.com/document_detail/473786.html operation to query node IDs",
       "help_zh": "实例的数据节点ID，传入本参数可查询指定节点的监控信息。\n当您传入BackupSetId参数，系统会忽略此参数，您可调用https://help.aliyun.com/document_detail/473786.html接口查询节点ID",
       "location": "query",
       "name": "node_id",
@@ -48,7 +49,7 @@
     },
     {
       "example": "12345",
-      "help_en": "The ID of the backup file. You can call the https://help.aliyun.com/document_detail/473823.html operation to query the ID.\n\nIf you need to specify multiple backup file IDs, separate them with commas (,). For example, you can set this parameter to `12345,67890`.\n\nIf you do not specify this parameter, the system automatically backs up the task and performs cache analysis on the backup file",
+      "help_en": "The ID of the backup file. You can call the https://help.aliyun.com/document_detail/473823.html operation to obtain the backup file ID.\n\nTo specify multiple backup file IDs, separate them with commas (,), such as `12345,67890`.\nIf you do not specify this parameter, the system automatically performs a backup and runs cache analysis on the backup file",
       "help_zh": "备份文件ID，可以通过https://help.aliyun.com/document_detail/473823.html接口获取。\n\n如需传入多个备份文件ID，请使用英文逗号（,）分隔，例如`12345,67890`。\n如果不传入本参数，系统会自动执行备份并对该备份文件执行缓存分析",
       "location": "query",
       "name": "backup_set_id",
@@ -61,7 +62,7 @@
     },
     {
       "example": "&",
-      "help_en": "The delimiters used to identify the prefixes of keys. You do not need to specify this parameter if one or more of the following default delimiters are used: `: ; , _ - + @ = | #`",
+      "help_en": "The delimiters used to identify key prefixes. You do not need to specify this parameter if the default delimiters `:;,_-+@=|#` are used",
       "help_zh": "用于识别Key前缀的分隔符。当分隔符为默认的`:;,_-+@=|#`时，不需要输入",
       "location": "query",
       "name": "separators",

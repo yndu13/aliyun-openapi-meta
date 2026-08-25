@@ -21,6 +21,12 @@
   },
   "parameters": [
     {
+      "enum": [
+        "ACS::ECS::Instance",
+        "ACS::OSS::Bucket",
+        "ACS::NAS::FileSystem",
+        "ACS::OTS::Instance"
+      ],
       "example": "ACS::ECS::Instance",
       "help_en": "The resource type",
       "help_zh": "资源类型",
@@ -35,7 +41,7 @@
     },
     {
       "example": "cae**********699",
-      "help_en": "Specifies whether a next query token exists. Valid values: If NextToken is empty, no next query exists. If NextToken has a return value, the value indicates the token for the next query",
+      "help_en": "The pagination token. Valid values: If NextToken is empty, no next query exists. If NextToken is returned, the value indicates the token for the next query",
       "help_zh": "是否拥有下一次查询的令牌（Token）。取值：如果NextToken为空表示没有下一次查询。                                 如果NextToken有返回值，该取值表示下一次查询开始的令牌",
       "location": "query",
       "name": "next_token",
@@ -51,6 +57,8 @@
       "help_en": "The maximum number of entries per page for a paged query. Maximum value: 50. Default value: 10",
       "help_zh": "分页查询时每页的最大条目数。最大值为50。默认值为10",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "max_results",
       "options": [
         "--max-results"
@@ -61,8 +69,8 @@
     },
     {
       "example": "rc-000***123",
-      "help_en": "The resource category ID",
-      "help_zh": "资源分类ID",
+      "help_en": "The resource category ID. Filters the resource calculation results by the specified resource category. If this parameter is not specified, no filtering is applied. You can specify multiple resource category IDs separated by commas (,)",
+      "help_zh": "资源分类 ID。过滤指定资源分类的资源计算结果，不填则不过滤。支持使用英文逗号（,）分隔传入多个资源分类 ID",
       "location": "query",
       "name": "resource_category_id",
       "options": [
@@ -74,8 +82,8 @@
     },
     {
       "example": "cn-hangzhou",
-      "help_en": "The region ID of the resource",
-      "help_zh": "资源所在地域ID",
+      "help_en": "The region ID of the resource. Filters the resource calculation results by the specified region. If this parameter is not specified, no filtering is applied. You can specify multiple region IDs separated by commas (,)",
+      "help_zh": "资源所在地域 ID。过滤指定地域的资源计算结果，不填则不过滤。支持使用英文逗号（,）分隔传入多个地域 ID",
       "location": "query",
       "name": "resource_region_id",
       "options": [
@@ -89,8 +97,8 @@
       "element": {
         "type": "int"
       },
-      "help_en": "The list of resource owner IDs. This parameter is used in cross-account scenarios. If left empty, data of the current account is returned by default",
-      "help_zh": "资源所有者 ID 列表，在跨账号场景使用，置空时默认获取当前账号的数据",
+      "help_en": "The list of resource owner IDs, used in cross-account unified management. Filters the resource calculation results by the specified accounts. If this parameter is not specified, data of the current logon account is returned",
+      "help_zh": "资源所有者 ID 列表，在跨账号统一管理中使用。过滤指定账号的资源计算结果，不填则获取当前登录账号的数据",
       "location": "query",
       "name": "resource_owner_ids",
       "options": [

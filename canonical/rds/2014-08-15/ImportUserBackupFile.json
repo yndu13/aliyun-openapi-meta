@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID of the instance. You can call the DescribeRegions operation to query the most recent region list.\n\nThe value of this parameter is the ID of the region in which you want to create the instance.\nThe value of this parameter must be consistent with the value of BucketRegion",
       "help_zh": "RDS地域ID。可调用DescribeRegions获取。\n\n本参数的值为您希望创建RDS实例的地域ID。\n需要和BucketRegion参数的值保持一致",
@@ -34,6 +35,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "oss",
+        "stream"
+      ],
       "example": "oss",
       "help_en": "Import mode. Valid values:\n\noss: Download the backup from OSS and import it.\nstream: Import the backup over the network",
       "help_zh": "导入模式，取值说明：\n\noss：从OSS下载备份导入。\nstream：通过网络导入备份",
@@ -47,6 +52,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "5.7",
       "help_en": "The version of the database engine that is run on the self-managed MySQL database and ApsaraDB RDS for MySQL instance. Set the value to 5.7",
       "help_zh": "MySQL数据库的版本号。当前支持传入5.7或8.0",
@@ -56,7 +62,7 @@
         "--engine-version"
       ],
       "raw_name": "EngineVersion",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -90,6 +96,8 @@
       "help_en": "The description of the full backup file",
       "help_zh": "要导入的用户备份的备注信息",
       "location": "query",
+      "maxLength": "256",
+      "minLength": "2",
       "name": "comment",
       "options": [
         "--comment"

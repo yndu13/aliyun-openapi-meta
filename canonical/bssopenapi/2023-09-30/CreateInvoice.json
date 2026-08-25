@@ -28,6 +28,7 @@
       "options": [
         "--amount"
       ],
+      "pattern": "^[\\d._-]+$",
       "raw_name": "Amount",
       "required": false,
       "type": "string"
@@ -41,6 +42,7 @@
       "options": [
         "--invoice-title-id"
       ],
+      "pattern": "^\\d+$",
       "raw_name": "InvoiceTitleId",
       "required": true,
       "type": "string"
@@ -66,6 +68,7 @@
       "help_en": "Invoice remark",
       "help_zh": "发票备注",
       "location": "query",
+      "maxLength": "200",
       "name": "invoice_remark",
       "options": [
         "--invoice-remark"
@@ -86,11 +89,16 @@
         "--invoice-candidate-ids"
       ],
       "param_style": "json",
+      "pattern": "^\\d+$",
       "raw_name": "InvoiceCandidateIds",
       "required": true,
       "type": "array"
     },
     {
+      "enum": [
+        "0",
+        "1"
+      ],
       "example": "0",
       "help_en": "Invoice type",
       "help_zh": "开票类型",
@@ -104,6 +112,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "0",
+        "1"
+      ],
       "example": "0",
       "help_en": "Invoice mode.\n0: Independent invoicing. Expenses of multiple accounts under the enterprise are invoiced separately for each account.\n1: Consolidated invoicing. Expenses of multiple accounts under the enterprise are consolidated and invoiced under the invoicing entity.\nIf only one account is passed in the AccountIds parameter, independent invoicing is applied",
       "help_zh": "开票方式\n0：独立开票，企业下多个账号的消费按照各自账号分别独立开具\n1：合并开票，企业下多个账号的消费按照开票主体合并开具\n如果AccountIds入参仅传入一个账号，则按照独立开票开具",

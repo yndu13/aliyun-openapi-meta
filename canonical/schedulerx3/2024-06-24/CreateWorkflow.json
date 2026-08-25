@@ -36,14 +36,18 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "xxl-job-executor-sample",
       "help_en": "The application name",
       "help_zh": "应用名称",
       "location": "formData",
+      "maxLength": "64",
+      "minLength": "1",
       "name": "app_name",
       "options": [
         "--app-name"
       ],
+      "pattern": "^[0-9a-zA-Z_-]+$",
       "raw_name": "AppName",
       "required": true,
       "type": "string"
@@ -53,10 +57,13 @@
       "help_en": "The workflow name",
       "help_zh": "工作流名称",
       "location": "formData",
+      "maxLength": "100",
+      "minLength": "6",
       "name": "name",
       "options": [
         "--name"
       ],
+      "pattern": "^([^\\x00-\\xff]|[\\w.,;/@\\n-])+$",
       "raw_name": "Name",
       "required": true,
       "type": "string"
@@ -66,6 +73,8 @@
       "help_en": "The workflow description",
       "help_zh": "工作流描述",
       "location": "formData",
+      "maxLength": "64",
+      "minLength": "0",
       "name": "description",
       "options": [
         "--description"
@@ -75,6 +84,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "-1",
+        "1",
+        "100"
+      ],
       "example": "1",
       "help_en": "The schedule type. Valid values:\n\n-1: none<br>\n\n1: cron<br>\n\n100: api",
       "help_zh": "时间类型：\n-1: none<br/>\n1：cron<br/>\n100:：api",

@@ -128,6 +128,11 @@
           "type": "array"
         },
         {
+          "enum": [
+            "COMMITOR",
+            "AUTO",
+            "LAST_AUDITOR"
+          ],
           "example": "COMMITOR",
           "help_en": "Ticket execution mode. Valid values:  \nCOMMITOR: After approval, the submitter executes the ticket.  \nAUTO: After approval, the system automatically executes the ticket.  \nLAST_AUDITOR: After approval, the last approver executes the ticket.  ",
           "help_zh": "工单执行方式，取值如下：\nCOMMITOR : 审批通过后，提交者执行。\nAUTO : 审批通过后，自动执行。\nLAST_AUDITOR : 审批通过后，最后一个审批人执行",
@@ -152,6 +157,12 @@
           "type": "string"
         },
         {
+          "enum": [
+            "SQL",
+            "CSV",
+            "JSON",
+            "EXCEL"
+          ],
           "example": "CSV",
           "help_en": "The format of the file for the data import. Valid values:\n\nSQL: an SQL file\nCSV: a CSV file",
           "help_zh": "文件类型，取值如下：\nSQL：SQL文件。\nCSV：CSV文件。\nEXCEL：EXCEL文件。\nJSON：JSON文件。仅部分数据库支持选择JSON，例如MongoDB",
@@ -176,6 +187,10 @@
           "type": "bool"
         },
         {
+          "enum": [
+            "SAFE_MODE",
+            "FAST_MODE"
+          ],
           "example": "FAST_MODE",
           "help_en": "The import mode. Valid values:\n\nFAST_MODE: In the Execute step, the uploaded file is read and SQL statements are executed to import data to the specified destination database. Compared with the security mode, this mode can be used to import data in a less secure but more efficient manner.\nSAFE_MODE: In the Precheck step, the uploaded file is parsed, and SQL statements or CSV file data is cached. In the Execute step, the cached SQL statements are read and executed to import data, or the cached CSV file data is read and imported to the specified destination database. This mode can be used to import data in a more secure but less efficient manner",
           "help_zh": "导入模式，取值如下：\nFAST_MODE：极速模式，在执行阶段读取文件，将SQL语句直接执行到指定的目标库。该模式安全性相比安全模式要低，但是执行时效较高。\nSAFE_MODE：安全模式，在预检查阶段会解析文件并将SQL或CSV数据缓存入库，执行时再从缓存库中读出来执行到指定的目标库。该模式安全性较好，但是执行时效相比极速模式要低",
@@ -188,6 +203,11 @@
           "type": "string"
         },
         {
+          "enum": [
+            "INSERT",
+            "INSERT_IGNORE",
+            "REPLACE_INTO"
+          ],
           "example": "INSERT",
           "help_en": "The mode in which the data in the CSV format is to be written to the destination table. Valid values:\n\nINSERT: The database checks the primary key when data is written. If a duplicate primary key value exists, an error message is returned.\nINSERT_IGNORE: If the imported data contains data records that are the same as those in the destination table, the new data records are ignored.\nREPLACE_INTO: If the imported data contains a row that has the same value for the primary key or unique index as one row in the destination table, the database deletes the existing row and inserts the new row into the destination table.\n\nThis parameter is required if you set the FileType parameter to CSV",
           "help_zh": "插入类型，取值如下：\n\nINSERT：插入数据时数据库会检查主键（PrimaryKey），如果出现重复会报错。\nINSERT_IGNORE：如果表中已经存在相同的记录，则忽略当前新数据。\nREPLACE_INTO：如果表中已经有某行数据（根据主键或者唯一索引判断），则先删除此行数据，然后插入新的数据。\n\n如果FileType为CSV，该参数必填",
@@ -224,6 +244,10 @@
           "type": "string"
         },
         {
+          "enum": [
+            "TEXT",
+            "ATTACHMENT"
+          ],
           "example": "TEXT",
           "help_en": "The format of the SQL statements used to roll back the data import. Valid values:\n\nTEXT: text\nATTACHMENT: attachment",
           "help_zh": "回滚SQL的提交方式，取值如下：\nTEXT：文本\nATTACHMENT：附件",
@@ -278,6 +302,8 @@
       "help_en": "The ID of the tenant. You can call the https://help.aliyun.com/document_detail/198073.html or https://help.aliyun.com/document_detail/198074.html operation to obtain the tenant ID",
       "help_zh": "租户ID，可通过调用接口https://help.aliyun.com/document_detail/198073.html或https://help.aliyun.com/document_detail/198074.html获取该参数的值",
       "location": "query",
+      "maximum": "9223372036854775807",
+      "minimum": "1",
       "name": "tid",
       "options": [
         "--tid"

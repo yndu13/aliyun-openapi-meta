@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "599fa825-17de-417e-9554-bb032cc6****",
       "help_en": "The globally unique identifier of the CMK. You can also specify an alias that is bound to the CMK. For more information about how to use an alias, see Alias overview",
       "help_zh": "主密钥（CMK）的全局唯一标识符。该参数也可以被指定为CMK绑定的别名，详情请参见别名使用说明。\n                           ",
@@ -34,6 +35,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "AES_256",
+        " AES_128"
+      ],
       "example": "AES_256",
       "help_en": "The length of the data key to generate. Valid values:\n\nAES_256: a 256-bit symmetric key\n\nAES_128: a 128-bit symmetric key\n\nUse KeySpec or NumberOfBytes to specify the length of the data key. If you do not specify either parameter, KMS generates a 256-bit data key. If you specify both parameters, KMS ignores the KeySpec parameter",
       "help_zh": " 指定生成的数据密钥的长度，取值：  \n\nAES_256：256位的对称密钥  \n\nAES_128：128位的对称密钥\n\n建议使用KeySpec或者NumberOfBytes来指定数据密钥长度。如果两者都不指定，KMS生成256位的数据密钥；如果两者都被指定，KMS会忽略KeySpec参数",
@@ -51,6 +56,8 @@
       "help_en": "The length of the data key to generate.<br> Valid values: 1 to 1024.<br> Unit: bytes<br><br><br><br><br>",
       "help_zh": "指定生成的数据密钥的长度。   \n取值：1~1024。   \n单位：字节",
       "location": "query",
+      "maximum": "1024",
+      "minimum": "0",
       "name": "number_of_bytes",
       "options": [
         "--number-of-bytes"

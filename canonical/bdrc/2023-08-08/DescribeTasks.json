@@ -3,7 +3,7 @@
   "cmd_full_name": "bdrc describe-tasks",
   "cmd_name": "describe-tasks",
   "deprecated": false,
-  "description_en": "Queries a list of asynchronous tasks",
+  "description_en": "Queries the list of asynchronous tasks",
   "description_zh": "查询异步任务列表",
   "kebab_example": "",
   "method": "GET",
@@ -21,9 +21,15 @@
   },
   "parameters": [
     {
+      "enum": [
+        "CREATED",
+        "RUNNING",
+        "COMPLETE",
+        "FAILED"
+      ],
       "example": "RUNNING",
-      "help_en": "The task status. Valid values:\nCREATED: The task is created.\nRUNNING: The task is running.\nCOMPLETE: The task is completed successfully.\nFAILED: The task failed.\nEXPIRED: The task has expired.\nCANCELED: The task has been canceled",
-      "help_zh": "CREATED: 创建, RUNNING: 正在执行, COMPLETE: 任务成功完成, FAILED: 任务执行失败, EXPIRED: 任务已过期, CANCELED: 任务已被取消",
+      "help_en": "The task status",
+      "help_zh": "任务状态",
       "location": "query",
       "name": "task_status",
       "options": [
@@ -51,6 +57,8 @@
       "help_en": "The maximum number of entries to return. Valid values: 10 to 500. Default value: If this parameter is not specified or is set to a value less than 10, the default value is 10. If the value is greater than 500, the default value is 500",
       "help_zh": "返回的最大数。取值范围：10~500。默认值：当不设置值或者设置的值小于10，默认值为10。当设置的值大于500时，默认值为500",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "max_results",
       "options": [
         "--max-results"
@@ -61,8 +69,8 @@
     },
     {
       "example": "UPDATE_RESOURCES",
-      "help_en": "The task type",
-      "help_zh": "任务类型",
+      "help_en": "The task type. You can specify multiple task types separated by commas (,)",
+      "help_zh": "任务类型。支持使用英文逗号（,）分隔传入多个任务类型",
       "location": "query",
       "name": "task_type",
       "options": [

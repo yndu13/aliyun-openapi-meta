@@ -3,7 +3,7 @@
   "cmd_full_name": "sysom install-agent-for-cluster",
   "cmd_name": "install-agent-for-cluster",
   "deprecated": false,
-  "description_en": "Install component for cluster",
+  "description_en": "Installs a component on an ACK cluster",
   "description_zh": "给集群安装组件",
   "kebab_example": "",
   "method": "POST",
@@ -59,7 +59,7 @@
     },
     {
       "example": "c9d7f3fc3d42942afbcb65c1100ffb19d",
-      "help_en": "The cluster ID.\n\nThe cluster ID here must be an ACK cluster ID",
+      "help_en": "The cluster ID.\n\nPass the ID of the ACK cluster for this parameter",
       "help_zh": "集群ID。\n\n这个集群ID要传递 ACK 集群的ID",
       "location": "body",
       "name": "cluster_id",
@@ -87,7 +87,7 @@
     },
     {
       "example": "{\"type\":\"numeric\",\"config\":{\"value\":2}}",
-      "help_en": "The canary release configuration",
+      "help_en": "The canary release environment",
       "help_zh": "灰度配置",
       "location": "body",
       "name": "grayscale_config",
@@ -98,6 +98,30 @@
       "raw_name": "grayscale_config",
       "required": false,
       "type": "string"
+    },
+    {
+      "help_en": "The X-Debug-Id",
+      "help_zh": "The X-Debug-Id",
+      "location": "query",
+      "name": "x_debug_id",
+      "options": [
+        "--x-debug-id"
+      ],
+      "raw_name": "X-Debug-Id",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The x-sysom-invoke-source",
+      "help_zh": "The x-sysom-invoke-source",
+      "location": "query",
+      "name": "x_sysom_invoke_source",
+      "options": [
+        "--x-sysom-invoke-source"
+      ],
+      "raw_name": "x-sysom-invoke-source",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "/api/v1/am/agent/install_agent_by_cluster",
@@ -105,11 +129,34 @@
   "protocol": "HTTPS",
   "v1_body_parameters": [
     {
-      "help_en": "Request body",
+      "help_en": "The request body",
       "help_zh": "请求Body",
       "name": "body",
       "param_style": "json",
       "position": "body",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "v1_parameters": [
+    {
+      "name": "X-Debug-Id",
+      "position": "query",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "help_en": "The request body",
+      "help_zh": "请求Body",
+      "name": "body",
+      "param_style": "json",
+      "position": "body",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "name": "x-sysom-invoke-source",
+      "position": "query",
       "required": false,
       "type": "string"
     }

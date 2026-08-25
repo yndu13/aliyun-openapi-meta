@@ -23,10 +23,13 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "{\n    \"Version\": \"1\",\n    \"Statement\": [{\n        \"Effect\": \"Allow\",\n        \"Action\": \"ecs:*\",\n        \"Resources\": \"*\" \n    }]\n}",
       "help_en": "The content of the access policy to validate. The maximum length is 61,440 characters",
       "help_zh": "要校验的权限策略内容，存在字符上限，为61440字符",
       "location": "formData",
+      "maxLength": "61440",
+      "minLength": "1",
       "name": "policy_document",
       "options": [
         "--policy-document"
@@ -36,6 +39,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "IdentityBasedPolicy",
+        "ResourceBasedPolicy"
+      ],
       "example": "IdentityBasedPolicy",
       "help_en": "The policy type",
       "help_zh": "策略类型",
@@ -66,6 +73,8 @@
       "help_en": "The maximum number of validation results to return in a single request",
       "help_zh": "单次请求返回的最大校验结果数量",
       "location": "formData",
+      "maximum": "100",
+      "minimum": "1",
       "name": "max_results",
       "options": [
         "--max-results"

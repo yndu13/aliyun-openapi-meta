@@ -29,15 +29,25 @@
       "options": [
         "--instance-id"
       ],
+      "pattern": "^[0-9a-zA-Z_-]+$",
       "raw_name": "InstanceId",
       "required": true,
       "type": "string"
     },
     {
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "6",
+        "9"
+      ],
       "example": "1",
       "help_en": "The subscription duration",
       "help_zh": "购买时长",
       "location": "query",
+      "maximum": "12",
+      "minimum": "1",
       "name": "duration",
       "options": [
         "--duration"
@@ -47,6 +57,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "Month",
+        "Year"
+      ],
       "example": "Year",
       "help_en": "Duration unit:\n\nMonth\n\nYear\n\nValid only when payType is PrePaid",
       "help_zh": "购买时长单位：\n<ul>\n<li>    月（Month）</li>\n<li>      年（Year）</li>\n</ul>\n仅在 payType 为 PrePaid 时有意义",
@@ -64,6 +78,7 @@
       "help_en": "A comma-separated list of billing instance IDs to renew. Billing instances include clusters and compute groups",
       "help_zh": "需要续费的计费实例 ID 列表，多个计费实例 ID 用逗号隔开。计费实例包括集群和计算组",
       "location": "query",
+      "maxLength": "200",
       "name": "billing_instance_ids",
       "options": [
         "--billing-instance-ids"

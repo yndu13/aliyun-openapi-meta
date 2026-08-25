@@ -3,7 +3,7 @@
   "cmd_full_name": "mse update-plugin-config",
   "cmd_name": "update-plugin-config",
   "deprecated": false,
-  "description_en": "Updates plug-in configurations",
+  "description_en": "Updates a plug-in configuration",
   "description_zh": "更新插件配置",
   "kebab_example": "",
   "method": "GET|POST",
@@ -24,7 +24,7 @@
   "parameters": [
     {
       "example": "1",
-      "help_en": "The Id",
+      "help_en": "The plug-in configuration ID",
       "help_zh": "插件配置ID",
       "location": "query",
       "name": "id",
@@ -37,7 +37,7 @@
     },
     {
       "example": "1",
-      "help_en": "The GatewayId",
+      "help_en": "The gateway ID",
       "help_zh": "网关ID",
       "location": "query",
       "name": "gateway_id",
@@ -50,7 +50,7 @@
     },
     {
       "example": "gw-ubuwqygbq4783gqb2y3f87q****",
-      "help_en": "The GatewayUniqueId",
+      "help_en": "The unique ID of the gateway",
       "help_zh": "网关UniqueId",
       "location": "query",
       "name": "gateway_unique_id",
@@ -63,7 +63,7 @@
     },
     {
       "example": "2",
-      "help_en": "The PluginId",
+      "help_en": "The gateway plug-in ID",
       "help_zh": "网关插件ID",
       "location": "query",
       "name": "plugin_id",
@@ -76,7 +76,7 @@
     },
     {
       "example": "true",
-      "help_en": "The Enable",
+      "help_en": "Specifies whether to enable the plug-in",
       "help_zh": "是否开启",
       "location": "query",
       "name": "enable",
@@ -88,7 +88,7 @@
       "type": "bool"
     },
     {
-      "help_en": "The plug-in configuration. Configurations of WebAssembly plug-ins are in the YAML format, and configurations of Lua plug-ins are in the Lua code",
+      "help_en": "The Config",
       "help_zh": "The Config",
       "location": "formData",
       "name": "config",
@@ -100,8 +100,9 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "0",
-      "help_en": "-\n\n-\n\n-",
+      "help_en": "The scope of the plug-in.\n\nGlobal: 0\n\nRoute: 1\n\nDomain: 2",
       "help_zh": "插件应用范围。\n\n全局：0\n\n路由：1\n\n域名：2",
       "location": "query",
       "name": "config_level",
@@ -109,14 +110,14 @@
         "--config-level"
       ],
       "raw_name": "ConfigLevel",
-      "required": true,
+      "required": false,
       "type": "int"
     },
     {
       "element": {
         "type": "int"
       },
-      "help_en": "域名ID/路由ID列表（根据ConfigLevel区分）",
+      "help_en": "The list of domain IDs or route IDs, distinguished by ConfigLevel",
       "help_zh": "域名ID/路由ID列表（根据ConfigLevel区分）",
       "location": "query",
       "name": "resource_id_list",
@@ -130,7 +131,7 @@
     },
     {
       "example": "1667309705000",
-      "help_en": "The GmtCreate",
+      "help_en": "The creation time",
       "help_zh": "创建时间",
       "location": "query",
       "name": "gmt_create",
@@ -143,7 +144,7 @@
     },
     {
       "example": "1667309705000",
-      "help_en": "The GmtModified",
+      "help_en": "The update time",
       "help_zh": "更新时间",
       "location": "query",
       "name": "gmt_modified",
@@ -156,7 +157,7 @@
     },
     {
       "example": "zh",
-      "help_en": "返回结果显示的语言。取值：zh（默认值）：中文，en：英文",
+      "help_en": "The language of the response. Valid values:\n\nzh: Chinese.\nen: English",
       "help_zh": "返回信息的语言类型：\n\nzh：中文\nen：英文",
       "location": "query",
       "name": "accept_language",
@@ -176,92 +177,8 @@
   ],
   "v1_body_parameters": [
     {
-      "help_en": "The plug-in configuration. Configurations of WebAssembly plug-ins are in the YAML format, and configurations of Lua plug-ins are in the Lua code",
       "name": "Config",
       "position": "body",
-      "required": false,
-      "type": "string"
-    }
-  ],
-  "v1_parameters": [
-    {
-      "help_en": "返回结果显示的语言。取值：zh（默认值）：中文，en：英文",
-      "help_zh": "返回信息的语言类型：\n\nzh：中文\nen：英文",
-      "name": "AcceptLanguage",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The plug-in configuration. Configurations of WebAssembly plug-ins are in the YAML format, and configurations of Lua plug-ins are in the Lua code",
-      "name": "Config",
-      "position": "body",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "-\n\n-\n\n-",
-      "help_zh": "插件应用范围。\n\n全局：0\n\n路由：1\n\n域名：2",
-      "name": "ConfigLevel",
-      "position": "query",
-      "required": true,
-      "type": "int"
-    },
-    {
-      "help_zh": "是否开启",
-      "name": "Enable",
-      "position": "query",
-      "required": false,
-      "type": "bool"
-    },
-    {
-      "help_zh": "网关ID",
-      "name": "GatewayId",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "help_zh": "网关UniqueId",
-      "name": "GatewayUniqueId",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_zh": "创建时间",
-      "name": "GmtCreate",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_zh": "更新时间",
-      "name": "GmtModified",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_zh": "插件配置ID",
-      "name": "Id",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "help_zh": "网关插件ID",
-      "name": "PluginId",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "help_en": "域名ID/路由ID列表（根据ConfigLevel区分）",
-      "help_zh": "域名ID/路由ID列表（根据ConfigLevel区分）",
-      "name": "ResourceIdList",
-      "param_style": "json",
-      "position": "query",
       "required": false,
       "type": "string"
     }

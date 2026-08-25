@@ -60,6 +60,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "UPGRADE",
+        "DOWNGRADE"
+      ],
       "example": "UPGRADE",
       "help_en": "The specification change type. Valid values:\n\nUPGRADE: upgrades the specifications. This is the default value.\n\nDOWNGRADE: downgrades the specifications.\n\nThis parameter is available only for subscription instances",
       "help_zh": "变配类型，取值说明：\nUPGRADE：默认值，升级配置。\nDOWNGRADE：降级配置。\n\n当实例付费方式为包年包月时，可以配置该参数",
@@ -99,6 +103,13 @@
       "type": "string"
     },
     {
+      "enum": [
+        "1",
+        "3",
+        "5",
+        "7",
+        "2"
+      ],
       "example": "3",
       "help_en": "The number of nodes in the instance. Default value: 3.\n\nValid values for replica set instances: 3, 5, and 7.\n\nThe value for standalone instances is fixed at 1.\n\nThe value for replica set instances with shared storage (available only in the China site) is fixed at 2.\n\nThis parameter is not required for serverless instances (available only in the China site)",
       "help_zh": "设置实例的节点个数，默认值为3。\n副本集实例取值为3，5，7。\n单节点实例取值固定为1。\n共享存储版副本集实例（仅支持中国站）取值固定为2。\n\nServerless实例（仅支持中国站）不需要配置该参数",
@@ -138,6 +149,12 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Immediately",
+        "MaintainTime",
+        "0",
+        "1"
+      ],
       "example": "Immediately",
       "help_en": "The effective time of the configuration change. Valid values:\n\nImmediately: The configuration change immediately takes effect. This is the default value.\n\nMaintainTime: The configuration change takes effect during the maintenance window of the instance",
       "help_zh": "变更配置的生效时间，取值说明：\nImmediately：默认值，立即生效。\nMaintainTime：在实例的可运维时间段内生效",
@@ -246,6 +263,8 @@
       "help_en": "The number of Search nodes to be changed",
       "help_zh": "变配的Search节点数",
       "location": "query",
+      "maximum": "16",
+      "minimum": "2",
       "name": "search_node_count",
       "options": [
         "--search-node-count"

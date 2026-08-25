@@ -34,6 +34,20 @@
       "type": "string"
     },
     {
+      "enum": [
+        "AccessInternetIpV4",
+        "AccessInternetIpV4Limited",
+        "ElasticIP",
+        "PublicIpEcs",
+        "PublicIpClb",
+        "NAT",
+        "TR",
+        "TRAttachment",
+        "VBR",
+        "GA",
+        "InternetProbing",
+        "IntranetProbing"
+      ],
       "example": "AccessInternetIpV4",
       "help_en": "The Alibaba Cloud network resource type used for traffic forwarding. Valid values:",
       "help_zh": "按流量转发所使用的阿里云网络资源类型进行分析，取值：\nAccessInternetIpV4：所有阿里云公网类型IPv4。\nAccessInternetIpV4Limited：所有受地域限速的阿里云公网类型IPv4。\nElasticIP：弹性公网EIP（IPv4）。\nPublicIpEcs：绑定在ECS的固定公网IP（IPv4）。\nPublicIpClb：绑定在CLB的固定公网IP（IPv4）。\nNAT：通过SNAT的访问公网流量。\nTR：流经云企业网转发路由器的流量。\nTRAttachment：流经云企业网连接实例的流量，包括地域内连接和跨地域连接。\nVBR：流经边界路由器的流量。\nGA：流经全球加速的流量。\nInternetProbing：公网探测质量数据。\nIntranetProbing：内网探测质量数据",
@@ -47,6 +61,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "in",
+        "out"
+      ],
       "example": "in",
       "help_en": "The network traffic direction based on Alibaba Cloud resources. Valid values:",
       "help_zh": "基于阿里云资源的网络流量方向，取值：\n\nin：流入资源的流量方向。\nout：流出资源的流量方向。\n\n<notice>跨域流量分析因只采集出向流量，所以传入in也以out处理。\n地域内性能观测和地域间性能观测因需在Filter内指定源或目的，所以指定Direction无效。></notice>",
@@ -60,6 +78,26 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Tuple1",
+        "Tuple2",
+        "Tuple5",
+        "Protocol",
+        "SourcePort",
+        "DestinationPort",
+        "Country",
+        "City",
+        "ASN",
+        "CityASN",
+        "RegionPair",
+        "InstanceId",
+        "CountryIsp",
+        "ZonePair",
+        "ISP",
+        "IpPair",
+        "Province",
+        "ProvinceIsp"
+      ],
       "example": "Protocol",
       "help_en": "The dimension for metric ranking. Valid values vary by scenario:",
       "help_zh": "指定指标排名的维度，各场景取值：\n <br>完整流数据排名分析：\n\nTuple1：表示一元组，提供云端IP粒度完整流数据排名分析。 \nTuple2：表示二元组，提供源和目的IP粒度完整流数据排名分析。 \nTuple5：表示五元组，提供源和目的IP、端口、协议粒度完整流数据排名分析。\n\n 流量统计排名分析： \n\nProtocol：按协议类型统计流量。\nSourcePort：按源端口统计流量。\nDestinationPort：按目的端口统计流量。\nInstanceId：按云上资源ID统计流量。\nIpPair：按源和目的IP对统计流量。\nCountry：按客户端国家来源统计流量。\nProvince：指定客户端省份来源统计流量。\nCity：按客户端城市来源统计流量。\nISP：按客户端运营商来源统计流量。\nASN：按客户端运营商ASN来源统计流量。\nCityASN：按客户端城市和运营商ASN来源统计流量。\nRegionPair：按云企业网跨地域访问统计流量。\n\n网络访问性能排名分析： \n\nCountryIsp：指定Region访问互联网国家和运营商性能排名。 \nProvince：指定Region访问国内省份性能排名。\nProvinceIsp：指定Region访问国内省份和运营商性能排名。\nRegionPair：阿里云跨地域互访性能排名。 \nZonePair：指定地域内可用区互访性能排名",
@@ -73,6 +111,17 @@
       "type": "string"
     },
     {
+      "enum": [
+        "rtt",
+        "bps",
+        "pps",
+        "RetransmitRate",
+        "ActiveSessionCount",
+        "NewSessionPerSecond",
+        "RatelimitDropPps",
+        "ByteCount",
+        "PacketCount"
+      ],
       "example": "bps",
       "help_en": "The metric for ranking Internet traffic. Case-sensitive. Valid values:",
       "help_zh": "指定公网流量进行排名的指标。大小写敏感，取值：\n  \nbps：每秒比特数。\npps：每秒包数。\nByteCount：累计字节数。\nPacketCount：累计包数。\nrtt：tcp协议建立连接时的往返延迟。\nRetransmitRate：重传率。\nRatelimitDropPps：限速丢包速率。\nActiveSessionCount：并发会话数。\nNewSessionPerSecond：每秒新建会话数",
@@ -132,6 +181,8 @@
       "help_en": "The start timestamp, in ms. If not specified, the last hour is queried by default",
       "help_zh": "起始时间戳，单位ms。未指定时默认查最近1小时",
       "location": "query",
+      "maximum": "253402271999000",
+      "minimum": "0",
       "name": "begin_time",
       "options": [
         "--begin-time"
@@ -145,6 +196,8 @@
       "help_en": "The end timestamp, in ms. If not specified, the last hour is queried by default. If only BeginTime is specified, the one hour after BeginTime is queried",
       "help_zh": "结束时间戳，单位ms。未指定时默认查最近1小时。只指定了BeginTime时查BeginTime之后的1小时",
       "location": "query",
+      "maximum": "253402271999000",
+      "minimum": "0",
       "name": "end_time",
       "options": [
         "--end-time"
@@ -154,6 +207,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "asc",
+        "desc"
+      ],
       "example": "desc",
       "help_en": "The sort order. Default value: desc. Valid values:",
       "help_zh": "排序方式，默认desc，取值：\n\nasc：按正序排序。\ndesc：按逆序排序",
@@ -171,6 +228,8 @@
       "help_en": "The number of top-ranked entries to display. Default value: 10. Maximum value: 100",
       "help_zh": "展示排序靠前的数据。默认值：10。表示默认展示排序前 10 的数据。最大值：100",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "topn",
       "options": [
         "--topn"

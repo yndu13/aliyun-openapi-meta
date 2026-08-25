@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID of the failover test job.\n\nYou can call the https://help.aliyun.com/document_detail/36063.html operation to query the region ID",
       "help_zh": "故障演练任务所在的地域ID。\n\n您可以通过调用https://help.aliyun.com/document_detail/36063.html接口获取地域ID",
@@ -30,7 +31,7 @@
         "--biz-region-id"
       ],
       "raw_name": "RegionId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -73,6 +74,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "PHYSICALCONNECTION",
+        "VIRTUALBORDERROUTER",
+        "BGPPEER"
+      ],
       "example": "PHYSICALCONNECTION",
       "help_en": "The type of the resource to test. Valid values: PHYSICALCONNECTION: Express Connect circuit",
       "help_zh": "演练资源类型。取值：PHYSICALCONNECTION 物理专线",
@@ -102,6 +108,10 @@
       "type": "array"
     },
     {
+      "enum": [
+        "StartNow",
+        "StartLater"
+      ],
       "example": "StartNow",
       "help_en": "The type of the failover test job. Valid values:\n\nStartNow: starts immediately. The failover test job starts immediately after it is created.\n\nStartLater: does not start. Only the failover test job is created without starting the test",
       "help_zh": "故障演练任务方式。取值：\n\nStartNow：立即开始，演练任务创建成功后立即开始执行演练。\n\nStartLater：暂不演练，仅创建演练任务暂不执行演练",
@@ -119,6 +129,8 @@
       "help_en": "The duration of the failover test job. Unit: minutes. Valid values: 1 to 4320",
       "help_zh": "故障演练任务时长。单位为分钟，取值范围为：1~4320",
       "location": "query",
+      "maximum": "4320",
+      "minimum": "1",
       "name": "job_duration",
       "options": [
         "--job-duration"

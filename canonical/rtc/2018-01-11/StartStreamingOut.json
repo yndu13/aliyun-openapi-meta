@@ -51,10 +51,13 @@
       "help_en": "Template ID.  ",
       "help_zh": "模版ID",
       "location": "query",
+      "maxLength": "128",
+      "minLength": "1",
       "name": "template_id",
       "options": [
         "--template-id"
       ],
+      "pattern": "^[\\w.-]+$",
       "raw_name": "TemplateId",
       "required": true,
       "type": "string"
@@ -64,6 +67,8 @@
       "help_en": "Live ingest URL. Only a single URL is supported. This URL cannot be used by multiple jobs simultaneously",
       "help_zh": "直播推流地址，仅支持传单个地址。该地址不可多个任务同时使用",
       "location": "query",
+      "maxLength": "1024",
+      "minLength": "1",
       "name": "url",
       "options": [
         "--url"
@@ -77,15 +82,23 @@
       "help_en": "The task ID of this bypass stream ingest job. Only a single ID is supported. It can contain uppercase and lowercase letters, digits, underscores, and hyphens (-), with a maximum length of 55 bytes. If not specified, the System will automatically generate one.  ",
       "help_zh": "本次旁路推流的任务ID，仅支持传单个ID。由大小写字母、数字、下划线、短划线（-）组成，最大55字节，不填，则由系统自动生成",
       "location": "query",
+      "maxLength": "55",
+      "minLength": "1",
       "name": "task_id",
       "options": [
         "--task-id"
       ],
+      "pattern": "^[0-9a-zA-Z_-]+$",
       "raw_name": "TaskId",
       "required": false,
       "type": "string"
     },
     {
+      "enum": [
+        "1",
+        "2",
+        "3"
+      ],
       "example": "2",
       "help_en": "Crop mode. Valid values:  \n1: Crop while maintaining the aspect ratio.  \n2: Maintain aspect ratio with padding (Default Value).  \n3: Stretch to fill the entire area.  ",
       "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边（默认值）。\n3：拉伸铺满",
@@ -160,6 +173,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "disable",
+        "enable"
+      ],
       "example": "disable",
       "help_en": "Toggle for annotation",
       "help_zh": "标注开关",
@@ -191,6 +208,11 @@
                   "type": "float"
                 },
                 {
+                  "enum": [
+                    "streamOnly",
+                    "backup",
+                    "always"
+                  ],
                   "example": "backup",
                   "help_en": "Display timing.  \nstreamOnly: Displayed when the current user has a video stream (default value).  \nbackup: Displayed when the current user does not have a video stream.  \nalways: Always displayed",
                   "help_zh": "显示时机。\nstreamOnly：当前用户有视频流时显示（默认值）。\nbackup：当前用户无视频流时显示。\nalways：总是显示",
@@ -227,6 +249,11 @@
                   "type": "int"
                 },
                 {
+                  "enum": [
+                    "1",
+                    "2",
+                    "3"
+                  ],
                   "example": "2",
                   "help_en": "Crop mode. Valid values:\n\n1: Crop while maintaining aspect ratio.\n2: Maintain aspect ratio with padding.\n3: Stretch to fill",
                   "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -315,6 +342,11 @@
                   "type": "float"
                 },
                 {
+                  "enum": [
+                    "streamOnly",
+                    "backup",
+                    "always"
+                  ],
                   "example": "backup",
                   "help_en": "Watermark display timing.  \nstreamOnly: Display when the user has a video stream (default value).  \nbackup: Display when the user does not have a video stream.  \nalways: Always display.  ",
                   "help_zh": "水印显示时机。\nstreamOnly：当前用户有视频流时显示（默认值）。\nbackup：当前用户无视频流时显示。\nalways：总是显示",
@@ -351,6 +383,11 @@
                   "type": "int"
                 },
                 {
+                  "enum": [
+                    "1",
+                    "2",
+                    "3"
+                  ],
                   "example": "2",
                   "help_en": "Crop mode. Valid values:  \n1: Crop while maintaining the aspect ratio.  \n2: Maintain aspect ratio with padding.  \n3: Stretch to fill the entire area.  ",
                   "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -424,6 +461,11 @@
             "type": "array"
           },
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "2",
             "help_en": "Crop mode. Valid values:\n1: Crop while maintaining aspect ratio.\n2: Maintain aspect ratio and add borders.\n3: Stretch to fill the area",
             "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -443,6 +485,7 @@
             "options": [
               "--pane-id"
             ],
+            "pattern": "^\\d+$",
             "raw_name": "PaneId",
             "required": true,
             "type": "string"
@@ -571,6 +614,11 @@
                   "type": "object"
                 },
                 {
+                  "enum": [
+                    "streamOnly",
+                    "backup",
+                    "always"
+                  ],
                   "example": "backup",
                   "help_en": "When the watermark is displayed:\nstreamOnly: Displayed when the user has a video stream (default value).\nbackup: Displayed when the user does not have a video stream.\nalways: Always displayed",
                   "help_zh": "水印显示时机。\nstreamOnly：当前用户有视频流时显示（默认值）。\nbackup：当前用户无视频流时显示。\nalways：总是显示",
@@ -728,6 +776,10 @@
             "type": "array"
           },
           {
+            "enum": [
+              "cameraFirst",
+              "screenFirst"
+            ],
             "example": "cameraFirst",
             "help_en": "Fill order when SourceType is video:  \nscreenFirst: Screen sharing takes priority (Default Value).  \ncameraFirst: Camera takes priority.  ",
             "help_zh": "SourceType为video时，填充顺序。\nscreenFirst，屏幕共享优先（默认值）\ncameraFirst，摄像头优先",
@@ -796,6 +848,11 @@
             "type": "float"
           },
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "2",
             "help_en": "Crop mode. Valid values:\n1: Crop while maintaining aspect ratio.\n2: Maintain aspect ratio with padding.\n3: Stretch to fill",
             "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -922,6 +979,11 @@
             "type": "float"
           },
           {
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ],
             "example": "2",
             "help_en": "Cropping mode. Valid values:  \n1: Crop while maintaining aspect ratio.  \n2: Maintain aspect ratio with padding.  \n3: Stretch to fill.  ",
             "help_zh": "裁剪方式。取值：\n1：保持比例裁剪。\n2：保持比例留边。\n3：拉伸铺满",
@@ -1485,6 +1547,8 @@
           "example": "255",
           "help_en": "B.  ",
           "help_zh": "B",
+          "maximum": "255",
+          "minimum": "-1",
           "name": "b",
           "options": [
             "--b"
@@ -1497,6 +1561,8 @@
           "example": "255",
           "help_en": "G.  ",
           "help_zh": "G",
+          "maximum": "255",
+          "minimum": "-1",
           "name": "g",
           "options": [
             "--g"
@@ -1509,6 +1575,8 @@
           "example": "255",
           "help_en": "R.  ",
           "help_zh": "R",
+          "maximum": "255",
+          "minimum": "-1",
           "name": "r",
           "options": [
             "--r"
@@ -1536,6 +1604,8 @@
           "example": "255",
           "help_en": "B",
           "help_zh": "B",
+          "maximum": "255",
+          "minimum": "0",
           "name": "b",
           "options": [
             "--b"
@@ -1548,6 +1618,8 @@
           "example": "255",
           "help_en": "G",
           "help_zh": "G",
+          "maximum": "255",
+          "minimum": "0",
           "name": "g",
           "options": [
             "--g"
@@ -1560,6 +1632,8 @@
           "example": "255",
           "help_en": "R",
           "help_zh": "R",
+          "maximum": "255",
+          "minimum": "0",
           "name": "r",
           "options": [
             "--r"
@@ -1598,6 +1672,10 @@
           "type": "array"
         },
         {
+          "enum": [
+            "white",
+            "black"
+          ],
           "example": "white",
           "help_en": "Type of user list: blacklist is \"black\", whitelist is \"white\"",
           "help_zh": "用户名单类型，黑名单：black，白名单：white",

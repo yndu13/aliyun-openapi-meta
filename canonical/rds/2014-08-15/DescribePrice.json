@@ -47,6 +47,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID. You can call the DescribeRegions operation to query the most recent region list",
       "help_zh": "地域ID。可调用DescribeRegions获取",
@@ -56,10 +57,11 @@
         "--biz-region-id"
       ],
       "raw_name": "RegionId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "MySQL",
       "help_en": "The database engine of the instance. Valid values:\n\nMySQL\nSQLServer\nPostgreSQL\nMariaDB",
       "help_zh": "数据库类型，取值：\nMySQL\nSQLServer\nPostgreSQL\nMariaDB",
@@ -73,6 +75,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "8.0",
       "help_en": "The database engine version of the instance. Valid values:\n\nValid values if you set Engine to MySQL: 5.5, 5.6, 5.7, and 8.0\nValid values if you set Engine to SQL Server: 08r2_ent_ha(cloud disks, discontinued), 2008r2(high-performance local disks, discontinued), 2012 (SQL Server EE Basic)2012_ent_ha, 2012_std_ha, 2012_web, 2016_ent_ha, 2016_std_ha, 2016_web, 2017_ent, 2017_std_ha, 2017_web, 2019_ent, 2019_std_ha, 2019_web, 2022_ent, 2022_std_ha, and 2022_web\nValid values if you set Engine to PostgreSQL: 10.0, 11.0, 12.0, 13.0, 14.0, and 15.0\nValid value if you set Engine to MariaDB: 10.3\n\nThe following information describes the valid values when you set Engine to SQLServer: `_ent` specifies SQL Server EE on RDS Cluster Edition, `_ent_ha` specifies SQL Server EE, `_std_ha` specifies SQL Server SE, and `_web` specifies SQL Server Web",
       "help_zh": "<props=\"china\">数据库版本，取值：\nMySQL：5.5、5.6、5.7、8.0\nSQL Server：08r2_ent_ha（云盘版，已停售）、2008r2（高性能本地盘，已停售）、2012（企业版单机）、2012_ent_ha、2012_std_ha、2012_web、2014_ent_ha、2014_std_ha、2016_ent_ha、2016_std_ha、2016_web、2017_ent、2017_std_ha、2017_web、2019_ent、2019_std_ha、2019_web、2022_ent、2022_std_ha、2022_web\nPostgreSQL：10.0、11.0、12.0、13.0、14.0、15.0\nMariaDB：10.3</props>\n\n\n\n<props=\"intl\">数据库版本，取值：\nMySQL：5.5、5.6、5.7、8.0\nSQL Server：08r2_ent_ha（云盘版，已停售）、2008r2（高性能本地盘，已停售）、2012（企业版单机）、2012_ent_ha、2012_std_ha、2012_web、2016_ent_ha、2016_std_ha、2016_web、2017_ent、2017_std_ha、2017_web、2019_ent、2019_std_ha、2019_web、2022_ent、2022_std_ha、2022_web\nPostgreSQL：10.0、11.0、12.0、13.0、14.0、15.0\nMariaDB：10.3</props>\n\nSQL Server实例中`_ent`表示企业集群版、`_ent_ha`表示企业版、`_std_ha`表示标准版、`_web`表示Web版",
@@ -86,6 +89,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "mysql.x2.medium.xc",
       "help_en": "The instance type of the instance. For more information, see https://help.aliyun.com/document_detail/26312.html",
       "help_zh": "实例规格，详情请参见https://help.aliyun.com/document_detail/26312.html",
@@ -99,6 +103,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "20",
       "help_en": "The storage capacity of the instance. Unit: GB. You can increase the storage capacity at a step size of 5 GB. For more information, see https://help.aliyun.com/document_detail/26312.html",
       "help_zh": "实例存储空间，单位：GB。每5 GB进行递增，取值范围请参见https://help.aliyun.com/document_detail/26312.html",
@@ -142,6 +147,8 @@
       "help_en": "The subscription duration of the instance.\n\nIf you set the TimeType parameter to Year, the value of the UsedTime parameter ranges from 1 to 100.\nIf you set the TimeType parameter to Month, the value of the UsedTime parameter ranges from 1 to 999.\n\nDefault value: 1",
       "help_zh": "指定购买时长，取值：\n当参数TimeType为Year时，UsedTime取值为1~100。\n当参数TimeType为Month时，UsedTime取值为1~999。\n\n默认值：1",
       "location": "query",
+      "maximum": "999",
+      "minimum": "1",
       "name": "used_time",
       "options": [
         "--used-time"
@@ -151,6 +158,12 @@
       "type": "int"
     },
     {
+      "enum": [
+        "Year",
+        "Month",
+        "Day",
+        "Hour"
+      ],
       "example": "Year",
       "help_en": "The billing cycle of the subscription instance. This parameter is required when CommodityCode is set to rds, rds_rordspre_public_cn, rds_intl, or rds_rordspre_public_intl. Valid values:\n\nYear\nMonth",
       "help_zh": "包年包月的付费类型，当CommodityCode参数的值为rds、rds_rordspre_public_cn、rds_intl或rds_rordspre_public_intl时必传。取值：\nYear：包年\nMonth：包月",
@@ -164,6 +177,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "10",
       "help_en": "The number of instances that you want to purchase. Valid values: 0 to 30",
       "help_zh": "购买实例的数量，取值范围：0~30",

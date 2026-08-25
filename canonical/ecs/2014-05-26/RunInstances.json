@@ -363,6 +363,8 @@
       "help_en": "The number of ECS instances to create. Valid values: 1 to 100.\n\nThe number of ECS instances that are created depends on the values of Amount and MinAmount:\n\nIf MinAmount is not specified: instances are created based on the Amount value. If the inventory is insufficient, the API returns a failure and no instances are created.\n\nIf MinAmount is specified:\nIf the available inventory < MinAmount: no ECS instances are created, and the API returns a failure.\nIf MinAmount ≤ available inventory < Amount: instances are created based on the available inventory, and the API returns a success.\nIf the available inventory ≥ Amount: instances are created based on the specified Amount value, and the API returns a success.\n\nDefault value: 1",
       "help_zh": "指定创建ECS实例的数量。取值范围：1~100。\n\n创建成功的ECS数量与指定的Amount和minAmount数量有关：\n\n不指定minAmount时：按照Amount数量创建，库存不满足则API返回创建失败，同时一台也不会创建。\n\n指定minAmount时：\n当ECS库存数量＜minAmount：不会创建ECS，同时API返回创建失败。\n当minAmount≤ECS库存数量＜Amount，按照库存数量创建实例，API返回创建成功。\n当ECS库存数量≥Amount，按照指定的Amount创建，API返回创建成功。\n\n默认值：1",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "1",
       "name": "amount",
       "options": [
         "--amount"
@@ -376,6 +378,8 @@
       "help_en": "The minimum Quantity of ECS instances to purchase. Valid values: 1 to 100",
       "help_zh": "指定ECS实例最小购买数量。取值范围：1~100。\n\n创建成功的ECS数量与指定的Amount和minAmount数量有关：\n\n不指定minAmount时：按照Amount数量创建，库存不满足则API返回创建失败，同时一台也不会创建。\n\n指定minAmount时：\n当ECS库存数量＜minAmount：不会创建ECS，同时API返回创建失败。\n当minAmount≤ECS库存数量＜Amount，按照库存数量创建实例，API返回创建成功。\n当ECS库存数量≥Amount，按照指定的Amount创建，API返回创建成功",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "min_amount",
       "options": [
         "--min-amount"
@@ -415,6 +419,8 @@
       "help_en": "The protection period of the spot instance. Unit: hours. Valid values:\n1: After the instance is created, Alibaba Cloud guarantees that the instance runs for 1 hour without being automatically released. After 1 hour, the system compares the bid price with the market price and checks resource inventory to determine whether to retain or reclaim the instance.\n0: After the instance is created, Alibaba Cloud does not guarantee the instance running duration. The system compares the bid price with the market price and checks resource inventory to determine whether to retain or reclaim the instance.\n\nDefault value: 1.\n\nThis parameter supports only the value 0 or 1.\nSpot instances are billed by second. Set an appropriate protection period based on the expected task execution duration.\nAlibaba Cloud sends a notification to you through an ECS system event 5 minutes before the instance is reclaimed",
       "help_zh": "抢占式实例的保留时长，单位为小时。 取值：\n1：创建后阿里云会保证实例运行1小时不会被自动释放；超过1小时后，系统会实时比较出价与市场价格、检查资源库存，来决定实例的持有和回收。\n0：创建后，阿里云不保证实例运行时长，系统会实时比较出价与市场价格、检查资源库存，来决定实例的持有和回收。\n\n默认值：1。\n\n该参数目前只支持设置为0或1。\n抢占式实例按秒计费，建议您结合具体任务执行耗时来选择合适的保留时长。\n实例回收前5分钟阿里云会通过ECS系统事件向您发送通知",
       "location": "query",
+      "maximum": "720",
+      "minimum": "0",
       "name": "spot_duration",
       "options": [
         "--spot-duration"
@@ -428,6 +434,8 @@
       "help_en": "The maximum hourly price of the instance. A maximum of three decimal places is supported. This parameter takes effect when the `SpotStrategy` parameter is set to `SpotWithPriceLimit`",
       "help_zh": "设置实例的每小时最高价格。支持最大3位小数，参数`SpotStrategy`取值为`SpotWithPriceLimit`时生效",
       "location": "query",
+      "maximum": "999999",
+      "minimum": "0",
       "name": "spot_price_limit",
       "options": [
         "--spot-price-limit"
@@ -701,6 +709,7 @@
       "help_en": "The number of queues supported by the primary ENI. Take note of the following items:\n\nThe value cannot exceed the maximum number of queues per ENI allowed by the instance type.\n\nThe total number of queues for all ENIs on the instance cannot exceed the queue quota allowed by the instance type. You can call the https://help.aliyun.com/document_detail/25620.html operation to query the MaximumQueueNumberPerEni and TotalEniQueueQuantity fields to obtain the maximum number of queues per ENI and the total queue quota for an instance type.\n\nIf NetworkInterface.N.InstanceType is set to Primary, you cannot set NetworkInterfaceQueueNumber. Set NetworkInterface.N.QueueNumber instead",
       "help_zh": "主网卡队列数。您需要注意：\n\n不能超过实例规格允许的单块网卡最大队列数。\n\n实例的所有网卡累加队列数不能超过实例规格允许的队列数总配额。实例规格的单块网卡最大队列数和总配额可以通过https://help.aliyun.com/document_detail/25620.html接口查询0、1字段。\n\n如果`NetworkInterface.N.InstanceType`取值为`Primary`，则不能设置`NetworkInterfaceQueueNumber`，只能设置`NetworkInterface.N.QueueNumber`",
       "location": "query",
+      "minimum": "1",
       "name": "network_interface_queue_number",
       "options": [
         "--network-interface-queue-number"
@@ -779,6 +788,7 @@
       "help_en": "The maximum number of partitions in the storage set. Valid values: greater than or equal to 1",
       "help_zh": "存储集中的最大分区数量。取值范围：大于等于1",
       "location": "query",
+      "minimum": "1",
       "name": "storage_set_partition_number",
       "options": [
         "--storage-set-partition-number"
@@ -1594,6 +1604,7 @@
           "example": "0e478b7a-4262-4802-b8cb-00d3fb40****",
           "help_en": "The ID of the KMS key for the system disk.\n\nIf Encrypted is set to true and KMSKeyId is not specified, the default key is used for encryption, and the KMSKeyId value is returned after the instance is created.\n- The disk is created from a non-shared encrypted snapshot: The encryption key used by the snapshot is used by default.\n- The disk is created from a shared encrypted snapshot: The service key is used by default.\n- The disk is created in a region where block storage account-level default encryption is enabled: The specified account-level key is used by default.\n- Other cases: The service key is used by default",
           "help_zh": "系统盘对应的KMS密钥ID。\n\n若Encrypted设置为true，不指定KMSKeyId，则使用默认的密钥进行加密，并在创建实例成功后返回KMSKeyId值。\n- 云盘通过非共享而来的加密快照创建：默认使用该快照所使用的加密密钥进行加密。\n- 云盘通过共享而来的加密快照创建：默认使用服务密钥进行加密。\n- 在已开启块存储账号级默认加密的地域创建：默认使用指定的账号级密钥进行加密。\n- 其他情况：默认使用服务密钥进行加密",
+          "maxLength": "64",
           "name": "kms_key_id",
           "options": [
             "--kms-key-id"
@@ -1606,6 +1617,7 @@
           "example": "40000",
           "help_en": "The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1000 × Capacity - baseline performance}",
           "help_zh": "ESSD AutoPL云盘预配置的读写IOPS。可能值：0~min{50,000, 1000*容量-基准性能}。\n\n基准性能=min{1,800+50*容量, 50,000}。\n\n当`SystemDisk.Category`取值为`cloud_auto`时才支持设置该参数。更多信息，请参见https://help.aliyun.com/document_detail/368372.html",
+          "minimum": "0",
           "name": "provisioned_iops",
           "options": [
             "--provisioned-iops"
@@ -1834,6 +1846,10 @@
     {
       "fields": [
         {
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
           "example": "enabled",
           "help_en": "This parameter is in invitational preview and is not publicly available",
           "help_zh": "该参数正在邀测中，暂未开放使用",

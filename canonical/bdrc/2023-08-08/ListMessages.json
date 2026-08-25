@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cae***********99",
-      "help_en": "The pagination token. If there is a next page, this field has a return value. This parameter indicates that there is a next page as long as data is returned. You can use the returned NextToken as a request parameter to obtain the next page of data until Null is returned, which indicates that all data has been retrieved",
+      "help_en": "The pagination token. If there is a next page, this field has a return value. As long as this parameter returns data, there is a next page. You can use the returned NextToken as a request parameter to obtain the next page of data until the return value is Null, which indicates that all data has been retrieved",
       "help_zh": "分页游标，如果有下一页，则该字段有返回值。说明 该参数只要返回数据，则说明还有下一页。您可以将返回的NextToken作为请求参数再次获得下一页的数据，直到返回为Null，表示获取到了所有的数据",
       "location": "query",
       "name": "next_token",
@@ -35,7 +35,7 @@
     },
     {
       "example": "100",
-      "help_en": "The maximum number of records to return in this request",
+      "help_en": "The maximum number of records returned in this request",
       "help_zh": "本次请求所返回的最大记录条数",
       "location": "query",
       "name": "max_results",
@@ -48,8 +48,8 @@
     },
     {
       "example": "1740019609",
-      "help_en": "The filter condition that specifies messages with a time later than the specified value",
-      "help_zh": "消息时间晚于",
+      "help_en": "Filters messages with a time later than the specified value. UNIX timestamp. Unit: seconds",
+      "help_zh": "消息时间晚于。Unix 时间戳，单位：秒",
       "location": "query",
       "name": "message_time_later_than",
       "options": [
@@ -61,8 +61,8 @@
     },
     {
       "example": "1740019610",
-      "help_en": "The filter condition that specifies messages with a time earlier than the specified value",
-      "help_zh": "消息时间早于",
+      "help_en": "Filters messages with a time earlier than the specified value. UNIX timestamp. Unit: seconds",
+      "help_zh": "消息时间早于。Unix 时间戳，单位：秒",
       "location": "query",
       "name": "message_time_earlier_than",
       "options": [
@@ -73,6 +73,12 @@
       "type": "int"
     },
     {
+      "enum": [
+        "SUB_PROTECTION_POLICY_MODIFIED",
+        "SUB_PROTECTION_POLICY_NOT_FOUND",
+        "PROTECTION_POLICY_APPLICATION_SKIPPED",
+        "PROTECTION_POLICY_APPLICATION_FAILED"
+      ],
       "example": "SUB_PROTECTION_POLICY_MODIFIED",
       "help_en": "The message type",
       "help_zh": "消息类型",
@@ -86,6 +92,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "CRITICAL",
+        "WARN",
+        "INFO"
+      ],
       "example": "WARNING",
       "help_en": "The message level",
       "help_zh": "消息等级",

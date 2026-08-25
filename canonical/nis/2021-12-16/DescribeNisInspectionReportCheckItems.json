@@ -3,7 +3,7 @@
   "cmd_full_name": "nis describe-nis-inspection-report-check-items",
   "cmd_name": "describe-nis-inspection-report-check-items",
   "deprecated": false,
-  "description_en": "Describes the details of check items in an inspection report",
+  "description_en": "Queries the details of inspection report check items",
   "description_zh": "查询巡检报告检查项详情",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,9 +22,11 @@
   "parameters": [
     {
       "example": "nir-ffd1af****196d0",
-      "help_en": "The ID of the inspection report",
+      "help_en": "The inspection report ID",
       "help_zh": "巡检报告ID",
       "location": "query",
+      "maxLength": "128",
+      "minLength": "1",
       "name": "inspection_report_id",
       "options": [
         "--inspection-report-id"
@@ -50,6 +52,13 @@
       "type": "array"
     },
     {
+      "enum": [
+        "cost_optimizing",
+        "performance",
+        "security",
+        "stability",
+        "operational_excellence"
+      ],
       "example": "stability",
       "help_en": "The category of the check item",
       "help_zh": "巡检项类别",
@@ -66,7 +75,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "A collection of risk levels",
+      "help_en": "The collection of risk levels",
       "help_zh": "风险等级集合",
       "location": "query",
       "name": "risk_level",
@@ -80,7 +89,7 @@
     },
     {
       "example": "hKrS+MVXkuOgztXnvdml16/uO3mvCyHxSjzdhx9VRUC+8umDTIV2Wg9TTOUrR7ve",
-      "help_en": "The pagination token that is used in the next request to retrieve a new page of results. Set this parameter to the NextToken value returned from the previous call",
+      "help_en": "The query token. Set this parameter to the NextToken value returned in the previous API call",
       "help_zh": "查询凭证（Token），取值为上一次API调用返回的NextToken参数值",
       "location": "query",
       "name": "next_token",
@@ -93,9 +102,11 @@
     },
     {
       "example": "20",
-      "help_en": "The maximum number of entries to return on each page. Maximum value: 100. Default value: 20",
+      "help_en": "The maximum number of entries per page for a paged query. Maximum value: 100. Default value: 20",
       "help_zh": "分页查询时每页的最大条目数。最大值为100。默认值为20",
       "location": "query",
+      "maximum": "100",
+      "minimum": "1",
       "name": "max_results",
       "options": [
         "--max-results"
@@ -105,8 +116,12 @@
       "type": "int"
     },
     {
+      "enum": [
+        "zh-CN",
+        "en-US"
+      ],
       "example": "zh-CN",
-      "help_en": "The language of the content. Valid values: zh-CN and en-US",
+      "help_en": "The language. Valid values: zh-CN, en-US",
       "help_zh": "语言，枚举：zh-CN，en-US",
       "location": "query",
       "name": "language",

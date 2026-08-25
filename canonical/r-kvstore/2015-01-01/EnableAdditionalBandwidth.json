@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "r-bp1zxszhcgatnx****",
       "help_en": "The instance ID. You can call the https://help.aliyun.com/document_detail/473778.html operation to query the instance ID",
       "help_zh": "实例ID，可调用https://help.aliyun.com/document_detail/473778.html获取",
@@ -73,6 +74,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "20",
       "help_en": "The amount of bandwidth to add, in MB/s. The value must be an integer greater than or equal to 0. The maximum value is six times the default bandwidth of the instance type or a single data shard, with an upper limit of 192 MB/s. For example, if the default bandwidth of an instance is 10 MB/s, the valid values for this parameter are 0 to 60.\n\nYou can call the https://help.aliyun.com/document_detail/473782.html operation and check the value of the DefaultBandWidth parameter in the response to get the default maximum bandwidth. For more information about instance types, see https://help.aliyun.com/document_detail/26350.html.\n\nIf you specified multiple data shard IDs for the NodeId parameter, the bandwidth values that you specify for this parameter must correspond to the order of the data shard IDs. Separate multiple bandwidth values with commas (,)",
       "help_zh": "要增加的带宽，单位为MB/s。取值为大于等于0的整数 ，最大可传入该实例（或单分片）规格默认带宽的6倍，但增加的上限为192MB/s。例如实例默认带宽为10 MB/s，可增加的范围为0~60。\n\n您可以调用https://help.aliyun.com/document_detail/473782.html接口，通过返回参数**DefaultBandWidth**获取默认最大带宽。更多关于实例规格的信息，请参见https://help.aliyun.com/document_detail/26350.html。\n如果请求参数NodeId传入了多个数据分片ID，本参数传入的带宽值需和数据分片ID的顺序对应，多个带宽值之间使用英文逗号（,）分隔",
@@ -82,7 +84,7 @@
         "--bandwidth"
       ],
       "raw_name": "Bandwidth",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -138,6 +140,11 @@
       "type": "int"
     },
     {
+      "docRequired": true,
+      "enum": [
+        "PostPaid",
+        "PrePaid"
+      ],
       "example": "PrePaid",
       "help_en": "The billing method for the additional bandwidth. Valid values:\n\nPrePaid: subscription.\n\nPostPaid: pay-as-you-go. This is the only supported billing method",
       "help_zh": "额外增加带宽的付费类型，取值：\nPrePaid：预付费，即包年包月。\nPostPaid：按量付费，当前仅支持该方式",
@@ -147,7 +154,7 @@
         "--charge-type"
       ],
       "raw_name": "ChargeType",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -202,7 +209,7 @@
       "help_zh": "要增加的带宽，单位为MB/s。取值为大于等于0的整数 ，最大可传入该实例（或单分片）规格默认带宽的6倍，但增加的上限为192MB/s。例如实例默认带宽为10 MB/s，可增加的范围为0~60。\n\n您可以调用https://help.aliyun.com/document_detail/473782.html接口，通过返回参数**DefaultBandWidth**获取默认最大带宽。更多关于实例规格的信息，请参见https://help.aliyun.com/document_detail/26350.html。\n如果请求参数NodeId传入了多个数据分片ID，本参数传入的带宽值需和数据分片ID的顺序对应，多个带宽值之间使用英文逗号（,）分隔",
       "name": "Bandwidth",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -210,7 +217,7 @@
       "help_zh": "额外增加带宽的付费类型，取值：\nPrePaid：预付费，即包年包月。\nPostPaid：按量付费，当前仅支持该方式",
       "name": "ChargeType",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {

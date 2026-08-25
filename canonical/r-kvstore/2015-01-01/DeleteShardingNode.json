@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "r-bp1zxszhcgatnx****",
       "help_en": "The ID of the instance",
       "help_zh": "实例ID",
@@ -47,16 +48,19 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "1",
       "help_en": "The number of data shards that you want to remove. Shard removal starts from the end of the shard list.\n\nFor example, the instance has the following data shards: db-0, db-1, db-2, db-3, and db-4. In this case, if you set this parameter to 2, db-3 and db-4 are removed",
       "help_zh": "待删除的分片数量，将从尾部开始计数，删除相应数量的分片节点。\n例如实例原有5个分片节点，分别为db-0、db-1、db-2、db-3和db-4，输入本参数为2，则将删除db-3和db-4",
       "location": "query",
+      "maximum": "4096",
+      "minimum": "1",
       "name": "shard_count",
       "options": [
         "--shard-count"
       ],
       "raw_name": "ShardCount",
-      "required": true,
+      "required": false,
       "type": "int"
     },
     {
@@ -73,6 +77,12 @@
       "type": "bool"
     },
     {
+      "enum": [
+        "0",
+        "1",
+        "Immediately",
+        "MaintainTime"
+      ],
       "example": "Immediately",
       "help_en": "The time when you want to delete the proxy nodes for instance in the proxy mode. Valid values:\n\n0 or Immediately (default): immediately delete the proxy nodes.\n\n1 or MaintainTime: delete the proxy nodes during the maintenance window.\n\nYou can call the https://help.aliyun.com/document_detail/473775.html operation to modify the maintenance window of an instance",
       "help_zh": "代理模式集群实例删除分片时，若有删除proxy行为，执行该行为的时间，取值：\n0 或 Immediately：立即执行，默认值。\n1 或 MaintainTime：在可维护时间段执行。\n\n您可以调用https://help.aliyun.com/document_detail/473775.html修改实例的可维护时间段",

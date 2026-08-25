@@ -3,7 +3,7 @@
   "cmd_full_name": "ens describe-ens-eip-addresses",
   "cmd_name": "describe-ens-eip-addresses",
   "deprecated": false,
-  "description_en": "Call DescribeEnsEipAddresses to query elastic IP addresses (EIPs)",
+  "description_en": "Queries elastic IP addresses (EIPs) in Edge Node Service (ENS)",
   "description_zh": "调用DescribeEnsEipAddresses查询弹性公网IP（EIP）",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "eip-5q9uwkd9bznjpxz8hr6cirnjk",
-      "help_en": "The ID of the EIP instance. You can specify up to 50 IDs, separated by commas",
+      "help_en": "The ID of the EIP instance to query. You can specify up to 50 EIP instance IDs separated by commas (,)",
       "help_zh": "要查询的EIP实例的ID。  最多支持输入50个EIP实例ID，实例ID之间用半角逗号（,）分隔",
       "location": "query",
       "name": "allocation_id",
@@ -35,7 +35,7 @@
     },
     {
       "example": "120.XXX.XXX.4",
-      "help_en": "The IP address of the EIP. You can specify up to 50 IP addresses, separated by commas",
+      "help_en": "The IP address of the EIP to query. You can specify up to 50 EIP addresses separated by commas (,)",
       "help_zh": "要查询的EIP的IP地址。  最多支持输入50个EIP的IP地址，IP地址之间用半角逗号（,）分隔",
       "location": "query",
       "name": "eip_address",
@@ -48,7 +48,7 @@
     },
     {
       "example": "lb-5t18quoohsrc3xkf86spmnu77",
-      "help_en": "The ID of the associated cloud service instance",
+      "help_en": "The instance ID of the cloud service",
       "help_zh": "云产品的实例ID",
       "location": "query",
       "name": "associated_instance_id",
@@ -60,8 +60,15 @@
       "type": "string"
     },
     {
+      "enum": [
+        "SlbInstance",
+        "EnsInstance",
+        "Nat",
+        "NetworkInterface",
+        "HaVip"
+      ],
       "example": "SlbInstance",
-      "help_en": "The type of the cloud service instance to associate with the EIP. Valid values:\n\nEnsInstance: an ENS instance of the VPC type.\n\nSlbInstance: an SLB instance",
+      "help_en": "The type of the cloud service instance to associate. Valid values: \n\nEnsInstance: a VPC-type ENS instance.\n\nSlbInstance: a load balancing instance",
       "help_zh": "要绑定的云产品实例的类型，取值： \n\nEnsInstance：VPC类型的ENS实例。\n\nSlbInstance：负载均衡实例",
       "location": "query",
       "name": "associated_instance_type",
@@ -73,8 +80,16 @@
       "type": "string"
     },
     {
+      "enum": [
+        "InUse",
+        "Available",
+        "Associating",
+        "Unassociating",
+        "Creating",
+        "Releasing"
+      ],
       "example": "InUse",
-      "help_en": "The status of the EIP. Valid values: Associating, Unassociating, InUse, and Available",
+      "help_en": "The status of the EIP. Valid values: Associating: being associated. Unassociating: being disassociated. InUse: allocated. Available: available",
       "help_zh": "EIP的状态，取值：  Associating：绑定中。 Unassociating：解绑中。 InUse：已分配。 Available：可用",
       "location": "query",
       "name": "status",
@@ -87,7 +102,7 @@
     },
     {
       "example": "cn-chengdu-telecom",
-      "help_en": "The ID of the ENS node",
+      "help_en": "The ENS edge zone ID",
       "help_zh": "ENS的节点ID",
       "location": "query",
       "name": "ens_region_id",
@@ -113,7 +128,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether the EIP is a standby EIP. Valid values:\n\ntrue: The EIP is a standby EIP.\n\nfalse: The EIP is not a standby EIP",
+      "help_en": "Specifies whether the EIP is a standby EIP. Valid values:\n\ntrue: standby.\n\nfalse: not standby",
       "help_zh": "是否备用弹性IP。取值：\n\ntrue：备用。\n\nfalse：非备用",
       "location": "query",
       "name": "standby",
@@ -126,7 +141,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to enable ICMP reply. Valid values:\n\ntrue (default): enabled\n\nfalse: disabled",
+      "help_en": "Specifies whether ICMP echo reply is enabled. Valid values:\n\ntrue (default): enabled.\nfalse: disabled",
       "help_zh": "是否开启ICMP代回。取值：\n\ntrue（默认值）：开启。\nfalse：不开启",
       "location": "query",
       "name": "icmp_reply_enabled",
@@ -141,7 +156,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "An array of 1 to 100 ENS node IDs",
+      "help_en": "The array of ENS edge zone IDs. Array length: 1 to 100",
       "help_zh": "ENS节点ID数组。数组长度：1~100",
       "location": "query",
       "name": "ens_region_ids",
@@ -155,7 +170,7 @@
     },
     {
       "example": "1",
-      "help_en": "The page number. Default value: 1",
+      "help_en": "The page number of the list. Default value: 1",
       "help_zh": "列表的页码，默认值为1",
       "location": "query",
       "name": "page_number",
@@ -168,9 +183,10 @@
     },
     {
       "example": "50",
-      "help_en": "The number of entries to return on each page. Maximum value: 100. Default value: 10",
+      "help_en": "The number of entries per page for a paged query. Maximum value: 100. Default value: 10",
       "help_zh": "分页查询时每页的行数，最大值为100，默认值为10",
       "location": "query",
+      "maximum": "100",
       "name": "page_size",
       "options": [
         "--page-size"
@@ -181,7 +197,7 @@
     },
     {
       "example": "financial",
-      "help_en": "The reason the EIP is locked.\n\nfinancial: The EIP is locked due to an overdue payment",
+      "help_en": "The lock type.\nfinancial: locked due to overdue payment",
       "help_zh": "锁定类型。\nfinancial：因欠费被锁定",
       "location": "query",
       "name": "lock_reason",

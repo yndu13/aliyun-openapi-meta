@@ -20,8 +20,9 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "1",
-      "help_en": "The data type of the annotation task.\n\n1: Outbound call",
+      "help_en": "The data type of the annotation task.\n\n1: outbound call",
       "help_zh": "标注任务数据类型。\n\n1：外呼",
       "location": "query",
       "name": "annotation_mission_data_source_type",
@@ -29,12 +30,12 @@
         "--annotation-mission-data-source-type"
       ],
       "raw_name": "AnnotationMissionDataSourceType",
-      "required": true,
+      "required": false,
       "type": "int"
     },
     {
       "example": "6236f21e-2e04-4dad-a47b-ae77e6a48325",
-      "help_en": "The outbound scenario ID",
+      "help_en": "The outbound call scenario ID",
       "help_zh": "外呼场景ID",
       "location": "query",
       "name": "script_id",
@@ -46,6 +47,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "bf3b51a5-e88a-4636-98b0-1a34725a085b",
       "help_en": "The instance ID",
       "help_zh": "实例ID",
@@ -55,12 +57,12 @@
         "--instance-id"
       ],
       "raw_name": "InstanceId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
       "example": "True",
-      "help_en": "Indicates whether the business process ended normally.\n\nThis parameter takes effect only when \\`SessionEndReasonFilterList\\` is not specified.\n\n\\`true\\`: The call record is normal.\n\n\\`false\\`: The call did not end normally",
+      "help_en": "Specifies whether the business ended normally.\n\nThis parameter takes effect only when SessionEndReasonFilterList is not specified.\ntrue: normal call records\nfalse: abnormal call records",
       "help_zh": "业务是否正常结束。\n\n当SessionEndReasonFilterList没有传入值时，这个参数才生效。\ntrue：正常通话记录\nfalse：非正常完结通话记录",
       "location": "query",
       "name": "finished",
@@ -75,7 +77,7 @@
       "element": {
         "type": "int"
       },
-      "help_en": "The filter condition for call completion statuses.\n\nThis parameter has the same function as \\`SessionEndReasonFilterListJsonString\\`. You can specify either of them",
+      "help_en": "The call result status filter conditions.\n\nThis parameter has the same function as SessionEndReasonFilterListJsonString. Specify either one of them",
       "help_zh": "通话结果状态过滤条件\n\n与SessionEndReasonFilterListJsonString 相同，二者选其一填入即可",
       "location": "query",
       "name": "session_end_reason_filter_list",
@@ -89,7 +91,7 @@
     },
     {
       "example": "[1]",
-      "help_en": "The filter condition for call completion statuses.\n\nThis parameter has the same function as \\`SessionEndReasonFilterList\\`. You can specify either of them. The format is \\`\\[1]\\` or \\`\\[1,2]\\`. You can specify multiple filter conditions in the array. The enumeration values for the filter conditions are as follows.\n\nEnumeration values for filtering call records\n\n1: The call ended normally.\n\n2: The bot hung up after a recognition failure.\n\n3: The call was hung up due to a silence timeout.\n\n4: The user hung up after a recognition failure.\n\n5: The user hung up for no reason.\n\n6: The call was transferred to a manual agent after an intent was hit.\n\n7: The call was transferred to a manual agent after a recognition failure.\n\n8: No interaction from the user.\n\n9: The call was interrupted by a system exception.\n\n10: The call was transferred to an IVR after an intent was hit.\n\n11: The call was transferred to an IVR after a recognition failure",
+      "help_en": "The call result status filter conditions.\n\nThis parameter has the same function as SessionEndReasonFilterList. Specify either one of them. The format is [1], [1,2], etc. You can specify multiple filter conditions in the array. The enum values for the filter conditions are as follows.\n\nCall record filter enum values\n1: normal completion\n2: robot hung up after recognition rejection\n3: hung up due to silence timeout\n4: user hung up after recognition rejection\n5: user hung up without reason\n6: transferred to agent by intent match\n7: transferred to agent by recognition rejection\n8: no interaction on user side\n9: system exception interruption\n10: transferred to IVR by intent match\n11: transferred to IVR by recognition rejection",
       "help_zh": "通话结果状态过滤条件\n\n与SessionEndReasonFilterList作用相同，两个参数任选其一填入即可。\n 格式为[1]、[1,2]等。数组中可填入多个过滤条件，过滤条件对应的枚举值如下。\n\n通话记录过滤枚举值\n1：正常完结\n2：拒识后机器人挂机\n3：静默超时挂机\n4：拒识后用户挂机\n5：用户无理由挂机\n6：命中意图转人工\n7：拒识转人工\n8：用户侧无交互\n9：系统异常中断\n10：命中意图转IVR\n11：拒识别转IVR",
       "location": "query",
       "name": "session_end_reason_filter_list_json_string",
@@ -102,7 +104,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to exclude call records that have been annotated in other tasks. If you do not specify this parameter, the default value is \\`false\\`",
+      "help_en": "Specifies whether to exclude call records that have been annotated by other tasks. Default value: false",
       "help_zh": "是否排除其他任务已标注的通话记录，不填写默认为false",
       "location": "query",
       "name": "exclude_other_session",
@@ -115,7 +117,7 @@
     },
     {
       "example": "1683302400000",
-      "help_en": "The start time for filtering calls",
+      "help_en": "The start time for the call time filter",
       "help_zh": "通话时间过滤开始时间",
       "location": "query",
       "name": "conversation_time_start_filter",
@@ -128,7 +130,7 @@
     },
     {
       "example": "1682956800000",
-      "help_en": "The end time for filtering calls",
+      "help_en": "The end time for the call time filter",
       "help_zh": "通话时间过滤结束时间",
       "location": "query",
       "name": "conversation_time_end_filter",
@@ -141,7 +143,7 @@
     },
     {
       "example": "1",
-      "help_en": "The sampling type.\n\n1: Full data\n\n2: Percentage\n\n3: Custom amount",
+      "help_en": "The sampling type.\n\n1: full\n2: percentage\n3: custom quantity",
       "help_zh": "抽样类型。\n\n1：全量\n2：百分比\n3：自定义量",
       "location": "query",
       "name": "sampling_type",
@@ -154,7 +156,7 @@
     },
     {
       "example": "1",
-      "help_en": "The sampling percentage.\n\nThis parameter is required and takes effect only when \\`SamplingType\\` is set to 2. Otherwise, the task fails to be created",
+      "help_en": "The sampling ratio.\n\nThis parameter takes effect only when SamplingType is set to 2. This parameter is required in that case. Otherwise, the creation fails",
       "help_zh": "抽样比例\n\n该参数当SamplingType为2时生效，同时需要必填，否则会导致创建失败",
       "location": "query",
       "name": "sampling_rate",
@@ -167,7 +169,7 @@
     },
     {
       "example": "1",
-      "help_en": "The custom sampling amount.\n\nThis parameter is required and takes effect only when \\`SamplingType\\` is set to 3. Otherwise, the task fails to be created",
+      "help_en": "The custom sampling quantity.\nThis parameter takes effect only when SamplingType is set to 3. This parameter is required in that case. Otherwise, the creation fails",
       "help_zh": "抽样数量自定义量\n该参数当SamplingType为3时生效，同时需要必填，否则会导致创建失败",
       "location": "query",
       "name": "sampling_count",
@@ -195,7 +197,7 @@
       "element": {
         "type": "int"
       },
-      "help_en": "The list of annotation data sources.\n\nThis parameter has the same function as \\`AnnotationMissionDebugDataSourceListJsonString\\`. You can specify either of them",
+      "help_en": "The annotation data source list.\n\nThis parameter has the same function as AnnotationMissionDebugDataSourceListJsonString. Specify either one of them",
       "help_zh": "标注数据来源列表\n\n与AnnotationMissionDebugDataSourceListJsonString参数作用相同，两者任选其一即可",
       "location": "query",
       "name": "annotation_mission_debug_data_source_list",
@@ -209,7 +211,7 @@
     },
     {
       "example": "[1]",
-      "help_en": "The JSON string for the test data.\n\nThis parameter has the same function as \\`AnnotationMissionDebugDataSourceList\\`. You can specify either of them. The format is \\`\\[1]\\`, \\`\\[2]\\`, or \\`\\[1,2]\\`. You can specify multiple filter conditions in the array. The enumeration values are as follows:\n\n1: Outbound call task\n\n2: Test task",
+      "help_en": "The debug data in JSON format.\nThis parameter has the same function as AnnotationMissionDebugDataSourceList. Specify either one of them. The format is [1], [2], or [1,2]. You can specify multiple filter conditions in the array. The enum values for the filter conditions are as follows.\n\n1: outbound call task\n2: test task",
       "help_zh": "调试数据JSON\n与AnnotationMissionDebugDataSourceList参数作用相同，两者任选其一即可。格式为[1]、[2]、[1,2]。数组中可填入多个过滤条件，过滤条件对应的枚举值如下\n\n1：外呼任务\n2：测试任务",
       "location": "query",
       "name": "annotation_mission_debug_data_source_list_json_string",
@@ -222,7 +224,7 @@
     },
     {
       "example": "chatbot-cn-fqEnFZBYnb",
-      "help_en": "The bot ID.\n\nYou can obtain this ID from the \\`DescribeScript\\` operation",
+      "help_en": "The robot ID.\n\nYou can obtain this value from the DescribeScript operation",
       "help_zh": "机器人ID\n\n可从DescribeScript接口中拿到",
       "location": "query",
       "name": "chatbot_id",
@@ -235,7 +237,7 @@
     },
     {
       "example": "1168702",
-      "help_en": "The agent ID.\n\nYou can obtain this ID from the \\`DescribeInstance\\` operation",
+      "help_en": "The agent ID.\n\nYou can obtain this value from the DescribeInstance operation",
       "help_zh": "坐席ID\n\n可从DescribeInstance接口中获取",
       "location": "query",
       "name": "agent_id",
@@ -248,7 +250,7 @@
     },
     {
       "example": "9137ab9c27044921860030adf8590ec4_p_outbound_public",
-      "help_en": "The workspace key.\n\nYou can obtain this key from the \\`DescribeInstance\\` operation",
+      "help_en": "The business space key.\n\nYou can obtain this value from the DescribeInstance operation",
       "help_zh": "业务空间key\n\n可从DescribeInstance接口中获取",
       "location": "query",
       "name": "agent_key",

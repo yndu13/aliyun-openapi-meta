@@ -44,6 +44,7 @@
             "options": [
               "--ip"
             ],
+            "pattern": "((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))",
             "raw_name": "Ip",
             "required": false,
             "type": "string"
@@ -52,6 +53,8 @@
             "example": "3309",
             "help_en": "The backend port used by the load balancing instance",
             "help_zh": "负载均衡实例后端使用的端口",
+            "maximum": "0",
+            "minimum": "0",
             "name": "port",
             "options": [
               "--port"
@@ -73,6 +76,11 @@
             "type": "string"
           },
           {
+            "enum": [
+              "ens",
+              "eni",
+              "ip"
+            ],
             "example": "ens",
             "help_en": "The backend server type. Valid values:\nens: ENS instance.\neni: network interface controller (NIC) instance",
             "help_zh": "后端服务器类型。取值：\nens：ENS实例。\neni：弹性网卡实例",
@@ -88,6 +96,8 @@
             "example": "100",
             "help_en": "The weight of the backend server. Default value: 100. Valid values: 0 to 100.\n\nA value of 0 indicates that no requests are forwarded to the backend server",
             "help_zh": "后端服务器的权重。默认值：100，取值：0~100。\n\n取值为0，表示不会将请求转发给该后端服务器",
+            "maximum": "100",
+            "minimum": "0",
             "name": "weight",
             "options": [
               "--weight"

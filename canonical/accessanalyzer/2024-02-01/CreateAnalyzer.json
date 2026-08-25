@@ -27,15 +27,22 @@
       "help_en": "The name of the analyzer",
       "help_zh": "分析器名称",
       "location": "formData",
+      "maxLength": "255",
+      "minLength": "1",
       "name": "analyzer_name",
       "options": [
         "--analyzer-name"
       ],
+      "pattern": "^[0-9a-zA-Z_-]+$",
       "raw_name": "AnalyzerName",
       "required": true,
       "type": "string"
     },
     {
+      "enum": [
+        "ExternalAccess",
+        "OverPrivileged"
+      ],
       "example": "ExternalAccess",
       "help_en": "The type of the Analyzer. Valid values:\nExternalAccess: external access.\nOverPrivileged: over-privilege",
       "help_zh": "Analyzer类型，合法值：ExternalAccess（外部访问）、OverPrivileged（过度授权）",
@@ -49,6 +56,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Account",
+        "ResourceDirectory"
+      ],
       "example": "Account",
       "help_en": "The scan scope of the Analyzer. Valid values:\nAccount: account.\nResourceDirectory: resource directory",
       "help_zh": "Analyzer扫描范围，合法值：Account（账号）、ResourceDirectory（资源目录）",
@@ -69,6 +80,8 @@
               "example": "90",
               "help_en": "The unused access period. Default value: 90. Valid values: 1 to 365. Unit: days",
               "help_zh": "闲置访问周期，默认90天，支持1到365天",
+              "maximum": "365",
+              "minimum": "1",
               "name": "unused_access_age",
               "options": [
                 "--unused-access-age"

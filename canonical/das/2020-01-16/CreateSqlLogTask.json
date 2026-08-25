@@ -3,7 +3,7 @@
   "cmd_full_name": "das create-sql-log-task",
   "cmd_name": "create-sql-log-task",
   "deprecated": false,
-  "description_en": "Creates an offline task for Database Autonomy Service (DAS) Enterprise Edition",
+  "description_en": "Creates an asynchronous task for detailed data",
   "description_zh": "创建明细数据异步任务",
   "kebab_example": "",
   "method": "POST",
@@ -24,7 +24,7 @@
   "parameters": [
     {
       "example": "pc-2ze8g2am97624****",
-      "help_en": "The ID of the database instance",
+      "help_en": "The database instance ID",
       "help_zh": "数据库实例ID",
       "location": "formData",
       "name": "instance_id",
@@ -37,7 +37,7 @@
     },
     {
       "example": "pi-uf6k5f6g3912i****",
-      "help_en": "The node ID.\n\nThis parameter is available only for instances that run in a cluster architecture. You can specify this parameter to query the offline tasks of a specific node. By default, if this parameter is not specified, the information about the offline tasks of the primary node is returned",
+      "help_en": "The node ID.\nThis parameter is applicable only to cluster instances. You can specify this parameter to query the batch task of a specific node. If you do not specify this parameter, the batch task of the primary node is returned by default",
       "help_zh": "节点ID。\n该参数仅适用于集群版实例，可以选择查询指定节点离线任务。若不传该参数，默认返回主节点离线任务",
       "location": "formData",
       "name": "node_id",
@@ -50,7 +50,7 @@
     },
     {
       "example": "Export",
-      "help_en": "The type of the task. Valid values:\n\nExport\n\nQuery\n\nInsight",
+      "help_en": "The task type.\n\nExport: export task.\nFor the filter parameters and values supported by Export, see Request parameters description.\nQuery: query task",
       "help_zh": "任务类型\n\nExport：导出任务。\nExport支持的过滤参数及其取值请参考请求参数补充说明。\nQuery：查询任务",
       "location": "formData",
       "name": "type",
@@ -63,7 +63,7 @@
     },
     {
       "example": "SQL audit export 1",
-      "help_en": "The name of the task",
+      "help_en": "The task name",
       "help_zh": "任务名称",
       "location": "formData",
       "name": "name",
@@ -79,7 +79,7 @@
         "fields": [
           {
             "example": "KeyWords",
-            "help_en": "The name of the filter parameter.\n\nFor more information about the supported filter parameters and their valid values, see the following supplement about the Key parameter",
+            "help_en": "The name of the filter parameter.\n\nFor the supported filter parameters and values, see Request parameters description",
             "help_zh": "过滤参数的名称。\n\n支持的过滤参数及其取值请参考请求参数补充说明",
             "name": "key",
             "options": [
@@ -104,7 +104,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The filter conditions",
+      "help_en": "The list of filter conditions",
       "help_zh": "筛选条件列表",
       "location": "query",
       "name": "filters",
@@ -118,7 +118,7 @@
     },
     {
       "example": "1596177993000\n",
-      "help_en": "The beginning of the time range to query. Specify the time in the UNIX timestamp format. Unit: milliseconds",
+      "help_en": "The start time of the task. Specify the value as a UNIX timestamp. Unit: milliseconds",
       "help_zh": "任务的开始时间，格式为Unix时间戳，单位为毫秒",
       "location": "formData",
       "name": "start_time",
@@ -131,7 +131,7 @@
     },
     {
       "example": "1608888296000\n",
-      "help_en": "The end of the time range to query. Specify the time in the UNIX timestamp format. Unit: milliseconds",
+      "help_en": "The end time of the task. Specify the value as a UNIX timestamp. Unit: milliseconds",
       "help_zh": "任务结束时间，格式为unix时间戳，单位为毫秒",
       "location": "formData",
       "name": "end_time",
@@ -144,7 +144,7 @@
     },
     {
       "example": "polarx_cn",
-      "help_en": "The role of the node of the PolarDB-X 2.0 database instance. Valid values:\n\npolarx_cn: compute node\n\npolarx_dn: data node",
+      "help_en": "The node information of the PolarDB-X 2.0 database instance.\n\npolarx_cn: compute node.\n\npolarx_dn: data node",
       "help_zh": "PolarDB-X 2.0数据库实例节点信息。\n\npolarx_cn：计算节点。\n\npolarx_dn：数据节点",
       "location": "query",
       "name": "role",

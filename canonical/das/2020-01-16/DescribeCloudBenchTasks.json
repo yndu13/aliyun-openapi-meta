@@ -3,7 +3,7 @@
   "cmd_full_name": "das describe-cloud-bench-tasks",
   "cmd_name": "describe-cloud-bench-tasks",
   "deprecated": false,
-  "description_en": "You can call the DescribeCloudBenchTasks operation to query stress testing tasks",
+  "description_en": "Queries the list of stress testing tasks",
   "description_zh": "调用DescribeCloudBenchTasks接口，查询压测任务列表",
   "kebab_example": "",
   "method": "GET|POST",
@@ -21,7 +21,7 @@
   "parameters": [
     {
       "example": "SUCCESS",
-      "help_en": "The status of the task. Valid values:\n\nSUCCESS: The task is successful.\n\nIGNORED: The task is ignored.\n\nRUNNING: The task is running.\n\nEXCEPTION: The task is abnormal",
+      "help_en": "The running status of the task. Valid values:\n\nSUCCESS: Successful.\nIGNORED: Ignored.\nRUNNING: Running.\nEXCEPTION: Exception",
       "help_zh": "任务的运行状态。取值：\n\nSUCCESS：成功。\nIGNORED：忽略。\nRUNNING：运行中。\nEXCEPTION：异常",
       "location": "query",
       "name": "status",
@@ -34,7 +34,7 @@
     },
     {
       "example": "pressure test",
-      "help_en": "The type of the stress testing task. Valid values:\n\npressure test (default): A stress testing task that replays the traffic captured from the source instance on the destination instance at the maximum playback rate that is supported by the destination instance.\n\nsmart pressure test: A stress testing task that is generated to perform continuous stress testing. The task analyzes the traffic that is captured from a source instance in a short period of time and generates traffic that is similar to the traffic on the source instance in terms of business model and traffic distribution. This reduces the time that is required to collect data from the source instance and lowers the costs of storage and performance",
+      "help_en": "The type of the stress testing task. Valid values:\npressure test (default): intelligent stress testing. Traffic captured from the target instance is replayed on the destination instance at the maximum speed supported by the destination instance specifications.\nsmart pressure test: generated stress testing. By analyzing and learning from traffic captured from the target instance within a short period, traffic that is consistent with the business model and traffic distribution of the original traffic is generated for continuous stress testing. This reduces the time required to collect data from the target instance and lowers storage costs and performance overhead",
       "help_zh": "压测任务类型。取值：\npressure test（默认）：智能压测，将从源实例上捕获的流量，按照目标实例规格支持的极限速度，在目标实例上进行回放。\nsmart pressure test：生成压测，通过分析和学习短时间内在源实例上捕获的流量，生成和原始流量的业务模型和流量分布基本一致的流量进行持续压测，减少从源实例采集数据的时间，降低存储成本和性能开销",
       "location": "query",
       "name": "task_type",
@@ -47,7 +47,7 @@
     },
     {
       "example": "1596177993000",
-      "help_en": "The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC",
+      "help_en": "The start time of the query task. Specify the value as a UNIX timestamp. Unit: milliseconds",
       "help_zh": "查询任务开始时间，格式为Unix时间戳，单位为毫秒",
       "location": "query",
       "name": "start_time",
@@ -60,7 +60,7 @@
     },
     {
       "example": "1596177993001",
-      "help_en": "The end of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.\n\nThe end time must be later than the start time",
+      "help_en": "The end time of the query task. Specify the value as a UNIX timestamp. Unit: milliseconds.\nThe end time of the query task must be later than the start time",
       "help_zh": "查询任务结束时间，格式为Unix时间戳，单位为毫秒。\n查询任务结束时间需晚于查询任务开始时间",
       "location": "query",
       "name": "end_time",
@@ -73,7 +73,7 @@
     },
     {
       "example": "1",
-      "help_en": "The page number. The value must be a positive integer. Default value: 1",
+      "help_en": "The page number. The value must be greater than 0 and cannot exceed the maximum value of the Integer data type. Default value: 1",
       "help_zh": "页码，取值大于0且不超过Integer数据类型的最大值，默认值为1",
       "location": "query",
       "name": "page_no",
@@ -86,7 +86,7 @@
     },
     {
       "example": "10",
-      "help_en": "The number of entries to return on each page. The value must be a positive integer. Default value: 10",
+      "help_en": "The maximum number of records per page. The value must be greater than 0 and cannot exceed the maximum value of the Integer data type. Default value: 10",
       "help_zh": "每页最大记录数，取值大于0且不超过Integer数据类型的最大值，默认值为10",
       "location": "query",
       "name": "page_size",

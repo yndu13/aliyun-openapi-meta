@@ -60,6 +60,16 @@
       "type": "string"
     },
     {
+      "enum": [
+        "4.0",
+        "4.2",
+        "4.4",
+        "5.0",
+        "6.0",
+        "7.0",
+        "3.4",
+        "8.0"
+      ],
       "example": "4.4",
       "help_en": "The database engine version. Valid values:\n\n8.0\n\n7.0\n\n6.0\n\n5.0\n\n4.4\n\n4.2\n\n4.0\n\nWhen you clone an instance or restore an instance from the recycle bin, this parameter must be the same as the engine version of the source instance.\n\n<warning>\n\nVersions 3.4 and earlier are discontinued.\n\n</warning>",
       "help_zh": "数据库版本号，取值：\n8.0\n7.0\n6.0\n5.0\n4.4\n4.2\n4.0\n\n调用本接口克隆实例或者回收站恢复实例时，该参数值需和源实例保持一致。\n\n<warning>3.4及以下版本已停售。></warning>",
@@ -151,6 +161,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "PrePaid",
+        "PostPaid"
+      ],
       "example": "PrePaid",
       "help_en": "The billing method of the instance. Valid values:\n\nPostPaid: The default value. Pay-as-you-go.\n\nPrePaid: Subscription.\n\nIf you set this parameter to PrePaid, you must also specify the Period parameter",
       "help_zh": "实例的付费类型，取值说明：\n\nPostPaid：默认值，后付费（按量付费）。\nPrePaid：预付费（包年包月）。\n\n当该参数的值为PrePaid时，您还需要配置Period参数",
@@ -164,6 +178,9 @@
       "type": "string"
     },
     {
+      "enum": [
+        "VPC"
+      ],
       "example": "VPC",
       "help_en": "The network type of the instance. Valid values:\n\nVPC: virtual private cloud (VPC)",
       "help_zh": "实例的网络类型，取值说明：\n\nVPC：专有网络",
@@ -177,6 +194,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "vpc-bp175iuvg8nxqraf2****",
       "help_en": "The VPC ID",
       "help_zh": "专有网络（VPC）ID",
@@ -186,10 +204,11 @@
         "--vpc-id"
       ],
       "raw_name": "VpcId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "vsw-bp1gzt31twhlo0sa5****",
       "help_en": "The vSwitch ID",
       "help_zh": "虚拟交换机ID",
@@ -199,7 +218,7 @@
         "--vswitch-id"
       ],
       "raw_name": "VSwitchId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -294,6 +313,9 @@
       "type": "string"
     },
     {
+      "enum": [
+        "WiredTiger"
+      ],
       "example": "WiredTiger",
       "help_en": "The storage engine of the instance. The value is fixed as WiredTiger.\n\nWhen you clone an instance or restore an instance from the recycle bin, this parameter must be the same as the storage engine of the source instance.\n\nFor more information about the constraints on storage engines and database versions, see [Versions and storage engines]()",
       "help_zh": "实例的存储引擎，取值固定为WiredTiger。\n调用本接口克隆实例或回收站恢复实例时，该参数需和源实例保持一致。\n关于存储引擎与版本的选择约束，请参见https://help.aliyun.com/document_detail/61906.html",
@@ -359,6 +381,9 @@
       "type": "string"
     },
     {
+      "enum": [
+        "MongoDB"
+      ],
       "example": "MongoDB",
       "help_en": "The database engine. The value is fixed as MongoDB",
       "help_zh": "数据库引擎，固定取值：MongoDB",
@@ -505,6 +530,12 @@
       "type": "int"
     },
     {
+      "enum": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
       "example": "0",
       "help_en": "The method to restore an instance from a backup.\n\n0: Restores the instance to a specified backup set.\n\n1: Restores the instance to a specified point in time.\n\n2: Restores a released instance to a specified backup set.\n\n3: Restores the instance to a specified geo-redundant backup set",
       "help_zh": "备份恢复实例。\n0: 恢复实例到指定备份集\n1: 恢复实例到指定时间点\n2: 恢复已释放实例到指定备份集\n3: 恢复实例到指定的异地备份集",
@@ -825,7 +856,7 @@
       "help_zh": "虚拟交换机ID",
       "name": "VSwitchId",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -833,7 +864,7 @@
       "help_zh": "专有网络（VPC）ID",
       "name": "VpcId",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {

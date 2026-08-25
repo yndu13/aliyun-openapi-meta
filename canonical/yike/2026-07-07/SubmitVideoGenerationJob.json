@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "****3e761e9d11edba640c42a1b7****\n",
-      "help_en": "The idempotency token. A unique, case-sensitive string of up to 32 characters. This token ensures that the request is executed only once, preventing duplicate operations caused by multiple retries",
+      "help_en": "The idempotency token. A unique, case-sensitive string of 32 characters. This token ensures that the request is completed no more than once, preventing duplicate operations caused by multiple retries",
       "help_zh": "幂等参数，唯一的大小写敏感的32位随机字符串。\n用于确保请求完成的次数不超过一次，以此避免多次重试带来重复操作的问题",
       "location": "query",
       "name": "client_token",
@@ -48,8 +48,8 @@
     },
     {
       "example": "happyhorse-1.1",
-      "help_en": "The model name. Valid values:\n\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
-      "help_zh": "模型名称\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
+      "help_en": "The model name. Valid values:\n\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
+      "help_zh": "模型名称\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
       "location": "query",
       "name": "model",
       "options": [
@@ -74,7 +74,7 @@
     },
     {
       "example": "{\"Prompt\":\"图1在篮球场上，用图2来了个灌篮\",\"Medias\":[{\"Type\":\"image\",\"Url\":\"https://xxx/xxx.jpg\"},{\"Type\":\"image\",\"Url\":\"https://xxx/xxx.jpg\"}]}",
-      "help_en": "The task input. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed.\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
+      "help_en": "The task input. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt text.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed.\n\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
       "help_zh": "任务输入，Json String，包含：\nPrompt，String，必填，提示词\nMedias，媒体列表\n当JobType=image_to_video 时，必填，Media仅需要1个\n当JobType=first_last_frame 时，必填，Media仅需要2个\n当JobType=reference_to_video 时，必填，Media最多9个\nMedia 结构包含：Type，媒体类型，String，可选值有`image`/`video`/`audio`；URL，媒体下载地址，String；MediaId，媒资Id，String",
       "location": "query",
       "name": "input",
@@ -99,7 +99,7 @@
     },
     {
       "example": "{}",
-      "help_en": "The task feature parameters. A JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no)",
+      "help_en": "The task parameters. A JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no)",
       "help_zh": "任务功能参数，Json String，包含：\nEnableAudio，Bool，选填，是否输出音频（true:是；false:否）",
       "location": "query",
       "name": "job_parameters",
@@ -189,7 +189,7 @@
       "type": "string"
     },
     {
-      "help_en": "The idempotency token. A unique, case-sensitive string of up to 32 characters. This token ensures that the request is executed only once, preventing duplicate operations caused by multiple retries",
+      "help_en": "The idempotency token. A unique, case-sensitive string of 32 characters. This token ensures that the request is completed no more than once, preventing duplicate operations caused by multiple retries",
       "help_zh": "幂等参数，唯一的大小写敏感的32位随机字符串。\n用于确保请求完成的次数不超过一次，以此避免多次重试带来重复操作的问题",
       "name": "ClientToken",
       "position": "query",
@@ -205,7 +205,7 @@
       "type": "string"
     },
     {
-      "help_en": "The task input. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed.\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
+      "help_en": "The task input. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt text.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed.\n\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
       "help_zh": "任务输入，Json String，包含：\nPrompt，String，必填，提示词\nMedias，媒体列表\n当JobType=image_to_video 时，必填，Media仅需要1个\n当JobType=first_last_frame 时，必填，Media仅需要2个\n当JobType=reference_to_video 时，必填，Media最多9个\nMedia 结构包含：Type，媒体类型，String，可选值有`image`/`video`/`audio`；URL，媒体下载地址，String；MediaId，媒资Id，String",
       "name": "Input",
       "position": "query",
@@ -213,7 +213,7 @@
       "type": "string"
     },
     {
-      "help_en": "The task feature parameters. A JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no)",
+      "help_en": "The task parameters. A JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no)",
       "help_zh": "任务功能参数，Json String，包含：\nEnableAudio，Bool，选填，是否输出音频（true:是；false:否）",
       "name": "JobParameters",
       "position": "query",
@@ -229,8 +229,8 @@
       "type": "string"
     },
     {
-      "help_en": "The model name. Valid values:\n\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
-      "help_zh": "模型名称\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
+      "help_en": "The model name. Valid values:\n\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
+      "help_zh": "模型名称\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
       "name": "Model",
       "position": "query",
       "required": false,

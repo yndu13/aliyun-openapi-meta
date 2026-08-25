@@ -112,6 +112,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "Postpaid",
       "help_en": "The billing method of the instance. Valid values:\n\nPostpaid: pay-as-you-go.\n\nPrepaid: subscription.\n\nServerless: This billing method is not supported for MariaDB instances. For more information, see https://help.aliyun.com/document_detail/411291.html, https://help.aliyun.com/document_detail/604344.html, and https://help.aliyun.com/document_detail/607742.html",
       "help_zh": "付费类型，取值：\nPostpaid：后付费（按量付费）\nPrepaid：预付费（包年包月）\nServerless：Serverless付费类型，不支持MariaDB实例。更多信息，请参见https://help.aliyun.com/document_detail/411291.html、https://help.aliyun.com/document_detail/604344.html、https://help.aliyun.com/document_detail/607742.html",
@@ -138,10 +139,13 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "rm-uf6wjk5****",
       "help_en": "The instance ID",
       "help_zh": "实例ID",
       "location": "query",
+      "maxLength": "65535",
+      "minLength": "1",
       "name": "db_instance_id",
       "options": [
         "--db-instance-id"
@@ -229,6 +233,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "Year",
+        "Month"
+      ],
       "example": "Year",
       "help_en": "The unit of the subscription duration. Valid values:\n\nYear\n\nMonth\n\nIf the PayType parameter is set to Prepaid, you must specify this parameter",
       "help_zh": "预付费实例为包年或者包月类型，取值：\nYear：包年\nMonth：包月\n\n若付费类型为Prepaid则该参数必须传入",
@@ -281,6 +289,7 @@
       "type": "string"
     },
     {
+      "docRequired": true,
       "example": "general_essd",
       "help_en": "The storage type of the instance. Valid values:\n\ngeneral_essd: general-purpose enhanced SSD (ESSD). Recommended.\n\nlocal_ssd: local SSD.\n\ncloud_ssd: standard SSD.\n\ncloud_essd: PL1 ESSD.\n\ncloud_essd2: PL2 ESSD.\n\ncloud_essd3: PL3 ESSD.\n\nServerless instances support only PL1 ESSDs and general-purpose ESSDs",
       "help_zh": "实例存储类型，取值：\n\ngeneral_essd：高性能云盘（推荐）\nlocal_ssd：高性能本地盘\ncloud_ssd：SSD云盘\ncloud_essd：ESSD PL1云盘\ncloud_essd2：ESSD PL2云盘\ncloud_essd3：ESSD PL3云盘\n\nServerless实例仅支持ESSD PL1云盘和高性能云盘",
@@ -290,7 +299,7 @@
         "--db-instance-storage-type"
       ],
       "raw_name": "DBInstanceStorageType",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -589,7 +598,7 @@
       "help_zh": "实例存储类型，取值：\n\ngeneral_essd：高性能云盘（推荐）\nlocal_ssd：高性能本地盘\ncloud_ssd：SSD云盘\ncloud_essd：ESSD PL1云盘\ncloud_essd2：ESSD PL2云盘\ncloud_essd3：ESSD PL3云盘\n\nServerless实例仅支持ESSD PL1云盘和高性能云盘",
       "name": "DBInstanceStorageType",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {

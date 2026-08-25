@@ -21,6 +21,7 @@
   },
   "parameters": [
     {
+      "docRequired": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID of the instance.\n\nWhen calling this API, if the Tag parameter is specified, this parameter is required",
       "help_zh": "实例所属的地域ID。\n\n调用本接口时，如果传入了Tag参数，则本参数必须传入",
@@ -30,7 +31,7 @@
         "--biz-region-id"
       ],
       "raw_name": "RegionId",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
@@ -60,6 +61,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "PrePaid",
+        "PostPaid"
+      ],
       "example": "PostPaid",
       "help_en": "The billing method. Valid values:\nPrePaid: subscription.\nPostPaid: pay-as-you-go",
       "help_zh": "付费类型，取值：\nPrePaid：预付费，即包年包月。\nPostPaid：后付费，即按量付费",
@@ -73,6 +78,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "CLASSIC",
+        "VPC"
+      ],
       "example": "CLASSIC",
       "help_en": "The network type of the instance. Valid values:\nCLASSIC: classic network.\nVPC: virtual private cloud (VPC)",
       "help_zh": "网络类型，取值：\nCLASSIC：经典网络。\nVPC：专有网络",
@@ -86,6 +95,14 @@
       "type": "string"
     },
     {
+      "enum": [
+        "1.0",
+        "2.8",
+        "4.0",
+        "5.0",
+        "6.0",
+        "7.0"
+      ],
       "example": "4.0",
       "help_en": "The Redis-compatible engine version of the instance. Valid values: 2.8, 4.0, 5.0, 6.0, and 7.0",
       "help_zh": "实例兼容Redis的版本，取值：2.8、4.0、5.0、6.0或7.0",
@@ -142,6 +159,7 @@
       "help_en": "The page number of the instance list. Pages start from 1. Default value: 1",
       "help_zh": "实例列表的页码，起始值为1，默认值为1",
       "location": "query",
+      "minimum": "1",
       "name": "page_number",
       "options": [
         "--page-number"
@@ -155,6 +173,8 @@
       "help_en": "The maximum number of entries per page. Maximum value: 50. Default value: 30",
       "help_zh": "每页最多可显示的行数，最大值为50，默认值为30",
       "location": "query",
+      "maximum": "1000",
+      "minimum": "0",
       "name": "page_size",
       "options": [
         "--page-size"
@@ -164,6 +184,15 @@
       "type": "int"
     },
     {
+      "enum": [
+        "Redis",
+        "Memcache",
+        "tair_essd",
+        "tair_scm",
+        "Tair",
+        "tair_rdb",
+        "tair_skv"
+      ],
       "example": "Redis",
       "help_en": "The category of the instance. Valid values:\nTair: Tair (Enhanced Edition)\nRedis: ApsaraDB for Redis Community Edition\nMemcache",
       "help_zh": "实例类型，取值：\nTair：Tair（企业版）\nRedis：Redis开源版\nMemcache",
@@ -255,6 +284,10 @@
       "type": "bool"
     },
     {
+      "enum": [
+        "Enterprise",
+        "Community"
+      ],
       "example": "Enterprise",
       "help_en": "The edition of the instance. Valid values:\nCommunity: ApsaraDB for Redis Community Edition.\nEnterprise: Tair Enhanced Edition",
       "help_zh": "实例类型，取值：\nCommunity：Redis开源版。\nEnterprise：Tair企业版",
@@ -323,6 +356,12 @@
       "type": "array"
     },
     {
+      "enum": [
+        "STAND_ALONE",
+        "MASTER_SLAVE",
+        "double",
+        "single"
+      ],
       "example": "MASTER_SLAVE",
       "help_en": "The node type. Valid values:\nMASTER_SLAVE: high availability (dual-replica)\nSTAND_ALONE: single replica\ndouble: dual-replica\nsingle: single replica\nFor cloud-native instances, select MASTER_SLAVE or STAND_ALONE. For classic instances, select double or single",
       "help_zh": "节点类型，取值：\nMASTER_SLAVE：高可用（双副本）\nSTAND_ALONE：单副本\ndouble：双副本\nsingle：单副本\n云原生版实例请选择MASTER_SLAVE或STAND_ALONE，经典版实例请选择double或single",
@@ -465,7 +504,7 @@
       "help_zh": "实例所属的地域ID。\n\n调用本接口时，如果传入了Tag参数，则本参数必须传入",
       "name": "RegionId",
       "position": "query",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     {
