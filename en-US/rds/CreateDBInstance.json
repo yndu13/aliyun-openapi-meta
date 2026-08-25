@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "Amount",
-      "description": "The number of ApsaraDB RDS for MySQL instances to create. This parameter applies only to batch creation of ApsaraDB RDS for MySQL instances.\n\nValid values: **1** to **20**. Default value: **1**.\n\n> - When creating multiple ApsaraDB RDS for MySQL instances, consider using the **Tag.Key** and **Tag.Value** parameters to tag all instances in the same batch. This makes it easier to manage the instances by tag after creation.\n> - After multiple ApsaraDB RDS for MySQL instances are created, the operation returns only the **TaskId**, **RequestId**, and **Message** parameters. Other detail parameters are not returned. To query the details of an individual instance, call the DescribeDBInstanceAttribute operation.\n> - If the **engine** parameter is not set to **MySQL** and this parameter is set to a value greater than **1**, the operation fails and returns the error code `InvalidParam.Engine`.",
+      "description": "The number of ApsaraDB RDS for MySQL instances to create. This parameter is applicable only to batch creation of ApsaraDB RDS for MySQL instances.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AutoCreateProxy",
-      "description": "Specifies whether to automatically create a proxy. Valid values:\n\n- **true**: Enables automatic creation. The default proxy type is general-purpose database proxy.\n\n- **false**: Disables automatic creation.",
+      "description": "Specifies whether to automatically create a database proxy. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoPay",
-      "description": "Specifies whether to enable automatic payment. Valid values:\n\n- **true**: Enables automatic payment. Make sure that your account balance is sufficient.\n- **false**: Generates an order without charging fees.\n\n\n\n\n> Default value: true. If your payment method has insufficient balance, set AutoPay to false. This generates an unpaid order that you can pay for in the ApsaraDB RDS console.\n>",
+      "description": "Specifies whether to enable automatic payment. Valid values:\n\n- **true**: Automatic payment is enabled. Make sure that your account balance is sufficient.\n- **false**: Only an order is generated, and no payment is made.\n\n\n> Default value: true. If your payment method has an insufficient balance, set AutoPay to false. An unpaid order is then generated. You can log on to the ApsaraDB RDS console to complete the payment.\n>",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal for the instance. This parameter is valid only when you create a subscription instance. Valid values:\n- **true**\n- **false**\n\n> - If you purchase the instance on a monthly basis, the auto-renewal cycle is one month.\n> - If you purchase the instance on a yearly basis, the auto-renewal cycle is one year.",
+      "description": "Specifies whether to enable auto-renewal for the instance. This parameter takes effect only when you create a subscription instance. Valid values:\n- **true**\n- **false**\n\n> - If you purchase the instance on a monthly basis, the auto-renewal cycle is one month.\n> - If you purchase the instance on a yearly basis, the auto-renewal cycle is one year.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to use a coupon. Valid values:\n* **true**: Use a coupon.\n* **false** (default): Do not use a coupon.\n\n> If you use a coupon and then perform a downgrade, the amount deducted by the coupon will not be refunded.",
+      "description": "Specifies whether to use coupons. Valid values:\n* **true**: Uses coupons.\n* **false** (default): Does not use coupons.\n\n> After coupons are used, if you perform a specification downgrade, the amount offset by coupons will not be refunded.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "BabelfishConfig",
-      "description": "The Babelfish for ApsaraDB RDS for PostgreSQL configuration.\n\nConfiguration format: {\"babelfishEnabled\":\"true\",\"migrationMode\":\"xxxxxxx\",\"masterUsername\":\"xxxxxxx\",\"masterUserPassword\":\"xxxxxxxx\"}\n\nParameter description:\n- **babelfishEnabled**: Specifies whether to enable Babelfish. Set this parameter to **true** to enable Babelfish. If this parameter is not configured, Babelfish is disabled by default.\n- **migrationMode**: The database model. Set this parameter to **single-db** for single-database mode or **multi-db** for multi-database mode.\n- **masterUsername**: The initial administrator account. The username can contain lowercase letters, digits, and underscores (_). It must start with a letter and end with a letter or digit. It can be up to 63 characters in length and cannot start with pg.\n- **masterUserPassword**: The password of the administrator account. The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The password must be 8 to 32 characters in length. Special characters include `! @ # $ % ^ & * () _ + - =`.\n\n> This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).",
+      "description": "The Babelfish for RDS PostgreSQL configuration information.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BurstingEnabled",
-      "description": "Specifies whether to enable the I/O performance burst feature for Premium ESSDs. Valid values:\n* **true**: Enabled.\n* **false**: Disabled.\n> For more information about the I/O performance burst feature for Premium ESSDs, see [What is a Premium ESSD](~~2340501~~).",
+      "description": "Specifies whether to enable the I/O burst feature for the premium performance disk. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -63,7 +63,7 @@
     },
     {
       "name": "Category",
-      "description": "The instance edition. Valid values:\n* Regular instances\n    * **Basic**: Basic Edition.\n    * **HighAvailability**: High-availability Edition.\n    * **cluster**: MySQL or PostgreSQL Cluster Edition.\n    * **AlwaysOn**: SQL Server Cluster Edition.\n    * **Finance**: RDS Enterprise Edition.\n    > This parameter is required when you create a SQL Server Enterprise Cluster Edition<props=\"china\">, a Basic Edition Standard Edition,</props> or a Basic Edition Enterprise Edition instance. For example, when you create a Basic Edition 2022 Enterprise Cluster Edition (2022_ent) instance, set this parameter to Basic.\n* Serverless instances\n    * **serverless_basic**: Serverless Basic Edition. (Applicable to MySQL and PostgreSQL only.)\n    * **serverless_standard**: Serverless High-availability Edition. (Applicable to MySQL and PostgreSQL only.)\n    * **serverless_ha**: SQL Server Serverless High-availability Edition.\n\n    > This parameter is required when PayType is set to Serverless.",
+      "description": "The instance edition. Valid values:\n\n* Regular instances\n    * **Basic**: Basic Edition.\n    * **HighAvailability**: High-availability Edition.\n    * **cluster**: MySQL or PostgreSQL Cluster Edition.\n    * **AlwaysOn**: SQL Server Cluster Edition.\n    * **Finance**: RDS Enterprise Edition.\n    > This parameter is required when you create an SQL Server Enterprise Cluster Edition instance<props=\"china\">, a Basic Edition Standard instance</props>, or a Basic Edition Enterprise instance. For example, when you create a Basic Edition 2022 Enterprise Cluster Edition (2022_ent) instance, you must set this parameter to Basic.\n* Serverless instances\n    * **serverless_basic**: Serverless Basic Edition. (Applicable only to MySQL and PostgreSQL)\n    * **serverless_standard**: Serverless High-availability Edition. (Applicable only to MySQL and PostgreSQL)\n    * **serverless_ha**: SQL Server Serverless High-availability Edition.\n\n    > This parameter is required when PayType is set to Serverless.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -77,28 +77,28 @@
     },
     {
       "name": "ColdDataEnabled",
-      "description": "Specifies whether to enable the [data archiving](~~2701832~~) feature for Premium ESSDs. Valid values:\n\n- **true**: Enabled.\n- **false**: Disabled.",
+      "description": "Specifies whether to enable the [cold data archiving](~~2701832~~) feature for Premium ESSDs. Valid values:\n\n- **true**: Enabled.\n- **false**: Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ConnectionMode",
-      "description": "The access mode of the instance. Valid values:\n* **Standard**: standard access mode.\n* **Safe**: database proxy mode.\n\nDefault value: assigned by the RDS system.\n> SQL Server 2012, 2016, and 2017 support only the standard access mode.",
+      "description": "The access mode of the instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConnectionString",
-      "description": "The internal endpoint of the database.\n\nThe endpoint format is `xxx.mysql.rds.aliyuncs.com`, where `xxx` is the prefix of the instance ID, such as rm-uf6wjk5***.",
+      "description": "The internal endpoint of the database.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CreateStrategy",
-      "description": "The batch instance creation strategy. This parameter takes effect only when the **Amount** parameter is greater than 1. Valid values:\n* **Atomicity** (default): Atomic. All instances in the same batch are created successfully, or none are created if any instance fails.\n* **Partial**: Non-atomic. The creation of each instance is not affected by other instances in the same batch.",
+      "description": "The strategy for batch instance creation. This parameter takes effect only when the value of **Amount** is greater than 1. Valid values:\n* **Atomicity** (default): atomic. All instances in the same batch are either created successfully or fail together. If one instance fails to be created, all instances fail.\n* **Partial**: non-atomic. The creation of an instance is not affected by other instances in the same batch.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -111,147 +111,147 @@
     },
     {
       "name": "DBInstanceClass",
-      "description": "The instance type. You can specify a standard or YiTian instance type. For more information, see [Primary instance types](~~26312~~).\n\nTo create a Serverless instance, use one of the following values:\n\n- MySQL Basic Edition: **mysql.n2.serverless.1c**\n- MySQL High-availability Edition: **mysql.n2.serverless.2c**\n- SQL Server: **mssql.mem2.serverless.s2**\n- PostgreSQL Basic Edition: **pg.n2.serverless.1c**\n- PostgreSQL High-availability Edition: **pg.n2.serverless.2c**",
+      "description": "The instance type. You can specify a standard or YiTian instance type. For more information, see [Primary instance types](~~26312~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBInstanceDescription",
-      "description": "The instance name. The name must be 2 to 255 characters in length. It must start with a Chinese character or an English letter, and can contain digits, Chinese characters, English letters, and hyphens (-).\n>The name cannot start with http:// or https://.",
+      "description": "The instance name. The name must be 2 to 255 characters in length. It must start with a letter or a Chinese character and can contain digits, Chinese characters, letters, and hyphens (-).\n>The name cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBInstanceNetType",
-      "description": "The network connectivity type of the instance. The value is fixed as **Intranet**, which indicates an internal network connection.",
+      "description": "The network connectivity type of the instance. Set the value to **Intranet**, which indicates an internal network connection.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "DBInstanceStorage",
-      "description": "Instance storage capacity of the instance, in GB. Instance storage capacity increases in increments of 5 GB. For the valid values, see [Instance specifications](~~26312~~).",
+      "description": "The instance storage space. Unit: GB. The value increases in increments of 5 GB. For the value range, see [Instance types](~~26312~~).",
       "position": "Query",
       "type": "Integer",
       "required": true
     },
     {
       "name": "DBInstanceStorageType",
-      "description": "The storage type of the instance. Valid values:\n* **local_ssd**: instance with Premium Local SSDs (recommended).\n* **general_essd**: Premium ESSD (recommended).\n* **cloud_essd**: PL1 ESSD.\n* **cloud_essd2**: PL2 ESSD.\n* **cloud_essd3**: PL3 ESSD.\n* **cloud_ssd**: standard SSD (not recommended; no longer available for purchase in some regions).\n\nThe default value of this parameter is automatically determined based on the instance type code specified in the **DBInstanceClass** parameter:\n* If the instance type code corresponds to an instance with Premium Local SSDs, the default value is **local_ssd**.\n* If the instance type code corresponds to a cloud disk instance, the default value is **cloud_essd**.\n\n> Serverless ApsaraDB RDS instances support only PL1 ESSDs and Premium ESSDs.",
+      "description": "The storage type of the instance. Valid values:\n* **local_ssd**: Premium Local SSD (recommended).\n* **general_essd**: Premium ESSD (recommended).\n* **cloud_essd**: ESSD PL1.\n* **cloud_essd2**: ESSD PL2.\n* **cloud_essd3**: ESSD PL3.\n* **cloud_ssd**: standard SSD (not recommended because this storage type is no longer available for purchase in some regions).\n\nThe default value of this parameter is automatically determined based on the instance type specified by the **DBInstanceClass** parameter:\n* If the instance type is a Premium Local SSD instance type, the default value is **local_ssd**.\n* If the instance type is a cloud disk instance type, the default value is **cloud_essd**.\n\n> Serverless instances support only ESSD PL1 and Premium ESSD.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBIsIgnoreCase",
-      "description": "Specifies whether table names are case-insensitive. Valid values:\n* **true**: Table names are case-insensitive (default).\n* **false**: Table names are case-sensitive.",
+      "description": "Specifies whether table names are case-insensitive. Valid values:\n* **true**: Case-insensitive. This is the default value.\n* **false**: Case-sensitive.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBParamGroupId",
-      "description": "The ID of the parameter template. You can call DescribeParameterGroups to query the parameter template ID.\n> Only MySQL and PostgreSQL support this parameter. If you do not configure this parameter, the system default parameter template is used. You can also create a custom parameter template and specify it here.",
+      "description": "The ID of the parameter template. You can call DescribeParameterGroups to query parameter templates.\n> Only MySQL and PostgreSQL support this parameter. If you do not specify this parameter, the system default parameter template is used. You can also create a custom parameter template and specify it here.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DBTimeZone",
-      "description": "The time zone of the instance. This parameter takes effect only when **Engine** is set to **MySQL** or **PostgreSQL**.\n\n- **Engine** is set to **MySQL**:\n    - This parameter configures the UTC time zone. Valid values: **-12:59** to **+13:00**.\n    - Instances with Premium Local SSDs support named time zones, such as Asia/Hong_Kong. For more information about named time zones, see [Named time zone reference](~~297356~~).\n- **Engine** is set to **PostgreSQL**:\n    - This parameter configures a named time zone. UTC time zones are not supported. For more information about named time zones, see [Named time zone reference](~~297356~~).\n    - This parameter can be configured only when the instance uses cloud disks.\n\n> - You can set the time zone when purchasing a primary instance. Read-only instances do not support custom time zones and inherit the time zone of the primary instance.\n> - If you do not configure this parameter, the system selects a default time zone based on the region where the instance is purchased.",
+      "description": "The time zone of the instance. This parameter takes effect only when **Engine** is set to **MySQL** or **PostgreSQL**.\n\n- If **Engine** is set to **MySQL**:\n    - This parameter specifies a UTC time zone. Valid values: **-12:59** to **+13:00**.\n    - Instances with Premium Local SSDs can use named time zones, such as Asia/Hong_Kong. For more information about named time zones, see [Named time zone reference](~~297356~~).\n- If **Engine** is set to **PostgreSQL**:\n    - This parameter specifies a named time zone. UTC time zones are not supported. For more information about named time zones, see [Named time zone reference](~~297356~~).\n    - This parameter can be configured only for PostgreSQL instances with cloud disks.\n\n> - You can set the time zone when you purchase a primary instance. Read-only instances do not support time zone settings and inherit the time zone of the primary instance.\n> - If you do not configure this parameter, the system selects the default time zone based on the region in which you purchase the instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DedicatedHostGroupId",
-      "description": "The ID of the dedicated cluster host group.\n\nRequired when creating an RDS instance in a dedicated cluster.\n\n- Call the DescribeDedicatedHostGroups operation to query RDS host group information.\n- If you have not created an RDS host group, call the CreateDedicatedHostGroup operation to create one.",
+      "description": "The dedicated cluster host group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeletionProtection",
-      "description": "Specifies whether to enable the RDS deletion protection feature. This parameter is supported only for pay-as-you-go instances. Valid values:\n* **true**: Enabled.\n* **false**: Disabled (default).",
+      "description": "Specifies whether to enable the release protection feature for the ApsaraDB RDS instance. This feature is supported only for pay-as-you-go instances. Valid values:\n* **true**: Enabled.\n* **false**: Disabled (default).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run for this operation. Valid values:\n* **true**: Performs a dry run without creating the instance. The dry run checks request parameters, request format, business limits, and resource availability.\n* **false**: Sends a normal request and creates the instance after the check passes (default).",
+      "description": "Specifies whether to perform a dry run for this request. Valid values:",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EncryptionKey",
-      "description": "The ID of the key used for cloud disk encryption in the same region. Specifying this parameter enables cloud disk encryption (which cannot be disabled after it is enabled) and requires you to also specify **RoleARN**.\n\nYou can view the key ID in the Key Management Service console, or create a new key. For more information, see [Create a key](~~181610~~).\n\n> - For RDS MySQL, RDS PostgreSQL, and RDS SQL Server, you do not need to specify this parameter. You only need to specify **RoleARN** to create a cloud disk encryption instance using a service key.\n> - To use RAM authorization to require that RAM users must enable cloud disk encryption when creating instances (instances cannot be created without cloud disk encryption enabled), configure the RAM user authorization as follows:\n`{\"Version\":\"1\",\"Statement\":[{\"Effect\":\"Deny\",\"Action\":\"rds:CreateDBInstance\",\"Resource\":\"*\",\"Condition\":{\"StringEquals\":{\"rds:DiskEncryptionRequired\":\"false\"}}}]}`\n><warning>This configuration also affects the CreateOrder operation for creating instances in the console.></warning>",
+      "description": "The ID of the encryption key that is used for cloud disk encryption in the same region. If you specify this parameter, cloud disk encryption is enabled and cannot be disabled. You must also specify **RoleARN**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Engine",
-      "description": "The database engine type. Valid values:\n* **MySQL**\n* **SQLServer**\n* **PostgreSQL**\n* **MariaDB**",
+      "description": "The database engine. Valid values:\n* **MySQL**\n* **SQLServer**\n* **PostgreSQL**\n* **MariaDB**",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EngineVersion",
-      "description": "The database engine version. Valid values:\n* Regular instances\n    * MySQL: **5.5**, **5.6**, **5.7**, **8.0**\n    * SQL Server: **08r2_ent_ha** (cloud disk, discontinued), **2008r2** (Premium Local SSD, discontinued), **2012** (Enterprise Edition, single-node), **2012_ent_ha**, **2012_std_ha**, **2012_web**, **2014_ent_ha**, **2014_std_ha**, **2016_ent_ha**, **2016_std_ha**, **2016_web**, **2017_ent**, **2017_std_ha**, **2017_web**, **2019_ent**, **2019_std_ha**, **2019_web**, **2022_ent**, **2022_std_ha**, **2022_web**, **2025_ent**, **2025_std**\n    * PostgreSQL: **10.0**, **11.0**, **12.0**, **13.0**, **14.0**, **15.0**, **16.0**, **17.0**, **18.0**\n    * MariaDB: **10.3**, **10.6**\n* Serverless instances\n    * MySQL: **5.7**, **8.0**\n    * SQL Server: **2016\\_std\\_sl**, **2017\\_std\\_sl**, **2019\\_std\\_sl**\n    * PostgreSQL: **14.0**, **15.0**, **16.0**, **17.0**, **18.0**\n\n> - MariaDB does not support Serverless instances.\n> - For SQL Server instances, `_ent` indicates Enterprise Cluster Edition, `_ent_ha` indicates Enterprise Edition, `_std_ha` indicates Standard Edition, and `_web` indicates Web Edition.\n> - SQL Server 2014 instances are not available on the Alibaba Cloud International Website.\n> - Babelfish for RDS PostgreSQL instances support only major version 15.0.",
+      "description": "The database engine version. Valid values:\n\n* Regular instances\n    * MySQL: **5.5**, **5.6**, **5.7**, **8.0**\n    * SQL Server: **08r2_ent_ha** (cloud disk, discontinued), **2008r2** (Premium Local SSDs, discontinued), **2012** (Enterprise Edition Basic), **2012_ent_ha**, **2012_std_ha**, **2012_web**, **2014_ent_ha**, **2014_std_ha**, **2016_ent_ha**, **2016_std_ha**, **2016_web**, **2017_ent**, **2017_std_ha**, **2017_web**, **2019_ent**, **2019_std_ha**, **2019_web**, **2022_ent**, **2022_std_ha**, **2022_web**, **2025_ent**, **2025_std**\n    * PostgreSQL: **10.0**, **11.0**, **12.0**, **13.0**, **14.0**, **15.0**, **16.0**, **17.0**, **18.0**\n    * MariaDB: **10.3**, **10.6**\n* Serverless instances\n    * MySQL: **5.7**, **8.0**\n    * SQL Server: **2016\\_std\\_sl**, **2017\\_std\\_sl**, **2019\\_std\\_sl**\n    * PostgreSQL: **14.0**, **15.0**, **16.0**, **17.0**, **18.0**\n\n> - MariaDB does not support serverless instances.\n> - In SQL Server instance versions, `_ent` indicates Enterprise Cluster Edition, `_ent_ha` indicates Enterprise Edition, `_std_ha` indicates Standard Edition, and `_web` indicates Web Edition.\n> - SQL Server 2014 instances are not available on the China site (Chinese mainland).\n> - Babelfish for RDS PostgreSQL instances support only major version 15.0.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ExternalReplication",
-      "description": "Specifies whether to enable [RDS MySQL native replication](~~2856526~~). Valid values:\n- **ON**: Enabled.\n- **OFF**: Disabled.",
+      "description": "Enables or disables [native replication for ApsaraDB RDS for MySQL](~~2856526~~). Valid values:\n- **ON**: Enabled.\n- **OFF**: Disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "InstanceNetworkType",
-      "description": "The network type of the instance. Valid values:\n\n* **VPC**: virtual private cloud.\n* **Classic**: classic network.\n\n> * MySQL cloud disk instances support only VPCs. Set this parameter to **VPC**.\n> * PostgreSQL and MariaDB instances support only VPCs. Set this parameter to **VPC**.\n> * SQL Server Basic Edition and Web Edition instances support both classic networks and VPCs. All other instances support only VPCs. Set this parameter to **VPC**.",
+      "description": "The network type of the instance. Valid values:\n\n* **VPC**: virtual private cloud (VPC).\n* **Classic**: classic network.\n\n> * ApsaraDB RDS for MySQL instances with cloud disks support only VPC. Set this parameter to **VPC**.\n> * ApsaraDB RDS for PostgreSQL and MariaDB instances support only VPC. Set this parameter to **VPC**.\n> * ApsaraDB RDS for SQL Server Basic Edition and Web Edition instances support both the classic network and VPC. Other instances support only VPC. Set this parameter to **VPC**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "IoAccelerationEnabled",
-      "description": "Specifies whether to enable the [Buffer Pool Extension (BPE)](~~2527067~~) feature for Premium ESSDs. Valid values:\n\n - **1**: Enabled.\n - **0**: Disabled.",
+      "description": "Specifies whether to enable the [Buffer Pool Extension (BPE)](~~2527067~~) feature for Premium ESSDs. Valid values:\n\n- **1**: Enabled.\n- **0**: Not enabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OptimizedWrites",
-      "description": "The switch for the [16KB atomic write](~~2858761~~) feature. Valid values:\n\n- **optimized**: Enabled.\n- **none** (default): Disabled.",
+      "description": "Specifies whether to enable the [16KB atomic write](~~2858761~~) feature. Valid values:\n\n- **optimized**: enabled.\n- **none** (default): disabled.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PayType",
-      "description": "The billing method of the instance. Valid values:\n- **Postpaid**: pay-as-you-go.\n- **Prepaid**: subscription.\n- **Serverless**: Serverless billing method. MariaDB instances do not support this billing method. For more information, see [Introduction to MySQL Serverless instances](~~411291~~), [Introduction to SQL Server Serverless instances](~~604344~~), and [Introduction to PostgreSQL Serverless instances](~~607742~~).\n>The system automatically generates an order and completes the payment. No manual payment confirmation is required.",
+      "description": "The billing method of the instance. Valid values:\n- **Postpaid**: pay-as-you-go.\n- **Prepaid**: subscription.\n- **Serverless**: serverless billing method. This value is not supported for MariaDB instances. For more information, see [Introduction to MySQL Serverless instances](~~411291~~), [Introduction to SQL Server Serverless instances](~~604344~~), and [Introduction to PostgreSQL Serverless instances](~~607742~~).\n>The system automatically generates and completes the payment for the order. You do not need to manually confirm the payment.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Period",
-      "description": "Specifies whether the subscription instance is billed on a yearly or monthly basis. Valid values:\n* **Year**: yearly.\n* **Month**: monthly.\n\n> This parameter is required if the billing method is **Prepaid**.",
+      "description": "Specifies whether the subscription instance uses a yearly or monthly billing cycle. Valid values:\n\n* **Year**: yearly subscription.\n* **Month**: monthly subscription.\n\n> This parameter is required if the billing type is **Prepaid**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Port",
-      "description": "Specifies the port to initialize when creating an RDS instance. Valid values:\n- MySQL: 1000 to 65534\n- PostgreSQL, SQL Server, and MariaDB: 1000 to 5999",
+      "description": "Specifies the port number to initialize when the RDS instance is created. Valid values:\n- MySQL: 1000 to 65534\n- PostgreSQL, SQL Server, and MariaDB: 1000 to 5999",
       "position": "Query",
       "type": "String",
       "required": false
@@ -286,42 +286,42 @@
     },
     {
       "name": "RoleARN",
-      "description": "The Alibaba Resource Name (ARN) of the RAM role that grants the RDS service account access to KMS. You can call the CheckCloudResourceAuthorized operation to retrieve the ARN.\n><notice>When you enable cloud disk encryption, you must specify **RoleARN**.></notice>",
+      "description": "The global resource descriptor (ARN) that is used for the authorization of the primary account to allow the RDS service account to access Key Management Service (KMS). You can call the CheckCloudResourceAuthorized operation to query the ARN.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityIPList",
-      "description": "The [IP whitelist](~~43185~~) of the instance. Separate multiple entries with commas (,). Duplicate entries are not allowed. You can add up to 1,000 IP addresses or CIDR blocks per instance. The following formats are supported:\n* IP address format, for example: 10.10.XX.XX.\n* CIDR format, for example: 10.10.XX.XX/24 (Classless Inter-Domain Routing, where 24 indicates the prefix length of the address and the valid range is 1 to 32).",
+      "description": "The [IP address whitelist](~~43185~~) of the instance. Separate multiple entries with commas (,). Entries cannot be duplicated. You can add up to 1,000 IP addresses or CIDR blocks per instance. The following two formats are supported:",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ServerlessConfig",
-      "description": "The settings for a serverless ApsaraDB RDS instance. Required when creating a serverless instance.\n>MariaDB does not support serverless instances.",
+      "description": "The settings of the serverless ApsaraDB RDS instance. This parameter is required when you create a serverless instance.\n>MariaDB does not support the creation of serverless instances.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageAutoScale",
-      "description": "Specifies whether to enable automatic storage expansion. Only MySQL and PostgreSQL support this parameter. Valid values:\n* **Enable**: Enabled.\n* **Disable**: Disabled (default).\n\n>You can also call ModifyDasInstanceConfig to adjust this setting after the instance is created. For more information, see [Configure automatic storage expansion](~~173826~~).",
+      "description": "Specifies whether to enable automatic storage expansion. This parameter is supported only for MySQL and PostgreSQL. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageThreshold",
-      "description": "The threshold (percentage) that triggers automatic storage expansion. Valid values:\n* **10**\n* **20**\n* **30**\n* **40**\n* **50**\n\n>This parameter is required when **StorageAutoScale** is set to **Enable**.",
+      "description": "The threshold (in percentage) that triggers automatic storage expansion. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "StorageUpperBound",
-      "description": "The maximum total storage capacity for automatic storage expansion. Automatic storage expansion does not cause the total storage capacity of the instance to exceed this value. Unit: GB.\n\n> - The value must be greater than or equal to 0.\n> - Required when **StorageAutoScale** is set to **Enable**.",
+      "description": "The maximum total storage capacity for automatic storage expansion. Automatic expansion does not cause the total storage capacity of the instance to exceed this value. Unit: GB.\n\n> - The value must be greater than or equal to 0.\n> - This parameter is required when **StorageAutoScale** is set to **Enable**.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -342,14 +342,14 @@
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The tag key. Specifying this parameter binds a tag to the instance.\n\n* If the specified tag key already exists, the tag key is directly bound to the instance. You can call ListTagResources to query existing tags.\n* If the specified tag key does not exist, it is created and then bound to the instance.\n* Empty strings are not allowed.\n* This parameter must be used together with the **Tag.Value** parameter.",
+          "description": "The tag key. Specify this parameter to bind a tag to the instance.\n\n* If the specified tag key already exists, the tag key is directly bound to the instance. Call ListTagResources to query existing tags.\n* If the specified tag key does not exist, the tag key is created and then bound to the instance.\n* Empty strings are not allowed.\n* This parameter must be used together with the **Tag.Value** parameter. Neither parameter can be used alone.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The tag value that corresponds to the tag key. Specify this parameter to attach a tag to the instance.\n\n* If the tag value already exists under the corresponding tag key, the tag value is directly attached to the instance. You can call ListTagResources to query existing tags.\n* If the tag value does not exist under the corresponding tag key, the tag value is created and then attached to the instance.\n* This parameter must be used together with the **Tag.Key** parameter and cannot be used alone.",
+          "description": "The tag value that corresponds to the tag key. Specify this parameter to bind a tag to the instance.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -358,77 +358,77 @@
     },
     {
       "name": "TargetDedicatedHostIdForLog",
-      "description": "The ID of the host for the log instance in the dedicated cluster.\n\nThis parameter is required when you create an RDS Enterprise Edition instance in a dedicated cluster. If you do not specify this parameter, the system automatically assigns a host.\n\n- You can call the DescribeDedicatedHosts operation to query the host information in an RDS dedicated cluster.\n- If you do not have a host, you can call the CreateDedicatedHost operation to add one.",
+      "description": "The host ID of the log instance in the dedicated cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetDedicatedHostIdForMaster",
-      "description": "The host ID for the primary instance in a dedicated cluster.\n\nRequired when creating an RDS instance in a dedicated cluster. If you do not specify this parameter, the system automatically assigns a host.\n\n- Call DescribeDedicatedHosts to query host information in an RDS host group.\n- If you have no hosts, call CreateDedicatedHost to add one.",
+      "description": "The host ID of the primary instance in the dedicated cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetDedicatedHostIdForSlave",
-      "description": "The host ID of the secondary instance in the dedicated cluster.\n\nRequired when you create an RDS High Availability Edition or RDS Enterprise Edition instance in a dedicated cluster. If you do not specify this parameter, the system automatically assigns a host.\n\n- You can call the DescribeDedicatedHosts operation to query the host information in an RDS dedicated cluster.\n- If you do not have a host, call the CreateDedicatedHost operation to add one.",
+      "description": "The host ID of the secondary instance in the dedicated cluster.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TargetMinorVersion",
-      "description": "The minor engine version of the RDS instance to create. This parameter is required only when you create a MySQL or PostgreSQL instance.\nFormat:\n* MySQL: `<instance version>_<numeric version number>`. Examples: `rds_20200229`, `xcluster_20200229`, or `xcluster80_20200229`. Description:\n    * rds: High-availability Edition or Basic Edition.\n    * xcluster: MySQL 5.7 RDS Enterprise Edition.\n    * xcluster80: MySQL 8.0 RDS Enterprise Edition.\n\n    > You can query the numeric version number by calling the DescribeDBMiniEngineVersions operation. For differences between versions, see [AliSQL minor version release notes](~~96060~~).\n* PostgreSQL: `rds_postgres_<major version>00_<minor version number>`. Example: `rds_postgres_1400_20220830`. Description:\n    * 1400: PostgreSQL major version 14.\n    * 20220830: AliPG minor engine version. You can query this value by calling the DescribeDBMiniEngineVersions operation. For differences between versions, see [PostgreSQL minor version release notes](~~126002~~).\n\n    > If Babelfish is enabled in **BabelfishConfig**, the minor engine version of the RDS PostgreSQL instance uses the following format: `rds_postgres_<major version>00_<AliPG minor engine version>_babelfish`.",
+      "description": "The minor engine version of the RDS instance to create. This parameter is required only when you create a MySQL or PostgreSQL instance.\nFormat:\n* MySQL: `<instance version>_<numeric version number>`. Examples: `rds_20200229`, `xcluster_20200229`, or `xcluster80_20200229`. Description:\n    * rds: High-availability Edition or Basic Edition.\n    * xcluster: MySQL 5.7 RDS Enterprise Edition.\n    * xcluster80: MySQL 8.0 RDS Enterprise Edition.\n\n    > You can call the DescribeDBMiniEngineVersions operation to query the numeric version number. For more information about the differences between versions, see [AliSQL minor version release notes](~~96060~~).\n* PostgreSQL: `rds_postgres_<major version>00_<minor version number>`. Example: `rds_postgres_1400_20220830`. Description:\n    * 1400: The PostgreSQL major version is 14.\n    * 20220830: The AliPG minor engine version. You can call the DescribeDBMiniEngineVersions operation to query this value. For more information about the differences between versions, see [PostgreSQL minor version release notes](~~126002~~).\n\n    > If Babelfish is enabled in **BabelfishConfig**, the minor version format for the RDS PostgreSQL instance is: `rds_postgres_<major version>00_<AliPG minor engine version>_babelfish`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UsedTime",
-      "description": "The subscription duration. Valid values:\n* When **Period** is set to **Year**, the valid values of **UsedTime** are **1** to **5**.\n* When **Period** is set to **Month**, the valid values of **UsedTime** are **1** to **11**.\n\n> This parameter is required if the billing method is **Prepaid**.",
+      "description": "The subscription duration. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "UserBackupId",
-      "description": "The user backup ID. You can call the ListUserBackupFiles operation to query the ID. If you specify this parameter, an instance is created based on the user backup.\n\nIf you specify this parameter, the following limits apply:\n- **PayType** must be set to **Postpaid**.\n- **Engine** must be set to **MySQL**.\n- **EngineVersion** must be set to **5.7**.\n- **Category** must be set to **Basic**.",
+      "description": "The user backup ID. You can call the ListUserBackupFiles operation to query user backup IDs. If you specify this parameter, an instance is created based on the user backup.\n\nIf you specify this parameter, the following limits apply:\n- **PayType** must be set to **Postpaid**.\n- **Engine** must be set to **MySQL**.\n- **EngineVersion** must be set to **5.7**.\n- **Category** must be set to **Basic**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VPCId",
-      "description": "The VPC ID.\n>This parameter takes effect only when **InstanceNetworkType** is set to **VPC**.",
+      "description": "The virtual private cloud (VPC) ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch ID.\n\n- **Zone mapping**: The zone of the vSwitch specified by VSwitchId must correspond to the primary node zone (ZoneId) and the secondary node zone (ZoneIdSlave1). If you specify two vSwitch IDs, their order must match the order of ZoneId and ZoneSlaveId1 respectively.\n- **Network type requirement**: The network type specified by InstanceNetworkType must be **VPC**.\n- **Multiple vSwitch requirement**: If you specify ZoneSlaveId1 (secondary node zone ID) and the value is not **Auto**, you must specify two vSwitch IDs separated by a comma (,).\n- **Character restriction**: VSwitchId cannot contain special characters such as spaces, `!`, `#`, `￥`, `&`, or `%`.",
+      "description": "The vSwitch ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "WhitelistTemplateList",
-      "description": "The whitelist. When you need to configure multiple IP addresses, separate them with commas. Do not add spaces before or after the commas. Example: `192.168.0.1,172.16.213.9`.",
+      "description": "The whitelist template list.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the primary node.\n\n- If you specify a VPC and a vSwitch, you must set this parameter to the zone ID of the vSwitch. Otherwise, the instance cannot be created.\n- For High-availability Edition instances, you must also specify **ZoneIdSlave1** to determine whether the instance uses single-zone deployment or multi-zone deployment.\n- For RDS Enterprise Edition instances, you must also specify **ZoneIdSlave1** and **ZoneIdSlave2** to determine whether the instance uses single-zone deployment or multi-zone deployment.\n- For RDS Cluster Edition instances, two-node clusters require **ZoneIdSlave1**, and three-node clusters require both **ZoneIdSlave1** and **ZoneIdSlave2**.",
+      "description": "The zone ID of the primary node.\n\n- If you specify a VPC and a vSwitch, you must set this parameter to the zone ID of the specified vSwitch. Otherwise, the instance cannot be created.\n- For high-availability series instances, you must also specify **ZoneIdSlave1** to determine whether the instance is deployed in a single zone or across multiple zones.\n- For RDS Enterprise Edition instances, you must also specify **ZoneIdSlave1** and **ZoneIdSlave2** to determine whether the instance is deployed in a single zone or across multiple zones.\n- For RDS Cluster Edition instances, you must also specify **ZoneIdSlave1** for two-node clusters, or **ZoneIdSlave1** and **ZoneIdSlave2** for three-node clusters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneIdSlave1",
-      "description": "The zone ID of the secondary node.\n\n- If you set this parameter to **Auto**, the instance is deployed across multiple zones and a zone is automatically selected for the secondary node.\n- If this parameter is set to the same value as **ZoneId**, the instance is deployed in a single zone.\n- If this parameter is set to a different value from **ZoneId**, the instance is deployed across multiple zones.",
+      "description": "The zone ID of the secondary node.\n\n- If you set this parameter to **Auto**, the system uses multi-zone deployment and automatically selects a zone for the secondary node.\n- If you set this parameter to the same value as **ZoneId**, single-zone deployment is used.\n- If you set this parameter to a value different from **ZoneId**, multi-zone deployment is used.",
       "position": "Query",
       "type": "String",
       "required": false

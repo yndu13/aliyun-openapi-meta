@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AppQualityCheck",
-      "description": "Specifies whether the SDK enables strict face quality detection:\n\n- **Y**: enabled.\n\n- **N**: disabled (default).\n\n\n> \n> - If this parameter is enabled, the SDK must integrate the [strict face quality detection module](https://www.alibabacloud.com/help/en/id-verification/financial-grade-id-verification/description-of-sdk-package-clipping). Strict quality detection may reduce the face authentication success rate.\n> - Only Android SDK 2.3.24 and later versions are supported.",
+      "description": "Specifies whether the SDK enables strict face quality detection:\n\n- **Y**: Enabled.\n\n- **N**: Disabled (default).\n\n\n> \n> - If this parameter is enabled, the SDK must integrate the [strict face quality detection module](https://www.alibabacloud.com/help/en/id-verification/financial-grade-id-verification/description-of-sdk-package-clipping). Strict quality detection may reduce the face recognition success rate.\n> - Only Android SDK 2.3.24 and later versions are supported.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,7 +21,7 @@
     },
     {
       "name": "Birthday",
-      "description": "The date of birth on the certificate.\n\nThis field is required when **CertType** is set to **PASSPORT** and **Mode** is set to **3**.",
+      "description": "The date of birth on the certificate.\n\nThis field is required when the certificate type **CertType** is set to **PASSPORT** and **Mode** is set to **3**.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -35,14 +35,14 @@
     },
     {
       "name": "CallbackUrl",
-      "description": "The callback URL for the authentication result. The callback request method is GET by default, and the callback URL must start with `https`. After authentication is complete, the platform calls back this URL and automatically appends the `certifyId` and `passed` fields. The `passed` field returns the subcode value. Example: `https://www.alibabacloud.com?callbackToken=1000004826&certifyId=shaxxxx&passed=200.`\n\n<notice>\n\n- The callback is triggered only when authentication is complete (including both passed and failed). If the user abandons authentication, an abnormal break occurs, or authentication is not performed, no notification is sent. After receiving the callback notification, invoke the query operation to obtain authentication details if needed.\n- The URL is validated for public network access before the operation is invoked. If the URL is not accessible over the public network, a 401 error is returned.\n- After receiving the callback, return HTTP status code 200. Otherwise, a retry is triggered with two callbacks within 3 seconds.\n\n</notice>",
+      "description": "The callback notification URL for the authentication result. The default callback request method is GET, and the callback URL must start with `https`. After authentication is complete, the platform calls back this URL and automatically appends the `certifyId` and `passed` fields. The `passed` field returns the subcode value. Example: `https://www.aliyun.com?callbackToken=1000004826&certifyId=shaxxxx&passed=200.`\n\n<notice>\n\n- The callback is triggered only when authentication is complete (including both passed and failed). If authentication is abandoned, abnormally breaks, or is not performed, no notification is sent. After receiving the callback notification, you can use the query operation to obtain authentication details if needed.\n- The accessibility of the provided URL is verified before the operation is invoked. If the URL cannot be accessed through public network access, error 401 is returned.\n- After receiving the callback, your service must return HTTP status code 200. Otherwise, a retry is triggered with two callbacks within 3 seconds.\n\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CameraSelection",
-      "description": "Specifies whether to enable the camera selection feature:\n\n- **Y**: enabled.\n\n- **N**: disabled (default).\n\n> This feature takes effect only for PC integration mode. After this feature is enabled, users can select a camera for authentication.",
+      "description": "Specifies whether to enable the camera selection feature:\n\n- **Y**: Enabled.\n\n- **N**: Disabled (default).\n\n> This feature takes effect only for PC integration mode. After it is enabled, users can select a camera for authentication.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -70,14 +70,14 @@
     },
     {
       "name": "CertifyId",
-      "description": "><warning>This parameter will be deprecated.</warning>\n\nThe CertifyId from a previous successful ID Verification. The photo from that authentication is used as the comparison photo.\n\n> You can use one of the following four methods to submit a photo: FaceContrastPicture, FaceContrastPictureUrl, CertifyId, or OSS. Select only one method.",
+      "description": "><warning>This parameter will be deprecated.</warning>\n\nThe CertifyId from a previous successful ID Verification session. The photo from that authentication is used as the comparison photo.\n\n> Among the four image input methods (FaceContrastPicture, FaceContrastPictureUrl, CertifyId, and OSS), select only one.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CertifyUrlStyle",
-      "description": "The type of the returned **CertifyUrl**. Valid values:\n\n- **L**: original long URL.\n\n- **S** (default): short URL.",
+      "description": "The type of the returned **CertifyUrl**. Valid values:\n\n- **L**: Original long URL.\n\n- **S** (default): Short URL.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -91,34 +91,35 @@
     },
     {
       "name": "Crop",
-      "description": "Specifies whether to allow cropping of the face photo. By default, cropping is not allowed.\n\n- T: allows cropping.\n\n- F: does not allow cropping.\n\n> If the requested image is not captured by a standard liveness detection SDK, allow cropping of the face photo. After this feature is enabled, the requested image is cropped and corrected before the request is sent to the service.",
+      "description": "Specifies whether to allow cropping of face images. Cropping is not allowed by default.\n\n- T: Cropping is allowed.\n\n- F: Cropping is not allowed.\n\n> If the requested image is not captured by a standard liveness detection SDK, allow cropping of face images. After this feature is enabled, the requested image is first cropped and corrected before the request is sent to the service.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "EnableBeauty",
+      "description": "Specifies whether to enable beauty mode: Y/N.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EncryptType",
-      "description": "The encryption algorithm. Currently, only the SM2 algorithm is supported.\n\nAfter encrypted transmission is enabled, pass in the encrypted CertName and CertNo. For more information about encryption, refer to [Parameter encryption description](https://www.alibabacloud.com/help/en/id-verification/financial-grade-id-verification/description-of-parameter-encryption#task-2229332).",
+      "description": "The encryption algorithm. Currently, only the SM2 national cryptographic algorithm is supported.\n\nAfter encrypted transmission is enabled, pass in the encrypted CertName and CertNo. For encryption instructions, refer to [Parameter encryption description](https://www.alibabacloud.com/help/en/id-verification/financial-grade-id-verification/description-of-parameter-encryption#task-2229332).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FaceContrastPicture",
-      "description": "The Base64-encoded photo.\n\n> You can use one of the following four methods to submit a photo: FaceContrastPicture, FaceContrastPictureUrl, CertifyId, or OSS. Select only one method.",
+      "description": "The Base64-encoded photo.\n\n> Among the four image input methods (FaceContrastPicture, FaceContrastPictureUrl, CertifyId, and OSS), select only one.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "FaceContrastPictureUrl",
-      "description": "The OSS photo URL. Currently, only authorized OSS photo URLs are supported.\n\n> You can use one of the following four methods to submit a photo: FaceContrastPicture, FaceContrastPictureUrl, CertifyId, or OSS. Select only one method.",
+      "description": "The OSS photo URL. Currently, only authorized OSS photo URLs are supported.\n\n> Among the four image input methods (FaceContrastPicture, FaceContrastPictureUrl, CertifyId, and OSS), select only one.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -132,7 +133,7 @@
     },
     {
       "name": "H5DegradeConfirmBtn",
-      "description": "Specifies whether to display the \"I have completed authentication\" button on the H5 fallback page after authentication is complete:\n- **Y**: enabled.\n- **N** (default): disabled.",
+      "description": "Specifies whether to display the \"I have completed authentication\" button on the H5 degradation page after authentication is complete:\n- **Y**: Enabled.\n- **N** (default): Disabled.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -160,91 +161,91 @@
     },
     {
       "name": "Mode",
-      "description": "The method for obtaining passport NFC verification elements:\n\n- **1**: user input. The end user manually enters certificate element information using the UI provided by the Alibaba Cloud SDK.\n\n- **3**: external parameter input. Certificate element information is passed in externally.\n\n> To decode the encrypted information on the passport chip through NFC, three passport elements are required: name, date of birth, and certificate expiration date.",
+      "description": "The method for obtaining passport NFC verification elements:\n\n- **1**: User input. The end user manually enters certificate element information using the UI provided by the Alibaba Cloud SDK.\n\n- **3**: External parameter input. Certificate element information is passed in externally.\n\n> NFC decoding of passport chip encrypted information requires three passport elements: name, date of birth, and certificate expiration date.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Model",
-      "description": "The liveness detection type. Valid values:\n> The liveness detection type supports only the following values. Custom actions or combinations are not supported.\n\nNote:\nThe liveness detection type supports only the following values. Custom actions or combinations are not supported.\n\n- **LIVENESS** (default): blink\n\n- **PHOTINUS_LIVENESS**: blink + colorful light\n\n- **MULTI_ACTION**: blink + head shake (the order of blink and head shake is random)\n\n- **MOVE_ACTION** (recommended): move closer/farther + blink\n\n- **MOVE_PHOTINUS**: move closer/farther + colorful light\n\n> \n>- **The default liveness detection type** is supported in the following versions:\n>   - Android SDK 1.2.6 and later\n>   - iOS SDK 1.2.4 and later\n>   - Harmony SDK 1.0.0 and later\n>- Other types are supported in the latest Android/iOS/Harmony SDK versions. Integrate the latest version.",
+      "description": "The liveness detection type. Valid values:\n> The liveness detection type supports only the following values. Custom actions or combinations are not supported.\n\nNote:\nThe liveness detection type supports only the following values. Custom actions or combinations are not supported.\n\n- **LIVENESS** (default): Blink.\n\n- **PHOTINUS_LIVENESS**: Blink + colorful light.\n\n- **MULTI_ACTION**: Blink + head shake (the order of blink and head shake is random).\n\n- **MOVE_ACTION** (recommended): Move closer/farther + blink.\n\n- **MOVE_PHOTINUS**: Move closer/farther + colorful light.\n\n> \n>- **The default liveness detection type** is supported in the following versions:\n>   - Android SDK 1.2.6 and later\n>   - iOS SDK 1.2.4 and later\n>   - Harmony SDK 1.0.0 and later\n>- Other types are supported in the latest Android/iOS/Harmony SDK versions. Integrate the latest version.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "NeedMultiFaceCheck",
-      "description": "Specifies whether to block authentication when multiple faces are detected on the device. Valid values:\n\n- **Y**: blocked. The client prompts the user to redo face authentication.\n\n- **N** (default): not blocked. The largest face in the frame is sent to the server for security detection.",
+      "description": "Specifies whether to block authentication when multiple faces are detected on the device. Valid values:\n\n- **Y**: Block. The client prompts the user to redo face recognition.\n\n- **N** (default): Do not block. The largest face in the frame is sent to the server for security detection.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OssBucketName",
-      "description": "The bucket name of the authorized OSS space.\n\n> You can use one of the following four methods to submit a photo: FaceContrastPicture, FaceContrastPictureUrl, CertifyId, or OSS. Select only one method.",
+      "description": "The bucket name of the authorized OSS space.\n\n> Among the four image input methods (FaceContrastPicture, FaceContrastPictureUrl, CertifyId, and OSS), select only one.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OssObjectName",
-      "description": "The file name in the authorized OSS space.\n\n> You can use one of the following four methods to submit a photo: FaceContrastPicture, FaceContrastPictureUrl, CertifyId, or OSS. Select only one method.",
+      "description": "The file name in the authorized OSS space.\n\n> Among the four image input methods (FaceContrastPicture, FaceContrastPictureUrl, CertifyId, and OSS), select only one.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OuterOrderNo",
-      "description": "The unique identifier of the merchant request.\n\nThe value is a 32-character alphanumeric string. The first few characters are a custom abbreviation defined by the merchant, the middle part can be a time segment, and the last part can be a random or incremental sequence.",
+      "description": "The unique identifier of the merchant request.\n\nThe value is a 32-character alphanumeric string. The first few characters are a custom abbreviation defined by the merchant, the middle part can use a time segment, and the last part can use a random or incremental sequence.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProcedurePriority",
-      "description": "The fallback configuration when WebRTC or WebAssembly is incompatible during mobile H5 authentication.\n\n- **keep**: fallback is not supported. The system returns directly.\n\n- **url** (default): fallback is supported. An authentication URL is returned. The user opens or switches to a browser to authenticate using this URL.\n\n- **video**: fallback is supported. The system camera records a 3 to 5 second blink video for authentication.\n\n\n> \n> When the fallback mode is Video, the following features are disabled and product security is reduced. Configure this mode only for security scenarios.\n> - The liveness detection type setting does not take effect.\n> - The VideoEvidence feature is not supported.",
+      "description": "The degradation configuration when WebRTC or WebAssembly incompatibility occurs during mobile H5 authentication.\n\n- **keep**: Degradation is not supported. The system returns directly.\n\n- **url** (default): Degradation is supported. An authentication URL is returned. The user opens or switches to a browser to authenticate using this URL.\n\n- **video**: Degradation is supported. The system camera is used to record a 3-5 second blink video for authentication.\n\n\n> \n> When the degradation mode is Video, the following features become ineffective and product security is reduced. Configure this mode only for security scenarios.\n> - The liveness detection type setting does not take effect.\n> - The VideoEvidence feature is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProductCode",
-      "description": "A fixed value. This parameter varies depending on the product plan:\n- APP authentication plan: set to ID_PRO.\n- Face liveness verification plan: set to PV_FV.\n- Liveness detection plan: set to LR_FR.",
+      "description": "A fixed value. This parameter varies depending on the product plan:\n- APP authentication plan: The fixed value is ID_PRO.\n- Face liveness verification plan: The fixed value is PV_FV.\n- Liveness detection plan: The fixed value is LR_FR.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RarelyCharacters",
-      "description": "Specifies whether to enable the rare character mode:\n\n- **Y**: enabled. An information input box is displayed before authentication. The user must enter the name with rare characters and the ID card number, and agree to the protocol before starting the authentication process.\n\n- **N**: disabled (default).",
+      "description": "Specifies whether to enable the rare character mode:\n\n- **Y**: Enabled. An information input box pops up before authentication, requiring the user to enter the rare character name and ID card number and agree to the agreement before starting the authentication process.\n\n- **N**: Disabled (default).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReadImg",
-      "description": "Specifies whether to read the certificate photo:\n\n- **Y**: read.\n\n- **N**: do not read.\n\n> If the certificate face photo is needed in subsequent authentication steps, set this parameter to Y.",
+      "description": "Specifies whether to read the certificate photo:\n\n- **Y**: Read.\n\n- **N**: Do not read.\n\n> If the certificate face photo is needed in subsequent authentication steps, set this parameter to Y.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ReturnUrl",
-      "description": "The redirect URL for the merchant business page.",
+      "description": "The target URL to which the merchant business page redirects.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SceneId",
-      "description": "The authentication scenario ID.",
+      "description": "The authentication scene ID.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "SuitableType",
-      "description": "The elderly-friendly configuration parameter. This parameter takes effect for each authentication request. You can select different parameters for each authentication request based on the business attributes, customer distribution, and operational characteristics of your app. Valid values (default: 0):\n\n- **0**: disabled. The elderly-friendly mode is not enabled for the current authentication request.\n\n- **1**: enabled. The elderly-friendly mode is enabled for the current authentication request.\n\n- **2**: user choice.\n\n\nAllows the end user to select the authentication mode. The product guide page provides two authentication entries: \"Start Authentication\" and \"Elderly Authentication Mode\". When the user selects \"Elderly Authentication Mode\", the system enters elderly-friendly mode.\n> \n> - The elderly-friendly parameter takes effect only when the liveness detection type **Model** is set to **LIVENESS** or **MULTI_ACTION**.",
+      "description": "The elderly-friendly configuration parameter. This parameter takes effect for each authentication request. You can select different parameters for each authentication request based on the business attributes, customer distribution, and operational characteristics of your app. Valid values:\n\n- **0** (default): Disabled. The current authentication request does not enable elderly-friendly mode.\n\n- **1**: Enabled. The current authentication request enables elderly-friendly mode.\n\n- **2**: User choice.\n\n\nAllows end users to select the authentication mode. The product guide page provides two authentication entries: \"Start Authentication\" and \"Senior Authentication Mode\". When the user selects \"Senior Authentication Mode\", the system enters elderly-friendly mode.\n> \n> - The elderly-friendly parameter takes effect only when the liveness detection type **Model** is set to **LIVENESS** or **MULTI_ACTION**.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -265,21 +266,21 @@
     },
     {
       "name": "ValidityDate",
-      "description": "The certificate expiration date.\n\nThis field is required when **CertType** is set to **PASSPORT** and **Mode** is set to **3**.",
+      "description": "The certificate expiration date.\n\nThis field is required when the certificate type **CertType** is set to **PASSPORT** and **Mode** is set to **3**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VideoEvidence",
-      "description": "Specifies whether to enable video evidence:\n\n- **true**: enabled.\n\n- **false**: disabled (default).\n\n> Because video files are large, the system discards video files to prioritize the transmission of essential authentication images when the network is unstable. Set video as a weak dependency in your business logic.",
+      "description": "Specifies whether to enable video evidence:\n\n- **true**: Enabled.\n\n- **false**: Disabled (default).\n\n> Because video files are large, the system discards video files to prioritize the transmission of essential authentication images when the network is unstable. Set video as a weak dependency in your business logic.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VoluntaryCustomizedContent",
-      "description": "The custom voluntary content. This parameter is required when personalized settings are enabled. The format is a JSON string of a String List.\n\n- For read-aloud scenarios: the content cannot exceed 60 Chinese characters (excluding punctuation), and the List contains only 1 element.\n\n- For Q&A scenarios: a maximum of 3 questions can be set. Each question cannot exceed 30 Chinese characters, and each question is a separate element in the List.",
+      "description": "The custom voluntary content. This parameter is required when personalized settings are enabled. The format is a JSON string of a String List.\n\n- For read-aloud scenarios: The content cannot exceed 60 Chinese characters (excluding punctuation), and the List contains only 1 element.\n\n- For Q&A scenarios: A maximum of 3 questions can be set. Each question cannot exceed 30 Chinese characters. Each question is a separate element in the List.",
       "position": "Query",
       "type": "String",
       "required": false

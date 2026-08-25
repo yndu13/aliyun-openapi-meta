@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "APIVersion",
-      "description": "The parameter used for canary release evaluation.",
+      "description": "The identifier used for canary release evaluation.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -59,6 +59,13 @@
       "required": false
     },
     {
+      "name": "FacetType",
+      "description": "The facet dimension for associated filtering in the data catalog. Valid values: rule (category), task (task), instance (instance), and db (database). If this parameter is not specified or is empty, the original list and count query is performed (behavior unchanged). If a valid value is specified, the list query is skipped and only content.hitValues is returned. If an invalid value is specified, a parameter error is returned.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "FeatureType",
       "description": "**[Deprecated]** This parameter is deprecated.",
       "position": "Query",
@@ -74,7 +81,7 @@
     },
     {
       "name": "FileType",
-      "description": "The OSS file type that can be detected.",
+      "description": "The OSS file type supported for detection.\n\n> You can call [DescribeDocTypes](~~2536492~~) to obtain the supported OSS file types. Use the Code field value from the response. This parameter is valid only for OSS asset queries.",
       "position": "Query",
       "type": "Long",
       "required": false
@@ -87,8 +94,15 @@
       "required": false
     },
     {
+      "name": "IsRevision",
+      "description": "Specifies whether to filter revision items.",
+      "position": "Query",
+      "type": "Integer",
+      "required": false
+    },
+    {
       "name": "Lang",
-      "description": "The language of the request and response. Default value: **zh_cn**. Valid values:\n\n- **zh_cn**: Chinese.\n- **en_us**: English.",
+      "description": "The language of the request and response. Default value: **zh_cn**. Valid values:\n- **zh_cn**: Chinese.\n- **en_us**: English.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -102,7 +116,7 @@
     },
     {
       "name": "LogStoreFlag",
-      "description": "Specifies whether to query data at the Logstore dimension. The SLS page in the data catalog has two layers, and this parameter determines whether the query targets Logstore-level data.",
+      "description": "The data catalog SLS page has two layers. This parameter indicates whether the query is at the Logstore dimension.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -116,14 +130,14 @@
     },
     {
       "name": "ModelIds",
-      "description": "The model IDs of the industry template. Separate multiple IDs with commas.\n> You can call [DescribeTemplateAllRules](~~2536491~~) to obtain the model IDs of the industry template.",
+      "description": "The model IDs of the industry template, separated by commas.\n> You can call [DescribeTemplateAllRules](~~2536491~~) to obtain the industry template model IDs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModelTagIds",
-      "description": "The data tags to query, separated by commas. Valid values:",
+      "description": "The data tags to query, separated by commas. Valid values:\n- **101**: personal sensitive information.\n- **102**: personal information.\n- **107**: general information.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -137,7 +151,7 @@
     },
     {
       "name": "ParentCategoryIds",
-      "description": "The parent category IDs of the templates to query, separated by commas.",
+      "description": "The list of parent category IDs of the templates to query, separated by commas.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -158,7 +172,7 @@
     },
     {
       "name": "ProductIds",
-      "description": "We recommend that you specify this parameter. The IDs of the products to query. Separate multiple IDs with commas. Valid values:\n- **1**: MaxCompute\n- **2**: OSS\n- **3**: ADB-MYSQL\n- **4**: TableStore\n- **5**: RDS\n- **6**: SELF_DB\n- **7**: PolarDB-X\n- **8**: PolarDB\n- **9**: ADB-PG\n- **10**: OceanBase\n- **11**: MongoDB\n- **25**: Redis\n\n> OSS is mutually exclusive with other products. If OSS is included in the query, no other products can be specified. By default, non-OSS products are queried.",
+      "description": "We recommend that you specify this parameter. The list of product IDs to query, separated by commas. Valid values:\n- **1**: MaxCompute\n- **2**: OSS\n- **3**: ADB-MYSQL\n- **4**: TableStore\n- **5**: RDS\n- **6**: SELF_DB\n- **7**: PolarDB-X\n- **8**: PolarDB\n- **9**: ADB-PG\n- **10**: OceanBase\n- **11**: MongoDB\n- **25**: Redis\n\n> OSS is mutually exclusive with other products. If OSS is included in the query, no other products can be specified. By default, non-OSS products are queried.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -193,7 +207,7 @@
     },
     {
       "name": "RiskLevels",
-      "description": "The risk levels of the data assets that you want to query. Separate multiple risk levels with commas (,). Valid values:\n- **2**: S1, low risk level.\n- **3**: S2, medium risk level.\n- **4**: S3, high risk level.\n- **5**: S4, highest risk level.",
+      "description": "The risk levels of the data assets to query. Separate multiple values with commas (,).\n- **2**: S1, low risk level.\n- **3**: S2, medium risk level.\n- **4**: S3, high risk level.\n- **5**: S4, highest risk level.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -207,14 +221,14 @@
     },
     {
       "name": "ServiceRegionId",
-      "description": "The region where the asset resides. Valid values:",
+      "description": "The region where the asset resides. Valid values:\n- **cn-beijing**: China (Beijing).\n- **cn-zhangjiakou**: China (Zhangjiakou).\n- **cn-huhehaote**: China (Hohhot).\n- **cn-hangzhou**: China (Hangzhou).\n- **cn-shanghai**: China (Shanghai).\n- **cn-shenzhen**: China (Shenzhen).\n- **cn-hongkong**: Hong Kong (China).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TableName",
-      "description": "The node name filter.",
+      "description": "The task name filter.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -228,7 +242,7 @@
     },
     {
       "name": "TemplateId",
-      "description": "The industry template ID.",
+      "description": "The industry template ID.\n\n> You can call [DescribeCategoryTemplateList](~~2399296~~) to obtain the industry template ID.",
       "position": "Query",
       "type": "Long",
       "required": true

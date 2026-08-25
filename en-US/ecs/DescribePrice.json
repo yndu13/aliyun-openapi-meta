@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "Amount",
-      "description": "The number of Elastic Compute Service (ECS) instances that you want to purchase in a batch with the specified configuration. Valid values: 1 to 1000.\n\nDefault value: 1.",
+      "description": "The number of Elastic Computing Service (ECS) servers that you want to purchase in a batch. Valid values: 1 to 1000.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "AssuranceTimes",
-      "description": "The total number of times that the elasticity assurance can be applied. Valid value: Unlimited. Currently, only the unlimited mode within the service effective period is supported.\n\nDefault value: Unlimited.",
+      "description": "The total number of times that the elasticity assurance can take effect. Set the value to Unlimited. Only the unlimited mode is supported within the effective period.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Capacity",
-      "description": "The capacity, in GiB.",
+      "description": "The capacity. Unit: GiB.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -35,28 +35,28 @@
       "sub_parameters": [
         {
           "name": "Category",
-          "description": "The category of data disk N. Valid values:\n\n- cloud: basic disk.\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- ephemeral_ssd: local SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud_auto: ESSD AutoPL disk.\n<props=\"china\">\n- cloud_essd_entry: ESSD Entry disk.\n</props>\n\nValid values of N: 1 to 16.",
+          "description": "The category of data disk N. Valid values:",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
-          "description": "The performance level of data disk N when the disk type is ESSD. This parameter takes effect only when `DataDisk.N.Category=cloud_essd`. Valid values:\n\n- PL0.\n- PL1 (default).\n- PL2.\n- PL3.\n\nValid values of N: 1 to 16.",
+          "description": "The performance level of the Nth data disk when the disk type is enterprise SSD. This parameter is valid only when `DataDisk.N.Category=cloud_essd`. Valid values:\n\n- PL0\n- PL1 (default)\n- PL2\n- PL3\n\nValid values of N: 1 to 16.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ProvisionedIops",
-          "description": "The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1000 × capacity - baseline performance}.\n\nBaseline performance = min{1,800 + 50 × capacity, 50000}.\n\n> This parameter is supported only when `DiskCategory` is set to `cloud_auto`. For more information, see [ESSD AutoPL disk](~~368372~~).",
+          "description": "The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1000 × Capacity - Baseline Performance}.",
           "position": "Query",
           "type": "Long",
           "required": false
         },
         {
           "name": "Size",
-          "description": "The size of data disk N, in GiB. Valid values:\n\n- cloud: 5 to 2000.\n- cloud_efficiency: 20 to 32768.\n- cloud_ssd: 20 to 32768.\n- cloud_auto: 1 to 32768.\n<props=\"china\">\n- cloud_essd_entry: 10 to 32768.\n</props>\n- cloud_essd: The valid values depend on the value of `DataDisk.N.PerformanceLevel`.\t\n    - PL0: 1 to 32768.\n    - PL1: 20 to 32768.\n    - PL2: 461 to 32768.\n    - PL3: 1261 to 32768.\n- ephemeral_ssd: 5 to 800.\n\nValid values of N: 1 to 16.",
+          "description": "The size of data disk N. Unit: GiB. Valid values:",
           "position": "Query",
           "type": "Long",
           "required": false
@@ -65,84 +65,84 @@
     },
     {
       "name": "DataDisk.1.Category",
-      "description": "The disk category.\n\nTo improve scalability, use the `DataDisk.N.Category` parameter instead.",
+      "description": "The disk type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.1.PerformanceLevel",
-      "description": "The performance level of the data disk.\n\nTo improve scalability, use the `DataDisk.N.PerformanceLevel` parameter instead.",
+      "description": "The performance level of the data disk.\n\nTo improve scalability, use the DataDisk.N.PerformanceLevel parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.1.Size",
-      "description": "The capacity of the data disk.\n\nTo improve scalability, use the `DataDisk.N.Size` parameter instead.",
+      "description": "The capacity of the data disk.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DataDisk.2.Category",
-      "description": "The disk category.\n\nTo improve scalability, use the `DataDisk.N.Category` parameter instead.",
+      "description": "The disk type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.2.PerformanceLevel",
-      "description": "The performance level of the data disk.\n\nTo improve scalability, use the `DataDisk.N.PerformanceLevel` parameter instead.",
+      "description": "The performance level of the data disk.\n\nTo improve scalability, use the DataDisk.N.PerformanceLevel parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.2.Size",
-      "description": "The capacity of the data disk.\n\nTo improve scalability, use the `DataDisk.N.Size` parameter instead.",
+      "description": "The capacity of the data disk.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DataDisk.3.Category",
-      "description": "The disk category.\n\nTo improve scalability, use the `DataDisk.N.Category` parameter instead.",
+      "description": "The disk type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.3.PerformanceLevel",
-      "description": "The performance level of the data disk.\n\nTo improve scalability, use the `DataDisk.N.PerformanceLevel` parameter instead.",
+      "description": "The performance level of the data disk.\n\nTo improve scalability, use the DataDisk.N.PerformanceLevel parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.3.Size",
-      "description": "The capacity of the data disk.\n\nTo improve scalability, use the `DataDisk.N.Size` parameter instead.",
+      "description": "The capacity of the data disk.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "DataDisk.4.Category",
-      "description": "The disk category.\n\nTo improve scalability, use the `DataDisk.N.Category` parameter instead.",
+      "description": "The disk type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.4.PerformanceLevel",
-      "description": "The performance level of the data disk.\n\nTo improve scalability, use the `DataDisk.N.PerformanceLevel` parameter instead.",
+      "description": "The performance level of the data disk.\n\nTo improve scalability, use the DataDisk.N.PerformanceLevel parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk.4.Size",
-      "description": "The capacity of the data disk.\n\nTo improve scalability, use the `DataDisk.N.Size` parameter instead.",
+      "description": "The capacity of the data disk.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -156,133 +156,133 @@
     },
     {
       "name": "ImageId",
-      "description": "This parameter takes effect only when ResourceType is set to instance.\n\nThe image ID, which specifies the runtime environment to be loaded when the instance starts. You can call [DescribeImages](~~25534~~) to query available image resources. If you do not specify this parameter, the price of a Linux image is queried by default.",
+      "description": "This parameter takes effect only when ResourceType is set to instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceAmount",
-      "description": "The total number of instances to reserve within an instance type.\n\nValid values: 1 to 1000.",
+      "description": "The total number of instances that you want to reserve within an instance type.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InstanceCpuCoreCount",
-      "description": "The total number of vCPUs supported by instances within the elasticity assurance. When you call this operation, the system calculates the number of instances required for the elasticity assurance based on the specified InstanceType (rounded up).\n\n> When you call this operation to query the price of an elasticity assurance, you can specify only one of InstanceCoreCpuCount and InstanceAmount.",
+      "description": "The total number of vCPUs supported by the elasticity assurance. When you call this operation, the system calculates the number of instances that the elasticity assurance needs to support based on the specified InstanceType (rounded up).",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InstanceNetworkType",
-      "description": "The network type of the instance. Valid values:\n\n- vpc: Virtual Private Cloud (VPC).\n- classic: classic network. The classic network is no longer available. For more information, see [Retirement notice](~~2833134~~).\n\nDefault value: vpc.",
+      "description": "The network type of the instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance type. You must specify this parameter when `ResourceType` is set to `instance`. For more details, see [Instance family](~~25378~~). You can also invoke [DescribeInstanceTypes](~~25620~~) to query the most recent instance type list.",
+      "description": "The instance type. You must specify this parameter when ResourceType is set to `instance`. For more details, see [Instance family](~~25378~~). You can also invoke [DescribeInstanceTypes](~~25620~~) to query the most recent instance type list.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceTypeList",
-      "description": "The instance type. Currently, only a single instance type can be specified for the unlimited assurance service.",
+      "description": "The instance type. Only a single instance type is supported for the unlimited elasticity assurance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "InternetChargeType",
-      "description": "The billing method for network bandwidth. Valid values:\n\n- PayByBandwidth: pay-by-bandwidth.\n- PayByTraffic: pay-by-traffic.\n\nDefault value: PayByTraffic.",
+      "description": "The billing method for network bandwidth. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthOut",
-      "description": "The maximum outbound public bandwidth, in Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.",
+      "description": "The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IoOptimized",
-      "description": "Specifies whether the queried instance is an I/O optimized instance. Valid values:\n\n- none: non-I/O optimization.\n- optimized: I/O optimized.\n\nIf InstanceType is set to a [Series I](~~55263~~) instance type, the default value is none.\n\nIf InstanceType is set to a non-[Series I](~~55263~~) instance type, the default value is optimized.",
+      "description": "Specifies whether the queried instance is an I/O optimized instance. Valid values:\n\n- none: non-I/O optimized.\n- optimized: I/O optimized.\n\nIf InstanceType is set to an instance type in [Series I](~~55263~~), the default value is none.\n\nIf InstanceType is set to an instance type not in [Series I](~~55263~~), the default value is optimized.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Isp",
-      "description": "The Internet Service Provider (ISP). Valid values: \n- cmcc: China Mobile.\n- telecom: China Telecom.\n- unicom: China Unicom.\n- multiCarrier: multi-ISP.",
+      "description": "The Internet service operation provider. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OfferingType",
-      "description": "The payment type of the reserved instance. Valid values:\n\n- No Upfront: no upfront.\n- Partial Upfront: partial upfront.\n- All Upfront: all upfront.",
+      "description": "The payment option of the reserved instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The billing duration of Elastic Compute Service (ECS). Valid values:\n\n<props=\"china\">\n- If the PriceUnit parameter is set to Month: 1 to 9.\n- If the PriceUnit parameter is set to Year: 1 to 5.\n- If the PriceUnit parameter is set to Hour: 1.\n- If the PriceUnit parameter is set to Week: 1 to 4.\n\n</props>\n\n<props=\"intl\">\n- If the PriceUnit parameter is set to Month: 1 to 9.\n- If the PriceUnit parameter is set to Year: 1 to 5.\n- If the PriceUnit parameter is set to Hour: 1.\n\n</props>\n\nDefault value: 1.",
+      "description": "The billing duration of the ECS instance. Valid values:\n\n<props=\"china\">\n- If PriceUnit is set to Month: 1 to 9.\n- If PriceUnit is set to Year: 1 to 5.\n- If PriceUnit is set to Hour: 1.\n- If PriceUnit is set to Week: 1 to 4.\n\n</props>\n\n<props=\"intl\">\n- If PriceUnit is set to Month: 1 to 9.\n- If PriceUnit is set to Year: 1 to 5.\n- If PriceUnit is set to Hour: 1.\n\n</props>\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Platform",
-      "description": "The operating system type of the image used by the instance. Valid values: \n- Windows: Windows Server operating system.\n- Linux: Linux and Unix-like operating systems.",
+      "description": "The operating system of the image used by the instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PriceUnit",
-      "description": "The pricing unit for querying Elastic Compute Service (ECS) prices across different billing cycles. Valid values:\n\n<props=\"china\">\n- Month: monthly pricing unit.\n- Year: yearly pricing unit.\n- Hour (default): hourly pricing unit.\n- Week: weekly pricing unit.\n\n</props>\n\n<props=\"intl\">\n- Month: monthly pricing unit.\n- Year: yearly pricing unit.\n- Hour (default): hourly pricing unit.\n\n</props>",
+      "description": "Queries the price of an ECS instance for different billing cycles. Valid values:\n\n<props=\"china\">\n- Month: monthly pricing unit.\n- Year: yearly pricing unit.\n- Hour (default): hourly pricing unit.\n- Week: weekly pricing unit.\n\n</props>\n\n<props=\"intl\">\n- Month: monthly pricing unit.\n- Year: yearly pricing unit.\n- Hour (default): hourly pricing unit.\n\n</props>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RecurrenceRules",
-      "description": "The list of recurrence rules for the time-sharing elasticity assurance.\n\n<props=\"china\">\n\n> The time-sharing elasticity assurance feature is available only in specific regions and for specific users. To use this feature, [submit a ticket](https://selfservice.console.aliyun.com/ticket/createIndex).\n\n</props>\n\n<props=\"intl\">\n\n> The time-sharing elasticity assurance feature is available only in specific regions and for specific users. To use this feature, [submit a ticket](https://smartservice.console.aliyun.com/service/create-ticket-intl).\n\n</props>",
+      "description": "The list of recurrence rules for the time-sharing elasticity assurance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "EndHour",
-          "description": "The end time of the time-sharing assurance. The value must be a whole hour.",
+          "description": "The end time of the time-sharing assurance. The value must be on the hour.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "RecurrenceType",
-          "description": "The type of the recurrence rule. Valid values:\n- Daily: daily recurrence.\n- Weekly: weekly recurrence.\n- Monthly: monthly recurrence.\n\n> You must specify both `RecurrenceType` and `RecurrenceValue`.",
+          "description": "The type of the recurrence rule policy. Valid values:",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RecurrenceValue",
-          "description": "The value of the recurrence rule.\n\n- If `RecurrenceType` is set to `Daily`, you can specify only one value. Valid values: 1 to 31. This value indicates the interval in days between recurrences.\n- If `RecurrenceType` is set to `Weekly`, you can specify multiple values separated by commas (,). The values for Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, and Saturday are 0, 1, 2, 3, 4, 5, and 6. For example, `1,2` indicates Monday and Tuesday.\n- If `RecurrenceType` is set to `Monthly`, the format is `A-B`. Valid values of A and B: 1 to 31. B must be greater than or equal to A. For example, `1-5` indicates the 1st through 5th day of each month.\n\n> You must specify both `RecurrenceType` and `RecurrenceValue`.",
+          "description": "The value of the recurrence rule.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StartHour",
-          "description": "The effective period start time of the time-sharing assurance. The value must be a whole hour.\n\n> You must specify both StartHour and EndHour, and the difference between them must be at least 4 hours.",
+          "description": "The effective period start time of the time-sharing assurance. The value must be on the hour.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -298,70 +298,70 @@
     },
     {
       "name": "ResourceType",
-      "description": "The type of the target resource. Valid values:\n- instance: queries the latest price list of ECS instances. When this parameter is set to `instance`, you must also specify `InstanceType`.\n- disk: queries the latest price list of disks. When this parameter is set to `disk`, you must also specify `DataDisk.1.Category` and `DataDisk.1.Size`.\n- diskperformance: queries the latest price list of provisioned performance for ESSD AutoPL disks. You must also specify `DataDisk.1.Category` and `DataDisk.1.ProvisionedIops`.\n- bandwidth: queries the latest price list of bandwidth.\n- ddh: queries the latest price list of dedicated hosts.\n- ElasticityAssurance: queries the price of elasticity assurance services. When this parameter is set to `ElasticityAssurance`, you must also specify `InstanceType`.\n- CapacityReservation: queries the price of capacity reservation services. When this parameter is set to `CapacityReservation`, you must also specify `InstanceType`.\n\nDefault value: instance.",
+      "description": "The type of the resource. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SchedulerOptions.DedicatedHostId",
-      "description": "This parameter takes effect only when ResourceType is set to instance.\n\nThe dedicated host ID. You can call [DescribeDedicatedHosts](~~134242~~) to query the list of dedicated host IDs.",
+      "description": "This parameter takes effect only when ResourceType is set to instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SchedulerOptions.DeploymentSetStrategy",
-      "description": "The deployment set strategy. Valid values:\n- Availability: high availability.\n- AvailabilityGroup: deployment set group high availability.\n- LowLatency: low network latency.\n- ProximityLooseDispersion: proximity loose dispersion.\n\n> Only when the strategy is set to ProximityLooseDispersion, the API response includes the price details for \"Resource\": \"deploymentSet\". Other deployment set strategies are free of charge, so the API response does not include the price information for \"Resource\": \"deploymentSet\".",
+      "description": "The deployment set strategy. Valid values:\n- Availability: high availability.\n- AvailabilityGroup: high availability for deployment set groups.\n- LowLatency: low network latency.\n- ProximityLooseDispersion: proximity loose dispersion.\n\n>Only when the strategy is set to ProximityLooseDispersion, the API response includes the price details for \"Resource\": \"deploymentSet\". Other deployment set strategies are free of charge, so the API response does not include the price information for \"Resource\": \"deploymentSet\".",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Scope",
-      "description": "The scope of the reserved instance. Valid values: \n   \n- Region: regional. \n- Zone: zonal.\n\nDefault value: Region.",
+      "description": "The scope of the reserved instance. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotDuration",
-      "description": "The protection period of the spot instance, in hours. Default value: 1. Valid values:\n- 1: After the spot instance is created, Alibaba Cloud ensures that the instance is not automatically released for 1 hour. After 1 hour, the system automatically compares the bid price with the market price and checks resource availability to determine whether to retain automatic release the instance.\n- 0: After the spot instance is created, Alibaba Cloud does not ensure that the instance runs for 1 hour. The system automatically compares the bid price with the market price and checks resource availability to determine whether to retain automatic release the instance.\n\nAlibaba Cloud sends an ECS system event notification 5 minutes before the instance is released. Spot instances are billed by second. Select an appropriate protection period based on the expected task execution duration.\n\n> This parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit or SpotAsPriceGo.",
+      "description": "The protection period of the spot instance. Unit: hours. Default value: 1. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SpotStrategy",
-      "description": "The bidding policy for pay-as-you-go instances. Valid values:\n- NoSpot: a regular pay-as-you-go instance.\n- SpotWithPriceLimit: a spot instance with a maximum price limit.\n- SpotAsPriceGo: a spot instance priced at the market price with the pay-as-you-go price as the upper limit.\n\nDefault value: NoSpot.\n\n> This parameter takes effect only when `PriceUnit=Hour` and `Period=1`. Because the default value of `PriceUnit` is `Hour` and the default value of `Period` is `1`, you do not need to set `PriceUnit` or `Period` when you specify this parameter.",
+      "description": "The bidding policy for pay-as-you-go instances. Valid values:\n- NoSpot: a regular pay-as-you-go instance.\n- SpotWithPriceLimit: a spot instance with a maximum hourly price.\n- SpotAsPriceGo: a spot instance for which the system automatically bids at up to the pay-as-you-go price.\n\nDefault value: NoSpot.\n\n> This parameter takes effect only when `PriceUnit=Hour` and `Period=1`. Because the default value of `PriceUnit` is `Hour` and the default value of `Period` is `1`, you do not need to set the `PriceUnit` and `Period` parameters when you specify this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The effective period when the time-sharing elasticity assurance takes effect. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0. For more information, see [ISO 8601](~~25696~~).",
+      "description": "The effective period of the time-sharing elasticity assurance. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0. For more information, see [ISO 8601](~~25696~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Category",
-      "description": "The category of the system disk. You must also specify `ImageId` when querying the system disk price. Valid values:\n\n- cloud: basic disk.\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- ephemeral_ssd: local SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud_auto: ESSD AutoPL disk.\n<props=\"china\">\n- cloud_essd_entry: ESSD Entry disk.\n</props>\n\nDefault value description:\n\n- If InstanceType is set to a retired instance type and `IoOptimized` is set to `none`, the default value is `cloud`.\n- In other cases, the default value is `cloud_efficiency`.<props=\"china\">After January 30, 2026, for instance types that support only cloud_essd, the default value is changed from cloud_efficiency to cloud_essd PL0. For more information, see [Change notice](https://www.aliyun.com/notice/117844).</props>",
+      "description": "The category of the system disk. You must specify `ImageId` when you query the price of a system disk. Valid values:",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.PerformanceLevel",
-      "description": "The performance level of the system disk when the disk type is ESSD. This parameter takes effect only when `SystemDiskCategory=cloud_essd`. Valid values:\n\nPL0.\nPL1 (default).\nPL2.\nPL3.",
+      "description": "The performance level of the system disk when the system disk type is enterprise SSD. This parameter is valid only when `SystemDiskCategory=cloud_essd`. Valid values:\n\nPL0.\nPL1 (default).\nPL2.\nPL3.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Size",
-      "description": "The size of the system disk, in GiB. Valid values:\n\n- Basic disk: 20 to 500.\n- ESSD:\n  - PL0: 1 to 2048.\n  - PL1: 20 to 2048.\n  - PL2: 461 to 2048.\n  - PL3: 1261 to 2048.\n- ESSD AutoPL disk: 1 to 2048.\n- Other disk categories: 20 to 2048.\n\nDefault value: max{20, image size of the specified ImageId parameter}.",
+      "description": "The size of the system disk. Unit: GiB. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false

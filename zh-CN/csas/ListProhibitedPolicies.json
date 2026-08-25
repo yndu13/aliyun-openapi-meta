@@ -1,0 +1,100 @@
+{
+  "name": "ListProhibitedPolicies",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "GET",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "CurrentPage",
+      "description": "分页查询时显示的当前页的页码。取值：1~10000。",
+      "position": "Query",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "Enabled",
+      "description": "策略是否启用。取值：\n- **true**：启用，策略会下发到终端并生效。\n- **false**：停用，策略保留配置但不下发到终端。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "MatchMode",
+      "description": "生效范围。取值：\n- **UserGroupAll**：对当前阿里云账号下的全部用户生效，不需要指定用户组。\n- **UserGroupNormal**：仅对UserGroupIds指定的用户组内的用户生效。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Name",
+      "description": "软件禁用策略名称，支持模糊查询。长度不超过128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）和短划线（-），不支持空格。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ObjectType",
+      "description": "管控对象类型。取值：\n- **App**：按禁用软件管控，管控对象由SoftwareIds指定。\n- **Tag**：按禁用软件标签管控，管控对象由TagIds指定，标签内的全部禁用软件均被管控。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PageSize",
+      "description": "分页查询时设置的每页数量。取值：1~500。",
+      "position": "Query",
+      "type": "Long",
+      "required": true
+    },
+    {
+      "name": "PolicyIds",
+      "description": "软件禁用策略ID集合，不允许重复。",
+      "position": "Query",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "PolicyType",
+      "description": "处置动作。取值：\n- **Ban**：禁止运行并在终端弹窗提醒终端用户。\n- **BanSilent**：禁止运行且不提醒终端用户，静默阻断。\n- **Warn**：仅在终端弹窗提醒终端用户，不阻断软件运行。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SoftwareId",
+      "description": "禁用软件的唯一标识。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SoftwareName",
+      "description": "禁用软件名称，支持模糊查询。长度不超过128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）和短划线（-），不支持空格。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TagId",
+      "description": "禁用软件标签ID，用于筛选引用该标签的策略。取值来源：\n- [ListProhibitedTags](~~ListProhibitedTags~~)：批量查询禁用软件标签。\n- [CreateProhibitedTag](~~CreateProhibitedTag~~)：创建自定义禁用软件标签。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TagName",
+      "description": "禁用软件标签名称，支持模糊查询。长度不超过128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）和短划线（-），不支持空格。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "UserGroupId",
+      "description": "用户组ID，用于筛选生效范围包含该用户组的策略。取值来源：\n- [ListUserGroups](~~ListUserGroups~~)：批量查询用户组。\n- [CreateUserGroup](~~CreateUserGroup~~)：创建用户组。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

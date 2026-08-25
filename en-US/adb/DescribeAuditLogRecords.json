@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "DBClusterId",
-      "description": "The ID of the Data Warehouse Edition cluster.\n\n> Call the [DescribeDBClusters](~~129857~~) operation to view the IDs of all Data Warehouse Edition clusters in the destination region.",
+      "description": "The ID of the Data Warehouse Edition cluster.\n> You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all Data Warehouse Edition clusters in a region.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -21,77 +21,83 @@
     },
     {
       "name": "EndTime",
-      "description": "The end of the time range to query. Specify the time in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.\n\n> - The end time must be later than the start time.\n>\n> - The time range to query cannot exceed 24 hours.",
+      "description": "The end of the time range to query. Specify the time in UTC in the yyyy-MM-ddTHH:mmZ format.\n\n> - The end time must be later than the start time.\n> - The interval between the start time and the end time cannot exceed 24 hours.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "HostAddress",
-      "description": "The IP address and port number of the client that was used to execute the SQL statement.",
+      "description": "The IP address and port number of the client that executed the SQL statement.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Order",
-      "description": "The sorting order of the query results. Specify the value as an ordered JSON array. The results are sorted based on the order of fields in the array. Each object in the array contains the \\`Field\\` and \\`Type\\` fields.\n\n- Field specifies the field by which to sort the query results. Valid values:\n\n  - HostAddress: the IP address of the client that connects to the database.\n\n  - Succeed: specifies whether the SQL statement was successfully executed.\n\n  - TotalTime: the total amount of time that is consumed to execute the SQL statement.\n\n  - DBName: the name of the database on which the SQL statement was executed.\n\n  - SQLType: the type of the SQL statement.\n\n  - User: the username that was used to execute the SQL statement.\n\n  - ExecuteTime: the start time of the SQL statement execution.\n\n- Type specifies the sorting method. Valid values:\n\n  - Desc: descending.\n\n  - Asc: ascending.",
+      "description": "The sorting order of the results based on specified fields. The value is in JSON format and is an ordered JSON array. Compound sorting is performed in the order of the input array. The array contains the Field and Type fields.\n- Field specifies the field name for sorting. Valid values:\n    - HostAddress: the IP address of the client that connected to the database.\n    - Succeed: specifies whether the SQL statement was executed successfully.\n    - TotalTime: the total execution duration of the SQL statement.\n    - DBName: the name of the database on which the SQL statement was executed.\n    - SQLType: the type of the SQL statement.\n    - User: the username that was used to execute the SQL statement.\n    - ExecuteTime: the start time of the SQL statement execution.\n- Type specifies the sorting type. Valid values:\n    - Desc: descending order.\n    - Asc: ascending order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OrderType",
-      "description": "The order by which to sort the query results based on the execution time of the SQL statement. Valid values:\n\n- **asc**: ascending.\n\n- **desc**: descending.",
+      "description": "The order in which the results are sorted by SQL execution time. Valid values:\n* **asc**: ascending order.\n* **desc**: descending order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PageNumber",
-      "description": "The page number. The value must be an integer that is greater than 0 and does not exceed the maximum value of the integer data type. Default value: **1**.",
+      "description": "The page number. The value must be a positive integer that does not exceed the maximum value of the Integer data type. Default value: **1**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. Valid values:\n\n- **10**\n\n- **30**\n\n- **50**\n\n- **100**\n\n> If you do not specify this parameter, the default value is 10.",
+      "description": "The number of entries per page. Valid values:\n- **10**\n- **30**\n- **50**\n- **100**\n> If this parameter is not specified, the default value 10 is used.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "ProcessId",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "QueryKeyword",
-      "description": "The keyword for the query. This keyword is used to filter SQL statements.",
+      "description": "The keyword used to filter SQL statements that contain the specified keyword.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID.\n\n> Call the [DescribeRegions](~~143074~~) operation to view the regions and zones, including the region IDs, that are supported by AnalyticDB for MySQL.",
+      "description": "The region ID.\n> You can call the [DescribeRegions](~~143074~~) operation to query the regions and zones supported by AnalyticDB for MySQL, including region IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SqlType",
-      "description": "The type of the SQL statement. Valid values:\n\n- **DELETE**\n\n- **SELECT**\n\n- **UPDATE**\n\n- **INSERT\\_INTO\\_SELECT**\n\n- **ALTER**\n\n- **DROP**\n\n- **CREATE**\n\n> You can query for only one type of SQL statement at a time. If you leave this parameter empty, all types of SQL statements are queried.",
+      "description": "The type of the SQL statement. Valid values:\n- **DELETE**\n- **SELECT**\n- **UPDATE**\n- **INSERT_INTO_SELECT**\n- **ALTER**\n- **DROP**\n- **CREATE**\n\n\n> You can specify only one SQL type per request. If this parameter is not specified, all types are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start of the time range to query. Specify the time in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.\n\n> You can query SQL audit logs only when SQL Audit is enabled. You can query only the SQL audit logs from the last 30 days. If you disable and then re-enable SQL Audit, you can query only the logs generated after it was re-enabled.",
+      "description": "The beginning of the time range to query. Specify the time in UTC in the yyyy-MM-ddTHH:mmZ format.\n> SQL audit logs can be queried only when SQL audit is enabled, and only logs from the last 30 days are supported. If SQL audit is disabled and then re-enabled, only logs generated after re-enabling can be queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Succeed",
-      "description": "Specifies whether the SQL statement was successfully executed. Valid values:\n\n- **true**: The SQL statement was successfully executed.\n\n- **false**: The SQL statement failed to be executed.",
+      "description": "Specifies whether the SQL statement was executed successfully. Valid values:\n* **true**: The SQL statement was executed successfully.\n* **false**: The SQL statement failed to be executed.",
       "position": "Query",
       "type": "String",
       "required": false

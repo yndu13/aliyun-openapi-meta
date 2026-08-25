@@ -1,0 +1,100 @@
+{
+  "name": "CreateVirusScanTask",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "EndTime",
+      "description": "任务失效时间，秒级Unix时间戳。超过该时间后终端不再拉取执行本任务。不传或传入的时间早于当前时间时，取当前时间加24小时。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "HighRiskOperation",
+      "description": "对高危病毒文件的处置动作。取值：\n- **Quarantine**：隔离文件。\n- **Notify**：仅上报告警，不处置文件。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "LowRiskOperation",
+      "description": "对低危病毒文件的处置动作。取值：\n- **Quarantine**：隔离文件。\n- **Notify**：仅上报告警，不处置文件。\n- **None**：不处理。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "MatchMode",
+      "description": "生效范围的匹配方式。取值：\n- **UserGroupAll**：对当前阿里云账号下的全部用户生效。\n- **UserGroupNormal**：仅对指定用户组内的用户生效，此时UserGroupIds必填。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "MaxCpuUsage",
+      "description": "扫描时占用终端CPU的百分比上限。取值范围：0~100。不传或传0时，按PerformanceMode取默认值：SecurityFirst为50，Balance为30，ExperienceFirst为15。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "MidRiskOperation",
+      "description": "对中危病毒文件的处置动作。取值：\n- **Quarantine**：隔离文件。\n- **Notify**：仅上报告警，不处置文件。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "PerformanceMode",
+      "description": "扫描性能模式。取值：\n- **SecurityFirst**：安全优先，CPU占用上限默认为50%。\n- **Balance**：均衡，CPU占用上限默认为30%。\n- **ExperienceFirst**：体验优先，CPU占用上限默认为15%。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanMode",
+      "description": "扫描的路径范围。取值：\n- **Quick**：快速扫描，仅扫描系统关键目录与常见风险位置。\n- **Full**：全盘扫描。\n- **Custom**：自定义路径扫描，此时ScanPath必填。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanPath",
+      "description": "自定义扫描路径集合。ScanMode取值为Custom时必填，取值为Quick或Full时不允许传入。最多包含100个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "ScanTargets",
+      "description": "本次扫描要处置的病毒类型集合，至少包含1个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": true
+    },
+    {
+      "name": "TaskDescription",
+      "description": "任务描述。长度不超过128个字符，支持中文、大小写英文字母、数字及空格、半角句点（.）、逗号（,）、分号（;）、正斜杠（/）、@、连字符（-）、下划线（_）。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "UserGroupIds",
+      "description": "生效的用户组ID集合。MatchMode取值为UserGroupNormal时必填，取值为UserGroupAll时不允许传入。传入时至少包含1个，最多包含100个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Whitelist",
+      "description": "例外用户名单，名单内的用户不执行本次扫描。最多包含1000个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    }
+  ]
+}

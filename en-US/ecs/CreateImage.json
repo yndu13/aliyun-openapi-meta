@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "Architecture",
-      "description": "The system architecture. After a data disk snapshot is specified as the system disk of the image, use this parameter to specify the system architecture of the system disk. Valid values:\n\n- i386.\n- x86_64.\n- arm64.\n\nDefault value: x86_64.",
+      "description": "The system architecture. After you specify a data disk snapshot as the system disk, you must use this parameter to determine the system architecture of the system disk. Valid values:\n\n- i386\n- x86_64\n- arm64\n\nDefault value: x86_64.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BootMode",
-      "description": "The boot mode of the image. Valid values:\n\n- BIOS: BIOS boot mode.\n- UEFI: UEFI boot mode.\n- (Default) UEFI-Preferred: dual boot mode.  \n\n<notice>\n\nTo prevent instances from failing to start due to an unsupported boot mode, make sure that you understand the boot modes supported by the target image before specifying this parameter. For more information about image boot modes, see [Image boot modes](~~2244655#b9caa9b8bb1wf~~).\n\n</notice>",
+      "description": "The boot mode of the image. Valid values:\n\n- BIOS: BIOS boot mode.\n- UEFI: UEFI boot mode.\n- (Default) UEFI-Preferred: dual boot mode.\n\n<notice>\n\nTo prevent an instance from failing to start due to an unsupported boot mode, make sure that you understand the boot modes supported by the image before you specify this parameter. For more information about image boot modes, see [Image boot modes](~~2244655#b9caa9b8bb1wf~~).\n\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
@@ -35,35 +35,35 @@
     },
     {
       "name": "DetectionStrategy",
-      "description": "The image detection strategy. If this parameter is not configured, detection is not triggered. Only the Standard detection mode is supported. \n\n> Most Linux and Windows versions are supported. For more information about image detection items and operating system limitations, see [Image detection overview](~~439819~~) and [Operating system limitations for image detection](~~475800~~).",
+      "description": "The image detection policy. If you do not configure this parameter, detection is not triggered. Only the Standard detection mode is supported.\n\n> Most Linux and Windows versions are supported. For more information about image detection items and operating system limits, see [Image detection overview](~~439819~~) and [Operating system limits for image detection](~~475800~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskDeviceMapping",
-      "description": "The disk and snapshot information used to create the custom image. If you want to create a custom image from system disk and data disk snapshots, use this parameter to specify the snapshots.",
+      "description": "The information about the disks and snapshots used to create the custom image. If you want to create a custom image from system disk snapshots and data disk snapshots, use this parameter to specify the snapshots.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Device",
-          "description": "The device name in the custom image. Valid values:\n\n- The device name of the system disk must be /dev/xvda.\n\n- The device names of data disks are in alphabetical order from /dev/xvdb to /dev/xvdz and cannot be duplicated.",
+          "description": "The device name in the custom image. Valid values:",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskType",
-          "description": "The type of the disk in the new image. You can use this parameter to specify a data disk snapshot as the system disk of the image. If this parameter is not specified, the disk type defaults to the type of the disk corresponding to the snapshot. Valid values:\n\n- system: system disk. Only one system disk snapshot can be specified.\n- data: data disk. Up to 16 data disk snapshots can be specified.",
+          "description": "The disk type in the new image. You can use this parameter to specify a data disk snapshot as the system disk of the image. If you do not specify this parameter, the disk type defaults to the type of the disk corresponding to the snapshot. Valid values:",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
-          "description": "The size of the disk, in GiB. The valid values and default value of DiskDeviceMapping.N.Size depend on DiskDeviceMapping.N.SnapshotId:\n\n- If SnapshotId is not specified, the valid values and default value of Size are:\n    - Basic disk: 5 to 2000 GiB. Default value: 5.\n    - Other disk types: 20 to 32768 GiB. Default value: 20.\n- If SnapshotId is specified, the value of Size must be greater than or equal to the size of the snapshot. Default value: the size of the snapshot.",
+          "description": "The size of the disk. Unit: GiB. The valid values and default value of DiskDeviceMapping.N.Size depend on the value of DiskDeviceMapping.N.SnapshotId:\n\n- If SnapshotId is not specified, the valid values and default value of Size are as follows:\n    - Basic disk: 5 to 2000 GiB. Default value: 5.\n    - Other disk categories: 20 to 32768 GiB. Default value: 20.\n- If SnapshotId is specified, the value of Size must be greater than or equal to the size of the specified snapshot. Default value: the size of the specified snapshot.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -85,7 +85,7 @@
     },
     {
       "name": "Features",
-      "description": "The image feature-related properties.",
+      "description": "The attributes related to image features.",
       "position": "Query",
       "type": "Struct",
       "required": false
@@ -106,7 +106,7 @@
     },
     {
       "name": "ImageVersion",
-      "description": "The image version.\n\n> If you specify an instance ID (`InstanceId`) and the image of the instance is an Alibaba Cloud Marketplace image or a custom image created from an Alibaba Cloud Marketplace image, this parameter must be the same as the `ImageVersion` of the current instance image or left empty.",
+      "description": "The image version.\n\n> If you specify an instance ID (InstanceId) and the image of the instance is an Alibaba Cloud Marketplace image or a custom image created from an Alibaba Cloud Marketplace image, this parameter must be set to the same value as the ImageVersion of the current instance image or left empty.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -120,21 +120,21 @@
     },
     {
       "name": "Platform",
-      "description": "The operating system distribution. After a data disk snapshot is specified as the system disk of the image, use this parameter to specify the operating system distribution of the system disk. Valid values:\n\n- Aliyun\n- Anolis\n- CentOS\n- Ubuntu\n- CoreOS\n- SUSE\n- Debian\n- OpenSUSE\n- FreeBSD\n- RedHat\n- Kylin\n- UOS\n- Fedora\n- Fedora CoreOS\n- CentOS Stream\n- AlmaLinux\n- Rocky Linux\n- Gentoo\n- Customized Linux\n- Others Linux\n- Windows Server 2022\n- Windows Server 2019\n- Windows Server 2016\n- Windows Server 2012\n- Windows Server 2008\n- Windows Server 2003\n\nDefault value: Others Linux.",
+      "description": "The operating system. If you use a data disk snapshot to create the image as the system disk, specify the operating system distribution of the system disk by using Platform. Valid values:\n\n- Aliyun\n- Anolis\n- CentOS\n- Ubuntu\n- CoreOS\n- SUSE\n- Debian\n- OpenSUSE\n- FreeBSD\n- RedHat\n- Kylin\n- UOS\n- Fedora\n- Fedora CoreOS\n- CentOS Stream\n- AlmaLinux\n- Rocky Linux\n- Gentoo\n- Customized Linux\n- Others Linux\n- Windows Server 2022\n- Windows Server 2019\n- Windows Server 2016\n- Windows Server 2012\n- Windows Server 2008\n- Windows Server 2003\n\nDefault value: Others Linux.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the image. You can call [DescribeRegions](~~25609~~) to query the most recent list of Alibaba Cloud regions.",
+      "description": "The region ID of the image. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group to which the custom image belongs. If you do not set this parameter, the created image belongs to the default resource group.\n\n> If you invoke this operation as a Resource Access Management (RAM) user and `ResourceGroupId` is left empty, note that when the RAM user does not have permissions on the default resource group, the error message `Forbidden: User not authorized to operate on the specified resource` is returned. Settings a resource group ID that the RAM user has permissions on, or grant the RAM user permissions on the default resource group through the corresponding Alibaba Cloud account before invoking this operation again.",
+      "description": "The ID of the resource group to which the custom image belongs. If you do not specify this parameter, the image belongs to the default resource group.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -147,7 +147,7 @@
     },
     {
       "name": "SnapshotId",
-      "description": "The snapshot ID used to create the custom image.\n\n> If you want to create a custom image from only the system disk snapshot of an instance, you can use this parameter or the `DiskDeviceMapping.N.SnapshotId` parameter. If you want to add data disk snapshots, use only the `DiskDeviceMapping.N.SnapshotId` parameter.",
+      "description": "The ID of the snapshot used to create the custom image.\n\n> If you want to create a custom image only from the system disk snapshot of an instance, you can use this parameter or the DiskDeviceMapping.N.SnapshotId parameter. If you want to add data disk snapshots, you can only use the DiskDeviceMapping.N.SnapshotId parameter to specify snapshots.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -161,28 +161,28 @@
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The tag key of the image. Valid values of N: 1 to 20. The tag key cannot be an empty string. It can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
+          "description": "The tag key of the image. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The tag value of the image. Valid values of N: 1 to 20. The tag value can be an empty string. It can be up to 128 characters in length and cannot start with `acs:`. It cannot contain `http://` or `https://`.",
+          "description": "The tag value of the image. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:`. It cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
-          "description": "The tag key of the image.\n\n> For better compatibility, we recommend that you use Tag.N.Key.",
+          "description": "The tag key of the image.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
-          "description": "The tag value of the image.\n\n> For better compatibility, we recommend that you use Tag.N.Value.",
+          "description": "The tag value of the image.",
           "position": "Query",
           "type": "String",
           "required": false

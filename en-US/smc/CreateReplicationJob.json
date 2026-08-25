@@ -7,56 +7,56 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "A client token to ensure the idempotence of the request. Generate a string of up to 64 ASCII characters and assign it to this parameter. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "Ensures the idempotency of the request. You can generate a parameter value of up to 64 ASCII characters from the client and assign the value to ClientToken to ensure the idempotency of retry requests. For more information, see [How to ensure idempotency](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ContainerNamespace",
-      "description": "The namespace of the Docker container. For more information, see [Container Registry](~~60744~~).",
+      "description": "The namespace of the Docker container. For more information about Docker container images, see [Container Registry](~~60744~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ContainerRepository",
-      "description": "The image repository for the Docker container. For more information, see [Container Registry](~~60744~~).",
+      "description": "The Docker image repository. For more information about Docker container images, see [Container Registry](~~60744~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ContainerTag",
-      "description": "The image tag for the Docker container. For more information, see [Container Registry](~~60744~~).",
+      "description": "The Docker image tag. For more information about Docker container images, see [Container Registry](~~60744~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DataDisk",
-      "description": "The list of data disks.",
+      "description": "The list of data cloud disk information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Index",
-          "description": "The sequence number of the data disk on the destination ECS instance. The sequence starts from 1. Valid values: 1 to 16.\n\n> You can create a destination data disk only for a data disk that exists on the migration source.",
+          "description": "The index of the data cloud disk on the destination Alibaba Cloud ECS instance. The initial value is 1. Valid values: 1 to 16.\n\n\n>You can create destination data cloud disks only for data disks that exist on the migration source.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "Part",
-          "description": "The list of partitions.",
+          "description": "The partition list.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "Size",
-          "description": "The size of the data disk on the destination ECS instance. Unit: GiB. Valid values: 20 to 32768.\n\n> The value must be greater than the used space of the source data disk. For example, if the source data disk is 500 GiB and 100 GiB of space is used, set this parameter to a value greater than 100.",
+          "description": "The size of the data cloud disk on the destination Alibaba Cloud ECS instance. Unit: GiB. Valid values: 20 to 32768.\n>The value of this parameter must be greater than the actual used space of the migration source data cloud disk. For example, if the source data cloud disk size is 500 GiB with 100 GiB actually used, the value of this parameter must be greater than 100 GiB.",
           "position": "Query",
           "type": "Integer",
           "required": false
@@ -65,7 +65,7 @@
     },
     {
       "name": "Description",
-      "description": "The description of the migration task.\n\nThe description must be 2 to 128 characters in length. It must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. It can contain digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The description of the migration task.\n\nThe description must be 2 to 128 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. It can contain digits, colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -79,98 +79,98 @@
     },
     {
       "name": "Frequency",
-      "description": "The interval at which an incremental migration task is run. Unit: hours. Valid values: 1 to 168.\n\nThis parameter is required if you set the `RunOnce` parameter to \\`false\\`.\n\nDefault value: None.",
+      "description": "The interval at which the incremental migration task runs. Unit: hours. Valid values: 1 to 168.\n\nThis parameter is required when RunOnce is set to false.\n\nDefault value: null.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ImageName",
-      "description": "The name of the destination Alibaba Cloud image. The name must meet the following requirements:\n\n- The image name must be unique in the same Alibaba Cloud region.\n\n- The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. It can contain digits, colons (:), underscores (\\_), and hyphens (-).\n\n> If an image with the same name already exists in the current region when the migration task is running, the system adds the migration task ID (JobId) to the image name as a suffix. For example: \\`ImageName\\_j-2zexxxxxxxxxxxxx\\`.",
+      "description": "The name of the destination Alibaba Cloud image delivered by the migration task. The image name must meet the following requirements:\n\n- The image name must be unique within the same Alibaba Cloud region.\n- The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character and cannot start with `http://` or `https://`. It can contain digits, colons (:), underscores (_), or hyphens (-).\n\n> During the migration task, if an image with the same name already exists in the current region, the system appends the migration task ID (JobId) as a suffix to the image name by default, such as ImageName_j-2zexxxxxxxxxxxxx.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the destination instance.",
+      "description": "The target instance ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceRamRole",
-      "description": "The name of the RAM role for the instance.",
+      "description": "The name of the instance RAM role.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance type of the intermediate instance.\n\nYou can call the [DescribeInstanceTypes](~~25620~~) operation to query the instance types provided by ECS.\n\n- If you specify this parameter, the system creates an intermediate instance of the specified instance type. If the specified instance type is out of stock, the migration task fails to be created.\n\n- If you do not specify this parameter, the system selects an instance type in a specific order to create the intermediate instance. For more information, see the \"What instance types are used for intermediate instances?\" section in [SMC FAQ](~~121707~~).",
+      "description": "The instance type of the intermediate ECS instance.\n\nCall [DescribeInstanceTypes](~~25620~~) to query the instance types provided by Elastic Compute Service (ECS).\n\n- If you specify this parameter, the system creates the intermediate instance with the specified instance type. If the specified instance type is out of stock, the migration task fails to be created.\n- If you do not specify this parameter, the system selects an instance type in a specific order to create the intermediate instance. For more information, see [What instance types can be used for intermediate instances in SMC FAQ](~~121707~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "JobType",
-      "description": "The type of the migration task. Valid values:\n\n- 0: Server migration.\n\n- 1: Operating system migration.\n\n- 2: Cross-zone migration.\n\n- 3: Agentless migration for VMware.",
+      "description": "The type of the migration task. Valid values:",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "LaunchTemplateId",
-      "description": "The ID of the launch template.",
+      "description": "The ID of the instance launch template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateVersion",
-      "description": "The version of the launch template.",
+      "description": "The version of the instance launch template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LicenseType",
-      "description": "The license type. Valid values:\n\n- Leave this parameter empty to indicate no license.\n\n- BYOL: Bring Your Own License (BYOL).\n\nFor more information, see [SMC FAQ](~~121707~~).",
+      "description": "The license type. Valid values:\n\n- Empty value: no license.\n- BYOL: Bring Your Own License.\n\nFor more information, see [SMC FAQ](~~121707~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MaxNumberOfImageToKeep",
-      "description": "The maximum number of images to retain for an incremental migration task. Valid values: 1 to 10.\n\nThis parameter is required if you set the `RunOnce` parameter to \\`false\\`.\n\nDefault value: None.",
+      "description": "The maximum number of images retained by default for an incremental migration task. Valid values: 1 to 10.\n\nThis parameter is required when RunOnce is set to false.\n\nDefault value: null.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The name of the migration task. The name must meet the following requirements:\n\n- The name must be unique.\n\n- The name must be 2 to 128 characters in length. It must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. It can contain digits, colons (:), underscores (\\_), and hyphens (-).",
+      "description": "The name of the migration task. The name must meet the following requirements:\n\n- The task name must be unique.\n- The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://` or `https://`. It can contain digits, colons (:), underscores (_), or hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetMode",
-      "description": "The network mode for data transmission. Valid values:\n\n- 0: Internet. Data is transmitted over the Internet. The source server must be able to access the Internet.\n\n- 2: Internal network. If you select this mode, you must set the VSwitchId parameter. The VpcId parameter is optional because the service can automatically query the VPC ID.\n\nDefault value: 0.",
+      "description": "The network mode for data transmission. Valid values:\n\n- 0: public network transmission mode. The migration source must have access to the Internet, and migration data is transmitted over the Internet.\n- 2: internal network transmission mode. If you select this mode, you must set the VSwitchId parameter. You do not need to set the VpcId parameter because the service can automatically obtain the VPC ID through internal API calls.\n\nDefault value: 0.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the destination Alibaba Cloud region.\n\nFor example, if you want to migrate a source server to the China (Hangzhou) region, set this parameter to `cn-hangzhou`. You can call the [DescribeRegions](~~25609~~) operation to query the latest list of Alibaba Cloud regions.",
+      "description": "The ID of the destination Alibaba Cloud region to which the migration source is to be migrated.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ReplicationParameters",
-      "description": "The parameters for the replication driver. The parameters are a JSON key-value pair. The keys are fixed. The value can be up to 2,048 characters in length.\n\nThe replication driver is the tool used to copy data from the source server to the intermediate instance. The supported parameters vary based on the replication driver. The SMT replication driver supports the following parameters:\n\n- bandwidth\\_limit: The bandwidth limit for data transmission.\n\n- compress\\_level: The compression ratio for data transmission.\n\n- checksum: Specifies whether to enable checksum verification.\n\nTo obtain the value of the replication driver, see the `SourceServers.ReplicationDriver` response parameter in [DescribeSourceServers](~~121818~~).",
+      "description": "The parameter information of the replication driver. The parameter information is in JSON key-value pair format with fixed keys. Maximum length: 2048 characters.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -184,14 +184,14 @@
     },
     {
       "name": "RunOnce",
-      "description": "Specifies whether to create a one-time migration task or an incremental migration task. Valid values:\n\n- true (default): One-time migration task. The task is executed only once after it is created.\n\n- false: Incremental migration task. After the task is created, it is automatically executed at the interval specified by the `Frequency` parameter. An incremental migration task lets you synchronize incremental data from a source server to Alibaba Cloud without interrupting your services and generate a full data image of the source server at the time the task is running.\n\n> You can specify this parameter only when you create a migration task. You cannot change the value after the task is created.",
+      "description": "Specifies whether to create a one-time migration task or an incremental migration task. Valid values:\n\n- true (default): one-time migration task. The task runs only once after it is created.\n\n- false: incremental migration task. After the task is created, it automatically runs on a periodic basis based on the value of the `Frequency` parameter. Incremental migration tasks allow you to synchronize incremental data from the migration source to Alibaba Cloud without pausing your business, and generate a full-data image of the migration source at the time the task runs.\n\n> This parameter can be specified only when you create a migration task. After the value is specified, it cannot be changed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ScheduledStartTime",
-      "description": "The time when you want to start the migration task. The time must meet the following requirements:\n\n- The time must follow the ISO 8601 standard and be in UTC. The format is YYYY-MM-DDThh:mm:ssZ. For example, 2018-01-01T12:00:00Z specifies 20:00:00 on January 1, 2018 (UTC+8).\n\n- The time must be later than the current time and within 30 days.\n\n> If you leave this parameter empty, the migration task is not automatically started. You must call the [StartReplicationJob](~~121823~~) operation to start the task.",
+      "description": "The execution time of the migration task. The value of this parameter must meet the following requirements:\n\n- The time must follow the ISO 8601 standard in UTC+0. The format is YYYY-MM-DDThh:mm:ssZ. For example, 2018-01-01T12:00:00Z indicates 20:00:00 on January 1, 2018 (UTC+8).\n- The value must be later than the current time and within 30 days from the current time.\n\n>If this parameter is left empty, Server Migration Center (SMC) does not start the migration task. You must call [StartReplicationJob](~~121823~~) to start the task.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -205,28 +205,28 @@
     },
     {
       "name": "SystemDiskPart",
-      "description": "The information about the system disk partitions.",
+      "description": "The partition information of the system cloud disk.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Block",
-          "description": "Specifies whether to enable block replication for system disk partition N. Valid values:\n\n- true\n\n- false\n\nDefault value: \\`true\\`.",
+          "description": "Specifies whether to enable block replication for system cloud disk partition N. Valid values:",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "Device",
-          "description": "The device ID of system disk partition N. The value of N must be the same as the value of N in the device ID of the source partition.\n\n> This parameter cannot be empty if `SystemDiskPart.N.SizeBytes` is not empty.",
+          "description": "The device identifier of system disk partition N. For the actual value of N, refer to the partition device identifier of the migration source.\n> If `SystemDiskPart.N.SizeBytes` is not empty, this parameter cannot be empty either.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SizeBytes",
-          "description": "The size of system disk partition N. Unit: bytes. Default value: the size of the source system disk partition.\n\n> - The partition size cannot exceed the system disk size. The total size of all partitions on the system disk cannot exceed the system disk size.\n\n- This parameter cannot be empty if `SystemDiskPart.N.Device` is not empty.",
+          "description": "The size of system cloud disk partition N. Unit: bytes. Default value: the size of the source system cloud disk partition.",
           "position": "Query",
           "type": "Long",
           "required": false
@@ -235,7 +235,7 @@
     },
     {
       "name": "SystemDiskSize",
-      "description": "The system disk size of the destination Elastic Compute Service (ECS) instance. Unit: GiB. Valid values: 20 to 2048.\n\n> The value must be greater than the used space of the source system disk. For example, if the source system disk is 500 GiB and 100 GiB of space is used, set this parameter to a value greater than 100.",
+      "description": "The system cloud disk size of the destination Alibaba Cloud ECS instance. Unit: GiB. Valid values: 20 to 2048.\n\n> The value of this parameter must be greater than the actual used space of the migration source system cloud disk. For example, if the source system cloud disk size is 500 GiB but the actual used space is 100 GiB, the value of this parameter must be greater than 100 GiB.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -249,14 +249,14 @@
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The key of tag N for the migration task. Valid values of N: 1 to 20.\n\nThe tag key cannot be an empty string. It can be up to 128 characters in length. It cannot start with `aliyun`, `acs:`, `http://`, or `https://`.",
+          "description": "The tag key of the migration task. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The value of tag N for the migration task. Valid values of N: 1 to 20.\n\nThe tag value can be an empty string. It can be up to 128 characters in length. It cannot start with `aliyun`, `acs:`, `http://`, or `https://`.",
+          "description": "The tag value of the migration task. Valid values of N: 1 to 20.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -265,28 +265,28 @@
     },
     {
       "name": "TargetType",
-      "description": "The type of the migration target. Valid values:\n\n- Image: SMC generates an Alibaba Cloud image from the migration source.\n\n- ContainerImage: SMC generates a Docker container image from the migration source.\n\n- TargetInstance: SMC migrates the source server to a destination instance. If you set this parameter to TargetInstance, you must also specify the `InstanceId` parameter.",
+      "description": "The target type of the migration task. Valid values:\n- Image: After a successful migration, Server Migration Center (SMC) generates an Alibaba Cloud image for your migration source.\n- ContainerImage: After a successful migration, SMC generates a Docker container image for your migration source.\n- TargetInstance: After a successful migration, SMC migrates your migration source directly to the target instance. If you set this parameter to TargetInstance, you must also specify the InstanceId parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the virtual switch in the specified VPC.\n\nThis parameter is required for migrations over a VPC internal network.",
+      "description": "The ID of the vSwitch in the specified VPC.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ValidTime",
-      "description": "The time when the migration task expires. The value must be between 7 and 90 days after the task is created.\n\n- The time must follow the ISO 8601 standard and be in UTC. The format is YYYY-MM-DDThh:mm:ssZ. For example, 2018-01-01T12:00:00Z specifies 20:00:00 on January 1, 2018 (UTC+8).\n\n- If you leave this parameter empty, the task does not expire.\n\n- After a task expires, it is marked as \\`Expired\\`. Expired tasks are retained for 7 days and then automatically deleted.\n\nDefault value: 30 days after the task is created.",
+      "description": "The expiration time of the migration task. Valid values: creation time of the migration task + 7 days to creation time of the migration task + 90 days.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC that is configured with an Express Connect circuit or a VPN Gateway.",
+      "description": "The ID of the VPC for which Express Connect or VPN Gateway is configured.",
       "position": "Query",
       "type": "String",
       "required": false

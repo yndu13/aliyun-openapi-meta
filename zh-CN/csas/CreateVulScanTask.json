@@ -1,0 +1,51 @@
+{
+  "name": "CreateVulScanTask",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "EndTimestamp",
+      "description": "任务失效时间，秒级Unix时间戳。到达该时间后终端不再拉取执行本任务，未完成的扫描不再继续。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "MatchMode",
+      "description": "生效范围的匹配方式。取值：\n- **UserGroupAll**：对当前阿里云账号下的全部用户生效。\n- **UserGroupNormal**：仅对指定用户组内的用户生效，此时UserGroupIds必填。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "TaskDescription",
+      "description": "任务描述。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "TaskName",
+      "description": "任务名称。长度不超过128个字符，支持中文、大小写英文字母、数字及半角句点（.）、下划线（_）、连字符（-），不支持空格。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "UserGroupIds",
+      "description": "生效的用户组ID集合。MatchMode取值为UserGroupNormal时必填，取值为UserGroupAll时不允许传入。传入时至少包含1个，最多包含100个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Whitelist",
+      "description": "例外用户名单，名单内的用户不执行本次扫描。最多包含1000个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    }
+  ]
+}

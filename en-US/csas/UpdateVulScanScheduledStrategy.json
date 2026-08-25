@@ -1,0 +1,93 @@
+{
+  "name": "UpdateVulScanScheduledStrategy",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "MatchMode",
+      "description": "The matching mode for the effective scope. Valid values:\n- **UserGroupAll**: The policy takes effect on all users under the current Alibaba Cloud account.\n- **UserGroupNormal**: The policy takes effect only on users in specified user groups. In this case, UserGroupIds is required.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Priority",
+      "description": "The policy priority. A smaller value indicates a higher priority. Valid values: 1 to 100.",
+      "position": "Body",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "ScanBeginTime",
+      "description": "The start hour during which the scan can be triggered. The value is an integer hour. Valid values: 0 to 23, inclusive. This field is not a timestamp.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanEndTime",
+      "description": "The end hour during which the scan can be triggered. The value is an integer hour. Valid values: 1 to 24, exclusive. The value must be greater than ScanBeginTime. This field is not a timestamp.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanFrequency",
+      "description": "The unit of the trigger cycle. Valid values:\n- **day**: by day.\n- **week**: by week.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanInterval",
+      "description": "The interval number of the trigger cycle. This parameter works together with ScanFrequency to determine the trigger cycle. Valid values: 1 to 30. For example, if ScanFrequency is set to week and ScanInterval is set to 1, the scan is triggered once a week.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "The enabling status. Valid values:\n- **Enabled**: Enabled.\n- **Disabled**: Disabled.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StrategyDescription",
+      "description": "The policy description.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StrategyId",
+      "description": "The ID of the vulnerability scheduled scan policy to modify. You can obtain the value from the following operations:\n- [ListVulScanScheduledStrategies](~~ListVulScanScheduledStrategies~~): Lists vulnerability scheduled scan policies.\n- [CreateVulScanScheduledStrategy](~~CreateVulScanScheduledStrategy~~): Creates a vulnerability scheduled scan policy.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "StrategyName",
+      "description": "The policy name. The name can be up to 128 characters in length and can contain Chinese characters, uppercase and lowercase letters, digits, periods (.), underscores (_), and hyphens (-). Spaces are not supported.",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "UserGroupIds",
+      "description": "The collection of user group IDs for the effective scope. This parameter is required when the effective scope is UserGroupNormal and must not be specified when the effective scope is UserGroupAll. The collection must contain at least 1 and at most 100 entries, and duplicates are not allowed. The collection you specify fully replaces the existing user groups of the policy.",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Whitelist",
+      "description": "The list of exempted users. Users in this list are not scanned by this policy. The list can contain up to 1000 entries and duplicates are not allowed. This parameter performs a full overwrite. The list you specify replaces the existing list of the policy.",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    }
+  ]
+}

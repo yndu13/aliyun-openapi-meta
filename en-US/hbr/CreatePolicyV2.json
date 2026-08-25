@@ -21,7 +21,7 @@
     },
     {
       "name": "PolicyType",
-      "description": "The policy type. Valid values:\n- **STANDARD**: general backup policy. Supports backing up data sources other than ECS full-server backup.\n- **UDM_ECS_ONLY**: full-server backup policy. Supports only ECS full-server backup.\n\nIf the policy type is not specified, Cloud Backup automatically sets the policy type based on whether a backup vault is specified in the policy rules:\n- Backup vault specified in policy rules: **STANDARD**\n- Backup vault not specified in policy rules: **UDM_ECS_ONLY**",
+      "description": "The policy type. Valid values:\n- **STANDARD**: general backup policy. Supports backing up data sources other than ECS instances.\n- **UDM_ECS_ONLY**: ECS instance backup policy. Supports backing up only ECS instances.\n\nIf you do not specify the policy type, Cloud Backup automatically sets the policy type based on whether a backup vault is specified in the policy rules:\n- A backup vault is specified in the policy rules: **STANDARD**\n- No backup vault is specified in the policy rules: **UDM_ECS_ONLY**",
       "position": "Body",
       "type": "String",
       "required": false
@@ -56,7 +56,7 @@
         },
         {
           "name": "Immutable",
-          "description": "This parameter is valid only when **PolicyType** is set to **UDM_ECS_ONLY**. Specifies whether to enable backup lock.",
+          "description": "This parameter is required only when **PolicyType** is set to **UDM_ECS_ONLY** and **RuleType** is set to **SECURITY**. Specifies whether to enable backup locking.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
@@ -77,7 +77,7 @@
         },
         {
           "name": "Retention",
-          "description": "This parameter is required only when **RuleType** is set to **BACKUP**, **TRANSITION**, or **REPLICATION**.\n- **RuleType** set to **BACKUP**: the retention period of backups. The priority is lower than the Retention value of the rule with **RuleType**=**TRANSITION**. Minimum value: 1. Maximum value: 364635. Unit: days.\n- **RuleType** set to **TRANSITION**: the retention period of backups. Minimum value: 1. Maximum value: 364635. Unit: days.\n- **RuleType** set to **REPLICATION**: the retention period of cross-region backups. Minimum value: 1. Maximum value: 364635. Unit: days.",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**, **TRANSITION**, or **REPLICATION**.\n- If **RuleType** is set to **BACKUP**: the retention period of backups. The priority of this parameter is lower than the Retention parameter of the rule whose **RuleType** is **TRANSITION**. Minimum value: 1. Maximum value: 364635. Unit: days.\n- If **RuleType** is set to **TRANSITION**: the retention period of backups. Minimum value: 1. Maximum value: 364635. Unit: days.\n- If **RuleType** is set to **REPLICATION**: the retention period of cross-region backups. Minimum value: 1. Maximum value: 364635. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
@@ -98,7 +98,7 @@
         },
         {
           "name": "Schedule",
-          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup schedule settings. Supported formats:\n- `I|{startTime}|{interval}`: specifies that a backup job is executed at the specified interval starting from the start time. For example, `I|1631685600|P1D` specifies that a backup job is executed once a day starting from 2021-09-15 14:00:00.\n\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * interval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n- `C|{startTime}|{crontab}`: specifies that a backup job is executed based on the crontab expression starting from the start time. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is executed at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * crontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs for past time periods are not compensated. If the previous backup job is not completed, the next backup job is not triggered.",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup schedule settings. Supported formats:\n- `I|{startTime}|{interval}`: specifies that a backup job is executed at the specified interval starting from {startTime}. For example, `I|1631685600|P1D` specifies that a backup job is executed once a day starting from 2021-09-15 14:00:00.\n\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * interval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n- `C|{startTime}|{crontab}`: specifies that a backup job is executed based on the {crontab} expression starting from {startTime}. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is executed at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * crontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs that are missed are not compensated. If the previous backup job is not complete, the next backup job is not triggered.",
           "position": "FormData",
           "type": "String",
           "required": false

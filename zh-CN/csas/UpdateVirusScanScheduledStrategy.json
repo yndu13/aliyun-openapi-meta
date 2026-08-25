@@ -1,0 +1,149 @@
+{
+  "name": "UpdateVirusScanScheduledStrategy",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "HighRiskOperation",
+      "description": "对高危病毒文件的处置动作。取值：\n- **Quarantine**：隔离文件。\n- **Notify**：仅上报告警，不处置文件。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "LowRiskOperation",
+      "description": "对低危病毒文件的处置动作。取值：\n- **Quarantine**：隔离文件。\n- **Notify**：仅上报告警，不处置文件。\n- **None**：不处理。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "MatchMode",
+      "description": "生效范围的匹配方式。取值：\n- **UserGroupAll**：对当前阿里云账号下的全部用户生效。\n- **UserGroupNormal**：仅对指定用户组内的用户生效，此时UserGroupIds必填。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "MaxCpuUsage",
+      "description": "扫描时占用终端CPU的百分比上限。取值范围：0~100。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "MidRiskOperation",
+      "description": "对中危病毒文件的处置动作。取值：\n- **Quarantine**：隔离文件。\n- **Notify**：仅上报告警，不处置文件。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "PerformanceMode",
+      "description": "扫描性能模式。取值：\n- **SecurityFirst**：安全优先，CPU占用上限默认为50%。\n- **Balance**：均衡，CPU占用上限默认为30%。\n- **ExperienceFirst**：体验优先，CPU占用上限默认为15%。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Priority",
+      "description": "策略优先级，数值越小优先级越高。取值范围：1~100。",
+      "position": "Body",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "ScanBeginTime",
+      "description": "允许触发扫描的起始小时，取整点小时数，取值范围：0~23，包含该小时。本字段不是时间戳。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "ScanEndTime",
+      "description": "允许触发扫描的结束小时，取整点小时数，取值范围：1~24，不包含该小时，且必须大于ScanBeginTime。每次触发生成的扫描任务在当天该整点失效。本字段不是时间戳。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "ScanFrequency",
+      "description": "触发周期的单位。取值：\n- **day**：按天。\n- **week**：按周。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanInterval",
+      "description": "触发周期的间隔数，与ScanFrequency共同决定触发周期。取值范围：1~30。例如ScanFrequency取值为week、ScanInterval取值为1时，表示每周扫描一次。",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "ScanMode",
+      "description": "扫描的路径范围。取值：\n- **Quick**：快速扫描，仅扫描系统关键目录与常见风险位置。\n- **Full**：全盘扫描。\n- **Custom**：自定义路径扫描，此时ScanPath必填。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanPath",
+      "description": "自定义扫描路径集合。最多包含100个，不允许重复。仅在ScanMode为Custom时生效。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "ScanTargets",
+      "description": "本次扫描要处置的病毒类型集合，至少包含1个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "启用状态。取值：\n- **Enabled**：已启用。\n- **Disabled**：已停用。\n启用后策略立即参与周期调度；停用时策略仅保存，不触发扫描。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StrategyDescription",
+      "description": "策略描述。支持中文、大小写英文字母、数字及空格、半角句点（.）、逗号（,）、分号（;）、正斜杠（/）、@、连字符（-）、下划线（_）。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StrategyId",
+      "description": "待修改的病毒定时扫描策略ID。取值来源：\n- [ListVirusScanScheduledStrategies](~~ListVirusScanScheduledStrategies~~)：批量查询病毒定时扫描策略。\n- [CreateVirusScanScheduledStrategy](~~CreateVirusScanScheduledStrategy~~)：创建病毒定时扫描策略。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "StrategyName",
+      "description": "策略名称。长度不超过128个字符，支持中文、大小写英文字母、数字及半角句点（.）、下划线（_）、连字符（-），不支持空格。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "UserGroupIds",
+      "description": "生效的用户组ID集合。至少包含1个，最多包含100个，不允许重复。生效范围为UserGroupNormal时，传入的集合会全量替换该策略原有的用户组。生效范围为UserGroupAll且本次不修改生效范围时，不允许传入。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Whitelist",
+      "description": "例外用户名单，名单内的用户不执行该策略的扫描。最多包含1000个，不允许重复。本参数为全量覆盖，传入的名单会替换该策略原有的名单。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    }
+  ]
+}

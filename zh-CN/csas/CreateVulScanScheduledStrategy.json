@@ -1,0 +1,86 @@
+{
+  "name": "CreateVulScanScheduledStrategy",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "MatchMode",
+      "description": "生效范围的匹配方式。取值：\n- **UserGroupAll**：对当前阿里云账号下的全部用户生效。\n- **UserGroupNormal**：仅对指定用户组内的用户生效，此时UserGroupIds必填。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "Priority",
+      "description": "策略优先级，数值越小优先级越高。取值范围：1~100。",
+      "position": "Body",
+      "type": "Integer",
+      "required": false
+    },
+    {
+      "name": "ScanBeginTime",
+      "description": "允许触发扫描的起始小时，取整点小时数，取值范围：0~23，包含该小时。本字段不是时间戳。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanEndTime",
+      "description": "允许触发扫描的结束小时，取整点小时数，取值范围：1~24，不包含该小时，且必须大于ScanBeginTime。本字段不是时间戳。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanFrequency",
+      "description": "触发周期的单位。取值：\n- **day**：按天。\n- **week**：按周。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "ScanInterval",
+      "description": "触发周期的间隔数，与ScanFrequency共同决定触发周期。取值范围：1~30。例如ScanFrequency取值为week、ScanInterval取值为1时，表示每周扫描一次。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Status",
+      "description": "启用状态。取值：\n- **Enabled**：已启用。\n- **Disabled**：已停用。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StrategyDescription",
+      "description": "策略描述。",
+      "position": "Body",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "StrategyName",
+      "description": "策略名称。长度不超过128个字符，支持中文、大小写英文字母、数字及半角句点（.）、下划线（_）、连字符（-），不支持空格。",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "UserGroupIds",
+      "description": "生效的用户组ID集合。MatchMode取值为UserGroupNormal时必填，取值为UserGroupAll时不允许传入。传入时至少包含1个，最多包含100个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Whitelist",
+      "description": "例外用户名单，名单内的用户不执行该策略的扫描。最多包含1000个，不允许重复。",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    }
+  ]
+}

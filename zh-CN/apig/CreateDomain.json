@@ -13,6 +13,13 @@
       "required": false
     },
     {
+      "name": "clientToken",
+      "description": "幂等标识，由调用方生成全局唯一值（推荐 UUID），长度不超过 64 个字符。首次请求成功后约 24 小时内，携带相同 ClientToken 且请求参数一致的重复请求直接返回首次创建的 domainId，不重复创建域名；携带相同 ClientToken 但请求参数不一致时返回 IdempotentParameterMismatch；首次请求仍在处理中时返回 IdempotentProcessing；缺省时不启用幂等控制，行为与现有版本一致。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "dryRun",
       "description": "是否只做预检校验（dry run）。true 时执行与真实创建一致的全部同步校验（含既有测试域名的幂等判定）但不创建域名、不产生任何副作用；缺省或 false 时行为与现有版本一致。",
       "position": "Query",

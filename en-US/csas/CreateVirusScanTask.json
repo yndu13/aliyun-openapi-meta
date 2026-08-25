@@ -1,0 +1,100 @@
+{
+  "name": "CreateVirusScanTask",
+  "deprecated": false,
+  "protocol": "HTTP|HTTPS",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "EndTime",
+      "description": "The task expiration time, in seconds-level UNIX timestamp. After this time, endpoints no longer pull and execute this task. If this parameter is not specified or the specified time is earlier than the current time, the value defaults to the current time plus 24 hours.",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "HighRiskOperation",
+      "description": "The action to take on high-risk virus files. Valid values:\n- **Quarantine**: quarantine quarantined file.\n- **Notify**: report an alert only without taking action on quarantined file.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "LowRiskOperation",
+      "description": "The action to take on low-risk virus files. Valid values:\n- **Quarantine**: quarantine quarantined file.\n- **Notify**: report an alert only without taking action on quarantined file.\n- **None**: take no action.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "MatchMode",
+      "description": "The matching mode for the effective scope. Valid values:\n- **UserGroupAll**: applies to all users under the current Alibaba Cloud account.\n- **UserGroupNormal**: applies only to users in specified user groups. UserGroupIds is required when this value is specified.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "MaxCpuUsage",
+      "description": "The maximum percentage of endpoint CPU usage during scanning. Valid values: 0 to 100. If this parameter is not specified or is set to 0, the default value is determined by PerformanceMode: 50 for SecurityFirst, 30 for Balance, and 15 for ExperienceFirst.",
+      "position": "Body",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "MidRiskOperation",
+      "description": "The action to take on medium-risk virus files. Valid values:\n- **Quarantine**: quarantine quarantined file.\n- **Notify**: report an alert only without taking action on quarantined file.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "PerformanceMode",
+      "description": "The scan performance pattern. Valid values:\n- **SecurityFirst**: security first. The default CPU usage limit is 50%.\n- **Balance**: balanced. The default CPU usage limit is 30%.\n- **ExperienceFirst**: experience first. The default CPU usage limit is 15%.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanMode",
+      "description": "The scan path scope. Valid values:\n- **Quick**: quick scan. Only system critical directories and common risk locations are scanned.\n- **Full**: full disk scan.\n- **Custom**: custom path scan. ScanPath is required when this value is specified.",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "ScanPath",
+      "description": "The collection of custom scan paths. This parameter is required when ScanMode is set to Custom and cannot be specified when ScanMode is set to Quick or Full. A maximum of 100 paths can be specified. Duplicate values are not allowed.",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "ScanTargets",
+      "description": "The collection of virus types to be handled in this scan. At least one type must be specified. Duplicate values are not allowed.",
+      "position": "Body",
+      "type": "Array",
+      "required": true
+    },
+    {
+      "name": "TaskDescription",
+      "description": "The task description. The description can be up to 128 characters in length and can contain Chinese characters, uppercase and lowercase letters, digits, spaces, periods (.), commas (,), semicolons (;), forward slashes (/), at signs (@), hyphens (-), and underscores (_).",
+      "position": "Body",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "UserGroupIds",
+      "description": "The collection of user group IDs to which the task applies. This parameter is required when MatchMode is set to UserGroupNormal and cannot be specified when MatchMode is set to UserGroupAll. At least 1 and at most 100 IDs can be specified. Duplicate values are not allowed.",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    },
+    {
+      "name": "Whitelist",
+      "description": "The list of exempt users. Users in this list do not execute this scan task. A maximum of 1000 users can be specified. Duplicate values are not allowed.",
+      "position": "Body",
+      "type": "Array",
+      "required": false
+    }
+  ]
+}

@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "AutoStartEnabled",
-      "description": "The default value is true.",
+      "description": "Specifies whether to run the workflow instance immediately after creation. Default value: true.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Comment",
-      "description": "The reason for the creation.",
+      "description": "The reason for creating the workflow instance.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "DefaultRunProperties",
-      "description": "The runtime configuration.",
+      "description": "The runtime configurations.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "EnvType",
-      "description": "The project environment. Valid values:\n\n- Prod\n\n- Dev",
+      "description": "The project environment. Valid values:\n- Prod: production\n- Dev: development",
       "position": "Body",
       "type": "String",
       "required": false
@@ -42,7 +42,7 @@
     },
     {
       "name": "Periods",
-      "description": "The configuration of the data backfilling period.",
+      "description": "The data backfill period settings.",
       "position": "Body",
       "type": "String",
       "required": false
@@ -56,28 +56,28 @@
     },
     {
       "name": "TagCreationPolicy",
-      "description": "The tag creation policy. Valid values:\n\n- Append: New tags are added on top of the existing tags of the manual workflow.\n\n- Overwrite: Existing tags of the manual workflow are not inherited. New tags are created directly.",
+      "description": "The tag creation policy. Valid values:\n- Append: append mode. New tags are appended to the existing tags inherited from the manual workflow.\n- Overwrite: overwrite mode. Existing tags of the manual workflow are not inherited. Tags are created directly.",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "The task tag list.",
+      "description": "The list of node labels.",
       "position": "Body",
       "type": "Json",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The tag key.",
+          "description": "The label key.",
           "position": "FormData",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The tag value.",
+          "description": "The label value.",
           "position": "FormData",
           "type": "String",
           "required": false
@@ -86,28 +86,28 @@
     },
     {
       "name": "TaskParameters",
-      "description": "The task-specific parameters. The value is in the JSON format. The key specifies the task ID. You can call the GetTask operation to obtain the format of the value by querying the script parameters.",
+      "description": "The node parameters used to set parameters for specific nodes. The value is in JSON format. The key is the node ID, and the value format refers to the node script parameter (the Task.Script.Parameter field in the GetTask response).",
       "position": "Body",
       "type": "String",
       "required": false
     },
     {
       "name": "Type",
-      "description": "The type of the workflow instance. Valid values:\n\n- SupplementData: Data backfill. The usage of RootTaskIds and IncludeTaskIds varies based on the backfill mode. See the description of the DefaultRunProperties.Mode parameter.\n\n- ManualWorkflow: Manually triggered workflow. WorkflowId is required for a manual workflow. RootTaskIds is optional. If not specified, the system uses the default root task list of the manual workflow.\n\n- Manual: Manual task. You only need to specify RootTaskIds. This is the list of manual tasks to run.\n\n- SmokeTest: Smoke test. You only need to specify RootTaskIds. This is the list of test tasks to run.\n\n- TriggerWorkflow: Triggered Workflow You must specify the WorkflowId of the triggered workflow. IncludeTaskIds is optional. If you do not specify IncludeTaskIds, the entire workflow runs.",
+      "description": "The type of the workflow instance. Valid values:\n\n- SupplementData: data backfill. The method for specifying RootTaskIds and IncludeTaskIds varies based on the data backfill pattern. For more information, see the DefaultRunProperties.Mode parameter description.\n- ManualWorkflow: manual workflow. Set WorkflowId to the ID of the manual workflow. RootTaskIds is optional. If you do not specify RootTaskIds, the default root node list of the manual workflow is used.\n- Manual: manual node. Only RootTaskIds is required, which specifies the list of manual nodes to run.\n- SmokeTest: smoke test. Only RootTaskIds is required, which specifies the list of test nodes to run.\n- TriggerWorkflow: trigger-based workflow. Set WorkflowId to the ID of the trigger-based workflow. IncludeTaskIds is optional. If you do not specify IncludeTaskIds, the entire workflow is run.",
       "position": "Body",
       "type": "String",
       "required": true
     },
     {
       "name": "WorkflowId",
-      "description": "The ID of the workflow to which the instance belongs. This parameter is set to 1 for auto triggered tasks.",
+      "description": "The ID of the workflow to which the instance belongs. The WorkflowId for periodic nodes is 1.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "WorkflowParameters",
-      "description": "The workflow parameters. This parameter takes effect when a specific workflow is specified (`WorkflowId != 1`). For scheduled workflows and triggered workflows, the format is key=value, and these parameters have lower priority than task parameters. For manual workflows, the format is JSON, and these parameters have higher priority than task parameters.",
+      "description": "The workflow parameters. This parameter takes effect when a unique workflow is specified (`WorkflowId != 1`). For periodic workflows and trigger-based workflows, the format is key=value, and the priority is lower than node parameters. For manual workflows, the format is JSON, and the priority is higher than node parameters.",
       "position": "Body",
       "type": "String",
       "required": false

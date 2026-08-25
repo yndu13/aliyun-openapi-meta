@@ -35,7 +35,7 @@
       "sub_parameters": [
         {
           "name": "ArchiveDays",
-          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which the backup is transitioned to archive storage. Unit: days.",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which the backup is converted to archive storage. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
@@ -49,7 +49,7 @@
         },
         {
           "name": "ColdArchiveDays",
-          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which the backup is transitioned to cold archive storage. Unit: days.",
+          "description": "This parameter is required only when **RuleType** is set to **TRANSITION**. The number of days after which the backup is converted to cold archive storage. Unit: days.",
           "position": "FormData",
           "type": "Long",
           "required": false
@@ -63,7 +63,7 @@
         },
         {
           "name": "Immutable",
-          "description": "This parameter is valid only when **PolicyType** is set to **UDM_ECS_ONLY**. Specifies whether to enable backup locking.",
+          "description": "This parameter is required only when **PolicyType** is set to **UDM_ECS_ONLY** and **RuleType** is set to **SECURITY**. Specifies whether to enable backup locking.",
           "position": "FormData",
           "type": "Boolean",
           "required": false
@@ -112,7 +112,7 @@
         },
         {
           "name": "Schedule",
-          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup schedule settings. Supported formats:\n- `I|{startTime}|{interval}`: specifies that a backup job is run at the {interval} from {startTime}. For example, `I|1631685600|P1D` specifies that a backup job is run once a day starting from 2021-09-15 14:00:00.\n\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * interval: the ISO 8601 time interval. For example, `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n- `C|{startTime}|{crontab}`: specifies that a backup job is run based on the {crontab} expression from {startTime}. For example, `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is run at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * crontab: the crontab expression. For example, `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs that are scheduled for past times are not compensated. If the previous backup job is not completed, the next backup job is not triggered.",
+          "description": "This parameter is required only when **RuleType** is set to **BACKUP**. The backup schedule settings. Supported formats:\n- `I|{startTime}|{interval}`: specifies that a backup job is run at the {interval} from the {startTime}. Example: `I|1631685600|P1D` specifies that a backup job is run once a day starting from 2021-09-15 14:00:00.\n\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * interval: the ISO 8601 time interval. Example: `PT1H` specifies an interval of one hour. `P1D` specifies an interval of one day.\n- `C|{startTime}|{crontab}`: specifies that a backup job is run based on the {crontab} expression from the {startTime}. Example: `C|1631685600|0 0 2 ? * 3,5,7` specifies that a backup job is run at 02:00:00 every Tuesday, Thursday, and Saturday starting from 2021-09-15 14:00:00.\n  * startTime: the start time of the backup. This value is a UNIX timestamp. Unit: seconds.\n  * crontab: the crontab expression. Example: `0 0 2 ? * 3,5,7` specifies every Tuesday, Thursday, and Saturday at 02:00:00.\n\nBackup jobs for elapsed time periods are not compensated. If the previous backup job is not completed, the next backup job is not triggered.",
           "position": "FormData",
           "type": "String",
           "required": false
