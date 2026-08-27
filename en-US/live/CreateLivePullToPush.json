@@ -6,106 +6,124 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AuthKey",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "CallbackUrl",
-      "description": "HTTP callback URL. Default value: empty.\n\n> - The URL that receives task-related callbacks.\n> - Maximum length is 2000 characters.\n> - If this parameter is not specified, no task event callbacks will be sent.",
+      "description": "The HTTP callback URL. Default value: empty.\n\n> - The URL that receives task-related callbacks.\n> - The maximum length is 2000 characters.\n> - If this parameter is not specified, task events are not sent as callbacks.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DstUrl",
-      "description": "Destination URL address for pushing the stream.\n\n> - The rtmp protocol is supported.\n> - Maximum length is 2000 characters.",
+      "description": "The destination ingest URL.\n\n> - The rtmp protocol is supported.\n> - The maximum length is 2000 characters.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "EndTime",
-      "description": "Task end time.\n\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC time).\n> - EndTime must be later than StartTime.\n> - EndTime must be later than the current time.",
+      "description": "The end time of the task.\n\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n> - EndTime must be later than StartTime.\n> - EndTime must be later than the current time.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FileIndex",
-      "description": "File index. Starts playback from the nth file.",
+      "description": "The file index. Playback starts from the nth file.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "NotifyItemSwitch",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Offset",
-      "description": "Start offset. The offset value from the beginning of the video file. Unit: seconds. Valid values: greater than 0.\n\n> - Indicates the position to start reading from, relative to the first frame (applies to the first video).\n> - This parameter applies only to VOD or third-party video streams.",
+      "description": "The start offset from the beginning of the video file. Unit: seconds. The value must be greater than 0.\n\n> - Specifies the offset from the first frame as the start position for reading (applies to the first video).\n> - This parameter applies only to video-on-demand or third-party video streams.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Region",
-      "description": "Specifies the region where the task is launched. Valid values:\n\n- ap-southeast-1 (Singapore)\n- ap-southeast-5 (Indonesia)\n- cn-beijing (Beijing)\n- cn-shanghai (Shanghai)\n- cn-shenzhen (Shenzhen)",
+      "description": "The region where the task is launched. Valid values:\n\n- ap-southeast-1 (Singapore)\n- ap-southeast-5 (Indonesia)\n- cn-beijing (Beijing)\n- cn-shanghai (Shanghai)\n- cn-shenzhen (Shenzhen)",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "RegionId",
-      "description": "Region ID.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RepeatNumber",
-      "description": "Number of times to repeat playback after the initial playback is complete. Valid values:\n\n- 0 (default): no repeat playback.\n- -1: loop indefinitely.\n- Other positive integers: number of times to repeat playback after the initial playback is complete.\n\n> This parameter applies only to VOD or third-party video streams.",
+      "description": "The number of times to repeat playback after the playlist finishes. Valid values:\n\n- 0 (default): no repeat.\n- -1: loop indefinitely.\n- Other positive integers: the number of times to repeat playback.\n\n> This parameter applies only to video-on-demand or third-party video streams.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "ReqAuth",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "RetryCount",
-      "description": "Number of retries. Default value: 3.",
+      "description": "The number of retries. Default value: 3.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RetryInterval",
-      "description": "Retry interval, in seconds. Valid values: [60, 300]. Default value: 60 seconds.",
+      "description": "The retry interval. Unit: seconds. Valid values: 60 to 300. Default value: 60.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SourceProtocol",
-      "description": "Source stream protocol name.\n\nValid values:\n- rtmp\n- srt\n- http-flv\n- hls\n> This parameter is **required only when the SourceType parameter is set to live**, and is invalid when the value is vod or url.",
+      "description": "The source stream protocol.\n\nValid values:\n- rtmp\n- srt\n- http-flv\n- hls\n> This parameter is required only when **SourceType is set to live**. This parameter does not take effect when SourceType is set to vod or url.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceType",
-      "description": "Source stream type. Valid values:\n\n- live: live stream.\n- vod: ApsaraVideo VOD resource.\n- url: third-party video file resource.",
+      "description": "The source stream type. Valid values:\n\n- live: live stream.\n- vod: ApsaraVideo VOD resource.\n- url: third-party video file resource.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "SourceUrls",
-      "description": "List of source stream URL addresses.\n\n> - For the live type, only one complete live playback URL is supported.\n> - For the vod and url types, a maximum of 30 URLs can be specified.\n> - The live type supports: rtmp, srt, and http-flv protocols.\n> - For the vod type, specify ApsaraVideo VOD media asset IDs.\n> - The url type supports: mp4 and http-flv protocols.",
+      "description": "The list of source stream URLs.\n\n> - For the live type, only one complete live streaming URL is supported.\n> - For the vod and url types, up to 30 URLs are supported.\n> - The live type supports rtmp, srt, and http-flv protocols.\n> - For the vod type, specify ApsaraVideo VOD media asset IDs.\n> - The url type supports mp4 and http-flv protocols.",
       "position": "Query",
       "type": "Json",
       "required": true
     },
     {
       "name": "StartTime",
-      "description": "Task start time.\n\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC time).",
+      "description": "The start time of the task.\n\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TaskName",
-      "description": "Task name, used to support fuzzy query. Default value: \"\".",
+      "description": "The task name. This parameter supports fuzzy match. Default value: \"\".",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,102 @@
+{
+  "name": "StartChat",
+  "deprecated": false,
+  "protocol": "HTTPS|SSE",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AgentVersion",
+      "description": "Set this parameter to V2 to route requests to the ROS Agent V2 backend.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Attachments",
+      "description": "The array of image attachments. A maximum of 5 attachments are supported. Currently, only the image type is supported.",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "MimeType",
+          "description": "The image media type. Valid values: image/png, image/jpeg, image/webp, and image/gif.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "description": "The attachment file name. If this parameter is not specified, the file name is obtained from OssObjectKey.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "OssObjectKey",
+          "description": "The OSS object key under the current user directory. The value cannot contain absolute paths or path traversal.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "description": "The attachment type. V2 currently supports only image.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Url",
+          "description": "V2 does not support direct URL upload. Use OssObjectKey instead.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "EnablePartialMessage",
+      "description": "A compatibility field. V2 always returns event streams through SSE. The current service does not consume this field.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "EnableThinking",
+      "description": "Specifies whether to output thinking content. Default value: true. This parameter can be reset per request when re-entering the same session.",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Mode",
+      "description": "V2 supports only IaCCodeNormal or IaCCodePipeline. The default value for a new session is IaCCodeNormal. An existing session cannot switch modes.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Query",
+      "description": "The user input. The value cannot be empty or contain only whitespace characters.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "RegionId",
+      "description": "The region ID for this resource operation.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SessionId",
+      "description": "If this parameter is not specified, a new session is created. If this parameter is specified, the existing session of the current user is continued.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

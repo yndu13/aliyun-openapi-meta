@@ -6,36 +6,48 @@
   "pathPattern": "",
   "parameters": [
     {
+      "name": "AuthKey",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "CallbackUrl",
-      "description": "The callback URL. Default value: empty.\n> - The URL that receives task-related callbacks.\n> - Maximum length: 2000 characters.\n> - If this parameter is not specified, task events are not sent as callbacks.\n> - The update takes effect when the next event is triggered.",
+      "description": "The callback URL. Default value: empty.\n> - The URL that receives task-related callbacks.\n> - Maximum length: 2000 characters.\n> - If this parameter is not specified, task events are not sent as callbacks.\n> - The update takes effect only when the next event is triggered.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end time of the task.\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n> - EndTime must be later than StartTime.\n> - EndTime must be later than the current time.\n> - If the task has already ended, this update does not take effect.",
+      "description": "The end time of the task.\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n> - EndTime must be later than StartTime.\n> - EndTime must be later than the current time.\n> - If the task has ended, the update does not take effect.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FileIndex",
-      "description": "The video index. Default value: 0.\n> Update this parameter while the task is stopped. The update takes effect after the task is restarted.",
+      "description": "The video index. Default value: 0.\n> The update must be performed when the task is stopped and takes effect after the task is restarted.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "NotifyItemSwitch",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Offset",
-      "description": "The start offset of the video file, in seconds. The value must be greater than 0.\n> - Specifies the position relative to the first frame from which to start reading.\n> - This parameter applies only to video-on-demand or third-party video streams.\n> - This parameter takes effect only when the first video in the playlist is played.\n> - Update this parameter while the task is stopped. The update takes effect after the task is restarted.",
+      "description": "The start offset of the video file, in seconds. Valid values: greater than 0.\n> - Specifies the position to start reading from, relative to the first frame.\n> - This parameter applies only to video-on-demand or third-party video streams.\n> - This parameter takes effect only when the first video in the playlist is played.\n> - The update must be performed when the task is stopped and takes effect after the task is restarted.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Region",
-      "description": "The region where the task is launched. Valid values:\n\n- ap-southeast-1 (Singapore)\n- ap-southeast-5 (Indonesia)\n- cn-beijing (Beijing)\n- cn-shanghai (Shanghai).",
+      "description": "The region where the task is started. Valid values:\n\n- ap-southeast-1 (Singapore)\n- ap-southeast-5 (Indonesia)\n- cn-beijing (Beijing)\n- cn-shanghai (Shanghai)",
       "position": "Query",
       "type": "String",
       "required": true
@@ -49,21 +61,27 @@
     },
     {
       "name": "RepeatNumber",
-      "description": "The number of times playback repeats after the playlist finishes. Valid values:\n\n- 0 (default): no repeat.\n- -1: loop indefinitely.\n- Other positive integers: the number of times playback repeats after the playlist finishes.\n\n> - This parameter applies only to video-on-demand or third-party video streams.\n> - The update takes effect immediately.",
+      "description": "The number of times playback repeats after the playlist finishes. Valid values:\n\n- 0 (default): No repeat playback.\n- -1: Loops indefinitely.\n- Other positive integers: The number of times playback repeats after the playlist finishes.\n\n> - This parameter applies only to video-on-demand or third-party video streams.\n> - The update takes effect immediately.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
+      "name": "ReqAuth",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "SourceUrls",
-      "description": "The list of source stream URLs.\n\n> - For the live type, only one complete live streaming URL is supported.\n> - For the vod and url types, up to 30 URLs can be specified.\n> - The live type supports RTMP, SRT, and HTTP-FLV protocols.\n> - For the vod type, specify ApsaraVideo VOD media asset IDs.\n> - The url type supports MP4 and HTTP-FLV protocols.\n> - For live source streams, the update takes effect immediately. For video file source streams, the update takes effect after the currently playing video ends, and playback restarts from the beginning of the updated video list.\n> - Update this parameter while the task is stopped. The update takes effect after the task is restarted.",
+      "description": "The list of source stream URLs.\n\n> - For the live type, only one complete live streaming URL is supported.\n> - For the vod and url types, up to 30 URLs can be specified.\n> - The live type supports RTMP, SRT, and HTTP-FLV protocols.\n> - For the vod type, specify ApsaraVideo VOD media asset IDs.\n> - The url type supports MP4 and HTTP-FLV protocols.\n> - For live source streams, the update takes effect immediately. For video file source streams, the update takes effect after the currently playing video ends, and playback restarts from the beginning of the updated video list.\n> - The update must be performed when the task is stopped and takes effect after the task is restarted.",
       "position": "Query",
       "type": "Json",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start time of the task.\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n> - If the task has already started running, this update does not take effect.",
+      "description": "The start time of the task.\n> - Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n> - If the task has already started running, the update does not take effect.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,102 @@
+{
+  "name": "StartChat",
+  "deprecated": false,
+  "protocol": "HTTPS|SSE",
+  "method": "POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AgentVersion",
+      "description": "传 V2 路由到 ROS Agent V2 后端。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Attachments",
+      "description": "图片附件数组，最多 5 个；当前仅支持 image 类型。",
+      "position": "Query",
+      "type": "RepeatList",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "MimeType",
+          "description": "图片媒体类型，支持 image/png、image/jpeg、image/webp、image/gif。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Name",
+          "description": "附件文件名；不传时从 OssObjectKey 获取文件名。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "OssObjectKey",
+          "description": "当前用户目录下的 OSS object key，不能包含绝对路径或路径穿越。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Type",
+          "description": "附件类型。V2 当前只支持 image。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "Url",
+          "description": "V2 暂不支持 URL 直传，请使用 OssObjectKey。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "EnablePartialMessage",
+      "description": "兼容字段。V2 始终通过 SSE 返回事件流，当前服务不消费该字段。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "EnableThinking",
+      "description": "是否输出 thinking 内容，默认 true；同一会话重入时可按请求重新设置。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "Mode",
+      "description": "V2 仅支持 IaCCodeNormal 或 IaCCodePipeline；新会话默认 IaCCodeNormal，已有会话不能切换模式。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "Query",
+      "description": "用户输入，不能为空或仅包含空白字符。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "RegionId",
+      "description": "本次资源操作的地域。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SessionId",
+      "description": "不传则创建新会话；传入则继续当前用户已有会话。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}
