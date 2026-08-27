@@ -21,7 +21,7 @@
   },
   "parameters": [
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "am-t4nj8619bz2w3****",
       "help_en": "The ID of the Data Warehouse Edition cluster.\nYou can call the https://help.aliyun.com/document_detail/129857.html operation to query the IDs of all Data Warehouse Edition clusters in a region",
       "help_zh": "数仓版集群ID。\n您可以调用https://help.aliyun.com/document_detail/129857.html接口查看目标地域下所有数仓版集群的集群ID",
@@ -35,7 +35,7 @@
       "type": "string"
     },
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "cn-hangzhou",
       "help_en": "The region ID.\nYou can call the https://help.aliyun.com/document_detail/143074.html operation to query the regions and zones supported by AnalyticDB for MySQL, including region IDs",
       "help_zh": "地域ID。\n您可以调用https://help.aliyun.com/document_detail/143074.html接口查看AnalyticDB MySQL版支持的地域和可用区信息，包括地域ID",
@@ -49,7 +49,7 @@
       "type": "string"
     },
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "2022-01-23T02:18Z",
       "help_en": "The beginning of the time range to query. Specify the time in UTC in the yyyy-MM-ddTHH:mmZ format.\nSQL audit logs can be queried only when SQL audit is enabled, and only logs from the last 30 days are supported. If SQL audit is disabled and then re-enabled, only logs generated after re-enabling can be queried",
       "help_zh": "查询开始时间，UTC时间，格式为：yyyy-MM-ddTHH:mmZ。\n仅当SQL审计状态为开启时，才能查询到SQL审计日志，且只支持查询30天内的SQL审计日志。如果中途关闭了SQL审计，再次打开时，仅能查询到再次打开后的SQL审计日志",
@@ -63,7 +63,7 @@
       "type": "string"
     },
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "2022-01-23T22:18Z",
       "help_en": "The end of the time range to query. Specify the time in UTC in the yyyy-MM-ddTHH:mmZ format.\n\nThe end time must be later than the start time.\nThe interval between the start time and the end time cannot exceed 24 hours",
       "help_zh": "查询结束时间，UTC时间，格式为：yyyy-MM-ddTHH:mmZ。\n\n查询结束时间需晚于查询开始时间。\n查询开始时间与查询结束时间的间隔不能超过24小时",
@@ -228,125 +228,5 @@
   "protocol": "HTTP|HTTPS",
   "tags": [
     "Perth"
-  ],
-  "v1_parameters": [
-    {
-      "help_en": "The ID of the Data Warehouse Edition cluster.\nYou can call the https://help.aliyun.com/document_detail/129857.html operation to query the IDs of all Data Warehouse Edition clusters in a region",
-      "help_zh": "数仓版集群ID。\n您可以调用https://help.aliyun.com/document_detail/129857.html接口查看目标地域下所有数仓版集群的集群ID",
-      "name": "DBClusterId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_en": "The name of the database on which the SQL statement was executed",
-      "help_zh": "执行SQL的数据库名称",
-      "name": "DBName",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The end of the time range to query. Specify the time in UTC in the yyyy-MM-ddTHH:mmZ format.\n\nThe end time must be later than the start time.\nThe interval between the start time and the end time cannot exceed 24 hours",
-      "help_zh": "查询结束时间，UTC时间，格式为：yyyy-MM-ddTHH:mmZ。\n\n查询结束时间需晚于查询开始时间。\n查询开始时间与查询结束时间的间隔不能超过24小时",
-      "name": "EndTime",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The IP address and port number of the client that executed the SQL statement",
-      "help_zh": "执行目标SQL的客户端IP地址和端口号",
-      "name": "HostAddress",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The sorting order of the results based on specified fields. The value is in JSON format and is an ordered JSON array. Compound sorting is performed in the order of the input array. The array contains the Field and Type fields.\nField specifies the field name for sorting. Valid values:\n    - HostAddress: the IP address of the client that connected to the database.\n    - Succeed: specifies whether the SQL statement was executed successfully.\n    - TotalTime: the total execution duration of the SQL statement.\n    - DBName: the name of the database on which the SQL statement was executed.\n    - SQLType: the type of the SQL statement.\n    - User: the username that was used to execute the SQL statement.\n    - ExecuteTime: the start time of the SQL statement execution.\nType specifies the sorting type. Valid values:\n    - Desc: descending order.\n    - Asc: ascending order",
-      "help_zh": "根据指定字段进行排序，格式为JSON，是一个有序JSON数组，按输入数组的顺序进行复合排序，包含Field和Type两个字段。\nField表示需要排序的字段名，取值说明：\n    - HostAddress：连接数据库的客户端地址。\n    - Succeed：目标SQL是否执行成功。\n    - TotalTime：目标SQL的执行总耗时。\n    - DBName：执行目标SQL的数据库名称。\n    - SQLType：SQL类型。\n    - User：执行目标SQL的用户名。\n    - ExecuteTime：目标SQL的执行开始时间。\nType表示排序类型，取值说明：\n    - Desc：降序。\n    - Asc：升序",
-      "name": "Order",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The order in which the results are sorted by SQL execution time. Valid values:\nasc: ascending order.\ndesc: descending order",
-      "help_zh": "按SQL执行时间进行正序或倒序排序，取值说明：\nasc：正序。\ndesc：倒序",
-      "name": "OrderType",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The page number. The value must be a positive integer that does not exceed the maximum value of the Integer data type. Default value: 1",
-      "help_zh": "页码，取值为大于0且不超过Integer数据类型的最大值。默认值为1",
-      "name": "PageNumber",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "help_en": "The number of entries per page. Valid values:\n10\n30\n50\n100\nIf this parameter is not specified, the default value 10 is used",
-      "help_zh": "每页记录数，取值：\n10\n30\n50\n100\n本参数不填写时，默认为10",
-      "name": "PageSize",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "name": "ProcessId",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The keyword used to filter SQL statements that contain the specified keyword",
-      "help_zh": "对查询包含目标关键字的SQL进行查询",
-      "name": "QueryKeyword",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The region ID.\nYou can call the https://help.aliyun.com/document_detail/143074.html operation to query the regions and zones supported by AnalyticDB for MySQL, including region IDs",
-      "help_zh": "地域ID。\n您可以调用https://help.aliyun.com/document_detail/143074.html接口查看AnalyticDB MySQL版支持的地域和可用区信息，包括地域ID",
-      "name": "RegionId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_en": "The type of the SQL statement. Valid values:\nDELETE\nSELECT\nUPDATE\nINSERT_INTO_SELECT\nALTER\nDROP\nCREATE\n\n\nYou can specify only one SQL type per request. If this parameter is not specified, all types are queried",
-      "help_zh": "SQL类型，取值：\nDELETE\nSELECT\nUPDATE\nINSERT_INTO_SELECT\nALTER\nDROP\nCREATE\n\n\n每次仅允许传入一种类型查询，若该参数为空，默认查询所有类型",
-      "name": "SqlType",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The beginning of the time range to query. Specify the time in UTC in the yyyy-MM-ddTHH:mmZ format.\nSQL audit logs can be queried only when SQL audit is enabled, and only logs from the last 30 days are supported. If SQL audit is disabled and then re-enabled, only logs generated after re-enabling can be queried",
-      "help_zh": "查询开始时间，UTC时间，格式为：yyyy-MM-ddTHH:mmZ。\n仅当SQL审计状态为开启时，才能查询到SQL审计日志，且只支持查询30天内的SQL审计日志。如果中途关闭了SQL审计，再次打开时，仅能查询到再次打开后的SQL审计日志",
-      "name": "StartTime",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "Specifies whether the SQL statement was executed successfully. Valid values:\ntrue: The SQL statement was executed successfully.\nfalse: The SQL statement failed to be executed",
-      "help_zh": "目标SQL是否执行成功，取值说明：\ntrue：执行成功。\nfalse：执行失败",
-      "name": "Succeed",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The username that was used to execute the SQL statement",
-      "help_zh": "执行目标SQL的用户名",
-      "name": "User",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    }
   ]
 }

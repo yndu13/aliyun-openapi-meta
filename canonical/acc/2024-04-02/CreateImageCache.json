@@ -3,7 +3,7 @@
   "cmd_full_name": "acc create-image-cache",
   "cmd_name": "create-image-cache",
   "deprecated": false,
-  "description_en": "Creates an image cache to accelerate container image pulling when you create ACS pods",
+  "description_en": "Creates an image cache to accelerate container image pulling when creating ACS Pods",
   "description_zh": "用于创建一个镜像缓存，在创建ACS Pod时加速容器镜像的拉取",
   "kebab_example": "",
   "method": "GET|POST",
@@ -25,7 +25,7 @@
       "help_en": "The idempotency token",
       "help_zh": "幂等Token",
       "location": "query",
-      "maxLength": "64",
+      "max_length": "64",
       "name": "client_token",
       "options": [
         "--client-token"
@@ -52,7 +52,7 @@
       "help_en": "The name of the image cache",
       "help_zh": "镜像缓存名称",
       "location": "query",
-      "maxLength": "128",
+      "max_length": "128",
       "name": "image_cache_name",
       "options": [
         "--image-cache-name"
@@ -109,7 +109,7 @@
             "example": "test",
             "help_en": "The tag value of the image cache",
             "help_zh": "镜像缓存标签值",
-            "maxLength": "256",
+            "max_length": "256",
             "name": "value",
             "options": [
               "--value"
@@ -121,7 +121,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The tag information of the image cache. A maximum of 20 tags are supported",
+      "help_en": "The image cache tags. A maximum of 20 tags are supported",
       "help_zh": "镜像缓存标签信息，最多 20 个",
       "location": "query",
       "name": "tags",
@@ -138,8 +138,12 @@
         {
           "fields": [
             {
+              "enum": [
+                "false",
+                "true"
+              ],
               "example": "true",
-              "help_en": "Indicates whether automatic creation of an EIP is enabled",
+              "help_en": "Specifies whether automatic creation of an EIP is enabled",
               "help_zh": "是否自动创建EIP",
               "name": "auto_create",
               "options": [
@@ -163,7 +167,7 @@
             },
             {
               "example": "eip-0jl0bx3fnpnjc9i4*****",
-              "help_en": "The EIP instance ID. This parameter takes priority. If this parameter is specified, other parameters do not take effect",
+              "help_en": "The EIP instance ID. This parameter takes priority. If specified, other parameters are ignored",
               "help_zh": "弹性公网 IP，优先使用该参数，填写则其他参数失效",
               "name": "instance_id",
               "options": [
@@ -251,8 +255,12 @@
             "type": "string"
           },
           {
+            "enum": [
+              "false",
+              "true"
+            ],
             "example": "false",
-            "help_en": "Specifies whether to skip certificate verification when creating an image cache from a self-managed image registry that uses a self-signed certificate. This prevents image pull failures caused by certificate verification failures.\nDefault value: `false`",
+            "help_en": "Specifies whether to skip certificate verification when creating an image cache from images in a self-managed image registry that uses a self-signed certificate. This prevents image pull failures caused by certificate verification failures.\nDefault value: `false`",
             "help_zh": "使用自签发证书的自建镜像仓库中的镜像创建镜像缓存时，需配置该参数来跳过证书认证，避免因证书认证失败而导致镜像拉取失败。\n默认值：`false`",
             "name": "skip_cert_verification",
             "options": [
@@ -263,6 +271,10 @@
             "type": "bool"
           },
           {
+            "enum": [
+              "false",
+              "true"
+            ],
             "example": "false",
             "help_en": "Specifies whether to use HTTP to pull images, which prevents image pull failures caused by protocol mismatch.\nDefault value: `false`",
             "help_zh": "服务使用 HTTP 协议拉取镜像，避免因协议不同而导致镜像拉取失败。\n默认值：`false`",
@@ -358,150 +370,5 @@
   ],
   "pathPattern": "",
   "product_code": "acc",
-  "protocol": "HTTPS",
-  "v1_parameters": [
-    {
-      "help_en": "The Container Registry Enterprise instance information",
-      "help_zh": "ACR 企业版实例信息",
-      "name": "AcrRegistryInfos",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": false,
-      "sub_parameters": [
-        {
-          "name": "InstanceId",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "RegionId",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "type": "array"
-    },
-    {
-      "help_en": "The idempotency token",
-      "help_zh": "幂等Token",
-      "name": "ClientToken",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The name of the image cache",
-      "help_zh": "镜像缓存名称",
-      "name": "ImageCacheName",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_en": "The image registry credential information",
-      "help_zh": "镜像仓库秘钥信息",
-      "name": "ImageRegistryCredentials",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": false,
-      "sub_parameters": [
-        {
-          "name": "Password",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "Server",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "SkipCertVerification",
-          "position": "query",
-          "required": false,
-          "type": "bool"
-        },
-        {
-          "name": "UsePlainHttp",
-          "position": "query",
-          "required": false,
-          "type": "bool"
-        },
-        {
-          "name": "Username",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "type": "array"
-    },
-    {
-      "help_en": "The container images used to create the image cache. Currently, only one image is supported",
-      "help_zh": "用于制作镜像缓存的容器镜像，目前仅支持一个",
-      "name": "Images",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": true,
-      "type": "array"
-    },
-    {
-      "help_en": "The network configuration for pulling images when creating the image cache",
-      "help_zh": "创建镜像缓存拉取镜像的网络配置",
-      "name": "NetworkConfig",
-      "param_style": "json",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Platform",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The region ID",
-      "help_zh": "地域ID",
-      "name": "RegionId",
-      "position": "query",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "help_en": "The resource group ID",
-      "help_zh": "资源组ID",
-      "name": "ResourceGroupId",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The tag information of the image cache. A maximum of 20 tags are supported",
-      "help_zh": "镜像缓存标签信息，最多 20 个",
-      "name": "Tags",
-      "param_style": "repeatList",
-      "position": "query",
-      "required": false,
-      "sub_parameters": [
-        {
-          "name": "Key",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "Value",
-          "position": "query",
-          "required": false,
-          "type": "string"
-        }
-      ],
-      "type": "array"
-    }
-  ]
+  "protocol": "HTTPS"
 }

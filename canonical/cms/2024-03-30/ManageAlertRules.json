@@ -1476,8 +1476,9 @@
         {
           "fields": [
             {
-              "help_en": "The Prometheus instance ID (required when type=PROMETHEUS; ignored for other types)",
-              "help_zh": "Prometheus 实例 ID（type=PROMETHEUS 必填；其它 type 忽略）",
+              "example": "prom-xxxxxxx",
+              "help_en": "The Prometheus instance ID. Required when type is PROMETHEUS or VIRTUAL_PROMETHEUS. Ignored for other types",
+              "help_zh": "Prometheus 实例 ID（type=PROMETHEUS / VIRTUAL_PROMETHEUS 必填；其它 type 忽略）",
               "name": "instance_id",
               "options": [
                 "--instance-id"
@@ -1487,7 +1488,7 @@
               "type": "string"
             },
             {
-              "help_en": "The original V1 datasource JSON string returned as a fallback when type=UNKNOWN and the read path fails to parse the datasource. If the frontend detects that this field is not empty, display it as read-only",
+              "help_en": "The raw V1 datasource JSON string returned as a fallback when type is UNKNOWN and read-path parsing fails. When the frontend detects that this field is not empty, display it as read-only",
               "help_zh": "当 type=UNKNOWN 且为读路径解析失败兜底时返回的原始 V1 datasource JSON 字符串。前端见此字段非空时仅做只读展示",
               "name": "legacy_raw",
               "options": [
@@ -1498,7 +1499,7 @@
               "type": "string"
             },
             {
-              "help_en": "Returned when type=UNKNOWN, indicating that this rule cannot be edited through the new API. Submit a ticket to contact the CloudMonitor team",
+              "help_en": "Returned when type is UNKNOWN. Indicates that this rule cannot be edited through the new API. Submit a ticket to contact the CloudMonitor team",
               "help_zh": "当 type=UNKNOWN 时返回，用于标识本规则当前不可在新 API 上编辑；请提服务工单联系云监控产品团队",
               "name": "legacy_type",
               "options": [
@@ -1509,7 +1510,19 @@
               "type": "string"
             },
             {
-              "help_en": "The Alibaba Cloud service category (optional when type=CLOUD_MONITORING). If the source does not contain this information, the value unknown is returned",
+              "example": "selectdb",
+              "help_en": "The namespace. Optional when type is VIRTUAL_PROMETHEUS. Identifies the namespace to which the virtual Prometheus instance belongs",
+              "help_zh": "命名空间（type=VIRTUAL_PROMETHEUS 可选），标识虚拟 Prometheus 实例所属命名空间",
+              "name": "namespace",
+              "options": [
+                "--namespace"
+              ],
+              "raw_name": "namespace",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "help_en": "The Alibaba Cloud service category. Optional when type is CLOUD_MONITORING. Returns unknown when the source lacks this information",
               "help_zh": "云产品分类（type=CLOUD_MONITORING 可选）；当来源缺失该信息时输出 unknown",
               "name": "product_category",
               "options": [
@@ -1520,7 +1533,7 @@
               "type": "string"
             },
             {
-              "help_en": "The Simple Log Service project name (required when type=SLS; all stores share the same project)",
+              "help_en": "The Simple Log Service (SLS) project name. Required when type is SLS. All stores share the same project",
               "help_zh": "SLS Project 名称（type=SLS 必填，所有 stores 共享同一 Project）",
               "name": "project",
               "options": [
@@ -1531,8 +1544,9 @@
               "type": "string"
             },
             {
-              "help_en": "The region ID (optional for PROMETHEUS / UMODEL / APM / SLS types; defaults to the same region as the rule or gateway. CLOUD_MONITORING does not use this field; use AlertRuleV2.regionId instead)",
-              "help_zh": "地域 ID（PROMETHEUS / UMODEL / APM / SLS 各类型可选，缺省与规则/网关一致；CLOUD_MONITORING 不使用此字段，改用 AlertRuleV2.regionId）",
+              "example": "cn-hangzhou",
+              "help_en": "The region ID. Optional for PROMETHEUS, VIRTUAL_PROMETHEUS, UMODEL, APM, XTRACE, EBPF, RUM, and SLS types. Defaults to the region of the rule or gateway. Not used for CLOUD_MONITORING. Use AlertRuleV2.regionId instead for CLOUD_MONITORING",
+              "help_zh": "地域 ID（PROMETHEUS / VIRTUAL_PROMETHEUS / UMODEL / APM / XTRACE / EBPF / RUM / SLS 各类型可选，缺省与规则/网关一致；CLOUD_MONITORING 不使用此字段，改用 AlertRuleV2.regionId）",
               "name": "region_id",
               "options": [
                 "--biz-region-id"
@@ -1595,7 +1609,7 @@
                 ],
                 "type": "object"
               },
-              "help_en": "The list of Simple Log Service stores (used when type=SLS; at least one store is required). Each store contains store and storeType fields. The project and regionId fields have been moved to the top level. The deprecated fields with the same names that remain in stores cause a 400 error if used in write paths",
+              "help_en": "The list of SLS stores. Used when type is SLS. At least one store is required. Each store contains store and storeType fields. The project and regionId fields have been moved to the top level. The deprecated fields with the same names that remain in stores return a 400 error if used in write paths",
               "help_zh": "SLS Store 列表（type=SLS 时使用，至少 1 个），每个 store 包含 store / storeType；project 和 regionId 已上移至顶层，Stores 中残留的同名字段已废弃，写路径使用会返回 400",
               "name": "stores",
               "options": [
@@ -1606,8 +1620,21 @@
               "type": "array"
             },
             {
+              "example": "t-xxxxxxx",
+              "help_en": "The tenant ID. Optional when type is VIRTUAL_PROMETHEUS. Identifies the tenant to which the virtual Prometheus instance belongs",
+              "help_zh": "租户 ID（type=VIRTUAL_PROMETHEUS 可选），标识虚拟 Prometheus 实例所属租户",
+              "name": "tenant_id",
+              "options": [
+                "--tenant-id"
+              ],
+              "raw_name": "tenantId",
+              "required": false,
+              "type": "string"
+            },
+            {
               "enum": [
                 "PROMETHEUS",
+                "VIRTUAL_PROMETHEUS",
                 "UMODEL",
                 "APM",
                 "CLOUD_MONITORING",
@@ -1617,8 +1644,9 @@
                 "EBPF",
                 "RUM"
               ],
-              "help_en": "The datasource type. Valid values: PROMETHEUS (instanceId is required; regionId is optional). UMODEL (regionId is optional; other settings are carried in queryConfig/conditionConfig). APM (regionId is optional). CLOUD_MONITORING (regionId and productCategory are optional). UNKNOWN (read-only fallback; do not use in write paths). Do not use non-enumerated values (such as CMS_BASIC_DS or SLS_DS). The backend returns an Invalidtype 400 error",
-              "help_zh": "数据源类型。合法枚举与配套字段：PROMETHEUS（必填 instanceId；可选 regionId）；UMODEL（可选 regionId，其它均在 queryConfig/conditionConfig 中承载）；APM（可选 regionId）；CLOUD_MONITORING（可选 regionId、productCategory）；UNKNOWN（只读兜底，写路径请勿使用）。禁止使用非枚举值（如 CMS_BASIC_DS/SLS_DS 等），后端会返回 Invalidtype 400",
+              "example": "PROMETHEUS",
+              "help_en": "The data source type. Valid values and associated fields: PROMETHEUS (instanceId required; regionId optional). VIRTUAL_PROMETHEUS (instanceId required; regionId, namespace, and tenantId optional). UMODEL (regionId optional; other fields are carried in queryConfig/conditionConfig). APM (regionId optional). XTRACE (regionId optional). EBPF (regionId optional). RUM (regionId optional). CLOUD_MONITORING (regionId and productCategory optional). SLS (project and stores required). UNKNOWN (read-only fallback; do not use in write paths). Non-enumerated values (such as CMS_BASIC_DS/SLS_DS) are prohibited and the backend returns an Invalidtype 400 error",
+              "help_zh": "数据源类型。合法枚举与配套字段：PROMETHEUS（必填 instanceId；可选 regionId）；VIRTUAL_PROMETHEUS（必填 instanceId；可选 regionId、namespace、tenantId）；UMODEL（可选 regionId，其它均在 queryConfig/conditionConfig 中承载）；APM（可选 regionId）；XTRACE（可选 regionId）；EBPF（可选 regionId）；RUM（可选 regionId）；CLOUD_MONITORING（可选 regionId、productCategory）；SLS（必填 project、stores）；UNKNOWN（只读兜底，写路径请勿使用）。禁止使用非枚举值（如 CMS_BASIC_DS/SLS_DS 等），后端会返回 Invalidtype 400",
               "name": "type",
               "options": [
                 "--type"
@@ -1628,8 +1656,8 @@
               "type": "string"
             }
           ],
-          "help_en": "The datasource configuration union (shared object for PROMETHEUS / UMODEL / APM / CLOUD_MONITORING / SLS / UNKNOWN, with fields selected by type)",
-          "help_zh": "数据源配置聚合（PROMETHEUS / UMODEL / APM / CLOUD_MONITORING / SLS / UNKNOWN 共用一对象，按 type 选用字段）",
+          "help_en": "The datasource configuration union. PROMETHEUS, VIRTUAL_PROMETHEUS, UMODEL, APM, XTRACE, EBPF, RUM, CLOUD_MONITORING, SLS, and UNKNOWN share a single object. Fields are selected based on the type value",
+          "help_zh": "数据源配置聚合（PROMETHEUS / VIRTUAL_PROMETHEUS / UMODEL / APM / XTRACE / EBPF / RUM / CLOUD_MONITORING / SLS / UNKNOWN 共用一对象，按 type 选用字段）",
           "name": "datasource_config",
           "options": [
             "--datasource-config"

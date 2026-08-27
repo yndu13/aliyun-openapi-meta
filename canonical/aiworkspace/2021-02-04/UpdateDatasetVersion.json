@@ -3,7 +3,7 @@
   "cmd_full_name": "aiworkspace update-dataset-version",
   "cmd_name": "update-dataset-version",
   "deprecated": false,
-  "description_en": "Updates the information for a specific version of a dataset",
+  "description_en": "Updates the information of a specified dataset version",
   "description_zh": "更新指定版本的数据集信息",
   "kebab_example": "",
   "method": "PUT",
@@ -16,8 +16,10 @@
     "body_mapping": {
       "data_count": "DataCount",
       "data_size": "DataSize",
+      "dataset_task_ram_role": "DatasetTaskRamRole",
       "description": "Description",
-      "options": "Options"
+      "options": "Options",
+      "user_metrics_endpoints": "UserMetricsEndpoints"
     },
     "content_type": "application/json",
     "method": "PUT",
@@ -30,7 +32,7 @@
   "parameters": [
     {
       "example": "d-rbvg5****jhc9ks92",
-      "help_en": "The ID of the dataset. For more information, see https://help.aliyun.com/document_detail/457222.html",
+      "help_en": "The dataset ID. For information about how to obtain the dataset ID, see https://help.aliyun.com/document_detail/457222.html",
       "help_zh": "数据集ID。如何获取数据集ID，详情请参见https://help.aliyun.com/document_detail/457222.html",
       "location": "path",
       "name": "dataset_id",
@@ -43,7 +45,7 @@
     },
     {
       "example": "v1",
-      "help_en": "The name of the dataset version",
+      "help_en": "The dataset version name",
       "help_zh": "数据集版本名称",
       "location": "path",
       "name": "version_name",
@@ -56,7 +58,7 @@
     },
     {
       "example": "100",
-      "help_en": "The number of files in the dataset",
+      "help_en": "The number of dataset files",
       "help_zh": "数据集文件数量，单位个",
       "location": "body",
       "name": "data_count",
@@ -70,7 +72,7 @@
     },
     {
       "example": "100000",
-      "help_en": "The size of the dataset files, in bytes",
+      "help_en": "The size of the space occupied by dataset files. Unit: bytes",
       "help_zh": "数据集文件占据空间的大小。单位Byte ",
       "location": "body",
       "name": "data_size",
@@ -83,8 +85,22 @@
       "type": "int"
     },
     {
+      "example": "acs:ram::1234567890123456:role/role-name",
+      "help_en": "DatasetTaskRamRole",
+      "help_zh": "DatasetTaskRamRole",
+      "location": "body",
+      "name": "dataset_task_ram_role",
+      "options": [
+        "--dataset-task-ram-role"
+      ],
+      "param_style": "json",
+      "raw_name": "DatasetTaskRamRole",
+      "required": false,
+      "type": "string"
+    },
+    {
       "example": "This is a description of a dataset version.",
-      "help_en": "A custom description of the dataset to distinguish it from other datasets",
+      "help_en": "The custom description of the dataset, which is used to distinguish different datasets",
       "help_zh": "对数据集进行自定义描述，以区分不同的数据集",
       "location": "body",
       "name": "description",
@@ -98,7 +114,7 @@
     },
     {
       "example": "{\n  \"mountPath\": \"/mnt/data/\"\n}",
-      "help_en": "An extension field in the JSON String format.\nWhen DLC uses the dataset, you can configure the mountPath field to specify the default mount path",
+      "help_en": "The extended field in JsonString format. When DLC uses the dataset, you can specify the default mount path of the dataset by configuring the mountPath field",
       "help_zh": "扩展字段，JsonString类型。\n当DLC使用数据集时，可通过配置mountPath字段指定数据集默认挂载路径",
       "location": "body",
       "name": "options",
@@ -109,6 +125,46 @@
       "raw_name": "Options",
       "required": false,
       "type": "string"
+    },
+    {
+      "element": {
+        "fields": [
+          {
+            "help_en": "The Path",
+            "help_zh": "The Path",
+            "name": "path",
+            "options": [
+              "--path"
+            ],
+            "raw_name": "Path",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "help_en": "The Port",
+            "help_zh": "The Port",
+            "name": "port",
+            "options": [
+              "--port"
+            ],
+            "raw_name": "Port",
+            "required": false,
+            "type": "int"
+          }
+        ],
+        "type": "object"
+      },
+      "help_en": "The UserMetricsEndpoints",
+      "help_zh": "The UserMetricsEndpoints",
+      "location": "body",
+      "name": "user_metrics_endpoints",
+      "options": [
+        "--user-metrics-endpoints"
+      ],
+      "param_style": "json",
+      "raw_name": "UserMetricsEndpoints",
+      "required": false,
+      "type": "array"
     }
   ],
   "pathPattern": "/api/v1/datasets/[DatasetId]/versions/[VersionName]",

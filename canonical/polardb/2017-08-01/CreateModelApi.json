@@ -3,7 +3,7 @@
   "cmd_full_name": "polardb create-model-api",
   "cmd_name": "create-model-api",
   "deprecated": false,
-  "description_en": "Creates a model API",
+  "description_en": "Creates a routing rule",
   "description_zh": "创建路由规则",
   "kebab_example": "",
   "method": "GET|POST",
@@ -48,7 +48,7 @@
     },
     {
       "example": "text",
-      "help_en": "The model API category. Valid values:\n\ntext\n\nembedding\n\nrerank",
+      "help_en": "The category. Valid values:\ntext\nembedding\nrerank",
       "help_zh": "分类：枚举值：\ntext\nembedding\nrerank",
       "location": "query",
       "name": "model_category",
@@ -61,7 +61,7 @@
     },
     {
       "example": "/test",
-      "help_en": "The path prefix",
+      "help_en": "The API path prefix",
       "help_zh": "API 路径前缀",
       "location": "query",
       "name": "path_prefix",
@@ -74,7 +74,7 @@
     },
     {
       "example": "openai",
-      "help_en": "The model API protocol. Valid values:\n\nOpenAI\n\nAnthropic\n\nModel Studio\n\nvLLM",
+      "help_en": "The protocol. Valid values:\n\nopenai\nanthropic\nbailian\nvllm",
       "help_zh": "协议,枚举值：\n\nopenai\nanthropic\nbailian\nvllm",
       "location": "query",
       "name": "protocol",
@@ -87,7 +87,7 @@
     },
     {
       "example": "10",
-      "help_en": "Specifies whether to record input for billing",
+      "help_en": "The number of input points",
       "help_zh": "输入点数",
       "location": "query",
       "name": "record_input",
@@ -100,7 +100,7 @@
     },
     {
       "example": "10",
-      "help_en": "Specifies whether to record output for billing",
+      "help_en": "The number of output points",
       "help_zh": "输出点数",
       "location": "query",
       "name": "record_output",
@@ -113,7 +113,7 @@
     },
     {
       "example": "[\n  {\n    \"RuleName\": \"string\",\n    \"FallbackMode\": \"failover\",\n    \"MatchModelListJson\": \"[]\",\n    \"providerBalancerAlgorithm\": \"round-robin\",\n    \"Providers\": [\n      {\n        \"ModelServiceName\": \"string\",\n        \"Weight\": \"0\",\n        \"model_protocol\": \"vllm\"\n        \"ModelList\": \"[]\"\n      }\n    ],\n    \"FallbackProviders\": [\n      {\n        \"ModelServiceName\": \"string\",\n        \"model_protocol\": \"anthropic\",\n        \"Weight\": \"10\",\n        \"ModelList\": \"[]\"\n      }\n    ]\n  }\n]",
-      "help_en": "A list of routing rules, provided as a JSON array string",
+      "help_en": "The list of routing rules (JSON array string)",
       "help_zh": "路由规则列表（JSON 数组字符串）",
       "location": "query",
       "name": "route_rules",
@@ -125,8 +125,21 @@
       "type": "string"
     },
     {
+      "example": "{\n\t\"failover\": {\n\t\t\"enabled\": true,\n\t\t\"max_provider_retries\": 2,\n\t\t\"max_failover_providers\": 1,\n\t\t\"retryable_status_codes\": [429, 500, 502, 503, 504],\n\t\t\"retry_delay\": 0.5\n\t}\n}",
+      "help_en": "The gateway retry configuration",
+      "help_zh": "网关重试配置",
+      "location": "query",
+      "name": "config",
+      "options": [
+        "--config"
+      ],
+      "raw_name": "Config",
+      "required": false,
+      "type": "string"
+    },
+    {
       "example": "xxx",
-      "help_en": "The model to which requests are forcibly routed",
+      "help_en": "The forced model",
       "help_zh": "强制模型",
       "location": "query",
       "name": "force_model",

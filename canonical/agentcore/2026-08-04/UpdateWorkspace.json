@@ -1,0 +1,146 @@
+{
+  "camel_example": "",
+  "cmd_full_name": "agentcore update-workspace",
+  "cmd_name": "update-workspace",
+  "deprecated": false,
+  "description_en": "Updates the name or network configuration of a workspace. Only workspaces in the Initialized status can be updated. Status, TenantId, and RegionId are maintained by the server and cannot be modified through this operation",
+  "description_zh": "更新工作空间名称或网络配置。只有状态为 Initialized 的工作空间允许更新。Status、TenantId 和 RegionId 由服务端维护，不允许通过本接口修改",
+  "kebab_example": "",
+  "method": "PUT",
+  "multi_version": false,
+  "name": "UpdateWorkspace",
+  "operation": {
+    "action": "UpdateWorkspace",
+    "api_style": "ROA",
+    "api_version": "2026-08-04",
+    "content_type": "application/x-www-form-urlencoded",
+    "method": "PUT",
+    "operation_type": "write",
+    "protocol": "HTTPS",
+    "req_body_type": "formData",
+    "system_operation_type": "update",
+    "url": "/workspaces/{workspaceId}"
+  },
+  "parameters": [
+    {
+      "example": "ws-123456",
+      "help_en": "The workspace ID",
+      "help_zh": "工作空间 ID",
+      "location": "path",
+      "name": "workspace_id",
+      "options": [
+        "--workspace-id"
+      ],
+      "raw_name": "workspaceId",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "fields": [
+        {
+          "example": "production-agents-v2",
+          "help_en": "The updated workspace name",
+          "help_zh": "更新后的工作空间名称",
+          "name": "name",
+          "options": [
+            "--name"
+          ],
+          "raw_name": "name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "fields": [
+            {
+              "fields": [
+                {
+                  "example": "true",
+                  "help_en": "Specifies whether to enable VPC networking",
+                  "help_zh": "是否开启 VPC 网络",
+                  "name": "enabled",
+                  "options": [
+                    "--enabled"
+                  ],
+                  "raw_name": "enabled",
+                  "required": false,
+                  "type": "bool"
+                },
+                {
+                  "element": {
+                    "type": "string"
+                  },
+                  "help_en": "The list of vSwitch IDs. When VPC networking is enabled, at least one vSwitch must be included, and all vSwitches must belong to the VPC specified by VpcId",
+                  "help_zh": "交换机 ID 列表，开启 VPC 网络时至少包含一个交换机，且所有交换机必须属于 VpcId 指定的 VPC",
+                  "name": "vswitchids",
+                  "options": [
+                    "--vswitchids"
+                  ],
+                  "raw_name": "vSwitchIds",
+                  "required": false,
+                  "type": "array"
+                },
+                {
+                  "example": "vpc-bp1234567890",
+                  "help_en": "The ID of the user VPC",
+                  "help_zh": "用户专有网络 ID",
+                  "name": "vpc_id",
+                  "options": [
+                    "--vpc-id"
+                  ],
+                  "raw_name": "vpcId",
+                  "required": false,
+                  "type": "string"
+                }
+              ],
+              "help_en": "The user VPC network configuration",
+              "help_zh": "用户 VPC 网络配置",
+              "name": "vpc",
+              "options": [
+                "--vpc"
+              ],
+              "raw_name": "vpc",
+              "required": true,
+              "type": "object"
+            }
+          ],
+          "help_en": "The updated workspace network configuration",
+          "help_zh": "更新后的工作空间网络配置",
+          "name": "network_configuration",
+          "options": [
+            "--network-configuration"
+          ],
+          "raw_name": "networkConfiguration",
+          "required": false,
+          "type": "object"
+        }
+      ],
+      "help_en": "The request body for updating a workspace",
+      "help_zh": "更新工作空间请求体",
+      "location": "formData",
+      "name": "body",
+      "options": [
+        "--biz-body"
+      ],
+      "param_style": "json",
+      "raw_name": "body",
+      "required": false,
+      "type": "object"
+    },
+    {
+      "example": "workspace-update-20260805-001",
+      "help_en": "The client idempotency token",
+      "help_zh": "客户端幂等标识",
+      "location": "query",
+      "name": "client_token",
+      "options": [
+        "--client-token"
+      ],
+      "raw_name": "clientToken",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "pathPattern": "/workspaces/[workspaceId]",
+  "product_code": "AgentCore",
+  "protocol": "HTTPS"
+}

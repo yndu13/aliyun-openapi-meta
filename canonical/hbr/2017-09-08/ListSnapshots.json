@@ -1,0 +1,153 @@
+{
+  "camel_example": "",
+  "cmd_full_name": "hbr list-snapshots",
+  "cmd_name": "list-snapshots",
+  "deprecated": false,
+  "description_en": "Queries a list of backup points",
+  "description_zh": "查询备份点列表",
+  "kebab_example": "",
+  "method": "POST",
+  "multi_version": false,
+  "name": "ListSnapshots",
+  "operation": {
+    "action": "ListSnapshots",
+    "api_style": "RPC",
+    "api_version": "2017-09-08",
+    "method": "POST",
+    "operation_type": "read",
+    "protocol": "HTTPS",
+    "system_operation_type": "list",
+    "url": ""
+  },
+  "parameters": [
+    {
+      "example": "eyJJbmRleCI6NjUwMX0=",
+      "help_en": "The pagination token. You do not need to specify this parameter for the first request. When you turn pages, specify the NextToken value returned from the previous request. An empty NextToken indicates that no more pages are available. This parameter cannot be used together with Skip",
+      "help_zh": "分页游标。首次查询无需传入，翻页时传入上一页返回的NextToken。NextToken为空说明没有下一页。不能与Skip同时使用",
+      "location": "query",
+      "name": "next_token",
+      "options": [
+        "--next-token"
+      ],
+      "raw_name": "NextToken",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "10",
+      "help_en": "The maximum number of results to return. Settings for paging. Default value: 10. The value must be greater than 1",
+      "help_zh": "分页查询时设置的最大返回数量。默认值：10。取值必须大于1",
+      "location": "query",
+      "minimum": "0",
+      "name": "max_results",
+      "options": [
+        "--max-results"
+      ],
+      "raw_name": "MaxResults",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "example": "0",
+      "help_en": "The number of entries to skip. The value must be a non-negative integer and a multiple of MaxResults. This parameter cannot be used together with NextToken",
+      "help_zh": "跳过的数量。必须为非负整数，且为MaxResults的整数倍。不能与NextToken同时使用",
+      "location": "query",
+      "name": "skip",
+      "options": [
+        "--skip"
+      ],
+      "raw_name": "Skip",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "enum": [
+        "File",
+        "OSS",
+        "ECS_FILE",
+        "COMMON_FILE_SYSTEM",
+        "NAS",
+        "COMMON_NAS"
+      ],
+      "example": "ECS_FILE",
+      "help_en": "The data source type. The value must match the data source type of the protected resource (ProtectedResourceId). The currently supported data source types are shown in the valid values",
+      "help_zh": "数据源类型。必须与保护资源（ProtectedResourceId）的数据源类型一致。目前支持的数据源类型如枚举值所示",
+      "location": "query",
+      "name": "source_type",
+      "options": [
+        "--source-type"
+      ],
+      "raw_name": "SourceType",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "example": "pr-123***7890",
+      "help_en": "The ID of the protected resource. The protected resource must exist, and its data source type must match the SourceType parameter",
+      "help_zh": "保护的资源ID。保护的资源必须存在，且其数据源类型必须与SourceType参数一致",
+      "location": "query",
+      "name": "protected_resource_id",
+      "options": [
+        "--protected-resource-id"
+      ],
+      "raw_name": "ProtectedResourceId",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "example": "v-00030j3c******sn",
+      "help_en": "The vault ID. This is an optional filter. If specified, only backup points in the specified backup vault are returned",
+      "help_zh": "存储库ID。可选过滤条件，传入时仅返回该备份库中的备份点",
+      "location": "query",
+      "name": "vault_id",
+      "options": [
+        "--vault-id"
+      ],
+      "raw_name": "VaultId",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "1776059082",
+      "help_en": "The start completion time. This is a UNIX timestamp in seconds. Only backup points with a completion time greater than or equal to this value are returned",
+      "help_zh": "起始完成时间。UNIX时间戳，单位为秒。仅返回备份完成时间大于等于该时间的备份点",
+      "location": "query",
+      "name": "complete_time_start",
+      "options": [
+        "--complete-time-start"
+      ],
+      "raw_name": "CompleteTimeStart",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "example": "1776059382",
+      "help_en": "The end completion time. This is a UNIX timestamp in seconds. Only backup points with a completion time less than this value are returned",
+      "help_zh": "截止完成时间。UNIX时间戳，单位为秒。仅返回备份完成时间小于该时间的备份点",
+      "location": "query",
+      "name": "complete_time_end",
+      "options": [
+        "--complete-time-end"
+      ],
+      "raw_name": "CompleteTimeEnd",
+      "required": false,
+      "type": "int"
+    },
+    {
+      "example": "po-0000****123",
+      "help_en": "The backup plan ID. This is an optional filter. If specified, only backup points under the specified backup plan are returned",
+      "help_zh": "计划ID。可选过滤条件，传入时仅返回该备份计划下的备份点",
+      "location": "query",
+      "name": "plan_id",
+      "options": [
+        "--plan-id"
+      ],
+      "raw_name": "PlanId",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "pathPattern": "",
+  "product_code": "hbr",
+  "protocol": "HTTPS"
+}

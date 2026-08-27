@@ -1,0 +1,147 @@
+{
+  "camel_example": "",
+  "cmd_full_name": "apig invoke-ai-agent",
+  "cmd_name": "invoke-ai-agent",
+  "deprecated": false,
+  "description_en": "调用AIAgent",
+  "description_zh": "调用 AI 代理",
+  "kebab_example": "",
+  "method": "POST",
+  "multi_version": false,
+  "name": "InvokeAIAgent",
+  "operation": {
+    "action": "InvokeAIAgent",
+    "api_style": "ROA",
+    "api_version": "2024-03-27",
+    "body_mapping": {
+      "agent_name": "agentName",
+      "biz_params": "bizParams",
+      "history": "history",
+      "output_language": "outputLanguage",
+      "prompt": "prompt"
+    },
+    "content_type": "application/json",
+    "is_sse": true,
+    "method": "POST",
+    "operation_type": "read",
+    "protocol": "HTTPS",
+    "req_body_type": "json",
+    "system_operation_type": "none",
+    "url": "/v1/ai-agents/invoke"
+  },
+  "parameters": [
+    {
+      "example": "slsLogDiagnose",
+      "help_en": "The agentName",
+      "help_zh": "Agent 名称",
+      "location": "body",
+      "name": "agent_name",
+      "options": [
+        "--agent-name"
+      ],
+      "param_style": "json",
+      "raw_name": "agentName",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "help_en": "The bizParams",
+      "help_zh": "业务参数（各 Agent 自定义校验，如日志诊断传 SLS 上下文）",
+      "location": "body",
+      "name": "biz_params",
+      "options": [
+        "--biz-params"
+      ],
+      "param_style": "json",
+      "raw_name": "bizParams",
+      "required": false,
+      "type": "map",
+      "value": {
+        "type": "string"
+      }
+    },
+    {
+      "element": {
+        "fields": [
+          {
+            "example": "上一轮问题",
+            "help_en": "The content",
+            "help_zh": "评论内容，返回数据为富文本内容",
+            "name": "content",
+            "options": [
+              "--content"
+            ],
+            "raw_name": "content",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "example": "user",
+            "help_en": "The role",
+            "help_zh": "角色",
+            "name": "role",
+            "options": [
+              "--role"
+            ],
+            "raw_name": "role",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "type": "object"
+      },
+      "help_en": "The history",
+      "help_zh": "对话历史：role（user/assistant）+ content；元素内 role/content 不能为空",
+      "location": "body",
+      "name": "history",
+      "options": [
+        "--history"
+      ],
+      "param_style": "json",
+      "raw_name": "history",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "example": "zh / en",
+      "help_en": "The outputLanguage",
+      "help_zh": "输出语言；en 时错误兜底文案用英文",
+      "location": "body",
+      "name": "output_language",
+      "options": [
+        "--output-language"
+      ],
+      "param_style": "json",
+      "raw_name": "outputLanguage",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "帮我诊断这个错误日志",
+      "help_en": "The prompt",
+      "help_zh": "用户本次输入；为空时按场景兜底（如 开始/Start）",
+      "location": "body",
+      "name": "prompt",
+      "options": [
+        "--prompt"
+      ],
+      "param_style": "json",
+      "raw_name": "prompt",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "pathPattern": "/v1/ai-agents/invoke",
+  "product_code": "APIG",
+  "protocol": "HTTPS|SSE",
+  "v1_body_parameters": [
+    {
+      "help_zh": "请求参数",
+      "name": "body",
+      "param_style": "json",
+      "position": "body",
+      "required": false,
+      "type": "string"
+    }
+  ]
+}

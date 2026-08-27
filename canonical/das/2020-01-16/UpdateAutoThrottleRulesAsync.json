@@ -3,7 +3,7 @@
   "cmd_full_name": "das update-auto-throttle-rules-async",
   "cmd_name": "update-auto-throttle-rules-async",
   "deprecated": false,
-  "description_en": "Asynchronously configures parameters related to the automatic SQL throttling feature for multiple database instances at a time",
+  "description_en": "Calls the UpdateAutoThrottleRulesAsync operation to asynchronously configure automatic SQL throttling parameters for specified database instances in batches",
   "description_zh": "调用UpdateAutoThrottleRulesAsync接口，采用异步方式，批量设置指定数据库实例的自动SQL限流配置参数",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "None",
-      "help_en": "The reserved parameter",
+      "help_en": "A reserved parameter",
       "help_zh": "备用参数",
       "location": "query",
       "name": "console_context",
@@ -35,7 +35,7 @@
     },
     {
       "example": "['rm-2ze8g2am97624****','rm-2ze9xrhze0709****']",
-      "help_en": "The database instance IDs.\n\nSet this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `['Instance ID1', 'Instance ID2']`",
+      "help_en": "The database instance IDs.\n\nThe data format is JSONArray, such as `['Instance ID 1','Instance ID 2']`. Separate instance IDs with commas (,)",
       "help_zh": "数据库实例ID。\n\n数据格式为JSONArray，例如`['实例ID1','实例ID2']`，实例ID间用英文逗号（,）分隔",
       "location": "query",
       "name": "instance_ids",
@@ -48,7 +48,7 @@
     },
     {
       "example": "70",
-      "help_en": "The threshold for CPU utilization. Valid values: 70% to 100%",
+      "help_en": "The CPU utilization threshold. Valid values: 70% to 100%",
       "help_zh": "CPU利用率阈值，取值范围：70%~100%",
       "location": "query",
       "name": "cpu_usage",
@@ -61,7 +61,7 @@
     },
     {
       "example": "OR",
-      "help_en": "The logical relationship between the CPU utilization threshold and the maximum number of active sessions. Valid values:\n\nAND\n\nOR",
+      "help_en": "The logical relationship between the CPU utilization threshold and the active sessions threshold. Valid values:\nAND: both conditions must be met.\nOR: either condition must be met",
       "help_zh": "CPU利用率阈值和活跃会话数阈值的逻辑关系。\nAND：且。\nOR：或",
       "location": "query",
       "name": "cpu_session_relation",
@@ -74,7 +74,7 @@
     },
     {
       "example": "16",
-      "help_en": "The threshold for the number of active sessions.\n\nIf this parameter and CpuUsage are in the OR relationship, set this parameter to an integer that is greater than or equal to 16.\n\nIf this parameter and CpuUsage are in the AND relationship, set this parameter to an integer that is greater than or equal to 2",
+      "help_en": "The active sessions threshold.\n\nIf the relationship with the CPU utilization threshold is OR, the value must be greater than or equal to 16.\nIf the relationship with the CPU utilization threshold is AND, the value must be greater than or equal to 2",
       "help_zh": "活跃会话数阈值。\n\n与CPU利用率阈值关系为OR（或）时，大于等于16。\n与CPU利用率阈值关系为AND（且）时，大于等于2",
       "location": "query",
       "name": "active_sessions",
@@ -87,7 +87,7 @@
     },
     {
       "example": "2",
-      "help_en": "The duration threshold for triggering automatic SQL throttling. Set this parameter to an integer that is greater than or equal to 2. Unit: minutes",
+      "help_en": "The duration threshold of the anomaly that triggers automatic SQL throttling. The value must be a positive integer greater than or equal to 2. Unit: minutes",
       "help_zh": "触发自动SQL限流的异常的持续时间阈值，取值范围：大于等于2的正整数，单位：分钟",
       "location": "query",
       "name": "abnormal_duration",
@@ -100,7 +100,7 @@
     },
     {
       "example": "10",
-      "help_en": "The maximum throttling duration. Set this parameter to a positive integer. Unit: minutes",
+      "help_en": "The maximum throttling duration. The value must be a positive integer. Unit: minutes",
       "help_zh": "最大限流时长，取值为正整数，单位：分钟",
       "location": "query",
       "name": "max_throttle_time",
@@ -113,7 +113,7 @@
     },
     {
       "example": "00:00Z",
-      "help_en": "The start time of the throttling window. The time must be in UTC",
+      "help_en": "The start time of the throttling time window (UTC)",
       "help_zh": "可限流时间段的开始时间（UTC时间）",
       "location": "query",
       "name": "allow_throttle_start_time",
@@ -126,7 +126,7 @@
     },
     {
       "example": "23:59Z",
-      "help_en": "The end time of the throttling window. The time must be in UTC",
+      "help_en": "The end time of the throttling time window (UTC)",
       "help_zh": "可限流时间段的结束时间（UTC时间）",
       "location": "query",
       "name": "allow_throttle_end_time",
@@ -139,7 +139,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to terminate abnormal SQL statements in execution at the same time. Valid values:\n\nAbnormal SQL statements use the same template as the SQL statements to be throttled.\n\ntrue\n\nfalse",
+      "help_en": "Specifies whether to simultaneously kill abnormal SQL statements that are being executed.\nAbnormal SQL statements are those that match the SQL templates to be throttled.\n\nValid values:\ntrue: Yes.\nfalse: No",
       "help_zh": "是否同时KILL执行中的异常SQL：\n异常SQL：与需要限流的SQL模板相同。\n\ntrue：是。\nfalse：否",
       "location": "query",
       "name": "auto_kill_session",
@@ -152,7 +152,7 @@
     },
     {
       "example": "async__507044db6c4eadfa2dab9b084e80****",
-      "help_en": "The ID of the asynchronous request.\n\nYou can leave this parameter empty when you call the operation to initiate the request for the first time, and use the value of this parameter contained in the response to the first request for subsequent requests",
+      "help_en": "The ID of the asynchronous request.\nAn asynchronous call does not immediately return complete results. First, call this operation to obtain the ResultId. Then, use the returned ResultId to initiate the call again until isFinish is true, at which point the complete results are returned. This means that you must call this operation at least twice to obtain complete data",
       "help_zh": "异步请求的ID。\n异步调用后不会立即返回完整结果，首先需要调用该接口获取ResultId，然后使用返回数据的ResultId，重新发起调用，直到isFinish取值为true时，返回完整结果。即获取一次完整数据，至少需要调用该接口两次",
       "location": "query",
       "name": "result_id",

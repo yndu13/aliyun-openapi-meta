@@ -1905,8 +1905,8 @@
                   "fields": [
                     {
                       "example": "true",
-                      "help_en": "Specifies whether to log request content (controls whether question-related attributes are generated)",
-                      "help_zh": "是否记录请求内容（控制 question 相关 attributes 是否生成）",
+                      "help_en": "[Deprecated] Specifies whether to record request content (controls whether question-related attributes are generated). This parameter is deprecated in the new version",
+                      "help_zh": "是否记录请求内容（控制 question 相关 attributes 是否生成），新版本已废弃",
                       "name": "log_request_content",
                       "options": [
                         "--log-request-content"
@@ -1917,8 +1917,8 @@
                     },
                     {
                       "example": "true",
-                      "help_en": "Specifies whether to log response content (controls whether answer-related attributes are generated)",
-                      "help_zh": "是否记录响应内容（控制 answer 相关 attributes 是否生成）",
+                      "help_en": "[Deprecated] Specifies whether to record response content (controls whether answer-related attributes are generated). This parameter is deprecated in the new version",
+                      "help_zh": "是否记录响应内容（控制 answer 相关 attributes 是否生成），新版本已废弃",
                       "name": "log_response_content",
                       "options": [
                         "--log-response-content"
@@ -1931,8 +1931,8 @@
                       "element": {
                         "fields": [
                           {
-                            "help_en": "The field collection configuration",
-                            "help_zh": "字段采集配置",
+                            "help_en": "The AI request log field configuration groups for the API path, passed in as a Map. The Map keys are fixed to basic and custom, and the values are arrays of log field configurations for the corresponding groups. basic indicates basic log fields, and custom indicates custom log fields. For the current API path, fieldPaths represents the complete desired state of field configurations and does not support incremental appending or diff merging.\n\nIf pathFieldConfigs is not passed, is null, or is an empty array, the existing log field configurations are not updated. If a non-empty array is passed, the system performs a desired state replacement based on the complete set of Paths in the request, and historical Path configurations not included in the request are deleted.\n\nFor example, to add a custom field test to the /v1/chat/completions API path on top of existing configurations, the caller must use a \"read-merge-write back in full\" approach:\nRead all current Path configurations.\nRetain the complete basic array and custom array for the target API path /v1/chat/completions.\nAppend test to the current custom array.\nKeep configurations for other API paths unchanged.\nSubmit the merged complete pathFieldConfigs",
+                            "help_zh": "API 路径对应的AI请求日志字段配置分组，以Map形式传入。Map的Key可选值固定为basic和custom，Value为对应分组的日志字段配置数组。其中，basic表示基础日志字段，custom表示自定义日志字段。对于当前API路径，fieldPaths表示完整的字段配置终态，不支持增量追加或diff合并。\n\npathFieldConfigs未传、传null或空数组时，不更新已有日志字段配置；传入非空数组时，将按照请求中的完整Path集合执行终态替换，未包含的历史Path配置会被删除。\n\n例如如在现有配置上在/v1/chat/completions API路径需新增一个自定义字段test，调用方必须采用“读取—合并—全量写回”的方式：\n读取当前全部Path配置。\n保留目标API路径/v1/chat/completions当前完整的basic数组和custom数组。\n在当前custom数组中追加test。\n将其他API路径配置原样保留。\n提交合并后的完整pathFieldConfigs",
                             "name": "field_paths",
                             "options": [
                               "--field-paths"
@@ -1944,8 +1944,8 @@
                               "fields": [
                                 {
                                   "example": "conversation",
-                                  "help_en": "The secondary category",
-                                  "help_zh": "二级分类",
+                                  "help_en": "The secondary business category of the field. Optional. Valid values: conversation (conversation content), config (configuration parameters), tools (tool calling), usage (usage statistics), metadata (metadata), choices (candidate results), identity (identity identifier), cache (cache information), media (multimedia content), logprobs (log probabilities), and custom (custom field). Set custom fields to custom",
+                                  "help_zh": "字段的二级业务分类，可选。可选值：conversation（会话内容）、config（配置参数）、tools（工具调用）、usage（用量统计）、metadata（元数据）、choices（候选结果）、identity（身份标识）、cache（缓存信息）、media（多媒体内容）、logprobs（对数概率）和 custom（自定义字段）。自定义字段建议设置为 custom",
                                   "name": "category",
                                   "options": [
                                     "--category"
@@ -1968,8 +1968,8 @@
                                 },
                                 {
                                   "example": "question",
-                                  "help_en": "The log key",
-                                  "help_zh": "日志key",
+                                  "help_en": "The log key (field name)",
+                                  "help_zh": "日志key（字段名称）",
                                   "name": "field_key",
                                   "options": [
                                     "--field-key"
@@ -1980,8 +1980,8 @@
                                 },
                                 {
                                   "example": "request",
-                                  "help_en": "The request or response direction",
-                                  "help_zh": "请求/响应方向",
+                                  "help_en": "The request or response attribution. The backend normalizes this to request or response based on source",
+                                  "help_zh": "请求响应归属，后端根据source归一化为request或response",
                                   "name": "io",
                                   "options": [
                                     "--io"
@@ -1992,7 +1992,7 @@
                                 },
                                 {
                                   "example": "messages.#.content",
-                                  "help_en": "The corresponding JSON path (GJSON syntax)",
+                                  "help_en": "The corresponding jsonPath (gjson syntax)",
                                   "help_zh": "对应jsonPath(gjson语法)",
                                   "name": "json_path",
                                   "options": [
@@ -2004,8 +2004,8 @@
                                 },
                                 {
                                   "example": "问题内容",
-                                  "help_en": "The display name of the field",
-                                  "help_zh": "字段显示名称",
+                                  "help_en": "The annotation for the field key name",
+                                  "help_zh": "字段key名称注释",
                                   "name": "name",
                                   "options": [
                                     "--name"
@@ -2016,8 +2016,8 @@
                                 },
                                 {
                                   "example": "true",
-                                  "help_en": "Specifies whether collection is enabled",
-                                  "help_zh": "是否启用采集",
+                                  "help_en": "Indicates whether collection is enabled to create a log record for the corresponding field in AI request logs",
+                                  "help_zh": "是否启用采集以在AI请求日志记录相应字段",
                                   "name": "record_enabled",
                                   "options": [
                                     "--record-enabled"
@@ -2028,8 +2028,8 @@
                                 },
                                 {
                                   "example": "append",
-                                  "help_en": "The rule used for streaming response extraction. Valid values:\nappend: appends content\nfirst: retrieves the first value\nreplace: retrieves the last value",
-                                  "help_zh": "用于流式响应提取。append/first/replace三种，append代表追加内容，first代表取第一个，replace代表取最后一个",
+                                  "help_en": "The aggregation rule for streaming response fields. Valid values: append, first, and replace. append: appends the matched values from each streaming chunk in sequence. first: retains the first matched value. replace: uses the last matched value. When source is response_streaming_body and rule is not specified, first is used by default. This field is not required for non-streaming scenarios",
+                                  "help_zh": "流式响应字段的聚合规则，可选值为append、first和replace。append表示依次追加各流式分片的匹配值，first表示保留第一个匹配值，replace表示使用最后一个匹配值。当source为response_streaming_body且未传rule时，默认使用first；非流式场景无需该字段",
                                   "name": "rule",
                                   "options": [
                                     "--rule"
@@ -2040,7 +2040,7 @@
                                 },
                                 {
                                   "example": "false",
-                                  "help_en": "Indicates whether the field is sensitive",
+                                  "help_en": "Specifies whether the field is sensitive",
                                   "help_zh": "是否敏感字段",
                                   "name": "sensitive",
                                   "options": [
@@ -2052,8 +2052,8 @@
                                 },
                                 {
                                   "example": "request_body",
-                                  "help_en": "The data source",
-                                  "help_zh": "数据来源",
+                                  "help_en": "The source of the field value. Valid values: fixed_value (fixed value), request_body (request body), request_header (request header), response_header (response header), response_body (non-streaming response body), and response_streaming_body (streaming response body)",
+                                  "help_zh": "字段值来源。可选值：fixed_value（固定值）、request_body（请求体）、request_header（请求头）、response_header（响应头）、response_body（非流式响应体）、response_streaming_body（流式响应体）",
                                   "name": "source",
                                   "options": [
                                     "--source"
@@ -2081,8 +2081,8 @@
                         ],
                         "type": "object"
                       },
-                      "help_en": "The list of custom field collection configurations, configured by API path",
-                      "help_zh": "自定义字段采集配置列表，按 API 路径维度配置",
+                      "help_en": "The list of AI request log field collection configurations, configured by API path",
+                      "help_zh": "AI请求日志字段采集配置列表，按 API 路径维度配置",
                       "name": "path_field_configs",
                       "options": [
                         "--path-field-configs"
@@ -2092,7 +2092,7 @@
                       "type": "array"
                     }
                   ],
-                  "help_en": "The object",
+                  "help_en": "object",
                   "help_zh": "object",
                   "name": "ai_statistics_config",
                   "options": [
@@ -3012,6 +3012,7 @@
                     {
                       "fields": [
                         {
+                          "example": "DEV",
                           "help_en": "The Dubbo service group",
                           "help_zh": "dubbo服务分组",
                           "name": "dubbo_service_group",
@@ -3023,6 +3024,7 @@
                           "type": "string"
                         },
                         {
+                          "example": "com.example.DemoService",
                           "help_en": "The Dubbo service name",
                           "help_zh": "dubbo服务名",
                           "name": "dubbo_service_name",
@@ -3034,6 +3036,7 @@
                           "type": "string"
                         },
                         {
+                          "example": "1.0.0",
                           "help_en": "The Dubbo service version",
                           "help_zh": "dubbo服务版本",
                           "name": "dubbo_service_version",
@@ -3048,6 +3051,7 @@
                           "element": {
                             "fields": [
                               {
+                                "example": "sayName",
                                 "help_en": "The Dubbo method name",
                                 "help_zh": "dubbo方法名",
                                 "name": "dubbo_method_name",
@@ -3099,7 +3103,7 @@
                                     },
                                     {
                                       "example": "ALL_QUERY_PARAMETER",
-                                      "help_en": "The input parameter location. Valid values: ALL_QUERY_PARAMETER: request parameter. ALL_HEADER: request header. ALL_PATH: URI of the request. ALL_BODY: request body",
+                                      "help_en": "The input parameter location. Valid values:\nALL_QUERY_PARAMETER: Request parameter.\nALL_HEADER: Request header.\nALL_PATH: URI of the request.\nALL_BODY: Request body",
                                       "help_zh": "入参位置 入参位置枚举值。 请求参数：ALL_QUERY_PARAMETER 请求头：ALL_HEADER 请求路径：ALL_PATH 请求体：ALL_BODY",
                                       "name": "extract_key_spec",
                                       "options": [
@@ -3136,7 +3140,7 @@
                               },
                               {
                                 "example": "PASS_NOT",
-                                "help_en": "The header pass-through type. Valid values: PASS_ALL: passes through all headers. PASS_NOT: does not pass through any headers. PASS_ASSIGN: passes through specified headers",
+                                "help_en": "The header pass-through type. Valid values:\nPASS_ALL: Pass through all headers.\nPASS_NOT: Do not pass through headers.\nPASS_ASSIGN: Pass through specified headers",
                                 "help_zh": "否 Header 透传类型。透传所有：PASS_ALL。 不透传：PASS_NOT。 指定参数：PASS_ASSIGN",
                                 "name": "pass_through_all_headers",
                                 "options": [
@@ -3911,7 +3915,7 @@
       "type": "string"
     },
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "Http",
       "help_en": "The HTTP API type. Valid values: Http (standard HTTP API), Rest (RESTful API), WebSocket (WebSocket API), HttpIngress (HTTP API accessed through Ingress), LLM (large language model API), Agent (Agent proxy API)",
       "help_zh": "HTTP API 类型。取值：Http（普通 HTTP API）、Rest（RESTful API）、WebSocket（WebSocket API）、HttpIngress（通过 Ingress 接入的 HTTP API）、LLM（大语言模型 API）、Agent（Agent 代理 API）",

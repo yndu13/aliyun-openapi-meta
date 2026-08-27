@@ -3,7 +3,7 @@
   "cmd_full_name": "cloudauth describe-verify-search-page-list",
   "cmd_name": "describe-verify-search-page-list",
   "deprecated": false,
-  "description_en": "Query authentication details by page with conditions",
+  "description_en": "Queries the details of authentication records with paging and conditional query",
   "description_zh": "分页条件查询认证的明细",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "shadbdd3dbacd001cfa892a5e2b98dxx",
-      "help_en": "The certification ID",
+      "help_en": "The authentication ID",
       "help_zh": "认证Id",
       "location": "query",
       "name": "certify_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "e0c34a77f5ac40a5aa5e6ed20c353888",
-      "help_en": "The unique identifier for the customer request",
+      "help_en": "The unique identifier of the customer request",
       "help_zh": "客户请求唯一标识",
       "location": "query",
       "name": "outer_order_no",
@@ -86,9 +86,9 @@
       "type": "string"
     },
     {
-      "example": "2025-10-10 00:00:00 +0800",
-      "help_en": "The query start time",
-      "help_zh": "查询起始时间",
+      "example": "2025-10-10 00:00:00",
+      "help_en": "The start time of the query. Format: YYYY-MM-DD HH:mm:ss, such as 2025-10-10 00:00:00",
+      "help_zh": "查询开始时间。格式：YYYY-MM-DD HH:mm:ss，如 2025-10-10 00:00:00",
       "location": "query",
       "name": "start_date",
       "options": [
@@ -99,9 +99,9 @@
       "type": "string"
     },
     {
-      "example": "2025-10-16 23:59:59 +0800",
-      "help_en": "The query end time. The format is a Unix timestamp in milliseconds",
-      "help_zh": "查询结束时间。格式为unix时间戳，单位为毫秒",
+      "example": "2025-10-16 23:59:59",
+      "help_en": "The end time of the query. Format: YYYY-MM-DD HH:mm:ss, such as 2025-10-16 23:59:59",
+      "help_zh": "查询结束时间。格式：YYYY-MM-DD HH:mm:ss，如 2025-10-16 23:59:59",
       "location": "query",
       "name": "end_date",
       "options": [
@@ -113,7 +113,7 @@
     },
     {
       "example": "201",
-      "help_en": "The result code. For details, see SubCode Description (https://help.aliyun.com/zh/id-verification/financial-grade-id-verification/error-code-person-verify?spm=a2c4g.11186623.0.0.6015566ebArcFw#d88910e172fgg)",
+      "help_en": "The result code. For more information about valid values, see SubCode description (https://www.alibabacloud.com/help/en/id-verification/financial-grade-id-verification/error-code-person-verify#d88910e172fgg)",
       "help_zh": "结果Code，详情值请参考：SubCode说明 (https://help.aliyun.com/zh/id-verification/financial-grade-id-verification/error-code-person-verify?spm=a2c4g.11186623.0.0.6015566ebArcFw#d88910e172fgg)",
       "location": "query",
       "name": "sub_code",
@@ -126,7 +126,7 @@
     },
     {
       "example": "201,202",
-      "help_en": "Comma-separated result codes. For details, see SubCode Description (https://help.aliyun.com/zh/id-verification/financial-grade-id-verification/error-code-person-verify?spm=a2c4g.11186623.0.0.6015566ebArcFw#d88910e172fgg)",
+      "help_en": "Comma-separated result codes. For more information about valid values, see SubCode description (https://www.alibabacloud.com/help/en/id-verification/financial-grade-id-verification/error-code-person-verify#d88910e172fgg)",
       "help_zh": "逗号分隔的结果Code，详情值请参考：SubCode说明 (https://help.aliyun.com/zh/id-verification/financial-grade-id-verification/error-code-person-verify?spm=a2c4g.11186623.0.0.6015566ebArcFw#d88910e172fgg)",
       "location": "query",
       "name": "sub_codes",
@@ -139,7 +139,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether there is a device risk. Setting this parameter to true indicates that root = 1, simulator = 1, or virtual_video = 1",
+      "help_en": "Specifies whether device risk exists. Set this parameter to true to indicate root = 1, simulator = 1, or virtual_video = 1",
       "help_zh": "是否有设备风险（传true，代表root = 1 or simulator = 1 or virtual_video = 1）",
       "location": "query",
       "name": "has_device_risk",
@@ -152,7 +152,7 @@
     },
     {
       "example": "F",
-      "help_en": "Specifies whether the authentication passed:\nT: Passed.\nF: Failed",
+      "help_en": "Indicates whether the authentication is passed. Valid values:\nT: Passed.\nF: Not passed",
       "help_zh": "认证是否通过：\nT：通过\nF：不通过",
       "location": "query",
       "name": "passed",
@@ -204,7 +204,7 @@
     },
     {
       "example": "1",
-      "help_en": "Specifies whether the device is rooted. Set to 1 if selected; otherwise, do not pass this parameter. This parameter corresponds to the identity tag risk type",
+      "help_en": "Specifies whether the device is rooted. Set this parameter to 1 if selected. Otherwise, do not pass this parameter. This corresponds to the identity tag risk type",
       "help_zh": "是否root（选中传1 否则不传；对应身份标签风险类型）",
       "location": "query",
       "name": "root",
@@ -217,7 +217,7 @@
     },
     {
       "example": "1",
-      "help_en": "Specifies whether the device is a simulator. Set to 1 if selected; otherwise, do not pass this parameter. This parameter corresponds to the device tag risk type",
+      "help_en": "Specifies whether the device is a simulator. Set this parameter to 1 if selected. Otherwise, do not pass this parameter. This corresponds to the device tag risk type",
       "help_zh": "是否模拟器（选中传1 否则不传；对应设备标签风险类型）",
       "location": "query",
       "name": "simulator",
@@ -230,7 +230,7 @@
     },
     {
       "example": "1",
-      "help_en": "Specifies whether virtual video is used. Set to 1 if selected; otherwise, do not pass this parameter. This parameter corresponds to the behavior tag risk type",
+      "help_en": "Specifies whether virtual video adaptation is used. Set this parameter to 1 if selected. Otherwise, do not pass this parameter. This corresponds to the behavior tag risk type",
       "help_zh": "是否虚拟适配 （选中传1 否则不传；对应行为标签风险类型）",
       "location": "query",
       "name": "virtual_video",
@@ -243,7 +243,7 @@
     },
     {
       "example": "1",
-      "help_en": "The device risk:\n0: No risk.\n1: Risk detected",
+      "help_en": "The device risk. Valid values:\n0: No risk.\n1: Risk exists",
       "help_zh": "设备风险：\n0: 无风险\n1: 有风险",
       "location": "query",
       "name": "risk_device",
@@ -256,7 +256,7 @@
     },
     {
       "example": "0",
-      "help_en": "The DeviceToken risk:\n0: No risk.\n1: Risk detected",
+      "help_en": "The DeviceToken risk. Valid values:\n0: No risk.\n1: Risk exists",
       "help_zh": "DeviceToken风险:\n0: 无风险\n1: 有风险",
       "location": "query",
       "name": "risk_device_token",
@@ -269,7 +269,7 @@
     },
     {
       "example": "1",
-      "help_en": "The generic risk:\n0: No risk.\n1: Risk detected",
+      "help_en": "The generic risk. Valid values:\n0: No risk.\n1: Risk exists",
       "help_zh": "通用风险\n0: 无风险\n1: 有风险",
       "location": "query",
       "name": "risk_generic",
@@ -282,7 +282,7 @@
     },
     {
       "example": "1",
-      "help_en": "The business scenario risk:\n0: No risk.\n1: Risk detected",
+      "help_en": "The business scenario risk. Valid values:\n0: No risk.\n1: Risk exists",
       "help_zh": "业务场景风险\n0: 无风险\n1: 有风险",
       "location": "query",
       "name": "risk_biz_scenario",
@@ -295,7 +295,7 @@
     },
     {
       "example": "1",
-      "help_en": "The large model mining risk:\n0: No risk.\n1: Risk detected",
+      "help_en": "The large model mining risk. Valid values:\n0: No risk.\n1: Risk exists",
       "help_zh": "大模型挖掘风险\n0: 无风险\n1: 有风险",
       "location": "query",
       "name": "risk_model_mining",

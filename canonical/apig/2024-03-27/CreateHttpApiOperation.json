@@ -1841,8 +1841,8 @@
                         "fields": [
                           {
                             "example": "true",
-                            "help_en": "Specifies whether to log request content (controls whether question-related attributes are generated)",
-                            "help_zh": "是否记录请求内容（控制 question 相关 attributes 是否生成）",
+                            "help_en": "[Deprecated] Specifies whether to record request content (controls whether question-related attributes are generated). This parameter is deprecated in the new version",
+                            "help_zh": "是否记录请求内容（控制 question 相关 attributes 是否生成），新版本已废弃",
                             "name": "log_request_content",
                             "options": [
                               "--log-request-content"
@@ -1853,8 +1853,8 @@
                           },
                           {
                             "example": "true",
-                            "help_en": "Specifies whether to log response content (controls whether answer-related attributes are generated)",
-                            "help_zh": "是否记录响应内容（控制 answer 相关 attributes 是否生成）",
+                            "help_en": "[Deprecated] Specifies whether to record response content (controls whether answer-related attributes are generated). This parameter is deprecated in the new version",
+                            "help_zh": "是否记录响应内容（控制 answer 相关 attributes 是否生成），新版本已废弃",
                             "name": "log_response_content",
                             "options": [
                               "--log-response-content"
@@ -1867,8 +1867,8 @@
                             "element": {
                               "fields": [
                                 {
-                                  "help_en": "The field collection configuration",
-                                  "help_zh": "字段采集配置",
+                                  "help_en": "The AI request log field configuration groups for the API path, passed in as a Map. The Map keys are fixed to basic and custom, and the values are arrays of log field configurations for the corresponding groups. basic indicates basic log fields, and custom indicates custom log fields. For the current API path, fieldPaths represents the complete desired state of field configurations and does not support incremental appending or diff merging.\n\nIf pathFieldConfigs is not passed, is null, or is an empty array, the existing log field configurations are not updated. If a non-empty array is passed, the system performs a desired state replacement based on the complete set of Paths in the request, and historical Path configurations not included in the request are deleted.\n\nFor example, to add a custom field test to the /v1/chat/completions API path on top of existing configurations, the caller must use a \"read-merge-write back in full\" approach:\nRead all current Path configurations.\nRetain the complete basic array and custom array for the target API path /v1/chat/completions.\nAppend test to the current custom array.\nKeep configurations for other API paths unchanged.\nSubmit the merged complete pathFieldConfigs",
+                                  "help_zh": "API 路径对应的AI请求日志字段配置分组，以Map形式传入。Map的Key可选值固定为basic和custom，Value为对应分组的日志字段配置数组。其中，basic表示基础日志字段，custom表示自定义日志字段。对于当前API路径，fieldPaths表示完整的字段配置终态，不支持增量追加或diff合并。\n\npathFieldConfigs未传、传null或空数组时，不更新已有日志字段配置；传入非空数组时，将按照请求中的完整Path集合执行终态替换，未包含的历史Path配置会被删除。\n\n例如如在现有配置上在/v1/chat/completions API路径需新增一个自定义字段test，调用方必须采用“读取—合并—全量写回”的方式：\n读取当前全部Path配置。\n保留目标API路径/v1/chat/completions当前完整的basic数组和custom数组。\n在当前custom数组中追加test。\n将其他API路径配置原样保留。\n提交合并后的完整pathFieldConfigs",
                                   "name": "field_paths",
                                   "options": [
                                     "--field-paths"
@@ -1895,8 +1895,8 @@
                               ],
                               "type": "object"
                             },
-                            "help_en": "The list of custom field collection configurations, configured by API path",
-                            "help_zh": "自定义字段采集配置列表，按 API 路径维度配置",
+                            "help_en": "The list of AI request log field collection configurations, configured by API path",
+                            "help_zh": "AI请求日志字段采集配置列表，按 API 路径维度配置",
                             "name": "path_field_configs",
                             "options": [
                               "--path-field-configs"
@@ -1906,7 +1906,7 @@
                             "type": "array"
                           }
                         ],
-                        "help_en": "The object",
+                        "help_en": "object",
                         "help_zh": "object",
                         "name": "ai_statistics_config",
                         "options": [
@@ -2826,6 +2826,7 @@
                           {
                             "fields": [
                               {
+                                "example": "DEV",
                                 "help_en": "The Dubbo service group",
                                 "help_zh": "dubbo服务分组",
                                 "name": "dubbo_service_group",
@@ -2837,6 +2838,7 @@
                                 "type": "string"
                               },
                               {
+                                "example": "com.example.DemoService",
                                 "help_en": "The Dubbo service name",
                                 "help_zh": "dubbo服务名",
                                 "name": "dubbo_service_name",
@@ -2848,6 +2850,7 @@
                                 "type": "string"
                               },
                               {
+                                "example": "1.0.0",
                                 "help_en": "The Dubbo service version",
                                 "help_zh": "dubbo服务版本",
                                 "name": "dubbo_service_version",
@@ -2862,6 +2865,7 @@
                                 "element": {
                                   "fields": [
                                     {
+                                      "example": "sayName",
                                       "help_en": "The Dubbo method name",
                                       "help_zh": "dubbo方法名",
                                       "name": "dubbo_method_name",
@@ -2909,7 +2913,7 @@
                                     },
                                     {
                                       "example": "PASS_NOT",
-                                      "help_en": "The header pass-through type. Valid values: PASS_ALL: passes through all headers. PASS_NOT: does not pass through any headers. PASS_ASSIGN: passes through specified headers",
+                                      "help_en": "The header pass-through type. Valid values:\nPASS_ALL: Pass through all headers.\nPASS_NOT: Do not pass through headers.\nPASS_ASSIGN: Pass through specified headers",
                                       "help_zh": "否 Header 透传类型。透传所有：PASS_ALL。 不透传：PASS_NOT。 指定参数：PASS_ASSIGN",
                                       "name": "pass_through_all_headers",
                                       "options": [

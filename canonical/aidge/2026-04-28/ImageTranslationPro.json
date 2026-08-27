@@ -3,7 +3,7 @@
   "cmd_full_name": "aidge image-translation-pro",
   "cmd_name": "image-translation-pro",
   "deprecated": false,
-  "description_en": "Translates text in images using the Pro edition, which is designed for e-commerce images. This edition integrates multimodal foundation model technology to achieve more accurate image understanding, significantly improve translation quality, and continuously expand and optimize multilingual translation capabilities. More than 100 language directions are supported, including bridged translations",
+  "description_en": "Translates images using the Pro edition, which is designed for e-commerce images and integrates multimodal large model technology to achieve more accurate image understanding, significantly improve translation quality, and continuously expand and optimize multilingual translation capabilities. Supports more than 100 language directions (including bridged directions)",
   "description_zh": "图片翻译Pro版产品专为电商图片设计，融合多模态大模型技术，实现对图片的更精准理解，显著提高翻译质量，并不断扩展和优化多语言翻译能力。支持100多种(含桥接)语向",
   "kebab_example": "",
   "method": "POST",
@@ -24,8 +24,8 @@
   "parameters": [
     {
       "example": "en",
-      "help_en": "The source language code. Required. For supported language directions, see the supported language direction list",
-      "help_zh": "源语言代码，必填。支持的语向见支持语向列表",
+      "help_en": "The source language code. Required. For supported language directions, see Language Direction Mapping Table (https://www.alibabacloud.com/help/en/document_detail/3041883.html)",
+      "help_zh": "源语言代码，必填。支持的语向见语向映射表 (https://help.aliyun.com/zh/document_detail/3041883.html?spm=a2c4g.11186623.help-menu-3037945.d_1_1_7.7f97130bXCjIwG&scm=20140722.H_3041883._.OR_help-T_cn~zh-V_1)",
       "location": "formData",
       "name": "source_language",
       "options": [
@@ -37,8 +37,8 @@
     },
     {
       "example": "ko",
-      "help_en": "The target language code. Required. For supported language directions, see the supported language direction list",
-      "help_zh": "目标语言代码，必填。支持的语向见支持语向列表",
+      "help_en": "The target language code. Required. For supported language directions, see Language Direction Mapping Table (https://www.alibabacloud.com/help/en/document_detail/3041883.html)",
+      "help_zh": "目标语言代码，必填。支持的语向见语向映射表 (https://help.aliyun.com/zh/document_detail/3041883.html?spm=a2c4g.11186623.help-menu-3037945.d_1_1_7.7f97130bXCjIwG&scm=20140722.H_3041883._.OR_help-T_cn~zh-V_1)",
       "location": "formData",
       "name": "target_language",
       "options": [
@@ -50,8 +50,8 @@
     },
     {
       "example": "https://img.alicdn.com/imgextra/i3/O1CN01HTDhDi28Fd85ZYs7H_!!6000000007903-0-tps-800-800.jpg",
-      "help_en": "The URL of the original image. Required. Image requirements: the width and height cannot exceed 4000 × 4000 pixels, the file size cannot exceed 10 MB, and the supported formats are png, jpeg, jpg, bmp, and webp",
-      "help_zh": "原图URL，必填。图片要求：宽与高不超过 4000×4000；大小不超过 10MB；支持 png、jpeg、jpg、bmp、webp",
+      "help_en": "The URL of the original image. Required.\n\nImage requirements:\nImage URL: Must be publicly accessible.\nFormat: png, jpeg, jpg, bmp, or webp.\nPixels: Width and height must not exceed 4000 each.\nFile size: Original file ≤ 10 MB",
+      "help_zh": "原图URL，必填。  \n图片要求：  \n• 图片 URL：需公网可访问。   \n• 格式：png、jpeg、jpg、bmp、webp   \n• 像素： 宽和高均不超过 4000  \n• 文件大小：原始文件 ≤ 10 MB",
       "location": "formData",
       "name": "image_url",
       "options": [
@@ -76,7 +76,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to return layout information such as text position, font, and color. When set to true, layer information is returned and can be used with an image editor for secondary editing. Default value: false",
+      "help_en": "Specifies whether to return layout information such as text position, font, and color. When set to true, layer information is returned for secondary editing with an image editor. Default value: false",
       "help_zh": "是否返回文字的位置、字体、颜色等布局信息。当选择true时可获取图层信息，可接入图片编辑器进行二次编辑。默认值：false",
       "location": "formData",
       "name": "use_image_editor",
@@ -89,7 +89,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to translate brand names on the image. Optional. Default value: false. This helps you protect brand name information and avoid unintended translation",
+      "help_en": "Specifies whether to translate brand names on images. Optional. Default value: false. This helps you protect brand name information from being translated",
       "help_zh": "选择是否翻译图片上的品牌名，选填，默认false。这可以帮助您保护品牌名信息，避免被翻译",
       "location": "formData",
       "name": "translating_brand_in_the_product",
@@ -102,7 +102,7 @@
     },
     {
       "example": "glossary_1",
-      "help_en": "The glossary ID. Optional. Create a glossary separately in the console and provide its ID. If the provided glossary ID is empty, the translation results are not modified",
+      "help_en": "The intervention glossary ID. Optional. You must create the glossary separately in the console and provide its ID. If the glossary ID is empty, the translation results are not modified",
       "help_zh": "干预词表ID，可选。需要在前台单独创建并提供其ID。如果提供的干预词表ID为空，则翻译结果将不会被修改",
       "location": "formData",
       "name": "glossary",
@@ -115,7 +115,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to use asynchronous mode. Default value: false (synchronous mode). When set to true, the operation immediately returns a TaskId. Use the query translation result operation to obtain the final result",
+      "help_en": "Specifies whether to use asynchronous mode. Default value: false (synchronous mode). When set to true, the API immediately returns a TaskId, and you must use the query translation result API to obtain the final result",
       "help_zh": "是否使用异步模式。默认值：false（同步模式）。设置为 true 时，接口立即返回 TaskId，需通过「查询翻译结果」接口获取最终结果",
       "location": "formData",
       "name": "async",

@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "****3e761e9d11edba640c42a1b7****\n",
-      "help_en": "The idempotency token. A unique, case-sensitive string of 32 characters. This token ensures that the request is completed no more than once, preventing duplicate operations caused by multiple retries",
+      "help_en": "The idempotency token. A unique, case-sensitive string of up to 32 characters. This token ensures that the request is completed no more than once, preventing duplicate operations caused by multiple retries",
       "help_zh": "幂等参数，唯一的大小写敏感的32位随机字符串。\n用于确保请求完成的次数不超过一次，以此避免多次重试带来重复操作的问题",
       "location": "query",
       "name": "client_token",
@@ -35,8 +35,8 @@
     },
     {
       "example": "text_to_video",
-      "help_en": "The task type. Valid values:\n\ntext_to_video: text-to-video\nimage_to_video: image-to-video\nfirst_last_frame: first and last frame to video\nreference_to_video: reference-to-video",
-      "help_zh": "任务类型，枚举值：\ntext_to_video ，文生视频\nimage_to_video ，图生视频\nfirst_last_frame ，首尾帧生视频\nreference_to_video，参考生视频",
+      "help_en": "The task type. Required. Valid values:\n\ntext_to_video: text-to-video\nimage_to_video: image-to-video\nfirst_last_frame: first and last frame to video\nreference_to_video: reference-to-video",
+      "help_zh": "任务类型，必填，枚举值：\ntext_to_video ，文生视频\nimage_to_video ，图生视频\nfirst_last_frame ，首尾帧生视频\nreference_to_video，参考生视频",
       "location": "query",
       "name": "job_type",
       "options": [
@@ -48,8 +48,8 @@
     },
     {
       "example": "happyhorse-1.1",
-      "help_en": "The model name. Valid values:\n\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
-      "help_zh": "模型名称\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
+      "help_en": "The model name. Required. Valid values:\n\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
+      "help_zh": "模型名称，必填：\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
       "location": "query",
       "name": "model",
       "options": [
@@ -74,8 +74,8 @@
     },
     {
       "example": "{\"Prompt\":\"图1在篮球场上，用图2来了个灌篮\",\"Medias\":[{\"Type\":\"image\",\"Url\":\"https://xxx/xxx.jpg\"},{\"Type\":\"image\",\"Url\":\"https://xxx/xxx.jpg\"}]}",
-      "help_en": "The task input. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt text.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed.\n\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
-      "help_zh": "任务输入，Json String，包含：\nPrompt，String，必填，提示词\nMedias，媒体列表\n当JobType=image_to_video 时，必填，Media仅需要1个\n当JobType=first_last_frame 时，必填，Media仅需要2个\n当JobType=reference_to_video 时，必填，Media最多9个\nMedia 结构包含：Type，媒体类型，String，可选值有`image`/`video`/`audio`；URL，媒体下载地址，String；MediaId，媒资Id，String",
+      "help_en": "The task input. Required. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed (wan3.0-video/wan3.0-video-prime allows up to 20, including up to 10 images, 5 videos, and 5 audio files. Audio and video files must not exceed 15 seconds).\n\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
+      "help_zh": "任务输入，必填，Json String，包含：\nPrompt，String，必填，提示词\nMedias，媒体列表\n当JobType=image_to_video 时，必填，Media仅需要1个\n当JobType=first_last_frame 时，必填，Media仅需要2个\n当JobType=reference_to_video 时，必填，Media最多9个（wan3.0-video/wan3.0-video-prime 最多20个，其中图片10个、视频5个，音频 5个，音视频不超过15秒）\nMedia 结构包含：Type，媒体类型，String，可选值有`image`/`video`/`audio`；URL，媒体下载地址，String；MediaId，媒资Id，String",
       "location": "query",
       "name": "input",
       "options": [
@@ -86,8 +86,9 @@
       "type": "string"
     },
     {
-      "help_en": "The Output",
-      "help_zh": "The Output",
+      "example": "{\"OssUri\":\"oss://example-bucket/video-translation/output/\"}",
+      "help_en": "The output configuration as a JSON string. OssUri is an optional customer OSS output directory. If not specified, a signed URL for the service-generated output is returned",
+      "help_zh": "输出配置 JSON 字符串。OssUri 为可选的客户 OSS 输出目录；未指定时返回服务自有产物的签名 URL",
       "location": "query",
       "name": "output",
       "options": [
@@ -99,8 +100,8 @@
     },
     {
       "example": "{}",
-      "help_en": "The task parameters. A JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no)",
-      "help_zh": "任务功能参数，Json String，包含：\nEnableAudio，Bool，选填，是否输出音频（true:是；false:否）",
+      "help_en": "The task parameters as a JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no).\nWatermark: Bool. Optional. Specifies whether to include a watermark (true: the video contains an \"AI Generated\" watermark in the lower-right corner; false: the video does not contain a watermark).\nPromptExtend: Bool. Optional. Specifies whether to enable intelligent prompt rewriting (only valid for wan3.0-video/wan3.0-video-prime). true: enabled (default); false: disabled",
+      "help_zh": "任务功能参数，Json String，包含：\nEnableAudio，Bool，选填，是否输出音频（true:是；false:否）\nWatermark，Bool，选填，是否包含水印（true：视频右下角含“AI 生成”水印；false：生成视频不含水印）\nPromptExtend，Bool，选填，是否开启prompt智能改写（仅wan3.0-video / wan3.0-video-prime有效）；true：开启，默认值；false：不开启）",
       "location": "query",
       "name": "job_parameters",
       "options": [
@@ -125,8 +126,8 @@
     },
     {
       "example": "9:16",
-      "help_en": "The aspect ratio. Valid values: 16:9 (default), 9:16, 4:3, 3:4, and 1:1",
-      "help_zh": "宽高比，可取值：16:9（默认）、9:16、4:3、3:4、1:1",
+      "help_en": "The aspect ratio. Valid values: 16:9 (default), 9:16, 4:3, 3:4, 1:1, and adaptive (only valid for wan3.0-video/wan3.0-video-prime)",
+      "help_zh": "宽高比，可取值：16:9（默认）、9:16、4:3、3:4、1:1、adaptive（仅wan3.0-video / wan3.0-video-prime有效）",
       "location": "query",
       "name": "aspect_ratio",
       "options": [
@@ -138,8 +139,8 @@
     },
     {
       "example": "5",
-      "help_en": "The output duration. Valid values: 4 to 15 seconds. Default value: 5s",
-      "help_zh": "输出时长，取值范围：4～15s，默认 5s",
+      "help_en": "The output duration. Valid values: 4 to 15 seconds. Default value: 5 seconds.\n\nwan3.0-video/wan3.0-video-prime supports a maximum of 30 seconds",
+      "help_zh": "输出时长，取值范围：4～15s，默认 5s\nwan3.0-video / wan3.0-video-prime 最大30秒",
       "location": "query",
       "name": "duration",
       "options": [
@@ -163,9 +164,9 @@
       "type": "int"
     },
     {
-      "example": "{\"env\":\"prd\"}",
-      "help_en": "The user business data in JSON format",
-      "help_zh": "用户业务数据，json 格式",
+      "example": "{\"NotifyAddress\": \"http://xxx.callback.url\"}",
+      "help_en": "The custom user parameters as a JSON string. This value is returned as-is in the callback result. The system reserved field NotifyAddress specifies the callback URL that is called when the task is completed",
+      "help_zh": "用户自定义参数，JSON 格式字符串，回调结果原样携带。系统保留字段 NotifyAddress，回调地址 URL，任务完成后回调",
       "location": "query",
       "name": "user_data",
       "options": [
@@ -178,101 +179,5 @@
   ],
   "pathPattern": "",
   "product_code": "Yike",
-  "protocol": "HTTPS",
-  "v1_parameters": [
-    {
-      "help_en": "The aspect ratio. Valid values: 16:9 (default), 9:16, 4:3, 3:4, and 1:1",
-      "help_zh": "宽高比，可取值：16:9（默认）、9:16、4:3、3:4、1:1",
-      "name": "AspectRatio",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The idempotency token. A unique, case-sensitive string of 32 characters. This token ensures that the request is completed no more than once, preventing duplicate operations caused by multiple retries",
-      "help_zh": "幂等参数，唯一的大小写敏感的32位随机字符串。\n用于确保请求完成的次数不超过一次，以此避免多次重试带来重复操作的问题",
-      "name": "ClientToken",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The output duration. Valid values: 4 to 15 seconds. Default value: 5s",
-      "help_zh": "输出时长，取值范围：4～15s，默认 5s",
-      "name": "Duration",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The task input. A JSON string that contains the following fields:\n\nPrompt: String. Required. The prompt text.\nMedias: The list of media items.\nWhen JobType is image_to_video, this field is required and only 1 Media item is needed.\nWhen JobType is first_last_frame, this field is required and exactly 2 Media items are needed.\nWhen JobType is reference_to_video, this field is required and up to 9 Media items are allowed.\n\nThe Media structure contains: Type, the media type (String, valid values: `image`/`video`/`audio`); URL, the media download URL (String); MediaId, the media asset ID (String)",
-      "help_zh": "任务输入，Json String，包含：\nPrompt，String，必填，提示词\nMedias，媒体列表\n当JobType=image_to_video 时，必填，Media仅需要1个\n当JobType=first_last_frame 时，必填，Media仅需要2个\n当JobType=reference_to_video 时，必填，Media最多9个\nMedia 结构包含：Type，媒体类型，String，可选值有`image`/`video`/`audio`；URL，媒体下载地址，String；MediaId，媒资Id，String",
-      "name": "Input",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The task parameters. A JSON string that contains the following fields:\n\nEnableAudio: Bool. Optional. Specifies whether to output audio (true: yes; false: no)",
-      "help_zh": "任务功能参数，Json String，包含：\nEnableAudio，Bool，选填，是否输出音频（true:是；false:否）",
-      "name": "JobParameters",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The task type. Valid values:\n\ntext_to_video: text-to-video\nimage_to_video: image-to-video\nfirst_last_frame: first and last frame to video\nreference_to_video: reference-to-video",
-      "help_zh": "任务类型，枚举值：\ntext_to_video ，文生视频\nimage_to_video ，图生视频\nfirst_last_frame ，首尾帧生视频\nreference_to_video，参考生视频",
-      "name": "JobType",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The model name. Valid values:\n\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
-      "help_zh": "模型名称\nwan3.0-video\nwan3.0-video-prime\nhappyhorse-1.1\nhappyhorse-1.0\nwan2.7",
-      "name": "Model",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The number of outputs. Valid values: 1 to 4. Default value: 1",
-      "help_zh": "输出个数，取值[1,4]，默认：1",
-      "name": "N",
-      "position": "query",
-      "required": false,
-      "type": "int"
-    },
-    {
-      "name": "Output",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The resolution. Valid values: 720P (default) and 1080P",
-      "help_zh": "分辨率，可取值：720P（默认）、1080P",
-      "name": "Resolution",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The scene type. Currently only `general` is supported",
-      "help_zh": "场景类型，枚举类型，当前仅有 `general`",
-      "name": "Scene",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "help_en": "The user business data in JSON format",
-      "help_zh": "用户业务数据，json 格式",
-      "name": "UserData",
-      "position": "query",
-      "required": false,
-      "type": "string"
-    }
-  ]
+  "protocol": "HTTPS"
 }

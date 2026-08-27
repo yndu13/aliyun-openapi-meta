@@ -33,7 +33,7 @@
       "type": "string"
     },
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "MyTemplate",
       "help_en": "The name of the template. The name can be up to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (_). The name cannot start with ALIYUN, ACS, ALIBABA, or ALICLOUD",
       "help_zh": "模板名称。内容限制为字母、数字、中划线、下划线，长度200字符，且不能以ALIYUN、ACS、ALIBABA、ALICLOUD开头",
@@ -47,7 +47,7 @@
       "type": "string"
     },
     {
-      "docRequired": true,
+      "doc_required": true,
       "example": "{\n  \"FormatVersion\": \"OOS-2019-06-01\",\n  \"Description\": {\n    \"en\": \"Bulky starts the ECS instances\",\n    \"zh-cn\": \"批量启动ECS实例\",\n    \"name-en\": \"Bulky Start Instances\",\n    \"name-zh-cn\": \"批量启动实例\"\n  },\n  \"Parameters\": {\n    \"regionId\": {\n      \"Type\": \"String\",\n      \"Label\": {\n        \"en\": \"RegionId\",\n        \"zh-cn\": \"地域ID\"\n      },\n      \"AssociationProperty\": \"RegionId\",\n      \"Default\": \"{{ ACS::RegionId }}\"\n    },\n    \"targets\": {\n      \"Type\": \"Json\",\n      \"Label\": {\n        \"en\": \"TargetInstance\",\n        \"zh-cn\": \"目标实例\"\n      },\n      \"AssociationProperty\": \"Targets\",\n      \"AssociationPropertyMetadata\": {\n        \"ResourceType\": \"ALIYUN::ECS::Instance\",\n        \"RegionId\": \"regionId\"\n      }\n    },\n    \"rateControl\": {\n      \"Label\": {\n        \"en\": \"RateControl\",\n        \"zh-cn\": \"任务执行的并发比率\"\n      },\n      \"Type\": \"Json\",\n      \"AssociationProperty\": \"RateControl\",\n      \"Default\": {\n        \"Mode\": \"Concurrency\",\n        \"MaxErrors\": 0,\n        \"Concurrency\": 10\n      }\n    },\n    \"OOSAssumeRole\": {\n      \"Label\": {\n        \"en\": \"OOSAssumeRole\",\n        \"zh-cn\": \"OOS扮演的RAM角色\"\n      },\n      \"Type\": \"String\",\n      \"Default\": \"OOSServiceRole\"\n    }\n  },\n  \"RamRole\": \"{{ OOSAssumeRole }}\",\n  \"Tasks\": [\n    {\n      \"Name\": \"getInstance\",\n      \"Description\": {\n        \"en\": \"Views the ECS instances\",\n        \"zh-cn\": \"获取ECS实例\"\n      },\n      \"Action\": \"ACS::SelectTargets\",\n      \"Properties\": {\n        \"ResourceType\": \"ALIYUN::ECS::Instance\",\n        \"RegionId\": \"{{ regionId }}\",\n        \"Filters\": [\n          \"{{ targets }}\"\n        ]\n      },\n      \"Outputs\": {\n        \"instanceIds\": {\n          \"Type\": \"List\",\n          \"ValueSelector\": \"Instances.Instance[].InstanceId\"\n        }\n      }\n    },\n    {\n      \"Name\": \"startInstance\",\n      \"Action\": \"ACS::ECS::StartInstance\",\n      \"Description\": {\n        \"en\": \"Starts the ECS instances\",\n        \"zh-cn\": \"启动实例\"\n      },\n      \"Properties\": {\n        \"regionId\": \"{{ regionId }}\",\n        \"instanceId\": \"{{ ACS::TaskLoopItem }}\"\n      },\n      \"Loop\": {\n        \"RateControl\": \"{{ rateControl }}\",\n        \"Items\": \"{{ getInstance.instanceIds }}\"\n      }\n    }\n  ],\n  \"Outputs\": {\n    \"instanceIds\": {\n      \"Type\": \"List\",\n      \"Value\": \"{{ getInstance.instanceIds }}\"\n    }\n  }\n}",
       "help_en": "The content of the template. The content must be in the JSON or YAML format, and its maximum size is 64 KB",
       "help_zh": "模板内容。JSON或YAML格式，长度限制为 64 KB",
