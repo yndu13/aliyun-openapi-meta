@@ -1,0 +1,195 @@
+{
+  "name": "ModifyAdvancedBackupPolicy",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AdvancedBackupDataPolicies",
+      "description": "The list of backup policies.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ActionType",
+          "description": "The action type. Valid values:\n- **CREATE**: Create.\n- **UPDATE**: Update.\n- **DELETE**: Delete. In this case, only PolicyId is required for other parameters.",
+          "position": "Query",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "BackupPolicy",
+          "description": "The scheduling type of the advanced policy. Valid values:\n- dayOfWeek: scheduled by week.\n- dayOfMonth: scheduled by month.\n- dayOfYear: scheduled by year.\n- backupInterval: scheduled at fixed intervals (high-frequency backup). \n\n> \n> - Multiple high-frequency backup policies are not supported.\n> - Multiple geo-redundancy backup policies are not supported, and geo-redundancy backup policies support only dayOfWeek.\n\n><notice>This parameter is required when ActionType is not set to DELETE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestRegion",
+          "description": "The destination region of the backup policy.\n><notice>This parameter is required when ActionType is not set to DELETE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestType",
+          "description": "The destination type of the backup policy.\n \n- level1: same-region backup. \n- level2Cross: cross-region backup.\n><notice>This parameter is required when ActionType is not set to DELETE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "PolicyId",
+          "description": "The backup policy ID.\n\n><notice>This parameter is required when ActionType is not set to CREATE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "PreferredBackupPeriod",
+          "description": "The backup cycle.\n- If BackupPolicy is set to dayOfWeek: 1,2,3,4,5,6,7 indicates Monday through Sunday. At least 2 backups per week are required.\n- If BackupPolicy is set to dayOfMonth: 1,3,-1 indicates the 1st, 3rd, and last day of each month. -1 indicates the last day of each month.\n- If BackupPolicy is set to dayOfYear: 01-07 indicates January 7. Only one day can be selected.\n- If BackupPolicy is set to backupInterval: select one of the following values in minutes. For sharded cluster instances, the valid values are 30, 60, 120, 180, 240, 360, 480, and 720. For replica set instances, the valid values are 15, 30, 60, 120, 180, 240, 360, 480, and 720.\n\n><notice>This parameter is required when ActionType is not set to DELETE. Geo-redundancy backup policies support only dayOfWeek.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "PreserveOneEachHour",
+          "description": "Specifies whether to enable hourly sparse backup.\n\n- true: When the backup frequency is at the minute level, all snapshots within 1 hour from the current time are retained. For snapshots that are more than 1 hour but within 24 hours from the current time, only the first snapshot after each hour is retained.\n\n- false: All snapshots within the high-frequency backup retention period are retained.",
+          "position": "Query",
+          "type": "Boolean",
+          "required": false
+        },
+        {
+          "name": "RetentionPeriod",
+          "description": "The number of days to retain the backup plan.\n- Same-region backup: 7 to 7300 days.\n- Geo-redundancy backup: 3 to 1825 days.\n><notice>This parameter is required when RetentionType is set to delay.></notice>",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "RetentionType",
+          "description": "The retention period type of the backup set.\n\n- **never**: Long-term retention (LTR).\n- **delay**: Retention for a fixed number of days.\n><notice>This parameter is required when ActionType is not set to DELETE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcRegion",
+          "description": "The region where the instance resides.\n\n><notice>This parameter is required when ActionType is not set to DELETE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcType",
+          "description": "The source type of the backup policy.\n  \n- db: same-region backup.\n- level1: cross-region backup.\n><notice>This parameter is required when ActionType is not set to DELETE.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "AdvancedBackupLogPolicies",
+      "description": "The list of log backup policies.",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ActionType",
+          "description": "The action type.\n- CREATE: Create.\n- UPDATE: Update.\n><notice>This parameter applies only to geo-redundancy backup. To delete geo-redundancy backup, use UPDATE with EnableLogBackup set to 0.></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "DestRegion",
+          "description": "The region where the geo-redundancy log backup resides.\n\n\n> This parameter is required for geo-redundancy backup.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestType",
+          "description": "The destination type of the log backup policy.\n \n- level1: same-region backup. \n- level2Cross: cross-region backup.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "EnableLogBackup",
+          "description": "Specifies whether to enable log backup.\n\n- **1**: Enabled.\n- **0**: Disabled.\n\n\n> \n> - Log backup must be enabled for sharded cluster instances.\n> - Cross-region log backup requires same-region log backup to be enabled first.",
+          "position": "Query",
+          "type": "Integer",
+          "required": true
+        },
+        {
+          "name": "PolicyId",
+          "description": "The log backup policy ID. This parameter exists only for cross-region log backup policies and is required.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "RetentionPeriod",
+          "description": "The number of days to retain log backups. This parameter takes effect when RetentionType is set to delay.\n\n- Same-region backup: 7 to 7300 days. \n- Geo-redundancy backup: 3 to 1825 days. The value must be less than the backup retention period of the geo-redundancy backup policy.",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "RetentionType",
+          "description": "The retention period type of the log backup.\n\n- **never**: Long-term retention (LTR).\n- **delay**: Retention for a fixed number of days.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcRegion",
+          "description": "The region where the source instance resides.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcType",
+          "description": "The source type of the log backup policy.\n  \n- db: same-region backup.\n- level1: cross-region backup.",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "BackupRetentionPolicyOnClusterDeletion",
+      "description": "The backup data retention policy.\n\n- 0: All backup sets of the instance are immediately deleted when the instance is released.\n- 1: The last backup set is retained with long-term retention (LTR) when the instance is released.\n- 2: All backup sets are retained with long-term retention (LTR) when the instance is released.",
+      "position": "Query",
+      "type": "Integer",
+      "required": true
+    },
+    {
+      "name": "DBInstanceId",
+      "description": "The instance ID.",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "PreferredBackupTime",
+      "description": "The time to perform the backup. The time is in the <i>HH:mm</i>Z-<i>HH:mm</i>Z format (UTC).\n\n> The time range is limited to 1 hour.",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SnapshotBackupType",
+      "description": "The snapshot backup type. Valid values:\n\n- **Flash**: Backup within seconds.\n- **Standard**: Standard backup (default value).",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

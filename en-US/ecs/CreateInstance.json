@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "Affinity",
-      "description": "Specifies whether the instance on a dedicated host is associated with the dedicated host. Valid values:",
+      "description": "Specifies whether the instance on a dedicated host is associated with the dedicated host. Valid values:\n\n- default: The instance is not associated with the dedicated host. When an instance that has economical mode enabled is restarted after it is stopped, the instance is deployed on another dedicated host in the automatic deployment resource pool if the resources of the original dedicated host are insufficient.\n\n- host: The instance is associated with the dedicated host. When an instance that has economical mode enabled is restarted after it is stopped, the instance remains on the original dedicated host. If the resources of the original dedicated host are insufficient, the instance fails to restart.\n\nDefault value: default.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -44,35 +44,35 @@
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal. This parameter takes effect only when `InstanceChargeType` is set to `PrePaid`. Valid values:",
+      "description": "Specifies whether to enable auto-renewal. This parameter takes effect only when `InstanceChargeType` is set to `PrePaid`. Valid values:\n\n- true: enables auto-renewal.\n- false (default): disables auto-renewal.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoRenewPeriod",
-      "description": "The auto-renewal period. This parameter is required when AutoRenew is set to True.",
+      "description": "The auto-renewal period. This parameter is required when AutoRenew is set to true.\n\n<props=\"china\">If PeriodUnit is set to Week, valid values of AutoRenewPeriod are 1, 2, and 3.</props>\n\nIf PeriodUnit is set to Month, valid values of AutoRenewPeriod are 1, 2, 3, 6, and 12.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. **ClientToken** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterId",
-      "description": "The ID of the cluster to which the instance belongs.",
+      "description": "The ID of the cluster in which the instance resides.\n\n> This parameter will be deprecated. To improve compatibility, use other parameters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CreditSpecification",
-      "description": "The running mode of the burstable instance. Valid values:",
+      "description": "The performance mode of the burstable instance. Valid values:\n\n- Standard: standard mode. For more information, see the performance constrained mode section in [Overview of burstable instances](~~59977~~).\n- Unlimited: unlimited mode. For more information, see the unlimited mode section in [Overview of burstable instances](~~59977~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -86,14 +86,14 @@
       "sub_parameters": [
         {
           "name": "Category",
-          "description": "The category of data disk N. Valid values:",
+          "description": "The category of data disk N. Valid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: enterprise SSD.\n- cloud: basic disk.\n- cloud_auto: ESSD AutoPL disk.\n- cloud_essd_entry: ESSD Entry disk.\n  > The cloud_essd_entry value is supported only when `InstanceType` is set to an `ecs.u1` or `ecs.e` instance family type.\n- elastic_ephemeral_disk_standard: elastic ephemeral disk - standard.\n- elastic_ephemeral_disk_premium: elastic ephemeral disk - Premium Edition.\n\nFor I/O optimized instances, the default value is cloud_efficiency. For non-I/O optimized instances, the default value is cloud.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DeleteWithInstance",
-          "description": "Specifies whether to release the data disk when the instance is released.",
+          "description": "Specifies whether to release the data disk when the instance is released.\n\n- true: releases the data disk when the instance is released.\n- false: does not release the data disk when the instance is released.\n\nDefault value: true.",
           "position": "Query",
           "type": "Boolean",
           "required": false
@@ -107,14 +107,14 @@
         },
         {
           "name": "Device",
-          "description": "The mount point of the data disk.",
+          "description": "The mount point of the data disk.\n\n> This parameter is applicable only to full image (system image) scenarios. You can set this parameter to the mount point of the data disk in the full image and modify the corresponding `DataDisk.N.Size` and `DataDisk.N.Category` parameters to change the category and size of the data disk in the full image.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DiskName",
-          "description": "The name of the data disk. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-). The name supports characters categorized as letters in Unicode, including Chinese characters.",
+          "description": "The name of the data disk. The name must be 2 to 128 characters in length and can contain letters, digits, and Unicode characters classified under the letter category (including Chinese characters). The name can also contain colons (:), underscores (_), periods (.), or hyphens (-).",
           "position": "Query",
           "type": "String",
           "required": false
@@ -128,42 +128,42 @@
         },
         {
           "name": "Encrypted",
-          "description": "Specifies whether to encrypt data disk N.",
+          "description": "Specifies whether to encrypt data disk N.\n\n- true: encrypts the data disk.\n\n- false: does not encrypt the data disk.\n\nDefault value: false.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KMSKeyId",
-          "description": "The ID of the Key Management Service (KMS) key used by the disk.",
+          "description": "The KMS key ID for the disk.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "PerformanceLevel",
-          "description": "The performance level of the enterprise SSD used as a data disk. Settings depend on the disk category. The value of N must be the same as that in `DataDisk.N.Category=cloud_essd`. Valid values:",
+          "description": "The performance level of the enterprise SSD used as the Nth data disk. The value of N must be the same as that in `DataDisk.N.Category=cloud_essd`. Set this parameter when you create an enterprise SSD as a data disk. Valid values:\n\n- PL0: a single disk can deliver up to 10,000 random read/write IOPS.\n- PL1 (default): a single disk can deliver up to 50,000 random read/write IOPS.\n- PL2: a single disk can deliver up to 100,000 random read/write IOPS.\n- PL3: a single disk can deliver up to 1,000,000 random read/write IOPS.\n\nFor more information about how to select an ESSD performance level, see [ESSDs](~~122389~~).",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Size",
-          "description": "The size of data disk N, in GiB. Valid values of N: 1 to 16. Valid values:",
+          "description": "The size of data disk N. Valid values of N: 1 to 16. Unit: GiB. Valid values:\n\n- cloud_efficiency: 20 to 32768.\n- cloud_ssd: 20 to 32768.\n- cloud_essd: depends on the value of `DataDisk.N.PerformanceLevel`.\n    - PL0: 1 to 65536.\n    - PL1: 20 to 65536.\n    - PL2: 461 to 65536.\n    - PL3: 1261 to 65536.\n- cloud: 5 to 2000.\n\n> The value of this parameter must be greater than or equal to the size of the snapshot specified by `SnapshotId`.",
           "position": "Query",
           "type": "Integer",
           "required": false
         },
         {
           "name": "SnapshotId",
-          "description": "The ID of the snapshot used to create data disk N. Valid values of N: 1 to 16.",
+          "description": "The ID of the snapshot used to create data disk N. Valid values of N: 1 to 16.\n\n- If `DataDisk.N.SnapshotId` is specified, `DataDisk.N.Size` is ignored. The disk is created with the size of the specified snapshot.\n\n- Snapshots created on or before July 15, 2013 cannot be used. Requests that use such snapshots are rejected.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "StorageClusterId",
-          "description": "The ID of the dedicated block storage cluster. If you want to use disks in a dedicated block storage cluster as data disks when you create the ECS instance, set this parameter.",
+          "description": "The ID of the dedicated block storage cluster. If you want to use disks in a dedicated block storage cluster as data disks when you create an ECS instance, set this parameter.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -172,21 +172,21 @@
     },
     {
       "name": "DedicatedHostId",
-      "description": "The ID of the dedicated host.",
+      "description": "The ID of the dedicated host.\n<props=\"china\">You can call [DescribeDedicatedHosts](~~134242~~) to query the list of dedicated host IDs.</props>\n\n<props=\"intl\">You can call [DescribeDedicatedHosts](~~134242~~) to query the list of dedicated host IDs.</props>\n\n><notice>Spot instances cannot be created on dedicated hosts. If you specify `DedicatedHostId`, the `SpotStrategy` and `SpotPriceLimit` settings in the request are automatically ignored.</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DeletionProtection",
-      "description": "The release protection attribute of the instance. Specifies whether the instance can be released from the console or by calling the [DeleteInstance](~~25507~~) operation.",
+      "description": "The release protection attribute of the instance. Specifies whether the instance can be released from the ECS console or by calling [DeleteInstance](~~25507~~).\n\n- true: enables release protection.\n- false (default): disables release protection.\n\n> This attribute is applicable only to pay-as-you-go instances. It can only prevent manual release, not system-initiated release.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DeploymentSetGroupNo",
-      "description": "The number of the deployment set group to which to deploy the instance in the deployment set. This parameter takes effect only when the deployment set uses the high availability group strategy (AvailabilityGroup). Valid values: 1 to 7.",
+      "description": "The number of the deployment set group in which to deploy the instance. If the deployment set specified for the instance uses the high availability group strategy (AvailabilityGroup), you can use this parameter to specify a group in the deployment set. Valid values: 1 to 7.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -200,14 +200,14 @@
     },
     {
       "name": "Description",
-      "description": "The description of the instance. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the instance. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run. Valid values:",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n\n- true: performs only a dry run. The system checks whether the required parameters are specified, whether the request format is valid, whether the service limits are not exceeded, and whether the specified ECS resources are available. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n- false (default): performs a dry run and sends the request. If the check succeeds, the instance is created.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -221,7 +221,7 @@
     },
     {
       "name": "HostName",
-      "description": "The hostname of the Elastic Compute Service server.",
+      "description": "The hostname of the Elastic Compute Service server.\n\n- The hostname cannot start or end with a period (.) or hyphen (-), and cannot contain consecutive periods or hyphens.\n- Windows instances: The hostname must be 2 to 15 characters in length and cannot contain periods (.) or consist entirely of digits. It can contain letters, digits, and hyphens (-).\n- Other instances (such as Linux): The hostname must be 2 to 64 characters in length and can contain multiple periods (.). Each segment separated by a period can contain letters, digits, and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -235,7 +235,7 @@
     },
     {
       "name": "HttpEndpoint",
-      "description": "Specifies whether to enable the access channel for instance metadata. Valid values:",
+      "description": "Specifies whether to enable the access channel for instance metadata. Valid values:\n- enabled: enables the access channel.\n- disabled: disables the access channel.\n\nDefault value: enabled.\n> For more information about instance metadata, see [Overview of instance metadata](~~49122~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -249,21 +249,21 @@
     },
     {
       "name": "HttpTokens",
-      "description": "Specifies whether to forcefully use the security-hardened mode (IMDSv2) to access instance metadata. Valid values:",
+      "description": "Specifies whether to forcefully use the security-hardened mode (IMDSv2) to access instance metadata. Valid values:\n- optional: does not forcefully use the security-hardened mode.\n- required: forcefully uses the security-hardened mode. After you set this parameter to required, you cannot access instance metadata in normal mode.\n\nDefault value: optional.\n> For more information about the modes for accessing instance metadata, see [Access mode of instance metadata](~~150575~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageFamily",
-      "description": "The name of the image family. You can set this parameter to obtain the latest available image from the specified image family to create the instance.",
+      "description": "The name of the image family. You can set this parameter to obtain the latest available image from the specified image family to create the instance.\n- If you set `ImageId`, you cannot set this parameter.\n- If you do not set `ImageId`, you can set this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageId",
-      "description": "The ID of the image used to start the instance. To use an Alibaba Cloud Marketplace image, you can view the `ImageId` on the product page of the Alibaba Cloud Marketplace image. This parameter is required if you do not specify `ImageFamily` to select the latest available image from an image family.",
+      "description": "The ID of the image used to start the instance. You can call [DescribeImages](~~25534~~) to query available images. To use an Alibaba Cloud Marketplace image, you can view the `ImageId` on the image product page. This parameter is required if you do not set `ImageFamily` to select the latest available image from an image family.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -277,56 +277,56 @@
     },
     {
       "name": "InstanceChargeType",
-      "description": "The billing method of the instance. Valid values:",
+      "description": "The billing method of the instance. Valid values:\n\n- PrePaid: subscription. If you set this parameter to PrePaid, make sure that your account supports credit payment or balance payment. Otherwise, an `InvalidPayMethod` error is returned.\n- PostPaid (default): pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceName",
-      "description": "The name of the instance. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-). The name supports characters categorized as letters in Unicode, including Chinese characters. If this parameter is not specified, the default value is the instance ID.",
+      "description": "The name of the instance. The name must be 2 to 128 characters in length and can contain letters, digits, and Unicode characters classified under the letter category (including Chinese characters). The name can also contain colons (:), underscores (_), periods (.), or hyphens (-). If you do not specify this parameter, the instance ID is used as the default value.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance type of the instance.",
+      "description": "The instance type.\n\n- Instance type selection: See [Instance family](~~25378~~) or invoke [DescribeInstanceTypes](~~25620~~) to query the performance data of the target instance type. You can also see [Best practices for instance type selection](~~58291~~) to learn how to select an instance type.\n- Check active resources: Invoke [DescribeAvailableResource](~~66186~~) to query active resources in a specific region or zone.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InternetChargeType",
-      "description": "The billing method for network usage. Valid values:",
+      "description": "The billing method for network usage. Valid values:\n\n- PayByBandwidth: pay-by-bandwidth.\n- PayByTraffic (default): pay-by-traffic.\n\n> In **pay-by-traffic** mode, the peak inbound and outbound bandwidths are used as bandwidth upper limits and are not guaranteed. When resource contention occurs, the peak bandwidth may be limited. If you require guaranteed bandwidth, use **pay-by-bandwidth** mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthIn",
-      "description": "The maximum inbound public bandwidth, in Mbit/s. Valid values:",
+      "description": "The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:\n\n- If the purchased outbound public bandwidth is less than or equal to 10 Mbit/s: 1 to 10. Default value: 10.\n- If the purchased outbound public bandwidth is greater than 10 Mbit/s: 1 to the value of `InternetMaxBandwidthOut`. Default value: the value of `InternetMaxBandwidthOut`.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthOut",
-      "description": "The maximum outbound public bandwidth, in Mbit/s. Valid values: 0 to 100.",
+      "description": "The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "IoOptimized",
-      "description": "Specifies whether the instance is I/O optimization enabled. Valid values:\nThe default value for [retired instance types](~~55263~~) is none. For other instance types, the default value is optimized.",
+      "description": "Specifies whether the instance is I/O optimized. Valid values:\n\n- none: The instance is not I/O optimized.\n- optimized: The instance is I/O optimized.\n\nFor [retired instance types](~~55263~~), the default value is none.\n\nFor other instance types, the default value is optimized.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KeyPairName",
-      "description": "The name of the key pair.",
+      "description": "The name of the key pair.\n\n> For Windows instances, this parameter is ignored. The default value is empty. Even if you specify this parameter, only the `Password` content is used.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -340,49 +340,49 @@
     },
     {
       "name": "Password",
-      "description": "The password of the instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:",
+      "description": "The password of the instance. The password must be 8 to 30 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. The following special characters are supported:\n\n```\n()`~!@#$%^&*-_+=|{}[]:;'<>,.?/\n```\n\nNote the following items:\n\n- For security reasons, use HTTPS to send requests if the Password parameter is specified.\n- For Windows instances, the password cannot start with a forward slash (/).\n- For instances that run certain operating systems, passwords are not supported. Only key pairs are supported. Examples: Others Linux and Fedora CoreOS.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PasswordInherit",
-      "description": "Specifies whether to use the password preset in the image. When you use this parameter, the Password parameter must be empty, and you must make sure that the image has a password configured.",
+      "description": "Specifies whether to use the password preset in the image. If you set this parameter, the Password parameter must be empty. Make sure that the image you use has a password preset.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The subscription period of the instance. The unit is specified by `PeriodUnit`. This parameter takes effect and is required only when `InstanceChargeType` is set to `PrePaid`. If `DedicatedHostId` is specified, the value of this parameter cannot exceed the subscription period of the dedicated host. Valid values:",
+      "description": "The subscription period of the instance. Unit: specified by `PeriodUnit`. This parameter is required and takes effect only when `InstanceChargeType` is set to `PrePaid`. If `DedicatedHostId` is specified, the value of this parameter cannot exceed the subscription period of the dedicated host. Valid values:\n\n<props=\"china\">\n- If PeriodUnit is set to Week: 1, 2, 3, and 4.\n- If PeriodUnit is set to Month: 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 24, 36, 48, and 60.\n\n</props>\n\n<props=\"intl\">If PeriodUnit is set to Month: 1, 2, 3, 6, and 12.</props>\n\n<props=\"partner\">If PeriodUnit is set to Month: 1, 2, 3, 6, and 12.</props>",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the subscription period. Valid values:",
+      "description": "The unit of the subscription period. Valid values:\n\n<props=\"china\">\n- Week.\n- Month.\n\n</props>\n\n<props=\"intl\">Month.</props>\n\n<props=\"partner\">Month.</props>\n\nDefault value: Month.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateIpAddress",
-      "description": "The private IP address of the instance. The IP address must be an available address in the CIDR block of the specified vSwitch (VSwitchId).",
+      "description": "The private IP address of the instance. The IP address must be an available address within the CIDR block of the specified vSwitch (VSwitchId).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.Id",
-      "description": "The ID of the private pool. The ID of the private pool is the same as that of the elasticity assurance or capacity reservation.",
+      "description": "The ID of the private pool. The ID of the private pool is the same as the ID of the elasticity assurance or capacity reservation that generates the private pool.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivatePoolOptions.MatchCriteria",
-      "description": "The private pool options for the instance launch. A private pool is generated when an elasticity assurance or a capacity reservation takes effect. You can select a private pool when you start an instance. Valid values:",
+      "description": "The private pool option for launching the instance. A private pool is generated after an elasticity assurance or capacity reservation takes effect. You can select a private pool when you start an instance. Valid values:\n\n- Open: open mode. The system automatically matches an open private pool. If no matching private pool is available, the public pool is used to launch the instance. You do not need to set `PrivatePoolOptions.Id`.\n- Target: specified mode. The instance is launched by using the capacity of the specified private pool. If the specified private pool is unavailable, the instance fails to be launched. Set `PrivatePoolOptions.Id` to the ID of the private pool.\n- None: no private pool is used. The instance does not use the capacity of a private pool to launch.\n\nDefault value: None.\n\nIn the following scenarios, the private pool option can only be set to `None` or left empty:\n- Creating a spot instance.\n- Creating an ECS instance on a dedicated host.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -396,7 +396,7 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID of the instance. You can call [DescribeRegions](~~25609~~) to query the most recent list of regions.",
+      "description": "The region ID of the instance. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -410,42 +410,42 @@
     },
     {
       "name": "SecurityEnhancementStrategy",
-      "description": "Specifies whether to enable security hardening. Valid values:",
+      "description": "Specifies whether to enable security hardening. Valid values:\n\n- Active: enables security hardening. This value is applicable only to public images.\n- Deactive: disables security hardening. This value is applicable to all image types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group to which the new instance belongs.",
+      "description": "The ID of the security group to which the instance belongs.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotDuration",
-      "description": "The protection period of the spot instance, in hours. Default value: 1. Valid values:",
+      "description": "The protection period of the spot instance. Unit: hours. Default value: 1. Valid values:\n\n- 1: After a spot instance is created, Alibaba Cloud ensures that the instance is not automatically released within 1 hour. After the 1-hour protection period ends, the system compares the bid price with the market price and checks the resource inventory to determine whether to retain automatic release the instance.\n- 0: After a spot instance is created, Alibaba Cloud does not ensure that the instance runs for 1 hour. The system compares the bid price with the market price and checks the resource inventory to determine whether to retain automatic release the instance.\n\n> \n> - This parameter supports only the value 0 or 1.\n> - Spot instances are billed by second. Select an appropriate protection period based on the execution duration of your tasks.\n> - Alibaba Cloud sends an ECS system event notification 5 minutes before the instance is released.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SpotInterruptionBehavior",
-      "description": "The break mode of the spot instance. Valid values:",
+      "description": "The interruption pattern of the spot instance. Valid values:\n\n- Terminate: The instance is directly released.\n\n- Stop: The instance enters economical mode.\n\n  For more information about economical mode, see [Economical mode for pay-as-you-go instances](~~63353~~).\n\nDefault value: Terminate.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SpotPriceLimit",
-      "description": "The maximum hourly price of the instance. A maximum of three decimal places are supported. This parameter takes effect only when `SpotStrategy` is set to `SpotWithPriceLimit`.",
+      "description": "The maximum hourly price of the instance. This parameter supports up to three decimal places and takes effect only when `SpotStrategy` is set to `SpotWithPriceLimit`.",
       "position": "Query",
       "type": "Float",
       "required": false
     },
     {
       "name": "SpotStrategy",
-      "description": "The bidding policy for the instance. This parameter takes effect only when `InstanceChargeType` is set to `PostPaid`. Valid values:",
+      "description": "The bidding policy for the instance. This parameter takes effect only when `InstanceChargeType` is set to `PostPaid`. Valid values:\n\n- NoSpot (default): The instance is a regular pay-as-you-go instance.\n- SpotWithPriceLimit: The instance is a spot instance with a user-defined maximum hourly price.\n- SpotAsPriceGo: The instance is a spot instance for which the market price at the time of purchase is automatically used as the bid price.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -459,7 +459,7 @@
     },
     {
       "name": "StorageSetPartitionNumber",
-      "description": "The maximum number of partitions in the storage set. Valid values: greater than or equal to 2.",
+      "description": "The maximum number of partitions in the storage set. Valid values: 2 and greater.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -473,35 +473,35 @@
     },
     {
       "name": "SystemDisk.Category",
-      "description": "The category of the system disk. Valid values:",
+      "description": "The category of the system disk. Valid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud: basic disk.\n- cloud_auto: ESSD AutoPL disk.\n- cloud_essd_entry: ESSD Entry disk.\n> The cloud_essd_entry value is supported only when `InstanceType` is set to a [universal instance family u1](~~457079~~) (`ecs.u1`) or [e, economy instance family](~~108489~~) (`ecs.e`) instance type that provides the corresponding computing power.\n\nFor retired instance types that are not I/O optimized instances, the default value is cloud. For other instance types, the default value is cloud_efficiency.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Description",
-      "description": "The description of the system disk. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.",
+      "description": "The description of the system disk. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.DiskName",
-      "description": "The name of the system disk. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (\\_), periods (.), and hyphens (-). The name supports characters categorized as letters in Unicode, including Chinese characters.",
+      "description": "The name of the system disk. The name must be 2 to 128 characters in length and can contain letters, digits, and Unicode characters classified under the letter category (including Chinese characters). The name can also contain colons (:), underscores (_), periods (.), or hyphens (-).\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.PerformanceLevel",
-      "description": "The performance level of the enterprise SSD used as the system disk. Settings depend on the disk category. Valid values:",
+      "description": "The performance level of the enterprise SSD used as the system disk. Set this parameter when you create an enterprise SSD as the system disk. Valid values:\n\n- PL0: a single disk can deliver up to 10,000 random read/write IOPS.\n- PL1 (default): a single disk can deliver up to 50,000 random read/write IOPS.\n- PL2: a single disk can deliver up to 100,000 random read/write IOPS.\n- PL3: a single disk can deliver up to 1,000,000 random read/write IOPS.\n\nFor more information about how to select an ESSD performance level, see [ESSDs](~~122389~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SystemDisk.Size",
-      "description": "The size of the system disk, in GiB. Valid values:",
+      "description": "The size of the system disk. Unit: GiB. Valid values:\n\n- Basic disk: 20 to 500\n\n- Other disk types: 20 to 2048\n\nThe value of this parameter must be greater than or equal to max{20, ImageSize}.\n\nDefault value: max{40, ImageSize}.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -515,28 +515,28 @@
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The tag key of the instance, disk, and primary ENI. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.",
+          "description": "The tag key of the instance, disk, and primary ENI. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The tag value of the instance, disk, and primary ENI. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length. It cannot contain `http://` or `https://`.",
+          "description": "The tag value of the instance, disk, and primary ENI. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "key",
-          "description": "The tag key.",
+          "description": "The tag key.\n\n> To improve compatibility, use the Tag.N.Key parameter.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
-          "description": "The tag value.",
+          "description": "The tag value.\n\n> To improve compatibility, use the Tag.N.Value parameter.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -545,7 +545,7 @@
     },
     {
       "name": "Tenancy",
-      "description": "Specifies whether to create the instance on a dedicated host. Valid values:",
+      "description": "Specifies whether to create the instance on a dedicated host. Valid values:\n\n- default: creates the instance on a non-dedicated host.\n\n- host: creates the instance on a dedicated host. If you do not specify `DedicatedHostId`, Alibaba Cloud automatically selects a dedicated host for the instance.\n\nDefault value: default.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -559,28 +559,28 @@
     },
     {
       "name": "UserData",
-      "description": "Instance user data of the instance. Instance user data must be encoded in Base64. The raw data can be up to 32 KB in size.",
+      "description": "The instance user data. The data must be encoded in Base64. The raw data can be up to 32 KB in size.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch ID. This parameter is required if you create a VPC-connected instance. You can call [DescribeVSwitches](~~35748~~) to query created vSwitches.",
+      "description": "The vSwitch ID. This parameter is required if you are creating a VPC-connected instance. You can invoke [DescribeVSwitches](~~35748~~) to query active vSwitches.\n\n> If you specify `VSwitchId`, the zone specified by `ZoneId` must be the same as the zone of the vSwitch. You can also leave `ZoneId` empty. The system then selects the zone of the specified vSwitch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VlanId",
-      "description": "The virtual local area network ID.",
+      "description": "The virtual local area network (VLAN) ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The zone ID of the instance. For more information, call [DescribeZones](~~25610~~) to query the zone list.",
+      "description": "The zone ID of the instance. For more information, call [DescribeZones](~~25610~~) to query available zones.\n\n> If you specify `VSwitchId`, the zone specified by `ZoneId` must be the same as the zone of the vSwitch. You can also leave `ZoneId` empty. The system then selects the zone of the specified vSwitch.\n\nDefault value: empty. The system automatically selects a zone.",
       "position": "Query",
       "type": "String",
       "required": false

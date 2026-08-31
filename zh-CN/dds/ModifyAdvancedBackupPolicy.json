@@ -1,0 +1,195 @@
+{
+  "name": "ModifyAdvancedBackupPolicy",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET|POST",
+  "pathPattern": "",
+  "parameters": [
+    {
+      "name": "AdvancedBackupDataPolicies",
+      "description": "备份策略列表。",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ActionType",
+          "description": "处置动作。取值：\n- **CREATE**：新增\n- **UPDATE**：修改\n- **DELETE**：删除，此时，其他参数只需要传入PolicyId。",
+          "position": "Query",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "BackupPolicy",
+          "description": "高级策略调度类型，取值如下：\n- dayOfWeek：按周调度\n- dayOfMonth：按月调度\n- dayOfYear：按年调度\n- backupInterval：固定间隔调度  （高频备份） \n\n> \n> - 不支持多条高频备份策略。\n> - 不支持多条异地备份，且异地备份策略只支持dayOfWeek\n\n><notice>ActionType!=delete时必填></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestRegion",
+          "description": "备份策略目标地域。\n><notice>ActionType!=delete时必填></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestType",
+          "description": "备份策略目标类型。\n \n-  level1 ：同地域备份 \n- level2Cross：跨地域备份\n><notice>ActionType!=delete时必填></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "PolicyId",
+          "description": "备份策略 ID。\n\n\n><notice>当ActionType!=CREATE时必填。></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "PreferredBackupPeriod",
+          "description": "备份周期\n- 当BackupPolicy=dayOfWeek :  1,2,3,4,5,6,7  表示周一到周五，一周至少备份2次。\n- 当BackupPolicy=dayOfMonth：1,3,-1 表示每月1、3和最后一天。  -1 表示每月最后一天  。\n- 当BackupPolicy=dayOfYear ： 01-07 表示1月7日 ，只能选一天。\n- 当BackupPolicy=backupInterval：取下列数字中的一个，单位min。 其中，分片集群选择范围为30,60,120,180,240,360,480,720，副本集选择范围为15,30,60,120,180,240, 360,480,720。\n\n注意：\n\n><notice>ActionType!=delete时必填，\n异地备份策略只支持dayOfWeek。></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "PreserveOneEachHour",
+          "description": "是否开启按小时稀疏备份。\n\n- true：当备份频率为分钟级时，距离当前时间1小时内的快照全部保留。距离当前时间超过1小时且在24小时内的快照，仅保留整点后的第一个快照。\n\n- false：高频备份保留天数内的快照全部保留。",
+          "position": "Query",
+          "type": "Boolean",
+          "required": false
+        },
+        {
+          "name": "RetentionPeriod",
+          "description": "备份计划保留天数。\n- 同地域备份： 7-7300天。\n- 跨异地备份： 3-1825 天。\n><notice> 当RetentionType 为delay时必填。></notice>",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "RetentionType",
+          "description": "备份集保留周期类型\n\n- **never**：长期保留\n- **delay**：固定天数保留\n><notice>ActionType!=delete时必填></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcRegion",
+          "description": "实例所在地域。\n\n><notice>ActionType!=delete时必填></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcType",
+          "description": "备份策略源类型。\n  \n- db： 同地域备份\n-  level1 ： 跨地域备份\n><notice>ActionType!=delete时必填></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "AdvancedBackupLogPolicies",
+      "description": "日志备份策略列表。",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "ActionType",
+          "description": "操作类型\n- CREATE：创建\n- UPDATE：修改\n><notice>只针对异地备份生效，删除异地备份时，使用update enablelogbackup=0的方式。></notice>",
+          "position": "Query",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "DestRegion",
+          "description": "异地日志备份所在地域。\n\n\n> 异地备份必填",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "DestType",
+          "description": "日志备份策略目标类型。\n \n-  level1 ：同地域备份 \n- level2Cross：跨地域备份",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "EnableLogBackup",
+          "description": "是否开启日志备份：\n\n- **1**：开启\n- **0**：未开启\n\n\n> \n> - 分片实例必须开启日志备份。\n> - 打开异地日志备份必须先打开同地域日志备份。",
+          "position": "Query",
+          "type": "Integer",
+          "required": true
+        },
+        {
+          "name": "PolicyId",
+          "description": "日志备份策略 id，只有异地日志备份策略存在且必填。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "RetentionPeriod",
+          "description": "日志备份保留天数, 当RetentionType 为delay时生效。\n\n- 同地域备份：7-7300天 \n- 跨异地备份：3-1825 天 ，且需要小于异地备份策略的备份保留时间。",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "RetentionType",
+          "description": "日志备份保留周期类型：\n\n- **never**：长期保留\n- **delay**：固定天数保留",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcRegion",
+          "description": "源实例所在区域。",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "SrcType",
+          "description": "日志备份策略源类型。\n  \n- db： 同地域备份\n-  level1 ： 跨地域备份",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "BackupRetentionPolicyOnClusterDeletion",
+      "description": "备份保留策略。\n\n- 0：实例释放时立即删除该实例的所有备份集\n-  1：实例释放时会长期保留最后一个备份集\n- 2：实例释放时会长期保留所有备份集",
+      "position": "Query",
+      "type": "Integer",
+      "required": true
+    },
+    {
+      "name": "DBInstanceId",
+      "description": "实例ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "PreferredBackupTime",
+      "description": "执行备份的时间，格式为<i>HH:mm</i>Z-<i>HH:mm</i>Z（UTC时间）。\n\n> 时间范围限制为1小时。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "SnapshotBackupType",
+      "description": "快照备份类型，取值说明：\n\n- **Flash**：秒级备份。\n- **Standard**：常规备份（默认值）。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

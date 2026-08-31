@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "Edition",
-      "description": "The edition. Valid values are BASIC and STANDARD. The default value is STANDARD.",
+      "description": "The edition type. Valid values: BASIC and STANDARD. Default value: STANDARD.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Limit",
-      "description": "The maximum number of results to return.\nTo retrieve only the number of rows without any data, set Limit to `0`.",
+      "description": "The maximum number of results to return for this query.\nIf you only want to obtain the row count without actual data, set `limit=0` to return no rows.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is required to obtain the next page of snapshots.",
+      "description": "The token required to retrieve the next page of snapshots.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Order",
-      "description": "The sort order. The default value is ASC.\n\n- ASC: ascending\n\n- DESC: descending",
+      "description": "The sort order. Default value: ASC.\n- ASC: ascending order.\n- DESC: descending order.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Query",
-      "description": "The query conditions. For example:\n\n```\n[\n  {\n    \"field\": \"VaultId\",\n    \"value\": \"v-0003rf9m*****qx5\",\n    \"operation\": \"MATCH_TERM\"\n  },\n  {\n    \"field\": \"InstanceId\",\n    \"value\": \"i-bp1i20zq2*****e9368m\",\n    \"operation\": \"MATCH_TERM\"\n  },\n  {\n    \"field\": \"PlanId\",\n    \"value\": \"plan-0005vk*****gkd1iu4f\",\n    \"operation\": \"MATCH_TERM\"\n  },\n  {\n    \"field\": \"CompleteTime\",\n    \"value\": \"1626769913\",\n    \"operation\": \"GREATER_THAN_OR_EQUAL\"\n  }\n]\n```\n\n- Supported fields:\n\n  - VaultId: This parameter is required. The ID of the backup vault.\n\n  - InstanceId: This parameter is required only when SourceType is set to ECS\\_FILE. The ID of the ECS instance.\n\n  - Bucket: This parameter is required only when SourceType is set to OSS. The name of the OSS bucket.\n\n  - FileSystemId: This parameter is required only when SourceType is set to NAS. The ID of the NAS file system.\n\n  - CreateTime: This parameter is required only when SourceType is set to NAS. The time when the NAS file system was created.\n\n  - CompleteTime: The time when the snapshot was completed.\n\n  - PlanId: The ID of the backup plan.\n\n- Supported operations:\n\n  - MATCH\\_TERM: exact match.\n\n  - GREATER\\_THAN: greater than.\n\n  - GREATER\\_THAN\\_OR\\_EQUAL: greater than or equal to.\n\n  - LESS\\_THAN: less than.\n\n  - LESS\\_THAN\\_OR\\_EQUAL: less than or equal to.\n\n  - BETWEEN: a range. The value is a JSON array in the `[lower bound,upper bound]` format.\n\n  - IN: in a collection. The value is an array.\n\n  - NOT\\_IN: not in a collection. The value is an array.",
+      "description": "The query conditions. Example of Query:\n\n```\n[\n  {\n    \"field\": \"VaultId\",\n    \"value\": \"v-0003rf9m*****qx5\",\n    \"operation\": \"MATCH_TERM\"\n  },\n  {\n    \"field\": \"InstanceId\",\n    \"value\": \"i-bp1i20zq2*****e9368m\",\n    \"operation\": \"MATCH_TERM\"\n  },\n  {\n    \"field\": \"PlanId\",\n    \"value\": \"plan-0005vk*****gkd1iu4f\",\n    \"operation\": \"MATCH_TERM\"\n  },\n  {\n    \"field\": \"CompleteTime\",\n    \"value\": \"1626769913\",\n    \"operation\": \"GREATER_THAN_OR_EQUAL\"\n  }\n]\n```\n\n- Supported fields:\n\n    - VaultId: required. The vault ID.\n    - InstanceId: required only when SourceType=ECS_FILE. The ECS instance ID.\n    - Bucket: required only when SourceType=OSS. The OSS bucket name.\n    - FileSystemId: required only when SourceType=NAS. The NAS file system ID.\n    - CreateTime: required only when SourceType=NAS. The creation time of the NAS file system.\n    - CompleteTime: the time when the snapshot is completed.\n    - PlanId: the backup plan ID.\n\n- Supported operations:\n\n    - MATCH_TERM: exact match.\n    - GREATER_THAN: greater than.\n    - GREATER_THAN_OR_EQUAL: greater than or equal to.\n    - LESS_THAN: less than.\n    - LESS_THAN_OR_EQUAL: less than or equal to.\n    - BETWEEN: range. The value is a JSON array `[lower bound, upper bound]`.\n    - IN: in the set. The value is an array.\n    - NOT_IN: not in the set. The value is an array.",
       "position": "Query",
       "type": "Json",
       "required": true
     },
     {
       "name": "SortBy",
-      "description": "The field to sort by.",
+      "description": "The field used for sorting.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SourceType",
-      "description": "The type of the data source. Valid values:\n\n- **ECS\\_FILE**: a backup snapshot of ECS files.\n\n- **OSS**: a backup snapshot of Alibaba Cloud OSS.\n\n- **NAS**: a backup snapshot of Alibaba Cloud NAS.",
+      "description": "The type of the data source. Valid values:\n* **ECS_FILE**: backup snapshots of ECS files.\n* **OSS**: backup snapshots of Alibaba Cloud OSS.\n* **NAS**: backup snapshots of Alibaba Cloud NAS.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -1,0 +1,58 @@
+{
+  "name": "ListGatewayLoadBalancers",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "GET",
+  "pathPattern": "/v1/gateways/[gatewayId]/list-load-balancers",
+  "parameters": [
+    {
+      "name": "all",
+      "description": "可选列表模式：是否返回全部实例（影响分页/过滤策略）",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "gatewayId",
+      "description": "网关 ID（RAM 资源授权维度）",
+      "position": "Path",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "loadBalancerId",
+      "description": "精确指定 LB 实例 ID（可选列表模式下按 ID 查详情）",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "network",
+      "description": "网络类型过滤",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "related",
+      "description": "模式开关：true 返回该网关已关联的 LB 列表（读 DB 关系）；缺省/false 走“可选列表”（调 SLB/NLB POP 筛选可绑定实例）推荐使用 related=true 获取已关联 LB 列表；默认模式（related=false）调用 SLB/NLB POP 筛选可绑定实例，在常见场景下可能因后端数据问题返回 500 错误。",
+      "position": "Query",
+      "type": "Boolean",
+      "required": false
+    },
+    {
+      "name": "type",
+      "description": "LB 类型过滤",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "vpcId",
+      "description": "VPC 过滤（可选列表模式下筛选该 VPC 内的实例）当 type=NLB 且 related 未设为 true 时，本参数为必填，否则 API 返回 500 错误。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    }
+  ]
+}

@@ -7,70 +7,70 @@
   "parameters": [
     {
       "name": "CateId",
-      "description": "The ID of the category for the media file. This value cannot be negative.",
+      "description": "The category ID of the media. Negative values are not allowed.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "CoverURL",
-      "description": "The URL of the media cover. You can obtain the URL in the **MPS console** (**Workflow Management** > **Media Buckets**) or the **OSS console** (**My Access Paths**).\n\n- The URL can be up to 3,200 bytes in length.\n\n- The URL must be URL-encoded, in UTF-8, and compliant with RFC 2396. For more information, see [URL Encoding](~~423796~~).",
+      "description": "The cover URL. This is the storage address of the cover that you want to set. You can obtain the address from **ApsaraVideo Media Processing console** > **Workflow Management** > **Media Bucket** or **OSS console** > **My Access Path**.\n\n- The value cannot exceed 3,200 bytes.\n- The URL must comply with RFC 2396 (UTF-8 encoded and URL-encoded). For more information, see [URL encoding](~~423796~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Description",
-      "description": "The description of the media file.\n\n- Maximum length: 1,024 bytes.\n\n- UTF-8 encoded.",
+      "description": "The description.\n\n- The value cannot exceed 1,024 bytes.\n- UTF-8 encoded.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FileURL",
-      "description": "The OSS URL of the input file. You can obtain this URL from the MPS console or the OSS console. For details about trigger rules, see the **Workflow trigger matching rules**.\n\n- Only OSS HTTP URLs are supported. CDN and HTTPS URLs are not supported.\n\n- The URL can be up to 3,200 bytes in length.\n\n- The URL must be URL-encoded, in UTF-8, and compliant with RFC 2396. For more information, see [URL Encoding](~~423796~~).",
+      "description": "The path of the input file. You can obtain the path from the ApsaraVideo Media Processing or OSS console. For detailed trigger rules, see **Workflow trigger matching rules** below.\n\n- Only OSS HTTP addresses are supported. CDN addresses and HTTPS addresses are not supported.\n- The value cannot exceed 3,200 bytes.\n- The URL must comply with RFC 2396 (UTF-8 encoded and URL-encoded). For more information, see [URL encoding](~~423796~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "InputUnbind",
-      "description": "Specifies whether to check if the specified workflow supports the input path. Set this parameter to `true` to prevent errors from an invalid path. Valid values:\n\n- **true**: Checks if the workflow supports the input path.\n\n- **false**: Does not check if the workflow supports the input path.",
+      "description": "Specifies whether to check that the specified workflow supports the input path. Set this parameter to true to avoid errors caused by incorrect paths. Valid values:\n\n- **true**: Check.\n\n- **false**: Do not check.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MediaWorkflowId",
-      "description": "The ID of the media workflow. You can find this ID in the MPS console or obtain it by calling the [AddMediaWorkflow](~~44437~~) operation.\n\n> - This parameter queues an [asynchronous task](~~3027615~~) for background execution.",
+      "description": "The media workflow ID. You can obtain the ID from the ApsaraVideo Media Processing console or by calling the [AddMediaWorkflow](~~44437~~) operation.\n> \n> - This parameter task is an [asynchronous task](~~3027615~~). After submission, the task is not completed immediately and is queued for asynchronous execution in the background.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MediaWorkflowUserData",
-      "description": "User-defined data for the media workflow.\n\n- Maximum length: 1,024 bytes.\n\n- UTF-8 encoded.",
+      "description": "The custom data of the media workflow.\n\n- The value cannot exceed 1,024 bytes.\n- UTF-8 encoded.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OverrideParams",
-      "description": "The override parameters, specified as a JSON string.\n\n- Example 1: To override subtitles for HLS packaging: `{“WebVTTSubtitleOverrides”,[{“RefActivityName”:”subtitleNode”,”WebVTTSubtitleURL”:”http://test.oss-cn-hangzhou.aliyuncs.com/example1.vtt\"}]}`.\n\n- Example 2: To override subtitles for DASH packaging: `{“subtitleTransNodeName”:{“InputConfig”:{“Format”:”stl”,”InputFile”:{“URL”:”http://subtitleBucket.oss-cn-hangzhou.aliyuncs.com/package/example/CENG.stl\"}}}}`.",
+      "description": "The override parameters.\n\n- Example 1: HLS packaging caption override `{\"WebVTTSubtitleOverrides\",[{\"RefActivityName\":\"subtitleNode\",\"WebVTTSubtitleURL\":\"http://test.oss-cn-hangzhou.aliyuncs.com/example1.vtt\"}]}`.\n- Example 2: DASH packaging caption override `{\"subtitleTransNodeName\":{\"InputConfig\":{\"Format\":\"stl\",\"InputFile\":{\"URL\":\"http://subtitleBucket.oss-cn-hangzhou.aliyuncs.com/package/example/CENG.stl\"}}}}`.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Tags",
-      "description": "A list of tags.\n\n> In ApsaraVideo for Media Processing, each tag for a media file is independent. You can search the media library to find all media files that have the same tag.\n\n- Separate multiple tags with a comma (,). You can add up to 16 tags.\n\n- Each tag can be up to 32 bytes long.\n\n- UTF-8 encoded.",
+      "description": "The list of tags.\n\n> In ApsaraVideo Media Processing, each tag of each media is independent. You can search the Media Library to find all media that have the same tag.\n\n- Separate multiple tags with commas (,). A maximum of 16 tags are supported.\n- Each tag cannot exceed 32 bytes.\n\n- UTF-8 encoded.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Title",
-      "description": "The title of the media file.\n\n- Maximum length: 128 bytes.\n\n- UTF-8 encoded.",
+      "description": "The media title.\n\n- The value cannot exceed 128 bytes.\n- UTF-8 encoded.",
       "position": "Query",
       "type": "String",
       "required": false

@@ -7,21 +7,21 @@
   "parameters": [
     {
       "name": "Asc",
-      "description": "Specifies whether to sort the results in ascending order. The default value is false.",
+      "description": "Specifies whether to sort results in ascending order. This feature is disabled by default.",
       "position": "Body",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "EndTime",
-      "description": "The end time of the query. This value is a UNIX timestamp in UTC. Unit: milliseconds.",
+      "description": "The end time of the query. Specify a UNIX timestamp in UTC. Unit: milliseconds.",
       "position": "Body",
       "type": "Long",
       "required": true
     },
     {
       "name": "Filters",
-      "description": "The filter conditions.",
+      "description": "The list of query filter conditions.",
       "position": "Body",
       "type": "RepeatList",
       "required": false,
@@ -51,7 +51,7 @@
     },
     {
       "name": "NodeId",
-      "description": "The node ID.\n\n- For RDS for MySQL and PolarDB for MySQL, this parameter applies only to cluster instances. If you do not specify this parameter, the slow query logs of the primary node are queried by default.\n\n- For PolarDB-X 2.0, specify **polarx\\_cn** for compute nodes or **polarx\\_dn** for data nodes.",
+      "description": "The node ID.\n\n- For ApsaraDB RDS for MySQL and PolarDB for MySQL, this parameter is applicable only to cluster instances. If you do not specify this parameter, the log details of the primary node are queried by default.\n- For PolarDB-X 2.0, set this parameter to **polarx_cn** (compute node) or **polarx_dn** (data node).",
       "position": "Body",
       "type": "String",
       "required": false
@@ -65,21 +65,21 @@
     },
     {
       "name": "PageNumber",
-      "description": "The page number. The value must be a positive integer. The default value is 1.",
+      "description": "The page number. The value starts from 1. Default value: 1.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries to return on each page. The default value is 10.",
+      "description": "The maximum number of entries per page. Default value: 10.",
       "position": "Body",
       "type": "Integer",
       "required": false
     },
     {
       "name": "StartTime",
-      "description": "The start time of the query. This value is a UNIX timestamp in UTC. Unit: milliseconds.",
+      "description": "The start time of the query. Specify a UNIX timestamp in UTC. Unit: milliseconds.",
       "position": "Body",
       "type": "Long",
       "required": true
@@ -93,7 +93,7 @@
     },
     {
       "name": "Type",
-      "description": "The task type.\n\nFor SQL engines:\n\n**SlowLogRequestOrigin**: Aggregates logs by source IP address.\n\n**SlowLogRequestUser**: Aggregates logs by source user.\n\n**SQL**: Aggregates logs by SQL ID.\n\nFor ApsaraDB for MongoDB engines:\n\n**SlowLogRequestOrigin**: Aggregates logs by source IP address.\n\n**SlowLogRequestUser**: Aggregates logs by source user.\n\n**SQL**: Aggregates logs by query ID.\n\n**SlowLogRequestOpType**: Aggregates logs by operation type.\n\n**SlowLogRequestNamespace**: Aggregates logs by namespace.\n\nFor Redis engines:\n\n**SlowLogRequestNodeId**: Aggregates logs by node ID.\n\n**SlowLogRequestHostInsId**: Aggregates logs by host instance ID.",
+      "description": "The task type.\n\nSQL engine-specific:\n\n**SlowLogRequestOrigin**: aggregates logs by source IP address.\n\n**SlowLogRequestUser**: aggregates logs by source user.\n\n**SQL**: aggregates logs by SQL ID.\n\n\nMongoDB engine-specific:\n\n**SlowLogRequestOrigin**: aggregates logs by source IP address.\n\n**SlowLogRequestUser**: aggregates logs by source user.\n\n**SQL**: aggregates logs by Query ID.\n\n**SlowLogRequestOpType**: aggregates logs by operation type.\n\n**SlowLogRequestNamespace**: aggregates logs by namespace.\n\nRedis engine-specific:\n\n**SlowLogRequestNodeId**: aggregates logs by node ID.\n\n**SlowLogRequestHostInsId**: aggregates logs by HostInsId.",
       "position": "Body",
       "type": "String",
       "required": false

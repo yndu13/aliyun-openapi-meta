@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "AcrRegistryInfo",
-      "description": "The information about the ACR instance. For more information, see [Use a password-free method to pull images from an ACR repository](~~194250~~).",
+      "description": "The Container Registry instance information. For more information, see [Pull images from Container Registry without using a password](~~194250~~).",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "ArnService",
-          "description": "The Alibaba Cloud Resource Name (ARN) of the RAM role that belongs to the account of the resource, such as an ECI instance.",
+          "description": "The Alibaba Cloud Resource Name (ARN) of the RAM role in the account that has resource ownership of the ECI instance and other resources.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "ArnUser",
-          "description": "The ARN of the RAM role that belongs to the account of the ACR instance.",
+          "description": "The ARN of the RAM role in the account to which the Container Registry instance belongs.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Domain",
-          "description": "The domain names of the ACR Enterprise instance. By default, all domain names of the instance are specified. You can specify one or more domain names. Separate multiple domain names with commas (,).",
+          "description": "The domain name of the Container Registry Enterprise instance. The default value is all domain names of the corresponding instance. You can specify individual domain names, separated by commas (,).",
           "position": "Query",
           "type": "RepeatList",
           "required": false
         },
         {
           "name": "InstanceId",
-          "description": "The ID of the ACR Enterprise instance.",
+          "description": "The instance ID of the Container Registry Enterprise instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "InstanceName",
-          "description": "The name of the ACR Enterprise instance.",
+          "description": "The name of the Container Registry Enterprise instance.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "RegionId",
-          "description": "The region where the ACR Enterprise instance resides.",
+          "description": "The region where the Container Registry Enterprise instance resides.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -58,49 +58,49 @@
     },
     {
       "name": "Annotations",
-      "description": "The annotations. This parameter is not for external use.",
+      "description": "The annotations. This parameter is not available for public use.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoMatchImageCache",
-      "description": "Specifies whether to enable image cache reuse. If you enable this feature, new image caches can reuse the image layers of existing image caches. This speeds up the creation of image caches. Valid values:\n\n- true\n\n- false\n\nDefault value: false.",
+      "description": "Specifies whether to enable image cache reuse. If this feature is enabled, a newly created image cache can reuse image layers from existing image caches, which accelerates image cache creation. Valid values:\n\n- true: Enable image cache reuse.\n\n- false: Disable image cache reuse.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "A client token to ensure the idempotence of the request. Generate a value from your client to make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipInstanceId",
-      "description": "The EIP. To pull images from the Internet, make sure that the ECI instance can access the Internet. To enable Internet access, configure an EIP or a NAT Gateway.",
+      "description": "The Elastic IP Address (EIP). If you need to pull images from the Internet, make sure that the ECI instance can access the Internet. You can configure an EIP or a NAT gateway to enable public network access.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EliminationStrategy",
-      "description": "The eviction policy of the image cache. The default value is empty, which indicates that the image cache is always retained.\n\nYou can set this parameter to LRU, which indicates that the image cache can be automatically deleted. When the number of image caches reaches the quota limit, the system automatically deletes the image caches that are least recently used and have EliminationStrategy set to LRU.",
+      "description": "The elimination strategy of the image cache. The default value is empty, which indicates that the image cache is always retained.\n\nYou can set this parameter to LRU, which indicates that the image cache can be automatically deleted. When the number of image caches reaches the quota limit, the system automatically deletes the least recently used image caches whose EliminationStrategy is set to LRU.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Flash",
-      "description": "Specifies whether to enable the instant image cache feature. If you enable this feature, the creation of the image cache is accelerated. Valid values:\n\n- true\n\n- false\n\nDefault value: false.",
+      "description": "Specifies whether to enable the instant image cache feature, which accelerates image cache creation. Valid values:\n\n- true: Enable the instant image cache feature.\n\n- false: Disable the instant image cache feature.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "FlashCopyCount",
-      "description": "The number of local snapshot replicas. By default, one image cache corresponds to one snapshot. If the image cache is used to create multiple ECI instances in a batch, create multiple snapshot replicas. Add one snapshot replica for every 1,000 ECI instances.\n\n> If the instant image cache feature is enabled (Flash is set to true), local snapshots are first created during the image cache creation process. After the local snapshots are created, standard snapshots are created. After the standard snapshots are created, the local snapshots are automatically deleted.",
+      "description": "The number of local snapshot copies. By default, one image cache corresponds to one snapshot. If the image cache will be used to create multiple ECI instances in batches, configure this parameter to enable the multi-copy snapshot feature. We recommend that you add one snapshot copy for every 1,000 ECI instances.\n\n> When the instant image cache feature is enabled (Flash is set to true), local snapshots are created first during image cache creation. After the local snapshots are created, regular snapshots start to be created. After the regular snapshots are created, the local snapshots are automatically deleted.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -121,35 +121,35 @@
     },
     {
       "name": "ImageCacheSize",
-      "description": "The size of the image cache. The default value is 20 GiB.",
+      "description": "The size of the image cache. Default value: 20 GiB.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "ImageRegistryCredential",
-      "description": "The credentials of the image repository.",
+      "description": "The image repository information.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Password",
-          "description": "The password for the image repository.",
+          "description": "The password of the image repository.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Server",
-          "description": "The address of the image repository. Do not include the `http://` or `https://` prefix.",
+          "description": "The address of the image repository, without the `http://` or `https://` prefix.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "UserName",
-          "description": "The username for the image repository.",
+          "description": "The username of the image repository.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -158,77 +158,77 @@
     },
     {
       "name": "InsecureRegistry",
-      "description": "The address of a self-managed image repository.\n\nWhen you create an image cache using an image from a self-managed image repository that uses a self-signed certificate, set this parameter to skip certificate verification. This prevents image pull failures caused by certificate verification failures.",
+      "description": "The address of the self-managed image repository.\n\nWhen you create an image cache by using images from a self-managed image repository that uses a self-signed certificate, configure this parameter to skip certificate authentication, preventing image pull failures caused by certificate authentication failure.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OsType",
-      "description": "The operating system of the container image. Valid values:\n\n- Linux (default)\n\n- Windows\n\n> Windows is in invitational preview. To use this feature, submit a ticket.",
+      "description": "The operating system of the container images. Valid values:\n\n- Linux (default)\n- Windows\n\n> Windows is in invitational preview. To use it, submit a ticket.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PlainHttpRegistry",
-      "description": "The address of a self-managed image repository. When you create an image cache using an image from a self-managed image repository that uses the HTTP protocol, set this parameter to allow ECI to pull the image over HTTP. This prevents image pull failures caused by protocol mismatch.",
+      "description": "The address of the self-pull image repository. When you create an image cache by using images from a self-pull image repository that uses the HTTP protocol, configure this parameter so that ECI pulls images over HTTP, preventing image pull failures caused by protocol mismatch.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region.",
+      "description": "The region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RetentionDays",
-      "description": "The retention period of the image cache. The image cache is cleared after the retention period expires. By default, the image cache never expires.\n\n> An image cache that fails to be created is retained for only one day.",
+      "description": "The retention period of the image cache. The image cache is deleted after it expires. By default, the image cache never expires.\n\n> Image caches that fail to be created are retained for only one day.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group.",
+      "description": "The security group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StandardCopyCount",
-      "description": "The number of standard snapshot replicas. By default, one image cache corresponds to one snapshot. If the image cache is used to create multiple ECI instances in a batch, create multiple snapshot replicas. Add one snapshot replica for every 1,000 ECI instances.\n\n> If the instant image cache feature is disabled (Flash is set to false), only standard snapshots are created during the image cache creation process.",
+      "description": "The number of regular snapshot copies. By default, one image cache corresponds to one snapshot. If the image cache will be used to create multiple ECI instances in batches, configure this parameter to enable the multi-copy snapshot feature. We recommend that you add one snapshot copy for every 1,000 ECI instances.\n\n> When the instant image cache feature is disabled (Flash is set to false), only regular snapshots are generated during image cache creation.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags of the image cache. You can specify up to 20 tags.",
+      "description": "The tag information of the image cache. You can specify up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The key of the image cache tag.",
+          "description": "The tag key of the image cache.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The value of the image cache tag.",
+          "description": "The tag value of the image cache.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -237,7 +237,7 @@
     },
     {
       "name": "VSwitchId",
-      "description": "The ID of the vSwitch. You can specify up to 10 vSwitch IDs, separated by commas (,). For example, `vsw-***,vsw-***`.",
+      "description": "The vSwitch ID. You can specify multiple vSwitch IDs (up to 10 at a time), separated by commas (,). Example: `vsw-***,vsw-***`.",
       "position": "Query",
       "type": "String",
       "required": false

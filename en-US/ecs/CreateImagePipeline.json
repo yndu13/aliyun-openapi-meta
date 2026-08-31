@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AddAccount",
-      "description": "The Alibaba Cloud account ID to which to share the destination image through image sharing. Valid values of N: 1 to 20.",
+      "description": "The Alibaba Cloud account ID to which to share the built image through image sharing. Valid values of N: 1 to 20.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -21,21 +21,21 @@
     },
     {
       "name": "BaseImage",
-      "description": "The source image.",
+      "description": "The source image.\n- If `BaseImageType=IMAGE`, set this parameter to an image ID.\n- If `BaseImageType=IMAGE_FAMILY`, set this parameter to an image family name.\n- If `BaseImageType=OSS`, you do not need to set this parameter.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BaseImageType",
-      "description": "The type of the source image. Valid values:",
+      "description": "The type of the source image. Valid values:\n\n- IMAGE: image.\n- IMAGE_FAMILY: image family.\n- OSS: OSS object.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "BuildContent",
-      "description": "The content of the image build template. The content size cannot exceed 16 KB. For information about supported commands, see [Commands supported by Image Builder](~~200206~~).",
+      "description": "The content of the image build template. The content size cannot exceed 16 KB. For more information about supported commands, see [Commands supported by Image Builder](~~200206~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,7 +49,7 @@
     },
     {
       "name": "DeleteInstanceOnFailure",
-      "description": "Specifies whether to release the intermediate instance if the image build fails. Valid values:",
+      "description": "Specifies whether to release the intermediate instance if the image fails to be built. Valid values:\n\n- true: releases the intermediate instance.\n- false: does not release the intermediate instance.\n\nDefault value: true.\n\n> If the intermediate instance fails to start, the instance is not retained by default.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -63,56 +63,56 @@
     },
     {
       "name": "ImageFamily",
-      "description": "The destination image family.",
+      "description": "The image family of the built image.\n<notice>\nThis parameter is deprecated. Use ImageOptions.ImageFamily instead.\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageName",
-      "description": "The prefix of the destination image name.",
+      "description": "The prefix of the name of the built image.\n<notice>\nThis parameter is deprecated. Use ImageOptions.ImageName instead.\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageOptions",
-      "description": "The destination image properties.",
+      "description": "The properties of the built image.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "ImportImageOptions",
-      "description": "The properties and settings for importing the image. This parameter is required when `BaseImageType=OSS`.",
+      "description": "The properties and settings for importing an image. This parameter is required when `BaseImageType=OSS`.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "InstanceType",
-      "description": "The instance type. You can call [DescribeInstanceTypes](~~25620~~) to query available instance types.",
+      "description": "The instance type. You can call [DescribeInstanceTypes](~~25620~~) to query different instance types.\n\nIf you do not specify this parameter, the instance type that has the minimum number of vCPUs and the smallest memory size is automatically selected. The selection is subject to the inventory of instance types. For example, the ecs.g6.large instance type is selected by default. If the inventory of the ecs.g6.large instance type is insufficient, the ecs.g6.xlarge instance type is selected.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthOut",
-      "description": "The outbound public bandwidth of the intermediate instance. Unit: Mbit/s. Valid values: 0 to 100.",
+      "description": "The outbound public bandwidth of the intermediate instance. Unit: Mbit/s. Valid values: 0 to 100.\n\nDefault value: 0.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Name",
-      "description": "The template name. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. The name cannot start with `http://` or `https://`. The name can contain Chinese characters, letters, digits, colons (:), underscores (_), periods (.), or hyphens (-).",
+      "description": "The template name. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. The name cannot start with `http://` or `https://`. The name can contain Chinese characters, letters, digits, colons (:), underscores (_), periods (.), and hyphens (-).\n\n> If you do not specify `Name`, the `ImagePipelineId` return value is used by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NvmeSupport",
-      "description": "Specifies whether the destination image supports NVMe.",
+      "description": "Specifies whether the built image supports NVMe.\n<notice>\nThis parameter is deprecated. Use ImageOptions.ImageFeatures.NvmeSupport instead.\n</notice>",
       "position": "Query",
       "type": "String",
       "required": false
@@ -132,7 +132,7 @@
     },
     {
       "name": "RepairMode",
-      "description": "The repair options in the image template.",
+      "description": "The repair option in the image template.\n\nValid values:\n- Standard: standard mode.\n\n  Detection items for Linux include:\n  - GUESTOS.CloudInit\n  - GUESTOS.Dhcp\n  - GUESTOS.Virtio\n  - GUESTOS.OnlineResizeFS\n  - GUESTOS.Grub\n  - GUESTOS.Fstab\n\n  Detection items for Windows include:\n  - GUESTOS.Virtio\n  - GUESTOS.Update\n  - GUESTOS.Hotfix\n  - GUESTOS.Server\n> As detection and repair capabilities continue to improve, the repair items may increase. For more information about the repair items, see [Overview of image detection](~~439819~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -146,7 +146,7 @@
     },
     {
       "name": "SystemDiskSize",
-      "description": "The system disk size of the intermediate instance. Unit: GiB. Valid values: 20 to 500.",
+      "description": "The system disk size of the intermediate instance. Unit: GiB. Valid values: 20 to 500.\n\nDefault value: 40.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -176,21 +176,21 @@
     },
     {
       "name": "TestContent",
-      "description": "The content of the image test template. The content size cannot exceed 16 KB. For information about supported commands, see [Commands supported by Image Builder](~~200206~~).",
+      "description": "The content of the image test template. The content size cannot exceed 16 KB. For more information about supported commands, see [Commands supported by Image Builder](~~200206~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ToRegionId",
-      "description": "The regions to which to distribute the destination image. Valid values of N: 1 to 20.",
+      "description": "The regions to which to distribute the built image. Valid values of N: 1 to 20.\n\nIf you do not specify this parameter, the image is created only in the current region.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch ID of the VPC.",
+      "description": "The ID of the vSwitch in the VPC.\n\nIf you do not specify this parameter, a new VPC and vSwitch are created by default. Make sure that the VPC resource quota in your account is sufficient. For more information, see [Limits](~~27750~~).",
       "position": "Query",
       "type": "String",
       "required": false

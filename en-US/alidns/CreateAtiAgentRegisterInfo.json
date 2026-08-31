@@ -21,10 +21,16 @@
     },
     {
       "name": "AgentHost",
-      "description": "The endpoint domain name through which the agent provides services.",
+      "description": "The endpoint domain name through which the agent provides external services.",
       "position": "Query",
       "type": "String",
       "required": true
+    },
+    {
+      "name": "AgentSubHost",
+      "position": "Query",
+      "type": "String",
+      "required": false
     },
     {
       "name": "AgentVersion",
@@ -41,15 +47,21 @@
       "required": false
     },
     {
+      "name": "DomainMode",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "Endpoints",
-      "description": "The endpoint information of the agent.",
+      "description": "The endpoint configuration of the agent.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "AgentUrl",
-          "description": "The actual service address of the agent endpoint, which is the HTTPS entry point where the agent runs online. This is a required field with a maximum of 500 characters.\n\nExample: https://my-agent.example.com/mcp\n\nAfter a caller discovers this agent through DNS, it can use this URL to initiate a connection directly. This is the address where the agent is actually online.",
+          "description": "The actual service address of the agent endpoint, which is the HTTPS entry point where the agent runs online. This is a required field with a maximum of 500 characters.\n- Example: https://my-agent.example.com/mcp\n\nAfter a caller discovers this agent through DNS, the caller uses this URL to initiate a connection. This is the address where the agent is actually online.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -63,7 +75,7 @@
         },
         {
           "name": "Protocol",
-          "description": "The communication protocol standard that the agent endpoint follows. This determines how the invoker interacts with the agent.\n\nValid values:\n- MCP: Model Context Protocol, an agent tool invocation protocol developed by Anthropic.\n- A2A: Agent-to-Agent Protocol, a cross-agent communication protocol developed by Google.\n- OpenAPI: Standard RESTful API specification (Swagger/OpenAPI).\n\nWhen other agents or clients see this protocol identity, they know which method to use to communicate with the agent. For example, MCP uses the MCP SDK, A2A uses the A2A SDK, and OpenAPI uses standard HTTP requests.",
+          "description": "The communication protocol standard that the agent endpoint follows. This determines how callers interact with the agent.\n\nValid values:\n- MCP: Model Context Protocol, an agent tool calling protocol developed by Anthropic.\n- A2A: Agent-to-Agent Protocol, a cross-agent communication protocol developed by Google.\n- OpenAPI: Standard RESTful API specification (Swagger/OpenAPI).\n\nOther agents or clients use this protocol identity to determine how to invoke the agent. For example, MCP uses the MCP SDK, A2A uses the A2A SDK, and OpenAPI uses standard HTTP requests.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -79,7 +91,7 @@
     },
     {
       "name": "RegistrantId",
-      "description": "The ID of the verified registrant. Obtain this ID by invoking the identity verification API operation or from the ATS console.",
+      "description": "The ID of the registrant who has completed real-name verification. Obtain this ID by invoking the real-name verification API operation or from the ATS console.",
       "position": "Query",
       "type": "String",
       "required": true

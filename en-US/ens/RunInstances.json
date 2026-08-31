@@ -14,47 +14,49 @@
     },
     {
       "name": "AutoInstallCloudAssistant",
+      "description": "Specifies whether to automatically install the Cloud Assistant client on the instance.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoReleaseTime",
-      "description": "The automatic release time for the pay-as-you-go instance. Specify the time in the ISO 8601 standard in UTC+0 format: `yyyy-MM-ddTHH:mm:ssZ`.\n\n- If the seconds (`ss`) value is not `00`, the release time is automatically rounded down to the start of the current minute (`mm`).\n\n- The earliest release time is one hour after the current time.\n[ISO 8601](~~25696~~)",
+      "description": "The automatic release time of the pay-as-you-go instance. Specify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.\n\n- If the value of seconds (`ss`) is not `00`, the time is automatically set to the start of the current minute (`mm`).\n\n- The earliest release time is one hour after the current time.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "AutoRenew",
-      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n- **true**: enables auto-renewal\n- **false** (default): disables auto-renewal\n\n> This parameter is invalid for pay-as-you-go instances.",
+      "description": "Specifies whether to enable auto-renewal. Valid values:\n\n- **true**: enables auto-renewal.\n- **false**: does not enable auto-renewal. (Default)\n\n>This parameter is invalid for pay-as-you-go instances.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "AutoUseCoupon",
-      "description": "Specifies whether to use vouchers. Default value: true, which indicates that vouchers are used.",
+      "description": "Specifies whether to use coupons. Default value: true (AutoUseCoupon=true).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "BillingCycle",
-      "description": "The billing cycle for instance compute resources. Only applicable to instance-level pay-as-you-go billing. Valid values:\n\n- **Day**: billed daily\n\n- **Month**: billed monthly",
+      "description": "The billing cycle for instance compute resources. Only instance-level pay-as-you-go is supported. Valid values:\n\n- **Day**: daily billing.\n\n- **Month**: monthly billing.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Carrier",
-      "description": "The Internet service provider (ISP).\n> Required for region-level scheduling.</br>\n> For edge zone-level scheduling in multi-ISP scenarios, if this parameter is not specified, instances are created based on the ISPs available in the edge zone. For example, if both China Mobile and China Unicom are available, two instances with different ISPs are created.</br>\nYou can call [DescribeRegionIsps](~~2637461~~) to query ISP information for edge zones.",
+      "description": "The carrier.\n>This parameter is required for region-level scheduling.</br>\n>For node-level scheduling, if a node has multiple carriers and you do not specify a carrier, instances are created for each carrier on the node. For example, if a node has both China Mobile and China Unicom carriers, instances with two ISPs are created.</br>You can call [DescribeRegionIsps](~~2637461~~) to query the carrier information of a node.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CloudAssistantRegion",
+      "description": "The region for Cloud Assistant access. Valid values: cn-zhangjiakou (Zhangjiakou) and ap-southeast-1 (Singapore).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -68,21 +70,21 @@
       "sub_parameters": [
         {
           "name": "Category",
-          "description": "The disk category. Valid values:\n- **cloud_efficiency**: ultra disk\n- **cloud_ssd**: all-flash disk\n- **local_hdd**: local HDD\n- **local_ssd**: local SSD",
+          "description": "The disk category. Valid values:\n- **cloud_efficiency**: ultra cloud disk\n- **cloud_ssd**: all-flash cloud disk\n- **local_hdd**: local HDD\n- **local_ssd**: local SSD",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Encrypted",
-          "description": "Specifies whether to encrypt the cloud disk. Valid values:\n\n- true: yes\n\n- false (default): no",
+          "description": "Specifies whether to encrypt the cloud disk. Valid values:\n\n- true: encrypts the cloud disk.\n\n- false (default): does not encrypt the cloud disk.",
           "position": "Query",
           "type": "Boolean",
           "required": false
         },
         {
           "name": "KMSKeyId",
-          "description": "The ID of the Key Management Service (KMS) key used to encrypt the cloud disk. Valid values:\n\n- true: yes\n\n- false (default): no\n\n> If Encrypted is set to true and KMSKeyId is left empty, the default service key is used.",
+          "description": "The ID of the KMS key used by the cloud disk. Valid values:\n\n- true: encrypts the cloud disk.\n\n- false (default): does not encrypt the cloud disk.\n\n> If Encrypted is set to true and KMSKeyId is empty, the default service key is used.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -98,20 +100,21 @@
     },
     {
       "name": "DeletionProtection",
-      "description": "The deletion protection status of the instance. Specifies whether the instance can be released through the console or API operations. Valid values: \n\n- true: enables deletion protection\n- false: disables deletion protection\n\nDefault value: false.\n\n> This property applies only to pay-as-you-go instances. It prevents only manual release operations and does not prevent system-triggered releases.",
+      "description": "The release protection property of the instance. Specifies whether the instance can be released from the console or by calling an API operation. Valid values: \n\n-  true: Enables instance release protection.\n-  false: Disables instance release protection.\n\nDefault value: false.\n\n> This property applies only to pay-as-you-go instances and can only restrict manual release operations. It does not take effect on system-initiated release operations.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DeploymentSetId",
+      "description": "The deployment set ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnsRegionId",
-      "description": "The edge zone ID.\n\n> Required for edge zone-level scheduling. Ignored for region-level scheduling.",
+      "description": "The node ID.\n\n> This parameter is required for node-level scheduling and is invalid for region-level scheduling.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -125,14 +128,14 @@
     },
     {
       "name": "ImageId",
-      "description": "The image ID. This parameter is not required for ARM-based instances but is required for other instance types.",
+      "description": "The image ID. This parameter cannot be specified for ARM-based instances. This parameter is required for other instance types.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceChargeStrategy",
-      "description": "The instance billing strategy. Valid values:\n\n- **instance**: instance-level billing\n- If this parameter is not specified, user-level billing is applied by default.",
+      "description": "The instance billing strategy. Valid values:\n\n- **instance**: instance-level billing.\n- If not specified, the default is user-level billing.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -146,7 +149,7 @@
     },
     {
       "name": "InstanceName",
-      "description": "The instance name. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. It can contain Chinese characters, English letters, digits, colons (:), underscores (_), periods (.), and hyphens (-).\n\nThe default value is the instance ID.",
+      "description": "The instance name. The name must be 2 to 128 characters in length and must start with a letter or Chinese character. It cannot start with `http://` or `https://`. It can contain Chinese characters, letters, digits, colons (:), underscores (_), periods (.), or hyphens (-).\n\nDefault value: the InstanceId of the instance.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -160,133 +163,133 @@
     },
     {
       "name": "InternetChargeType",
-      "description": "The bandwidth billing method. Valid values:\n- **BandwidthByDay**: daily peak bandwidth\n- **95BandwidthByMonth**: monthly 95th percentile bandwidth\n\n> You can select a billing method during the initial purchase. Subsequent requests use the initially selected billing method by default.",
+      "description": "Billable methods for bandwidth. Valid values:\n- **BandwidthByDay**: daily peak bandwidth\n- **95BandwidthByMonth**: monthly 95th percentile bandwidth\n\n> You can select a billing method only for the first purchase. Subsequent purchases use the billing method selected during the first purchase by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InternetMaxBandwidthOut",
-      "description": "The maximum outbound public bandwidth. If this parameter is set to a value greater than 0, a public IP address is automatically assigned to the instance.",
+      "description": "The maximum public bandwidth. If the value of this parameter is greater than 0, a public IP address is automatically assigned to the instance.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "IpType",
-      "description": "The IP version. Valid values:\n\n- **ipv4** (default): IPv4\n\n- **ipv6**: IPv6\n\n- **ipv4Andipv6**: IPv4 and IPv6 (single-stack)\n- **ipv4Withipv6**: IPv4 and IPv6 (dual-stack)",
+      "description": "The IP type. Valid values:\n\n- **ipv4** (default): IPv4.\n\n- **ipv6**: IPv6.\n\n- **ipv4Andipv6**: IPv4 and IPv6 (single stack).\n- **ipv4Withipv6**: IPv4 and IPv6 (dual-stack).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Ipv6AddressCount",
-      "description": "The number of randomly generated IPv6 addresses assigned to the primary private ENI.",
+      "description": "The number of randomly generated IPv6 addresses to assign to the primary ENI of the private network.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "KeyPairName",
-      "description": "The name of the key pair.\n> You must specify at least one of the following parameters: **Password**, **KeyPairName**, and **PasswordInherit**.",
+      "description": "The key pair name.\n> Specify at least one of **Password**, **KeyPairName**, and **PasswordInherit**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateId",
-      "description": "The launch template ID.",
+      "description": "The ID of the instance launch template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateName",
-      "description": "The launch template name.",
+      "description": "The name of the instance launch template.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "LaunchTemplateVersion",
-      "description": "The launch template version.",
+      "description": "The version of the instance launch template.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NetDistrictCode",
-      "description": "The region code.\n> Required for region-level scheduling. Ignored for edge zone-level scheduling.",
+      "description": "The region code.\n>This parameter is required for region-level scheduling and is invalid for node-level scheduling.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NetWorkId",
-      "description": "The network ID.\n\n> This parameter is valid only for edge zone-level scheduling. Specifying this parameter for region-level scheduling causes an error. If vSwitch information is not specified, only the validity of the network ID is verified. The actual resources are not provisioned based on this network ID.",
+      "description": "The network ID.\n\n>This parameter can only be used for node-level scheduling. An error is returned if this parameter is specified for region-level scheduling. If you do not specify vSwitch information, only the validity of the network ID is verified. The actual resource creation does not use this network ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Password",
-      "description": "The instance password.\n\n> You must specify at least one of the following parameters: **Password**, **KeyPairName**, and **PasswordInherit**.",
+      "description": "The instance password.\n\n> Specify at least one of **Password**, **KeyPairName**, and **PasswordInherit**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PasswordInherit",
-      "description": "Specifies whether to use the preset password from the image. Valid values:\n\n- **true**: uses the preset password\n- **false**: does not use the preset password\n\n> You must specify at least one of the following parameters: **Password**, **KeyPairName**, and **PasswordInherit**.",
+      "description": "Specifies whether to use the preset password of the image. Valid values:\n\n- **true**: uses the preset password.\n- **false**: does not use the preset password.\n\n> Specify at least one of **Password**, **KeyPairName**, and **PasswordInherit**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Period",
-      "description": "The subscription duration of the resource.\n\n- If **PeriodUnit** is set to **Day**, **Period** can only be set to **3**.\n\n- If **PeriodUnit** is set to **Month**, **Period** can be set to **1-9** or **12**.",
+      "description": "The duration of the purchased resource.\n\n- If **PeriodUnit** is set to **Day**, **Period** can only be set to **3**.\n\n- If **PeriodUnit** is set to **Month**, **Period** can be set to **1-9** or **12**.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "PeriodUnit",
-      "description": "The unit of the subscription duration. Valid values:\n- **Month** (default): month\n- **Day**: day",
+      "description": "The unit of the purchase duration. Valid values:\n- **Month** (default): monthly purchase.\n- **Day**: daily purchase.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrivateIpAddress",
-      "description": "The private IP address.\n> This parameter is valid only for edge zone-level scheduling. Specifying this parameter for region-level scheduling causes an error.\nIf you specify a private IP address, you can create only one instance. The private IP address takes effect only when both the private IP address and the vSwitch ID are specified.",
+      "description": "The private IP address.\n>This parameter can only be used for node-level scheduling. An error is returned if this parameter is specified for region-level scheduling.\nIf a private IP address is specified, the number of instances can only be 1. The private IP address takes effect only when both the private IP address and vSwitch ID are specified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PublicIpIdentification",
-      "description": "Specifies whether to enable public IP identification. Valid values:\n\n- true: enabled\n\n- false: disabled\n\nDefault value: true.",
+      "description": "Specifies whether to enable public IP identification. Valid values:\n\n- true: enables public IP identification.\n\n- false: does not enable public IP identification.\n\nDefault value: true.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ScheduleAreaLevel",
-      "description": "The scheduling level. Specifies whether to perform edge zone-level or region-level scheduling. Valid values:\n\n- **Big**: geographic area\n- **Middle**: province\n- **Small**: city\n- **Region**: edge zone",
+      "description": "The scheduling level. Use this parameter to specify node-level or region-level scheduling. Valid values:\n\n- **Big**: major area\n- **Middle**: province\n- **Small**: city\n- **Region**: node",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SchedulingPriceStrategy",
-      "description": "The price-based scheduling strategy. Valid values:\n\n- **PriceHighPriority**: prioritize higher prices\n- **PriceLowPriority**: prioritize lower prices",
+      "description": "The scheduling price strategy. Valid values:\n\n- **PriceHighPriority**: high price first\n- **PriceLowPriority**: low price first",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SchedulingStrategy",
-      "description": "The scheduling strategy. Valid values:\n\n- **Concentrate**: centralized scheduling\n- **Disperse**: distributed scheduling\n\n> For edge zone-level scheduling, set this parameter to **Concentrate**. For region-level scheduling, select a value as needed.",
+      "description": "The scheduling strategy. Valid values:\n\n- **Concentrate**: concentrated\n- **Disperse**: dispersed\n\n> For node-level scheduling, the value is **Concentrate**. For region-level scheduling, select a value based on your requirements.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -307,7 +310,7 @@
     },
     {
       "name": "SpotStrategy",
-      "description": "The bidding strategy for the pay-as-you-go instance. This parameter takes effect only when `InstanceChargeType` is set to `PostPaid`. Valid values:\n\n- NoSpot: regular pay-as-you-go instance\n- SpotAsPriceGo: system-generated bid that follows the current market price\n\nDefault value: NoSpot.",
+      "description": "The bidding policy for the pay-as-you-go instance. This parameter takes effect when the `InstanceChargeType` parameter is set to `PostPaid`. Valid values:\n\n- NoSpot: a regular pay-as-you-go instance.\n- SpotAsPriceGo: the system automatically bids at the current market price.\n\nDefault value: NoSpot.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -321,7 +324,7 @@
     },
     {
       "name": "Tag",
-      "description": "The tags bound to the instance.",
+      "description": "The tags that are bound to the instance.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
@@ -335,7 +338,7 @@
         },
         {
           "name": "Value",
-          "description": "The tag value. The value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
+          "description": "The tag value. The tag value cannot exceed 128 characters in length, and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -344,33 +347,35 @@
     },
     {
       "name": "UniqueSuffix",
-      "description": "Specifies whether to add ordered suffixes to **HostName** and **InstanceName**. The suffixes start from 001 and increment sequentially, up to a maximum of 999.",
+      "description": "Specifies whether to add sequential suffixes to **HostName** and **InstanceName**. The sequential suffixes start from 001 and cannot exceed 999.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "UserData",
-      "description": "The user-defined data. Maximum size: 16 KB. You can pass **UserData** encoded in Base64 format.",
+      "description": "The custom user data. Maximum size: 16 KB. You can pass in **UserData** information. **UserData** is Base64-encoded.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The vSwitch ID.\n\n> This parameter is valid only for edge zone-level scheduling. Specifying this parameter for region-level scheduling causes an error.",
+      "description": "The vSwitch ID.\n\n>This parameter can only be used for node-level scheduling. An error is returned if this parameter is specified for region-level scheduling.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpdId",
+      "description": "The VPD network ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "VpdVSwitchIds",
+      "description": "The list of VPD vSwitch IDs.",
       "position": "Query",
       "type": "Json",
       "required": false

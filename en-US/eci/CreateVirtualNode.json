@@ -7,49 +7,49 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "Specifies whether to enable internet access. The default is false.<br>\nIf set to true, the virtual node is assigned a public IP address.<br>",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterDNS",
-      "description": "The tags for the virtual node. You can specify a maximum of 20 tags.",
+      "description": "The IP address of the DNS server. If `dnsPolicy=ClusterFirst` is set in an ECI pod, this value is used to provide DNS services for the container. You can specify multiple IP addresses. Separate multiple IP addresses with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClusterDomain",
-      "description": "The IP addresses of the DNS servers. If `dnsPolicy=ClusterFirst` is set in an ECI pod, the pod uses these addresses for DNS.\nYou can specify multiple IP addresses. Separate them with commas.",
+      "description": "The domain name of the cluster. After this parameter is configured, Kubelet configures all containers to search this domain in addition to the search domains of the host.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CustomResources",
-      "description": "The domain name of the cluster. After configuration, Kubelet configures all containers to search this domain name in addition to the host's search domain.",
+      "description": "The custom resources supported by the virtual node. If an ECI pod declares the corresponding custom resource in its request, the pod is scheduled to the VNode. The format is `resource_name=resource_count`. Separate multiple resources with commas (,).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EipInstanceId",
-      "description": "The KubeConfig of the Kubernetes cluster to which the virtual node connects. The value must be Base64-encoded.",
+      "description": "The ID of the Elastic IP Address (EIP).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EnablePublicNetwork",
-      "description": "The ID of the Elastic IP Address.",
+      "description": "Specifies whether to enable public network access. Default value: false. If you set this parameter to true, the virtual node exposes a public IP address.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "KubeConfig",
-      "description": "The custom resources supported by the virtual node. If an ECI pod declares a corresponding custom resource in its request, the pod is scheduled to the virtual node.\nThe format is `resource name=resource count`. Use a comma to separate multiple resources.",
+      "description": "The KubeConfig of the Kubernetes cluster to which the virtual node connects. The value must be Base64-encoded before being passed in.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -63,35 +63,35 @@
     },
     {
       "name": "ResourceGroupId",
-      "description": "Ensures the idempotence of the request. The client generates a value for this parameter. You must make sure that the value is unique for each request. The value can contain only ASCII characters and must be no more than 64 characters long. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the vSwitch used by the virtual node and the ECI instances on the virtual node.<br>\nYou can specify 1 to 10 vSwitches that belong to the same VPC.<br>",
+      "description": "The security group ID. The virtual node and ECI instances created on the virtual node are added to this security group.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Tag",
-      "description": "You can add up to 20 taints to the virtual node.",
+      "description": "The tag information of the virtual node. You can specify up to 20 tags.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The key of the tag.",
+          "description": "The tag key.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The value of the tag.",
+          "description": "The tag value.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -100,14 +100,14 @@
     },
     {
       "name": "Taint",
-      "description": "Specifies whether to enable TLS bootstrapping. If this feature is enabled, the KubeConfig certificate is used for TLS bootstrapping. Valid values:\n\n- true: Enabled\n\n- false: Disabled\n\nDefault: false.",
+      "description": "The taint information of the virtual node. You can specify up to 20 taints.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Effect",
-          "description": "The effect of the taint. Valid values:\n\\- NoSchedule: Pods cannot be scheduled to the tainted node.\n\\- NoExecute: Pods cannot be scheduled to the tainted node, and existing pods on the node are evicted.\n\\- PreferNoSchedule: Pods are preferentially not scheduled to the tainted node.",
+          "description": "The effect of the taint. Valid values:\n\n- NoSchedule: Pods are not scheduled to the node that has this taint.\n- NoExecute: Pods are not scheduled to the node that has this taint, and existing pods on the node are evicted.\n- PreferNoSchedule: Pods are preferably not scheduled to the node that has this taint.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -130,28 +130,28 @@
     },
     {
       "name": "TlsBootstrapEnabled",
-      "description": "Specifies whether to enable TLS bootstrapping. If this parameter is enabled, use the KubeConfig certificate for TLS bootstrapping. Valid values:\n\\- true\n\\- false\nDefault value: false.",
+      "description": "Specifies whether to enable TLS bootstrapping. If you enable this feature, use the KubeConfig certificate for TLS bootstrapping. Valid values:\n\n- true: enabled.\n- false: disabled.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "VSwitchId",
-      "description": "The name of the virtual node. The name must be 2 to 128 characters long and can contain lowercase letters, digits, periods (.), and hyphens (-).",
+      "description": "The vSwitch ID. The vSwitch used by the virtual node and ECI instances created on the virtual node. You can specify 1 to 10 vSwitches that belong to the same VPC.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "VirtualNodeName",
-      "description": "The ID of the resource group.",
+      "description": "The name of the virtual node. The name must be 2 to 128 characters in length and can contain lowercase letters, digits, periods (.), and hyphens (-).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ZoneId",
-      "description": "The ID of the security group. The virtual node and the ECI instances in the virtual node are added to this security group.",
+      "description": "The zone ID.",
       "position": "Query",
       "type": "String",
       "required": false

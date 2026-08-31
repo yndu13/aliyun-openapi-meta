@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "ContainerGroupIds",
-      "description": "The IDs of the ECI instances. You can specify up to 20 IDs. The value must be a JSON-formatted string.",
+      "description": "A sequence of ECI instance IDs. You can specify up to 20 instance IDs. The character string must be passed in JSON format.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "EventSource",
-      "description": "The event source. Valid values:\n\n- EciService\n\n- K8sAgent\n\nIf you leave this parameter empty, all events are queried.",
+      "description": "The event source. Valid values:\n\n- EciService\n- K8sAgent\n\nDefault value: empty, which indicates that all events are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Limit",
-      "description": "The maximum number of ECI instances to return. Default value: 200.\n\n> The response may contain fewer entries than the specified value.",
+      "description": "The maximum number of resources (ECI instances) to return. Default value: 200.\n\n> The number of returned results may be less than the specified value but never exceeds it.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The token that is used to start the next query. If this parameter is left empty, no more data is returned.\n\nYou do not need to set this parameter for the first query. Obtain the token for subsequent queries from the response.",
+      "description": "The pagination token for the next query. If NextToken is empty, no more results exist.\n\nYou do not need to specify this parameter for the first query. For subsequent queries, obtain the token from the response of the previous query.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -49,14 +49,14 @@
     },
     {
       "name": "SinceSecond",
-      "description": "Returns only new events to enable incremental polling.",
+      "description": "Returns events that occurred within the specified number of seconds. This parameter is used for polling incremental events.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "Tag",
-      "description": "The tags that are attached to the ECI instances.",
+      "description": "The tags bound to the ECI instances.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
