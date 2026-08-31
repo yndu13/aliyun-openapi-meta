@@ -354,5 +354,97 @@
   ],
   "pathPattern": "",
   "product_code": "Ess",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters for triggering elastic scaling based on a specified adjustment rule",
+        "description_zh": "基于指定调整规则触发弹性扩缩容返回参数",
+        "properties": {
+          "ActivityType": {
+            "backendName": "data.activityType",
+            "description_en": "The type of the scaling activity.\n\nIf `ActivityType` is set to `CapacityChange`, the scaling activity corresponding to the returned `ScalingActivityId` only modifies the expected number of instances in the scaling group without immediately performing scaling.\n\nApplicable scope: scaling groups with the expected number of instances configured",
+            "description_zh": "伸缩活动的类型。\n\n当`ActivityType`为`CapacityChange`时，表示返回值`ScalingActivityId`对应伸缩活动仅修改伸缩组期望实例数，没有立刻执行扩缩。\n\n适用范围：期望实例数类型的伸缩组",
+            "example": "CapacityChange",
+            "type": "string"
+          },
+          "PlanResult": {
+            "backendName": "data.planResult",
+            "description_en": "The elastic planning results returned when ExecutionMode is set to PlanOnly",
+            "description_zh": "当ExecutionMode为PlanOnly时，返回的弹性规划的结果",
+            "properties": {
+              "ResourceAllocations": {
+                "backendName": "resourceAllocationModels",
+                "description_en": "The resource allocation information in the elastic planning results",
+                "description_zh": "弹性规划结果中的资源分配信息",
+                "itemName": "resourceAllocationModels",
+                "items": {
+                  "properties": {
+                    "Amount": {
+                      "backendName": "amount",
+                      "description_en": "The number of instances",
+                      "description_zh": "实例数量",
+                      "example": "1",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "InstanceChargeType": {
+                      "backendName": "instanceChargeType",
+                      "description_en": "The billing method. Valid values:\n\nPrepaid: subscription.\nPostpaid: pay-as-you-go",
+                      "description_zh": "付费类型，返回值如下：\n\nPrepaid：包年包月。\nPostpaid：按量付费",
+                      "example": "Postpaid",
+                      "type": "string"
+                    },
+                    "InstanceType": {
+                      "backendName": "instanceType",
+                      "description_en": "The instance type",
+                      "description_zh": "实例规格",
+                      "example": "ecs.u1-c1m8.large",
+                      "type": "string"
+                    },
+                    "SpotStrategy": {
+                      "backendName": "spotStrategy",
+                      "description_en": "The preemption policy of the instance. Valid values:\n\nNoSpot: a pay-as-you-go instance.\nSpotWithPriceLimit: a spot instance with a maximum price limit.\nSpotAsPriceGo: a spot instance priced at the market price at the time of purchase",
+                      "description_zh": "实例的抢占策略。取值范围：\n\nNoSpot：正常按量付费实例。\nSpotWithPriceLimit：设置上限价格的抢占式实例。\nSpotAsPriceGo：系统自动出价，跟随当前市场实际价格的抢占式实例",
+                      "example": "NoSpot",
+                      "type": "string"
+                    },
+                    "ZoneId": {
+                      "backendName": "zoneId",
+                      "description_en": "The zone ID",
+                      "description_zh": "可用区ID",
+                      "example": "cn-beijing-g",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ScalingActivityId": {
+            "backendName": "data.scalingActivityId",
+            "description_en": "The ID of the scaling activity",
+            "description_zh": "伸缩活动的ID",
+            "example": "asa-bp175o6f6ego3r2j****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

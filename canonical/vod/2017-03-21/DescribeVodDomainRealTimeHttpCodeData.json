@@ -88,5 +88,87 @@
   ],
   "pathPattern": "",
   "product_code": "vod",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "DataInterval": {
+            "backendName": "data.content.interval",
+            "description_en": "The time interval between data entries. Unit: seconds.\n\nBased on the time range per query, this parameter returns a fixed value of 60 (1 minute), 300 (5 minutes), or 3600 (1 hour). For more information, see Time granularity of returned data in the operation description",
+            "description_zh": "每条数据的时间间隔，单位：秒。\n\n根据单次查询的时间跨度不同，该参数固定返回60（1分钟）、300（5分钟）或3600（1小时），具体请参见接口说明中的返回数据时间粒度",
+            "example": "60",
+            "type": "string"
+          },
+          "DomainName": {
+            "backendName": "data.domainName",
+            "description_en": "The accelerated domain name",
+            "description_zh": "加速域名",
+            "example": "example.com",
+            "type": "string"
+          },
+          "EndTime": {
+            "backendName": "data.endTime",
+            "description_en": "The end of the time range for the returned data",
+            "description_zh": "数据的结束时间点",
+            "example": "2019-11-30T05:40:00Z",
+            "type": "string"
+          },
+          "RealTimeHttpCodeData": {
+            "backendName": "data.content.data",
+            "itemName": "UsageData",
+            "items": {
+              "properties": {
+                "TimeStamp": {
+                  "backendName": "time_stp",
+                  "type": "string"
+                },
+                "Value": {
+                  "backendName": "l1_all_all_all_all_http_code",
+                  "itemName": "RealTimeCodeProportionData",
+                  "items": {
+                    "properties": {
+                      "Code": {
+                        "backendName": "code",
+                        "type": "string"
+                      },
+                      "Count": {
+                        "backendName": "count",
+                        "type": "string"
+                      },
+                      "Proportion": {
+                        "backendName": "number",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "nullToEmpty": true,
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "BC858082-736F-4A25-867B-E5B67C85ACF7",
+            "type": "string"
+          },
+          "StartTime": {
+            "backendName": "data.startTime",
+            "description_en": "The beginning of the time range for the returned data",
+            "description_zh": "数据的起始时间点",
+            "example": "2019-11-30T05:39:00Z",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

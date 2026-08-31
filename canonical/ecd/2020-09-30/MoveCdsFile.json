@@ -119,5 +119,73 @@
   ],
   "pathPattern": "",
   "product_code": "ecd",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The execution result. The value `success` indicates that the operation is successful. Otherwise, an error message is returned",
+            "description_zh": "执行结果。返回`success`表示成功，否则将返回错误信息",
+            "example": "success",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message. This parameter is not returned if Code is `success`",
+            "description_zh": "错误信息。当Code为`success`时，不返回该参数",
+            "example": "success",
+            "type": "string"
+          },
+          "MoveCdsFileModel": {
+            "backendName": "data",
+            "description_en": "The result of the move file operation",
+            "description_zh": "移动文件的操作结果",
+            "properties": {
+              "AsyncTaskId": {
+                "backendName": "asyncTaskId",
+                "description_en": "The asynchronous task ID. This field is not returned when a file is copied. When a folder is copied, the copy operation is performed asynchronously in the background, so this field is returned. You can call [GetAsyncTask]（https://help.aliyun.com/document_detail/2357404.html） and pass in this asynchronous task ID to obtain the task details",
+                "description_zh": "异步任务ID。当复制文件时，不返回该字段；当复制文件夹时，因为是后台异步复制，所以会返回该字段，调用[GetAsyncTask]（https://help.aliyun.com/document_detail/2357404.html）并传入该异步任务ID即可获取任务详细信息",
+                "example": "fe307518-825a-4c8b-a69c-958f0e8a****",
+                "type": "string"
+              },
+              "Exist": {
+                "backendName": "exist",
+                "description_en": "Indicates whether the file already exists",
+                "description_zh": "文件是否已存在",
+                "example": "false",
+                "type": "boolean"
+              },
+              "FileId": {
+                "backendName": "fileId",
+                "description_en": "The file ID",
+                "description_zh": "文件ID",
+                "example": "63636837e47e5a24a8a940218bef395c210e****",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1CBAFFAB-B697-4049-A9B1-67E1FC5F****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the operation is successful",
+            "description_zh": "操作是否成功",
+            "example": "true",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

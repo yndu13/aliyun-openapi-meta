@@ -78,5 +78,87 @@
   ],
   "pathPattern": "",
   "product_code": "Tag",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The data returned",
+        "description_zh": "返回结果",
+        "properties": {
+          "EffectivePolicy": {
+            "backendName": "data.effectivePolicy",
+            "description_en": "The effective policy",
+            "description_zh": "有效策略",
+            "example": "{\\\"tags\\\":{\\\"costcenter\\\":{\\\"tag_value\\\":[\\\"Beijing\\\",\\\"Shanghai\\\"],\\\"tag_key\\\":\\\"CostCenter\\\"}}}",
+            "type": "string"
+          },
+          "PolicyAttachments": {
+            "backendName": "data.effectiveKeyAttachModels",
+            "itemName": "PolicyAttachModel",
+            "items": {
+              "properties": {
+                "PolicyList": {
+                  "backendName": "policyAttachModels",
+                  "itemName": "Policy",
+                  "items": {
+                    "properties": {
+                      "AttachSeq": {
+                        "backendName": "attachSeq",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "AttachTime": {
+                        "backendName": "attachTimeStr",
+                        "type": "string"
+                      },
+                      "PolicyId": {
+                        "backendName": "policyId",
+                        "type": "string"
+                      },
+                      "PolicyName": {
+                        "backendName": "policyName",
+                        "type": "string"
+                      },
+                      "TargetId": {
+                        "backendName": "targetId",
+                        "type": "string"
+                      },
+                      "TargetType": {
+                        "backendName": "targetType",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "PolicyType": {
+                  "backendName": "policyType",
+                  "type": "string"
+                },
+                "TagKey": {
+                  "backendName": "tagKey",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "BB532282-94F5-5F56-877F-32D5E2A04F3F",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

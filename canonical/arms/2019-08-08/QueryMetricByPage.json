@@ -233,5 +233,117 @@
   ],
   "pathPattern": "",
   "product_code": "ARMS",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The information about the array object",
+        "description_zh": "返回结构体",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The HTTP status code returned for the request. Valid values:\n\n2XX: The request was successful.\n3XX: A redirection message was returned.\n4XX: The request was invalid.\n5XX: A server error occurred",
+            "description_zh": "接口状态，取值说明如下：\n\n2XX：成功。\n3XX：重定向。\n4XX：请求错误。\n5XX：服务器错误",
+            "example": "200",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The information about the array object",
+            "description_zh": "返回结构体",
+            "nullToEmpty": true,
+            "properties": {
+              "Completed": {
+                "backendName": "completed",
+                "description_en": "Whether the paging query ends.\n\ntrue: end.\nfalse: Need to continue pagination (continue to query after CurrentPage+1)",
+                "description_zh": "分页查询是否结束。\n\ntrue：结束。\nfalse：需要继续分页（CurrentPage+1后继续查询）",
+                "example": "false",
+                "type": "boolean"
+              },
+              "Items": {
+                "backendName": "items",
+                "description_en": "The data entries returned",
+                "description_zh": "返回数据",
+                "itemName": "Items",
+                "items": {
+                  "backendName": "items",
+                  "description_en": "The data entries returned",
+                  "description_zh": "返回数据的数据结构体列表",
+                  "example": "[]",
+                  "nullToEmpty": true,
+                  "type": "object",
+                  "visibility": "Public"
+                },
+                "nullToEmpty": true,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "Page": {
+                "backendName": "page",
+                "description_en": "The page number of the returned page",
+                "description_zh": "查询结果的页码",
+                "example": "1",
+                "format": "int32",
+                "nullToEmpty": true,
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "PageSize": {
+                "backendName": "pageSize",
+                "description_en": "The number of entries returned per page",
+                "description_zh": "查询结果的每页项目数量",
+                "example": "1",
+                "format": "int32",
+                "nullToEmpty": true,
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "Total": {
+                "backendName": "total",
+                "description_en": "The total number of entries returned",
+                "description_zh": "查询结果的总项目数量。\n\n此参数的返回值为估算值，仅用于分页结束判断，不代表实际的数据总量",
+                "example": "2",
+                "format": "int32",
+                "nullToEmpty": true,
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message returned if the call fails",
+            "description_zh": "调用失败时返回的信息",
+            "example": "StartTime is mandatory for this action.",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "687F9CB7-4798-57BF-A6EE-E6CC76******",
+            "nullToEmpty": true,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the call was successful. Valid values:\n\n`true`: The call was successful.\n`false`: The call failed",
+            "description_zh": "查询是否成功：\n\n`true`：成功。\n`false`：失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

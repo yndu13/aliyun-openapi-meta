@@ -60,7 +60,7 @@
       "type": "string"
     },
     {
-      "help_en": "The ProjectId",
+      "help_en": "项目ID",
       "help_zh": "项目ID",
       "location": "query",
       "minimum": "1",
@@ -75,5 +75,64 @@
   ],
   "pathPattern": "",
   "product_code": "Yundun-bastionhost",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "DatabaseAccount": {
+            "backendName": "data.DatabaseAccount",
+            "description_en": "The returned information about the database account",
+            "description_zh": "查询到的数据库账号信息",
+            "properties": {
+              "DatabaseAccountId": {
+                "backendName": "DatabaseAccountId",
+                "description_en": "The database account ID",
+                "description_zh": "数据库账户ID",
+                "example": "9",
+                "type": "string"
+              },
+              "DatabaseAccountName": {
+                "backendName": "DatabaseAccountName",
+                "description_en": "The name of the database account",
+                "description_zh": "数据库账户名称",
+                "example": "uac",
+                "type": "string"
+              },
+              "DatabaseSchema": {
+                "backendName": "DatabaseSchema",
+                "description_en": "The database name. A value is returned for this parameter if the database engine is PostgreSQL or Oracle",
+                "description_zh": "数据库名。当数据库为Postgres和Oracle时，DatabaseSchema有返回值",
+                "example": "orcl",
+                "type": "string"
+              },
+              "HasPassword": {
+                "backendName": "HasPassword",
+                "description_en": "Indicates whether the database account has a password.\nValid values:\n\ntrue\n\nfalse",
+                "description_zh": "当前数据库账户是否设置了密码。<br>取值：\n\ntrue：已设置密码。\nfalse：未设置密码",
+                "example": "true",
+                "type": "boolean"
+              },
+              "LoginAttribute": {
+                "backendName": "LoginAttribute",
+                "description_en": "The logon attribute. A value is returned for this parameter if the database engine is Oracle. Valid values:\n\nSERVICENAME\n\nSID",
+                "description_zh": "登录属性，Oracle类型数据库有返回值：\nSERVICENAME\nSID",
+                "example": "SID",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "FA06D274-8D0A-59FB-8B7E-584C0EEBBFFF",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -2,6 +2,23 @@
   "camel_example": "",
   "cmd_full_name": "pai-dlc get-token",
   "cmd_name": "get-token",
+  "components": {
+    "schemas": {
+      "TokenSettings": {
+        "properties": {
+          "EnableCrossAccountAccess": {
+            "backendName": "enableCrossAccountAccess",
+            "type": "boolean"
+          },
+          "EnableLogDownloadJob": {
+            "backendName": "enableLogDownloadJob",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Retrieves a sharing token for a DLC job, which is used to view information about the shared task",
   "description_zh": "获取DLC任务的分享令牌（Token），用于查看分享任务的相关信息",
@@ -99,6 +116,34 @@
   "pathPattern": "/api/v1/tokens",
   "product_code": "pai-dlc",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回结果",
+        "properties": {
+          "RequestId": {
+            "description_en": "The request ID, which is used for diagnostics and troubleshooting",
+            "description_zh": "请求ID，用于诊断和答疑",
+            "example": "473469C7-AA6F-4DC5-B3DB-xxxxxxxx",
+            "title_en": "RequestId",
+            "title_zh": "RequestId",
+            "type": "string"
+          },
+          "Token": {
+            "description_en": "The task sharing token, which can be used to view information about the shared task",
+            "description_zh": "任务分享令牌，可用于查看分享任务的相关信息",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9*****",
+            "mappingResourcePropertyName": "$.Token",
+            "title_en": "Token",
+            "title_zh": "Token",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "The expiration time of the sharing link in seconds. Default value: 604800. Minimum value: 0",

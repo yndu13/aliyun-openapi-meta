@@ -287,5 +287,113 @@
   ],
   "pathPattern": "",
   "product_code": "eventbridge",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code.\n\nSuccess: The request was successful.\n\nOther values indicate an error. For details, see Error codes",
+            "description_zh": "接口返回码：\n\nSuccess：表示成功。    \n                          \n其它：表示错误码。错误码详情，请参见错误码",
+            "example": "Success",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The returned data",
+            "description_zh": "返回结果",
+            "nullToEmpty": false,
+            "properties": {
+              "ErrorEntries": {
+                "backendName": "errorEntries",
+                "description_en": "Details about the event targets that failed to be processed",
+                "description_zh": "处理失败的事件目标信息",
+                "itemName": "ErrorEntries",
+                "items": {
+                  "description_en": "Details about a failed event target",
+                  "description_zh": "处理失败的事件目标信息",
+                  "properties": {
+                    "EntryId": {
+                      "backendName": "entryId",
+                      "description_en": "The ID of the failed event target",
+                      "description_zh": "处理失败的事件目标Id",
+                      "example": "Mlm123456JHd2RsRoKw",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ErrorCode": {
+                      "backendName": "errorCode",
+                      "description_en": "The error code",
+                      "description_zh": "错误码",
+                      "example": "EventRuleTargetIdDuplicate",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ErrorMessage": {
+                      "backendName": "errorMessage",
+                      "description_en": "The description of the error",
+                      "description_zh": "错误详细描述",
+                      "example": "The id of event target is duplicate!",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "nullToEmpty": false,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "ErrorEntriesCount": {
+                "backendName": "errorEntriesCount",
+                "description_en": "The number of event targets that failed to be processed. A value of 0 indicates that all event targets were processed successfully.\n\n-\n\n-",
+                "description_zh": "处理失败的事件目标数量。取值说明如下：\n\n取值为0：所有事件目标均正常处理。\n\n取值为除0以外的其他整数：处理失败的事件目标个数",
+                "example": "0",
+                "format": "int32",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "The event rule not existed!",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The unique ID that Alibaba Cloud generates for the request",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "6FB52207-7621-5292-BDF2-A17E2E984160\n",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Returns true if the operation is successful",
+            "description_zh": "操作成功返回true",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

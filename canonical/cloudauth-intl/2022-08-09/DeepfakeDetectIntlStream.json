@@ -120,5 +120,79 @@
   ],
   "pathPattern": "",
   "product_code": "Cloudauth-intl",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code",
+            "description_zh": "返回码",
+            "example": "Success",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The response message",
+            "description_zh": "返回信息",
+            "example": "success",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "4EB35****87EBA1",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "ResultObject": {
+            "backendName": "resultObject",
+            "description_en": "The returned result information",
+            "description_zh": "返回的结果信息",
+            "properties": {
+              "Result": {
+                "backendName": "result",
+                "description_en": "The risk result:\n\n0: Low risk\n1: High risk\n2: Suspicious",
+                "description_zh": "风险结果：\n\n0：低风险\n1：高风险\n2：可疑",
+                "example": "1",
+                "type": "string"
+              },
+              "RiskScore": {
+                "additionalProperties": {
+                  "description_en": "The score for each corresponding risk label when a risk is detected",
+                  "description_zh": "命中风险时返回对应标签分数",
+                  "example": "{\n \"SuspectPSFace\": \"0.9796\",\n \"SuspectRemake\": \"0.0000\",\n \"SuspectDeepForgery\": \"0.9500\",\n \"SuspectAIGCFace\": \"0.0001\"\n }",
+                  "type": "string"
+                },
+                "backendName": "riskScore",
+                "description_en": "The risk score map",
+                "description_zh": "风险分值Map",
+                "type": "object"
+              },
+              "RiskTag": {
+                "backendName": "riskTag",
+                "description_en": "The risk labels. Multiple labels are separated by commas (,), including:\n\nSuspectDeepForgery: Suspected deep forgery\nSuspectPSFace: Suspected face synthesis attack\nSuspectTemple: Suspected template attack\nSuspectRemake: Suspected presentation attack",
+                "description_zh": "风险标签。多个标签使用半角逗号（,）隔开，包括：\n\nSuspectDeepForgery：疑似深度伪造\nSuspectPSFace：疑似合成攻击\nSuspectTemple：疑似模板攻击\nSuspectRemake：疑似呈现攻击",
+                "example": "SuspectDeepForgery",
+                "type": "string"
+              },
+              "TransactionId": {
+                "backendName": "transactionId",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

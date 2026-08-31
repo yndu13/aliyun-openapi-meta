@@ -64,5 +64,153 @@
   ],
   "pathPattern": "",
   "product_code": "Rds",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回参数详情",
+        "properties": {
+          "BackupMode": {
+            "backendName": "data.backupMode",
+            "description_en": "The type of the migration task. Valid values:\n\nFULL: The migration task migrates full backup files that can be used to restore the full data of the instance.\nUPDF: The migration task migrates incremental or log backup files that can be used to restore the incremental data of the instance",
+            "description_zh": "备份数据上云任务类型，取值：\n\nFULL：表示通过全量备份文件去执行还原操作。\nUPDF：表示通过增量文件或者日志文件去还原增量部分的数据",
+            "example": "FULL",
+            "type": "string",
+            "valueMapping": {
+              "cases": [
+                {
+                  "targetValue": "FULL",
+                  "value": "0"
+                },
+                {
+                  "targetValue": "DIFF",
+                  "value": "1"
+                },
+                {
+                  "targetValue": "LOG",
+                  "value": "2"
+                }
+              ]
+            },
+            "visibility": "Public"
+          },
+          "CreateTime": {
+            "backendName": "data.createTime",
+            "description_en": "The time when the migration task was created. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC",
+            "description_zh": "备份数据上云任务创建时间。格式：<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）",
+            "example": "2020-05-30T12:11:04Z",
+            "mappingResourcePropertyName": "$.CreateTime",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "DBInstanceName": {
+            "backendName": "data.dbInstanceId",
+            "description_en": "The instance ID",
+            "description_zh": "实例ID",
+            "example": "rm-uf6wjk5****",
+            "mappingResourcePropertyName": "$.DbInstanceId",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "DBName": {
+            "backendName": "data.dbName",
+            "description_en": "The name of the database",
+            "description_zh": "数据库名称",
+            "example": "mytestdb",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Description": {
+            "backendName": "data.description",
+            "description_en": "The description of the migration task",
+            "description_zh": "备份数据上云任务的描述信息",
+            "example": "Success to DBCC checkdb asynchronously",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "EndTime": {
+            "backendName": "data.endTime",
+            "description_en": "The time when the migration task was completed. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC",
+            "description_zh": "备份数据上云任务结束时间。格式：<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）",
+            "example": "2021-05-30T15:15:05Z",
+            "mappingResourcePropertyName": "$.EndTime",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "IsDBReplaced": {
+            "backendName": "data.isDBReplaced",
+            "description_en": "Indicates whether the imported data overwrites the existing data. Valid values:\n\nFalse: The imported data does not overwrite the existing data.\nTrue: The imported data overwrites the existing data",
+            "description_zh": "是否是覆盖性导入。取值： \n\nFalse：否\nTrue：是",
+            "example": "False",
+            "type": "string",
+            "valueMapping": {
+              "cases": [
+                {
+                  "targetValue": "False",
+                  "value": "0"
+                },
+                {
+                  "targetValue": "True",
+                  "value": "1"
+                }
+              ]
+            },
+            "visibility": "Public"
+          },
+          "MigrateTaskId": {
+            "backendName": "data.migrateTaskId",
+            "description_en": "The ID of the migration task",
+            "description_zh": "OSS备份上云任务的ID",
+            "example": "235943",
+            "mappingResourcePropertyName": "$.MigrateTaskId",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "6ED3635A-01F9-47BD-B9C8-CB3FD70A336E",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Status": {
+            "backendName": "data.status",
+            "description_en": "The status of the migration task. Valid values:\n\nNoStart: The task has not started.\nRunning:The task is in progress.\nSuccess: The task is successful.\nFailed: The task failed.\nWaiting: The task is waiting for an incremental backup file to be imported",
+            "description_zh": "备份数据上云任务的状态，取值：\nNoStart：未开始\nRunning：运行中\nSuccess：成功\nFailed：失败\nWaiting：等待增量备份文件导入",
+            "example": "Success",
+            "mappingResourcePropertyName": "$.Status",
+            "type": "string",
+            "valueMapping": {
+              "cases": [
+                {
+                  "targetValue": "NoStart",
+                  "value": "0"
+                },
+                {
+                  "targetValue": "Running",
+                  "value": "1"
+                },
+                {
+                  "targetValue": "Success",
+                  "value": "2"
+                },
+                {
+                  "targetValue": "Failed",
+                  "value": "3"
+                },
+                {
+                  "targetValue": "Waiting",
+                  "value": "4"
+                }
+              ]
+            },
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -2,6 +2,212 @@
   "camel_example": "",
   "cmd_full_name": "dlfnext alter-table",
   "cmd_name": "alter-table",
+  "components": {
+    "schemas": {
+      "DataField": {
+        "description_en": "The column definition",
+        "description_zh": "表的字段定义",
+        "properties": {
+          "description": {
+            "backendName": "description",
+            "description_en": "The column description",
+            "description_zh": "表字段描述",
+            "example": "description",
+            "type": "string"
+          },
+          "id": {
+            "backendName": "id",
+            "description_en": "The column ID",
+            "description_zh": "表字段号",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          },
+          "name": {
+            "backendName": "name",
+            "description_en": "The column name",
+            "description_zh": "表字段名",
+            "example": "order_id",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/FullDataType",
+            "backendName": "type",
+            "description_en": "The column type",
+            "description_zh": "表字段类型"
+          }
+        },
+        "type": "object"
+      },
+      "FullDataType": {
+        "description_en": "A comprehensive definition for column data types",
+        "description_zh": "表字段数据类型定义",
+        "properties": {
+          "element": {
+            "$ref": "#/components/schemas/FullDataType",
+            "backendName": "element",
+            "description_en": "The data type",
+            "description_zh": "数据类型"
+          },
+          "fields": {
+            "backendName": "fields",
+            "description_en": "The list of field definitions. This parameter is required when `type` is `ROW`",
+            "description_zh": "字段定义列表，type是ROW时必传",
+            "items": {
+              "$ref": "#/components/schemas/DataField",
+              "description_en": "The field definition",
+              "description_zh": "字段定义"
+            },
+            "type": "array"
+          },
+          "key": {
+            "$ref": "#/components/schemas/FullDataType",
+            "backendName": "key",
+            "description_en": "The data type of the key. This parameter is required when `type` is `MAP`",
+            "description_zh": "键数据类型，type是MAP时必传"
+          },
+          "type": {
+            "backendName": "type",
+            "description_en": "The data type. This parameter is required when `type` is `ARRAY` or `MULTISET`",
+            "description_zh": "元素数据类型，type是ARRAY和MULTISET时必传",
+            "example": "STRING",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/FullDataType",
+            "backendName": "value",
+            "description_en": "The data type of the value. This parameter is required when `type` is `MAP`",
+            "description_zh": "值数据类型，type是MAP时必传"
+          }
+        },
+        "type": "object"
+      },
+      "FullSchemaChange": {
+        "description_en": "The schema change details for the table",
+        "description_zh": "表结构变更信息",
+        "properties": {
+          "action": {
+            "description_en": "The type of change",
+            "description_zh": "变更类型",
+            "enum": [
+              "setOption",
+              "removeOption",
+              "updateComment",
+              "addColumn",
+              "renameColumn",
+              "dropColumn",
+              "updateColumnComment",
+              "updateColumnType",
+              "updateColumnPosition",
+              "updateColumnNullability"
+            ],
+            "example": "setOption",
+            "type": "string"
+          },
+          "comment": {
+            "description_en": "The description. This parameter is required when `action` is `UpdateComment` or `AddColumn`",
+            "description_zh": "描述，action是UpdateComment/AddColumn时必传",
+            "example": "col_comment",
+            "type": "string"
+          },
+          "dataType": {
+            "$ref": "#/components/schemas/FullDataType",
+            "description_en": "The column type. This parameter is required when `action` is `AddColumn`",
+            "description_zh": "字段类型，action是AddColumn时必传"
+          },
+          "fieldNames": {
+            "description_en": "The table column names. This parameter is required when `action` is `AddColumn`, `RenameColumn`, `DropColumn`, `UpdateColumnComment`, `UpdateColumnType`, or `UpdateColumnNullability`",
+            "description_zh": "表字段名称列表，action是AddColumn/RenameColumn/DropColumn/UpdateColumnComment/UpdateColumnType/UpdateColumnNullability时必传",
+            "items": {
+              "description_en": "The column name",
+              "description_zh": "表字段名称",
+              "example": "col",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "keepNullability": {
+            "description_en": "Specifies whether the column is nullable. This parameter is required when the `action` is `UpdateColumnType`",
+            "description_zh": "是否可空，action是UpdateColumnType时必传",
+            "example": "true",
+            "type": "boolean"
+          },
+          "key": {
+            "description_en": "The key for the configuration. This parameter is required when `action` is `SetOption` or `RemoveOption`",
+            "description_zh": "配置key, action是SetOption/RemoveOption必传",
+            "example": "'true'",
+            "type": "string"
+          },
+          "move": {
+            "$ref": "#/components/schemas/Move",
+            "description_en": "The column to move. This parameter is required when `action` is `AddColumn` or `UpdateColumnPosition`",
+            "description_zh": "移动列，action是AddColumn/UpdateColumnPosition时必传"
+          },
+          "newComment": {
+            "description_en": "The new description for the column. This parameter is required when `action` is `UpdateColumnComment`",
+            "description_zh": "新字段描述，action是UpdateColumnComment时必传",
+            "example": "col_comment_test",
+            "type": "string"
+          },
+          "newDataType": {
+            "$ref": "#/components/schemas/FullDataType",
+            "description_en": "The new column type. This parameter is required when `action` is `UpdateColumnType`",
+            "description_zh": "新字段类型，action是UpdateColumnType时必传"
+          },
+          "newName": {
+            "description_en": "The new name of the column. This parameter is required when `action` is `RenameColumn`",
+            "description_zh": "新字段名称，action是RenameColumn时必传",
+            "example": "new_col_test",
+            "type": "string"
+          },
+          "newNullability": {
+            "description_en": "Specifies whether the new column is nullable. This parameter is required when `action` is `UpdateColumnType`",
+            "description_zh": "新字段是否可空，action是UpdateColumnType时必传",
+            "example": "true",
+            "type": "boolean"
+          },
+          "value": {
+            "description_en": "The value of the configuration. This parameter is required when `action` is `SetOption`",
+            "description_zh": "配置值，action是SetOption必传",
+            "example": "'manifest.delete-file-drop-stats'",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Move": {
+        "description_en": "Moves a column",
+        "description_zh": "移动列",
+        "properties": {
+          "fieldName": {
+            "description_en": "The name of the column",
+            "description_zh": "字段名",
+            "example": "other_col_test",
+            "type": "string"
+          },
+          "referenceFieldName": {
+            "description_en": "The name of the reference column",
+            "description_zh": "参考字段名",
+            "example": "col_test",
+            "type": "string"
+          },
+          "type": {
+            "description_en": "The move type",
+            "description_zh": "类型",
+            "enum": [
+              "FIRST",
+              "AFTER",
+              "BEFORE",
+              "LAST"
+            ],
+            "example": "FIRST",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Updates a table",
   "description_zh": "根据名称更新数据湖中数据表信息",
@@ -11722,6 +11928,9 @@
   "pathPattern": "/dlf/v1/[catalogId]/databases/[database]/tables/[table]",
   "product_code": "DlfNext",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {}
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body",

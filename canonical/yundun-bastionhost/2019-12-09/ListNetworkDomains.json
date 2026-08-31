@@ -99,7 +99,7 @@
       "type": "string"
     },
     {
-      "help_en": "The ProjectId",
+      "help_en": "项目ID",
       "help_zh": "项目ID",
       "location": "query",
       "minimum": "1",
@@ -114,5 +114,102 @@
   ],
   "pathPattern": "",
   "product_code": "Yundun-bastionhost",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "NetworkDomains": {
+            "backendName": "data.NetworkDomains",
+            "description_en": "The list of network domains",
+            "description_zh": "查询到的网络域列表",
+            "itemName": "item",
+            "items": {
+              "properties": {
+                "Comment": {
+                  "backendName": "Comment",
+                  "description_en": "The comments on the network domain",
+                  "description_zh": "网络域的备注信息",
+                  "example": "comment",
+                  "type": "string"
+                },
+                "Default": {
+                  "backendName": "Default",
+                  "description_en": "Indicates whether the network domain is a built-in domain.\n\ntrue: yes\n\nfalse: no",
+                  "description_zh": "是否为内置网络域。\n\ntrue：是\nfalse：否",
+                  "example": "true",
+                  "type": "boolean"
+                },
+                "NetworkDomainId": {
+                  "backendName": "NetworkDomainId",
+                  "description_en": "The ID of the network domain",
+                  "description_zh": "网络域的ID",
+                  "example": "2",
+                  "type": "string"
+                },
+                "NetworkDomainName": {
+                  "backendName": "NetworkDomainName",
+                  "description_en": "The name of the network domain",
+                  "description_zh": "网络域名称",
+                  "example": "test",
+                  "type": "string"
+                },
+                "NetworkDomainType": {
+                  "backendName": "NetworkDomainType",
+                  "description_en": "The type of the network domain. Valid values:\n\nDirect: direct connection\n\nProxy: proxy connection",
+                  "description_zh": "网络域类型。取值：\n\nDirect：直连\nProxy：代理",
+                  "example": "Proxy",
+                  "type": "string"
+                },
+                "ProxiesState": {
+                  "backendName": "ProxiesState",
+                  "description_en": "The information about the proxy servers",
+                  "description_zh": "代理服务器信息",
+                  "itemName": "item",
+                  "items": {
+                    "properties": {
+                      "NodeType": {
+                        "backendName": "NodeType",
+                        "description_en": "The node type of the proxy server. Valid values:\n\nMaster: the master proxy server\n\nSlave: the slave proxy server",
+                        "description_zh": "代理服务器节点。取值：\n\nMaster：主代理服务器\nSlave：备代理服务器",
+                        "example": "Master",
+                        "type": "string"
+                      },
+                      "ProxyState": {
+                        "backendName": "ProxyState",
+                        "description_en": "The status of the proxy server. Valid values:\n\nAvailable\n\nUnavailable",
+                        "description_zh": "代理服务器状态。\n\nAvailable：可用\nUnavailable：不可用",
+                        "example": "Available",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "EC9BF0F4-8983-491A-BC8C-1B4DD94976DE",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.TotalCount",
+            "description_en": "The total number of network domains",
+            "description_zh": "查询到的网络域总数量",
+            "example": "5",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

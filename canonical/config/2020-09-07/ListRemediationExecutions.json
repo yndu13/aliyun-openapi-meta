@@ -76,5 +76,117 @@
   ],
   "pathPattern": "",
   "product_code": "Config",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RemediationExecutionData": {
+            "backendName": "data",
+            "description_en": "The queried remediation records",
+            "description_zh": "修正执行记录结果",
+            "properties": {
+              "MaxResults": {
+                "backendName": "maxResults",
+                "description_en": "The maximum number of entries to return for a single request",
+                "description_zh": "单次请求返回结果的最大条数",
+                "example": "10",
+                "exclusiveMaximum": false,
+                "exclusiveMinimum": false,
+                "format": "int64",
+                "maximum": "100",
+                "minimum": "10",
+                "type": "integer"
+              },
+              "NextToken": {
+                "backendName": "nextToken",
+                "description_en": "A pagination token. It can be used in the next request to retrieve a new page of results",
+                "description_zh": "当请求的返回结果被截断时，您可以使用NextToken再次发起请求，获取从当前截断位置之后的内容",
+                "example": "cMbjqNaYs0Ps7zSNiu37****",
+                "nullToEmpty": true,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "RemediationExecutions": {
+                "backendName": "data",
+                "description_en": "The queried remediation records",
+                "description_zh": "修正执行记录列表",
+                "itemName": "RemediationExecutions",
+                "items": {
+                  "properties": {
+                    "ExecutionCreateDate": {
+                      "backendName": "executionCreateDate",
+                      "description_en": "The time when the remediation record was created",
+                      "description_zh": "修正执行记录创建时间",
+                      "example": "2023-06-25T11:48:15Z",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ExecutionInvocationId": {
+                      "backendName": "executionInvocationId",
+                      "description_en": "The invocation ID of the remediation record",
+                      "description_zh": "修正执行记录调用ID",
+                      "example": "exec-befded3781994ccf****",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ExecutionResourceIds": {
+                      "backendName": "executionResourceIds",
+                      "description_en": "The IDs of the resources to which the remediation belongs. Separate multiple resource IDs with commas (,)",
+                      "description_zh": "修正的资源ID，多个资源ID用半角逗号（,）分隔",
+                      "example": "rm-0jlk629z240l8****",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ExecutionResourceType": {
+                      "backendName": "executionResourceType",
+                      "description_en": "The resource type",
+                      "description_zh": "修正资源类型",
+                      "example": "ACS::RDS::DBInstance",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ExecutionStatus": {
+                      "backendName": "executionStatus",
+                      "description_en": "The status of the remediation record. Valid values:\n\nSuccess\nFailed",
+                      "description_zh": "修正执行记录状态，取值：\n\nSuccess：成功。\n\nFailed：失败",
+                      "example": "Success",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ExecutionStatusMessage": {
+                      "backendName": "executionStatusMessage",
+                      "description_en": "The error message returned when the remediation fails",
+                      "description_zh": "修正执行失败的错误信息",
+                      "example": "Invocation time out.",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "traceId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "13E67493-3165-529A-A961-BE9E4B11BA11",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

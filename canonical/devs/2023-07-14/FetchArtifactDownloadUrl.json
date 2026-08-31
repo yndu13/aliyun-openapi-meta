@@ -2,6 +2,26 @@
   "camel_example": "",
   "cmd_full_name": "devs fetch-artifact-download-url",
   "cmd_name": "fetch-artifact-download-url",
+  "components": {
+    "schemas": {
+      "ArtifactCode": {
+        "properties": {
+          "checksum": {
+            "backendName": "checksum",
+            "title": "交付物内容CRC64 值",
+            "type": "string"
+          },
+          "url": {
+            "backendName": "url",
+            "title": "交付物内容临时下载URL",
+            "type": "string"
+          }
+        },
+        "title": "交付物内容下载信息",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Retrieves a temporary download URL for an artifact's ZIP package",
   "description_zh": "获取交付物的zip包临时下载地址url",
@@ -37,6 +57,18 @@
   "pathPattern": "/2023-07-14/artifacts/[name]/fetchCode",
   "product_code": "Devs",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "$ref": "#/components/schemas/ArtifactCode",
+        "description_en": "An object that contains the artifact's temporary download URL and checksum",
+        "description_zh": "交付物临时下载地址",
+        "parseType": "struct",
+        "title_en": "交付物临时下载地址",
+        "title_zh": "交付物临时下载地址"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "The artifact name",

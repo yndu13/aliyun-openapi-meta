@@ -65,5 +65,229 @@
   ],
   "pathPattern": "",
   "product_code": "wss",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Return type: `ListResult<CreditUsageInfoModel>`",
+        "description_zh": "返回类型：`ListResult<CreditUsageInfoModel>`",
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "68BD3312-53D8-123E-BB32-1A9F25E07A03",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "UsageInfoList": {
+            "backendName": "data",
+            "description_en": "The array of usage data",
+            "description_zh": "业务数据数组",
+            "itemName": "UsageInfo",
+            "items": {
+              "properties": {
+                "UsageInfo": {
+                  "backendName": "usageData",
+                  "description_en": "The usage data details",
+                  "description_zh": "用量数据详情",
+                  "properties": {
+                    "AvailableAmount": {
+                      "backendName": "availableAmount",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "ContactGroupNames": {
+                      "backendName": "contactGroupNames",
+                      "itemName": "ContactGroupName",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "CreditTrendList": {
+                      "backendName": "currentCreditConsumeList",
+                      "description_en": "The hourly consumption samples for the current credit package",
+                      "description_zh": "当前积分包按小时消耗采样（见下）",
+                      "itemName": "CreditTrend",
+                      "items": {
+                        "properties": {
+                          "TimePoint": {
+                            "backendName": "timePoint",
+                            "description_en": "The time point in the format `yyyy-MM-dd HH` (accurate to the hour)",
+                            "description_zh": "时间点，格式 `yyyy-MM-dd HH`（精确到小时）",
+                            "example": "2026-05-02 10",
+                            "type": "string"
+                          },
+                          "UsedCredit": {
+                            "backendName": "usedCredit",
+                            "description_en": "The number of credits consumed during the hour",
+                            "description_zh": "该小时消耗积分数",
+                            "example": "12",
+                            "format": "int64",
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "CurrentInstanceExpiredTime": {
+                      "backendName": "currentInstanceExpiredTime",
+                      "type": "string"
+                    },
+                    "CurrentInstanceId": {
+                      "backendName": "currentCreditPackageInstanceId",
+                      "description_en": "The instance ID of the current active credit package",
+                      "description_zh": "当前生效积分包实例 ID",
+                      "example": "cp-inst-001",
+                      "type": "string"
+                    },
+                    "CurrentRemainCredit": {
+                      "backendName": "currentRemainCredit",
+                      "description_en": "The remaining credits of the current active credit package",
+                      "description_zh": "当前生效积分包余量",
+                      "example": "当前周期积分余量",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "CurrentTotalCredit": {
+                      "backendName": "currentTotalCredit",
+                      "description_en": "The total credits of the current active credit package",
+                      "description_zh": "当前生效积分包总量",
+                      "example": "当前周期积分配额",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "CurrentUsedCredit": {
+                      "backendName": "currentUsedCredit",
+                      "description_en": "The used credits of the current active credit package",
+                      "description_zh": "当前生效积分包用量",
+                      "example": "当前周期积分消耗",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "DayUsedCredit": {
+                      "backendName": "dayUsedCredit",
+                      "description_en": "The credit usage in the last 1 day",
+                      "description_zh": "最近 1 天积分用量",
+                      "example": "最近一天消耗积分",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "LastTriggeredAt": {
+                      "backendName": "lastTriggeredAt",
+                      "type": "string"
+                    },
+                    "PeriodTotalCredit": {
+                      "backendName": "periodTotalCredit",
+                      "description_en": "The shared credit quota in the current active period",
+                      "description_zh": "当前生效周期的共享积分配额",
+                      "example": "300",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "PeriodUsedCredit": {
+                      "backendName": "periodUsedCredit",
+                      "description_en": "The shared credit usage in the current active period",
+                      "description_zh": "当前生效周期的共享积分用量",
+                      "example": "120",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "RemainCredit": {
+                      "backendName": "remainCredit",
+                      "description_en": "The cumulative remaining credits",
+                      "description_zh": "累计计费余量",
+                      "example": "积分余量",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "RemainCreditInfo": {
+                      "backendName": "remainCreditInfo",
+                      "properties": {
+                        "DeductingAmount": {
+                          "backendName": "deductingCount",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "PendingAmount": {
+                          "backendName": "pendingCount",
+                          "format": "int32",
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "TodayUsed": {
+                      "backendName": "todayUsedCredit",
+                      "description_en": "The credits used today",
+                      "description_zh": "今日已使用的额度",
+                      "title_en": "今日已使用的额度。",
+                      "title_zh": "今日已使用的额度。",
+                      "type": "string"
+                    },
+                    "TotalCredit": {
+                      "backendName": "totalCredit",
+                      "description_en": "The total cumulative credits",
+                      "description_zh": "累计积分总量",
+                      "example": "积分配额",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "TotalUsed": {
+                      "backendName": "totalUsedCredit",
+                      "description_en": "The cumulative credits used",
+                      "description_zh": "累计已使用的额度",
+                      "title_en": "累计已使用的额度。",
+                      "title_zh": "累计已使用的额度。",
+                      "type": "string"
+                    },
+                    "TotalUsedCredit": {
+                      "backendName": "usedCredit",
+                      "description_en": "The cumulative credit usage",
+                      "description_zh": "累计积分用量",
+                      "example": "共计消耗积分",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "WarnPercent": {
+                      "backendName": "warnPercent",
+                      "description_en": "The alert threshold percentage (0–100)",
+                      "description_zh": "告警阈值百分比（0–100）",
+                      "example": "80",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "WeekUsedCredit": {
+                      "backendName": "weekUsedCredit",
+                      "description_en": "The credit usage in the last 1 week",
+                      "description_zh": "最近 1 周积分用量",
+                      "example": "最近一周消耗积分",
+                      "format": "int64",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "UsageInfoKey": {
+                  "backendName": "usageKey",
+                  "description_en": "The usage primary key. When `UsageType=User`, this is the `aliUid`. When `UsageType=CreditPackage`, this is the credit package instance ID. When `UsageType=Agent`, this is the `AgentId`",
+                  "description_zh": "用量主键：`UsageType=User` 时为 `aliUid`；`CreditPackage` 时为积分包实例 ID；`Agent` 时为 `AgentId`",
+                  "example": "agent-abc",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

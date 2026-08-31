@@ -2,8 +2,69 @@
   "camel_example": "",
   "cmd_full_name": "fc-open list-reserved-capacities",
   "cmd_name": "list-reserved-capacities",
+  "components": {
+    "schemas": {
+      "OpenReservedCapacity": {
+        "description_en": "The information about the subscription instance",
+        "description_zh": "预付费实例信息",
+        "properties": {
+          "createdTime": {
+            "backendName": "createdTime",
+            "description_en": "The time when the instance was created",
+            "description_zh": "创建时间",
+            "example": "2020-04-03T05:57:28Z",
+            "title": "createdTime",
+            "type": "string"
+          },
+          "cu": {
+            "backendName": "cu",
+            "description_en": "The number of subscription CUs that are purchased",
+            "description_zh": "购买的预付费CU数量",
+            "example": "15",
+            "format": "int64",
+            "title": "cu",
+            "type": "integer"
+          },
+          "deadline": {
+            "backendName": "deadline",
+            "description_en": "The timeout period of function execution. The value is in the UNIX timestamp format. Unit: milliseconds",
+            "description_zh": "返回函数执行的超时时间，格式为Unix时间戳，单位：毫秒",
+            "example": "150000000",
+            "title": "deadline",
+            "type": "string"
+          },
+          "instanceId": {
+            "backendName": "instanceId",
+            "description_en": "The instance ID",
+            "description_zh": "预付费实例ID信息",
+            "example": "fc-xxxx",
+            "title": "instanceId",
+            "type": "string"
+          },
+          "isRefunded": {
+            "backendName": "isRefunded",
+            "description_en": "Indicates whether a refund has been made",
+            "description_zh": "是否已经退款",
+            "example": "true",
+            "title": "isRefunded",
+            "type": "string"
+          },
+          "lastModifiedTime": {
+            "backendName": "lastModifiedTime",
+            "description_en": "The time when the instance was last updated",
+            "description_zh": "上一次被更新的时间",
+            "example": "2020-04-03T05:57:28Z",
+            "title": "lastModifiedTime",
+            "type": "string"
+          }
+        },
+        "title": "A short description of struct",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
-  "description_en": "Queries purchased provisioned instances. This API operation has been deprecated. We recommend that you do not continue to use this API operation",
+  "description_en": "Retrieves the list of purchased subscription instances. This API is deprecated and is not recommended for use",
   "description_zh": "获取购买过的预付费实例的信息列表。该API已废弃，不建议继续使用",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +83,7 @@
   "parameters": [
     {
       "example": "8bj81uI8n****",
-      "help_en": "The token that determines the start point of the query",
+      "help_en": "The token for the next query",
       "help_zh": "下次查询token",
       "location": "query",
       "name": "next_token",
@@ -35,7 +96,7 @@
     },
     {
       "example": "20",
-      "help_en": "The maximum number of resources to return. Valid values: 1 to 100",
+      "help_en": "The maximum number of results to return. Valid values: 1 to 100",
       "help_zh": "返回结果数量限制。取值范围[1, 100]",
       "location": "query",
       "name": "limit",
@@ -88,5 +149,39 @@
   ],
   "pathPattern": "/2021-04-06/reserved-capacities",
   "product_code": "FC-Open",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response for retrieving subscription instances",
+        "description_zh": "获取预留费实例返回信息",
+        "properties": {
+          "nextToken": {
+            "description_en": "The token for the next query",
+            "description_zh": "下次查询token",
+            "example": "8bj81uI8n****",
+            "title_en": "nextToken",
+            "title_zh": "nextToken",
+            "type": "string"
+          },
+          "reservedCapacities": {
+            "description_en": "The list of subscription instances",
+            "description_zh": "预付费实例列表",
+            "itemName": "reservedCapacity",
+            "items": {
+              "$ref": "#/components/schemas/OpenReservedCapacity",
+              "description_en": "The subscription instance information",
+              "description_zh": "预付费实例信息"
+            },
+            "title_en": "reservedCapacities",
+            "title_zh": "reservedCapacities",
+            "type": "array"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

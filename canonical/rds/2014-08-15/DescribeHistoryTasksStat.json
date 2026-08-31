@@ -156,5 +156,55 @@
   ],
   "pathPattern": "",
   "product_code": "Rds",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Items": {
+            "backendName": "data.items",
+            "description_en": "The queried tasks",
+            "description_zh": "任务信息列表",
+            "itemName": "Items",
+            "items": {
+              "description_en": "The information about the task",
+              "description_zh": "任务信息列表",
+              "properties": {
+                "Status": {
+                  "backendName": "status",
+                  "description_en": "The status of the task. Valid values:\n\nScheduled\nRunning\nSucceed\nFailed\nCancelling\nCanceled\nWaiting",
+                  "description_zh": "任务状态，取值说明：\nScheduled：等待执行\nRunning：执行中\nSucceed：执行成功\nFailed：执行失败\nCancelling：正在终止\nCanceled：已终止\nWaiting：等待预设时间",
+                  "example": "Succeed,Waiting",
+                  "mappingResourcePropertyName": "$.Status",
+                  "type": "string"
+                },
+                "TotalCount": {
+                  "backendName": "totalCount",
+                  "description_en": "The total number of tasks",
+                  "description_zh": "任务总数量",
+                  "example": "20",
+                  "format": "int32",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1AD222E9-E606-4A42-BF6D-8A4442913CEF",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

@@ -166,5 +166,85 @@
   ],
   "pathPattern": "",
   "product_code": "iovcc",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "6F25F67C-F411-499F-BCE2-67CA563CB064",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Statistics": {
+            "backendName": "data",
+            "description_en": "The statistics result",
+            "description_zh": "统计数据返回结果",
+            "nullToEmpty": true,
+            "properties": {
+              "Categories": {
+                "backendName": "categories",
+                "itemName": "Categories",
+                "items": {
+                  "description_en": "The time dimension of the statistics",
+                  "description_zh": "统计的时间维度",
+                  "example": "[\"1568217600000\",\"1568649600000\"]",
+                  "type": "string"
+                },
+                "nullToEmpty": false,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "Series": {
+                "backendName": "series",
+                "description_en": "The categorized statistics results",
+                "description_zh": "统计的分类结果",
+                "itemName": "Series",
+                "items": {
+                  "properties": {
+                    "Data": {
+                      "backendName": "data",
+                      "itemName": "Data",
+                      "items": {
+                        "backendName": "data",
+                        "description_en": "The data result of the current category",
+                        "description_zh": "当前分类统计的数据结果",
+                        "example": "[3,3]",
+                        "nullToEmpty": false,
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "nullToEmpty": false,
+                      "type": "array",
+                      "visibility": "Public"
+                    },
+                    "Name": {
+                      "backendName": "name",
+                      "description_en": "The statistics category",
+                      "description_zh": "统计分类",
+                      "example": "increment",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "nullToEmpty": false,
+                "type": "array",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

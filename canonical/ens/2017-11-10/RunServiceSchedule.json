@@ -59,14 +59,6 @@
       "type": "string"
     },
     {
-      "enum": [
-        "Cancel",
-        "Confirm",
-        "Console",
-        "PreSchedule",
-        "Start",
-        "Stop"
-      ],
       "example": "Start",
       "help_en": "The scheduling operation. The value must be of the enumeration type. Valid values:\n\nContainer scenario:\n\nStart: selects and activates an idle cloud device.\n\nStop: stops and releases the cloud device.\n\nConsole: performs the scheduling operation when the device is in the scheduling state.\n\nBare metal instance or virtual machine scenario:\n\nPreSchedule: locks a virtual machine instance for scheduling.\n\nConfirm: confirms the scheduling operation.\n\nCancel: cancels the scheduling operation.\n\nConsole: performs the scheduling operation when the device is in the scheduling state",
       "help_zh": "调度服务操作。枚举类型，取值范围：\n\n容器化场景：\n\nStart：选择并激活一个可调度云设备，启动服务\nStop：结束并释放云设备\nConsole：Uuid处于调度中状态时，进行命令交互\n\n裸金属/虚机场景：\n  \nPreSchedule：预调度并锁定虚机实例\nConfirm：确认调度\nCancel：取消调度\nConsole：Uuid处于调度中状态时，进行命令交互",
@@ -147,5 +139,87 @@
   ],
   "pathPattern": "",
   "product_code": "Ens",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "CommandResults": {
+            "backendName": "data.CommandResults",
+            "itemName": "CommandResult",
+            "items": {
+              "properties": {
+                "Command": {
+                  "backendName": "Command",
+                  "type": "string"
+                },
+                "ContainerName": {
+                  "backendName": "ContainerName",
+                  "type": "string"
+                },
+                "ResultMsg": {
+                  "backendName": "ResultMsg",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "Index": {
+            "backendName": "data.Index",
+            "description_en": "The index number of the scheduled virtual device (pod)",
+            "description_zh": "调度的目标虚拟设备（容器Pod）索引号",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          },
+          "InstanceId": {
+            "backendName": "data.InstanceId",
+            "description_en": "The ID of the scheduled instance",
+            "description_zh": "调度的目标实例ID",
+            "example": "i-5qvji3mom4ec013dyygmtxlkj",
+            "type": "string"
+          },
+          "InstanceIp": {
+            "backendName": "data.InstanceIp",
+            "description_en": "The IP address of the scheduled instance",
+            "description_zh": "调度的目标实例IP",
+            "example": "172.16.246.11",
+            "type": "string"
+          },
+          "InstancePort": {
+            "backendName": "data.InstancePort",
+            "description_en": "The start port of the scheduled instance",
+            "description_zh": "调度的目标实例Port起始端口",
+            "example": "1024",
+            "format": "int32",
+            "type": "integer"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "type": "string"
+          },
+          "RequestRepeated": {
+            "backendName": "data.RequestRepeated",
+            "description_en": "Indicates whether the request is repeated. This parameter is not returned if ServcieAction is set to Console",
+            "description_zh": "除ServcieAction=Console外，其余ServcieAction是否是重复操作",
+            "example": "false",
+            "type": "string"
+          },
+          "TcpPorts": {
+            "backendName": "data.TcpPorts",
+            "description_en": "The TCP port range of the scheduled instance or container. The value is in the ${from}-$-{to} format. Example: 80-88",
+            "description_zh": "调度的目标虚机实例/容器的tcp服务端口范围，取值格式：${from}-${to}，如80-88",
+            "example": "\"80-88\"",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

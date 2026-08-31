@@ -2,7 +2,7 @@
   "cmd_full_name": "ddoscoo describe-defense-count-statistics",
   "cmd_name": "describe-defense-count-statistics",
   "deprecated": false,
-  "description_en": "Query the statistics information of mitigation sessions for the Anti-DDoS plan",
+  "description_en": "Queries the statistics information on the mitigation sessions of Anti-DDoS Pro and Anti-DDoS Premium mitigation plans",
   "description_zh": "查询DDoS高防的抗D包防护次数统计信息",
   "kebab_example": "",
   "method": "GET|POST",
@@ -21,7 +21,7 @@
   "parameters": [
     {
       "example": "1.1.1.1",
-      "help_en": "The source IP of the request. You do not need to specify this parameter because the system automatically retrieves it",
+      "help_en": "The source IP address of the request. The system automatically obtains this value",
       "help_zh": "请求源IP。无需填写，系统自动获取",
       "location": "query",
       "name": "source_ip",
@@ -34,7 +34,7 @@
     },
     {
       "example": "xx",
-      "help_en": "The ID of the resource group",
+      "help_en": "The resource group ID",
       "help_zh": "资源组ID",
       "location": "query",
       "name": "resource_group_id",
@@ -48,5 +48,53 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "DefenseCountStatistics": {
+            "backendName": "data",
+            "description_en": "The statistics information on mitigation sessions",
+            "description_zh": "防护次数统计信息",
+            "properties": {
+              "DefenseCountTotalUsageOfCurrentMonth": {
+                "backendName": "defenseCountTotalUsageOfCurrentMonth",
+                "description_en": "The number of mitigation sessions consumed by the mitigation plan in the current month",
+                "description_zh": "本月已消耗的抗D包防护次数",
+                "example": "0",
+                "format": "int32",
+                "type": "integer"
+              },
+              "FlowPackCountRemain": {
+                "backendName": "flowPackCountRemain",
+                "description_en": "The remaining available mitigation sessions of the mitigation plan",
+                "description_zh": "剩余可用的抗D包防护次数",
+                "example": "10",
+                "format": "int32",
+                "type": "integer"
+              },
+              "MaxUsableDefenseCountCurrentMonth": {
+                "backendName": "maxUsableDefenseCountCurrentMonth",
+                "description_en": "The maximum number of available mitigation sessions in the current month",
+                "description_zh": "本月最大可用防护次数",
+                "example": "0",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

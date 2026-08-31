@@ -65,5 +65,94 @@
   ],
   "pathPattern": "",
   "product_code": "Green",
-  "protocol": "HTTPS|SSE"
+  "protocol": "HTTPS|SSE",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The error code",
+            "description_zh": "错误码",
+            "example": "200",
+            "type": "string"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The returned data",
+            "description_zh": "返回数据",
+            "properties": {
+              "Created": {
+                "backendName": "created",
+                "description_en": "The timestamp when the session was created",
+                "description_zh": "会话创建时间戳",
+                "example": "1783328536",
+                "format": "int64",
+                "type": "integer"
+              },
+              "DataId": {
+                "backendName": "dataId",
+                "description_en": "The value of DataId passed in the API request. This field is not returned if DataId is not specified in the request",
+                "description_zh": "API请求时传入的dataId 的值，如请求时未传入，则没有该字段",
+                "example": "dataId-XXX",
+                "type": "string"
+              },
+              "FinishReason": {
+                "backendName": "finishReason",
+                "description_en": "For streaming output, this value is null during generation. When generation ends, the value is stop if the generation stopped due to a stop token",
+                "description_zh": "如果是流式输出，正在生成时为null，生成结束时如果由于停止token导致则为stop",
+                "example": "stop",
+                "type": "string"
+              },
+              "Output": {
+                "backendName": "output",
+                "description_en": "The output result",
+                "description_zh": "输出结果",
+                "example": "\"违规，原因XX\"",
+                "type": "string"
+              },
+              "Usage": {
+                "backendName": "usage",
+                "description_en": "The credits usage information",
+                "description_zh": "Credits使用情况",
+                "properties": {
+                  "Credits": {
+                    "backendName": "credits",
+                    "description_en": "The number of credits consumed",
+                    "description_zh": "消耗的credits",
+                    "example": "1.23",
+                    "format": "double",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "Message": {
+            "backendName": "msg",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "OK",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "AAAAAA-BBBB-CCCCC-DDDD-EEEEEEEE****",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

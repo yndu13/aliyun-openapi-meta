@@ -147,7 +147,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The list of file references. Each item is an object, and fileId is required (returned by uploadChatFile)",
+      "help_en": "The list of file references. Each item is an object in which fileId is required and is returned by uploadChatFile",
       "help_zh": "文件引用列表；每项为对象，fileId 必传（由 uploadChatFile 返回）",
       "location": "formData",
       "name": "files",
@@ -187,7 +187,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to enable direct connection mode. When set to true, the regular scenario routing is skipped and the direct conversation scenario is entered directly",
+      "help_en": "Specifies whether to enable direct connection mode. If set to true, the regular scenario routing is skipped and the direct conversation scenario is entered",
       "help_zh": "是否启用直连模式；true 时跳过常规场景路由，直接进入直连对话场景",
       "location": "formData",
       "name": "direct_chat",
@@ -339,5 +339,67 @@
   ],
   "pathPattern": "/openapi/sendChatMessage",
   "product_code": "WinNexo",
-  "protocol": "HTTPS|SSE"
+  "protocol": "HTTPS|SSE",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response",
+        "description_zh": "返回结果",
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "deprecated": true,
+            "description_en": "The error code",
+            "description_zh": "错误码",
+            "example": "200",
+            "type": "string"
+          },
+          "content": {
+            "backendName": "content",
+            "description_en": "The streaming response content",
+            "description_zh": "流式返回内容",
+            "example": "yes，i'm ready",
+            "title_en": "流式返回内容",
+            "title_zh": "流式返回内容",
+            "type": "string"
+          },
+          "data": {
+            "backendName": "data",
+            "description_en": "The SSE event stream payload. On success, the response is a text/event-stream raw frame that must be consumed frame by frame in streaming mode",
+            "description_zh": "SSE 事件流负载；成功时响应为 text/event-stream 原始帧，需按流式方式逐帧消费",
+            "example": "{}",
+            "type": "any"
+          },
+          "message": {
+            "backendName": "message",
+            "deprecated": true,
+            "description_en": "The status code description",
+            "description_zh": "状态码描述",
+            "example": "successful",
+            "type": "string"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "deprecated": true,
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "019FF406-1B10-0065-A97D-2D1920C2A03D",
+            "type": "string"
+          },
+          "type": {
+            "backendName": "type",
+            "description_en": "The event type",
+            "description_zh": "事件类型",
+            "example": "think",
+            "title_en": "事件类型",
+            "title_zh": "事件类型",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

@@ -84,5 +84,72 @@
   ],
   "pathPattern": "",
   "product_code": "dataworks-public",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回结果",
+        "properties": {
+          "Data": {
+            "backendName": "data",
+            "description_en": "The information returned for the ID of the asynchronous thread",
+            "description_zh": "异步线程ID的生成结果",
+            "nullToEmpty": true,
+            "properties": {
+              "Message": {
+                "backendName": "message",
+                "description_en": "The reason why the ID of the asynchronous thread fails to be generated. If the ID is successfully generated, no value is returned for this parameter",
+                "description_zh": "异步线程ID生成失败的原因描述。\n如果成功生成异步线程ID，则该参数的返回值为空",
+                "example": "XXX is invalid.",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "ProcessId": {
+                "backendName": "processId",
+                "description_en": "The ID of the asynchronous thread. You can call the [QueryDISyncTaskConfigProcessResult]（https://help.aliyun.com/document_detail/383465.html） operation to obtain the asynchronously generated parameters based on the ID. The parameters are used to create a synchronization task in Data Integration",
+                "description_zh": "异步线程ID。您需要通过该ID，调用[QueryDISyncTaskConfigProcessResult]（https://help.aliyun.com/document_detail/383465.html）接口获取异步生成创建数据集成同步任务需要的参数，使用该参数创建数据集成同步任务",
+                "example": "10",
+                "format": "int64",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "Status": {
+                "backendName": "status",
+                "description_en": "Indicates whether the ID of the asynchronous thread is generated. Valid values: Valid values:\n\nsuccess: indicates that the ID of the asynchronous thread is generated.\nfail: indicates that the ID of the asynchronous thread fails to be generated. You can view the reason for the failure and troubleshoot the issue based on the reason",
+                "description_zh": "生成异步线程ID的结果状态。取值如下：\nsuccess：表示成功生成异步线程ID。\nfail：表示异步线程ID生成失败。您可以查看失败原因，处理相关问题",
+                "example": "true",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID。用于定位日志，排查问题",
+            "example": "0bc1411515937635973****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful. Valid values:\n\ntrue\nfalse",
+            "description_zh": "请求是否成功。取值如下：\ntrue：成功。\nfalse：失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

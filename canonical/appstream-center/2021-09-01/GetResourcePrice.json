@@ -125,5 +125,298 @@
   ],
   "pathPattern": "",
   "product_code": "appstream-center",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回信息集合",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The error code returned when an error occurs",
+            "description_zh": "出错时的错误码",
+            "example": "InvalidParameter.ProductType",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message returned when an error occurs",
+            "description_zh": "出错时的错误消息",
+            "example": "The parameter ProductType is invalid.",
+            "type": "string"
+          },
+          "PriceList": {
+            "backendName": "data.priceList",
+            "description_en": "The list of price objects.\n\nThis parameter is returned when the request parameter AppInstanceType has a value",
+            "description_zh": "价格对象列表。\n\n请求参数AppInstanceType有值时返回此参数",
+            "itemName": "priceList",
+            "items": {
+              "description_en": "The price object",
+              "description_zh": "价格对象",
+              "properties": {
+                "Price": {
+                  "backendName": "price",
+                  "description_en": "The price details",
+                  "description_zh": "价格详情",
+                  "properties": {
+                    "Currency": {
+                      "backendName": "currency",
+                      "description_en": "The currency",
+                      "description_zh": "币种",
+                      "example": "CNY",
+                      "type": "string"
+                    },
+                    "DiscountPrice": {
+                      "backendName": "discountPrice",
+                      "description_en": "The discount amount. The actual price equals the original price minus the discount amount",
+                      "description_zh": "折减的价格，原价减去折减的价格即为实际价格",
+                      "example": "999.0",
+                      "type": "string"
+                    },
+                    "OriginalPrice": {
+                      "backendName": "originalPrice",
+                      "description_en": "The original price",
+                      "description_zh": "原价",
+                      "example": "6700",
+                      "type": "string"
+                    },
+                    "Promotions": {
+                      "backendName": "promotions",
+                      "description_en": "The coupon metadata",
+                      "description_zh": "优惠券元数据",
+                      "itemName": "Promotion",
+                      "items": {
+                        "description_en": "The coupon metadata",
+                        "description_zh": "优惠券元数据",
+                        "properties": {
+                          "OptionCode": {
+                            "backendName": "optionCode",
+                            "description_en": "The coupon code",
+                            "description_zh": "优惠券代号",
+                            "example": "coupon****",
+                            "type": "string"
+                          },
+                          "PromotionDesc": {
+                            "backendName": "promotionDesc",
+                            "description_en": "The coupon description",
+                            "description_zh": "优惠券描述",
+                            "example": "**活动期间的优惠",
+                            "type": "string"
+                          },
+                          "PromotionId": {
+                            "backendName": "promotionId",
+                            "description_en": "The coupon ID",
+                            "description_zh": "优惠券ID",
+                            "example": "1847709****",
+                            "type": "string"
+                          },
+                          "PromotionName": {
+                            "backendName": "promotionName",
+                            "description_en": "The coupon name",
+                            "description_zh": "优惠券名称",
+                            "example": "**优惠",
+                            "type": "string"
+                          },
+                          "Selected": {
+                            "backendName": "selected",
+                            "description_en": "Indicates whether the coupon is selected",
+                            "description_zh": "是否选用优惠券",
+                            "example": "true",
+                            "type": "boolean"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "TradePrice": {
+                      "backendName": "tradePrice",
+                      "description_en": "The actual price. The actual price equals the original price minus the discount amount",
+                      "description_zh": "实际价格，原价减去折减的价格即为实际价格",
+                      "example": "5278.0",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "PriceType": {
+                  "backendName": "priceType",
+                  "description_en": "The price type",
+                  "description_zh": "价格类型",
+                  "example": "Standby",
+                  "type": "string"
+                },
+                "Rules": {
+                  "backendName": "rules",
+                  "description_en": "The pricing rules",
+                  "description_zh": "价格计算规则",
+                  "itemName": "Rule",
+                  "items": {
+                    "description_en": "The pricing rules",
+                    "description_zh": "价格计算规则",
+                    "properties": {
+                      "Description": {
+                        "backendName": "description",
+                        "description_en": "The pricing rule description",
+                        "description_zh": "价格计算规则描述",
+                        "example": "用户优惠。",
+                        "type": "string"
+                      },
+                      "RuleId": {
+                        "backendName": "ruleId",
+                        "description_en": "The pricing rule ID",
+                        "description_zh": "价格计算规则ID",
+                        "example": "260904273633****",
+                        "format": "int64",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "PriceModel": {
+            "backendName": "data.priceModel",
+            "description_en": "The price object.\n\nThis parameter is returned when the request parameter NodeInstanceType has a value",
+            "description_zh": "价格对象。\n\n请求参数NodeInstanceType有值时返回此参数",
+            "properties": {
+              "Price": {
+                "backendName": "price",
+                "description_en": "The price details",
+                "description_zh": "价格详情",
+                "properties": {
+                  "Currency": {
+                    "backendName": "currency",
+                    "description_en": "The currency",
+                    "description_zh": "币种",
+                    "example": "CNY",
+                    "type": "string"
+                  },
+                  "DiscountPrice": {
+                    "backendName": "discountPrice",
+                    "description_en": "The discount amount. The actual price equals the original price minus the discount amount",
+                    "description_zh": "折减的价格，原价减去折减的价格即为实际价格",
+                    "example": "1.00",
+                    "type": "string"
+                  },
+                  "OriginalPrice": {
+                    "backendName": "originalPrice",
+                    "description_en": "The original price",
+                    "description_zh": "原价",
+                    "example": "11.00",
+                    "type": "string"
+                  },
+                  "Promotions": {
+                    "backendName": "promotions",
+                    "description_en": "The coupon metadata",
+                    "description_zh": "优惠券元数据",
+                    "itemName": "Promotion",
+                    "items": {
+                      "description_en": "The coupon metadata",
+                      "description_zh": "优惠券元数据",
+                      "properties": {
+                        "OptionCode": {
+                          "backendName": "optionCode",
+                          "description_en": "The coupon code",
+                          "description_zh": "优惠券代号",
+                          "example": "coupon****",
+                          "type": "string"
+                        },
+                        "PromotionDesc": {
+                          "backendName": "promotionDesc",
+                          "description_en": "The coupon description",
+                          "description_zh": "优惠券描述",
+                          "example": "**活动期间的优惠",
+                          "type": "string"
+                        },
+                        "PromotionId": {
+                          "backendName": "promotionId",
+                          "description_en": "The coupon ID",
+                          "description_zh": "优惠券ID",
+                          "example": "17440009****",
+                          "type": "string"
+                        },
+                        "PromotionName": {
+                          "backendName": "promotionName",
+                          "description_en": "The coupon name",
+                          "description_zh": "优惠券名称",
+                          "example": "**优惠",
+                          "type": "string"
+                        },
+                        "Selected": {
+                          "backendName": "selected",
+                          "description_en": "Indicates whether the coupon is selected",
+                          "description_zh": "是否选用优惠券",
+                          "example": "true",
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "TradePrice": {
+                    "backendName": "tradePrice",
+                    "description_en": "The actual price. The actual price equals the original price minus the discount amount",
+                    "description_zh": "实际价格，原价减去折减的价格即为实际价格",
+                    "example": "10.00",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "Rules": {
+                "backendName": "rules",
+                "description_en": "The pricing rules",
+                "description_zh": "价格计算规则",
+                "itemName": "Rule",
+                "items": {
+                  "description_en": "The pricing rules",
+                  "description_zh": "价格计算规则",
+                  "properties": {
+                    "Description": {
+                      "backendName": "description",
+                      "description_en": "The pricing rule description",
+                      "description_zh": "价格计算规则描述",
+                      "example": "用户优惠",
+                      "type": "string"
+                    },
+                    "RuleId": {
+                      "backendName": "ruleId",
+                      "description_en": "The pricing rule ID",
+                      "description_zh": "价格计算规则ID",
+                      "example": "102002100393****",
+                      "format": "int64",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1CBAFFAB-B697-4049-A9B1-67E1FC5F****",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

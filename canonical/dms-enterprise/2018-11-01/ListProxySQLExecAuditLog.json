@@ -154,5 +154,146 @@
   ],
   "pathPattern": "",
   "product_code": "dms-enterprise",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "ErrorCode": {
+            "backendName": "errorCode",
+            "description_en": "The error code returned",
+            "description_zh": "错误码",
+            "example": "InvalidStartTime",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "message",
+            "description_en": "The error message returned",
+            "description_zh": "错误信息",
+            "example": "Specified parameter StartTime is not valid.",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ProxySQLExecAuditLogList": {
+            "backendName": "data",
+            "itemName": "ProxySQLExecAuditLog",
+            "items": {
+              "properties": {
+                "AffectRows": {
+                  "backendName": "affectCount",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "ElapsedTime": {
+                  "backendName": "timeCost",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "ExecState": {
+                  "backendName": "execState",
+                  "type": "string",
+                  "valueMapping": {
+                    "cases": [
+                      {
+                        "targetValue": "NOEXE",
+                        "value": "0"
+                      },
+                      {
+                        "targetValue": "FAIL",
+                        "value": "-1"
+                      },
+                      {
+                        "targetValue": "SUCCESS",
+                        "value": "1"
+                      },
+                      {
+                        "targetValue": "CANCEL",
+                        "value": "-2"
+                      },
+                      {
+                        "targetValue": "RUNNING",
+                        "value": "2"
+                      }
+                    ]
+                  }
+                },
+                "InstanceId": {
+                  "backendName": "instanceId",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "InstanceName": {
+                  "backendName": "instanceName",
+                  "type": "string"
+                },
+                "OpTime": {
+                  "backendName": "auditTime",
+                  "type": "string"
+                },
+                "Remark": {
+                  "backendName": "comment",
+                  "type": "string"
+                },
+                "SQL": {
+                  "backendName": "sqlText",
+                  "type": "string"
+                },
+                "SQLType": {
+                  "backendName": "sqlType",
+                  "type": "string"
+                },
+                "SchemaName": {
+                  "backendName": "currentSchema",
+                  "type": "string"
+                },
+                "UserId": {
+                  "backendName": "userId",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "UserName": {
+                  "backendName": "userName",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "50ECB006-2C35-5FCA-91B9-01987A0B****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful. Valid values:\n\ntrue: The request was successful.\nfalse: The request failed",
+            "description_zh": "请求是否成功，返回值如下：\ntrue：请求成功\nfalse：请求失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "TotalCount": {
+            "backendName": "totalCount",
+            "description_en": "The number of entries returned",
+            "description_zh": "操作总记录数",
+            "example": "1",
+            "format": "int64",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -65,5 +65,137 @@
   ],
   "pathPattern": "/v4/openapi/app-groups/[appGroupIdentity]/apps/[appId]/query-processors/[name]",
   "product_code": "OpenSearch",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "0A6EB64B-B4C8-CF02-810F-E660812972FF",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "result": {
+            "backendName": "result",
+            "description_en": "The information about the query analysis rule",
+            "description_zh": "规则信息",
+            "properties": {
+              "active": {
+                "backendName": "active",
+                "description_en": "Indicates whether the rule is the default rule",
+                "description_zh": "是否默认规则",
+                "example": "true",
+                "mappingResourcePropertyName": "$.Active",
+                "type": "boolean",
+                "visibility": "Public"
+              },
+              "category": {
+                "type": "string"
+              },
+              "created": {
+                "backendName": "created",
+                "description_en": "The time when the rule was created",
+                "description_zh": "创建时间",
+                "example": "1587398402",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "domain": {
+                "backendName": "domain",
+                "description_en": "The industry type.\n\nGENERAL: General\n\nECOMMERCE: E-commerce\n\nIT_CONTENT: IT content",
+                "description_zh": "行业类型\nGENERAL 通用\nECOMMERCE 电商\nIT_CONTENT IT内容",
+                "example": "GENERAL",
+                "mappingResourcePropertyName": "$.Domain",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "indexes": {
+                "backendName": "indexes",
+                "itemName": "indexes",
+                "items": {
+                  "backendName": "indexes",
+                  "description_en": "The index of the application",
+                  "description_zh": "应用的索引范围",
+                  "example": "default",
+                  "mappingResourcePropertyName": "$.Indexes[*]",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "name": {
+                "backendName": "name",
+                "description_en": "The name of the rule",
+                "description_zh": "规则名称",
+                "example": "test",
+                "mappingResourcePropertyName": "$.QueryProcessorName",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "processors": {
+                "backendName": "processors",
+                "itemName": "processors",
+                "items": {
+                  "backendName": "processors",
+                  "description_en": "The features included in the processor",
+                  "description_zh": "包含功能",
+                  "example": "{}",
+                  "mappingResourcePropertyName": "$.Processors[*]",
+                  "type": "object",
+                  "visibility": "Public"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "updated": {
+                "backendName": "updated",
+                "description_en": "The time when the rule was last updated",
+                "description_zh": "更新时间",
+                "example": "1587398402",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "httpCode": {
+            "backendName": "httpCode",
+            "format": "int32",
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "message": {
+            "backendName": "message",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -120,5 +120,64 @@
   ],
   "pathPattern": "",
   "product_code": "live",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "LiveStreamSnapshotInfoList": {
+            "backendName": "liveStreamSnapshotInfoList",
+            "itemName": "LiveStreamSnapshotInfo",
+            "items": {
+              "properties": {
+                "CreateTime": {
+                  "backendName": "createTime",
+                  "type": "string"
+                },
+                "CreateTimestamp": {
+                  "backendName": "createTimestamp",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "IsOverlay": {
+                  "backendName": "isOverlay",
+                  "type": "boolean"
+                },
+                "OssBucket": {
+                  "backendName": "ossBucket",
+                  "type": "string"
+                },
+                "OssEndpoint": {
+                  "backendName": "ossEndpoint",
+                  "type": "string"
+                },
+                "OssObject": {
+                  "backendName": "ossObject",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "NextStartTime": {
+            "backendName": "nextStartTime",
+            "description_en": "The next start time. Format: <i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z (UTC).\n\nIf the content within this time range exceeds the value of Limit, this parameter is returned as the creation time of the next file. You can use this time as the StartTime value and call this operation again to retrieve the next set of content. If this parameter is not returned, the content does not exceed the Limit value",
+            "description_zh": "下一个起始时间。格式为：<i>yyyy-MM-dd</i>T<i>HH:mm:ss</i>Z（UTC时间）。\n\n当此时间范围内的内容超出了Limit的取值范围，则返回此参数，为下一个文件的创建时间。可以将此时间当做StartTime，重新调用此接口获取下一段内容，不传则表示未超出Limit取值范围",
+            "example": "2015-12-01T17:36:00Z",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "62136AE6-7793-45ED-B14A-60D19A9486D3",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

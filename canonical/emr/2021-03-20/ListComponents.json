@@ -2,6 +2,31 @@
   "camel_example": "",
   "cmd_full_name": "emr list-components",
   "cmd_name": "list-components",
+  "components": {
+    "schemas": {
+      "Attribute": {
+        "properties": {
+          "Key": {
+            "backendName": "key",
+            "description_en": "键",
+            "description_zh": "键",
+            "example": "currentYarnRangerPluginState",
+            "title": "键。",
+            "type": "string"
+          },
+          "Value": {
+            "backendName": "value",
+            "description_en": "值",
+            "description_zh": "值",
+            "example": "true",
+            "title": "值。",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_zh": "List components",
   "kebab_example": "",
@@ -125,5 +150,112 @@
   ],
   "pathPattern": "",
   "product_code": "Emr",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Components": {
+            "backendName": "data",
+            "itemName": "Component",
+            "items": {
+              "properties": {
+                "ApplicationName": {
+                  "backendName": "applicationName",
+                  "description_en": "应用名称",
+                  "description_zh": "应用名称",
+                  "example": "HDFS",
+                  "title_en": "应用名称。",
+                  "title_zh": "应用名称。",
+                  "type": "string"
+                },
+                "Attributes": {
+                  "backendName": "attributes",
+                  "description_en": "属性列表",
+                  "description_zh": "属性列表",
+                  "itemName": "Attribute",
+                  "items": {
+                    "$ref": "#/components/schemas/Attribute"
+                  },
+                  "title_en": "属性列表。",
+                  "title_zh": "属性列表。",
+                  "type": "array"
+                },
+                "ComponentName": {
+                  "backendName": "componentName",
+                  "description_en": "组件名称",
+                  "description_zh": "组件名称",
+                  "example": "DataNode",
+                  "title_en": "组件名称。",
+                  "title_zh": "组件名称。",
+                  "type": "string"
+                },
+                "Namespace": {
+                  "backendName": "namespace",
+                  "description_en": "命名空间",
+                  "description_zh": "命名空间",
+                  "title_en": "命名空间。",
+                  "title_zh": "命名空间。",
+                  "type": "string"
+                },
+                "Replica": {
+                  "backendName": "replica",
+                  "description_en": "安装该组件的机器总数",
+                  "description_zh": "安装该组件的机器总数",
+                  "example": "1",
+                  "format": "int32",
+                  "title_en": "安装该组件的ecs总数。",
+                  "title_zh": "安装该组件的ecs总数。",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "MaxResults": {
+            "backendName": "maxResults",
+            "description_en": "本次请求所返回的最大记录条数",
+            "description_zh": "本次请求所返回的最大记录条数",
+            "example": "20",
+            "format": "int32",
+            "title_en": "本次请求所返回的最大记录条数。",
+            "title_zh": "本次请求所返回的最大记录条数。",
+            "type": "integer"
+          },
+          "NextToken": {
+            "backendName": "nextToken",
+            "description_en": "返回读取到的数据位置，空代表数据已经读取完毕",
+            "description_zh": "返回读取到的数据位置，空代表数据已经读取完毕",
+            "example": "DD6B1B2A-5837-5237-ABE4-FF0C89568980",
+            "title_en": "返回读取到的数据位置。",
+            "title_zh": "返回读取到的数据位置。",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "请求ID",
+            "description_zh": "请求ID",
+            "example": "DD6B1B2A-5837-5237-ABE4-FF0C8944****",
+            "title_en": "请求ID。",
+            "title_zh": "请求ID。",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "totalCount",
+            "description_en": "本次请求条件下的数据总量",
+            "description_zh": "本次请求条件下的数据总量",
+            "example": "200",
+            "format": "int32",
+            "title_en": "本次请求条件下的数据总量。",
+            "title_zh": "本次请求条件下的数据总量。",
+            "type": "integer"
+          }
+        },
+        "title_en": "返回数据",
+        "title_zh": "返回数据",
+        "type": "object"
+      }
+    }
+  }
 }

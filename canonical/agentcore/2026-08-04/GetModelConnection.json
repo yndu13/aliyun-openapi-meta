@@ -49,5 +49,154 @@
   ],
   "pathPattern": "/workspaces/[workspaceId]/model-connections/[connectionId]",
   "product_code": "AgentCore",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_zh": "模型调试成功时返回的模型文本响应；调试失败时为空",
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "description_zh": "业务状态码。成功时为 SUCCESS",
+            "example": "SUCCESS",
+            "type": "string"
+          },
+          "data": {
+            "backendName": "data",
+            "description_zh": "模型连接详细信息",
+            "properties": {
+              "apiKeyCount": {
+                "backendName": "apiKeyCount",
+                "description_zh": "模型连接中已配置的 API Key 数量",
+                "example": "1",
+                "format": "int32",
+                "type": "integer"
+              },
+              "apiKeys": {
+                "backendName": "apiKeys",
+                "description_zh": "用于访问上游模型服务的 API Key 列表，至少包含一个非空值",
+                "items": {
+                  "description_zh": "该字段的业务值",
+                  "example": "sk-****",
+                  "type": "string"
+                },
+                "sensitive": true,
+                "type": "array"
+              },
+              "connectionId": {
+                "backendName": "connectionId",
+                "description_zh": "模型连接 ID",
+                "example": "mc-1",
+                "type": "string"
+              },
+              "createdAt": {
+                "backendName": "createdAt",
+                "description_zh": "资源创建时间，采用 RFC 3339 UTC 格式",
+                "example": "2026-08-09T00:00:00Z",
+                "type": "string"
+              },
+              "credentialConfigured": {
+                "backendName": "credentialConfigured",
+                "description_zh": "是否已为模型连接配置访问凭据",
+                "type": "boolean"
+              },
+              "description": {
+                "backendName": "description",
+                "description_zh": "模型连接描述，最长 255 个字符",
+                "example": "description",
+                "type": "string"
+              },
+              "endpoint": {
+                "backendName": "endpoint",
+                "description_zh": "上游模型服务的绝对 HTTP 或 HTTPS 地址，最长 1024 个字符",
+                "example": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+                "type": "string"
+              },
+              "name": {
+                "backendName": "name",
+                "description_zh": "模型连接名称，长度为 1～128 个非空白字符",
+                "example": "name",
+                "type": "string"
+              },
+              "protocol": {
+                "backendName": "protocol",
+                "description_zh": "模型调用协议。当前仅支持 OpenAI/v1，创建模型连接时未设置则使用该默认值",
+                "example": "OpenAI/v1",
+                "type": "string"
+              },
+              "providerType": {
+                "backendName": "providerType",
+                "description_zh": "模型供应商类型",
+                "example": "qwen",
+                "type": "string"
+              },
+              "regionId": {
+                "backendName": "regionId",
+                "description_zh": "资源所属的地域 ID",
+                "example": "cn-hangzhou",
+                "type": "string"
+              },
+              "status": {
+                "backendName": "status",
+                "description_zh": "资源状态",
+                "enum": [
+                  "Creating",
+                  "Active",
+                  "Updating",
+                  "Deleting",
+                  "Failed"
+                ],
+                "example": "Active",
+                "type": "string"
+              },
+              "statusReason": {
+                "backendName": "statusReason",
+                "description_zh": "模型连接发布失败，或删除失败但仍处于删除中时返回的失败摘要；其他状态为空",
+                "example": "GatewayOperationException",
+                "type": "string"
+              },
+              "updatedAt": {
+                "backendName": "updatedAt",
+                "description_zh": "资源最后更新时间，采用 RFC 3339 UTC 格式",
+                "example": "2026-08-09T00:00:00Z",
+                "type": "string"
+              },
+              "workspaceId": {
+                "backendName": "workspaceId",
+                "description_zh": "工作空间 ID",
+                "example": "ws-1",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "httpStatusCode": {
+            "backendName": "httpStatusCode",
+            "description_zh": "HTTP 状态码。成功时为 200",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "message": {
+            "backendName": "message",
+            "description_zh": "请求处理结果消息",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_zh": "请求 ID",
+            "example": "request-1",
+            "type": "string"
+          },
+          "success": {
+            "backendName": "success",
+            "description_zh": "请求是否成功",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -309,5 +309,83 @@
   ],
   "pathPattern": "",
   "product_code": "nis",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "RpcResponse<ArrayList<NtaNetworkMetricResponse>>",
+        "description_zh": "RpcResponse<ArrayList<NtaNetworkMetricResponse>>",
+        "properties": {
+          "MaxResults": {
+            "backendName": "data.maxResults",
+            "description_en": "The maximum number of entries returned per page or per query. In VPC scenarios, this represents the paging size. In TR and Internet Shared Bandwidth scenarios, this represents the SQL query limit",
+            "description_zh": "本次查询使用的单页或单次返回数量上限。VPC 场景表示分页大小；TR 和共享带宽场景表示 SQL 查询上限",
+            "example": "1440",
+            "format": "int32",
+            "type": "integer"
+          },
+          "MetricStatics": {
+            "backendName": "data.metricStatics",
+            "description_en": "The list of time series metric data points. Each element represents an aggregated time point and its corresponding metric value",
+            "description_zh": "时序指标数据点列表。每个元素表示一个聚合时间点及对应的指标值",
+            "itemName": "MetricStatics",
+            "items": {
+              "properties": {
+                "TimeStamp": {
+                  "backendName": "tsMs",
+                  "description_en": "The timestamp of the data point, in milliseconds",
+                  "description_zh": "数据的毫秒时间戳",
+                  "example": "1785219000000",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "Value": {
+                  "backendName": "val",
+                  "description_en": "The metric value at the current time point. The specific meaning and unit are determined by the MetricName in the request",
+                  "description_zh": "当前时间点的指标值。具体含义和单位由请求中的 MetricName 决定",
+                  "example": "102400.25",
+                  "format": "double",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "NextToken": {
+            "backendName": "data.nextToken",
+            "description_en": "The paging token for the next page. Paging is supported only in VPC scenarios. An empty value indicates that no more pages exist. This field is typically not returned in TR and Internet Shared Bandwidth scenarios",
+            "description_zh": "下一页查询凭证。仅 VPC 场景支持分页；返回为空表示没有下一页。TR 和共享带宽场景通常不返回该字段",
+            "example": "qqt9NJ3/AWeMXCntK4Kyhrt0QclAmfbtYB4899hEUzVNEo/F148UPCh2itDku111",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "019FA764-BA47-56F8-88E1-7AB503A62112",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.totalCount",
+            "description_en": "The number of data points in the query result",
+            "description_zh": "查询结果的数据点数量",
+            "example": "1440",
+            "format": "int32",
+            "type": "integer"
+          },
+          "Unit": {
+            "backendName": "data.unit",
+            "description_en": "Unit and MetricName mapping\n\nBandwidth  \nUnit: Bits/Second  \nDescription: bits per second.\n\nPacketsRate  \nUnit: Packets/Second  \nDescription: packets per second.\n\nRoundTripTime  \nUnit: MicroSecond  \nDescription: TCP round-trip time.\n\nBandwidthUtilization  \nUnit: Percent  \nDescription: bandwidth utilization.\n\nPacketsLostNoRouteRate  \nUnit: PacketsLostNoRouteRate  \nDescription: rate of packets dropped due to no route.\n\nPacketsLostBlackholeRate  \nUnit: PacketsLostBlackholeRate  \nDescription: rate of packets dropped due to blackhole routing.\n\nPacketsLostTTLExpiredRate  \nUnit: PacketsLostTTLExpiredRate  \nDescription: rate of packets dropped due to TTL expiration",
+            "description_zh": "Unit 与 MetricName 映射\n\nBandwidth  \nUnit：Bits/Second  \n指标说明：每秒比特数。\n\nPacketsRate  \nUnit：Packets/Second  \n指标说明：每秒包数。\n\nRoundTripTime  \nUnit：MicroSecond  \n指标说明：TCP 往返时延。\n\nBandwidthUtilization  \nUnit：Percent  \n指标说明：带宽利用率。\n\nPacketsLostNoRouteRate  \nUnit：PacketsLostNoRouteRate  \n指标说明：无路由丢包速率。\n\nPacketsLostBlackholeRate  \nUnit：PacketsLostBlackholeRate  \n指标说明：黑洞丢包速率。\n\nPacketsLostTTLExpiredRate  \nUnit：PacketsLostTTLExpiredRate  \n指标说明：TTL 超时丢包速率",
+            "example": "Bits/Second",
+            "type": "string"
+          }
+        },
+        "title_en": "RpcResponse<ArrayList<NtaNetworkMetricResponse>>",
+        "title_zh": "RpcResponse<ArrayList<NtaNetworkMetricResponse>>",
+        "type": "object"
+      }
+    }
+  }
 }

@@ -92,5 +92,28 @@
   ],
   "pathPattern": "",
   "product_code": "dcdn",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "PreloadTaskId": {
+            "backendName": "data",
+            "description_en": "The IDs of the prefetch tasks. Multiple task IDs are separated by commas (,). The returned task IDs are merged based on the following rules:\n\nPrefetch tasks (at URL granularity) submitted for the same domain name within the same second are merged into a single RushTaskId.\nIf more than 500 prefetch tasks (at URL granularity) are submitted for the same domain name within the same second, the tasks are merged into RushTaskIds in batches of 500",
+            "description_zh": "预热返回的任务ID，多个任务ID用半角逗号（,）分隔。预热返回的任务ID会按照以下两条规则对预热任务做合并：\n\n同一个域名、同一秒钟提交的预热任务（URL颗粒度）会被合并为同一个RushTaskId。\n同一个域名、同一秒钟提交的预热任务（URL颗粒度）如果超过500条，那么会按照每500条合并为一个RushTaskId的方式处理",
+            "example": "95248880",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "E5BD4B50-7A02-493A-AE0B-97B9024B4135",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

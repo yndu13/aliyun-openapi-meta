@@ -553,5 +553,237 @@
   ],
   "pathPattern": "/airticket/v1/trade/action-book",
   "product_code": "airticketOpen",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "PopBaseRes<BookRes, Object>",
+        "description_zh": "PopBaseRes<BookRes, Object>",
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求 RequestId",
+            "example": "51593418-8C73-5E47-8BA8-3F1D4A00CC0B",
+            "title_en": "请求 RequestId",
+            "title_zh": "请求 RequestId",
+            "type": "string"
+          },
+          "data": {
+            "backendName": "data",
+            "description_en": "The data returned for a successful request",
+            "description_zh": "正确处理返回数据",
+            "properties": {
+              "order_list": {
+                "backendName": "orderList",
+                "description_en": "The list of order information",
+                "description_zh": "订单信息列表",
+                "itemName": "order_list",
+                "items": {
+                  "description_en": "The list of order numbers",
+                  "description_zh": "订单号列表",
+                  "properties": {
+                    "order_attribute": {
+                      "backendName": "orderAttribute",
+                      "description_zh": "订单属性",
+                      "properties": {
+                        "aba_pay_lock_rate_info": {
+                          "backendName": "abaPayLockRateInfo",
+                          "description_zh": "ABA锁汇信息，只有支付方式是ABA支付且报价币种和扣款币种不同时，才会有值",
+                          "properties": {
+                            "pay_intended_amount": {
+                              "backendName": "payIntendedAmount",
+                              "description_zh": "支付意向金额即报价价格换算成扣款后的价格",
+                              "example": "14.2854",
+                              "title_en": "支付意向金额即报价价格换算成扣款后的价格",
+                              "title_zh": "支付意向金额即报价价格换算成扣款后的价格",
+                              "type": "string"
+                            },
+                            "pay_intended_currency_code": {
+                              "backendName": "payIntendedCurrencyCode",
+                              "description_zh": "代扣币种即支付币种即意向币种，用户实际支付的币种",
+                              "example": "CNY",
+                              "title_en": "代扣币种即支付币种即意向币种，用户实际支付的币种",
+                              "title_zh": "代扣币种即支付币种即意向币种，用户实际支付的币种",
+                              "type": "string"
+                            },
+                            "quotation_currency_code": {
+                              "backendName": "quotationCurrencyCode",
+                              "description_zh": "报价币种",
+                              "example": "USD",
+                              "title_en": "报价币种",
+                              "title_zh": "报价币种",
+                              "type": "string"
+                            },
+                            "to_pay_currency_rate": {
+                              "backendName": "toPayCurrencyRate",
+                              "description_zh": "锁汇汇率即报价价格换算成实际支付价格的汇率",
+                              "example": "7.1427",
+                              "title_en": "锁汇汇率即报价价格换算成实际支付价格的汇率",
+                              "title_zh": "锁汇汇率即报价价格换算成实际支付价格的汇率",
+                              "type": "string"
+                            }
+                          },
+                          "title_en": "ABA锁汇信息，只有支付方式是ABA支付且报价币种和扣款币种不同时，才会有值",
+                          "title_zh": "ABA锁汇信息，只有支付方式是ABA支付且报价币种和扣款币种不同时，才会有值",
+                          "type": "object"
+                        }
+                      },
+                      "title_en": "订单属性",
+                      "title_zh": "订单属性",
+                      "type": "object"
+                    },
+                    "order_num": {
+                      "backendName": "orderNum",
+                      "description_en": "The order number",
+                      "description_zh": "订单号",
+                      "example": "4966***617111",
+                      "format": "int64",
+                      "title_en": "订单号",
+                      "title_zh": "订单号",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "title_en": "订单信息列表",
+                "title_zh": "订单信息列表",
+                "type": "array"
+              }
+            },
+            "title_en": "正确处理返回数据",
+            "title_zh": "正确处理返回数据",
+            "type": "object"
+          },
+          "error_code": {
+            "backendName": "errorCode",
+            "description_en": "The business error code",
+            "description_zh": "业务错误码",
+            "example": "null",
+            "title_en": "业务错误码",
+            "title_zh": "业务错误码",
+            "type": "string"
+          },
+          "error_data": {
+            "backendName": "errorData",
+            "description_en": "The data returned with the error",
+            "description_zh": "错误处理携带数据",
+            "example": "null",
+            "properties": {
+              "order_list": {
+                "backendName": "orderList",
+                "description_en": "The list of order information. If you call the Book operation again with the same parameters after a successful booking, the order number is returned",
+                "description_zh": "订单信息列表，相同入参重复 Book 时，若已经 Book 成功，会携带订单号返回",
+                "itemName": "order_list",
+                "items": {
+                  "description_en": "The list of order numbers",
+                  "description_zh": "订单号列表",
+                  "properties": {
+                    "order_attribute": {
+                      "backendName": "orderAttribute",
+                      "description_zh": "订单属性",
+                      "properties": {
+                        "aba_pay_lock_rate_info": {
+                          "backendName": "abaPayLockRateInfo",
+                          "description_zh": "ABA锁汇信息，只有支付方式是ABA支付且报价币种和扣款币种不同时，才会有值",
+                          "properties": {
+                            "pay_intended_amount": {
+                              "backendName": "payIntendedAmount",
+                              "description_zh": "支付意向金额即报价价格换算成扣款后的价格",
+                              "example": "14.2854",
+                              "title_en": "支付意向金额即报价价格换算成扣款后的价格",
+                              "title_zh": "支付意向金额即报价价格换算成扣款后的价格",
+                              "type": "string"
+                            },
+                            "pay_intended_currency_code": {
+                              "backendName": "payIntendedCurrencyCode",
+                              "description_zh": "代扣币种即支付币种即意向币种，用户实际支付的币种",
+                              "example": "CNY",
+                              "title_en": "代扣币种即支付币种即意向币种，用户实际支付的币种",
+                              "title_zh": "代扣币种即支付币种即意向币种，用户实际支付的币种",
+                              "type": "string"
+                            },
+                            "quotation_currency_code": {
+                              "backendName": "quotationCurrencyCode",
+                              "description_zh": "报价币种",
+                              "example": "USD",
+                              "title_en": "报价币种",
+                              "title_zh": "报价币种",
+                              "type": "string"
+                            },
+                            "to_pay_currency_rate": {
+                              "backendName": "toPayCurrencyRate",
+                              "description_zh": "锁汇汇率即报价价格换算成实际支付价格的汇率",
+                              "example": "7.1427",
+                              "title_en": "锁汇汇率即报价价格换算成实际支付价格的汇率",
+                              "title_zh": "锁汇汇率即报价价格换算成实际支付价格的汇率",
+                              "type": "string"
+                            }
+                          },
+                          "title_en": "ABA锁汇信息，只有支付方式是ABA支付且报价币种和扣款币种不同时，才会有值",
+                          "title_zh": "ABA锁汇信息，只有支付方式是ABA支付且报价币种和扣款币种不同时，才会有值",
+                          "type": "object"
+                        }
+                      },
+                      "title_en": "订单属性",
+                      "title_zh": "订单属性",
+                      "type": "object"
+                    },
+                    "order_num": {
+                      "backendName": "orderNum",
+                      "description_en": "The order number",
+                      "description_zh": "订单号",
+                      "example": "4966***617111",
+                      "format": "int64",
+                      "title_en": "订单号",
+                      "title_zh": "订单号",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "title_en": "订单信息列表",
+                "title_zh": "订单信息列表",
+                "type": "array"
+              }
+            },
+            "title_en": "错误处理携带数据",
+            "title_zh": "错误处理携带数据",
+            "type": "object"
+          },
+          "error_msg": {
+            "backendName": "errorMsg",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "null",
+            "title_en": "错误信息",
+            "title_zh": "错误信息",
+            "type": "string"
+          },
+          "status": {
+            "backendName": "status",
+            "description_en": "The HTTP status code. The value is always 200 for successful HTTP requests",
+            "description_zh": "http 请求成功，status 值均为 200",
+            "example": "200",
+            "format": "int32",
+            "title_en": "http 请求成功，status 值均为 200",
+            "title_zh": "http 请求成功，status 值均为 200",
+            "type": "integer"
+          },
+          "success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request is successful",
+            "description_zh": "是否正确",
+            "example": "true",
+            "title_en": "是否正确",
+            "title_zh": "是否正确",
+            "type": "boolean"
+          }
+        },
+        "title_en": "PopBaseRes<BookRes, BookRes>",
+        "title_zh": "PopBaseRes<BookRes, BookRes>",
+        "type": "object"
+      }
+    }
+  }
 }

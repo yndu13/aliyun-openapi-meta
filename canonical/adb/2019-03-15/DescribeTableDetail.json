@@ -78,5 +78,69 @@
   ],
   "pathPattern": "",
   "product_code": "adb",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "AvgSize": {
+            "backendName": "data.avgRowCount",
+            "description_en": "The average number of rows in partitions",
+            "description_zh": "平均分区行数",
+            "example": "0",
+            "format": "int64",
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "Items": {
+            "backendName": "data.mapResult",
+            "description_en": "The queried shard",
+            "description_zh": "分区列表",
+            "nullToEmpty": true,
+            "properties": {
+              "Shard": {
+                "backendName": "items",
+                "description_en": "The queried shards",
+                "description_zh": "分区列表",
+                "itemName": "Shard",
+                "items": {
+                  "properties": {
+                    "Id": {
+                      "backendName": "shardId",
+                      "description_en": "The partition ID. Only the numeric part of the partition name is returned",
+                      "description_zh": "分区号（只返回分区名数字部分）",
+                      "example": "1",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "Size": {
+                      "backendName": "rowCount",
+                      "description_en": "The number of rows in the partition",
+                      "description_zh": "表大小，行数",
+                      "example": "0",
+                      "format": "int64",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "data.requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1AD222E9-E606-4A42-BF6D-8A4442913CEF",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

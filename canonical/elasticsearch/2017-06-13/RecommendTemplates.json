@@ -51,5 +51,86 @@
   ],
   "pathPattern": "/openapi/instances/[InstanceId]/recommended-templates",
   "product_code": "elasticsearch",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "",
+        "description_zh": "",
+        "properties": {
+          "RequestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "66B060CF-7381-49C7-9B89-7757927FDA16",
+            "type": "string"
+          },
+          "Result": {
+            "description_en": "The returned results",
+            "description_zh": "返回结果",
+            "items": {
+              "description_en": "",
+              "description_zh": "",
+              "properties": {
+                "content": {
+                  "description_en": "The template configuration content",
+                  "description_zh": "模板配置内容",
+                  "example": "{\\n\\t\\\"persistent\\\": {\\n\\t\\t\\\"search\\\": {\\n\\t\\t\\t\\\"max_buckets\\\": \\\"10000\\\"\\n\\t\\t}\\n\\t}\\n}",
+                  "type": "string"
+                },
+                "templateName": {
+                  "description_en": "The template name. Valid values:\nstaticSettings: cluster static configuration\ndynamicSettings: cluster dynamic configuration\nindexTemplate: index template configuration\nilmPolicy: index lifecycle configuration\n\nAdvanced Edition instances of version 6.7.0 or later support enabling the index lifecycle template",
+                  "description_zh": "模板名称。支持：\nstaticSettings：集群静态配置\ndynamicSettings：集群动态配置\nindexTemplate：索引模板配置\nilmPolicy：索引生命周期配置\n\n6.7.0及以上版本的日志增强版实例，支持启用索引生命周期模板",
+                  "example": "dynamicSettings",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "4XX": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "type": "string"
+          },
+          "Message": {
+            "type": "string"
+          },
+          "RequestId": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "description_en": "",
+        "description_zh": "",
+        "properties": {
+          "Code": {
+            "description_en": "",
+            "description_zh": "",
+            "type": "string"
+          },
+          "Message": {
+            "description_en": "",
+            "description_zh": "",
+            "type": "string"
+          },
+          "RequestId": {
+            "description_en": "",
+            "description_zh": "",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

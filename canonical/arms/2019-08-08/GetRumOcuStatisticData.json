@@ -171,5 +171,95 @@
   ],
   "pathPattern": "",
   "product_code": "ARMS",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The HTTP status code. The status code 200 indicates that the request was successful",
+            "description_zh": "状态码。200表示成功",
+            "example": "200",
+            "format": "int64",
+            "type": "integer"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The returned struct",
+            "description_zh": "返回结构体",
+            "properties": {
+              "Complete": {
+                "backendName": "completed",
+                "description_en": "Indicates whether the next page exists",
+                "description_zh": "是否还有下一页",
+                "example": "true",
+                "type": "boolean"
+              },
+              "Items": {
+                "backendName": "items",
+                "description_en": "The queried data",
+                "description_zh": "查询到的数据列表",
+                "itemName": "Item",
+                "items": {
+                  "additionalProperties": {
+                    "description_en": "The queried data",
+                    "description_zh": "数据项",
+                    "example": "{\n  \"totalChargedSessionCount\": \"11008\",\n  \"__time__\": 1717948800,\n  \"appName\": \"主控制台\",\n  \"totalOcu\": \"55\",\n  \"startTime\": \"1719244800\",\n  \"pid\": \"b5xxxxxuqs@1f59cxxxxxxxxxb\",\n  \"totalCount\": \"11\"\n}",
+                    "type": "any"
+                  },
+                  "description_en": "The details of the queried data, in the JSON Map format",
+                  "description_zh": "查询到的数据详情，JSON Map格式",
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "Page": {
+                "backendName": "page",
+                "description_en": "The page number",
+                "description_zh": "当前页",
+                "example": "1",
+                "format": "int32",
+                "type": "integer"
+              },
+              "PageSize": {
+                "backendName": "pageSize",
+                "description_en": "The number of entries per page",
+                "description_zh": "分页大小",
+                "example": "100",
+                "format": "int32",
+                "type": "integer"
+              },
+              "Total": {
+                "backendName": "total",
+                "description_en": "The total number of entries returned",
+                "description_zh": "数据总条数",
+                "example": "100",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message returned if the request failed",
+            "description_zh": "调用失败时返回的信息",
+            "example": "内部错误，请联系客户人员。",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "Id of the request",
+            "example": "626037F5-FDEB-45B0-804C-B3C92797****",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -3,7 +3,7 @@
   "cmd_full_name": "eci commit-container",
   "cmd_name": "commit-container",
   "deprecated": false,
-  "description_en": "Call the CommitContainer operation to create an asynchronous task that saves a specified container in an Elastic Container Instance (ECI) instance as an image and pushes the image to an image repository in Alibaba Cloud Container Registry (ACR)",
+  "description_en": "Calls the CommitContainer operation to create an asynchronous task that saves a specified container in an Elastic Container Instance (ECI) instance as an image and pushes the image to an image repository in Alibaba Cloud Container Registry (ACR)",
   "description_zh": "调用CommitContainer接口创建异步任务，将ECI实例中的指定容器保存为镜像，并推送至阿里云ACR的镜像仓库中",
   "kebab_example": "",
   "method": "GET|POST",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cn-hangzhou",
-      "help_en": "The ID of the region",
+      "help_en": "The region ID",
       "help_zh": "地域ID",
       "location": "query",
       "name": "region_id",
@@ -48,7 +48,7 @@
     },
     {
       "example": "container-1",
-      "help_en": "The name of the container that you want to use to create the image",
+      "help_en": "The name of the container from which you want to create an image",
       "help_zh": "要制作镜像的容器的名称",
       "location": "query",
       "name": "container_name",
@@ -63,7 +63,7 @@
       "fields": [
         {
           "example": "alice",
-          "help_en": "Specifies the author of the image",
+          "help_en": "The authorization of the image",
           "help_zh": "镜像的authorization",
           "name": "author",
           "options": [
@@ -87,7 +87,7 @@
         },
         {
           "example": "registry-vpc.cn-beijing.aliyuncs.com/test/test-****",
-          "help_en": "The address of the ACR image repository.<br>\nFor security reasons, you can push images only to ACR.<br>",
+          "help_en": "The address of the ACR image repository. For security purposes, only pushing images to ACR is supported",
           "help_zh": "ACR镜像仓库地址。    \n出于安全考虑，目前仅支持将镜像推送（Push）至ACR",
           "name": "repository",
           "options": [
@@ -99,7 +99,7 @@
         },
         {
           "example": "0.0.6",
-          "help_en": "The tag of the image. If you leave this parameter empty, the tag is not modified",
+          "help_en": "The image tag. Default value: empty, which indicates that the tag is not modified",
           "help_zh": "镜像标签。默认为空，代表不修改标签",
           "name": "tag",
           "options": [
@@ -110,7 +110,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The information about the container image",
+      "help_en": "The container image information",
       "help_zh": "容器镜像信息",
       "location": "query",
       "name": "image",
@@ -126,7 +126,7 @@
       "fields": [
         {
           "example": "acs:ram::1609982529******:role/role-test",
-          "help_en": "In a cross-account authorization scenario, this is the Alibaba Cloud Resource Name (ARN) of the RAM role of the user who is granted permissions",
+          "help_en": "The ARN of the RAM role of the consumer (authorized party) in a cross-account authorization scenario",
           "help_zh": "跨账号授权场景下，使用者（被授权者）的RAM角色ARN",
           "name": "arn_service",
           "options": [
@@ -138,7 +138,7 @@
         },
         {
           "example": "acs:ram::1298452580******:role/role-test",
-          "help_en": "In a cross-account authorization scenario, this is the ARN of the RAM role of the user who grants the permissions",
+          "help_en": "The ARN of the RAM role of the authorizer in a cross-account authorization scenario",
           "help_zh": "跨账号授权场景下，授权者的RAM角色ARN",
           "name": "arn_user",
           "options": [
@@ -150,7 +150,7 @@
         },
         {
           "example": "cri-nwj395hgf6f3****",
-          "help_en": "The ID of the ACR Enterprise Edition instance",
+          "help_en": "The instance ID of the ACR Enterprise instance",
           "help_zh": "ACR企业版实例ID",
           "name": "instance_id",
           "options": [
@@ -162,7 +162,7 @@
         },
         {
           "example": "cn-hangzhou",
-          "help_en": "The region where the ACR Enterprise Edition instance is located",
+          "help_en": "The region where the ACR Enterprise instance resides",
           "help_zh": "ACR企业版实例所属的地域",
           "name": "region_id",
           "options": [
@@ -173,7 +173,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The access credential configurations for the ACR Enterprise Edition instance.\n\nYou do not need to configure this parameter if you use an ACR Personal Edition instance. You must configure this parameter if you use an ACR Enterprise Edition instance",
+      "help_en": "The access credential configuration for a Container Registry Enterprise Edition instance.    \n\nYou do not need to configure this parameter when you use a Container Registry Personal Edition instance. You must configure this parameter when you use a Container Registry Enterprise Edition instance",
       "help_zh": "ACR企业版实例的访问凭证配置信息。    \n\n使用ACR个人版实例时无需配置该参数；使用ACR企业版实例时必须配置该参数",
       "location": "query",
       "name": "acr_registry_info",
@@ -189,7 +189,7 @@
       "fields": [
         {
           "example": "acs:ram:xxx",
-          "help_en": "The ARN of the authorization role",
+          "help_en": "The ARN of the authorized role",
           "help_zh": "授权角色的ARN",
           "name": "role_arn",
           "options": [
@@ -201,7 +201,7 @@
         },
         {
           "example": "service",
-          "help_en": "The authorization type. Set the value to service to use a RAM role for authorization",
+          "help_en": "The authorization type. Set this parameter to service, which indicates that a RAM role is used for authorization",
           "help_zh": "授权类型。可配置为service，表示使用RAM角色进行授权",
           "name": "role_type",
           "options": [
@@ -227,5 +227,28 @@
   ],
   "pathPattern": "",
   "product_code": "Eci",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID, which uniquely identifies the request",
+            "description_zh": "请求ID，唯一标识",
+            "example": "CB8D2B22-D636-4182-****-1FC9DBDAD66F",
+            "type": "string"
+          },
+          "TaskId": {
+            "backendName": "data.taskId",
+            "description_en": "The task ID",
+            "description_zh": "任务ID",
+            "example": "t-bp18cwvrb3v9tjk0tekz",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

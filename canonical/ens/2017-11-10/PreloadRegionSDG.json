@@ -96,5 +96,95 @@
   ],
   "pathPattern": "",
   "product_code": "Ens",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Data": {
+            "backendName": "data",
+            "description_en": "The returned data object",
+            "description_zh": "返回Data对象",
+            "properties": {
+              "Message": {
+                "backendName": "Message",
+                "description_en": "The message returned",
+                "description_zh": "响应信息",
+                "example": "success",
+                "type": "string"
+              },
+              "Result": {
+                "backendName": "Result",
+                "description_en": "The execution result of the synchronization request",
+                "description_zh": "同步请求执行结果",
+                "properties": {
+                  "FailedCount": {
+                    "backendName": "FailedCount",
+                    "description_en": "The number of failed tasks",
+                    "description_zh": "失败数量",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "FailedItems": {
+                    "backendName": "FailedItems",
+                    "description_en": "Details about the failed tasks",
+                    "description_zh": "失败详情列表",
+                    "itemName": "FailedItems",
+                    "items": {
+                      "description_en": "Details about the failed task",
+                      "description_zh": "失败详情",
+                      "properties": {
+                        "DestinationRegionId": {
+                          "backendName": "Item.ToRegionId",
+                          "description_en": "The ID of the destination node",
+                          "description_zh": "目标节点ID",
+                          "example": "cn-hangzhou-xxx",
+                          "type": "string"
+                        },
+                        "ErrorMessage": {
+                          "backendName": "ErrMessage",
+                          "description_en": "The error message that is returned",
+                          "description_zh": "错误信息",
+                          "example": "region not found",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "SuccessCount": {
+                    "backendName": "SuccessCount",
+                    "description_en": "The number of successful tasks",
+                    "description_zh": "成功数量",
+                    "example": "1",
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "Success": {
+                "backendName": "Success",
+                "description_en": "Indicates whether all tasks are successful. Valid values:\n\ntrue: All tasks are successful.\n\nfalse: Failed tasks exist",
+                "description_zh": "请求是否全部成功。取值说明如下：\n\ntrue：全部成功。\nfalse：存在失败任务",
+                "example": "true",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "C0003E8B-B930-4F59-ADC0-0E209A9012A8",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

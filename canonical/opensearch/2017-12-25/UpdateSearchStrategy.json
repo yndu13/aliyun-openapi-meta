@@ -2,6 +2,94 @@
   "camel_example": "",
   "cmd_full_name": "opensearch update-search-strategy",
   "cmd_name": "update-search-strategy",
+  "components": {
+    "schemas": {
+      "SearchStrategy": {
+        "description_en": "查询策略",
+        "description_zh": "查询策略",
+        "properties": {
+          "description": {
+            "backendName": "description",
+            "description_zh": "策略描述",
+            "title": "策略描述",
+            "type": "string"
+          },
+          "isDefault": {
+            "backendName": "isDefault",
+            "description_zh": "是否设置默认",
+            "title": "是否设置默认",
+            "type": "boolean"
+          },
+          "mergeConfig": {
+            "backendName": "mergeConfig",
+            "description_zh": "归并排序配置",
+            "properties": {
+              "docCount": {
+                "backendName": "docCount",
+                "description_zh": "归并排序文档数",
+                "format": "int32",
+                "title": "归并排序文档数",
+                "type": "integer"
+              },
+              "rankName": {
+                "backendName": "rankName",
+                "description_zh": "归并排序名称",
+                "title": "归并排序名称",
+                "type": "string"
+              }
+            },
+            "title": "归并排序配置",
+            "type": "object"
+          },
+          "name": {
+            "backendName": "name",
+            "description_zh": "策略名称",
+            "title": "策略名称",
+            "type": "string"
+          },
+          "searchConfigs": {
+            "backendName": "searchConfigs",
+            "description_zh": "查询策略",
+            "items": {
+              "properties": {
+                "firstRankName": {
+                  "backendName": "firstRankName",
+                  "description_zh": "基础排序名称",
+                  "title": "基础排序名称",
+                  "type": "string"
+                },
+                "mergeProportion": {
+                  "backendName": "mergeProportion",
+                  "description_zh": "参与综合排序的比例",
+                  "format": "int32",
+                  "title": "参与综合排序的比例",
+                  "type": "integer"
+                },
+                "queryType": {
+                  "backendName": "queryType",
+                  "description_zh": "查询类型",
+                  "example": "keyword: 关键字查询 vector: 向量查询",
+                  "title": "查询类型",
+                  "type": "string"
+                },
+                "secondRankName": {
+                  "backendName": "secondRankName",
+                  "description_zh": "业务排序名称",
+                  "title": "业务排序名称",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title": "查询策略",
+            "type": "array"
+          }
+        },
+        "title": "查询策略",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "This operation supports dry runs",
   "description_zh": "支持dryrun",
@@ -209,6 +297,65 @@
   "pathPattern": "/v4/openapi/app-groups/[appGroupIdentity]/apps/[appId]/search-strategies/[strategyName]",
   "product_code": "OpenSearch",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response body",
+        "description_zh": "响应体",
+        "properties": {
+          "httpCode": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求id",
+            "example": "ABCDEFGH",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "httpCode": {
+            "backendName": "httpCode",
+            "format": "int32",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "message": {
+            "backendName": "message",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The search policy. For more information, see https://help.aliyun.com/document_detail/2400242.html",

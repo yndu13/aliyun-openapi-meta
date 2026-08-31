@@ -556,5 +556,544 @@
   ],
   "pathPattern": "",
   "product_code": "Vpc",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回结果",
+        "properties": {
+          "CreateTime": {
+            "backendName": "data.createTime",
+            "description_en": "The timestamp when the IPsec-VPN connection was created. Unit: milliseconds",
+            "description_zh": "IPsec连接的创建时间戳。单位：毫秒。\n\n时间戳的格式采用Unix时间戳，表示从格林威治时间1970年01月01日00时00分00秒至创建IPsec连接时的总时长",
+            "example": "1492753817000",
+            "format": "int64",
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "CustomerGatewayId": {
+            "backendName": "data.customerGatewayId",
+            "description_en": "The ID of the customer gateway associated with the IPsec-VPN connection",
+            "description_zh": "IPsec连接关联的用户网关ID。\n\n仅单隧道模式的IPsec-VPN连接会返回该参数",
+            "example": "cgw-p0w2jemrcj5u61un8****",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Description": {
+            "backendName": "data.description",
+            "description_en": "The description of the IPsec-VPN connection",
+            "description_zh": "IPsec连接的描述信息",
+            "example": "description",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "EffectImmediately": {
+            "backendName": "data.effectImmediately",
+            "description_en": "Indicates whether the IPsec-VPN connection configuration takes effect immediately.\n\ntrue: The system immediately initiates IPsec protocol negotiation after the configuration is complete.\n\nfalse: The system initiates IPsec protocol negotiation only when traffic enters",
+            "description_zh": "IPsec连接的配置是否立即生效。\n\ntrue：是，配置完成后系统立即进行IPsec协议协商。\n   \nfalse：否，当有流量进入时系统才进行IPsec协议协商",
+            "example": "false",
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "EnableDpd": {
+            "backendName": "data.enableDpd",
+            "description_en": "Indicates whether Dead Peer Detection (DPD) is enabled for the IPsec-VPN connection.\n\nfalse: Not enabled.\n\ntrue: Enabled.\n\nThis parameter is returned only for IPsec-VPN connections in single-tunnel mode",
+            "description_zh": "IPsec连接是否已开启DPD（对等体存活检测）功能。\n\nfalse：未开启。\n\ntrue：已开启。\n\n仅单隧道模式的IPsec-VPN连接会返回该参数",
+            "example": "true",
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "EnableNatTraversal": {
+            "backendName": "data.enableNatTraversal",
+            "description_en": "Indicates whether NAT traversal is enabled for the IPsec-VPN connection. Valid values:",
+            "description_zh": "IPsec连接是否已开启NAT穿越功能。取值：\n\nfalse：未开启。\n\ntrue：已开启。\n\n仅单隧道模式的IPsec-VPN连接会返回该参数",
+            "example": "true",
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "EnableTunnelsBgp": {
+            "backendName": "data.enableTunnelsBgp",
+            "description_en": "The BGP status of the tunnel.\n\ntrue: enabled.\nfalse: disabled.\n\nThis parameter is returned only for IPsec-VPN connections in dual-tunnel mode",
+            "description_zh": "隧道BGP的开启状态。\n\ntrue：已开启。\nfalse：未开启。\n\n仅双隧道模式的IPsec-VPN连接会返回该参数",
+            "example": "true",
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "IkeConfig": {
+            "backendName": "data.ikeConfig",
+            "description_en": "The configuration of Phase 1 negotiation",
+            "description_zh": "第一阶段协商的配置。\n\n仅单隧道模式的IPsec-VPN连接会返回IkeConfig数组下的参数",
+            "properties": {
+              "IkeAuthAlg": {
+                "backendName": "ikeAuthAlg",
+                "description_en": "The authentication algorithm of the IKE phase",
+                "description_zh": "IKE阶段认证算法",
+                "example": "sha1",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IkeEncAlg": {
+                "backendName": "ikeEncAlg",
+                "description_en": "The encryption algorithm of the IKE phase",
+                "description_zh": "IKE阶段加密算法",
+                "example": "aes",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IkeLifetime": {
+                "backendName": "ikeLifetime",
+                "description_en": "The lifetime of the IKE phase. Unit: seconds",
+                "description_zh": "IKE阶段生存时间。单位：秒",
+                "example": "86400",
+                "format": "int64",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "IkeMode": {
+                "backendName": "ikeMode",
+                "description_en": "The IKE negotiation mode.\n\nmain: Main mode. The negotiation process is highly secure.\naggressive: Aggressive mode. Negotiation is fast and has a high success rate",
+                "description_zh": "IKE协商模式。\n\nmain：主模式，协商过程安全性高。\naggressive：野蛮模式，协商快速且协商成功率高",
+                "example": "main",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IkePfs": {
+                "backendName": "ikePfs",
+                "description_en": "The DH group of the IKE phase",
+                "description_zh": "IKE阶段DH分组",
+                "example": "group2",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IkeVersion": {
+                "backendName": "ikeVersion",
+                "description_en": "The IKE protocol version.\n\nikev1\nikev2\n\nCompared with IKEv1, IKEv2 simplifies the SA negotiation process and provides better support for multi-CIDR-block scenarios",
+                "description_zh": "IKE协议版本。\n\nikev1\nikev2\n\n相对于IKEv1版本，IKEv2版本简化了SA的协商过程并且对于多网段的场景提供了更好的支持",
+                "example": "ikev1",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "LocalId": {
+                "backendName": "localId",
+                "description_en": "The identifier on the VPC side. FQDN and IP formats are supported. The default value is the IP address of the selected VPN gateway",
+                "description_zh": "VPC侧的标识。支持FQDN和IP格式，默认为当前选取的VPN网关的IP地址",
+                "example": "116.64.XX.XX",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Psk": {
+                "backendName": "psk",
+                "description_en": "The pre-shared key",
+                "description_zh": "预共享密钥",
+                "example": "pgw6dy7d1i8i****",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "RemoteId": {
+                "backendName": "remoteId",
+                "description_en": "The identifier on the on-premises data center side. FQDN and IP formats are supported. The default value is the IP address of the selected customer gateway",
+                "description_zh": "本地数据中心侧的标识。支持FQDN和IP格式，默认为当前选取的用户网关的IP地址",
+                "example": "139.18.XX.XX",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "IpsecConfig": {
+            "backendName": "data.ipsecConfig",
+            "description_en": "The configuration of Phase 2 negotiation",
+            "description_zh": "第二阶段协商的配置。\n\n仅单隧道模式的IPsec-VPN连接会返回IpsecConfig数组下的参数",
+            "properties": {
+              "IpsecAuthAlg": {
+                "backendName": "ipsecAuthAlg",
+                "description_en": "The authentication algorithm of the IPsec phase",
+                "description_zh": "IPsec阶段认证算法",
+                "example": "sha1",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IpsecEncAlg": {
+                "backendName": "ipsecEncAlg",
+                "description_en": "The encryption algorithm of the IPsec phase",
+                "description_zh": "IPsec阶段加密算法",
+                "example": "aes",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IpsecLifetime": {
+                "backendName": "ipsecLifetime",
+                "description_en": "The lifetime of the IPsec phase. Unit: seconds",
+                "description_zh": "IPsec阶段生存时间。单位：秒",
+                "example": "86400",
+                "format": "int64",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "IpsecPfs": {
+                "backendName": "ipsecPfs",
+                "description_en": "The DH group of the IPsec phase",
+                "description_zh": "IPsec阶段DH分组",
+                "example": "group2",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "LocalSubnet": {
+            "backendName": "data.localSubnet",
+            "description_en": "The CIDR block on the VPC side",
+            "description_zh": "VPC侧的网段",
+            "example": "10.1.1.0/24,10.1.2.0/24",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Name": {
+            "backendName": "data.name",
+            "description_en": "The name of the IPsec-VPN connection",
+            "description_zh": "IPsec连接的名称",
+            "example": "nametest",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RemoteSubnet": {
+            "backendName": "data.remoteSubnet",
+            "description_en": "The CIDR block on the on-premises data center side",
+            "description_zh": "本地数据中心侧的网段",
+            "example": "10.2.1.0/24,10.2.2.0/24",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "7DB79D0C-5F27-4AB5-995B-79BE55102F90",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ResourceGroupId": {
+            "backendName": "data.resourceGroupId",
+            "description_en": "The ID of the resource group to which the IPsec-VPN connection belongs",
+            "description_zh": "IPsec连接所属的资源组ID。\n\nIPsec连接与其关联的VPN网关实例的资源组相同。您可以调用[ListResourceGroups]（https://help.aliyun.com/document_detail/158855.html）接口查询资源组信息",
+            "example": "rg-acfmzs372yg****",
+            "type": "string"
+          },
+          "TunnelOptionsSpecification": {
+            "backendName": "data.tunnelOptionsList",
+            "itemName": "TunnelOptions",
+            "items": {
+              "properties": {
+                "CustomerGatewayId": {
+                  "backendName": "customerGatewayId",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "EnableDpd": {
+                  "backendName": "enableDpd",
+                  "type": "boolean",
+                  "visibility": "Public"
+                },
+                "EnableNatTraversal": {
+                  "backendName": "enableNatTraversal",
+                  "type": "boolean",
+                  "visibility": "Public"
+                },
+                "InternetIp": {
+                  "backendName": "internetIp",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "RemoteCaCertificate": {
+                  "backendName": "remoteCaCertificate",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "Role": {
+                  "backendName": "locationRole",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "State": {
+                  "backendName": "state",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "TunnelBgpConfig": {
+                  "backendName": "tunnelBgpConfig",
+                  "properties": {
+                    "LocalAsn": {
+                      "backendName": "localAsn",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "LocalBgpIp": {
+                      "backendName": "localBgpIp",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "PeerAsn": {
+                      "backendName": "peerAsn",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "PeerBgpIp": {
+                      "backendName": "peerBgpIp",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "TunnelCidr": {
+                      "backendName": "tunnelCidr",
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object",
+                  "visibility": "Public"
+                },
+                "TunnelId": {
+                  "backendName": "tunnelId",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "TunnelIkeConfig": {
+                  "backendName": "tunnelIkeConfig",
+                  "properties": {
+                    "IkeAuthAlg": {
+                      "backendName": "ikeAuthAlg",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IkeEncAlg": {
+                      "backendName": "ikeEncAlg",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IkeLifetime": {
+                      "backendName": "ikeLifetime",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "IkeMode": {
+                      "backendName": "ikeMode",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IkePfs": {
+                      "backendName": "ikePfs",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IkeVersion": {
+                      "backendName": "ikeVersion",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "LocalId": {
+                      "backendName": "leftId",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Psk": {
+                      "backendName": "psk",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "RemoteId": {
+                      "backendName": "rightId",
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object",
+                  "visibility": "Public"
+                },
+                "TunnelIpsecConfig": {
+                  "backendName": "tunnelIpsecConfig",
+                  "properties": {
+                    "IpsecAuthAlg": {
+                      "backendName": "ipsecAuthAlg",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IpsecEncAlg": {
+                      "backendName": "ipsecEncAlg",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IpsecLifetime": {
+                      "backendName": "ipsecLifetime",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "IpsecPfs": {
+                      "backendName": "ipsecPfs",
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object",
+                  "visibility": "Public"
+                },
+                "ZoneNo": {
+                  "backendName": "ZoneNo",
+                  "type": "string",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object",
+              "visibility": "Public"
+            },
+            "type": "array",
+            "visibility": "Public"
+          },
+          "VcoHealthCheck": {
+            "backendName": "data.vcoHealthCheck",
+            "description_en": "The health check configuration.\n\nParameters in the VcoHealthCheck array are returned only for IPsec-VPN connections in single-tunnel mode",
+            "description_zh": "健康检查配置。\n\n仅单隧道模式的IPsec-VPN连接会返回VcoHealthCheck数组下的参数",
+            "nullToEmpty": false,
+            "properties": {
+              "Dip": {
+                "backendName": "dip",
+                "description_en": "The destination IP address",
+                "description_zh": "目标IP",
+                "example": "192.168.1.1",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Enable": {
+                "backendName": "enable",
+                "description_en": "Indicates whether the health check feature is enabled for the IPsec-VPN connection.\n\ntrue: Enabled.\n\nfalse: Not enabled",
+                "description_zh": "IPsec连接是否已开启健康检查功能。\n\ntrue：已开启。\n\nfalse：未开启",
+                "example": "true",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Interval": {
+                "backendName": "interval",
+                "description_en": "The retry interval of the health check. Unit: seconds",
+                "description_zh": "健康检查的重试间隔时间，单位：秒",
+                "example": "3",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "Retry": {
+                "backendName": "retry",
+                "description_en": "The number of retry packets sent for the health check",
+                "description_zh": "健康检查的重试发包次数",
+                "example": "3",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "Sip": {
+                "backendName": "sip",
+                "description_en": "The source IP address",
+                "description_zh": "源IP",
+                "example": "10.1.1.1",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "VpnBgpConfig": {
+            "backendName": "data.bgpModel",
+            "description_en": "The BGP configuration",
+            "description_zh": "BGP配置信息。\n\n仅单隧道模式的IPsec-VPN连接会返回VpnBgpConfig数组下的参数",
+            "nullToEmpty": false,
+            "properties": {
+              "EnableBgp": {
+                "backendName": "enableBgp",
+                "description_en": "The enabling status of BGP",
+                "description_zh": "BGP的开启状态。\n\ntrue：已开启。\n\nfalse：未开启",
+                "example": "true",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "LocalAsn": {
+                "backendName": "localAsn",
+                "description_en": "The autonomous system number on the Alibaba Cloud side",
+                "description_zh": "阿里云侧的自治系统号",
+                "example": "65530",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "LocalBgpIp": {
+                "backendName": "localBgpIp",
+                "description_en": "The BGP address on the Alibaba Cloud side",
+                "description_zh": "阿里云侧的BGP地址",
+                "example": "169.254.11.1",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "PeerAsn": {
+                "backendName": "peerAsn",
+                "description_en": "The autonomous system number on the on-premises data center side",
+                "description_zh": "本地数据中心侧的自治系统号",
+                "example": "65531",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "PeerBgpIp": {
+                "backendName": "peerBgpIp",
+                "description_en": "The BGP address on the on-premises data center side",
+                "description_zh": "本地IDC侧的BGP地址",
+                "example": "169.254.11.2",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Status": {
+                "backendName": "status",
+                "description_en": "The BGP negotiation status",
+                "description_zh": "BGP的协商状态。\n\nsuccess：正常。\n\nfalse：异常",
+                "example": "success",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "TunnelCidr": {
+                "backendName": "tunnelCidr",
+                "description_en": "The BGP CIDR block of the IPsec-VPN connection",
+                "description_zh": "IPsec连接的BGP网段",
+                "example": "169.254.11.0/30",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "VpnConnectionId": {
+            "backendName": "data.instanceId",
+            "description_en": "The ID of the IPsec-VPN connection",
+            "description_zh": "IPsec连接的ID",
+            "example": "vco-bp1bbi27hojx80nck****",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "VpnGatewayId": {
+            "backendName": "data.vpnGatewayId",
+            "description_en": "The ID of the VPN gateway instance",
+            "description_zh": "VPN网关实例的ID",
+            "example": "vpn-bp1q8bgx4xnkm2ogj****",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

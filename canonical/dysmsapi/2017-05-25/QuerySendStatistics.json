@@ -135,5 +135,103 @@
   ],
   "pathPattern": "",
   "product_code": "Dysmsapi",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The request status code. Valid values:\n\nOK: The request is successful.\n\nFor other error codes, see [Error codes]（https://help.aliyun.com/document_detail/101346.html）",
+            "description_zh": "请求状态码。取值：\n\nOK：代表请求成功。\n\n其他错误码，请参见[错误码列表]（https://help.aliyun.com/document_detail/101346.html）",
+            "example": "OK",
+            "type": "string"
+          },
+          "Data": {
+            "backendName": "model",
+            "description_en": "The returned data",
+            "description_zh": "返回数据",
+            "itemName": "SmsStatsResultDTO",
+            "properties": {
+              "TargetList": {
+                "backendName": "targetList",
+                "description_en": "The list of returned data",
+                "description_zh": "返回数据列表",
+                "itemName": "SmsStatisticsDTO",
+                "items": {
+                  "properties": {
+                    "NoRespondedCount": {
+                      "backendName": "respTotalSuccess",
+                      "description_en": "The number of SMS messages for which no receipts were received",
+                      "description_zh": "未收到回执的短信条数",
+                      "example": "1",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "RespondedFailCount": {
+                      "backendName": "sendTotalFail",
+                      "description_en": "The number of SMS messages for which failure receipts were received",
+                      "description_zh": "接收到回执失败的短信条数",
+                      "example": "2",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "RespondedSuccessCount": {
+                      "backendName": "sendTotalSuccess",
+                      "description_en": "The number of SMS messages for which success receipts were received",
+                      "description_zh": "接收到回执成功的短信条数",
+                      "example": "17",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "SendDate": {
+                      "backendName": "detailStsDate",
+                      "description_en": "The date when the SMS messages were sent, in the yyyyMMdd format",
+                      "description_zh": "短信发送日期，格式为yyyyMMdd",
+                      "example": "20201010",
+                      "type": "string"
+                    },
+                    "TotalCount": {
+                      "backendName": "sendTotal",
+                      "description_en": "The number of successfully sent SMS messages (billable messages)",
+                      "description_zh": "发送成功的短信条数（计费条数）",
+                      "example": "20",
+                      "format": "int64",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "TotalSize": {
+                "backendName": "totalSize",
+                "description_en": "The total number of entries returned",
+                "description_zh": "返回数据的总条数",
+                "example": "20",
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The description of the status code",
+            "description_zh": "状态码的描述",
+            "example": "OK",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "F655A8D5-B967-440B-8683-DAD6FF8DE990\n",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

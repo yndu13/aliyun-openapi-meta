@@ -2,6 +2,1289 @@
   "camel_example": "",
   "cmd_full_name": "eventbridge update-event-streaming",
   "cmd_name": "update-event-streaming",
+  "components": {
+    "schemas": {
+      "BaiLianAgentTransformParameters": {
+        "description_zh": "百炼Agent Transform",
+        "properties": {
+          "ApiKey": {
+            "backendName": "ApiKey",
+            "description_zh": "ApiKey",
+            "required": false,
+            "sensitive": true,
+            "title": "ApiKey",
+            "type": "string"
+          },
+          "ApplicationId": {
+            "backendName": "ApplicationId",
+            "description_zh": "应用ID",
+            "title": "应用ID",
+            "type": "string"
+          },
+          "Prompt": {
+            "backendName": "Prompt",
+            "description_zh": "提示词",
+            "properties": {
+              "Form": {
+                "backendName": "form",
+                "description_zh": "模板Form",
+                "title": "模板Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "template",
+                "description_zh": "模板Template",
+                "title": "模板Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "value",
+                "description_zh": "模板Value",
+                "title": "模板Value",
+                "type": "string"
+              }
+            },
+            "title": "提示词",
+            "type": "object"
+          },
+          "RequestPerMinute": {
+            "backendName": "RequestPerMinute",
+            "description_zh": "限流值（请求/分钟）",
+            "format": "int64",
+            "title": "限流值（请求/分钟）",
+            "type": "integer"
+          },
+          "TokenPerMinute": {
+            "backendName": "TokenPerMinute",
+            "description_zh": "限流值（Token/分钟）",
+            "format": "int64",
+            "title": "限流值（Token/分钟）",
+            "type": "integer"
+          }
+        },
+        "title": "百炼Agent Transform",
+        "type": "object"
+      },
+      "DashScopeTransformParameters": {
+        "description_zh": "DashScope Transform",
+        "properties": {
+          "ApiKey": {
+            "backendName": "ApiKey",
+            "description_zh": "ApiKey",
+            "sensitive": true,
+            "title": "ApiKey",
+            "type": "string"
+          },
+          "Messages": {
+            "backendName": "Messages",
+            "description_zh": "提示词",
+            "items": {
+              "description_zh": "提示词",
+              "properties": {
+                "Form": {
+                  "backendName": "form",
+                  "description_zh": "模板Form",
+                  "title": "模板Form",
+                  "type": "string"
+                },
+                "Role": {
+                  "backendName": "role",
+                  "description_zh": "角色",
+                  "title": "角色",
+                  "type": "string"
+                },
+                "Template": {
+                  "backendName": "template",
+                  "description_zh": "模板Template",
+                  "title": "模板Template",
+                  "type": "string"
+                },
+                "Value": {
+                  "backendName": "value",
+                  "description_zh": "模板Value",
+                  "title": "模板Value",
+                  "type": "string"
+                }
+              },
+              "title": "提示词",
+              "type": "object"
+            },
+            "title": "提示词",
+            "type": "array"
+          },
+          "Model": {
+            "backendName": "Model",
+            "description_zh": "模型名称",
+            "title": "模型名称",
+            "type": "string"
+          },
+          "RequestPerMinute": {
+            "backendName": "RequestPerMinute",
+            "description_zh": "限流值（请求/分钟）",
+            "format": "int64",
+            "title": "限流值（请求/分钟）",
+            "type": "integer"
+          },
+          "StructuredOutputJsonSchema": {
+            "backendName": "StructuredOutputJsonSchema",
+            "description_zh": "结构化输出Schema",
+            "title": "结构化输出Schema",
+            "type": "string"
+          },
+          "TokenPerMinute": {
+            "backendName": "TokenPerMinute",
+            "description_zh": "限流值（Token/分钟）",
+            "format": "int64",
+            "title": "限流值（Token/分钟）",
+            "type": "integer"
+          }
+        },
+        "title": "DashScope Transform",
+        "type": "object"
+      },
+      "SinkAgentRunParameters": {
+        "properties": {
+          "AgentRuntimeName": {
+            "backendName": "AgentRuntimeName",
+            "description_zh": "AgentRun 智能体运行时名称。在阿里云 AgentRun 控制台获取",
+            "required": false,
+            "title": "AgentRun 智能体运行时名称。在阿里云 AgentRun 控制台获取。",
+            "type": "string"
+          },
+          "Body": {
+            "backendName": "Body",
+            "description_zh": "Body 参数模版三元组配置。定义数据转换方式，支持 ORIGINAL（透传）和 TEMPLATE（模板替换）两种模式",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "description_zh": "转换的格式。默认为 CONSTANT。枚举值：ORIGINAL、TEMPLATE。示例值：`ORIGINAL`",
+                "required": false,
+                "title": "转换的格式。默认为 CONSTANT。枚举值：ORIGINAL、TEMPLATE。示例值：`ORIGINAL`",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "description_zh": "模板样式。仅 Form 为 TEMPLATE 时必填，支持 ${variable} 占位符替换。示例值：`The value of ${key} is ${value}!`",
+                "title": "模板样式。仅 Form 为 TEMPLATE 时必填，支持 ${variable} 占位符替换。示例值：`The value of ${key} is ${value}!`",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "description_zh": "参数值。ORIGINAL 模式下为 $；TEMPLATE 模式下为 JSON 格式的 key-value 映射（value 为 JSONPath 表达式或常量）。示例值：`$`",
+                "title": "参数值。ORIGINAL 模式下为 $；TEMPLATE 模式下为 JSON 格式的 key-value 映射（value 为 JSONPath 表达式或常量）。示例值：`$`",
+                "type": "string"
+              }
+            },
+            "required": false,
+            "title": "Body 参数模版三元组配置。定义数据转换方式，支持 ORIGINAL（透传）和 TEMPLATE（模板替换）两种模式。",
+            "type": "object"
+          },
+          "EndpointName": {
+            "backendName": "EndpointName",
+            "description_zh": "AgentRun 智能体运行时端点名称，用于拼接调用 URL",
+            "required": false,
+            "title": "AgentRun 智能体运行时端点名称，用于拼接调用 URL。",
+            "type": "string"
+          },
+          "RoleName": {
+            "backendName": "RoleName",
+            "description_zh": "AgentRun 智能体角色名称",
+            "required": false,
+            "title": "AgentRun 智能体角色名称。",
+            "type": "string"
+          },
+          "Timeout": {
+            "backendName": "Timeout",
+            "description_zh": "HTTP 请求超时时间（毫秒）。默认值：30000",
+            "title": "HTTP 请求超时时间（毫秒）。默认值：30000",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SinkApiDestinationParameters": {
+        "description_en": "Specifies the parameters for the API destination",
+        "description_zh": "Sink ApiDestination参数",
+        "properties": {
+          "BodyParameters": {
+            "backendName": "BodyParameters",
+            "description_en": "The parameters for the HTTP request body, specified as key-value pairs",
+            "description_zh": "HTTP Body参数",
+            "properties": {
+              "Form": {
+                "backendName": "form",
+                "description_en": "Defines how the parameter's value is created. Use `CONSTANT` to specify a static string in the `value` field. Use `JSONPATH` to extract data from the event payload with a JSONPath expression in the `value` field. Use `TEMPLATE` to build the value from the `template` field",
+                "description_zh": "Form",
+                "title": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "template",
+                "description_en": "The template to use to build the parameter value. This field is used only when the `form` is set to `TEMPLATE`. You can use variables, such as `${event.id}`, in the template to reference event data",
+                "description_zh": "Template",
+                "title": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "value",
+                "description_en": "The static value or JSONPath expression for the parameter. This field applies only when the `form` is set to `CONSTANT` or `JSONPATH`",
+                "description_zh": "Value",
+                "title": "Value",
+                "type": "string"
+              }
+            },
+            "title": "HTTP Body参数",
+            "type": "object"
+          },
+          "HeaderParameters": {
+            "backendName": "HeaderParameters",
+            "description_en": "The custom HTTP header parameters to add to the request, specified as key-value pairs",
+            "description_zh": "HTTP Header参数",
+            "properties": {
+              "Form": {
+                "backendName": "form",
+                "description_en": "Defines how the parameter's value is created. Use `CONSTANT` to specify a static string in the `value` field. Use `JSONPATH` to extract data from the event payload with a JSONPath expression in the `value` field. Use `TEMPLATE` to build the value from the `template` field",
+                "description_zh": "Form",
+                "title": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "template",
+                "description_en": "The template to use to build the parameter value. This field is used only when the `form` is set to `TEMPLATE`. You can use variables, such as `${event.id}`, in the template to reference event data",
+                "description_zh": "Template",
+                "title": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "value",
+                "description_en": "The static value or JSONPath expression for the parameter. This field applies only when the `form` is set to `CONSTANT` or `JSONPATH`",
+                "description_zh": "Value",
+                "title": "Value",
+                "type": "string"
+              }
+            },
+            "title": "HTTP Header参数",
+            "type": "object"
+          },
+          "Name": {
+            "backendName": "Name",
+            "description_en": "The name of the API destination",
+            "description_zh": "API端点名称",
+            "title": "API端点名称",
+            "type": "string"
+          },
+          "QueryStringParameters": {
+            "backendName": "QueryStringParameters",
+            "description_en": "The query string parameters to add to the endpoint URL, specified as key-value pairs",
+            "description_zh": "HTTP Query参数",
+            "properties": {
+              "Form": {
+                "backendName": "form",
+                "description_en": "Defines how the parameter's value is created. Use `CONSTANT` to specify a static string in the `value` field. Use `JSONPATH` to extract data from the event payload with a JSONPath expression in the `value` field. Use `TEMPLATE` to build the value from the `template` field",
+                "description_zh": "Form",
+                "title": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "value",
+                "description_en": "The static value or JSONPath expression for the parameter. This field applies only when the `form` is set to `CONSTANT` or `JSONPATH`",
+                "description_zh": "Value",
+                "title": "Value",
+                "type": "string"
+              }
+            },
+            "title": "HTTP Query参数",
+            "type": "object"
+          },
+          "Timeout": {
+            "backendName": "timeout",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "title": "Sink ApiDestination参数",
+        "type": "object"
+      },
+      "SinkBaiLianParameters": {
+        "properties": {
+          "After": {
+            "backendName": "After",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "sensitive": true,
+            "type": "object"
+          },
+          "ApplicationType": {
+            "backendName": "ApplicationType",
+            "type": "string"
+          },
+          "Before": {
+            "backendName": "Before",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "sensitive": true,
+            "type": "object"
+          },
+          "Context": {
+            "backendName": "Context",
+            "sensitive": true,
+            "type": "any"
+          },
+          "Extend": {
+            "backendName": "Extend",
+            "sensitive": true,
+            "type": "any"
+          },
+          "Offset": {
+            "backendName": "Offset",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "sensitive": true,
+            "type": "object"
+          },
+          "Op": {
+            "backendName": "Op",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "sensitive": true,
+            "type": "object"
+          },
+          "Partition": {
+            "backendName": "Partition",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "sensitive": true,
+            "type": "object"
+          },
+          "WorkspaceId": {
+            "backendName": "WorkspaceId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SinkDataWorksTriggerParameters": {
+        "properties": {
+          "Enable": {
+            "backendName": "Enable",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SinkHttpsParameters": {
+        "description_zh": "Sink HTTP/HTTPS参数",
+        "properties": {
+          "Body": {
+            "backendName": "Body",
+            "description_zh": "HTTP Body",
+            "properties": {
+              "Form": {
+                "backendName": "form",
+                "description_zh": "Form",
+                "title": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "template",
+                "description_zh": "Template",
+                "title": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "value",
+                "description_zh": "Value",
+                "title": "Value",
+                "type": "string"
+              }
+            },
+            "title": "HTTP Body",
+            "type": "object"
+          },
+          "Method": {
+            "backendName": "Method",
+            "description_zh": "HTTP方法",
+            "title": "HTTP方法",
+            "type": "string"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "description_zh": "网络类型，PrivateNetwork/PublicNetwork",
+            "title": "网络类型，PrivateNetwork/PublicNetwork",
+            "type": "string"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "description_zh": "安全组",
+            "title": "安全组",
+            "type": "string"
+          },
+          "Token": {
+            "backendName": "Token",
+            "description_zh": "HTTP Token",
+            "sensitive": true,
+            "title": "HTTP Token",
+            "type": "string"
+          },
+          "URL": {
+            "backendName": "URL",
+            "description_zh": "HTTP/HTTPS地址",
+            "properties": {
+              "Form": {
+                "backendName": "form",
+                "description_zh": "Form",
+                "title": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "template",
+                "description_zh": "Template",
+                "title": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "value",
+                "description_zh": "Value",
+                "title": "Value",
+                "type": "string"
+              }
+            },
+            "title": "HTTP/HTTPS地址",
+            "type": "object"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "description_zh": "交换机ID",
+            "title": "交换机ID",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "description_zh": "vpc ID",
+            "title": "vpc ID",
+            "type": "string"
+          }
+        },
+        "title": "Sink HTTP/HTTPS参数",
+        "type": "object"
+      },
+      "SinkMQTTParameters": {
+        "properties": {
+          "InstanceId": {
+            "backendName": "InstanceId",
+            "type": "string"
+          },
+          "Mqtt5UserProperty": {
+            "backendName": "Mqtt5UserProperty",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "ParentTopic": {
+            "backendName": "ParentTopic",
+            "type": "string"
+          },
+          "Payload": {
+            "backendName": "Payload",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "SubTopic": {
+            "backendName": "SubTopic",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "SinkOSSParameters": {
+        "properties": {
+          "BucketName": {
+            "backendName": "BucketName",
+            "type": "string"
+          },
+          "CompressionType": {
+            "backendName": "CompressionType",
+            "type": "string"
+          },
+          "ContentTransform": {
+            "backendName": "ContentTransform",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "Endpoint": {
+            "backendName": "Endpoint",
+            "type": "string"
+          },
+          "PathFormat": {
+            "backendName": "PathFormat",
+            "type": "string"
+          },
+          "RegionId": {
+            "backendName": "RegionId",
+            "type": "string"
+          },
+          "RoleArn": {
+            "backendName": "RoleArn",
+            "type": "string"
+          },
+          "RotateIntervalMs": {
+            "backendName": "RotateIntervalMs",
+            "type": "string"
+          },
+          "RotateSizeBytes": {
+            "backendName": "RotateSizeBytes",
+            "type": "string"
+          },
+          "SSLEnabled": {
+            "backendName": "SSLEnabled",
+            "type": "boolean"
+          },
+          "TaskConcurrency": {
+            "backendName": "TaskConcurrency",
+            "type": "string"
+          },
+          "TimeZone": {
+            "backendName": "TimeZone",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SinkRabbitMQMetaParameters": {
+        "properties": {
+          "Endpoint": {
+            "backendName": "Endpoint",
+            "type": "string"
+          },
+          "InstanceId": {
+            "backendName": "InstanceId",
+            "type": "string"
+          },
+          "InstanceType": {
+            "backendName": "InstanceType",
+            "type": "string"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "sensitive": true,
+            "type": "string"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "type": "string"
+          },
+          "Username": {
+            "backendName": "Username",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "type": "string"
+          },
+          "VirtualHostName": {
+            "backendName": "VirtualHostName",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SinkRabbitMQMsgSyncParameters": {
+        "properties": {
+          "Body": {
+            "backendName": "Body",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "Endpoint": {
+            "backendName": "Endpoint",
+            "type": "string"
+          },
+          "Exchange": {
+            "backendName": "Exchange",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "InstanceId": {
+            "backendName": "InstanceId",
+            "type": "string"
+          },
+          "InstanceType": {
+            "backendName": "InstanceType",
+            "type": "string"
+          },
+          "MaxHops": {
+            "backendName": "MaxHops",
+            "type": "string"
+          },
+          "MessageId": {
+            "backendName": "MessageId",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "sensitive": true,
+            "type": "string"
+          },
+          "Properties": {
+            "backendName": "Properties",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "RoutingKey": {
+            "backendName": "RoutingKey",
+            "properties": {
+              "Form": {
+                "backendName": "Form",
+                "type": "string"
+              },
+              "Template": {
+                "backendName": "Template",
+                "type": "string"
+              },
+              "Value": {
+                "backendName": "Value",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "type": "string"
+          },
+          "Username": {
+            "backendName": "Username",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "type": "string"
+          },
+          "VirtualHostName": {
+            "backendName": "VirtualHostName",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SourceFeiShuDocsParameters": {
+        "properties": {
+          "AppId": {
+            "backendName": "AppId",
+            "description_zh": "飞书自建应用的 App ID。在飞书开放平台创建应用后获取。示例值：`cli_a946c046xxxx`",
+            "required": false,
+            "title": "飞书自建应用的 App ID。在飞书开放平台创建应用后获取。示例值：`cli_a946c046xxxx`",
+            "type": "string"
+          },
+          "AppSecret": {
+            "backendName": "AppSecret",
+            "description_zh": "飞书自建应用的 App Secret。在飞书开放平台创建应用后获取。示例值：`yO3hEYiSjkBVxxxx`",
+            "required": false,
+            "title": "飞书自建应用的 App Secret。在飞书开放平台创建应用后获取。示例值：`yO3hEYiSjkBVxxxx`",
+            "type": "string"
+          },
+          "KnowledgeSpaceName": {
+            "backendName": "KnowledgeSpaceName",
+            "description_zh": "飞书知识空间名称，需精确匹配。示例值：`产品文档中心`",
+            "required": false,
+            "title": "飞书知识空间名称，需精确匹配。示例值：`产品文档中心`",
+            "type": "string"
+          },
+          "LoadMode": {
+            "backendName": "LoadMode",
+            "description_zh": "文档加载模式。取值：`block`（按块切分，每个文档块一条事件，适合 AI/RAG 场景）；`single`（整篇文档一条事件，适合短文档/全文检索场景）",
+            "required": false,
+            "title": "文档加载模式。取值：`block`（按块切分，每个文档块一条事件，适合 AI/RAG 场景）；`single`（整篇文档一条事件，适合短文档/全文检索场景）",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SourceJDBCParameters": {
+        "properties": {
+          "BatchSize": {
+            "backendName": "BatchSize",
+            "description_en": "The maximum number of rows returned per query. Default value: 1000. Maximum value: 10000",
+            "description_zh": "每次查询最大返回行数。默认 1000，最大值 10000",
+            "format": "int32",
+            "required": false,
+            "title": "每次查询最大返回行数。默认 1000，最大值 10000",
+            "type": "integer"
+          },
+          "CustomQuery": {
+            "backendName": "CustomQuery",
+            "description_en": "The custom SQL query statement (advanced mode). This parameter is mutually exclusive with TableName",
+            "description_zh": "自定义 SQL 查询语句（高级模式）。与 TableName 互斥",
+            "required": false,
+            "title": "自定义 SQL 查询语句（高级模式）。与 TableName 互斥",
+            "type": "string"
+          },
+          "IncrementingColumn": {
+            "backendName": "IncrementingColumn",
+            "description_en": "The incrementing column name. Required when QueryMode is set to `incrementing` or `timestamp_incrementing`",
+            "description_zh": "自增列名。QueryMode 为 `incrementing` 或 `timestamp_incrementing` 时必填",
+            "required": false,
+            "title": "自增列名。QueryMode 为 `incrementing` 或 `timestamp_incrementing` 时必填",
+            "type": "string"
+          },
+          "JdbcUrl": {
+            "backendName": "JdbcUrl",
+            "description_en": "The JDBC connection URL. ClickHouse example: `jdbc:clickhouse://host:8123/database`; MySQL example: `jdbc:mysql://host:3306/database`. The system automatically identifies the database type",
+            "description_zh": "JDBC 连接 URL。ClickHouse 示例：`jdbc:clickhouse://host:8123/database`；MySQL 示例：`jdbc:mysql://host:3306/database`。系统自动识别数据库类型",
+            "required": false,
+            "title": "JDBC 连接 URL。ClickHouse 示例：`jdbc:clickhouse://host:8123/database`；MySQL 示例：`jdbc:mysql://host:3306/database`。系统自动识别数据库类型",
+            "type": "string"
+          },
+          "Network": {
+            "backendName": "Network",
+            "description_en": "The network type. Valid values: `PublicNetwork` (public network); `PrivateNetwork` (VPC private network, requires VpcId, VSwitchIds, and SecurityGroupId to be configured)",
+            "description_zh": "网络类型。取值：`PublicNetwork`（公网）；`PrivateNetwork`（VPC 私网，需同时配置 VpcId、VSwitchIds、SecurityGroupId）",
+            "required": false,
+            "title": "网络类型。取值：`PublicNetwork`（公网）；`PrivateNetwork`（VPC 私网，需同时配置 VpcId、VSwitchIds、SecurityGroupId）",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "description_en": "The database password",
+            "description_zh": "数据库密码",
+            "required": false,
+            "sensitive": true,
+            "title": "数据库密码",
+            "type": "string"
+          },
+          "PollingInterval": {
+            "backendName": "PollingInterval",
+            "description_en": "The polling interval, in seconds. Minimum value: 10. Default value: 60",
+            "description_zh": "轮询间隔，单位：秒。最小值 10，默认 60",
+            "format": "int32",
+            "required": false,
+            "title": "轮询间隔，单位：秒。最小值 10，默认 60",
+            "type": "integer"
+          },
+          "QueryMode": {
+            "backendName": "QueryMode",
+            "description_en": "The query mode. Valid values: `bulk` (full query); `incrementing` (incrementing column tracking); `timestamp` (timestamp tracking); `timestamp_incrementing` (timestamp and incrementing column dual tracking)",
+            "description_zh": "查询模式。取值：`bulk`（全量查询）；`incrementing`（自增列追踪）；`timestamp`（时间戳追踪）；`timestamp_incrementing`（时间戳+自增列双追踪）",
+            "required": false,
+            "title": "查询模式。取值：`bulk`（全量查询）；`incrementing`（自增列追踪）；`timestamp`（时间戳追踪）；`timestamp_incrementing`（时间戳+自增列双追踪）",
+            "type": "string"
+          },
+          "QueryTimeout": {
+            "backendName": "QueryTimeout",
+            "description_en": "The SQL query timeout period, in seconds. Default value: 30. Maximum value: 300",
+            "description_zh": "SQL 查询超时时间，单位：秒。默认 30，最大值 300",
+            "format": "int32",
+            "required": false,
+            "title": "SQL 查询超时时间，单位：秒。默认 30，最大值 300",
+            "type": "integer"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "description_en": "The security group ID. Required when Network is set to PrivateNetwork",
+            "description_zh": "安全组 ID。Network 为 PrivateNetwork 时必填",
+            "required": false,
+            "title": "安全组 ID。Network 为 PrivateNetwork 时必填",
+            "type": "string"
+          },
+          "TableName": {
+            "backendName": "TableName",
+            "description_en": "The target table name. This parameter is mutually exclusive with CustomQuery. Required when custom SQL is not used",
+            "description_zh": "目标表名。与 CustomQuery 互斥，未使用自定义 SQL 时必填",
+            "required": false,
+            "title": "目标表名。与 CustomQuery 互斥，未使用自定义 SQL 时必填",
+            "type": "string"
+          },
+          "TimestampColumn": {
+            "backendName": "TimestampColumn",
+            "description_en": "The timestamp column name. Required when QueryMode is set to `timestamp` or `timestamp_incrementing`",
+            "description_zh": "时间戳列名。QueryMode 为 `timestamp` 或 `timestamp_incrementing` 时必填",
+            "required": false,
+            "title": "时间戳列名。QueryMode 为 `timestamp` 或 `timestamp_incrementing` 时必填",
+            "type": "string"
+          },
+          "Username": {
+            "backendName": "Username",
+            "description_en": "The database username",
+            "description_zh": "数据库用户名",
+            "required": false,
+            "title": "数据库用户名",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "description_en": "The vSwitch ID. Required when Network is set to PrivateNetwork",
+            "description_zh": "交换机 ID。Network 为 PrivateNetwork 时必填",
+            "required": false,
+            "title": "交换机 ID。Network 为 PrivateNetwork 时必填",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "description_en": "The VPC ID. Required when Network is set to PrivateNetwork",
+            "description_zh": "VPC 的 ID。Network 为 PrivateNetwork 时必填",
+            "required": false,
+            "title": "VPC 的 ID。Network 为 PrivateNetwork 时必填",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SourceMySQLParameters": {
+        "properties": {
+          "DatabaseName": {
+            "backendName": "DatabaseName",
+            "type": "string"
+          },
+          "HostName": {
+            "backendName": "HostName",
+            "type": "string"
+          },
+          "IncludeSchemaChanges": {
+            "backendName": "IncludeSchemaChanges",
+            "type": "string"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "sensitive": true,
+            "type": "string"
+          },
+          "Port": {
+            "backendName": "Port",
+            "format": "int32",
+            "type": "integer"
+          },
+          "RegionId": {
+            "backendName": "RegionId",
+            "type": "string"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "type": "string"
+          },
+          "SnapshotMode": {
+            "backendName": "SnapshotMode",
+            "type": "string"
+          },
+          "TableNames": {
+            "backendName": "TableNames",
+            "type": "string"
+          },
+          "User": {
+            "backendName": "User",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SourcePostgreSQLParameters": {
+        "properties": {
+          "DatabaseName": {
+            "backendName": "DatabaseName",
+            "type": "string"
+          },
+          "HostName": {
+            "backendName": "HostName",
+            "type": "string"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "type": "string"
+          },
+          "Port": {
+            "backendName": "Port",
+            "format": "int32",
+            "type": "integer"
+          },
+          "RegionId": {
+            "backendName": "RegionId",
+            "type": "string"
+          },
+          "SchemaName": {
+            "backendName": "SchemaName",
+            "type": "string"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "type": "string"
+          },
+          "SnapshotMode": {
+            "backendName": "SnapshotMode",
+            "type": "string"
+          },
+          "TableNames": {
+            "backendName": "TableNames",
+            "type": "string"
+          },
+          "User": {
+            "backendName": "User",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SourceRabbitMQMetaParameters": {
+        "properties": {
+          "Endpoint": {
+            "backendName": "Endpoint",
+            "type": "string"
+          },
+          "InnerNameSuffix": {
+            "backendName": "InnerNameSuffix",
+            "type": "string"
+          },
+          "InstanceId": {
+            "backendName": "InstanceId",
+            "type": "string"
+          },
+          "InstanceType": {
+            "backendName": "InstanceType",
+            "type": "string"
+          },
+          "MaxHops": {
+            "backendName": "MaxHops",
+            "type": "string"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "type": "string"
+          },
+          "OrderConsume": {
+            "backendName": "OrderConsume",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "sensitive": true,
+            "type": "string"
+          },
+          "Regex": {
+            "backendName": "Regex",
+            "type": "string"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "type": "string"
+          },
+          "SyncMetaType": {
+            "backendName": "SyncMetaType",
+            "type": "string"
+          },
+          "Username": {
+            "backendName": "Username",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "type": "string"
+          },
+          "VirtualHostName": {
+            "backendName": "VirtualHostName",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SourceRabbitMQMsgSyncParameters": {
+        "properties": {
+          "BodyDataType": {
+            "backendName": "BodyDataType",
+            "type": "string"
+          },
+          "CloudMigrationTaskId": {
+            "backendName": "CloudMigrationTaskId",
+            "type": "string"
+          },
+          "DstClusterHost": {
+            "backendName": "DstClusterHost",
+            "type": "string"
+          },
+          "DstClusterType": {
+            "backendName": "DstClusterType",
+            "type": "string"
+          },
+          "Endpoint": {
+            "backendName": "Endpoint",
+            "type": "string"
+          },
+          "InstanceId": {
+            "backendName": "InstanceId",
+            "type": "string"
+          },
+          "InstanceType": {
+            "backendName": "InstanceType",
+            "type": "string"
+          },
+          "NetworkType": {
+            "backendName": "NetworkType",
+            "type": "string"
+          },
+          "OrderConsume": {
+            "backendName": "OrderConsume",
+            "type": "string"
+          },
+          "Password": {
+            "backendName": "Password",
+            "sensitive": true,
+            "type": "string"
+          },
+          "PrefetchCount": {
+            "backendName": "PrefetchCount",
+            "type": "string"
+          },
+          "Regex": {
+            "backendName": "Regex",
+            "type": "string"
+          },
+          "SecurityGroupId": {
+            "backendName": "SecurityGroupId",
+            "type": "string"
+          },
+          "SrcClusterHost": {
+            "backendName": "SrcClusterHost",
+            "type": "string"
+          },
+          "SrcClusterType": {
+            "backendName": "SrcClusterType",
+            "type": "string"
+          },
+          "SyncMetaType": {
+            "backendName": "SyncMetaType",
+            "type": "string"
+          },
+          "Username": {
+            "backendName": "Username",
+            "type": "string"
+          },
+          "VSwitchIds": {
+            "backendName": "VSwitchIds",
+            "type": "string"
+          },
+          "VirtualHostName": {
+            "backendName": "VirtualHostName",
+            "type": "string"
+          },
+          "VpcId": {
+            "backendName": "VpcId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Modifies the basic information, event source information, event filtering pattern, or event target information of an event stream",
   "description_zh": "修改一个事件流的基础信息、事件源信息、事件过滤模式或事件目标信息",
@@ -10856,6 +12139,53 @@
   "pathPattern": "",
   "product_code": "eventbridge",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回信息",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code. Valid values:\nSuccess: The request was successful.\nOther values: An error occurred. For more information, see error codes",
+            "description_zh": "接口返回码：Success：表示成功。                                 其它：表示错误码。错误码详情，请参见错误码",
+            "example": "Success",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "The name [xxxx] of event streaming in request is already exist!",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The unique identifier that Alibaba Cloud generates for the request",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "0FDD73AA-7A2D-5BD4-B4C0-88AFEBF5F0F5",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Returns true if the operation is successful",
+            "description_zh": "操作成功返回true",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The description of the event stream",

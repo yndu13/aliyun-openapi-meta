@@ -2,6 +2,139 @@
   "camel_example": "",
   "cmd_full_name": "pailangstudio list-snapshots",
   "cmd_name": "list-snapshots",
+  "components": {
+    "schemas": {
+      "Snapshot": {
+        "description_en": "Details of the snapshot",
+        "description_zh": "快照详情",
+        "properties": {
+          "Accessibility": {
+            "backendName": "accessibility",
+            "description_en": "The visibility of the snapshot. Valid values:\n\n`PRIVATE`: The snapshot is visible only to its creator and administrators in the workspace.\n\n`PUBLIC`: The snapshot is visible to everyone in the workspace",
+            "description_zh": "工作空间可见性，可能值为：\nPRIVATE：在此工作空间中，仅对您和管理员可见。\nPUBLIC：在此工作空间中，对所有人可见",
+            "example": "PRIVATE",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "CreationType": {
+            "backendName": "creationType",
+            "description_en": "The creation type of the snapshot. Valid values:\n\n`ManualCreated`: The snapshot was created manually.\n\n`DeploymentAutoCreated`: The snapshot was automatically created by a deployment service.\n\n`EvaluationAutoCreated`: The snapshot was automatically created by an evaluation task",
+            "description_zh": "快照的创建类型。取值：\nManualCreated：手动创建\nDeploymentAutoCreated: 部署服务自动创建\nEvaluationAutoCreated: 评测任务自动创建",
+            "example": "ManualCreated",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Creator": {
+            "backendName": "creator",
+            "description_en": "The creator ID",
+            "description_zh": "创建者ID",
+            "example": "2680******4103",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Description": {
+            "backendName": "description",
+            "description_en": "The snapshot description",
+            "description_zh": "快照描述",
+            "example": "This is description",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "errorMessage",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "GmtCreateTime": {
+            "backendName": "gmtCreateTime",
+            "description_en": "The time the snapshot was created",
+            "description_zh": "创建时间",
+            "example": "2025-09-24T07:33:53Z",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "GmtModifiedTime": {
+            "backendName": "gmtModifiedTime",
+            "description_en": "The time the snapshot was last modified",
+            "description_zh": "修改时间",
+            "example": "2025-09-24T08:58:35Z",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotId": {
+            "backendName": "snapshotId",
+            "description_en": "The snapshot ID",
+            "description_zh": "快照ID",
+            "example": "snap-qhn3******b369c0vo",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotName": {
+            "backendName": "snapshotName",
+            "description_en": "The snapshot name",
+            "description_zh": "快照名称",
+            "example": "name01",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotResourceId": {
+            "backendName": "snapshotResourceId",
+            "description_en": "The ID of the source resource for the snapshot",
+            "description_zh": "快照资源ID",
+            "example": "flow-6rymo******m7j0z4p",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotResourceType": {
+            "backendName": "snapshotResourceType",
+            "description_en": "The type of resource the snapshot captures. Valid values:\n\n`Flow`: A workflow",
+            "description_zh": "快照资源类型。取值：\nFlow：工作流",
+            "example": "Flow",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotStatus": {
+            "backendName": "snapshotStatus",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotStoragePath": {
+            "backendName": "snapshotUri",
+            "description_en": "The OSS path to the snapshot's source files",
+            "description_zh": "存储快照源文件的 OSS 路径",
+            "example": "oss://mybucket.oss-cn-hangzhou.aliyuncs.com/workdir/snapshot/snap-1234/src",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SnapshotUrl": {
+            "backendName": "snapshotUrl",
+            "description_en": "The download URL for the snapshot",
+            "description_zh": "快照下载地址",
+            "example": "https://path/to/snapshot/zipfile",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "WorkDir": {
+            "backendName": "workDir",
+            "description_en": "The OSS working directory where the snapshot is stored",
+            "description_zh": "存储快照的 OSS 工作目录",
+            "example": "oss://mybucket.oss-cn-hangzhou-internal.aliyuncs.com/workdir/",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "WorkspaceId": {
+            "backendName": "workspaceId",
+            "description_en": "The workspace ID. For information about how to obtain the workspace ID, see [ListWorkspaces]（https://help.aliyun.com/document_detail/449124.html）",
+            "description_zh": "工作空间ID。如何获取工作空间ID，请参见 [ListWorkspaces]（https://help.aliyun.com/document_detail/449124.html）",
+            "example": "478**",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Lists snapshots",
   "description_zh": "获取快照列表",
@@ -207,5 +340,63 @@
   ],
   "pathPattern": "/api/v1/langstudio/snapshots",
   "product_code": "PAILangStudio",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The data returned",
+        "description_zh": "返回结果",
+        "properties": {
+          "MaxResults": {
+            "description_en": "The maximum number of items returned per page",
+            "description_zh": "本次请求允许返回的最大记录条数",
+            "example": "10",
+            "format": "int32",
+            "title_en": "Maximum Number of Results Returned per Request",
+            "title_zh": "请求最大返回结果数",
+            "type": "integer"
+          },
+          "NextToken": {
+            "description_en": "The pagination token to retrieve the next page of results. This value is empty if there are no more results",
+            "description_zh": "下次请求分页游标",
+            "example": "11",
+            "title_en": "Next Request Token",
+            "title_zh": "下次请求令牌",
+            "type": "string"
+          },
+          "RequestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "963BD7F9-0C02-5594-9550-BCC6DD43E3C0",
+            "notResourceProperty": true,
+            "title_en": "Request ID",
+            "title_zh": "请求ID",
+            "type": "string"
+          },
+          "Snapshots": {
+            "description_en": "The list of snapshots",
+            "description_zh": "快照列表",
+            "itemName": "Snapshot",
+            "items": {
+              "$ref": "#/components/schemas/Snapshot",
+              "description_en": "The snapshot details",
+              "description_zh": "快照详情"
+            },
+            "skipResourcePropertyMapping": true,
+            "type": "array"
+          },
+          "TotalCount": {
+            "description_en": "The total number of snapshots",
+            "description_zh": "总数量",
+            "example": "25",
+            "format": "int32",
+            "title_en": "Total Quantity",
+            "title_zh": "总量",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

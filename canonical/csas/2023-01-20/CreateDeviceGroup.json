@@ -2,6 +2,96 @@
   "camel_example": "",
   "cmd_full_name": "csas create-device-group",
   "cmd_name": "create-device-group",
+  "components": {
+    "schemas": {
+      "Rule": {
+        "description_en": "The matching rule",
+        "description_zh": "匹配规则",
+        "properties": {
+          "Combinator": {
+            "backendName": "combinator",
+            "description_en": "The logical relationship between rules at the same level. Valid values:\nAND: All rules at the same level must be hit.\nOR: Any one rule at the same level can be hit",
+            "description_zh": "同层规则之间的逻辑关系。取值：\nAND：同层规则需全部命中。\nOR：同层规则命中任意一条即可",
+            "example": "AND",
+            "nullable": true,
+            "title": "combinator",
+            "type": "string"
+          },
+          "Id": {
+            "backendName": "id",
+            "description_en": "The rule ID",
+            "description_zh": "规则ID",
+            "example": "1361",
+            "title": "Id",
+            "type": "string"
+          },
+          "Name": {
+            "backendName": "name",
+            "description_en": "The endpoint device attribute field to match. Required for leaf rules",
+            "description_zh": "待匹配的终端设备属性字段。叶子规则必填",
+            "example": "mac",
+            "nullable": true,
+            "title": "name",
+            "type": "string"
+          },
+          "Operator": {
+            "backendName": "operator",
+            "description_en": "The matching operator. Required for leaf rules",
+            "description_zh": "匹配算子。叶子规则必填",
+            "example": "equal",
+            "nullable": true,
+            "title": "operator",
+            "type": "string"
+          },
+          "RuleSubType": {
+            "backendName": "ruleSubType",
+            "description_en": "The rule subtype",
+            "description_zh": "规则子类型",
+            "example": "windows",
+            "nullable": true,
+            "title": "ruleSubType",
+            "type": "string"
+          },
+          "RuleType": {
+            "backendName": "ruleType",
+            "description_en": "The rule type",
+            "description_zh": "规则类型",
+            "example": "device_info",
+            "nullable": true,
+            "title": "ruleType",
+            "type": "string"
+          },
+          "Rules": {
+            "backendName": "rules",
+            "description_en": "The list of matching rules. At least one rule must be included",
+            "description_zh": "匹配规则列表。至少包含1条规则",
+            "items": {
+              "$ref": "#/components/schemas/Rule",
+              "description_en": "The matching rule. For leaf rules, Name, Operator, and Values are required. For group rules, Combinator and nested Rules are required",
+              "description_zh": "匹配规则。叶子规则须填写Name、Operator和Values；分组规则须填写Combinator和嵌套的Rules"
+            },
+            "title": "rules",
+            "type": "array"
+          },
+          "Values": {
+            "backendName": "values",
+            "description_en": "The set of values to match. Required for leaf rules and cannot be empty",
+            "description_zh": "待匹配的值集合。叶子规则必填且不允许为空",
+            "items": {
+              "description_en": "The value to match",
+              "description_zh": "待匹配的值",
+              "example": "windows",
+              "type": "string"
+            },
+            "title": "values",
+            "type": "array"
+          }
+        },
+        "title": "Rule",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Creates a device label",
   "description_zh": "创建设备标签",
@@ -600,5 +690,34 @@
   ],
   "pathPattern": "",
   "product_code": "csas",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "DeviceGroupId": {
+            "backendName": "data",
+            "description_en": "The device label ID",
+            "description_zh": "设备标签ID",
+            "example": "device-group-5191cf830a5e****",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "BE4FB974-11BC-5453-9BE1-1606A73EACA6",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

@@ -77,5 +77,90 @@
   ],
   "pathPattern": "",
   "product_code": "Ecs",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Instances": {
+            "backendName": "data.data",
+            "itemName": "Instance",
+            "items": {
+              "properties": {
+                "InstanceId": {
+                  "backendName": "instanceId",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "PrivatePoolOptionsId": {
+                  "backendName": "instanceAttachmentAttribute.packageId",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "PrivatePoolOptionsMatchCriteria": {
+                  "backendName": "instanceAttachmentAttribute.packageMode",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "valueMapping": {
+                    "cases": [
+                      {
+                        "targetValue": "Target",
+                        "value": "targeted"
+                      },
+                      {
+                        "targetValue": "Open",
+                        "value": "open"
+                      },
+                      {
+                        "targetValue": "None",
+                        "value": "none"
+                      }
+                    ]
+                  }
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "PageNumber": {
+            "backendName": "data.pageNo",
+            "description_en": "The page number of the instance status list",
+            "description_zh": "实例状态列表的页码",
+            "example": "1",
+            "format": "int32",
+            "nullToEmpty": true,
+            "type": "integer"
+          },
+          "PageSize": {
+            "backendName": "data.pageSize",
+            "description_en": "The number of entries per page for the paged query",
+            "description_zh": "分页查询时设置的每页行数",
+            "example": "10",
+            "format": "int32",
+            "nullToEmpty": true,
+            "type": "integer"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "nullToEmpty": true,
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.total",
+            "description_en": "The total number of entries that match the query conditions",
+            "description_zh": "符合查询条件的记录条数",
+            "example": "1",
+            "format": "int32",
+            "nullToEmpty": true,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

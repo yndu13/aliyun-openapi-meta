@@ -2,7 +2,7 @@
   "cmd_full_name": "ddoscoo config-layer7-rule",
   "cmd_name": "config-layer7-rule",
   "deprecated": false,
-  "description_en": "Calls ConfigLayer7Rule to edit a Layer 7 forwarding rule",
+  "description_en": "Edits a Layer 7 forwarding rule",
   "description_zh": "调用ConfigLayer7Rule编辑7层转发规则",
   "kebab_example": "",
   "method": "GET|POST",
@@ -21,7 +21,7 @@
   "parameters": [
     {
       "example": "test",
-      "help_en": "The ID of the resource group",
+      "help_en": "The resource group ID",
       "help_zh": "资源组ID",
       "location": "query",
       "name": "resource_group_id",
@@ -34,7 +34,7 @@
     },
     {
       "example": "www.aliyun.com",
-      "help_en": "The domain name that you want to configure",
+      "help_en": "The domain name that you want to manage",
       "help_zh": "要操作的域名",
       "location": "query",
       "name": "domain",
@@ -47,7 +47,7 @@
     },
     {
       "example": "[{\"ProxyPorts\":[80,8080],\"ProxyType\":\"http\"},{\"ProxyPorts\":[443],\"ProxyType\":\"https\"}]rts\\\":[443],\\\"ProxyType\\\":\\\"https\\\"}]",
-      "help_en": "The protocol array. The following section describes the structure:\n\nProxyType: string, required. The protocol type. Valid values: http, https, websocket, and websockets.\nProxyPorts: integer, required. The protocol port",
+      "help_en": "The protocol array. The following describes the structure:\n\nProxyType: String type. Required. The protocol type. Valid values: http, https, websocket, websockets.\nProxyPorts: Integer type. Required. The protocol port",
       "help_zh": "协议数组。具体结构描述如下：\n\nProxyType，String类型，必选，协议类型，取值：http、https、websocket、websockets。\nProxyPorts，Integer类型，必选，协议端口",
       "location": "query",
       "name": "proxy_type_list",
@@ -60,7 +60,7 @@
     },
     {
       "example": "0",
-      "help_en": "The type of the origin server. Valid values:\n\n0: IP address.\n1: domain name",
+      "help_en": "The origin server type. Valid values:\n\n0: IP\n1: domain name",
       "help_zh": "源站类型，取值：\n\n0：IP\n1：域名",
       "location": "query",
       "name": "rs_type",
@@ -93,7 +93,7 @@
         "type": "string"
       },
       "example": "1.1.1.1",
-      "help_en": "The IP addresses of the origin server. If multiple origin server IP addresses exist, specify them in sequence: RealServers.1, RealServers.2, RealServers.3, ",
+      "help_en": "The IP address of the origin server. If multiple origin server IP addresses exist, pass them in sequence: RealServers.1, RealServers.2, RealServers.3, ",
       "help_zh": "源站IP。若有多个源站IP，依次传入RealServers.1, RealServers.2, RealServers.3, ",
       "location": "query",
       "name": "real_servers",
@@ -110,7 +110,7 @@
         "type": "string"
       },
       "example": "ddoscoo-cn-XXXXXX",
-      "help_en": "The IDs of the instances to bind. If multiple instances exist, specify them in sequence: InstanceIds.1, InstanceIds.2, InstanceIds.3, ...\n\nIf you do not specify this parameter, only the domain name is added without being bound to any specific instance",
+      "help_en": "The ID of the instance to associate. If multiple instances exist, pass them in sequence: InstanceIds.1, InstanceIds.2, InstanceIds.3, ...\n\nIf you do not specify this parameter, only the domain name is added without being associated with a specific IP address",
       "help_zh": "要绑定的实例Id。若有多个实例，依次传入InstanceIds.1, InstanceIds.2, InstanceIds.3, ...\n\n若不传入该参数，则只添加域名，不绑定到具体IP",
       "location": "query",
       "name": "instance_ids",
@@ -125,5 +125,21 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

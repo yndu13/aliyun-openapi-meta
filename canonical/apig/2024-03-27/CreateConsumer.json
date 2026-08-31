@@ -2,6 +2,310 @@
   "camel_example": "",
   "cmd_full_name": "apig create-consumer",
   "cmd_name": "create-consumer",
+  "components": {
+    "schemas": {
+      "AkSkIdentityConfig": {
+        "description_en": "object",
+        "description_zh": "AkSk身份认证配置",
+        "properties": {
+          "ak": {
+            "backendName": "ak",
+            "description_en": "Access Key",
+            "description_zh": "ak配置",
+            "example": "xxxx",
+            "title": "ak",
+            "type": "string"
+          },
+          "generateMode": {
+            "backendName": "generateMode",
+            "description_en": "Generation mode",
+            "description_zh": "生成模式",
+            "example": "System",
+            "title": "generateMode",
+            "type": "string"
+          },
+          "sk": {
+            "backendName": "sk",
+            "description_en": "Secret Key",
+            "description_zh": "sk配置",
+            "example": "xxxx",
+            "title": "sk",
+            "type": "string"
+          },
+          "type": {
+            "backendName": "type",
+            "description_en": "Identity authentication type",
+            "description_zh": "类型",
+            "example": "Jwt",
+            "title": "type",
+            "type": "string"
+          }
+        },
+        "title": "A short description of struct",
+        "type": "object"
+      },
+      "ApiKeyIdentityConfig": {
+        "description_en": "The API key authentication configuration",
+        "description_zh": "APIKEY身份认证配置",
+        "properties": {
+          "apikeySource": {
+            "backendName": "apikeySource",
+            "description_en": "The API key source configuration",
+            "description_zh": "APIKEY来源配置",
+            "properties": {
+              "source": {
+                "backendName": "source",
+                "description_en": "The API key source",
+                "description_zh": "APIKEY来源",
+                "example": "Default",
+                "title": "source",
+                "type": "string"
+              },
+              "value": {
+                "backendName": "value",
+                "description_en": "The API key value",
+                "description_zh": "APIKEY值",
+                "example": "xxxx",
+                "title": "value",
+                "type": "string"
+              }
+            },
+            "title": "apikey",
+            "type": "object"
+          },
+          "apikeySources": {
+            "backendName": "apikeySources",
+            "description_en": "The complete set of API key credential sources. The set contains one to three items. Multiple sources are applicable only to the AI gateway Header mode. Query String and non-AI gateway allow only a single source. If submitted together with apikeySource, the latter must be consistent with the compatible projection",
+            "description_zh": "API Key 凭证来源完整集合。集合包含一至三项；多来源仅适用于 AI 网关 Header 模式，Query String 和非 AI 网关仅允许单来源。与 apikeySource 同时提交时，后者必须与兼容投影一致",
+            "items": {
+              "description_en": "The complete set of API key credential sources",
+              "description_zh": "API Key 凭证来源完整集合",
+              "properties": {
+                "source": {
+                  "backendName": "source",
+                  "description_en": "The credential source type",
+                  "description_zh": "凭证来源类别",
+                  "example": "Default",
+                  "title": "source",
+                  "type": "string"
+                },
+                "value": {
+                  "backendName": "value",
+                  "description_en": "The field name of the HTTP header or query string",
+                  "description_zh": "HTTP Header 或 Query String 的字段名称",
+                  "example": "Authorization",
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title": "apikeySources",
+            "type": "array"
+          },
+          "credentials": {
+            "backendName": "credentials",
+            "description_en": "The list of credentials",
+            "description_zh": "证书列表",
+            "items": {
+              "description_en": "The credential",
+              "description_zh": "证书",
+              "properties": {
+                "apikey": {
+                  "backendName": "apikey",
+                  "description_en": "The API key configuration",
+                  "description_zh": "apikey配置",
+                  "example": "xxxxx",
+                  "title": "apikey",
+                  "type": "string"
+                },
+                "generateMode": {
+                  "backendName": "generateMode",
+                  "description_en": "The generation mode",
+                  "description_zh": "生成模式",
+                  "example": "System",
+                  "title": "generateMode",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title": "credentials",
+            "type": "array"
+          },
+          "type": {
+            "backendName": "type",
+            "description_en": "The type",
+            "description_zh": "类型",
+            "example": "Apikey",
+            "title": "type",
+            "type": "string"
+          }
+        },
+        "title": "A short description of struct",
+        "type": "object"
+      },
+      "JwtIdentityConfig": {
+        "description_en": "The JWT authentication identity configuration",
+        "description_zh": "Jwt鉴权身份配置",
+        "properties": {
+          "claimsToHeadersConfigs": {
+            "backendName": "claimsToHeadersConfigs",
+            "description_en": "The list of claim-to-header configurations",
+            "description_zh": "Claim 转 Header 配置列表",
+            "items": {
+              "description_en": "The configuration list",
+              "description_zh": "配置列表",
+              "properties": {
+                "claim": {
+                  "backendName": "claim",
+                  "description_en": "The claim name in the JWT payload",
+                  "description_zh": "JWT Payload 中的 Claim 名称",
+                  "example": "sub",
+                  "required": false,
+                  "title": "claim",
+                  "type": "string"
+                },
+                "header": {
+                  "backendName": "header",
+                  "description_en": "The HTTP header name after conversion",
+                  "description_zh": "转换后的 HTTP Header 名称",
+                  "example": "X-Consumer-Id",
+                  "required": false,
+                  "title": "header",
+                  "type": "string"
+                },
+                "override": {
+                  "backendName": "override",
+                  "description_en": "Specifies whether to overwrite an existing header with the same name",
+                  "description_zh": "是否覆盖已存在的同名 Header",
+                  "example": "true",
+                  "required": false,
+                  "title": "override",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "required": false,
+            "title": "claimsToHeadersConfigs",
+            "type": "array"
+          },
+          "jwks": {
+            "backendName": "jwks",
+            "description_en": "The JWKS configuration",
+            "description_zh": "jwks配置",
+            "example": "xxxx",
+            "required": false,
+            "title": "jwks",
+            "type": "string"
+          },
+          "jwtPayloadConfig": {
+            "backendName": "jwtPayloadConfig",
+            "description_en": "The JWT payload configuration",
+            "description_zh": "jwt信息载荷配置",
+            "properties": {
+              "payloadKeyName": {
+                "backendName": "payloadKeyName",
+                "description_en": "The JWT payload key configuration",
+                "description_zh": "JWT载荷键配置",
+                "example": "uid",
+                "required": false,
+                "title": "payloadKeyName",
+                "type": "string"
+              },
+              "payloadKeyValue": {
+                "backendName": "payloadKeyValue",
+                "description_en": "The JWT payload value configuration",
+                "description_zh": "JWT载荷的值内容配置",
+                "example": "2222",
+                "required": false,
+                "title": "payloadKeyValue",
+                "type": "string"
+              }
+            },
+            "title": "jwtPayloadConfig",
+            "type": "object"
+          },
+          "jwtTokenConfig": {
+            "backendName": "jwtTokenConfig",
+            "description_en": "The JWT token configuration",
+            "description_zh": "jwtToken配置",
+            "properties": {
+              "key": {
+                "backendName": "key",
+                "description_en": "The key configuration of the JWT",
+                "description_zh": "JWT的KEY配置",
+                "example": "Authorization",
+                "required": false,
+                "title": "key",
+                "type": "string"
+              },
+              "pass": {
+                "backendName": "pass",
+                "description_en": "Indicates whether the request is passed through",
+                "description_zh": "是否通过",
+                "example": "true",
+                "required": false,
+                "title": "pass",
+                "type": "boolean"
+              },
+              "position": {
+                "backendName": "position",
+                "description_en": "The location where the JWT is stored",
+                "description_zh": "JWT保存位置",
+                "example": "HEADER",
+                "required": false,
+                "title": "position",
+                "type": "string"
+              },
+              "prefix": {
+                "backendName": "prefix",
+                "description_en": "The prefix configuration",
+                "description_zh": "前缀配置",
+                "example": "test",
+                "required": false,
+                "title": "prefix",
+                "type": "string"
+              }
+            },
+            "required": false,
+            "title": "jwtTokenConfig",
+            "type": "object"
+          },
+          "remoteJwks": {
+            "backendName": "remoteJwks",
+            "description_en": "The remote JWKS configuration (JSON string)",
+            "description_zh": "远程 JWKS 配置（JSON 字符串）",
+            "example": "{\"uri\":\"https://example.com/.well-known/jwks.json\"}",
+            "required": false,
+            "title": "remoteJwks",
+            "type": "string"
+          },
+          "secretType": {
+            "backendName": "secretType",
+            "description_en": "The secret type",
+            "description_zh": "secret类型",
+            "example": "Symmetry",
+            "required": false,
+            "title": "secretType",
+            "type": "string"
+          },
+          "type": {
+            "backendName": "type",
+            "description_en": "The authentication configuration type",
+            "description_zh": "鉴权配置类型",
+            "example": "Jwt",
+            "required": false,
+            "title": "type",
+            "type": "string"
+          }
+        },
+        "title": "A short description of struct",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Creates a consumer",
   "description_zh": "创建消费者",
@@ -514,6 +818,52 @@
   "pathPattern": "/v1/consumers",
   "product_code": "APIG",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "code": {
+            "description_en": "The response status code",
+            "description_zh": "响应状态码",
+            "example": "Ok",
+            "type": "string"
+          },
+          "data": {
+            "description_en": "The response data",
+            "description_zh": "响应数据",
+            "properties": {
+              "consumerId": {
+                "description_en": "The consumer ID",
+                "description_zh": "消费者ID",
+                "example": "cs-cvnjramm1hks1r3fmmug",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "message": {
+            "description_en": "The response message",
+            "description_zh": "响应消息",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "479AE38F-A574-52F7-87EA-E91199999F9E",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body",

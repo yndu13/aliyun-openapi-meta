@@ -63,7 +63,7 @@
     {
       "example": "env-xxxx",
       "help_en": "The environmentId",
-      "help_zh": "目标环境 ID，必须与 API 的 Ingress 导入环境一致",
+      "help_zh": "目标环境 ID，必须与 API 的 Ingress 导入环境一致本参数实际为必填项，未提供时 API 返回 InvalidParameter.IsEmpty(400)",
       "location": "body",
       "name": "environment_id",
       "options": [
@@ -91,7 +91,7 @@
     {
       "example": "api-xxxx",
       "help_en": "The httpApiId",
-      "help_zh": "HTTP API ID，必须已导入为 Ingress 类型（HttpIngress）的 API",
+      "help_zh": "HTTP API ID，必须已导入为 Ingress 类型（HttpIngress）的 API本参数实际为必填项，未提供时 API 返回 InvalidParameter.IsEmpty(400)",
       "location": "body",
       "name": "http_api_id",
       "options": [
@@ -148,6 +148,48 @@
   "pathPattern": "/v1/migration-tasks",
   "product_code": "APIG",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "code": {
+            "description_zh": "响应状态码",
+            "example": "200",
+            "type": "string"
+          },
+          "data": {
+            "description_zh": "响应数据",
+            "properties": {
+              "taskId": {
+                "description_zh": "任务ID",
+                "example": "async-task-xxx",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "message": {
+            "description_zh": "响应消息",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "description_en": "Id of the request",
+            "description_zh": "请求 ID",
+            "example": "019FD4D8-8A86-5FDE-B79F-357C69677DFB",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_zh": "请求参数",

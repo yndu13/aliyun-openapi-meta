@@ -96,6 +96,101 @@
   "pathPattern": "/api/v1/providers/[provider]/products/[product]/resources/*",
   "product_code": "cloudcontrol",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response structure",
+        "description_zh": "返回结构",
+        "properties": {
+          "maxResults": {
+            "backendName": "module.maxResults",
+            "description_en": "The maximum number of records returned for the current request. This parameter is returned by the List operation",
+            "description_zh": "本次请求所返回的最大记录条数。List操作返回",
+            "example": "10",
+            "format": "int32",
+            "type": "integer"
+          },
+          "nextToken": {
+            "backendName": "module.nextToken",
+            "description_en": "The position where the current call finished reading. An empty value indicates that all data has been read. This parameter is returned by the List operation",
+            "description_zh": "表示当前调用返回读取到的位置，空代表数据已经读取完毕。List操作返回",
+            "example": "AAAAAdDWBF2****",
+            "type": "string"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3****",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "resource": {
+            "backendName": "module.resource",
+            "description_en": "The specified resource. This parameter is returned by the Get operation",
+            "description_zh": "指定资源。Get操作返回",
+            "properties": {
+              "resourceAttributes": {
+                "backendName": "resourceAttributeMap",
+                "description_en": "The resource properties in JSON format",
+                "description_zh": "资源属性（JSON格式）",
+                "example": "{\"Status\":\"Available\",\"Description\":\"\",\"AccountPrivilege\":\"RoleReadWrite\",\"InstanceId\":\"r-2ze8v41uei31lo****\",\"RegionId\":\"cn-zhangjiakou\",\"AccountType\":\"Normal\",\"TypeInfo\":{},\"AccountName\":\"cctest\"}",
+                "type": "object"
+              },
+              "resourceId": {
+                "backendName": "resourceId",
+                "description_en": "The resource ID",
+                "description_zh": "资源ID",
+                "example": "cctest",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "resources": {
+            "backendName": "module.list",
+            "description_en": "A list of resources. This parameter is returned by the List operation",
+            "description_zh": "资源列表。List操作返回",
+            "itemName": "resource",
+            "items": {
+              "description_en": "A resource",
+              "description_zh": "资源",
+              "properties": {
+                "resourceAttributes": {
+                  "backendName": "resourceAttributeMap",
+                  "description_en": "The resource properties in JSON format",
+                  "description_zh": "资源属性（JSON格式）",
+                  "example": "{\"Status\":\"Available\",\"Description\":\"\",\"AccountPrivilege\":\"RoleReadWrite\",\"InstanceId\":\"r-2ze8v41uei31lo****\",\"RegionId\":\"cn-zhangjiakou\",\"AccountType\":\"Normal\",\"TypeInfo\":{},\"AccountName\":\"cctest\"}",
+                  "type": "object"
+                },
+                "resourceId": {
+                  "backendName": "resourceId",
+                  "description_en": "The resource ID",
+                  "description_zh": "资源ID",
+                  "example": "cctest",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "totalCount": {
+            "backendName": "module.count",
+            "description_en": "The total number of entries that match the query conditions. This parameter is returned by the List operation",
+            "description_zh": "本次请求条件下的数据总量。List操作返回",
+            "example": "20",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "The filter conditions for resources.\n\nSpecify multiple key-value pairs in JSON format to filter resources. If a List or Get operation for a cloud product supports filtering by specific properties, you can use those properties as filter conditions for this parameter.\n\nThe supported filter fields may vary for different resource types. For more information about the supported fields, see the OpenAPI documentation for the specific resource.\n\nFor example, DBInstance resources support filtering by the `EditionType` and `PaymentType` fields",

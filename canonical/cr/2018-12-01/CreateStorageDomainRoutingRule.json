@@ -2,6 +2,49 @@
   "camel_example": "",
   "cmd_full_name": "cr create-storage-domain-routing-rule",
   "cmd_name": "create-storage-domain-routing-rule",
+  "components": {
+    "schemas": {
+      "RouteItem": {
+        "description_en": "The instance storage domain name routing rule entry",
+        "description_zh": "实例存储域名路由规则条目",
+        "properties": {
+          "EndpointType": {
+            "backendName": "endpointType",
+            "description_en": "The endpoint type",
+            "description_zh": "端点类型",
+            "enum": [
+              "Internet",
+              "VPC"
+            ],
+            "example": "Internet",
+            "nullable": false,
+            "required": true,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "InstanceDomain": {
+            "backendName": "instanceDomain",
+            "description_en": "The instance domain name",
+            "description_zh": "实例域名",
+            "example": "test-instance-registry-vpc.cn-hangzhou.cr.aliyuncs.com",
+            "required": true,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "StorageDomain": {
+            "backendName": "storageDomain",
+            "description_en": "The OSS domain name",
+            "description_zh": "OSS 域名",
+            "example": "https://cri-cfafawer***-registry.oss-cn-hangzhou.aliyuncs.com",
+            "required": true,
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "visibility": "Public"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Creates an instance store domain name routing rule",
   "description_zh": "创建实例存储域名路由规则",
@@ -95,6 +138,45 @@
   "pathPattern": "",
   "product_code": "cr",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The HTTP status code",
+            "description_zh": "返回值",
+            "example": "success",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "C8E90AB5-0A96-5D12-9E59-11EE463*****",
+            "type": "string"
+          },
+          "RuleId": {
+            "backendName": "data.ruleId",
+            "description_en": "The rule ID",
+            "description_zh": "规则ID",
+            "example": "crsdr-n6pbhgjx*****",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Identification of whether the request is successful or not",
+            "description_zh": "请求成功与否标识",
+            "example": "true",
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "The instance ID",

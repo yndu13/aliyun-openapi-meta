@@ -3,7 +3,7 @@
   "cmd_full_name": "eci describe-available-resource",
   "cmd_name": "describe-available-resource",
   "deprecated": false,
-  "description_en": "You can call the DescribeAvailableResource operation to query the ECS instance families that are available in a specified region and zone",
+  "description_en": "Queries the ECS instance families available for sale in a specified region and zone",
   "description_zh": "调用DescribeAvailableResource查询指定地域和可用区下可售ECS实例规格族",
   "kebab_example": "",
   "method": "GET|POST",
@@ -23,7 +23,7 @@
     {
       "doc_required": true,
       "example": "cn-hangzhou",
-      "help_en": "The region ID.\n\nCall https://help.aliyun.com/document_detail/146965.html to view the latest list of Alibaba Cloud regions",
+      "help_en": "The region ID.\n\nYou can call https://help.aliyun.com/document_detail/146965.html to query the most recent region list",
       "help_zh": "地域ID。\n\n您可以调用https://help.aliyun.com/document_detail/146965.html查看最新的阿里云地域列表",
       "location": "query",
       "name": "region_id",
@@ -36,7 +36,7 @@
     },
     {
       "example": "cn-hangzhou-e",
-      "help_en": "The zone ID.\n\nIf you do not specify this parameter, all zones in the specified region are queried",
+      "help_en": "The zone ID.\n\nDefault value: empty. If this parameter is left empty, all zones in the specified region are queried",
       "help_zh": "可用区ID。\n\n默认值为空，此时查询指定地域下的所有可用区",
       "location": "query",
       "name": "zone_id",
@@ -51,7 +51,7 @@
       "fields": [
         {
           "example": "InstanceTypeFamily",
-          "help_en": "The resource type. Valid values:\n\nInstanceTypeFamily: Queries instance families. This value must be used with the Value parameter.\n\nInstanceType: Queries instance types. This value must be used with the Value, Cores, and Memory parameters",
+          "help_en": "The resource type. Valid values:\n\nInstanceTypeFamily: queries instance families. Use this value together with Value.\nInstanceType: queries instance types. Use this value together with Value, Cores, and Memory",
           "help_zh": "资源类型。取值范围：\n\nInstanceTypeFamily：表示查询实例规格族，配合Value使用。\nInstanceType：表示查询实例规格，配合Value，以及Cores和Memory使用",
           "name": "category",
           "options": [
@@ -63,7 +63,7 @@
         },
         {
           "example": "2",
-          "help_en": "The number of vCPUs. You can set this parameter only when Category is set to InstanceType",
+          "help_en": "The number of vCPUs. This parameter can be specified when Category is set to InstanceType",
           "help_zh": "vCPU核数。当Category取值为InstanceType时，可以设置",
           "name": "cores",
           "options": [
@@ -75,7 +75,7 @@
         },
         {
           "example": "4",
-          "help_en": "The memory size, in GiB. You can set this parameter only when Category is set to InstanceType",
+          "help_en": "The memory size. Unit: GiB. This parameter can be specified when Category is set to InstanceType",
           "help_zh": "内存大小。单位为GiB。当Category取值为InstanceType时，可以设置",
           "name": "memory",
           "options": [
@@ -87,7 +87,7 @@
         },
         {
           "example": "ecs.c6",
-          "help_en": "The instance family or a specific instance type.\n\nIf you set Category to InstanceTypeFamily, set this parameter to an instance family, such as ecs.c5.\n\nIf you set Category to InstanceType, set this parameter to a specific instance type, such as ecs.c5.large",
+          "help_en": "The instance family or specific instance type.\n\nIf Category is set to InstanceTypeFamily, set this parameter to an instance family, such as ecs.c5.\nIf Category is set to InstanceType, set this parameter to a specific instance type, such as ecs.c5.large",
           "help_zh": "实例规格族或者具体实例规格。\n\n当Category取值为InstanceTypeFamily时，取值为实例规格族，如ecs.c5。\n当Category取值为InstanceType时，取值为具体实例规格。如ecs.c5.large",
           "name": "value",
           "options": [
@@ -98,7 +98,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The information about the resource to query",
+      "help_en": "The resource information to query",
       "help_zh": "要查询的资源信息",
       "location": "query",
       "name": "destination_resource",
@@ -114,7 +114,7 @@
       "fields": [
         {
           "example": "1",
-          "help_en": "The protection period of the spot instance, in hours. The default value is 1. Set the value to 0 to specify no protection period",
+          "help_en": "The protection period of the spot instance. Unit: hours. Default value: 1. Set the value to 0 to indicate no protection period",
           "help_zh": "抢占式实例的保护期。单位为小时。默认为1。可设置为0，表示无保护期",
           "name": "spot_duration",
           "options": [
@@ -126,7 +126,7 @@
         },
         {
           "example": "0.2",
-          "help_en": "The maximum hourly price of the spot instance. The value can have up to three decimal places. This parameter is required only when SpotStrategy is set to SpotWithPriceLimit",
+          "help_en": "The maximum hourly price of the spot instance. The value can be accurate to three decimal places. This parameter is required when SpotStrategy is set to SpotWithPriceLimit",
           "help_zh": "抢占式实例的每小时最高价格，最多精确到小数点后3位。当SpotStrategy取值为SpotWithPriceLimit时，必须设置SpotPriceLimit",
           "name": "spot_price_limit",
           "options": [
@@ -138,7 +138,7 @@
         },
         {
           "example": "SpotAsPriceGo",
-          "help_en": "The preemption policy for the instance. Valid values:\n\nNoSpot: a regular pay-as-you-go instance.\n\nSpotWithPriceLimit: a spot instance for which you specify the maximum hourly price.\n\nSpotAsPriceGo: a spot instance for which the system automatically bids based on the current market price.\n\nDefault value: NoSpot.\n\nWhen you query information about a spot instance resource, if you set this parameter to SpotWithPriceLimit or SpotAsPriceGo, you must set Category to InstanceType. You must also specify an instance type using the Value parameter, or specify the number of vCPUs and memory size using the Cores and Memory parameters",
+          "help_en": "The bidding policy for the instance. Valid values:\n\nNoSpot: a pay-as-you-go instance.\nSpotWithPriceLimit: a spot instance with a maximum hourly price.\nSpotAsPriceGo: a spot instance that is billed based on the market price at the time of purchase.\n\nDefault value: NoSpot.\n\nWhen you query spot instance resource information (that is, when the value is SpotWithPriceLimit or SpotAsPriceGo), Category must be set to InstanceType, and you must specify a specific instance type (Value) or specify vCPUs and memory (Cores and Memory)",
           "help_zh": "实例的抢占策略。取值范围：\n\nNoSpot：正常按量付费实例。\nSpotWithPriceLimit：设置上限价格的抢占式实例。\nSpotAsPriceGo：系统自动出价，跟随当前市场实际价格的抢占式实例。\n\n默认为：NoSpot。\n\n查询抢占式实例资源信息时，即取值为SpotWithPriceLimit或SpotAsPriceGo时，Category取值必须为InstanceType，同时需指定具体实例规格（Value），或者指定vCPU和内存（Cores和Memory）",
           "name": "spot_strategy",
           "options": [
@@ -149,7 +149,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The information about the spot instance resource to query",
+      "help_en": "The resource information of the spot instance to query",
       "help_zh": "要查询的抢占式实例的资源信息",
       "location": "query",
       "name": "spot_resource",
@@ -164,5 +164,75 @@
   ],
   "pathPattern": "",
   "product_code": "Eci",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "AvailableZones": {
+            "backendName": "data",
+            "itemName": "AvailableZone",
+            "items": {
+              "properties": {
+                "AvailableResources": {
+                  "backendName": "availableZoneResources",
+                  "itemName": "AvailableResource",
+                  "items": {
+                    "properties": {
+                      "SupportedResources": {
+                        "backendName": "supportedResources",
+                        "itemName": "SupportedResource",
+                        "items": {
+                          "properties": {
+                            "StatusCategory": {
+                              "backendName": "statusCategory",
+                              "type": "string"
+                            },
+                            "Value": {
+                              "backendName": "value",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "Type": {
+                        "backendName": "type",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "RegionId": {
+                  "backendName": "regionId",
+                  "type": "string"
+                },
+                "ZoneId": {
+                  "backendName": "zoneId",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "6829735A-FF76-58C6-AECB-27CBF135A7AA",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

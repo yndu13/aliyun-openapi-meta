@@ -50,6 +50,253 @@
   "pathPattern": "/agentspace/[agentSpace]/pipeline/[pipelineName]",
   "product_code": "AgentLoop",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "committedWatermark": {
+            "example": "1735660800",
+            "format": "int64",
+            "title_en": "已提交水位线，unix 秒",
+            "title_zh": "已提交水位线，unix 秒",
+            "type": "integer"
+          },
+          "createTime": {
+            "backendParamType": "java.util.Date",
+            "dateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            "example": "2026-01-01T00:00:00Z",
+            "format": "iso8601_normal",
+            "title_en": "流水线创建时间，ISO 8601 UTC 格式",
+            "title_zh": "流水线创建时间，ISO 8601 UTC 格式",
+            "type": "string"
+          },
+          "description": {
+            "example": "我的流水线",
+            "title_en": "流水线描述",
+            "title_zh": "流水线描述",
+            "type": "string"
+          },
+          "executePolicy": {
+            "properties": {
+              "mode": {
+                "example": "Scheduled",
+                "title_en": "调度模式，例如 Scheduled（定时）/ RunOnce（仅执行一次）",
+                "title_zh": "调度模式，例如 Scheduled（定时）/ RunOnce（仅执行一次）",
+                "type": "string"
+              },
+              "runOnce": {
+                "properties": {
+                  "fromTime": {
+                    "example": "1735660800000",
+                    "format": "int64",
+                    "title_en": "数据处理起始时间，Unix 毫秒时间戳",
+                    "title_zh": "数据处理起始时间，Unix 毫秒时间戳",
+                    "type": "integer"
+                  },
+                  "toTime": {
+                    "example": "1735747200000",
+                    "format": "int64",
+                    "title_en": "数据处理结束时间，Unix 毫秒时间戳",
+                    "title_zh": "数据处理结束时间，Unix 毫秒时间戳",
+                    "type": "integer"
+                  }
+                },
+                "title_en": "仅执行一次的配置",
+                "title_zh": "仅执行一次的配置",
+                "type": "object"
+              },
+              "scheduled": {
+                "properties": {
+                  "fromTime": {
+                    "example": "1735660800000",
+                    "format": "int64",
+                    "title_en": "调度起始时间，Unix 毫秒时间戳",
+                    "title_zh": "调度起始时间，Unix 毫秒时间戳",
+                    "type": "integer"
+                  },
+                  "interval": {
+                    "example": "1h",
+                    "title_en": "调度间隔，例如 1h",
+                    "title_zh": "调度间隔，例如 1h",
+                    "type": "string"
+                  }
+                },
+                "title_en": "定时调度配置",
+                "title_zh": "定时调度配置",
+                "type": "object"
+              }
+            },
+            "title_en": "调度方式",
+            "title_zh": "调度方式",
+            "type": "object"
+          },
+          "nextTriggerTime": {
+            "example": "1735661100",
+            "format": "int64",
+            "title_en": "下次调度触发时间，unix 秒",
+            "title_zh": "下次调度触发时间，unix 秒",
+            "type": "integer"
+          },
+          "pipeline": {
+            "properties": {
+              "nodes": {
+                "itemName": "nodes",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "example": "node-1",
+                      "title_en": "节点 Id",
+                      "title_zh": "节点 Id",
+                      "type": "string"
+                    },
+                    "parameters": {
+                      "additionalProperties": {
+                        "example": "value",
+                        "title_en": "节点参数值",
+                        "title_zh": "节点参数值",
+                        "type": "any"
+                      },
+                      "title_en": "节点参数，键值结构，随节点类型而定",
+                      "title_zh": "节点参数，键值结构，随节点类型而定",
+                      "type": "object"
+                    },
+                    "type": {
+                      "example": "transform",
+                      "title_en": "节点类型",
+                      "title_zh": "节点类型",
+                      "type": "string"
+                    }
+                  },
+                  "title_en": "单个节点配置",
+                  "title_zh": "单个节点配置",
+                  "type": "object"
+                },
+                "title_en": "节点列表",
+                "title_zh": "节点列表",
+                "type": "array"
+              }
+            },
+            "title_en": "Pipeline 配置（节点编排）",
+            "title_zh": "Pipeline 配置（节点编排）",
+            "type": "object"
+          },
+          "pipelineName": {
+            "example": "my-pipeline",
+            "title_en": "流水线名称",
+            "title_zh": "流水线名称",
+            "type": "string"
+          },
+          "regionId": {
+            "backendName": "regionId",
+            "example": "cn-hangzhou",
+            "title_en": "地域ID",
+            "title_zh": "地域ID",
+            "type": "string"
+          },
+          "requestId": {
+            "example": "9ACFB10A-1B2C-3D4E-5F6G-7H8I9J0K1L2M",
+            "title_en": "请求 Id，用于排查问题时定位本次请求",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "scheduleStatus": {
+            "example": "Active",
+            "title_en": "调度状态：None（无调度）、Active（活跃）、Paused（已暂停）、Terminated（已终止）",
+            "title_zh": "调度状态：None（无调度）、Active（活跃）、Paused（已暂停）、Terminated（已终止）",
+            "type": "string"
+          },
+          "sink": {
+            "properties": {
+              "dataset": {
+                "properties": {
+                  "agentSpace": {
+                    "example": "my-agent-space",
+                    "title_en": "目标数据集所属 AgentSpace 名称",
+                    "title_zh": "目标数据集所属 AgentSpace 名称",
+                    "type": "string"
+                  },
+                  "dataset": {
+                    "example": "my-dataset",
+                    "title_en": "目标数据集名称",
+                    "title_zh": "目标数据集名称",
+                    "type": "string"
+                  }
+                },
+                "title_en": "目标数据集配置",
+                "title_zh": "目标数据集配置",
+                "type": "object"
+              },
+              "type": {
+                "example": "Dataset",
+                "title_en": "目标类型，例如 Dataset",
+                "title_zh": "目标类型，例如 Dataset",
+                "type": "string"
+              }
+            },
+            "title_en": "Pipeline 目标（数据写入目标）",
+            "title_zh": "Pipeline 目标（数据写入目标）",
+            "type": "object"
+          },
+          "source": {
+            "properties": {
+              "logstore": {
+                "properties": {
+                  "logstore": {
+                    "example": "my-sls-logstore",
+                    "title_en": "SLS Logstore 名称",
+                    "title_zh": "SLS Logstore 名称",
+                    "type": "string"
+                  },
+                  "project": {
+                    "example": "my-sls-project",
+                    "title_en": "SLS Project 名称",
+                    "title_zh": "SLS Project 名称",
+                    "type": "string"
+                  },
+                  "query": {
+                    "example": "* | SELECT *",
+                    "title_en": "数据筛选查询语句（SLS 查询/分析语法）",
+                    "title_zh": "数据筛选查询语句（SLS 查询/分析语法）",
+                    "type": "string"
+                  }
+                },
+                "title_en": "SLS Logstore 数据源配置",
+                "title_zh": "SLS Logstore 数据源配置",
+                "type": "object"
+              },
+              "type": {
+                "example": "SLS",
+                "title_en": "数据源类型，例如 SLS",
+                "title_zh": "数据源类型，例如 SLS",
+                "type": "string"
+              }
+            },
+            "title_en": "Pipeline 数据源",
+            "title_zh": "Pipeline 数据源",
+            "type": "object"
+          },
+          "updateTime": {
+            "backendParamType": "java.util.Date",
+            "dateFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            "example": "2026-01-02T00:00:00Z",
+            "format": "iso8601_normal",
+            "title_en": "流水线最近一次更新时间，ISO 8601 UTC 格式",
+            "title_zh": "流水线最近一次更新时间，ISO 8601 UTC 格式",
+            "type": "string"
+          },
+          "workspace": {
+            "example": "my-workspace",
+            "title_en": "流水线关联的 Workspace",
+            "title_zh": "流水线关联的 Workspace",
+            "type": "string"
+          }
+        },
+        "title_en": "响应数据",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "AgentSpace 名称，定位流水线所在的 AgentSpace",

@@ -23,7 +23,7 @@
     {
       "doc_required": true,
       "example": "cn-hangzhou",
-      "help_en": "The ID of the region where the zones reside. You can call the https://help.aliyun.com/document_detail/120468.html operation to obtain the region ID",
+      "help_en": "The region ID of the zones. You can call the https://help.aliyun.com/document_detail/120468.html operation to obtain the region ID",
       "help_zh": "可用区所在的地域ID。您可以通过调用https://help.aliyun.com/document_detail/120468.html接口获取地域ID",
       "location": "query",
       "name": "region_id",
@@ -49,7 +49,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether this is a cross-region scenario. Default value: false.\n\nSet CrossRegion to true and use it together with CrossRegionSide in the following scenarios:\nAs a service consumer: You need to create a cross-region endpoint to connect to an endpoint service in another region. To query the zones in the current region that support cross-region endpoints, set CrossRegion to true and CrossRegionSide to Endpoint.\n\nAs a service provider: You need to share your endpoint service across regions with service consumers in other regions. To query the zones in the current region that support cross-region sharing, set CrossRegion to true and CrossRegionSide to EndpointService",
+      "help_en": "Specifies whether this is a cross-region scenario. Default value: false.\n\nSet CrossRegion to true and use it together with CrossRegionSide in the following scenarios:\nAs a service consumer: You need to create a cross-region endpoint to connect to an endpoint service in another region. When you call this operation to query the zones in the current region that support cross-region endpoints, set CrossRegion to true and CrossRegionSide to Endpoint.\n\nAs a service provider: You need to share an endpoint service across regions with service consumers in other regions. When you call this operation to query the zones in the current region that support cross-region sharing, set CrossRegion to true and CrossRegionSide to EndpointService",
       "help_zh": "是否跨地域场景，默认值 false。\n\n以下场景需设置 CrossRegion 为 true，并结合 CrossRegionSide 使用：\n作为服务使用方：需要创建跨地域终端节点以连接其他地域的终端节点服务。调用本接口查询当前地域中支持创建跨地域终端节点的可用区时，设置 CrossRegion 为 true，CrossRegionSide 设置为 Endpoint。\n\n作为服务提供方 ：需要将终端节点服务跨地域共享给其他地域的服务使用方。调用本接口查询当前地域中支持跨地域共享的可用区时，设置 CrossRegion 为 true，CrossRegionSide 设置为 EndpointService",
       "location": "query",
       "name": "cross_region",
@@ -66,7 +66,7 @@
         "EndpointService"
       ],
       "example": "EndpointService",
-      "help_en": "Specifies whether to query the active zone support for the initiator side or the service side in a cross-region connection. Valid values:\nEndpoint (default): endpoint.\nEndpointService: endpoint service.\n\nThis parameter takes effect only when CrossRegion is set to true",
+      "help_en": "Specifies whether to query the zone availability for the initiator side or the service side in a cross-region connection. Valid values:\nEndpoint (default): endpoint.\nEndpointService: endpoint service.\n\nThis parameter takes effect only when CrossRegion is set to true",
       "help_zh": "指定查询跨地域连接中发起方或服务方的可用区支持情况。取值如下：\nEndpoint（默认）：终端节点。\nEndpointService：终端节点服务。\n\n该字段仅在 CrossRegion=true 时生效",
       "location": "query",
       "name": "cross_region_side",
@@ -80,5 +80,47 @@
   ],
   "pathPattern": "",
   "product_code": "Privatelink",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "611CB80C-B6A9-43DB-9E38-0B0AC3D9B58F",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Zones": {
+            "backendName": "data",
+            "itemName": "Zone",
+            "items": {
+              "properties": {
+                "LocalName": {
+                  "backendName": "localName",
+                  "nullToEmpty": false,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "ZoneId": {
+                  "backendName": "zoneId",
+                  "nullToEmpty": false,
+                  "type": "string",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

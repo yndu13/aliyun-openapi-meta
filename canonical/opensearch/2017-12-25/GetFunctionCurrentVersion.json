@@ -88,5 +88,93 @@
   ],
   "pathPattern": "/v4/openapi/functions/[functionName]/current-version",
   "product_code": "OpenSearch",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response body",
+        "description_zh": "响应体",
+        "example": "{     \"status\": \"OK\",     \"requestId\": \"\",     \"httpCode\": 200,     \"code\": \"\",     \"message\": \"\",     \"latency\": 123,     \"result\": {         \"versionName\": \"v1\",         \"versionId\": 101,         \"functionName\": \"ctr\",         \"modelType\": \"tf_checkpoint\",         \"functionType\": \"PAAS\",         \"versionConfig\": {             \"createParameters\": [                 {                     \"name\": \"params1\",                     \"required\": \"true\",                     \"formItemProps\": \"{\\\"required\\\": true, \\\"pattern?\\\": \\\"/^[a-zA-Z][a-zA-Z0-9_]{0,29}$/\\\"}\",                     \"componentProps\": \"{\\\"component\\\": \\\"Input\\\", \\\"attributes\\\": {\\\"defaultValue\\\": \\\"value1\\\"}}\"                 }             ],             \"depends\": [                 {                     \"dependency\": \"依赖项\",                     \"condition\": \"条件\",                     \"description\": \"\"                 }             ],             \"usageParameters\": []         }     } }",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "httpCode": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "latency": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          },
+          "result": {
+            "properties": {
+              "functionName": {
+                "type": "string"
+              },
+              "functionType": {
+                "type": "string"
+              },
+              "modelType": {
+                "type": "string"
+              },
+              "versionConfig": {
+                "properties": {
+                  "createParameters": {
+                    "itemName": "createParameters",
+                    "items": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "depends": {
+                    "itemName": "depends",
+                    "items": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "usageParameters": {
+                    "itemName": "usageParameters",
+                    "items": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "versionId": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "versionName": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -64,5 +64,134 @@
   ],
   "pathPattern": "",
   "product_code": "alikafka",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "Status code. A value of 200 indicates success",
+            "description_zh": "状态码。返回200代表成功",
+            "example": "200",
+            "format": "int32",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "Response message",
+            "description_zh": "返回信息",
+            "example": "operation success.",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Request ID",
+            "description_zh": "请求ID",
+            "example": "E475C7E2-8C35-46EF-BE7D-5D2A9F5D****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the call was successful",
+            "description_zh": "调用是否成功",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "TopicStatus": {
+            "backendName": "data",
+            "description_en": "Topic status",
+            "description_zh": "Topic状态",
+            "nullToEmpty": false,
+            "properties": {
+              "LastTimeStamp": {
+                "backendName": "lastTimeStamp",
+                "description_en": "Generation time of the last consumed message. Unit: ms",
+                "description_zh": "最后一条被消费的消息的产生时间。单位：ms",
+                "example": "1566470063575",
+                "format": "int64",
+                "mappingResourcePropertyName": "$.TopicStatus.LastTimeStamp",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "OffsetTable": {
+                "backendName": "offsetTable",
+                "itemName": "OffsetTable",
+                "items": {
+                  "mappingResourcePropertyName": "$.TopicStatus.OffsetTable[*]",
+                  "properties": {
+                    "LastUpdateTimestamp": {
+                      "backendName": "lastUpdateTimestamp",
+                      "format": "int64",
+                      "mappingResourcePropertyName": "$.TopicStatus.OffsetTable[*].LastUpdateTimestamp",
+                      "nullToEmpty": false,
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "MaxOffset": {
+                      "backendName": "maxOffset",
+                      "format": "int64",
+                      "mappingResourcePropertyName": "$.TopicStatus.OffsetTable[*].MaxOffset",
+                      "nullToEmpty": false,
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "MinOffset": {
+                      "backendName": "minOffset",
+                      "format": "int64",
+                      "mappingResourcePropertyName": "$.TopicStatus.OffsetTable[*].MinOffset",
+                      "nullToEmpty": false,
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "Partition": {
+                      "backendName": "partition",
+                      "format": "int32",
+                      "nullToEmpty": false,
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "Topic": {
+                      "backendName": "topic",
+                      "mappingResourcePropertyName": "$.Topic",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "nullToEmpty": false,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "TotalCount": {
+                "backendName": "totalCount",
+                "description_en": "Total number of messages",
+                "description_zh": "消息总数",
+                "example": "423",
+                "format": "int64",
+                "mappingResourcePropertyName": "$.TopicStatus.TotalCount",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

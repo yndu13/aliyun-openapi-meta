@@ -1,6 +1,81 @@
 {
   "cmd_full_name": "cms list-biz-traces",
   "cmd_name": "list-biz-traces",
+  "components": {
+    "schemas": {
+      "BizTraceConfig": {
+        "description_en": "The business trace configuration",
+        "description_zh": "业务链路追踪的配置",
+        "properties": {
+          "advancedConfig": {
+            "backendName": "advancedConfig",
+            "description_en": "The advanced configuration",
+            "description_zh": "高级配置",
+            "example": "{\"sample\":{\"strategy\":\"BY_APP\"}}",
+            "title": "高级配置",
+            "type": "string"
+          },
+          "bizTraceCode": {
+            "backendName": "bizTraceCode",
+            "description_en": "The business trace identifier",
+            "description_zh": "业务链路标识",
+            "example": "label_env",
+            "title": "业务链路标识",
+            "type": "string"
+          },
+          "bizTraceId": {
+            "backendName": "bizTraceId",
+            "description_en": "The business trace ID",
+            "description_zh": "业务链路id",
+            "example": "e339260ed64c95d",
+            "title": "业务链路id",
+            "type": "string"
+          },
+          "bizTraceName": {
+            "backendName": "bizTraceName",
+            "description_en": "The business trace name",
+            "description_zh": "业务链路名称",
+            "example": "just test",
+            "title": "业务链路名称",
+            "type": "string"
+          },
+          "createTime": {
+            "backendName": "createTime",
+            "description_en": "The creation time",
+            "description_zh": "创建时间",
+            "example": "2025-12-12 00:00:00",
+            "title": "创建时间",
+            "type": "string"
+          },
+          "regionId": {
+            "backendName": "regionId",
+            "description_en": "The region ID",
+            "description_zh": "地域id",
+            "example": "cn-beijing",
+            "title": "地域id",
+            "type": "string"
+          },
+          "ruleConfig": {
+            "backendName": "ruleConfig",
+            "description_en": "The list of configuration rules",
+            "description_zh": "配置规则列表",
+            "example": "[{\"entrancePid\":\"xxxxx@b57c44xx6e86\",\"rpcMatcher\":{\"matchType\":\"EQUALS\",\"pattern\":\"/createApp\"},\"characteristics\":{\"operation\":\"AND\",\"rules\":[{\"target\":\"CUSTOM_EXTRACT\",\"matcher\":{\"matchType\":\"CONTAINS\",\"pattern\":[]}}]}}]",
+            "title": "配置规则列表",
+            "type": "string"
+          },
+          "workspace": {
+            "backendName": "workspace",
+            "description_en": "The workspace",
+            "description_zh": "工作空间",
+            "example": "default-cms-xxxxxxx-cn-hangzhou",
+            "title": "工作空间。",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Lists business traces",
   "description_zh": "业务链路列表",
@@ -61,5 +136,61 @@
   ],
   "pathPattern": "/bizTraces",
   "product_code": "Cms",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "parseType": "struct",
+        "properties": {
+          "items": {
+            "backendName": "items",
+            "description_en": "The list of business traces",
+            "description_zh": "业务链路列表",
+            "itemName": "items",
+            "items": {
+              "$ref": "#/components/schemas/BizTraceConfig",
+              "description_en": "The business trace",
+              "description_zh": "业务链路"
+            },
+            "type": "array"
+          },
+          "maxResults": {
+            "backendName": "maxResults",
+            "description_en": "The maximum number of results returned. The maximum value is 100",
+            "description_zh": "最大返回结果数，最大值100",
+            "example": "20",
+            "format": "int32",
+            "type": "integer"
+          },
+          "nextToken": {
+            "backendName": "nextToken",
+            "description_en": "The token to use to retrieve the next page of results",
+            "description_zh": "下一次查询的令牌",
+            "example": "aa9d0e569b88098a0e3155c29b473201a",
+            "type": "string"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "0CEC5375-C554-562B-A65F-*****",
+            "type": "string"
+          },
+          "totalCount": {
+            "backendName": "totalCount",
+            "description_en": "The total number of entries",
+            "description_zh": "总条数",
+            "example": "66",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

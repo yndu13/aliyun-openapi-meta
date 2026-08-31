@@ -140,5 +140,126 @@
   ],
   "pathPattern": "",
   "product_code": "csas",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Logs": {
+            "backendName": "data.logs",
+            "description_en": "The list of administrator operation audit logs, sorted by operation time in descending order",
+            "description_zh": "管理员操作审计日志列表，按操作时间倒序排列",
+            "itemName": "logs",
+            "items": {
+              "description_en": "The administrator operation audit log",
+              "description_zh": "管理员操作审计日志",
+              "properties": {
+                "AfterAction": {
+                  "backendName": "afterAction",
+                  "description_en": "The post-operation snapshot. This value is recorded as-is by the audit framework without localization. This field is empty for historical logs that are not integrated with the audit framework",
+                  "description_zh": "操作后快照，由审计框架原样记录，不做本地化处理。未接入审计框架的历史日志该字段为空",
+                  "example": "{\"RequestId\":\"01A03244-5BAD-5FAA-93D6-E4F4A1A2****\"}",
+                  "type": "string"
+                },
+                "BeforeAction": {
+                  "backendName": "beforeAction",
+                  "description_en": "The pre-operation snapshot. This value is recorded as-is by the audit framework without localization. This field is empty for historical logs that are not integrated with the audit framework",
+                  "description_zh": "操作前快照，由审计框架原样记录，不做本地化处理。未接入审计框架的历史日志该字段为空",
+                  "example": "\"pa-application-ea73352b4b75****\"",
+                  "type": "string"
+                },
+                "ErrorCode": {
+                  "backendName": "errorCode",
+                  "description_en": "The error code when the operation failed. This field is empty when the operation succeeded",
+                  "description_zh": "操作失败时的错误码。操作成功时为空",
+                  "example": "ResourceNotFound",
+                  "type": "string"
+                },
+                "ErrorMessage": {
+                  "backendName": "errorMessage",
+                  "description_en": "The error message when the operation failed. This field is empty when the operation succeeded",
+                  "description_zh": "操作失败时的错误信息。操作成功时为空",
+                  "example": "the specified resource is not found",
+                  "type": "string"
+                },
+                "EventType": {
+                  "backendName": "eventType",
+                  "description_en": "The event source type. Valid values:\nconsole: console call.\nsdk: SDK call",
+                  "description_zh": "事件来源类型。取值：\nconsole：控制台调用。\nsdk：SDK调用",
+                  "example": "console",
+                  "type": "string"
+                },
+                "OperationFunc": {
+                  "backendName": "operationFunc",
+                  "description_en": "The operation function module. The return value is localized based on the request language",
+                  "description_zh": "操作功能模块。返回值已按请求语言本地化",
+                  "example": "办公数据保护",
+                  "type": "string"
+                },
+                "OperationPage": {
+                  "backendName": "operationPage",
+                  "description_en": "The operation page. The return value is localized based on the request language",
+                  "description_zh": "操作页面。返回值已按请求语言本地化",
+                  "example": "外设管理",
+                  "type": "string"
+                },
+                "OperationTime": {
+                  "backendName": "operationTime",
+                  "description_en": "The operation time",
+                  "description_zh": "操作时间",
+                  "example": "2026-08-24 13:38:06",
+                  "type": "string"
+                },
+                "OperationType": {
+                  "backendName": "operationType",
+                  "description_en": "The operation type. The return value is localized based on the request language",
+                  "description_zh": "操作类型。返回值已按请求语言本地化",
+                  "example": "修改外设管控策略",
+                  "type": "string"
+                },
+                "OperatorId": {
+                  "backendName": "operatorId",
+                  "description_en": "The Alibaba Cloud account ID (AliUid) of the operator",
+                  "description_zh": "操作人的阿里云账号ID（AliUid）",
+                  "example": "1234****",
+                  "type": "string"
+                },
+                "Success": {
+                  "backendName": "success",
+                  "description_en": "Indicates whether the operation succeeded",
+                  "description_zh": "本次操作是否成功",
+                  "example": "true",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "E9D4B681-0E79-57B7-AF0D-4A675D40141C",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "TotalNum": {
+            "backendName": "data.total",
+            "description_en": "The total number of logs that match the query conditions",
+            "description_zh": "符合查询条件的日志总数",
+            "example": "4",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

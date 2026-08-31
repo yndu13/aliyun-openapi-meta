@@ -2,6 +2,122 @@
   "camel_example": "",
   "cmd_full_name": "emr increase-nodes",
   "cmd_name": "increase-nodes",
+  "components": {
+    "schemas": {
+      "ApplicationConfig": {
+        "description_en": "The parameter configurations",
+        "description_zh": "参数配置",
+        "properties": {
+          "ApplicationName": {
+            "backendName": "applicationName",
+            "description_en": "The name of the application. You can view the application names of each EMR version on the cluster creation page in the EMR console",
+            "description_zh": "应用名称。从EMR控制台集群创建页面可查看到各EMR发行版的应用名称列表",
+            "example": "HDFS",
+            "required": true,
+            "title": "应用名称。",
+            "type": "string"
+          },
+          "ConfigFileName": {
+            "backendName": "configFileName",
+            "description_en": "The name of the configuration file",
+            "description_zh": "配置文件名称",
+            "example": "hdfs-site.xml",
+            "required": true,
+            "title": "应用配置文件名。",
+            "type": "string"
+          },
+          "ConfigItemKey": {
+            "backendName": "configItemKey",
+            "description_en": "The key of the configuration item",
+            "description_zh": "配置项键",
+            "example": "dfs.namenode.checkpoint.period",
+            "required": true,
+            "title": "配置项键。",
+            "type": "string"
+          },
+          "ConfigItemValue": {
+            "backendName": "configItemValue",
+            "description_en": "The value of the configuration item",
+            "description_zh": "配置项值",
+            "example": "3600s",
+            "title": "配置项值。",
+            "type": "string"
+          },
+          "ConfigScope": {
+            "backendName": "configScope",
+            "description_en": "The level at which you want to apply the configurations. Valid values:\n\nCLUSTER\nNODE_GROUP\n\nDefault value: CLUSTER",
+            "description_zh": "配置范围。取值范围：\nCLUSTER：集群级别。\nNODE_GROUP：节点组级别。\n\n默认值：CLUSTER",
+            "example": "NODE_GROUP",
+            "title": "配置范围。",
+            "type": "string"
+          },
+          "NodeGroupId": {
+            "backendName": "nodeGroupId",
+            "description_en": "The node group ID. This parameter takes effect only when the ConfigScope parameter is set to NODE_GROUP. The NodeGroupId parameter has a higher priority than the NodeGroupName parameter",
+            "description_zh": "节点组ID。ConfigScope取值NODE_GROUP时，该参数生效。NodeGroupId参数优先级高于NodeGroupName",
+            "example": "ng-869471354ecd****",
+            "title": "节点组ID。",
+            "type": "string"
+          },
+          "NodeGroupName": {
+            "backendName": "nodeGroupName",
+            "description_en": "The name of the node group. This parameter takes effect only when the ConfigScope parameter is set to NODE_GROUP and the NodeGroupId parameter is not configured",
+            "description_zh": "节点组名称。ConfigScope取值NODE_GROUP时，且参数NodeGroupId为空时生效，该参数生效",
+            "example": "core-1",
+            "title": "节点组名称。",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Promotion": {
+        "properties": {
+          "ProductCode": {
+            "backendName": "productCode",
+            "description_en": "产品码",
+            "description_zh": "产品码",
+            "example": "ecs",
+            "title": "产品码。",
+            "type": "string"
+          },
+          "PromotionDesc": {
+            "backendName": "promotionDesc",
+            "description_en": "优惠券描述",
+            "description_zh": "优惠券描述",
+            "example": "5元优惠券（有效期至23年8月11日）",
+            "title": "优惠券描述。",
+            "type": "string"
+          },
+          "PromotionName": {
+            "backendName": "promotionName",
+            "description_en": "优惠券名称",
+            "description_zh": "优惠券名称",
+            "example": "5元优惠券",
+            "title": "优惠券名称。",
+            "type": "string"
+          },
+          "PromotionOptionCode": {
+            "backendName": "promotionOptionCode",
+            "description_en": "优惠券码",
+            "description_zh": "优惠券码",
+            "example": "youhui_quan",
+            "title": "优惠券码。",
+            "type": "string"
+          },
+          "PromotionOptionNo": {
+            "backendName": "promotionOptionNo",
+            "description_en": "优惠券号",
+            "description_zh": "优惠券号",
+            "example": "ABC123",
+            "required": true,
+            "title": "优惠券号。",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Scales out a target node group",
   "description_zh": "对目标节点组执行扩容操作",
@@ -320,5 +436,36 @@
   ],
   "pathPattern": "",
   "product_code": "Emr",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The returned data",
+        "description_zh": "返回数据",
+        "properties": {
+          "OperationId": {
+            "backendName": "data.operationId",
+            "description_en": "The operation ID",
+            "description_zh": "操作ID",
+            "example": "op-13c37a77c505****",
+            "title_en": "操作ID。",
+            "title_zh": "操作ID。",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "DD6B1B2A-5837-5237-ABE4-FF0C8944****",
+            "title_en": "请求ID。",
+            "title_zh": "请求ID。",
+            "type": "string"
+          }
+        },
+        "title_en": "返回数据",
+        "title_zh": "返回数据",
+        "type": "object"
+      }
+    }
+  }
 }

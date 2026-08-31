@@ -274,5 +274,729 @@
   ],
   "pathPattern": "",
   "product_code": "R-kvstore",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Order": {
+            "backendName": "data.order",
+            "description_en": "The information about the order",
+            "description_zh": "订单信息",
+            "properties": {
+              "Code": {
+                "backendName": "code",
+                "description_en": "The order code",
+                "description_zh": "订单码",
+                "example": "\"\"\n",
+                "type": "string"
+              },
+              "Coupons": {
+                "backendName": "optionalPromotions",
+                "itemName": "Coupon",
+                "items": {
+                  "properties": {
+                    "CouponNo": {
+                      "backendName": "promotionOptionNo",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Description": {
+                      "backendName": "promotionDesc",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IsSelected": {
+                      "backendName": "selected",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Name": {
+                      "backendName": "promotionName",
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "Currency": {
+                "backendName": "currency",
+                "description_en": "The currency used for payment. A value of CNY is used when the order was generated on the China site (aliyun.com), and a value of USD is used when the order was generated on the international site (alibabacloud.com)",
+                "description_zh": "币种，中国站为CNY（人民币）；国际站为USD（美元）",
+                "example": "CNY",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "DepreciateInfo": {
+                "backendName": "depreciateInfo",
+                "description_en": "The activity information",
+                "description_zh": "活动信息",
+                "properties": {
+                  "CheapRate": {
+                    "backendName": "cheapRate",
+                    "description_en": "The price reduction rate",
+                    "description_zh": "降价比例",
+                    "example": "30%",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "CheapStandAmount": {
+                    "backendName": "cheapStandAmount",
+                    "description_en": "The new total price displayed on the official website",
+                    "description_zh": "降价后官网总价",
+                    "example": "9*",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "ContractActivity": {
+                    "backendName": "contractActivity",
+                    "description_en": "The activity information",
+                    "description_zh": "活动信息",
+                    "properties": {
+                      "ActivityId": {
+                        "backendName": "activityId",
+                        "description_en": "The activity ID",
+                        "description_zh": "活动ID",
+                        "example": "****",
+                        "format": "int64",
+                        "type": "integer"
+                      },
+                      "ActivityName": {
+                        "backendName": "activityName",
+                        "description_en": "The activity name",
+                        "description_zh": "活动名称",
+                        "example": "合同优惠_整单_xxx折",
+                        "type": "string"
+                      },
+                      "FinalFee": {
+                        "backendName": "finalFee",
+                        "description_en": "The preferential price",
+                        "description_zh": "优惠后费用",
+                        "example": "\n",
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "FinalPromFee": {
+                        "backendName": "finalPromFee",
+                        "description_en": "The total discount amount",
+                        "description_zh": "优惠总费用",
+                        "example": "\n",
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "OptionCode": {
+                        "backendName": "optionCode",
+                        "description_en": "The promotion code",
+                        "description_zh": "优惠ID",
+                        "example": "****",
+                        "type": "string"
+                      },
+                      "OptionIds": {
+                        "backendName": "optionIds",
+                        "itemName": "OptionId",
+                        "items": {
+                          "format": "int64",
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "ProdFee": {
+                        "backendName": "prodFee",
+                        "description_en": "The original price",
+                        "description_zh": "原价",
+                        "example": "****",
+                        "format": "double",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "Differential": {
+                    "backendName": "differential",
+                    "description_en": "The promotional offer (displayed in the total order amount)",
+                    "description_zh": "差价优惠（订单总价展示）",
+                    "example": "**",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "DifferentialName": {
+                    "backendName": "differentialName",
+                    "description_en": "The name of the promotional offer",
+                    "description_zh": "差价优惠名称",
+                    "example": "XXXXX",
+                    "type": "string"
+                  },
+                  "IsContractActivity": {
+                    "backendName": "isContractActivity",
+                    "description_en": "Indicates whether eligibility for the contracted discount is met",
+                    "description_zh": "命中合同优惠",
+                    "example": "false",
+                    "type": "boolean"
+                  },
+                  "IsShow": {
+                    "backendName": "isShow",
+                    "description_en": "Indicates whether the price reduction rate is displayed",
+                    "description_zh": "是否展示降价幅度",
+                    "example": "true",
+                    "type": "boolean"
+                  },
+                  "ListPrice": {
+                    "backendName": "listPrice",
+                    "description_en": "The list price",
+                    "description_zh": "目录价",
+                    "example": "1*",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "MonthPrice": {
+                    "backendName": "monthPrice",
+                    "description_en": "The monthly price",
+                    "description_zh": "折合月价",
+                    "example": "**",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "OriginalStandAmount": {
+                    "backendName": "originalStandAmount",
+                    "description_en": "The original total price displayed on the official website",
+                    "description_zh": "原始官网总价",
+                    "example": "12*",
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "DiscountAmount": {
+                "backendName": "discountAmount",
+                "description_en": "The discount amount of the order",
+                "description_zh": "订单优惠金额",
+                "example": "0.21",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "HandlingFeeAmount": {
+                "backendName": "handlingFeeAmount",
+                "description_en": "The service fees of the order",
+                "description_zh": "手续费",
+                "example": "0.1",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "IsContractActivity": {
+                "backendName": "isContractActivity",
+                "description_en": "Indicates whether eligibility for the contracted discount is met",
+                "description_zh": "命中合同优惠",
+                "example": "false\n",
+                "type": "boolean"
+              },
+              "Message": {
+                "backendName": "message",
+                "description_en": "The information about the order",
+                "description_zh": "订单信息",
+                "example": "\"\"",
+                "type": "string"
+              },
+              "OriginalAmount": {
+                "backendName": "originalAmount",
+                "description_en": "The original price of the order",
+                "description_zh": "订单原价",
+                "example": "0.21",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "RuleIds": {
+                "backendName": "ruleIds",
+                "itemName": "RuleId",
+                "items": {
+                  "backendName": "ruleIds",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "nullToEmpty": true,
+                "parseType": "null",
+                "type": "array",
+                "visibility": "Public"
+              },
+              "ShowDiscountInfo": {
+                "backendName": "showDiscountInfo",
+                "description_en": "Indicates whether the discount information is displayed",
+                "description_zh": "是否展示折扣信息",
+                "type": "boolean",
+                "visibility": "Public"
+              },
+              "StandDiscountPrice": {
+                "backendName": "standDiscountPrice",
+                "description_en": "The discount",
+                "description_zh": "折扣价格",
+                "example": "****",
+                "format": "int64",
+                "type": "integer"
+              },
+              "StandPrice": {
+                "backendName": "standPrice",
+                "description_en": "The discounted price",
+                "description_zh": "折扣价",
+                "example": "0\n",
+                "format": "int64",
+                "type": "integer"
+              },
+              "TradeAmount": {
+                "backendName": "tradeAmount",
+                "description_en": "The transaction price of the order",
+                "description_zh": "订单实际交易价",
+                "example": "10",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "OrderParams": {
+            "backendName": "data.orderMessage",
+            "description_en": "The parameters of the order. When OrderParamOut is set to `true`, this parameter is returned",
+            "description_zh": "订单参数，当OrderParamOut为`true`时返回",
+            "example": "String",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "3A40BE4E-1890-4972-889C-FEFA37663635",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Rules": {
+            "backendName": "data.rules",
+            "itemName": "Rule",
+            "items": {
+              "properties": {
+                "Name": {
+                  "backendName": "name",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "RuleDescId": {
+                  "backendName": "ruleDescId",
+                  "format": "int64",
+                  "type": "integer",
+                  "visibility": "Public"
+                },
+                "Title": {
+                  "backendName": "title",
+                  "type": "string",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "SubOrders": {
+            "backendName": "data.subOrders",
+            "itemName": "SubOrder",
+            "items": {
+              "properties": {
+                "ContractActivity": {
+                  "backendName": "contractActivity",
+                  "type": "boolean"
+                },
+                "DepreciateInfo": {
+                  "backendName": "depreciateInfo",
+                  "properties": {
+                    "CheapRate": {
+                      "backendName": "cheapRate",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "CheapStandAmount": {
+                      "backendName": "cheapStandAmount",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "ContractActivity": {
+                      "backendName": "contractActivity",
+                      "properties": {
+                        "ActivityId": {
+                          "backendName": "activityId",
+                          "format": "int64",
+                          "type": "integer"
+                        },
+                        "ActivityName": {
+                          "backendName": "activityName",
+                          "type": "string"
+                        },
+                        "FinalFee": {
+                          "backendName": "finalFee",
+                          "format": "double",
+                          "type": "number"
+                        },
+                        "FinalPromFee": {
+                          "backendName": "finalPromFee",
+                          "format": "double",
+                          "type": "number"
+                        },
+                        "OptionCode": {
+                          "backendName": "optionCode",
+                          "type": "string"
+                        },
+                        "OptionIds": {
+                          "backendName": "optionIds",
+                          "itemName": "OptionId",
+                          "items": {
+                            "format": "int64",
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "ProdFee": {
+                          "backendName": "prodFee",
+                          "format": "double",
+                          "type": "number"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "Differential": {
+                      "backendName": "differential",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "DifferentialName": {
+                      "backendName": "differentialName",
+                      "type": "string"
+                    },
+                    "IsContractActivity": {
+                      "backendName": "isContractActivity",
+                      "type": "boolean"
+                    },
+                    "ListPrice": {
+                      "backendName": "listPrice",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "MonthPrice": {
+                      "backendName": "monthPrice",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "OriginalStandAmount": {
+                      "backendName": "originalStandAmount",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "StartTime": {
+                      "backendName": "startTime",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "DiscountAmount": {
+                  "backendName": "discountAmount",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "InstanceId": {
+                  "backendName": "instanceId",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "IsContractActivity": {
+                  "backendName": "isContractActivity",
+                  "type": "boolean"
+                },
+                "ModuleInstance": {
+                  "backendName": "moduleInstance",
+                  "itemName": "ModuleInstance",
+                  "items": {
+                    "properties": {
+                      "ContractActivity": {
+                        "backendName": "contractActivity",
+                        "type": "boolean"
+                      },
+                      "DepreciateInfo": {
+                        "backendName": "depreciateInfo",
+                        "properties": {
+                          "CheapRate": {
+                            "backendName": "cheapRate",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "CheapStandAmount": {
+                            "backendName": "cheapStandAmount",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "Differential": {
+                            "backendName": "differential",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "DifferentialName": {
+                            "backendName": "differentialName",
+                            "type": "string"
+                          },
+                          "IsContractActivity": {
+                            "backendName": "isContractActivity",
+                            "type": "boolean"
+                          },
+                          "IsShow": {
+                            "backendName": "isShow",
+                            "type": "boolean"
+                          },
+                          "ListPrice": {
+                            "backendName": "listPrice",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "MonthPrice": {
+                            "backendName": "monthPrice",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "OriginalStandAmount": {
+                            "backendName": "originalStandAmount",
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "StartTime": {
+                            "backendName": "startTime",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "DiscountFee": {
+                        "backendName": "discountFee",
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "ModuleAttrs": {
+                        "backendName": "moduleAttrs",
+                        "itemName": "moduleAttr",
+                        "items": {
+                          "properties": {
+                            "Code": {
+                              "backendName": "code",
+                              "type": "string"
+                            },
+                            "Name": {
+                              "backendName": "name",
+                              "type": "string"
+                            },
+                            "Type": {
+                              "backendName": "type",
+                              "format": "int64",
+                              "type": "integer"
+                            },
+                            "Value": {
+                              "backendName": "value",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "ModuleCode": {
+                        "backendName": "moduleCode",
+                        "type": "string"
+                      },
+                      "ModuleId": {
+                        "backendName": "moduleId",
+                        "type": "string"
+                      },
+                      "ModuleName": {
+                        "backendName": "moduleName",
+                        "type": "string"
+                      },
+                      "NeedOrderPay": {
+                        "backendName": "needOrderPay",
+                        "type": "boolean"
+                      },
+                      "PayFee": {
+                        "backendName": "payFee",
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "PricingModule": {
+                        "backendName": "pricingModule",
+                        "type": "boolean"
+                      },
+                      "StandPrice": {
+                        "backendName": "standPrice",
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "TotalProductFee": {
+                        "backendName": "totalProductFee",
+                        "format": "double",
+                        "type": "number"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "OptionalPromotions": {
+                  "backendName": "optionalPromotions",
+                  "itemName": "OptionalPromotion",
+                  "items": {
+                    "properties": {
+                      "ActivityExtInfo": {
+                        "backendName": "activityExtInfo",
+                        "type": "object",
+                        "visibility": "Public"
+                      },
+                      "CanPromFee": {
+                        "backendName": "canPromFee",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "CouponNo": {
+                        "backendName": "promotionOptionNo",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "Description": {
+                        "backendName": "promotionDesc",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "Name": {
+                        "backendName": "promotionName",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "OptionCode": {
+                        "backendName": "optionCode",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "PromotionName": {
+                        "backendName": "promotionName",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "PromotionOptionNo": {
+                        "backendName": "promotionOptionNo",
+                        "type": "string",
+                        "visibility": "Public"
+                      },
+                      "Selected": {
+                        "backendName": "selected",
+                        "type": "boolean",
+                        "visibility": "Public"
+                      },
+                      "Show": {
+                        "backendName": "show",
+                        "type": "boolean",
+                        "visibility": "Public"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "visibility": "Public"
+                },
+                "OriginalAmount": {
+                  "backendName": "originalAmount",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "PromDetailList": {
+                  "backendName": "promDetailList",
+                  "itemName": "PromDetail",
+                  "items": {
+                    "properties": {
+                      "ActivityExtInfo": {
+                        "backendName": "activityExtInfo",
+                        "type": "object"
+                      },
+                      "DerivedPromType": {
+                        "backendName": "derivedPromType",
+                        "type": "string"
+                      },
+                      "FinalPromFee": {
+                        "backendName": "finalPromFee",
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "OptionCode": {
+                        "backendName": "optionCode",
+                        "type": "string"
+                      },
+                      "PromType": {
+                        "backendName": "promType",
+                        "type": "string"
+                      },
+                      "PromotionCode": {
+                        "backendName": "promotionCode",
+                        "type": "string"
+                      },
+                      "PromotionId": {
+                        "backendName": "promotionId",
+                        "format": "int64",
+                        "type": "integer"
+                      },
+                      "PromotionName": {
+                        "backendName": "promotionName",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "RuleIds": {
+                  "backendName": "ruleIds",
+                  "itemName": "RuleId",
+                  "items": {
+                    "backendName": "ruleIds",
+                    "nullToEmpty": true,
+                    "type": "string",
+                    "visibility": "Public"
+                  },
+                  "nullToEmpty": true,
+                  "parseType": "null",
+                  "type": "array",
+                  "visibility": "Public"
+                },
+                "StandDiscountPrice": {
+                  "backendName": "standDiscountPrice",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "StandPrice": {
+                  "backendName": "standPrice",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "TradeAmount": {
+                  "backendName": "tradeAmount",
+                  "type": "string",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -2,6 +2,55 @@
   "camel_example": "",
   "cmd_full_name": "dlfnext get-iceberg-namespace",
   "cmd_name": "get-iceberg-namespace",
+  "components": {
+    "schemas": {
+      "Namespace": {
+        "properties": {
+          "createdAt": {
+            "backendName": "createdAt",
+            "format": "int64",
+            "type": "integer"
+          },
+          "createdBy": {
+            "backendName": "createdBy",
+            "type": "string"
+          },
+          "id": {
+            "backendName": "id",
+            "type": "string"
+          },
+          "location": {
+            "backendName": "location",
+            "type": "string"
+          },
+          "name": {
+            "backendName": "name",
+            "type": "string"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "owner": {
+            "backendName": "owner",
+            "type": "string"
+          },
+          "updatedAt": {
+            "backendName": "updatedAt",
+            "format": "int64",
+            "type": "integer"
+          },
+          "updatedBy": {
+            "backendName": "updatedBy",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Queries an Iceberg database",
   "description_zh": "查看iceberg数据库",
@@ -50,6 +99,73 @@
   "pathPattern": "/iceberg/dlf/v1/[catalogId]/namespaces/[namespace]",
   "product_code": "DlfNext",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "$ref": "#/components/schemas/Namespace",
+        "description_en": "The namespace",
+        "description_zh": "命名空间",
+        "parseType": "struct"
+      }
+    },
+    "401": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "type": "string"
+          },
+          "Message": {
+            "type": "string"
+          },
+          "ResourceName": {
+            "type": "string"
+          },
+          "ResourceType": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "404": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "type": "string"
+          },
+          "Message": {
+            "type": "string"
+          },
+          "ResourceName": {
+            "type": "string"
+          },
+          "ResourceType": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "500": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "type": "string"
+          },
+          "Message": {
+            "type": "string"
+          },
+          "ResourceName": {
+            "type": "string"
+          },
+          "ResourceType": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "The data catalog ID",

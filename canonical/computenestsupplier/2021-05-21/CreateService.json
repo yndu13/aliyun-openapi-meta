@@ -580,5 +580,110 @@
   ],
   "pathPattern": "",
   "product_code": "ComputeNestSupplier",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "DryRunResult": {
+            "backendName": "data.dryRunResult",
+            "description_en": "The check result",
+            "description_zh": "校验结果",
+            "properties": {
+              "RolePolicy": {
+                "backendName": "rolePolicyModel",
+                "description_en": "The access policy of the deployment role",
+                "description_zh": "部署角色的权限策略",
+                "properties": {
+                  "MissingPolicy": {
+                    "backendName": "missingPolicy",
+                    "description_en": "The missing access policies for the deployment role",
+                    "description_zh": "部署角色缺少的权限策略",
+                    "itemName": "MissingPolicy",
+                    "items": {
+                      "description_en": "The missing access policies for the deployment role",
+                      "description_zh": "部署角色缺少的权限策略",
+                      "properties": {
+                        "Action": {
+                          "backendName": "action",
+                          "description_en": "The operations in the access policy",
+                          "description_zh": "权限策略中的操作",
+                          "itemName": "Action",
+                          "items": {
+                            "description_en": "The operations in the access policy",
+                            "description_zh": "权限策略中的操作",
+                            "example": "CreateStack",
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "Resource": {
+                          "backendName": "resource",
+                          "description_en": "The resource in the access policy",
+                          "description_zh": "权限策略中的资源",
+                          "example": "*",
+                          "type": "string"
+                        },
+                        "ServiceName": {
+                          "backendName": "serviceName",
+                          "description_en": "The service name in the access policy",
+                          "description_zh": "权限策略中的服务名称",
+                          "example": "ecs",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "Policy": {
+                    "backendName": "policy",
+                    "description_en": "The access policy required for the deployment role",
+                    "description_zh": "部署角色需要的权限策略",
+                    "example": "{\n\t\"Statement\": [{\n\t\t\"Action\": [\"oos:CancelExecutions\", \"oos:DeleteExecutions\", \"oos:GetTemplate\", \"oos:ListExecutions\", \"oos:ListTemplates\", \"oos:NotifyExecution\", \"oos:StartExecution\"],\n\t\t\"Effect\": \"Allow\",\n\t\t\"Resource\": \"*\"\n\t}, {\n\t\t\"Action\": [\"ram:PassRole\"],\n\t\t\"Effect\": \"Allow\",\n\t\t\"Resource\": \"*\"\n\t}, {\n\t\t\"Action\": [\"ros:CreateStack\", \"ros:GetStack\", \"ros:UpdateStack\", \"ros:ListStackEvents\", \"ros:ListStackResources\", \"ros:ListStackResources\", \"ros:DeleteStack\", \"ram:GetRole\"],\n\t\t\"Effect\": \"Allow\",\n\t\t\"Resource\": \"*\"\n\t}],\n\t\"Version\": \"1\"\n}",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "4DB0F536-B3BE-4F0D-BD29-E83FB56D550C",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ServiceId": {
+            "backendName": "data.serviceId",
+            "description_en": "The service ID",
+            "description_zh": "服务ID",
+            "example": "service-0e6fca6a51a544xxxxxx",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Status": {
+            "backendName": "data.statusStr",
+            "description_en": "The service status",
+            "description_zh": "服务状态",
+            "example": "Created",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Version": {
+            "backendName": "data.version",
+            "description_en": "The service version",
+            "description_zh": "服务版本",
+            "example": "draft",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

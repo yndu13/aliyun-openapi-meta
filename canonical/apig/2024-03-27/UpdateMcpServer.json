@@ -2,6 +2,143 @@
   "camel_example": "",
   "cmd_full_name": "apig update-mcp-server",
   "cmd_name": "update-mcp-server",
+  "components": {
+    "schemas": {
+      "HttpRouteMatch": {
+        "description_en": "The route match rule",
+        "description_zh": "路由Match规则",
+        "properties": {
+          "headers": {
+            "backendName": "headers",
+            "description_en": "The list of HTTP request header matching rules",
+            "description_zh": "http请求头匹配规则列表",
+            "itemName": "header",
+            "items": {
+              "description_en": "The HTTP request header matching rule",
+              "description_zh": "http请求头匹配规则",
+              "properties": {
+                "name": {
+                  "backendName": "name",
+                  "description_en": "The name of the header",
+                  "description_zh": "header的名称",
+                  "example": "dev",
+                  "title": "header的名称",
+                  "type": "string"
+                },
+                "type": {
+                  "backendName": "type",
+                  "description_en": "The header matching type. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
+                  "description_zh": "header匹配类型：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
+                  "example": "Exact",
+                  "title": "header匹配规则. Exact:精确匹配, Prefix:前缀匹配,Regex: 正则匹配",
+                  "type": "string"
+                },
+                "value": {
+                  "backendName": "value",
+                  "description_en": "The value of the header",
+                  "description_zh": "header的value",
+                  "example": "true",
+                  "title": "header的value",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title": "http请求头匹配规则",
+            "type": "array"
+          },
+          "ignoreUriCase": {
+            "backendName": "ignoreUriCase",
+            "description_en": "Specifies whether the path is case-insensitive",
+            "description_zh": "路径是否大小写不敏感",
+            "example": "true",
+            "title": "路径是否大小写敏感",
+            "type": "boolean"
+          },
+          "methods": {
+            "backendName": "methods",
+            "description_en": "The list of request methods",
+            "description_zh": "请求方法列表",
+            "itemName": "method",
+            "items": {
+              "description_en": "The request method. Valid values:\nGET\nHEAD\nPOST\nPUT\nDELETE\nCONNECT\nOPTION\nTRACE\nPATCH",
+              "description_zh": "请求方法：\nGET\nHEAD\nPOST\nPUT\nDELETE\nCONNECT\nOPTION\nTRACE\nPATCH",
+              "example": "GET",
+              "type": "string"
+            },
+            "title": "请求方法. 取值范围:[GET, HEAD, POST, PUT, DELETE, CONNECT, OPTION, TRACE, PATCH]",
+            "type": "array"
+          },
+          "path": {
+            "backendName": "path",
+            "description_en": "The path rule",
+            "description_zh": "路径规则",
+            "properties": {
+              "type": {
+                "backendName": "type",
+                "description_en": "The path matching rule. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
+                "description_zh": "路径匹配规则：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
+                "example": "Prefix",
+                "title": "路径匹配规则。缺省为 Exact；支持 Exact:精确匹配、Prefix:前缀匹配、Regex:正则匹配",
+                "type": "string"
+              },
+              "value": {
+                "backendName": "value",
+                "description_en": "The path",
+                "description_zh": "路径",
+                "example": "/user",
+                "title": "路径",
+                "type": "string"
+              }
+            },
+            "title": "路径规则",
+            "type": "object"
+          },
+          "queryParams": {
+            "backendName": "queryParams",
+            "description_en": "The list of query request parameter matching rules",
+            "description_zh": "query请求参数匹配规则列表",
+            "itemName": "queryParam",
+            "items": {
+              "description_en": "The query request parameter matching rule",
+              "description_zh": "query请求参数匹配规则",
+              "properties": {
+                "name": {
+                  "backendName": "name",
+                  "description_en": "The parameter name",
+                  "description_zh": "参数名称",
+                  "example": "age",
+                  "title": "参数名称",
+                  "type": "string"
+                },
+                "type": {
+                  "backendName": "type",
+                  "description_en": "The query parameter matching type. Valid values:\nExact: exact match. \nPrefix: prefix match. \nRegex: regular expression match",
+                  "description_zh": "query参数匹配类型：\nExact：精确匹配。 \nPrefix：前缀匹配。 \nRegex：正则匹配",
+                  "example": "Exact",
+                  "title": "query参数匹配规则. Exact:精确匹配, Prefix:前缀匹配,Regex: 正则匹配",
+                  "type": "string"
+                },
+                "value": {
+                  "backendName": "value",
+                  "description_en": "The parameter value",
+                  "description_zh": "参数值",
+                  "example": "17",
+                  "title": "参数值",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title": "queryParam参数匹配规则",
+            "type": "array"
+          }
+        },
+        "title": "路由match规则",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Updates an MCP server",
   "description_zh": "更新MCP server",
@@ -854,6 +991,39 @@
   "pathPattern": "/v1/mcp-servers/[mcpServerId]",
   "product_code": "APIG",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "code": {
+            "description_en": "The response status code",
+            "description_zh": "响应状态码",
+            "example": "Ok",
+            "type": "string"
+          },
+          "message": {
+            "description_en": "The response message",
+            "description_zh": "响应消息",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "3ACFC7A7-45A9-58CF-B2D5-765B60254695",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body",

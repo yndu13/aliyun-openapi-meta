@@ -2,6 +2,45 @@
   "camel_example": "",
   "cmd_full_name": "fc delete-alias",
   "cmd_name": "delete-alias",
+  "components": {
+    "schemas": {
+      "Error": {
+        "description_en": "The details of the error message",
+        "description_zh": "错误信息",
+        "properties": {
+          "Code": {
+            "backendName": "Code",
+            "description_en": "The error code",
+            "description_zh": "错误码",
+            "example": "FunctionNotFound",
+            "required": false,
+            "title": "错误码",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "Message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "function not found",
+            "required": false,
+            "title": "错误信息",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "RequestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1-64e70cf1-5cbef92ea8fc8c42899cf5d1",
+            "required": false,
+            "title": "请求ID",
+            "type": "string"
+          }
+        },
+        "title": "错误信息",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Deletes an alias",
   "description_zh": "删除别名",
@@ -49,5 +88,25 @@
   ],
   "pathPattern": "/2023-03-30/functions/[functionName]/aliases/[aliasName]",
   "product_code": "FC",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "204": {
+      "description_en": "No Content",
+      "description_zh": "No Content",
+      "examples": []
+    },
+    "500": {
+      "description_en": "错误信息",
+      "description_zh": "错误信息",
+      "examples": [],
+      "headers": {},
+      "schema": {
+        "$ref": "#/components/schemas/Error",
+        "description_zh": "错误信息",
+        "required": false,
+        "title_en": "错误信息",
+        "title_zh": "错误信息"
+      }
+    }
+  }
 }

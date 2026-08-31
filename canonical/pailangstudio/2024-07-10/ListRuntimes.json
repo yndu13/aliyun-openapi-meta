@@ -2,6 +2,480 @@
   "camel_example": "",
   "cmd_full_name": "pailangstudio list-runtimes",
   "cmd_name": "list-runtimes",
+  "components": {
+    "schemas": {
+      "Runtime": {
+        "description_en": "Runtime details",
+        "description_zh": "运行时详情",
+        "properties": {
+          "Accessibility": {
+            "backendName": "accessibility",
+            "description_en": "Workspace visibility. Possible values:\nPRIVATE: In this workspace, visible only to you and administrators.\nPUBLIC: In this workspace, visible to everyone",
+            "description_zh": "工作空间可见性，可能值为：\nPRIVATE：在此工作空间中，仅对您和管理员可见。\nPUBLIC：在此工作空间中，对所有人可见",
+            "example": "PRIVATE",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "AutoUpdateImage": {
+            "backendName": "autoUpdateImage",
+            "description_en": "Indicates whether to automatically update the image. When a new image version is available, the system automatically updates the runtime image during off-peak hours.  ",
+            "description_zh": "是否自动更新镜像。当有新的镜像版本可用时，系统在业务低谷时自动更新运行时的镜像",
+            "example": "True",
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "Creator": {
+            "backendName": "creator",
+            "description_en": "Creator ID",
+            "description_zh": "创建者ID",
+            "example": "2680******4103",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "CredentialConfig": {
+            "backendName": "credentialConfig",
+            "description_en": "Credential configuration",
+            "description_zh": "凭据配置",
+            "properties": {
+              "AliyunEnvRoleKey": {
+                "descriptionEn": "AliyunEnvRoleKey",
+                "description_en": "Environment variable role key",
+                "description_zh": "环境变量角色 Key",
+                "example": "0",
+                "readOnly": true,
+                "title": "AliyunEnvRoleKey",
+                "type": "string"
+              },
+              "CredentialConfigItems": {
+                "descriptionEn": "Credential config items",
+                "description_en": "List of credential configuration items",
+                "description_zh": "Credential 配置列表",
+                "itemName": "CredentialConfigItem",
+                "items": {
+                  "properties": {
+                    "Key": {
+                      "descriptionEn": "Key",
+                      "description_en": "The key that identifies the configuration.  ",
+                      "description_zh": "标识配置的 Key",
+                      "example": "0",
+                      "readOnly": true,
+                      "title": "Key",
+                      "type": "string"
+                    },
+                    "Roles": {
+                      "descriptionEn": "Roles",
+                      "description_en": "List of configured roles",
+                      "description_zh": "配置的角色列表",
+                      "itemName": "Role",
+                      "items": {
+                        "properties": {
+                          "AssumeRoleFor": {
+                            "descriptionEn": "AssumeRoleFor",
+                            "description_en": "The entity that assumes the role.  ",
+                            "description_zh": "扮演角色的所属主体",
+                            "example": "1095******785714",
+                            "readOnly": true,
+                            "title": "AssumeRoleFor",
+                            "type": "string"
+                          },
+                          "RoleArn": {
+                            "descriptionEn": "Role ARN",
+                            "description_en": "The role ARN.  ",
+                            "description_zh": "角色 ARN",
+                            "example": "acs:ram::1095******785714:role/testrole",
+                            "readOnly": true,
+                            "title": "角色名称",
+                            "type": "string"
+                          },
+                          "RoleType": {
+                            "descriptionEn": "Role type",
+                            "description_en": "The type of the role to assume. Valid values include:  \nservice: assumed by a service  \nuser: assumed by a regular user Account  ",
+                            "description_zh": "扮演的角色类型。可选值包括：\nservice：由服务扮演\nuser：由普通用户账号扮演",
+                            "example": "service",
+                            "readOnly": true,
+                            "title": "角色类型",
+                            "type": "string"
+                          }
+                        },
+                        "readOnly": true,
+                        "type": "object"
+                      },
+                      "readOnly": true,
+                      "title": "角色列表",
+                      "type": "array"
+                    },
+                    "Type": {
+                      "descriptionEn": "Type",
+                      "description_en": "Configuration type. Valid values include:\nRole: Role assumption\nRoleChain: Role chain assumption",
+                      "description_zh": "配置类型。可选值包括：\nRole：角色扮演\nRoleChain：角色链扮演",
+                      "example": "Role",
+                      "readOnly": true,
+                      "title": "Type",
+                      "type": "string"
+                    }
+                  },
+                  "readOnly": true,
+                  "type": "object"
+                },
+                "readOnly": true,
+                "title": "Credential配置项列表",
+                "type": "array"
+              },
+              "EnableCredentialInject": {
+                "descriptionEn": "Enable credential inject",
+                "description_en": "Whether to enable credential injection",
+                "description_zh": "是否开启 Credential 注入",
+                "example": "true",
+                "readOnly": true,
+                "title": "是否启用Credential注入",
+                "type": "boolean"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "DataSources": {
+            "backendName": "dataSources",
+            "description_en": "Mounted data sources",
+            "description_zh": "挂载数据源",
+            "itemName": "DataSource",
+            "items": {
+              "properties": {
+                "DatasetId": {
+                  "descriptionEn": "Dataset ID",
+                  "description_en": "Dataset ID. Specify either this parameter or Uri",
+                  "description_zh": "数据集 ID。与 Uri 二选一",
+                  "example": "d-umns******zij4szhc",
+                  "readOnly": true,
+                  "title": "数据集ID",
+                  "type": "string"
+                },
+                "MountPath": {
+                  "descriptionEn": "Mount path",
+                  "description_en": "Mount path",
+                  "description_zh": "挂载路径",
+                  "example": "/mnt/data",
+                  "readOnly": true,
+                  "title": "挂载路径",
+                  "type": "string"
+                },
+                "Uri": {
+                  "descriptionEn": "Uri",
+                  "description_en": "OSS path of the data source. Specify either this parameter or DatasetId",
+                  "description_zh": "数据源 OSS 的路径。与 DatasetId 二选一",
+                  "example": "oss://test-bucket.oss-cn-hangzhou-internal.aliyuncs.com/langstudio/source/",
+                  "readOnly": true,
+                  "title": "统一资源识别码",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "visibility": "Public"
+          },
+          "EcsSpec": {
+            "backendName": "ecsSpec",
+            "description_en": "ECS resource configuration  ",
+            "description_zh": "ECS资源配置",
+            "properties": {
+              "CPU": {
+                "descriptionEn": "CPU number",
+                "description_en": "Number of CPUs.  ",
+                "description_zh": "CPU数量",
+                "example": "4",
+                "format": "int32",
+                "readOnly": true,
+                "title": "CPU数量",
+                "type": "integer"
+              },
+              "Driver": {
+                "descriptionEn": "Driver version",
+                "description_en": "GPU driver version.  ",
+                "description_zh": "GPU驱动版本",
+                "example": "535.161.08",
+                "readOnly": true,
+                "title": "驱动版本",
+                "type": "string"
+              },
+              "GPU": {
+                "descriptionEn": "GPU number",
+                "description_en": "Number of GPUs.  ",
+                "description_zh": "GPU数量",
+                "example": "0",
+                "format": "int32",
+                "readOnly": true,
+                "title": "GPU数量",
+                "type": "integer"
+              },
+              "GPUType": {
+                "descriptionEn": "GPU type",
+                "description_en": "GPU type. Valid values:  \nV100  \nA100  \nT4  \nA10  \nP100  ",
+                "description_zh": "GPU类型。取值如下：\nV100\nA100\nT4\nA10\nP100",
+                "example": "V100",
+                "readOnly": true,
+                "title": "GPU类型",
+                "type": "string"
+              },
+              "InstanceType": {
+                "descriptionEn": "Instance type",
+                "description_en": "Instance type.  ",
+                "description_zh": "实例类型",
+                "example": "ecs.c6.large",
+                "readOnly": true,
+                "title": "实例类型",
+                "type": "string"
+              },
+              "Memory": {
+                "descriptionEn": "Memory info",
+                "description_en": "Memory size, in GB.  ",
+                "description_zh": "内存大小，单位GB",
+                "example": "8",
+                "format": "int32",
+                "readOnly": true,
+                "title": "内存信息",
+                "type": "integer"
+              },
+              "SharedMemory": {
+                "descriptionEn": "Shared memory",
+                "description_en": "Shared memory size, in GB.  ",
+                "description_zh": "共享内存大小，单位GB",
+                "example": "8",
+                "format": "int32",
+                "readOnly": true,
+                "title": "共享内存",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Envs": {
+            "backendName": "envs",
+            "description_en": "Environment variables.  ",
+            "description_zh": "环境变量",
+            "itemName": "Env",
+            "items": {
+              "properties": {
+                "Key": {
+                  "descriptionEn": "Env key",
+                  "description_en": "Environment key.  ",
+                  "description_zh": "环境键",
+                  "example": "testKey01",
+                  "readOnly": true,
+                  "title": "环境键",
+                  "type": "string"
+                },
+                "Value": {
+                  "descriptionEn": "Env value",
+                  "description_en": "The environment value",
+                  "description_zh": "环境值",
+                  "example": "testValue01",
+                  "readOnly": true,
+                  "title": "环境值",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "visibility": "Public"
+          },
+          "GmtCreateTime": {
+            "backendName": "gmtCreateTime",
+            "description_en": "Creation Time.  ",
+            "description_zh": "创建时间",
+            "example": "2025-09-24T07:33:53Z",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "GmtModifiedTime": {
+            "backendName": "gmtModifiedTime",
+            "description_en": "Updated At",
+            "description_zh": "修改时间",
+            "example": "2025-09-24T08:24:36Z",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Labels": {
+            "backendName": "labels",
+            "description_en": "Labels.  ",
+            "description_zh": "标签",
+            "itemName": "Label",
+            "items": {
+              "properties": {
+                "Key": {
+                  "descriptionEn": "Label key",
+                  "description_en": "Tag key.  ",
+                  "description_zh": "标签键",
+                  "example": "testKey01",
+                  "readOnly": true,
+                  "title": "标签键",
+                  "type": "string"
+                },
+                "Value": {
+                  "descriptionEn": "Label value",
+                  "description_en": "Tag value.  ",
+                  "description_zh": "标签值",
+                  "example": "testValue01",
+                  "readOnly": true,
+                  "title": "标签值",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "visibility": "Public"
+          },
+          "ResourceId": {
+            "backendName": "resourceId",
+            "description_en": "Resource quota ID.  ",
+            "description_zh": "资源配额ID",
+            "example": "quota18******zv9",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RunTimeout": {
+            "backendName": "runTimeout",
+            "description_en": "Timeout in seconds for a single test run executed on the runtime",
+            "description_zh": "在运行时上执行的单次测试运行的超时，单位秒",
+            "example": "180",
+            "format": "int32",
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "RuntimeId": {
+            "backendName": "runtimeId",
+            "description_en": "Runtime ID.  ",
+            "description_zh": "运行时ID",
+            "example": "rtime-apje******beaz",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RuntimeLog": {
+            "backendName": "runtimeLog",
+            "description_en": "Runtime log",
+            "description_zh": "运行时的日志",
+            "example": "oss://mybucket.oss-cn-hangzhou-internal.aliyuncs.com/workdir/runtime/1.log",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RuntimeName": {
+            "backendName": "runtimeName",
+            "description_en": "The Name of the runtime.  ",
+            "description_zh": "运行时的名称",
+            "example": "dev01",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RuntimeStatus": {
+            "backendName": "runtimeStatus",
+            "description_en": "Runtime status. Valid values:\nCreating: Creation in progress\nSaveFailed: Failed to save image\nStopped: Stopped\nFailed: Failed\nResourceAllocating: Resource allocation in progress\nStopping: Stopping in progress\nUpdating: Update in progress\nSaving: Image saving in progress\nQueuing: Queuing\nRecovering: Instance recovery in progress\nStarting: Creation in progress\nRunning: Running\nSaved: Image saved successfully\nDeleting: Deletion in progress\nEnvPreparing: Environment preparation in progress",
+            "description_zh": "运行时状态。取值：\nCreating: 创建中\nSaveFailed: 镜像保存失败\nStopped: 已停止\nFailed: 失败\nResourceAllocating:资源分配中\nStopping: 停止中\nUpdating: 更新中\nSaving: 镜像保存中\nQueuing: 排队中\nRecovering: 实例恢复中\nStarting: 创建中\nRunning: 运行中\nSaved: 镜像保存成功\nDeleting: 删除中\nEnvPreparing: 环境准备中",
+            "example": "Running",
+            "mappingResourcePropertyName": "Status",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RuntimeType": {
+            "backendName": "runtimeType",
+            "description_en": "Runtime type.  ",
+            "description_zh": "运行时类型",
+            "example": "DSW",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "UserVpc": {
+            "backendName": "userVpc",
+            "description_en": "User VPC configuration",
+            "description_zh": "用户VPC配置",
+            "properties": {
+              "DefaultRoute": {
+                "descriptionEn": "Default route",
+                "description_en": "Default route",
+                "description_zh": "默认路由",
+                "example": "eth0",
+                "readOnly": true,
+                "title": "默认路由",
+                "type": "string"
+              },
+              "ExtendedCIDRs": {
+                "descriptionEn": "Extended CIDR",
+                "description_en": "Extended CIDR blocks",
+                "description_zh": "扩展网段",
+                "itemName": "ExtendedCIDR",
+                "items": {
+                  "description_en": "Extended CIDR block",
+                  "description_zh": "扩展网段",
+                  "example": "172.16.1.0/24",
+                  "readOnly": true,
+                  "type": "string"
+                },
+                "readOnly": true,
+                "title": "扩展网段",
+                "type": "array"
+              },
+              "SecurityGroupId": {
+                "descriptionEn": "Security group ID",
+                "description_en": "Security group ID",
+                "description_zh": "安全组ID",
+                "example": "sg-wz9i****1129",
+                "readOnly": true,
+                "title": "安全组ID",
+                "type": "string"
+              },
+              "VSwitchId": {
+                "descriptionEn": "Switch ID",
+                "description_en": "vSwitch ID",
+                "description_zh": "交换机ID",
+                "example": "vsw-wz9r****ng10",
+                "readOnly": true,
+                "title": "交换机ID",
+                "type": "string"
+              },
+              "VpcId": {
+                "descriptionEn": "VPC ID",
+                "description_en": "Virtual private cloud (VPC) ID",
+                "description_zh": "专有网络 ID",
+                "example": "vpc-wz90****5v23",
+                "readOnly": true,
+                "title": "VPC ID",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Version": {
+            "backendName": "version",
+            "description_en": "Runtime image version.  ",
+            "description_zh": "运行时镜像版本",
+            "example": "2.0.0",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "WorkDir": {
+            "backendName": "workDir",
+            "description_en": "OSS path of the working directory.  ",
+            "description_zh": "工作目录的OSS路径",
+            "example": "oss://mybucket.oss-cn-hangzhou-internal.aliyuncs.com/workdir/",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "WorkspaceId": {
+            "backendName": "workspaceId",
+            "description_en": "Workspace ID. For information about how to obtain a workspace ID, see [ListWorkspaces]（https://help.aliyun.com/document_detail/449124.html）.  ",
+            "description_zh": "工作空间ID。如何获取工作空间ID，请参见 [ListWorkspaces]（https://help.aliyun.com/document_detail/449124.html）",
+            "example": "478***",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Retrieve the runtime list",
   "description_zh": "获取运行时列表",
@@ -205,5 +679,63 @@
   ],
   "pathPattern": "/api/v1/langstudio/runtimes",
   "product_code": "PAILangStudio",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response data",
+        "description_zh": "返回结果",
+        "properties": {
+          "MaxResults": {
+            "description_en": "The maximum number of returned results for a request",
+            "description_zh": "请求最大返回结果数",
+            "example": "10",
+            "format": "int32",
+            "title_en": "请求最大返回结果数",
+            "title_zh": "请求最大返回结果数",
+            "type": "integer"
+          },
+          "NextToken": {
+            "description_en": "The next request token",
+            "description_zh": "下次请求令牌",
+            "example": "11",
+            "title_en": "下次请求令牌",
+            "title_zh": "下次请求令牌",
+            "type": "string"
+          },
+          "RequestId": {
+            "description_en": "Request ID",
+            "description_zh": "请求ID",
+            "example": "963BD7F9-0C02-5594-9550-BCC6DD43E3C0",
+            "notResourceProperty": true,
+            "title_en": "请求ID",
+            "title_zh": "请求ID",
+            "type": "string"
+          },
+          "Runtimes": {
+            "description_en": "The list of runtimes",
+            "description_zh": "运行时列表",
+            "itemName": "Runtime",
+            "items": {
+              "$ref": "#/components/schemas/Runtime",
+              "description_en": "The details of the runtime",
+              "description_zh": "运行时详情"
+            },
+            "skipResourcePropertyMapping": true,
+            "type": "array"
+          },
+          "TotalCount": {
+            "description_en": "The total number of runtime",
+            "description_zh": "运行时总数量",
+            "example": "25",
+            "format": "int32",
+            "title_en": "总量",
+            "title_zh": "总量",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

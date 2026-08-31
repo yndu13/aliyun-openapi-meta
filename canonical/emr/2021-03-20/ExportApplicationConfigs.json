@@ -2,6 +2,33 @@
   "camel_example": "",
   "cmd_full_name": "emr export-application-configs",
   "cmd_name": "export-application-configs",
+  "components": {
+    "schemas": {
+      "ApplicationConfigFile": {
+        "properties": {
+          "ApplicationName": {
+            "backendName": "applicationName",
+            "description_en": "应用名称",
+            "description_zh": "应用名称",
+            "example": "HDFS",
+            "required": true,
+            "title": "应用名称。",
+            "type": "string"
+          },
+          "ConfigFileName": {
+            "backendName": "configFileName",
+            "description_en": "配置文件名称",
+            "description_zh": "配置文件名称",
+            "example": "core-site.xml",
+            "required": false,
+            "title": "配置文件名称。",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Exports the configurations of a specified service in a cluster",
   "description_zh": "导出集群指定服务配置",
@@ -165,5 +192,68 @@
   ],
   "pathPattern": "",
   "product_code": "Emr",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The data returned",
+        "description_zh": "返回数据",
+        "properties": {
+          "ApplicationConfigs": {
+            "backendName": "data",
+            "description_en": "The list of exported application configurations",
+            "description_zh": "导出的应用配置列表",
+            "itemName": "ApplicationConfig",
+            "items": {
+              "description_en": "The exported application configuration",
+              "description_zh": "导出的应用配置",
+              "properties": {
+                "ApplicationName": {
+                  "backendName": "applicationName",
+                  "description_en": "The application name",
+                  "description_zh": "应用名称",
+                  "example": "YARN",
+                  "title_en": "应用名称。",
+                  "title_zh": "应用名称。",
+                  "type": "string"
+                },
+                "ConfigFileName": {
+                  "backendName": "configFileName",
+                  "description_en": "The file name",
+                  "description_zh": "文件名称",
+                  "example": "yarn-site.xml",
+                  "title_en": "文件名称。",
+                  "title_zh": "文件名称。",
+                  "type": "string"
+                },
+                "Content": {
+                  "backendName": "content",
+                  "description_en": "The file content. The content is Base64-encoded",
+                  "description_zh": "文件内容，base64加密",
+                  "example": "export key=value",
+                  "title_en": "文件内容，base64加密。",
+                  "title_zh": "文件内容，base64加密。",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "DD6B1B2A-5837-5237-ABE4-FF0C8944****",
+            "title_en": "请求ID。",
+            "title_zh": "请求ID。",
+            "type": "string"
+          }
+        },
+        "title_en": "返回数据",
+        "title_zh": "返回数据",
+        "type": "object"
+      }
+    }
+  }
 }

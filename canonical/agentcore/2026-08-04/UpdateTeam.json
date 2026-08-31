@@ -171,5 +171,137 @@
   ],
   "pathPattern": "/workspaces/[workspaceId]/teams/[teamId]",
   "product_code": "AgentCore",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "description_zh": "业务状态码",
+            "example": "SUCCESS",
+            "type": "string"
+          },
+          "data": {
+            "backendName": "data",
+            "description_zh": "更新后的团队信息",
+            "properties": {
+              "agents": {
+                "backendName": "agents",
+                "description_zh": "团队的智能体成员列表",
+                "items": {
+                  "properties": {
+                    "agentId": {
+                      "backendName": "agentId",
+                      "description_zh": "智能体 ID",
+                      "example": "agent-123456",
+                      "type": "string"
+                    },
+                    "teamRole": {
+                      "backendName": "teamRole",
+                      "description_zh": "智能体在团队中的角色。可选值：LEADER、WORKER。每个团队必须且只能有一个LEADER",
+                      "example": "WORKER",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "createdAt": {
+                "backendName": "createdAt",
+                "description_zh": "创建时间，采用 RFC 3339 格式的 UTC 时间",
+                "example": "2026-08-12T03:04:05Z",
+                "type": "string"
+              },
+              "description": {
+                "backendName": "description",
+                "description_zh": "团队描述",
+                "example": "负责智能客服业务的团队",
+                "type": "string"
+              },
+              "name": {
+                "backendName": "name",
+                "description_zh": "团队名称。只能包含小写字母、数字和连字符，必须以小写字母或数字开头和结尾，长度为 1~128 个字符",
+                "example": "team-01",
+                "type": "string"
+              },
+              "status": {
+                "backendName": "status",
+                "description_zh": "团队状态。可选值：Creating、Active、Updating、Deleting、Failed、Deleted",
+                "example": "Active",
+                "type": "string"
+              },
+              "teamId": {
+                "backendName": "teamId",
+                "description_zh": "团队 ID",
+                "example": "tm-123456",
+                "type": "string"
+              },
+              "updatedAt": {
+                "backendName": "updatedAt",
+                "description_zh": "最近一次修改的时间，采用 RFC 3339 格式的 UTC 时间",
+                "example": "2026-08-12T03:04:05Z",
+                "type": "string"
+              },
+              "users": {
+                "backendName": "users",
+                "description_zh": "团队的用户成员列表",
+                "items": {
+                  "properties": {
+                    "teamRole": {
+                      "backendName": "teamRole",
+                      "description_zh": "用户在团队中的角色。可选值：ADMIN、MEMBER。每个团队必须且只能有一个 ADMIN",
+                      "example": "ADMIN",
+                      "type": "string"
+                    },
+                    "userId": {
+                      "backendName": "userId",
+                      "description_zh": "用户 ID",
+                      "example": "usr-123456",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "workspaceId": {
+                "backendName": "workspaceId",
+                "description_zh": "工作空间 ID",
+                "example": "ws-123456",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "httpStatusCode": {
+            "backendName": "httpStatusCode",
+            "description_zh": "HTTP 状态码",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "message": {
+            "backendName": "message",
+            "description_zh": "响应消息。请求失败时返回错误描述",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_zh": "请求 ID",
+            "example": "request-123456",
+            "type": "string"
+          },
+          "success": {
+            "backendName": "success",
+            "description_zh": "请求是否成功",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

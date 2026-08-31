@@ -72,11 +72,11 @@
       ],
       "param_style": "flat",
       "raw_name": "HostIds",
-      "required": true,
+      "required": false,
       "type": "array"
     },
     {
-      "help_en": "The ProjectId",
+      "help_en": "项目ID",
       "help_zh": "项目ID",
       "location": "query",
       "minimum": "1",
@@ -91,5 +91,55 @@
   ],
   "pathPattern": "",
   "product_code": "Yundun-bastionhost",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "F9B9E190-9C8E-5FEE-B963-7E9F1FD7FB4E",
+            "type": "string"
+          },
+          "Results": {
+            "backendName": "data.Results",
+            "description_en": "The result of the call",
+            "description_zh": "接口的调用结果信息",
+            "itemName": "Item",
+            "items": {
+              "properties": {
+                "Code": {
+                  "backendName": "Code",
+                  "description_en": "The return code that indicates whether the host is added to the network domain.\n\nThe code LICENSE_OUT_OF_LIMIT indicates that the network domain feature is not supported by the current Bastionhost edition",
+                  "description_zh": "接口调用的结果。\n\nLICENSE_OUT_OF_LIMIT 表示当前版本许可没有开启网络域功能",
+                  "example": "OK",
+                  "type": "string"
+                },
+                "HostId": {
+                  "backendName": "HostId",
+                  "description_en": "The host ID",
+                  "description_zh": "主机ID",
+                  "example": "1",
+                  "type": "string"
+                },
+                "Message": {
+                  "backendName": "Message",
+                  "description_en": "The error message that is returned",
+                  "description_zh": "错误信息",
+                  "example": "None",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -94,5 +94,91 @@
   ],
   "pathPattern": "",
   "product_code": "csas",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_zh": "Schema of Response",
+        "properties": {
+          "AdditionalLists": {
+            "backendName": "data",
+            "description_zh": "按匹配维度分组的黑白名单列表。某一匹配维度下没有任何名单条目时，该维度不会出现在列表中",
+            "itemName": "data",
+            "items": {
+              "description_zh": "某一匹配维度下的黑白名单",
+              "properties": {
+                "AdditionalType": {
+                  "backendName": "additionalType",
+                  "description_zh": "名单条目的匹配维度。取值：\nFileSuffix：按文件扩展名匹配。\nFileName：按文件名匹配。\nFolderName：按文件夹名匹配。\nFilePath：按文件路径匹配。\nFileMd5：按文件MD5值匹配",
+                  "example": "FileSuffix",
+                  "type": "string"
+                },
+                "Lists": {
+                  "backendName": "lists",
+                  "description_zh": "该匹配维度下按名单类型分组的名单",
+                  "itemName": "lists",
+                  "items": {
+                    "description_zh": "某一名单类型下的名单",
+                    "properties": {
+                      "ListDetail": {
+                        "backendName": "listDetail",
+                        "description_zh": "名单条目列表",
+                        "itemName": "listDetail",
+                        "items": {
+                          "description_zh": "名单条目",
+                          "properties": {
+                            "CreateTime": {
+                              "backendName": "createTime",
+                              "description_zh": "名单条目的创建时间，格式为yyyy-MM-dd HH:mm:ss，使用UTC+8时区",
+                              "example": "2026-08-21 10:24:31",
+                              "type": "string"
+                            },
+                            "Detail": {
+                              "backendName": "detail",
+                              "description_zh": "名单条目内容，含义由所属的AdditionalType决定",
+                              "example": ".tmp",
+                              "type": "string"
+                            },
+                            "ListId": {
+                              "backendName": "listId",
+                              "description_zh": "名单条目ID",
+                              "example": "additional-list-4d7b1e9a6c38****",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "ListType": {
+                        "backendName": "listType",
+                        "description_zh": "名单类型。取值：\nBlacklist：黑名单，命中的文件直接判定为病毒文件。\nWhitelist：白名单，命中的文件不参与病毒检测",
+                        "example": "Whitelist",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_zh": "本次请求的ID",
+            "example": "3D7EC0AF-DB2A-5D9C-90EC-F090A6BAAEA7",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

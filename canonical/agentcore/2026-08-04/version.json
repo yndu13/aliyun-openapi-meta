@@ -24,12 +24,6 @@
       "description_en": "Creates an AgentSpec in the specified workspace and generates the first draft version. Returns a resource conflict error if an AgentSpec with the same name already exists",
       "description_zh": "在指定工作空间中创建 AgentSpec，并生成首个草稿版本。同名 AgentSpec 已存在时返回资源冲突错误"
     },
-    "CreateAgentSpecLatest": {
-      "cmd_name": "create-agent-spec-latest",
-      "deprecated": false,
-      "description_en": "Creates the latest content of a specified AgentSpec and publishes it",
-      "description_zh": "创建指定 AgentSpec 的 latest 内容，并执行发布"
-    },
     "CreateAgentSpecVersion": {
       "cmd_name": "create-agent-spec-version",
       "deprecated": false,
@@ -300,6 +294,18 @@
       "description_en": "查询模型连接",
       "description_zh": "查询指定模型连接的详细配置、凭据配置状态、发布状态和所属地域"
     },
+    "GetServiceEndpoint": {
+      "cmd_name": "get-service-endpoint",
+      "deprecated": false,
+      "description_en": "Queries the details of a specified service endpoint, including target routing, access URLs, authentication configuration, and current status",
+      "description_zh": "查询指定服务端点的详细信息，包括目标路由、访问地址、鉴权配置和当前状态"
+    },
+    "GetServiceEndpointApiKey": {
+      "cmd_name": "get-service-endpoint-api-key",
+      "deprecated": false,
+      "description_en": "Queries the currently active API Key and its invocation method for a specified service endpoint within a workspace",
+      "description_zh": "查询指定工作空间内服务端点当前生效的 API Key 及其调用方式"
+    },
     "GetSkillDetail": {
       "cmd_name": "get-skill-detail",
       "deprecated": false,
@@ -335,6 +341,18 @@
       "deprecated": false,
       "description_en": "Queries workspace details by workspace ID, including lifecycle status, CMS Workspace, AIRegistry Namespace, and current network policy",
       "description_zh": "根据工作空间 ID 查询工作空间详情，包括生命周期状态、CMS Workspace、AIRegistry Namespace 和当前网络策略"
+    },
+    "GetWorkspacePlugin": {
+      "cmd_name": "get-workspace-plugin",
+      "deprecated": false,
+      "description_en": "Queries the plug-in status of a specified workspace",
+      "description_zh": "查询指定工作空间的插件状态"
+    },
+    "InstallWorkspacePlugin": {
+      "cmd_name": "install-workspace-plugin",
+      "deprecated": false,
+      "description_en": "Installs a plugin for a specified AgentCore workspace. Currently supports the collaboration plugin. The installation process is executed asynchronously",
+      "description_zh": "为指定的 AgentCore 工作空间安装插件。当前支持 collaboration 插件，安装过程异步执行"
     },
     "ListAgentIMChannels": {
       "cmd_name": "list-agent-im-channels",
@@ -387,13 +405,13 @@
     "ListMcps": {
       "cmd_name": "list-mcps",
       "deprecated": false,
-      "description_en": "Queries MCP services and their configurations and statuses in a specified workspace by using paging",
+      "description_en": "Queries MCP services and their configurations and statuses in a specified workspace by page",
       "description_zh": "分页查询指定工作空间中的 MCP 服务及其配置和状态"
     },
     "ListModelConnections": {
       "cmd_name": "list-model-connections",
       "deprecated": false,
-      "description_en": "查询模型连接列表",
+      "description_en": "Queries model connections in a specified workspace with paging. Supports filtering by name, provider type, and invoke protocol",
       "description_zh": "分页查询指定工作空间中的模型连接，支持按名称、供应商类型和调用协议筛选"
     },
     "ListModels": {
@@ -413,6 +431,12 @@
       "deprecated": false,
       "description_en": "Queries the models and their capability information for a specified provider in the AgentCore built-in model catalog",
       "description_zh": "查询指定供应商在 AgentCore 内置模型目录中的模型及其能力信息"
+    },
+    "ListServiceEndpoints": {
+      "cmd_name": "list-service-endpoints",
+      "deprecated": false,
+      "description_en": "Queries service endpoints in a specified workspace by using paging. Supports filtering by target type, agent, collaboration component, and status",
+      "description_zh": "分页查询指定工作空间内的服务端点，支持按目标类型、智能体、协作组件和状态过滤"
     },
     "ListSkills": {
       "cmd_name": "list-skills",
@@ -504,18 +528,6 @@
       "description_en": "Updates the business tags, version labels, and visibility scope of a specified AgentSpec. Fields that are not provided remain unchanged",
       "description_zh": "更新指定 AgentSpec 的业务标签、版本标签和可见范围；未传入的字段保持不变"
     },
-    "UpdateAgentSpecLatest": {
-      "cmd_name": "update-agent-spec-latest",
-      "deprecated": false,
-      "description_en": "Updates the latest content of a specified AgentSpec and publishes it",
-      "description_zh": "更新指定 AgentSpec 的 latest 内容，并执行发布"
-    },
-    "UpdateAgentSpecVersion": {
-      "cmd_name": "update-agent-spec-version",
-      "deprecated": false,
-      "description_en": "Updates the content of the current draft version of a specified AgentSpec. Only draft versions can be modified. Published versions cannot be modified",
-      "description_zh": "更新指定 AgentSpec 当前草稿版本的内容。仅草稿状态版本可以修改，已发布版本不可修改"
-    },
     "UpdateCredential": {
       "cmd_name": "update-credential",
       "deprecated": false,
@@ -555,20 +567,14 @@
     "UpdateModelConnection": {
       "cmd_name": "update-model-connection",
       "deprecated": false,
-      "description_en": "更新模型连接",
-      "description_zh": "更新模型连接"
+      "description_en": "Updates the mutable configuration of a specified model connection and resubmits the publish task. The protocol cannot be modified after the model connection is created",
+      "description_zh": "更新指定模型连接的可变配置并重新提交发布任务；调用协议创建后不可修改"
     },
     "UpdateSkillBizTags": {
       "cmd_name": "update-skill-biz-tags",
       "deprecated": false,
       "description_en": "Updates the business tags of a specified Skill. Other attributes that are not included in the request remain unchanged",
       "description_zh": "更新指定 Skill 的业务标签；未传入的其他属性保持不变"
-    },
-    "UpdateSkillDraft": {
-      "cmd_name": "update-skill-draft",
-      "deprecated": false,
-      "description_en": "Updates the content and commit message of the current draft version of a specified Skill",
-      "description_zh": "更新指定 Skill 当前草稿版本的内容和提交说明"
     },
     "UpdateSkillLabels": {
       "cmd_name": "update-skill-labels",
@@ -579,7 +585,7 @@
     "UpdateSkillScope": {
       "cmd_name": "update-skill-scope",
       "deprecated": false,
-      "description_en": "更新可见性",
+      "description_en": "Updates the visibility scope of a specified skill",
       "description_zh": "更新指定 Skill 的可见范围"
     },
     "UpdateTeam": {

@@ -75,5 +75,66 @@
   ],
   "pathPattern": "",
   "product_code": "Cdn",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "BillPredictionData": {
+            "backendName": "data.content.prediction_data",
+            "itemName": "BillPredictionDataItem",
+            "items": {
+              "properties": {
+                "Area": {
+                  "backendName": "area",
+                  "type": "string"
+                },
+                "TimeStp": {
+                  "backendName": "time_stp",
+                  "type": "string"
+                },
+                "Value": {
+                  "backendName": "value",
+                  "format": "float",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "BillType": {
+            "backendName": "data.content.bill_type",
+            "description_en": "The metering method.\n\nIf the metering method ends with _overseas, the billable region is outside the Chinese mainland. For example, BillType\": \"month_avg_day_bandwidth_overseas specifies a billable region outside the Chinese mainland and that the metering method is pay by daily peak bandwidth per month.\n\nValid values:\n\nhour_flow: pay by hourly data transfer\n\nday_bandwidth: pay by daily bandwidth\n\nmonth_95: pay by monthly 95th percentile bandwidth.\n\nmonth_avg_day_bandwidth: pay by average daily peak bandwidth per month\n\nmonth_4th_day_bandwidth: pay by monthly 4th peak bandwidth\n\nmonth_avg_day_95: pay by average daily 95th percentile bandwidth per month\n\nmonth_95_night_half: pay by 95th percentile bandwidth with 50% off from 00:00 to 08:00.\n\nhour_vas: pay by value-added services per hour\n\nday_count: pay by daily requests",
+            "description_zh": "用户计费类型。\n\n带_overseas后缀表示海外不分大区计费，例如： \"BillType\": \"month_avg_day_bandwidth_overseas\" 则表明该计费方式为月均日峰值海外不分区计费。\n\n计费模式取值如下所示：\n\nhour_flow：按小时流量计费。\nday_bandwidth：按日带宽计费。\nmonth_95：按月95峰值带宽计费。\nmonth_avg_day_bandwidth：按月均日峰值带宽计费。\nmonth_4th_day_bandwidth：按月第四日峰值带宽计费。\nmonth_avg_day_95：按月均日95峰值带宽计费。\nmonth_95_night_half： 按夜间半价95峰值带宽计费。\nhour_vas：按小时增值服务计费。\nday_count：按日请求次数计费",
+            "example": "month_95_overseas",
+            "type": "string"
+          },
+          "EndTime": {
+            "backendName": "data.content.real_end",
+            "description_en": "The end time of the estimation",
+            "description_zh": "预测结束时间",
+            "example": "2018-10-25T10:00:00Z",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "C370DAF1-C838-4288-A1A0-9A87633D248E",
+            "type": "string"
+          },
+          "StartTime": {
+            "backendName": "data.content.real_start",
+            "description_en": "The start time of the estimation",
+            "description_zh": "预测开始时间",
+            "example": "2018-09-30T16:00:00Z",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }
