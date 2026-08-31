@@ -2,6 +2,139 @@
   "camel_example": "",
   "cmd_full_name": "agentrun list-knowledge-bases",
   "cmd_name": "list-knowledge-bases",
+  "components": {
+    "schemas": {
+      "KnowledgeBase": {
+        "description_zh": "知识库结构体",
+        "properties": {
+          "createdAt": {
+            "backendName": "createdAt",
+            "description_zh": "创建时间",
+            "title": "创建时间",
+            "type": "string"
+          },
+          "credentialName": {
+            "backendName": "credentialName",
+            "description_zh": "身份凭证名称",
+            "title": "身份凭证名称",
+            "type": "string"
+          },
+          "description": {
+            "backendName": "description",
+            "description_zh": "知识库描述",
+            "title": "知识库描述",
+            "type": "string"
+          },
+          "knowledgeBaseId": {
+            "backendName": "knowledgeBaseId",
+            "description_zh": "知识库Id",
+            "title": "知识库Id",
+            "type": "string"
+          },
+          "knowledgeBaseName": {
+            "backendName": "knowledgeBaseName",
+            "description_zh": "知识库名称",
+            "title": "知识库名称",
+            "type": "string"
+          },
+          "lastUpdatedAt": {
+            "backendName": "lastUpdatedAt",
+            "description_zh": "最近的更新时间",
+            "title": "最近的更新时间",
+            "type": "string"
+          },
+          "provider": {
+            "backendName": "provider",
+            "description_zh": "知识库供应商名称（例如ragflow，bailian）",
+            "title": "知识库供应商名称（例如ragflow，bailian）",
+            "type": "string"
+          },
+          "providerSettings": {
+            "additionalProperties": {
+              "type": "any"
+            },
+            "backendName": "providerSettings",
+            "description_zh": "知识库供应商配置",
+            "title": "知识库供应商配置",
+            "type": "object"
+          },
+          "retrieveSettings": {
+            "additionalProperties": {
+              "type": "any"
+            },
+            "backendName": "retrieveSettings",
+            "type": "object"
+          },
+          "workspaceId": {
+            "backendName": "workspaceId",
+            "description_zh": "工作空间ID",
+            "title": "工作空间ID",
+            "type": "string"
+          }
+        },
+        "title": "知识库结构体",
+        "type": "object"
+      },
+      "ListKnowledgeBasesOutput": {
+        "properties": {
+          "items": {
+            "backendName": "items",
+            "description_zh": "知识库实体列表信息",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeBase"
+            },
+            "title": "知识库实体列表信息",
+            "type": "array"
+          },
+          "pageNumber": {
+            "backendName": "pageNumber",
+            "description_zh": "页数",
+            "format": "int32",
+            "title": "页数",
+            "type": "integer"
+          },
+          "pageSize": {
+            "backendName": "pageSize",
+            "description_zh": "每页实体的大小",
+            "format": "int32",
+            "title": "每页实体的大小",
+            "type": "integer"
+          },
+          "total": {
+            "backendName": "total",
+            "description_zh": "总页数",
+            "format": "int64",
+            "title": "总页数",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "ListKnowledgeBasesResult": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "description_zh": "返回码",
+            "title": "返回码",
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ListKnowledgeBasesOutput",
+            "backendName": "data",
+            "description_zh": "返回知识库列表数据",
+            "title": "返回知识库列表数据"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_zh": "请求Id",
+            "title": "请求Id",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Lists the knowledge bases in your account",
   "description_zh": "列出知识库",
@@ -88,5 +221,17 @@
   ],
   "pathPattern": "/2025-09-10/agents/knowledgebases",
   "product_code": "AgentRun",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "$ref": "#/components/schemas/ListKnowledgeBasesResult",
+        "description_en": "Contains a list of knowledge bases and pagination details",
+        "description_zh": "知识库列表结果",
+        "parseType": "struct",
+        "title_en": "列出知识库返回结构体",
+        "title_zh": "列出知识库返回结构体"
+      }
+    }
+  }
 }
