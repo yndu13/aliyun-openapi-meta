@@ -3,7 +3,7 @@
   "cmd_full_name": "apig list-external-services",
   "cmd_name": "list-external-services",
   "deprecated": false,
-  "description_en": "Retrieves the external service information of a gateway",
+  "description_en": "Retrieves external service information for a gateway",
   "description_zh": "获取网关的外部服务信息",
   "kebab_example": "",
   "method": "GET",
@@ -35,8 +35,8 @@
     },
     {
       "example": "FC3",
-      "help_en": "The service source type used to filter results. Valid values:\nMSE_NACOS: services from MSE Nacos.\nK8S: services from a Kubernetes cluster in Container Service.\nFC3: services from Function Compute.\nVIP: services from a fixed address.\nDNS: services from a domain name",
-      "help_zh": "根据服务来源类型查询, 服务来源",
+      "help_en": "The service source type used to query services. This parameter is essentially required. If not provided, the API returns 400 InvalidParameter.WithValue. Valid values: SAE_K8S_SERVICE, PAI_EAS_SERVICE, CloudFlow, K8S, FC3, PAI_WORKSPACE, and MSE_NACOS",
+      "help_zh": "根据服务来源类型查询, 服务来源。本参数实际为必填项，未提供时 API 返回 400 InvalidParameter.WithValue。允许值：SAE_K8S_SERVICE、PAI_EAS_SERVICE、CloudFlow、K8S、FC3、PAI_WORKSPACE、MSE_NACOS",
       "location": "query",
       "name": "source_type",
       "options": [
@@ -48,7 +48,7 @@
     },
     {
       "example": "100",
-      "help_en": "The maximum number of entries to return. Valid range: (0, 100]. Default value: 10",
+      "help_en": "The maximum number of results to return. Valid range: (0, 100]. Default value: 10",
       "help_zh": "限制返回数量，有效范围(0, 100]，不填默认10",
       "location": "query",
       "name": "limit",
@@ -61,7 +61,7 @@
     },
     {
       "example": "imah",
-      "help_en": "The API name for fuzzy match",
+      "help_en": "Fuzzy search by API name",
       "help_zh": "按接口名称模糊搜索",
       "location": "query",
       "name": "name_like",
@@ -102,6 +102,96 @@
   "pathPattern": "/v1/gateways/[gatewayId]/external-services",
   "product_code": "APIG",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "code": {
+            "description_en": "The response code",
+            "description_zh": "响应码",
+            "example": "Ok",
+            "type": "string"
+          },
+          "data": {
+            "description_en": "The list of APIs",
+            "description_zh": "接口列表",
+            "properties": {
+              "items": {
+                "description_en": "The service information",
+                "description_zh": "服务信息",
+                "itemName": "item",
+                "items": {
+                  "description_en": "The zone ID",
+                  "description_zh": "可用区ID",
+                  "properties": {
+                    "namespace": {
+                      "description_en": "The namespace",
+                      "description_zh": "命名空间",
+                      "example": "PUBLIC",
+                      "type": "string"
+                    },
+                    "namespaceShowName": {
+                      "description_en": "The display name of the namespace",
+                      "description_zh": "命名空间的展示名",
+                      "example": "PUBLIC",
+                      "type": "string"
+                    },
+                    "services": {
+                      "description_en": "The backend services",
+                      "description_zh": "后端服务",
+                      "itemName": "service",
+                      "items": {
+                        "description_en": "The backend services",
+                        "description_zh": "后端服务",
+                        "properties": {
+                          "name": {
+                            "description_en": "The name",
+                            "description_zh": "名称",
+                            "example": "enable-slash-merge",
+                            "type": "string"
+                          },
+                          "namespace": {
+                            "description_en": "The namespace",
+                            "description_zh": "命名空间",
+                            "example": "public",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "message": {
+            "description_en": "The response message",
+            "description_zh": "响应信息",
+            "example": "Failed to upload data. Please try again",
+            "type": "string"
+          },
+          "requestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求 ID",
+            "example": "D9B03B59-B2D6-51B0-A7E9-AF8466E320CA",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
       "help_en": "The gateway ID. Exact match",
@@ -120,7 +210,7 @@
       "type": "bool"
     },
     {
-      "help_en": "The maximum number of entries to return. Valid range: (0, 100]. Default value: 10",
+      "help_en": "The maximum number of results to return. Valid range: (0, 100]. Default value: 10",
       "help_zh": "限制返回数量，有效范围(0, 100]，不填默认10",
       "name": "limit",
       "position": "query",
@@ -128,7 +218,7 @@
       "type": "int"
     },
     {
-      "help_en": "The API name for fuzzy match",
+      "help_en": "Fuzzy search by API name",
       "help_zh": "按接口名称模糊搜索",
       "name": "nameLike",
       "position": "query",
@@ -144,8 +234,8 @@
       "type": "string"
     },
     {
-      "help_en": "The service source type used to filter results. Valid values:\nMSE_NACOS: services from MSE Nacos.\nK8S: services from a Kubernetes cluster in Container Service.\nFC3: services from Function Compute.\nVIP: services from a fixed address.\nDNS: services from a domain name",
-      "help_zh": "根据服务来源类型查询, 服务来源",
+      "help_en": "The service source type used to query services. This parameter is essentially required. If not provided, the API returns 400 InvalidParameter.WithValue. Valid values: SAE_K8S_SERVICE, PAI_EAS_SERVICE, CloudFlow, K8S, FC3, PAI_WORKSPACE, and MSE_NACOS",
+      "help_zh": "根据服务来源类型查询, 服务来源。本参数实际为必填项，未提供时 API 返回 400 InvalidParameter.WithValue。允许值：SAE_K8S_SERVICE、PAI_EAS_SERVICE、CloudFlow、K8S、FC3、PAI_WORKSPACE、MSE_NACOS",
       "name": "sourceType",
       "position": "query",
       "required": false,

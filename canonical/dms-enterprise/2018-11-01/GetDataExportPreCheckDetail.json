@@ -49,5 +49,85 @@
   ],
   "pathPattern": "",
   "product_code": "dms-enterprise",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "ErrorCode": {
+            "backendName": "errorCode",
+            "description_en": "The error code returned",
+            "description_zh": "错误码",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "message",
+            "description_en": "The error message returned",
+            "description_zh": "调用失败时，返回的错误信息",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "PreCheckResult": {
+            "backendName": "data",
+            "description_en": "Indicates the result of the precheck task",
+            "description_zh": "预检查结果",
+            "properties": {
+              "IgnoreAffectRows": {
+                "backendName": "ignoreAffectRows",
+                "description_en": "Specifies whether to skip verification. Valid values:\n\ntrue\nfalse",
+                "description_zh": "是否忽略预校验，返回值如下：\ntrue：忽略预校验。\nfalse：不忽略预校验",
+                "example": "true",
+                "type": "boolean"
+              },
+              "PreCheckDetailList": {
+                "backendName": "preExecuteResults",
+                "itemName": "PreCheckDetailList",
+                "items": {
+                  "properties": {
+                    "AffectRows": {
+                      "backendName": "affectRows",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "SQL": {
+                      "backendName": "realSql",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "C1D39814-9808-47F8-AFE0-AF167239AC9B",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful. Valid values:\n\ntrue: The request was successful.\nfalse: The request failed",
+            "description_zh": "请求是否成功，返回值如下：\ntrue：请求成功\nfalse：请求失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

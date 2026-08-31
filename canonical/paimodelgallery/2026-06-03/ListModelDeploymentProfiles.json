@@ -62,5 +62,145 @@
   ],
   "pathPattern": "/api/v2/modelgallery/models/[ModelId]/deployment-profiles",
   "product_code": "PAIModelGallery",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_zh": "返回结构体",
+        "parseType": "struct",
+        "properties": {
+          "ModelId": {
+            "description_zh": "请求对应的模型 ID",
+            "example": "model-6wiou4ta20tgtq9lda",
+            "type": "string"
+          },
+          "ModelVersion": {
+            "description_zh": "请求对应的模型版本。未设置该请求参数时，返回模型表中的最新可部署版本",
+            "example": "1.0.0\n",
+            "type": "string"
+          },
+          "Profiles": {
+            "description_zh": "部署方案列表",
+            "itemName": "Profiles",
+            "items": {
+              "description_zh": "部署方案对象",
+              "properties": {
+                "Category": {
+                  "description_zh": "场景分类。可取值：\nsinglenode：单机\nmultinodes：多机\npd：PD分离",
+                  "example": "singlenode",
+                  "type": "string"
+                },
+                "Devices": {
+                  "description_zh": "该部署方案支持的卡型列表",
+                  "itemName": "Devices",
+                  "items": {
+                    "description_zh": "卡型对象",
+                    "properties": {
+                      "DeviceCategory": {
+                        "description_zh": "设备厂商或设备分类",
+                        "example": "NVIDIA",
+                        "type": "string"
+                      },
+                      "DeviceType": {
+                        "description_zh": "卡型",
+                        "example": "NVIDIA_L20C",
+                        "type": "string"
+                      },
+                      "DisplayName": {
+                        "description_zh": "卡型展示名称",
+                        "example": "L20C",
+                        "type": "string"
+                      },
+                      "InstanceTypes": {
+                        "description_zh": "该卡型当前对应的实例规格列表。（不是实时库存）",
+                        "itemName": "InstanceTypes",
+                        "items": {
+                          "description_zh": "实例规格",
+                          "example": "ml.gx9cf.8.62xlarge",
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "Framework": {
+                  "description_zh": "推理框架，可取值：sglang、vllm",
+                  "example": "sglang",
+                  "type": "string"
+                },
+                "Labels": {
+                  "additionalProperties": {
+                    "description_zh": "键值为String",
+                    "example": "{\"Badge\":\"recommended\"}",
+                    "type": "string"
+                  },
+                  "description_zh": "部署方案的展示和业务筛选标签，采用字符串到字符串的键值对象",
+                  "type": "object"
+                },
+                "Members": {
+                  "description_zh": "部署成员摘要",
+                  "itemName": "Members",
+                  "items": {
+                    "description_zh": "成员对象",
+                    "properties": {
+                      "MemberType": {
+                        "description_zh": "成员类型。取值：\nDefault：非PD分离。\nLLMPrefill：PD分离-Prefill服务。\nLLMDecode：PD分离-Decode服务",
+                        "example": "Default",
+                        "type": "string"
+                      },
+                      "Meta": {
+                        "description_zh": "成员扩展元数据，采用字符串到字符串的键值对象。当前定义 script，调用方应保留未知键",
+                        "example": "{ \"script\": \"sglang serve --disaggregation-mode decode\" }",
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "Optimizations": {
+                  "additionalProperties": {
+                    "description_zh": "键值为 String",
+                    "example": "{\"spec_decode\":\"none\",\"hicache\": \"l2_host\"}",
+                    "type": "string"
+                  },
+                  "description_zh": "推理优化特性",
+                  "type": "object"
+                },
+                "ProfileId": {
+                  "description_zh": "部署方案ID。调用方不得自行计算或修改",
+                  "example": "prf_4f73b31ae****23f9a04c6e83ebc78f",
+                  "type": "string"
+                },
+                "Scenario": {
+                  "description_zh": "部署场景，例如 singlenode-balanced、pd-balanced",
+                  "example": "singlenode-balanced",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "description_zh": "请求ID",
+            "example": "B6B54325-C98C-5937-87A3-2F96C07652EC",
+            "type": "string"
+          },
+          "TotalCount": {
+            "description_zh": "总数量",
+            "example": "15",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

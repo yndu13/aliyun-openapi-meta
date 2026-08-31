@@ -499,5 +499,137 @@
   ],
   "pathPattern": "",
   "product_code": "eventbridge",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response schema",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The status of the API call, which can be Success or a POP error code",
+            "description_zh": "接口状态或POP错误码。取值说明如下：Success：成功",
+            "example": "Success",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The returned data",
+            "description_zh": "返回结果",
+            "properties": {
+              "MaxResults": {
+                "backendName": "maxResults",
+                "description_en": "The maximum number of entries to return",
+                "description_zh": "本次请求所返回的最大记录条数",
+                "example": "100",
+                "format": "int32",
+                "title_en": "本次请求所返回的最大记录条数",
+                "title_zh": "本次请求所返回的最大记录条数",
+                "type": "integer"
+              },
+              "NextToken": {
+                "backendName": "nextToken",
+                "description_en": "The token used to retrieve the next page of results. If this parameter is empty, all results have been returned",
+                "description_zh": "表示当前调用返回读取到的位置。空代表数据已经读取完毕",
+                "example": "100",
+                "title_en": "表示当前调用返回读取到的位置。空代表数据已经读取完毕。",
+                "title_zh": "表示当前调用返回读取到的位置。空代表数据已经读取完毕。",
+                "type": "string"
+              },
+              "Table": {
+                "backendName": "table",
+                "description_en": "The query results for the `table` query type",
+                "description_zh": "对应查询类型为table的查询结果",
+                "itemName": "Table",
+                "items": {
+                  "properties": {
+                    "RowData": {
+                      "backendName": "rowData",
+                      "description_en": "A query result entry, represented as a key-value pair",
+                      "description_zh": "查询结果的条目，以k-v对表示",
+                      "example": "{\n  \"id\":\"xxx\",\n  \"source\":\"acs.ecs\"\n}",
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "TimeSeries": {
+                "backendName": "timeSeries",
+                "description_en": "The query results for the `time series` query type",
+                "description_zh": "对应查询类型为timeseries的查询结果",
+                "itemName": "TimeSeries",
+                "items": {
+                  "properties": {
+                    "RowData": {
+                      "backendName": "rowData",
+                      "description_en": "A query result entry, represented as a key-value pair",
+                      "description_zh": "查询结果的条目，以k-v对表示",
+                      "example": "{\n  \"id\":\"xxx\",\n  \"source\":\"acs.ecs\"\n}",
+                      "type": "object"
+                    },
+                    "Time": {
+                      "backendName": "time",
+                      "description_en": "The timestamp",
+                      "description_zh": "用于显示时间戳",
+                      "example": "1683561600000",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "TotalCount": {
+                "backendName": "totalCount",
+                "description_en": "The total number of entries that meet the filter conditions. This parameter is optional and is not returned by default",
+                "description_zh": "TotalCount本次请求条件下的数据总量，此参数为可选参数，默认可不返回",
+                "example": "76",
+                "format": "int32",
+                "title_en": "TotalCount本次请求条件下的数据总量，此参数为可选参数，默认可不返回",
+                "title_zh": "TotalCount本次请求条件下的数据总量，此参数为可选参数，默认可不返回",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "Specified parameter Limit is not valid.",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "本次请求的ID",
+            "example": "5DAF96FB-A4B6-548C-B999-XXXXXXXX",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the call was successful. `true` indicates success, and `false` indicates failure",
+            "description_zh": "操作是否成功。true表示成功，false表示失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

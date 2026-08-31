@@ -86,5 +86,129 @@
   ],
   "pathPattern": "",
   "product_code": "ESA",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "PageNumber": {
+            "backendName": "data.content.PageNumber",
+            "description_en": "The current page number",
+            "description_zh": "当前页码",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          },
+          "PageSize": {
+            "backendName": "data.content.PageSize",
+            "description_en": "The number of entries per page",
+            "description_zh": "分页大小",
+            "example": "10",
+            "format": "int32",
+            "type": "integer"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "Id of the request",
+            "example": "36af3fcc-43d0-441c-86b1-428951dc8225",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "RuleInfos": {
+            "backendName": "data.content.CcRuleInfos",
+            "description_en": "The list of rules",
+            "description_zh": "规则信息列表",
+            "itemName": "RuleInfo",
+            "items": {
+              "properties": {
+                "Action": {
+                  "backendName": "RuleAction",
+                  "description_en": "The action to perform",
+                  "description_zh": "执行动作",
+                  "example": "js",
+                  "type": "string"
+                },
+                "Condition": {
+                  "backendName": "Condition",
+                  "description_en": "The conditions that trigger the rule",
+                  "description_zh": "规则触发条件",
+                  "example": "{\"$and\":[{\"key\":\"URI\",\"opValue\":\"prefix-match\",\"values\":\"/\"}]}",
+                  "type": "string"
+                },
+                "LogRuleId": {
+                  "backendName": "RuleDbId",
+                  "description_en": "The ID of the protection rule for log records",
+                  "description_zh": "防护规则ID（日志记录用）",
+                  "example": "100030",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "PunishTime": {
+                  "backendName": "PunishTime",
+                  "description_en": "The duration of the penalty in seconds",
+                  "description_zh": "处置时间。(单位：秒）",
+                  "example": "86400",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "RateLimit": {
+                  "backendName": "RateLimit",
+                  "description_en": "The frequency information",
+                  "description_zh": "频次信息",
+                  "example": "{\"threshold\":2000,\"interval\":5,\"target\":\"ip\",\"ttl\":600}",
+                  "type": "string"
+                },
+                "RecordName": {
+                  "backendName": "Domain",
+                  "description_en": "The name of the record",
+                  "description_zh": "记录名称",
+                  "example": "test.example.com",
+                  "type": "string"
+                },
+                "RuleId": {
+                  "backendName": "Id",
+                  "description_en": "The ID of the rule",
+                  "description_zh": "规则ID",
+                  "example": "20110849",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "RuleName": {
+                  "backendName": "RuleId",
+                  "description_en": "The name of the rule",
+                  "description_zh": "规则名称",
+                  "example": "inner_cc_client_ip_ratelimit",
+                  "type": "string"
+                },
+                "Statistics": {
+                  "backendName": "Statistics",
+                  "description_en": "The statistics",
+                  "description_zh": "统计信息",
+                  "example": "{\"field\":\"ip\",\"mode\":\"count\"}",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "TotalCount": {
+            "backendName": "data.content.TotalCount",
+            "description_en": "The total number of rules",
+            "description_zh": "总规则数",
+            "example": "100",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

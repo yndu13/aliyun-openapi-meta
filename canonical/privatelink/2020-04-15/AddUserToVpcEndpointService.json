@@ -3,7 +3,7 @@
   "cmd_full_name": "privatelink add-user-to-vpc-endpoint-service",
   "cmd_name": "add-user-to-vpc-endpoint-service",
   "deprecated": false,
-  "description_en": "Adds an account ID to the whitelist of an endpoint service",
+  "description_en": "Calls the AddUserToVpcEndpointService operation to add a user account to the service whitelist of an endpoint service",
   "description_zh": "调用AddUserToVpcEndpointService接口，为终端节点服务添加服务白名单",
   "kebab_example": "",
   "method": "GET|POST",
@@ -23,7 +23,7 @@
     {
       "doc_required": true,
       "example": "eu-west-1",
-      "help_en": "The region ID of the endpoint service. You can call the https://help.aliyun.com/document_detail/120468.html operation to query the most recent region list",
+      "help_en": "The region ID of the endpoint service for which you want to add a service whitelist entry. You can call the https://help.aliyun.com/document_detail/120468.html operation to query the most recent region list",
       "help_zh": "要添加服务白名单的地域ID。您可以通过调用https://help.aliyun.com/document_detail/120468.html接口获取地域ID",
       "location": "query",
       "name": "region_id",
@@ -36,7 +36,7 @@
     },
     {
       "example": "132193271328****",
-      "help_en": "The account ID that you want to add to the whitelist",
+      "help_en": "The ID of the user account to add to the service whitelist",
       "help_zh": "服务白名单账号ID",
       "location": "query",
       "maximum": "9223372036854775807",
@@ -52,7 +52,7 @@
     {
       "doc_required": true,
       "example": "epsrv-hp3vpx8yqxblby3i****",
-      "help_en": "The endpoint service ID",
+      "help_en": "The ID of the endpoint service",
       "help_zh": "终端节点服务的ID",
       "location": "query",
       "name": "service_id",
@@ -65,7 +65,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\ntrue: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\nfalse (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed",
+      "help_en": "Specifies whether to perform a dry run. Valid values:\ntrue: performs a dry run without adding the service whitelist entry. The system checks the required parameters, request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\nfalse (default): performs a dry run and sends the request. If the request passes the dry run, an HTTP 2xx status code is returned and the operation is performed",
       "help_zh": "\n是否只预检此次请求。取值：\ntrue：发送检查请求，不会添加服务白名单。检查项包括是否填写了必需参数、请求格式、业务限制。如果检查不通过，则返回对应错误。如果检查通过，则返回错误码`DryRunOperation`。\nfalse（默认值）：发送正常请求，通过检查后返回HTTP 2xx状态码并直接进行操作",
       "location": "query",
       "name": "dry_run",
@@ -91,7 +91,7 @@
     },
     {
       "example": "acs:ram:*:<account-id>:*",
-      "help_en": "The whitelist in the format of Aliyun Resource Name (ARN)",
+      "help_en": "The user whitelist entry in ARN format",
       "help_zh": "ARN格式的用户白名单",
       "location": "query",
       "name": "user_arn",
@@ -105,5 +105,23 @@
   ],
   "pathPattern": "",
   "product_code": "Privatelink",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "0ED8D006-F706-4D23-88ED-E11ED28DCAC0",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

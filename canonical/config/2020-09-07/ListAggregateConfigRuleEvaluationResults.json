@@ -161,5 +161,270 @@
   ],
   "pathPattern": "",
   "product_code": "Config",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "EvaluationResults": {
+            "backendName": "data",
+            "description_en": "The collection of evaluation results",
+            "description_zh": "规则评估结果集合",
+            "properties": {
+              "EvaluationResultList": {
+                "backendName": "data",
+                "description_en": "A list of evaluation results",
+                "description_zh": "规则评估结果列表",
+                "itemName": "EvaluationResult",
+                "items": {
+                  "properties": {
+                    "Annotation": {
+                      "backendName": "annotation",
+                      "description_en": "The annotation of the non-compliant resource. The annotation may include the following information:\n\n`configuration`: the current configuration of the resource, which is the non-compliant configuration.\n\n`desiredValue`: the expected configuration of the resource, which is the compliant configuration.\n\n`operator`: the comparison operator that is used to compare the current configuration with the expected configuration.\n\n`property`: the JSON path of the current configuration in the resource property struct.\n\n`reason`: the reason why the resource is non-compliant",
+                      "description_zh": "不合规资源的补充信息。可能包含以下信息：\n\n`configuration`：资源当前实际配置，即资源不合规配置。\n`desiredValue`：资源期望配置，即资源合规配置。\n`operator`：资源当前配置和期望配置之间的比较运算符。\n`property`：当前配置在资源属性结构体中的JSON路径。\n`reason`：资源不合规原因",
+                      "example": "{\\\"configuration\\\":\\\"LRS\\\",\\\"desiredValue\\\":\\\"ZRS\\\",\\\"operator\\\":\\\"StringEquals\\\",\\\"property\\\":\\\"$.DataRedundancyType\\\"}",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ComplianceType": {
+                      "backendName": "complianceType",
+                      "description_en": "The compliance evaluation result. Valid values:\n\nCOMPLIANT: The resource is compliant.\n\nNON_COMPLIANT: The resource is non-compliant.\n\nNOT_APPLICABLE: The rule does not apply to the resource.\n\nINSUFFICIENT_DATA: No data is available.\n\nIGNORED: The evaluation result is ignored",
+                      "description_zh": "合规评估结果。取值：\nCOMPLIANT：合规。\nNON_COMPLIANT：不合规。\nNOT_APPLICABLE：不适用。\nINSUFFICIENT_DATA：无数据。\nIGNORED：已忽略",
+                      "example": "NON_COMPLIANT",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ConfigRuleInvokedTimestamp": {
+                      "backendName": "configRuleInvokedTimestamp",
+                      "description_en": "The timestamp when the rule was triggered to evaluate the resource. Unit: milliseconds",
+                      "description_zh": "规则被触发执行评估的时间戳。单位：毫秒",
+                      "example": "1624869012713",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "EvaluationId": {
+                      "backendName": "ukId",
+                      "description_en": "The unique ID of the evaluation result",
+                      "description_zh": "评估结果的唯一ID",
+                      "example": "00000089-4e0d-58b5-a96a-8e54112110f3",
+                      "title_en": "评估结果的唯一ID",
+                      "title_zh": "评估结果的唯一ID",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "EvaluationResultIdentifier": {
+                      "backendName": "evaluationResultIdentifier",
+                      "description_en": "The identifier of the evaluation result",
+                      "description_zh": "规则评估结果标识符",
+                      "properties": {
+                        "EvaluationResultQualifier": {
+                          "backendName": "evaluationResultQualifier",
+                          "description_en": "The information about the resource that is evaluated",
+                          "description_zh": "规则评估结果中的资源信息",
+                          "properties": {
+                            "CompliancePackId": {
+                              "backendName": "compliancePackId",
+                              "description_en": "The ID of the compliance package to which the rule belongs",
+                              "description_zh": "规则所属的合规包ID",
+                              "example": "cr-7263fd26622af00bc****",
+                              "type": "string"
+                            },
+                            "ConfigRuleArn": {
+                              "backendName": "configRuleArn",
+                              "description_en": "The Alibaba Cloud Resource Name (ARN) of the rule",
+                              "description_zh": "规则ARN",
+                              "example": "acs:config::100931896542****:rule/cr-888f626622af00ae****",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "ConfigRuleId": {
+                              "backendName": "configRuleId",
+                              "description_en": "The rule ID",
+                              "description_zh": "规则ID",
+                              "example": "cr-888f626622af00ae****",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "ConfigRuleName": {
+                              "backendName": "configRuleName",
+                              "description_en": "The name of the rule",
+                              "description_zh": "规则名称",
+                              "example": "OSS存储空间开启同城冗余存储",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "IgnoreDate": {
+                              "backendName": "ignoreDate",
+                              "description_en": "The date when the ignored evaluation result is automatically restored.\n\nIf this parameter is empty, the result is not automatically restored. You must manually restore it",
+                              "description_zh": "已忽略评估结果的自动恢复日期。\n\n为空表示不会自动恢复，需要您手动恢复",
+                              "example": "2022-06-01",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "RegionId": {
+                              "backendName": "regionId",
+                              "description_en": "The ID of the region to which the resource belongs",
+                              "description_zh": "资源归属的地域ID",
+                              "example": "cn-hangzhou",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "ResourceGroupId": {
+                              "backendName": "resourceGroupId",
+                              "description_en": "The ID of the resource group to which the resource belongs",
+                              "description_zh": "资源归属资源组ID",
+                              "example": "rg-acfm26cicib****",
+                              "nullable": true,
+                              "required": true,
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "ResourceId": {
+                              "backendName": "resourceId",
+                              "description_en": "The resource ID",
+                              "description_zh": "资源ID",
+                              "example": "Bucket-test",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "ResourceName": {
+                              "backendName": "resourceName",
+                              "description_en": "The resource name",
+                              "description_zh": "资源名称",
+                              "example": "Bucket-test",
+                              "type": "string",
+                              "visibility": "Public"
+                            },
+                            "ResourceOwnerId": {
+                              "backendName": "resourceOwnerId",
+                              "description_en": "The ID of the Alibaba Cloud account to which the resource belongs",
+                              "description_zh": "资源归属的阿里云账号ID",
+                              "example": "173808452267****",
+                              "format": "int64",
+                              "type": "integer",
+                              "visibility": "Public"
+                            },
+                            "ResourceType": {
+                              "backendName": "resourceType",
+                              "description_en": "The resource type",
+                              "description_zh": "资源类型",
+                              "example": "ACS::OSS::Bucket",
+                              "type": "string",
+                              "visibility": "Public"
+                            }
+                          },
+                          "type": "object",
+                          "visibility": "Public"
+                        },
+                        "OrderingTimestamp": {
+                          "backendName": "orderingTimestamp",
+                          "description_en": "The timestamp that is displayed on the timeline. Unit: milliseconds.\n\nThis is the timestamp when the rule was triggered to evaluate the resource. It is the same as the value of the `ConfigRuleInvokedTimestamp` parameter",
+                          "description_zh": "时间轴展示的时间戳。单位：毫秒。\n\n该时间为规则被触发执行评估的时间戳，即参数`ConfigRuleInvokedTimestamp`显示的时间",
+                          "example": "1624869012713",
+                          "format": "int64",
+                          "type": "integer",
+                          "visibility": "Public"
+                        }
+                      },
+                      "type": "object",
+                      "visibility": "Public"
+                    },
+                    "InvokingEventMessageType": {
+                      "backendName": "invokingEventMessageType",
+                      "description_en": "The trigger type of the rule. Valid values:\n\nConfigurationItemChangeNotification: The rule is triggered by a configuration change.\n\nScheduledNotification: The rule is triggered periodically",
+                      "description_zh": "规则触发机制。取值：\nConfigurationItemChangeNotification：配置变更。\nScheduledNotification：周期执行",
+                      "example": "ScheduledNotification",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "LastCompliantFixedTimestamp": {
+                      "backendName": "lastCompliantFixedTimestamp",
+                      "description_en": "The timestamp when the resource was last remediated to a compliant state. This parameter is not returned if a new resource or rule is evaluated as compliant for the first time",
+                      "description_zh": "最近一次修复为合规状态的时间，新资源或规则首次评估为合规时该值不会被记录",
+                      "example": "1768788515723",
+                      "format": "int64",
+                      "nullable": false,
+                      "title_en": "最近一次修复为合规状态的时间，新资源或规则首次评估为合规时该值不会被记录",
+                      "title_zh": "最近一次修复为合规状态的时间，新资源或规则首次评估为合规时该值不会被记录",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "LastNonCompliantRecordTimestamp": {
+                      "backendName": "lastNonCompliantRecordTimestamp",
+                      "description_en": "The timestamp when the resource last became non-compliant",
+                      "description_zh": "最近一次不合规的起始时间",
+                      "example": "1744696393000",
+                      "format": "int64",
+                      "title_en": "最近一次不合规的起始时间",
+                      "title_zh": "最近一次不合规的起始时间",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "RemediationEnabled": {
+                      "backendName": "remediationEnabled",
+                      "description_en": "Indicates whether the remediation setting is enabled. Valid values:\n\ntrue: The remediation setting is enabled.\n\nfalse: The remediation setting is not enabled",
+                      "description_zh": "是否启用修正设置。取值：\ntrue：启用修正设置。\nfalse：不启用修正设置",
+                      "example": "false",
+                      "type": "boolean",
+                      "visibility": "Public"
+                    },
+                    "ResultRecordedTimestamp": {
+                      "backendName": "resultRecordedTimestamp",
+                      "description_en": "The timestamp when the evaluation result was recorded. Unit: milliseconds",
+                      "description_zh": "产生资源评估结果的时间戳。单位：毫秒",
+                      "example": "1624869013065",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "RiskLevel": {
+                      "backendName": "riskLevel",
+                      "description_en": "The risk level of the rule. Valid values:\n\n1: high risk.\n\n2: medium risk.\n\n3: low risk",
+                      "description_zh": "规则风险等级。取值：\n1：高风险。\n2：中风险。\n3：低风险",
+                      "example": "1",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "MaxResults": {
+                "backendName": "maxResults",
+                "description_en": "The maximum number of entries returned per page",
+                "description_zh": "每页的最大记录数",
+                "example": "10",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "NextToken": {
+                "backendName": "nextToken",
+                "description_en": "The pagination token that is used in the next request to retrieve a new page of results",
+                "description_zh": "查询下一页使用的Token",
+                "example": "IWBjqMYSy0is7zSMGu16****",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "traceId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "A6662516-D056-4325-B6A7-CD3E89C97C39",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

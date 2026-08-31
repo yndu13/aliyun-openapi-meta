@@ -2,6 +2,222 @@
   "camel_example": "",
   "cmd_full_name": "opensearch generate-merged-table",
   "cmd_name": "generate-merged-table",
+  "components": {
+    "schemas": {
+      "Schema": {
+        "backendName": "schema",
+        "description_zh": "应用结构",
+        "properties": {
+          "indexSortConfig": {
+            "backendName": "indexSortConfig",
+            "description_zh": "倒排索引配置",
+            "itemName": "indexSortConfig",
+            "items": {
+              "properties": {
+                "direction": {
+                  "backendName": "direction",
+                  "description_zh": "排序方式ASC, DESC",
+                  "title": "排序方式ASC, DESC",
+                  "type": "string"
+                },
+                "field": {
+                  "backendName": "field",
+                  "description_zh": "字段",
+                  "title": "字段",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title": "倒排索引配置",
+            "type": "array"
+          },
+          "indexes": {
+            "backendName": "indexes",
+            "description_zh": "索引配置",
+            "properties": {
+              "filterFields": {
+                "backendName": "filterFields",
+                "description_zh": "属性字段集合",
+                "itemName": "filterFields",
+                "items": {
+                  "type": "string"
+                },
+                "title": "属性字段集合",
+                "type": "array"
+              },
+              "searchFields": {
+                "additionalProperties": {
+                  "properties": {
+                    "analyzer": {
+                      "backendName": "analyzer",
+                      "description_zh": "分析器名称",
+                      "title": "分析器名称",
+                      "type": "string"
+                    },
+                    "analyzerGeneration": {
+                      "backendName": "analyzerGeneration",
+                      "description_zh": "模型定制分析器Generation",
+                      "title": "模型定制分析器Generation",
+                      "type": "string"
+                    },
+                    "analyzerType": {
+                      "backendName": "analyzerType",
+                      "description_zh": "分析器类型 (AUTO, MODEL, SYSTEM, USER)",
+                      "title": "分析器类型 (AUTO, MODEL, SYSTEM, USER)",
+                      "type": "string"
+                    },
+                    "fields": {
+                      "backendName": "fields",
+                      "description_zh": "索引字段集合",
+                      "itemName": "field",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "索引字段集合",
+                      "type": "array"
+                    },
+                    "label": {
+                      "backendName": "label",
+                      "description_zh": "索引标签",
+                      "title": "索引标签",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "backendName": "searchFields",
+                "description_zh": "索引字段",
+                "title": "索引字段",
+                "type": "object"
+              }
+            },
+            "title": "索引配置",
+            "type": "object"
+          },
+          "name": {
+            "backendName": "name",
+            "description_zh": "宽表表名",
+            "title": "宽表表名",
+            "type": "string"
+          },
+          "routeField": {
+            "backendName": "routeField",
+            "description_zh": "一级分列字段名称",
+            "title": "一级分列字段名称",
+            "type": "string"
+          },
+          "routeFieldValues": {
+            "backendName": "routeFieldValues",
+            "description_zh": "一级分列字段热点值清单（配置后启用“二级分列”）",
+            "itemName": "routeFieldValue",
+            "items": {
+              "type": "string"
+            },
+            "title": "一级分列字段热点值清单（配置后启用“二级分列”）",
+            "type": "array"
+          },
+          "secondRouteField": {
+            "backendName": "secondRouteField",
+            "description_zh": "二级分列字段名称（当且仅当配置有`routeFieldValues`时生效，默认使用宽表主键）",
+            "title": "二级分列字段名称（当且仅当配置有`routeFieldValues`时生效，默认使用宽表主键）",
+            "type": "string"
+          },
+          "tables": {
+            "additionalProperties": {
+              "properties": {
+                "fields": {
+                  "additionalProperties": {
+                    "properties": {
+                      "joinWith": {
+                        "backendName": "joinWith",
+                        "description_zh": "外表链接的数据表集合",
+                        "itemName": "joinWith",
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "外表链接的数据表集合",
+                        "type": "array"
+                      },
+                      "label": {
+                        "backendName": "label",
+                        "description_zh": "字段标签",
+                        "title": "字段标签",
+                        "type": "string"
+                      },
+                      "name": {
+                        "backendName": "name",
+                        "description_zh": "字段名称",
+                        "title": "字段名称",
+                        "type": "string"
+                      },
+                      "primaryKey": {
+                        "backendName": "primaryKey",
+                        "description_zh": "是否是主键",
+                        "title": "是否是主键",
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "backendName": "type",
+                        "description_zh": "字段类型 (INT, INT_ARRAY, FLOAT, FLOAT_ARRAY, DOUBLE, DOUBLE_ARRAY, TEXT, SHORT_TEXT, LITERAL, LITERAL_ARRAY, GEO_POINT, TIMESTAMP)",
+                        "title": "字段类型 (INT, INT_ARRAY, FLOAT, FLOAT_ARRAY, DOUBLE, DOUBLE_ARRAY, TEXT, SHORT_TEXT, LITERAL, LITERAL_ARRAY, GEO_POINT, TIMESTAMP)",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "backendName": "fields",
+                  "description_zh": "字段清单",
+                  "title": "字段清单",
+                  "type": "object"
+                },
+                "name": {
+                  "backendName": "name",
+                  "description_zh": "表名称",
+                  "title": "表名称",
+                  "type": "string"
+                },
+                "primaryTable": {
+                  "backendName": "primaryTable",
+                  "description_zh": "是否是主表",
+                  "title": "是否是主表",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "backendName": "tables",
+            "description_zh": "用户数据表",
+            "title": "用户数据表",
+            "type": "object"
+          },
+          "ttlField": {
+            "backendName": "ttlField",
+            "description_zh": "文档清理配置",
+            "properties": {
+              "name": {
+                "backendName": "name",
+                "description_zh": "文档时间字段",
+                "title": "文档时间字段",
+                "type": "string"
+              },
+              "ttl": {
+                "backendName": "ttl",
+                "description_zh": "存活时间（毫秒）",
+                "format": "int64",
+                "title": "存活时间（毫秒）",
+                "type": "integer"
+              }
+            },
+            "title": "文档清理配置",
+            "type": "object"
+          }
+        },
+        "title": "应用结构",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Queries the information about a wide table that is generated after a JOIN operation is performed on multiple tables",
   "description_zh": "获取合并后的宽表",
@@ -398,6 +614,88 @@
   "pathPattern": "/v4/openapi/assist/schema/actions/merge",
   "product_code": "OpenSearch",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "ABCDEFGH",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "result": {
+            "backendName": "result",
+            "description_en": "The response parameters",
+            "description_zh": "返回结果",
+            "properties": {
+              "fromTable": {
+                "backendName": "fromTable",
+                "description_en": "The tables on which the JOIN operation is performed",
+                "description_zh": "需要合并的表",
+                "example": "-",
+                "type": "object",
+                "visibility": "Public"
+              },
+              "mergeTable": {
+                "backendName": "mergeTable",
+                "description_en": "The wide table that is generated after the JOIN operation is performed on multiple tables",
+                "description_zh": "合并后的表",
+                "example": "-",
+                "type": "object",
+                "visibility": "Public"
+              },
+              "primaryKey": {
+                "backendName": "primaryKey",
+                "description_en": "The primary key",
+                "description_zh": "主键",
+                "example": "-",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "httpCode": {
+            "backendName": "httpCode",
+            "format": "int32",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "message": {
+            "backendName": "message",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body parameters",

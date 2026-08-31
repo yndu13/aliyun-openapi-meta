@@ -195,5 +195,551 @@
   ],
   "pathPattern": "",
   "product_code": "BssOpenApi",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The status code",
+            "description_zh": "状态码",
+            "example": "Success",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The returned data",
+            "description_zh": "返回数据",
+            "nullToEmpty": false,
+            "properties": {
+              "AccountID": {
+                "backendName": "accountID",
+                "description_en": "The account ID",
+                "description_zh": "账号ID",
+                "example": "122",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "AccountName": {
+                "backendName": "accountName",
+                "description_en": "The user account",
+                "description_zh": "用户账号",
+                "example": "test@test.aliyunid.com",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "BillingCycle": {
+                "backendName": "billingCycle",
+                "description_en": "The billing date. Format: YYYY-MM",
+                "description_zh": "账单日期，格式：YYYY－MM",
+                "example": "2020-03",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Items": {
+                "backendName": "items",
+                "description_en": "The bill details",
+                "description_zh": "账单详情",
+                "itemName": "Item",
+                "items": {
+                  "properties": {
+                    "AdjustAmount": {
+                      "backendName": "adjustAmount",
+                      "description_zh": "信用额度退款抵扣",
+                      "example": "0",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "cn"
+                    },
+                    "AfterDiscountAmount": {
+                      "backendName": "afterDiscountAmount",
+                      "description_en": "The amount after a discount is applied. This amount includes the payable amount after coupon deductions. The formula is: Discounted amount = List price - Discount amount",
+                      "description_zh": "优惠后金额（包含券抵扣的应付金额数据。计算规则为：优惠后金额=官网目录价-优惠金额）",
+                      "format": "float",
+                      "type": "number"
+                    },
+                    "BillAccountID": {
+                      "backendName": "billAccountID",
+                      "description_en": "The ID of the account to which the bill belongs",
+                      "description_zh": "账单所属账号ID",
+                      "example": "122",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "BillAccountName": {
+                      "backendName": "billAccountName",
+                      "description_en": "The name of the account associated with the bill",
+                      "description_zh": "账单所属账号名称",
+                      "example": "test@test.aliyunid.com",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "BillingDate": {
+                      "backendName": "billingDate",
+                      "description_en": "The billing date is in YYYY-MM-DD format. This parameter has a value only when Granularity is set to DAILY",
+                      "description_zh": "账单日期，仅当Granularity为DAILY时有值，格式为YYYY-MM-DD",
+                      "example": "2020-03-20",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "BillingItem": {
+                      "backendName": "billingItem",
+                      "description_en": "The billing item. This property has a value only when IsBillingItem is true",
+                      "description_zh": "计费项。仅当IsBillingItem=true有值",
+                      "example": "带宽",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "BillingItemCode": {
+                      "backendName": "billingItemCode",
+                      "description_en": "The billing item code",
+                      "description_zh": "计费项代码",
+                      "example": "disk",
+                      "type": "string"
+                    },
+                    "BillingType": {
+                      "backendName": "billingType",
+                      "description_en": "The billing method",
+                      "description_zh": "计费方式",
+                      "example": "其它",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "BizType": {
+                      "backendName": "bizType",
+                      "description_en": "The service type",
+                      "description_zh": "业务类型",
+                      "example": "trusteeship",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "CashAmount": {
+                      "backendName": "cashAmount",
+                      "description_zh": "现金支付（不包含信用额度退款抵扣）",
+                      "example": "0",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "cn"
+                    },
+                    "CommodityCode": {
+                      "backendName": "commodityCode",
+                      "description_en": "The product code. This is the same as the product detail code in the User Center",
+                      "description_zh": "商品Code，与费用中心产品明细Code一致",
+                      "example": "rds",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "CostUnit": {
+                      "backendName": "costUnit",
+                      "description_en": "The cost center",
+                      "description_zh": "财务单元",
+                      "example": "未分配\t",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Currency": {
+                      "backendName": "currency",
+                      "description_en": "The currency. Valid values:\n\nCNY\n\nUSD\n\nJPY",
+                      "description_zh": "币种，取值：\n\nCNY。\nUSD。\nJPY",
+                      "example": "CNY",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "DeductedByCashCoupons": {
+                      "backendName": "deductedByCashCoupons",
+                      "description_zh": "代金券抵扣",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "cn"
+                    },
+                    "DeductedByCoupons": {
+                      "backendName": "deductedByCoupons",
+                      "description_en": "The amount deducted by coupons",
+                      "description_zh": "优惠券优惠金额",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "Public"
+                    },
+                    "DeductedByPrepaidCard": {
+                      "backendName": "deductedByPrepaidCard",
+                      "description_zh": "储值卡抵扣",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "cn"
+                    },
+                    "DeductedByResourcePackage": {
+                      "backendName": "deductedByResourcePackage",
+                      "description_en": "The amount deducted by the resource plan. This parameter is valid only when isBillingItem is true",
+                      "description_zh": "资源包抵扣, 仅当isBillingItem为true时有效",
+                      "example": "0.1",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "InstanceConfig": {
+                      "backendName": "instanceConfig",
+                      "description_en": "The detailed configuration of the instance",
+                      "description_zh": "实例详细配置",
+                      "example": "CPU：12",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "InstanceID": {
+                      "backendName": "instanceID",
+                      "description_en": "The instance ID",
+                      "description_zh": "实例ID",
+                      "example": "i-dadada",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "InstanceSpec": {
+                      "backendName": "instanceSpec",
+                      "description_en": "The instance type",
+                      "description_zh": "实例规格",
+                      "example": "ecs.sn1ne.3xlarge\t",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "InternetIP": {
+                      "backendName": "internetIP",
+                      "description_en": "The public IP address",
+                      "description_zh": "公网IP",
+                      "example": "34.xx.x.x\t",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IntranetIP": {
+                      "backendName": "intranetIP",
+                      "description_en": "The internal IP address",
+                      "description_zh": "内网IP",
+                      "example": "192.xx.xx.xx",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "InvoiceDiscount": {
+                      "backendName": "invoiceDiscount",
+                      "description_en": "The discount amount",
+                      "description_zh": "优惠金额",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "Public"
+                    },
+                    "Item": {
+                      "backendName": "item",
+                      "description_en": "The bill type:\n\nSubscriptionOrder: A prepaid order.\n\nPayAsYouGoBill: A postpaid bill.\n\nRefund: A refund.\n\nAdjustment: An adjustment",
+                      "description_zh": "账单类型：\nSubscriptionOrder （预付订单）。\nPayAsYouGoBill （后付账单）。\nRefund （退款）。\nAdjustment （调账）",
+                      "example": "PayAsYouGoBill",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ItemName": {
+                      "backendName": "itemName",
+                      "description_en": "The name of the project",
+                      "description_zh": "项目名称",
+                      "example": "iZ28bycvyb4Z",
+                      "type": "string"
+                    },
+                    "ListPrice": {
+                      "backendName": "listPrice",
+                      "description_en": "The list price. This is valid only when isBillingItem is true",
+                      "description_zh": "单价, 仅当isBillingItem为true时有效",
+                      "example": "100",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ListPriceUnit": {
+                      "backendName": "listPriceUnit",
+                      "description_en": "The unit of the list price. This parameter is valid only when isBillingItem is true",
+                      "description_zh": "单价单位, 仅当isBillingItem为true时有效",
+                      "example": "元",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "NickName": {
+                      "backendName": "nickName",
+                      "description_en": "The nickname of the instance",
+                      "description_zh": "实例昵称",
+                      "example": "test",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "OutstandingAmount": {
+                      "backendName": "outstandingAmount",
+                      "description_zh": "未结清金额",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "cn"
+                    },
+                    "OwnerID": {
+                      "backendName": "ownerID",
+                      "description_en": "The Account ID of the resource owner in a multi-account payment scenario",
+                      "description_zh": "资源Owner账号AccountID（多账号代付场景）",
+                      "example": "123",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "PaymentAmount": {
+                      "backendName": "paymentAmount",
+                      "description_zh": "现金支付（含信用额度退款抵扣）",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "cn"
+                    },
+                    "PipCode": {
+                      "backendName": "pipCode",
+                      "description_en": "The product code. It is the same as the product code on the bill in the User Center",
+                      "description_zh": "产品Code，与费用中心账单产品Code一致",
+                      "example": "rds",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "PretaxAmount": {
+                      "backendName": "pretaxAmount",
+                      "description_en": "The pretax amount",
+                      "description_zh": "应付金额",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "Public"
+                    },
+                    "PretaxGrossAmount": {
+                      "backendName": "pretaxGrossAmount",
+                      "description_en": "The original amount",
+                      "description_zh": "原始金额",
+                      "example": "0.1",
+                      "format": "float",
+                      "nullToEmpty": false,
+                      "type": "number",
+                      "visibility": "Public"
+                    },
+                    "ProductCode": {
+                      "backendName": "productCode",
+                      "description_en": "The product code",
+                      "description_zh": "产品代码",
+                      "example": "rds",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ProductDetail": {
+                      "backendName": "productDetail",
+                      "description_en": "The details of the product",
+                      "description_zh": "产品明细",
+                      "example": "云数据库RDS\t",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ProductName": {
+                      "backendName": "productName",
+                      "description_en": "The name of the product",
+                      "description_zh": "产品名称",
+                      "example": "云数据库RDS\t",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ProductType": {
+                      "backendName": "productType",
+                      "description_en": "The product type",
+                      "description_zh": "产品类型",
+                      "example": "rds",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Region": {
+                      "backendName": "region",
+                      "description_en": "The region",
+                      "description_zh": "地域",
+                      "example": "杭州",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ResourceGroup": {
+                      "backendName": "resourceGroup",
+                      "description_en": "The resource group",
+                      "description_zh": "资源组",
+                      "example": "默认资源组\t",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ServicePeriod": {
+                      "backendName": "servicePeriod",
+                      "description_en": "The service period",
+                      "description_zh": "服务时长",
+                      "example": "3600",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ServicePeriodUnit": {
+                      "backendName": "servicePeriodUnit",
+                      "description_en": "The unit of the service period",
+                      "description_zh": "服务时长单位",
+                      "example": "秒",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "SubscriptionType": {
+                      "backendName": "subscriptionType",
+                      "description_en": "The subscription type. Valid values:\n\nSubscription: Subscription.\n\nPayAsYouGo: Pay-as-you-go",
+                      "description_zh": "订阅类型，取值：\n\nSubscription：预付费。\nPayAsYouGo：后付费",
+                      "example": "PayAsYouGo",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Tag": {
+                      "backendName": "tag",
+                      "description_en": "The tag of the resource",
+                      "description_zh": "资源标签",
+                      "example": "key:testKey value:testValue; key:testKey1 value:testValues1",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Usage": {
+                      "backendName": "usage",
+                      "description_en": "The usage.\n\nThis parameter is valid only when isBillingItem is set to true. The usage data is the total usage from all bills in an epoch, not the actual purchased amount. For example, if you use 1 GB of storage and a bill is generated every hour, the hourly usage is 1 GB. The daily usage on the bill is 1 GB × 24 = 24 GB",
+                      "description_zh": "用量。\n\n仅当isBillingItem为true时有效。用量数据为该周期内所有账单的用量总和并非客户的实际购买量。如使用了1G的存储，每小时出账，则每小时用量为1G，按天汇总的账单用量为1G*24=24G",
+                      "example": "100",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "UsageUnit": {
+                      "backendName": "usageUnit",
+                      "description_en": "The usage unit. This parameter is valid only when isBillingItem is true",
+                      "description_zh": "用量单位, 仅当isBillingItem为true时有效",
+                      "example": "GB",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Zone": {
+                      "backendName": "zone",
+                      "description_en": "The zone",
+                      "description_zh": "可用区",
+                      "example": "杭州1",
+                      "nullToEmpty": false,
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "nullToEmpty": false,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "MaxResults": {
+                "backendName": "pageSize",
+                "description_en": "The maximum number of records returned per page",
+                "description_zh": "本次请求所返回的最大记录条数",
+                "example": "20",
+                "format": "int32",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "NextToken": {
+                "backendName": "nextToken",
+                "description_en": "The token that marks the position for the next query. An empty value indicates that all data has been read. To continue the query, set the NextToken request parameter to this value in your next call",
+                "description_zh": "用来表示当前调用返回读取到的位置，空代表数据已经读取完毕。下次调用时，需要将此设置到入参NextToken中",
+                "example": "CAESEgoQCg4KCm",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "TotalCount": {
+                "backendName": "totalCount",
+                "description_en": "The total number of records",
+                "description_zh": "总记录数",
+                "example": "20",
+                "format": "int32",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "Successful!",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "79EE7556-0CFD-44EB-9CD6-B3B526E3A85F",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful",
+            "description_zh": "是否成功",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

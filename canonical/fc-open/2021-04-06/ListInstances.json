@@ -3,7 +3,7 @@
   "cmd_full_name": "fc-open list-instances",
   "cmd_name": "list-instances",
   "deprecated": false,
-  "description_en": "Lists the active instances for a function",
+  "description_en": "Queries the list of currently available instances for a function",
   "description_zh": "查询函数当前的可用实例列表",
   "kebab_example": "",
   "method": "GET",
@@ -22,7 +22,7 @@
     {
       "doc_required": true,
       "example": "demoService",
-      "help_en": "Name of the service",
+      "help_en": "The name of the service",
       "help_zh": "服务的名称",
       "location": "path",
       "name": "service_name",
@@ -36,7 +36,7 @@
     {
       "doc_required": true,
       "example": "demoFunction",
-      "help_en": "Name of the function",
+      "help_en": "The name of the function",
       "help_zh": "函数的名称",
       "location": "path",
       "name": "function_name",
@@ -49,7 +49,7 @@
     },
     {
       "example": "dev",
-      "help_en": "Version or alias",
+      "help_en": "The version or alias",
       "help_zh": "版本或者别名",
       "location": "query",
       "name": "qualifier",
@@ -64,7 +64,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The ID of the instance",
+      "help_en": "The instance ID",
       "help_zh": "实例ID",
       "location": "query",
       "name": "instance_ids",
@@ -78,7 +78,7 @@
     },
     {
       "example": "20",
-      "help_en": "Maximum number of instances to return. Valid values: 0 to 1000.\n\nThe actual number of results may be less than this value, but never more",
+      "help_en": "The maximum number of resources to return. Valid values: 0 to 1000.\n\nThe number of returned results can be less than the specified number but cannot exceed it",
       "help_zh": "限定此次返回资源的数量，取值范围[0,1000]。\n\n返回结果可以小于指定的数量，但不能多于指定的数量",
       "location": "query",
       "name": "limit",
@@ -129,5 +129,47 @@
   ],
   "pathPattern": "/2021-04-06/services/[serviceName]/functions/[functionName]/instances",
   "product_code": "FC-Open",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The list of instance information returned by the query",
+        "description_zh": "查询返回的实例信息列表",
+        "properties": {
+          "instances": {
+            "description_en": "The list of instance information returned by the query",
+            "description_zh": "查询返回的实例信息列表",
+            "itemName": "instances",
+            "items": {
+              "description_en": "The instance information",
+              "description_zh": "实例信息",
+              "properties": {
+                "instanceId": {
+                  "description_en": "The instance ID",
+                  "description_zh": "实例ID",
+                  "example": "1ef6b6ff-7f7b-485e-ab49-501ac681****",
+                  "title_en": "实例ID。",
+                  "title_zh": "实例ID。",
+                  "type": "string"
+                },
+                "versionId": {
+                  "description_en": "The service version to which the instance belongs. If the function instance belongs to the LATEST alias, the version number 0 is returned",
+                  "description_zh": "实例所属的服务版本。如果是LATEST别名下的函数实例，则返回版本号为0",
+                  "example": "1",
+                  "title_en": "实例所属的服务版本。如果是LATEST别名下的函数实例，则返回版本号为0。",
+                  "title_zh": "实例所属的服务版本。如果是LATEST别名下的函数实例，则返回版本号为0。",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

@@ -2,6 +2,47 @@
   "camel_example": "",
   "cmd_full_name": "opensearch create-first-rank",
   "cmd_name": "create-first-rank",
+  "components": {
+    "schemas": {
+      "FirstRank": {
+        "description_zh": "粗排表达式配置",
+        "properties": {
+          "active": {
+            "backendName": "active",
+            "description_zh": "是否是默认表达式",
+            "title": "是否是默认表达式",
+            "type": "boolean"
+          },
+          "description": {
+            "backendName": "description",
+            "description_zh": "描述",
+            "title": "描述",
+            "type": "string"
+          },
+          "meta": {
+            "backendName": "meta",
+            "description_zh": "表达式信息",
+            "title": "表达式信息",
+            "type": "any"
+          },
+          "name": {
+            "backendName": "name",
+            "description_zh": "名称",
+            "title": "名称",
+            "type": "string"
+          },
+          "type": {
+            "backendName": "type",
+            "description_zh": "表达式类型 (STRUCT, STRING)",
+            "title": "表达式类型 (STRUCT, STRING)",
+            "type": "string"
+          }
+        },
+        "title": "粗排表达式配置",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Creates a rough sort expression configuration for an OpenSearch application version. When dryRun=true, the rough sort expression is validated. By default, dryRun is not passed and defaults to false",
   "description_zh": "创建一个OpenSearch应用版本的粗排表达式配置。当 dryRun=true 时，表示进行粗排表达式校验，默认 dryRun不传为false",
@@ -134,6 +175,97 @@
   "pathPattern": "/v4/openapi/app-groups/[appGroupIdentity]/apps/[appId]/first-ranks",
   "product_code": "OpenSearch",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "0A6EB64B-B4C8-CF02-810F-E660812972FF",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "result": {
+            "backendName": "result",
+            "description_en": "The rough sort expression information",
+            "description_zh": "粗排表达式信息",
+            "nullToEmpty": false,
+            "properties": {
+              "active": {
+                "backendName": "active",
+                "description_en": "Indicates whether this is the default expression",
+                "description_zh": "是否是默认表达式",
+                "example": "true",
+                "mappingResourcePropertyName": "$.Active",
+                "type": "boolean",
+                "visibility": "Public"
+              },
+              "created": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "meta": {
+                "backendName": "meta",
+                "description_en": "The expression information",
+                "description_zh": "表达式信息",
+                "type": "any",
+                "visibility": "Public"
+              },
+              "name": {
+                "backendName": "name",
+                "description_en": "The name",
+                "description_zh": "名称",
+                "example": "default",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "type": {
+                "type": "string"
+              },
+              "updated": {
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "message": {
+            "backendName": "message",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body that contains rough sort information",

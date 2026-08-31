@@ -35,7 +35,7 @@
     },
     {
       "example": "slb",
-      "help_en": "The EPS resource type supported by PrivateLink. The available regions vary based on the service resource type. You can specify a service resource type when querying the regions where PrivateLink is available. Valid values:\n\nslb (default): the service resource type is Classic Load Balancer (CLB).\nalb: the service resource type is Application Load Balancer (ALB).\nnlb: the service resource type is Network Load Balancer (NLB).\ngwlb: the service resource type is Gateway Load Balancer (GWLB).\n\nALL: all of the preceding types",
+      "help_en": "The EPS resource type supported by PrivateLink. The available regions vary based on the EPS resource type. You can specify the EPS resource type when querying the regions where PrivateLink is available. Valid values:\n\nslb (default): the EPS resource type is Classic Load Balancer (CLB).\nalb: the EPS resource type is Application Load Balancer (ALB).\nnlb: the EPS resource type is Network Load Balancer (NLB).\ngwlb: the EPS resource type is Gateway Load Balancer (GWLB).\n\nALL: all of the above",
       "help_zh": "PrivateLink支持的开服地域，与服务资源类型有关，不同的服务类型支持的地域存在差异。在查询PrivateLink开服地域时可指定服务资源类型，取值如下：\n\nslb（默认）：表示服务资源类型为传统型负载均衡CLB（Classic Load Balancer）。\nalb：表示服务资源类型为应用型负载均衡ALB（Application Load Balancer）。\nnlb：表示服务资源类型为网络型负载均衡NLB（Network Load Balancer ）。\ngwlb：表示服务资源类型为网关型负载均衡 GWLB（Gateway Load Balancer）。\n\nALL：上述全部",
       "location": "query",
       "name": "service_resource_type",
@@ -49,5 +49,62 @@
   ],
   "pathPattern": "",
   "product_code": "Privatelink",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Regions": {
+            "backendName": "data",
+            "itemName": "Region",
+            "items": {
+              "properties": {
+                "LocalName": {
+                  "backendName": "localName",
+                  "nullToEmpty": false,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "RegionEndpoint": {
+                  "backendName": "endpoint",
+                  "nullToEmpty": false,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "RegionId": {
+                  "backendName": "regionId",
+                  "nullToEmpty": false,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "ServiceResourceTypes": {
+                  "backendName": "serviceResourceTypes",
+                  "itemName": "ServiceResourceType",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "611CB80C-B6A9-43DB-9E38-0B0AC3D9B58F",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

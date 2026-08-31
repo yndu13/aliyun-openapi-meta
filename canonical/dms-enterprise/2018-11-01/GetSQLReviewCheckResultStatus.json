@@ -53,5 +53,186 @@
   ],
   "pathPattern": "",
   "product_code": "dms-enterprise",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "CheckResultStatus": {
+            "backendName": "data",
+            "description_en": "The result of the SQL review",
+            "description_zh": "SQL审核结果",
+            "properties": {
+              "CheckStatusResult": {
+                "backendName": "statusMap",
+                "description_en": "The result of the SQL status check",
+                "description_zh": "检测状态",
+                "properties": {
+                  "CheckNotPass": {
+                    "backendName": "check_not_pass",
+                    "description_en": "The number of SQL statements that failed to pass the review",
+                    "description_zh": "检测不通过的SQL数量，单位：条",
+                    "example": "1",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "CheckPass": {
+                    "backendName": "check_pass",
+                    "description_en": "The number of SQL statements that passed the review",
+                    "description_zh": "检测通过的SQL数量，单位：条",
+                    "example": "8",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "ForceNotPass": {
+                    "backendName": "force_not_pass",
+                    "description_en": "The number of SQL statements that failed to pass the manual review",
+                    "description_zh": "人工不通过的SQL数量，单位：条",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "ForcePass": {
+                    "backendName": "force_pass",
+                    "description_en": "The number of SQL statements that passed the manual review",
+                    "description_zh": "人工通过的SQL数量，单位：条",
+                    "example": "1",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "New": {
+                    "backendName": "new",
+                    "description_en": "The number of SQL statements to be reviewed",
+                    "description_zh": "等待审核的SQL数量，单位：条",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "Unknown": {
+                    "backendName": "unknown",
+                    "description_en": "The number of abnormal SQL statements",
+                    "description_zh": "解析异常的SQL数量，单位：条",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "CheckedCount": {
+                "backendName": "checkedCount",
+                "description_en": "The number of SQL statements that were reviewed",
+                "description_zh": "已审核SQL数量，单位：条",
+                "example": "10",
+                "format": "int64",
+                "type": "integer"
+              },
+              "SQLReviewResult": {
+                "backendName": "optimizeMap",
+                "description_en": "The optimization suggestion for SQL statements",
+                "description_zh": "SQL审核优化建议",
+                "properties": {
+                  "MustImprove": {
+                    "backendName": "MUST_IMPROVE",
+                    "description_en": "The number of SQL statements that must be modified",
+                    "description_zh": "必须改进的SQL数量，单位：条",
+                    "example": "1",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "PotentialIssue": {
+                    "backendName": "POTENTIAL_ISSUE",
+                    "description_en": "The number of SQL statements that have potential issues",
+                    "description_zh": "潜在问题的SQL数量，单位：条",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "SuggestImprove": {
+                    "backendName": "SUGGEST_IMPROVE",
+                    "description_en": "The number of SQL statements that can be modified",
+                    "description_zh": "建议改进的SQL数量，单位：条",
+                    "example": "3",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "TableIndexSuggest": {
+                    "backendName": "TABLE_INDEX_SUGGEST",
+                    "description_en": "The number of SQL statements that can use indexes",
+                    "description_zh": "索引推荐的SQL数量，单位：条",
+                    "example": "2",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "UseDmsDmlUnlock": {
+                    "backendName": "USE_DMS_DML_UNLOCK",
+                    "description_en": "The number of SQL statements that can be used for lock-free data changes",
+                    "description_zh": "推荐使用无锁数据变更的SQL数量，单位：条",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  },
+                  "UseDmsToolkit": {
+                    "backendName": "USE_DMS_TOOLKIT",
+                    "description_en": "The number of SQL statements that can be used for lock-free schema changes",
+                    "description_zh": "推荐使用无锁结构变更的SQL数量，单位：条",
+                    "example": "0",
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "TotalSQLCount": {
+                "backendName": "totalSQLCount",
+                "description_en": "The total number of SQL statements",
+                "description_zh": "总SQL数量，单位：条",
+                "example": "10",
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "ErrorCode": {
+            "backendName": "errorCode",
+            "description_en": "The error code returned if the request failed",
+            "description_zh": "错误码",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "message",
+            "description_en": "The error message returned if the request failed",
+            "description_zh": "错误信息",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "0C1CB646-1DE4-4AD0-B4A4-7D47DD52E931",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful",
+            "description_zh": "请求是否成功",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

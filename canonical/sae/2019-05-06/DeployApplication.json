@@ -2,6 +2,183 @@
   "camel_example": "",
   "cmd_full_name": "sae deploy-application",
   "cmd_name": "deploy-application",
+  "components": {
+    "schemas": {
+      "InitContainerConfig": {
+        "description_en": "Initialization container configuration",
+        "description_zh": "初始化容器配置",
+        "properties": {
+          "Command": {
+            "description_en": "Start command for the image",
+            "description_zh": "镜像启动命令",
+            "example": "echo",
+            "title": "镜像启动命令",
+            "type": "string"
+          },
+          "CommandArgs": {
+            "description_en": "Arguments for the image start command",
+            "description_zh": "镜像启动命令参数",
+            "example": "[\\\"-c\\\",\\\"/bin/bash /home/admin/bin/start.sh\\\"]",
+            "title": "镜像启动命令参数",
+            "type": "string"
+          },
+          "ConfigMapMountDesc": {
+            "description_en": "ConfigMap mount description",
+            "description_zh": "ConfigMap 挂载描述",
+            "example": "[{\"configMapId\":16,\"key\":\"test\",\"mountPath\":\"/tmp\"}]",
+            "title": "ConfigMap 挂载描述",
+            "type": "string"
+          },
+          "EmptyDirDesc": {
+            "description_en": "EmptyDir mount description",
+            "description_zh": "EmptyDir挂载描述",
+            "example": "[{\\\"name\\\":\\\"workdir\\\",\\\"mountPath\\\":\\\"/usr/local/tomcat/webapps\\\"}]",
+            "title": "EmptyDir挂载描述",
+            "type": "string"
+          },
+          "Envs": {
+            "description_en": "Environment variable parameters for the container",
+            "description_zh": "容器环境变量参数",
+            "example": "[{\"name\":\"TEST_ENV_KEY\",\"value\":\"TEST_ENV_VAR\"}]",
+            "title": "容器环境变量参数",
+            "type": "string"
+          },
+          "ImageUrl": {
+            "description_en": "The address of the image registry",
+            "description_zh": "镜像地址",
+            "example": "registry.cn-hangzhou.aliyuncs.com/sae_test/ali_sae_test:0.0.1",
+            "title": "镜像地址",
+            "type": "string"
+          },
+          "Name": {
+            "description_en": "Container name",
+            "description_zh": "容器名称",
+            "example": "name",
+            "title": "容器名称",
+            "type": "string"
+          },
+          "SecretMountDesc": {
+            "description_en": "",
+            "description_zh": "Secret 挂载描述",
+            "title": "Secret 挂载描述",
+            "type": "string"
+          }
+        },
+        "title": "初始化容器配置",
+        "type": "object"
+      },
+      "SidecarContainerConfig": {
+        "description_en": "The configuration of the sidecar container",
+        "description_zh": "Sidecar 容器配置",
+        "properties": {
+          "AcrInstanceId": {
+            "description_en": "The instance ID of the ACR Enterprise Edition. This parameter is required if the `ImageUrl` is from an ACR Enterprise Edition repository",
+            "description_zh": "容器镜像服务 ACR 企业版实例 ID。当 ImageUrl 为容器镜像服务企业版时必填",
+            "example": "cri-xxxxxx",
+            "title": "容器镜像服务 ACR 企业版实例 ID。当 ImageUrl 为容器镜像服务企业版时必填",
+            "type": "string"
+          },
+          "Command": {
+            "description_en": "The startup command for the image. This command overrides the `ENTRYPOINT` defined in the image",
+            "description_zh": "镜像启动命令",
+            "example": "python",
+            "title": "镜像启动命令",
+            "type": "string"
+          },
+          "CommandArgs": {
+            "description_en": "The arguments for the startup command. This parameter corresponds to `CMD` in the Dockerfile",
+            "description_zh": "镜像启动命令参数",
+            "example": "[\"a\",\"b\"]",
+            "title": "镜像启动命令参数",
+            "type": "string"
+          },
+          "ConfigMapMountDesc": {
+            "description_en": "The settings for mounting a ConfigMap. Use this to inject configuration data into the container as files",
+            "description_zh": "ConfigMap 挂载描述",
+            "example": "[{\"configMapId\":16,\"key\":\"test\",\"mountPath\":\"/tmp\"}]",
+            "title": "ConfigMap 挂载描述",
+            "type": "string"
+          },
+          "Cpu": {
+            "description_en": "The CPU resources allocated to the container, measured in millicores. For example, a value of 1000 represents 1 vCPU",
+            "description_zh": "Cpu",
+            "example": "1000",
+            "format": "int32",
+            "title": "Cpu",
+            "type": "integer"
+          },
+          "EmptyDirDesc": {
+            "description_en": "The configuration for an `emptyDir` volume. This creates a temporary directory that persists for the life of the application instance",
+            "description_zh": "EmptyDir描述",
+            "example": "[{\\\"name\\\":\\\"workdir\\\",\\\"mountPath\\\":\\\"/usr/local/tomcat/webapps\\\"}]",
+            "title": "EmptyDir描述",
+            "type": "string"
+          },
+          "Envs": {
+            "description_en": "The environment variables to set in the container. Specify the variables as a JSON array of key-value pairs",
+            "description_zh": "容器环境变量参数",
+            "example": "[{\"name\":\"TEST_ENV_KEY\",\"value\":\"TEST_ENV_VAR\"}]",
+            "title": "容器环境变量参数",
+            "type": "string"
+          },
+          "ImageUrl": {
+            "description_en": "The container image URL",
+            "description_zh": "镜像地址",
+            "example": "registry-vpc.cn-hangzhou.aliyuncs.com/demo/nginx:latest",
+            "title": "镜像地址",
+            "type": "string"
+          },
+          "Liveness": {
+            "description_en": "The configuration for the liveness probe. The liveness probe checks if the container is running. If the probe fails, the system restarts the container",
+            "description_zh": "存活检查(Liveness配置)",
+            "title": "存活检查(Liveness配置)",
+            "type": "string"
+          },
+          "Memory": {
+            "description_en": "The amount of memory allocated to the container, measured in MB",
+            "description_zh": "Memory",
+            "example": "1024",
+            "format": "int32",
+            "title": "Memory",
+            "type": "integer"
+          },
+          "Name": {
+            "description_en": "The name of the container",
+            "description_zh": "容器名称",
+            "example": "name",
+            "title": "容器名称",
+            "type": "string"
+          },
+          "PostStart": {
+            "description_en": "The configuration for the postStart hook. This hook runs immediately after the container starts to perform initialization tasks",
+            "description_zh": "PostStart配置",
+            "title": "PostStart配置",
+            "type": "string"
+          },
+          "PreStop": {
+            "description_en": "The configuration for the preStop hook. This hook runs immediately before the container is terminated to ensure a graceful shutdown",
+            "description_zh": "PreStop配置",
+            "title": "PreStop配置",
+            "type": "string"
+          },
+          "Readiness": {
+            "description_en": "The configuration for the readiness probe. The readiness probe checks if the container is ready to handle requests. The system will not direct traffic to a container until its readiness probe succeeds",
+            "description_zh": "业务就绪检查(Readiness配置)",
+            "title": "业务就绪检查(Readiness配置)",
+            "type": "string"
+          },
+          "SecretMountDesc": {
+            "description_en": "Specifies how to mount a Secret. This lets you securely use sensitive data, such as credentials or keys, in your application",
+            "description_zh": "Secret 挂载描述",
+            "title": "Secret 挂载描述",
+            "type": "string"
+          }
+        },
+        "title": "Sidecar 容器配置",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Deploys an application",
   "description_zh": "部署应用",
@@ -1461,6 +1638,78 @@
   "pathPattern": "/pop/v1/sam/app/deployApplication",
   "product_code": "sae",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The deployed application information",
+        "description_zh": "部署的应用信息",
+        "properties": {
+          "Code": {
+            "description_en": "The API status or POP error code. Valid values:\n\n2xx: success.\n3xx: redirection.\n4xx: request error.\n5xx: server error",
+            "description_zh": "接口状态或POP错误码。取值说明如下：\n\n2xx：成功。\n3xx：重定向。\n4xx：请求错误。\n5xx：服务器错误",
+            "example": "200",
+            "type": "string"
+          },
+          "Data": {
+            "description_en": "The returned result",
+            "description_zh": "返回结果",
+            "properties": {
+              "AppId": {
+                "description_en": "The application ID",
+                "description_zh": "应用ID",
+                "example": "7171a6ca-d1cd-4928-8642-7d5cfe69****",
+                "type": "string"
+              },
+              "ChangeOrderId": {
+                "description_en": "The returned change order ID, which is used to query the task execution status",
+                "description_zh": "返回的发布单ID，用于查询任务执行状态",
+                "example": "01db03d3-3ee9-48b3-b3d0-dfce2d88****",
+                "type": "string"
+              },
+              "IsNeedApproval": {
+                "description_en": "Indicates whether the change published by a Resource Access Management (RAM) user requires approval. Valid values:\n\ntrue: approval is required.\nfalse: approval is not required",
+                "description_zh": "RAM用户发布变更是否需要审批。取值说明如下：\n\ntrue：需审批。\nfalse：无需审批",
+                "example": "true",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "ErrorCode": {
+            "description_en": "The error code. Valid values:\n\nIf the request is successful, the ErrorCode field is not returned.\nIf the request fails, the ErrorCode field is returned. For more information, see the Error codes section in this topic",
+            "description_zh": "错误码。取值说明如下：\n\n请求成功：不返回ErrorCode字段。\n请求失败：返回ErrorCode字段。具体信息，请参见本文的错误码列表",
+            "example": "空",
+            "type": "string"
+          },
+          "Message": {
+            "description_en": "The additional information. Valid values:\n\nIf the request is successful, success is returned.\nIf the request fails, a specific error code is returned",
+            "description_zh": "附加信息。取值说明如下：\n\n请求正常，返回success。\n请求异常，返回具体异常错误码",
+            "example": "success",
+            "type": "string"
+          },
+          "RequestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "01CF26C7-00A3-4AA6-BA76-7E95F2A3***",
+            "type": "string"
+          },
+          "Success": {
+            "description_en": "Indicates whether the application deployment is successful. Valid values:\n\ntrue: the deployment is successful.\nfalse: the deployment failed",
+            "description_zh": "部署应用是否成功。取值说明如下：\n\ntrue：部署成功。\nfalse：部署失败",
+            "example": "true",
+            "type": "boolean"
+          },
+          "TraceId": {
+            "description_en": "The trace ID, which is used to query the details of a request",
+            "description_zh": "调用链ID，用于精确查询调用信息",
+            "example": "ac1a0b2215622246421415014e****",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The Container Registry Enterprise instance ID. This parameter is required when ImageUrl is set to a Container Registry Enterprise instance image",

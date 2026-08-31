@@ -22,5 +22,71 @@
   "parameters": [],
   "pathPattern": "/dlf/v1/auth/vpc",
   "product_code": "DlfNext",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "parseType": "struct",
+        "properties": {
+          "trustedVpcs": {
+            "description_en": "List of trusted VPCs",
+            "description_zh": "可信 VPC 列表",
+            "itemName": "trustedVPCs",
+            "items": {
+              "description_en": "A trusted VPC",
+              "description_zh": "可信 VPC",
+              "properties": {
+                "createdAt": {
+                  "description_en": "The time when the VPC was created, in UNIX timestamp milliseconds",
+                  "description_zh": "创建时间，Unix 时间戳毫秒数",
+                  "example": "1744970111419",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "extendedOptions": {
+                  "additionalProperties": {
+                    "description_en": "A configuration item",
+                    "description_zh": "配置项",
+                    "example": "option",
+                    "type": "string"
+                  },
+                  "description_en": "List of configuration items",
+                  "description_zh": "配置项列表",
+                  "type": "object"
+                },
+                "vpcId": {
+                  "description_en": "The ID of the VPC",
+                  "description_zh": "VPC ID",
+                  "example": "vpc-uf67xxxx",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "resourceName": {
+            "type": "string"
+          },
+          "resourceType": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

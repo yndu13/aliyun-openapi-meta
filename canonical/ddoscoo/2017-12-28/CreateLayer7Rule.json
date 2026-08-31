@@ -47,7 +47,7 @@
     },
     {
       "example": "0",
-      "help_en": "The type of the origin server. Valid values:\n\n0: IP\n1: domain name",
+      "help_en": "The origin server type. Valid values:\n\n0: IP\n1: domain name",
       "help_zh": "源站类型，取值：\n\n0：IP\n1：域名",
       "location": "query",
       "name": "rs_type",
@@ -60,7 +60,7 @@
     },
     {
       "example": "[{\"ProxyRules\":[{\"ProxyPort\":443,\"RealServers\":[\"1.1.1.1:443\"]}],\"ProxyType\":\"https\"},{\"ProxyRules\":[{\"ProxyPort\":80,\"RealServers\":[\"1.1.1.1:80\"]}],\"ProxyType\":\"http\"}]",
-      "help_en": "The JSON string of the Layer7Rule array for the Layer 7 rule. The following parameters are included:\n\nProxyRules: Array type. Required. An array of rule objects that contains the following elements:\n    - ProxyPort: Integer type. Required. The protocol port. Valid values: 80 and 443.\n    - RealServers: []String type. Required. The origin servers. Example: 1.1.1.1:443.\nProxyType: String type. Required. The protocol type. Valid values: http, https, websocket, and websockets",
+      "help_en": "The JSON string of the Layer 7 rule (Layer7Rule) array. The structure is described as follows:\n\nProxyRules, Array type, required. An array of rule objects that contains the following elements:\n    - ProxyPort, Integer type, required. The protocol port. Valid values: 80, 443.\n    - RealServers, []String type, required. The origin servers of the user. Example: 1.1.1.1:443.\nProxyType, String type, required. The protocol type. Valid values: http, https, websocket, websockets",
       "help_zh": "传入7层规则Layer7Rule数组JSON串。具体结构描述如下：\n\nProxyRules，数组类型，必选，规则对象数组，包含以下元素：\n    - ProxyPort，Integer类型，必选，协议端口，取值：80、443。\n    - RealServers，[]String类型，必选，用户源站。例如，1.1.1.1:443。\nProxyType，String类型，必选，协议类型，取值：http、https、websocket、websockets",
       "location": "query",
       "name": "rules",
@@ -91,5 +91,21 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

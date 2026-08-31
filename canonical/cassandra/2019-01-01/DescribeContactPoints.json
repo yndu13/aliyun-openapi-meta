@@ -37,5 +37,69 @@
   ],
   "pathPattern": "",
   "product_code": "Cassandra",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "ContactPoints": {
+            "backendName": "data",
+            "itemName": "ContactPoint",
+            "items": {
+              "properties": {
+                "DataCenterId": {
+                  "backendName": "dcId",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "Port": {
+                  "backendName": "port",
+                  "format": "int32",
+                  "type": "integer",
+                  "visibility": "Public"
+                },
+                "PrivateAddresses": {
+                  "backendName": "privIps",
+                  "itemName": "PrivateAddress",
+                  "items": {
+                    "backendName": "privIps",
+                    "type": "string",
+                    "visibility": "Public"
+                  },
+                  "type": "array",
+                  "visibility": "Public"
+                },
+                "PublicAddresses": {
+                  "backendName": "pubIps",
+                  "itemName": "PublicAddress",
+                  "items": {
+                    "backendName": "pubIps",
+                    "mappingResourcePropertyName": "$.PublicPoints[*]",
+                    "type": "string",
+                    "visibility": "Public"
+                  },
+                  "type": "array",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "467F786B-C765-40C4-8493-89F4CE95F1B6",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

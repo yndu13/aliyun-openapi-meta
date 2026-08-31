@@ -3,6 +3,7 @@
   "cmd_full_name": "schedulerx3 import-agent-jobs",
   "cmd_name": "import-agent-jobs",
   "deprecated": false,
+  "description_en": "导入agent中的定时任务到scheduler平台（SSE），该接口禁止使用xxljob的clusterid调用，不支持XXLJOB相关集群，这个接口仅限AI任务调度集群使用",
   "description_zh": "导入agent中的定时任务到scheduler平台（SSE），该接口禁止使用xxljob的clusterid调用，不支持XXLJOB相关集群，这个接口仅限AI任务调度集群使用",
   "kebab_example": "",
   "method": "POST",
@@ -37,7 +38,7 @@
     },
     {
       "example": "名称",
-      "help_en": "The AgentName",
+      "help_en": "agentname",
       "help_zh": "agentname",
       "location": "formData",
       "name": "agent_name",
@@ -64,5 +65,45 @@
   ],
   "pathPattern": "/workerGroup/importAgentJobs",
   "product_code": "SchedulerX3",
-  "protocol": "HTTPS|SSE"
+  "protocol": "HTTPS|SSE",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "实际响应为 text/event-stream（SSE），事件类型：delta/done/error",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_zh": "响应码",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_zh": "详细信息",
+            "example": "Parameter error: content is null.",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_zh": "Id of the request",
+            "example": "2C3E52FF-CBE9-5C0E-8252-37ACFF1F5EFF",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_zh": "是否调用成功。\n\ntrue：调用成功。 \nfalse：调用失败",
+            "example": "true",
+            "type": "boolean"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

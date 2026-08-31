@@ -108,5 +108,124 @@
   ],
   "pathPattern": "",
   "product_code": "Ecs",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "InstanceStatuses": {
+            "backendName": "data.data",
+            "itemName": "InstanceStatus",
+            "items": {
+              "properties": {
+                "InstanceId": {
+                  "backendName": "ecsName",
+                  "mappingResourcePropertyName": "$.InstanceId",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "Status": {
+                  "backendName": "status",
+                  "mappingResourcePropertyName": "$.Status",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "valueMapping": {
+                    "cases": [
+                      {
+                        "targetValue": "Pending",
+                        "value": "Creating"
+                      },
+                      {
+                        "targetValue": "Stopped",
+                        "value": "Pending"
+                      },
+                      {
+                        "targetValue": "Stopped",
+                        "value": "Shutted"
+                      },
+                      {
+                        "targetValue": "Stopped",
+                        "value": "StartFailure"
+                      },
+                      {
+                        "targetValue": "Starting",
+                        "value": "Starting"
+                      },
+                      {
+                        "targetValue": "Transferring",
+                        "value": "Transferring"
+                      },
+                      {
+                        "targetValue": "Running",
+                        "value": "Running"
+                      },
+                      {
+                        "targetValue": "Running",
+                        "value": "ShutFailure"
+                      },
+                      {
+                        "targetValue": "Stopping",
+                        "value": "Shutting"
+                      },
+                      {
+                        "targetValue": "Resetting",
+                        "value": "Resetting"
+                      },
+                      {
+                        "targetValue": "Stopped",
+                        "value": "ResetFailure"
+                      },
+                      {
+                        "targetValue": "Deleted",
+                        "value": "Released"
+                      }
+                    ]
+                  }
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "PageNumber": {
+            "backendName": "data.pageNo",
+            "description_en": "The page number",
+            "description_zh": "实例列表的页码",
+            "example": "1",
+            "format": "int32",
+            "nullToEmpty": true,
+            "type": "integer"
+          },
+          "PageSize": {
+            "backendName": "data.pageSize",
+            "description_en": "The number of entries per page specified in the request",
+            "description_zh": "输入时设置的每页行数",
+            "example": "1",
+            "format": "int32",
+            "nullToEmpty": true,
+            "type": "integer"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "nullToEmpty": true,
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.total",
+            "description_en": "The total number of instances",
+            "description_zh": "实例总个数",
+            "example": "58",
+            "format": "int32",
+            "nullToEmpty": true,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

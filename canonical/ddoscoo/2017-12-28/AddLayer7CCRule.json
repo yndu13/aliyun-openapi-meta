@@ -21,7 +21,7 @@
   "parameters": [
     {
       "example": "test",
-      "help_en": "The ID of the resource group",
+      "help_en": "The resource group ID",
       "help_zh": "资源组ID",
       "location": "query",
       "name": "resource_group_id",
@@ -34,7 +34,7 @@
     },
     {
       "example": "www.aliyun.com",
-      "help_en": "The domain name to configure",
+      "help_en": "The domain name to operate on",
       "help_zh": "要操作的域名",
       "location": "query",
       "name": "domain",
@@ -47,7 +47,7 @@
     },
     {
       "example": "testCcRule1",
-      "help_en": "The name of the custom HTTP flood mitigation rule",
+      "help_en": "The name of the custom CC rule",
       "help_zh": "CC自定义规则名",
       "location": "query",
       "name": "name",
@@ -60,7 +60,7 @@
     },
     {
       "example": "close",
-      "help_en": "The action to take when the rule is triggered. Valid values:\n\nclose: Block.\ncaptcha: CAPTCHA",
+      "help_en": "The action to take after the rule is triggered. Valid values:\n\nclose: Block.\ncaptcha: CAPTCHA verification",
       "help_zh": "规则触发后的操作，取值：\n\nclose：封禁\ncaptcha：人机识别",
       "location": "query",
       "name": "act",
@@ -73,7 +73,7 @@
     },
     {
       "example": "2",
-      "help_en": "The number of visits. This parameter is used together with Interval. When the same IP address makes the specified number of consecutive visits within the interval specified by Interval, the rule is triggered. Valid values: 2 to 2000",
+      "help_en": "The number of visits. This parameter is used together with Interval. When the same IP address consecutively visits the specified number of times within the interval specified by Interval, the rule is triggered. Valid values: 2 to 2000",
       "help_zh": "访问次数，与Interval结合使用。当同一个IP在Interval指定的间隔时间内连续访问Count中指定的访问次数，则触发规则。取值范围为2~2,000。 ",
       "location": "query",
       "name": "count",
@@ -86,7 +86,7 @@
     },
     {
       "example": "5",
-      "help_en": "The interval, in seconds. This parameter is used together with Count. When the same IP address makes the number of consecutive visits specified by Count within the specified interval, the rule is triggered. Valid values: 5 to 10800",
+      "help_en": "The interval period, in seconds. This parameter is used together with Count. When the same IP address consecutively visits the number of times specified by Count within the interval specified by Interval, the rule is triggered. Valid values: 5 to 10800",
       "help_zh": "间隔时间，与Count结合使用。当同一个IP在Interval指定的间隔时间内连续访问Count中指定的访问次数，则触发规则。取值范围为5~10,800。 ",
       "location": "query",
       "name": "interval",
@@ -99,7 +99,7 @@
     },
     {
       "example": "match",
-      "help_en": "The URI matching mode. Valid values:\n\nmatch: exact match. The URI of the access request must be exactly the same as the specified Uri to be counted as a visit.\nprefix: prefix match. The URI of the access request must contain the specified Uri to be counted as a visit",
+      "help_en": "The URI matching mode. Valid values:\n\nmatch: exact match. The URI of the access request must be exactly the same as the specified Uri to be counted as a visit.\nprefix: prefix match. The URI of the access request contains the specified Uri to be counted as a visit",
       "help_zh": "URI匹配模式，取值：\n\nmatch：完全匹配。访问请求的URI与指定的Uri完全相同，才计入访问次数。\nprefix：前缀匹配。访问请求的URI包含指定的Uri，则计入访问次数",
       "location": "query",
       "name": "mode",
@@ -125,7 +125,7 @@
     },
     {
       "example": "/a/b/c",
-      "help_en": "The URI to protect",
+      "help_en": "The URI to be protected",
       "help_zh": "被防护的URI",
       "location": "query",
       "name": "uri",
@@ -139,5 +139,21 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

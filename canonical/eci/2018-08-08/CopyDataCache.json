@@ -23,7 +23,7 @@
     {
       "doc_required": true,
       "example": "cn-beijing",
-      "help_en": "The region where the existing data cache is located",
+      "help_en": "The region where the existing data cache resides",
       "help_zh": "已有数据缓存所在地域",
       "location": "query",
       "name": "region_id",
@@ -36,7 +36,7 @@
     },
     {
       "example": "default",
-      "help_en": "The data cache bucket",
+      "help_en": "The bucket of the data cache",
       "help_zh": "数据缓存Bucket",
       "location": "query",
       "name": "bucket",
@@ -116,7 +116,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The tags of the data cache",
+      "help_en": "The list of data cache tags",
       "help_zh": "数据缓存标签列表",
       "location": "query",
       "name": "tag",
@@ -143,7 +143,7 @@
     },
     {
       "example": "123e4567-e89b-12d3-a456-426655440000\t",
-      "help_en": "A client token to ensure the idempotence of the request. Generate a value from your client and make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see https://help.aliyun.com/document_detail/25693.html",
+      "help_en": "Ensures the idempotence of the request. Generate a parameter value from your client to ensure uniqueness across different requests. The value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see https://help.aliyun.com/document_detail/25693.html",
       "help_zh": "保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。只支持ASCII字符，且不能超过64个字符。更多信息，请参见https://help.aliyun.com/document_detail/25693.html",
       "location": "query",
       "name": "client_token",
@@ -169,7 +169,7 @@
     },
     {
       "example": "cn-hangzhou",
-      "help_en": "The destination region to which you want to copy the data cache",
+      "help_en": "The destination region to which the data cache is copied",
       "help_zh": "要拷贝到的目的地域",
       "location": "query",
       "name": "destination_region_id",
@@ -183,5 +183,34 @@
   ],
   "pathPattern": "",
   "product_code": "Eci",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回参数列表",
+        "properties": {
+          "DataCacheId": {
+            "backendName": "data.dataCacheId",
+            "description_en": "The ID of the data cache generated in the new region after the copy",
+            "description_zh": "拷贝到新的地域后，生成的数据缓存ID",
+            "example": "edc-bp1423y6d7v7l6ua****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "58EE0CB3-C864-5395-A4F7-24F425074839",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

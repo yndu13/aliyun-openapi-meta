@@ -119,5 +119,149 @@
   ],
   "pathPattern": "",
   "product_code": "Ons",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The data returned",
+        "description_zh": "查询结果",
+        "properties": {
+          "MsgFoundDo": {
+            "backendName": "data",
+            "description_en": "The information about the message that is queried",
+            "description_zh": "查询结果",
+            "properties": {
+              "CurrentPage": {
+                "backendName": "currentPage",
+                "description_en": "The page number of the returned page",
+                "description_zh": "当前位于第几页",
+                "example": "1",
+                "format": "int64",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "MaxPageCount": {
+                "backendName": "maxPageCount",
+                "description_en": "The total number of returned pages",
+                "description_zh": "查询结果最大页数",
+                "example": "400",
+                "format": "int64",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "MsgFoundList": {
+                "backendName": "msgFoundList",
+                "itemName": "OnsRestMessageDo",
+                "items": {
+                  "properties": {
+                    "BodyCRC": {
+                      "backendName": "bodyCRC",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "BornHost": {
+                      "backendName": "bornHost",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "BornTimestamp": {
+                      "backendName": "bornTimestamp",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "InstanceId": {
+                      "backendName": "instanceId",
+                      "nullToEmpty": true,
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "MsgId": {
+                      "backendName": "msgId",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "PropertyList": {
+                      "backendName": "propertyList",
+                      "itemName": "MessageProperty",
+                      "items": {
+                        "properties": {
+                          "Name": {
+                            "backendName": "name",
+                            "type": "string",
+                            "visibility": "Public"
+                          },
+                          "Value": {
+                            "backendName": "value",
+                            "type": "string",
+                            "visibility": "Public"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "nullToEmpty": true,
+                      "type": "array",
+                      "visibility": "Public"
+                    },
+                    "ReconsumeTimes": {
+                      "backendName": "reconsumeTimes",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "StoreHost": {
+                      "backendName": "storeHost",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "StoreSize": {
+                      "backendName": "storeSize",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "StoreTimestamp": {
+                      "backendName": "storeTimestamp",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "Topic": {
+                      "backendName": "topic",
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "nullToEmpty": true,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "TaskId": {
+                "backendName": "taskId",
+                "description_en": "The ID of the query task. The first time you call this operation to query the messages that are sent to a specified consumer group within a specified time range, this parameter is returned. You can use the task ID to query the details of messages on other returned pages",
+                "description_zh": "第一次新建查询时，返回的查询任务ID，用于后续取消息",
+                "example": "0BC1310300002A9F000021E4D7A48346",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request. This parameter is a common parameter. Each request has a unique ID. You can use this ID to troubleshoot issues",
+            "description_zh": "公共参数，每个请求的ID都是唯一的，可用于排查和定位问题",
+            "example": "5DC2A47E-2B31-4722-96C8-FA59C9*****",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

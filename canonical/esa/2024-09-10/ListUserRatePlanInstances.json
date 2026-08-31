@@ -217,5 +217,311 @@
   ],
   "pathPattern": "",
   "product_code": "ESA",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "InstanceInfo": {
+            "backendName": "data.instances",
+            "description_en": "The plan instances that match the specified conditions under the user",
+            "description_zh": "查询到的该用户下符合条件的套餐实例",
+            "itemName": "Item",
+            "items": {
+              "description_en": "The details of the plan instance",
+              "description_zh": "套餐实例详情",
+              "properties": {
+                "BillingMode": {
+                  "backendName": "billingMode",
+                  "description_en": "The billing method. Valid values:\n\nPREPAY: Subscription.\nPOSTPAY: Pay-as-you-go",
+                  "description_zh": "付费类型。支持：\n\nPREPAY：预付费。\nPOSTPAY：后付费",
+                  "example": "PREPAY",
+                  "type": "string"
+                },
+                "BotInstanceLevel": {
+                  "backendName": "botInstanceLevel",
+                  "description_en": "If empty, the plan does not include a bot protection instance. If a value is returned, the plan includes a bot protection instance. Valid values:\n\nenterprise_bot: Web edition.\n\nenterprise_bot_with_app: App edition",
+                  "description_zh": "为空时，套餐未购买BOT防护实例；\n返回值时，套餐购买BOT防护实例，取值：\n\nenterprise_bot web版\n\nenterprise_bot_with_app APP版",
+                  "example": "enterprise_bot",
+                  "type": "string"
+                },
+                "BotRequest": {
+                  "backendName": "wafBotRequest",
+                  "description_en": "The prepaid bot protection requests included in the plan (in units of 10,000)",
+                  "description_zh": "套餐中已预支付的 BOT 请求数（万次）",
+                  "example": "100",
+                  "type": "string"
+                },
+                "Coverages": {
+                  "backendName": "coverages",
+                  "description_en": "The acceleration coverage areas for sites that can be bound to this plan instance. Multiple values are separated by commas (,). Valid values:\n\ndomestic: China or the Chinese mainland.\noverseas: Global (excluding China or the Chinese mainland).\nglobal: Global (including China or the Chinese mainland)",
+                  "description_zh": "该站点可绑定的站点的加速区域范围，多个用（,）隔开。取值：\n\ndomestic：中国或中国内地。\noverseas：全球（不包含中国或中国内地）。\nglobal：全球（包含中国或中国内地）",
+                  "example": "domestic,overseas",
+                  "type": "string"
+                },
+                "CreateTime": {
+                  "backendName": "gmtCreate",
+                  "description_en": "The purchase time of the plan instance. The time is in ISO 8601 format and displayed in UTC. Format: yyyy-MM-ddTHH:mm:ssZ",
+                  "description_zh": "套餐实例的新购时间，日期格式按照 ISO8601 表示法，并使用 UTC 时间，格式为 yyyy-MM-ddTHH:mm:ssZ",
+                  "example": "2026-04-19T11:15:20Z",
+                  "type": "string"
+                },
+                "CrossborderTraffic": {
+                  "backendName": "crossBorderTraffic",
+                  "description_en": "The prepaid China network acceleration traffic (GB) included in the plan",
+                  "description_zh": "套餐中已预支付的中国网络加速流量(GB)",
+                  "example": "100",
+                  "type": "string"
+                },
+                "DdosBurstableDomesticProtection": {
+                  "backendName": "ddosInstanceDomestic",
+                  "description_en": "The Anti-DDoS instance specification for the Chinese mainland included in the plan",
+                  "description_zh": "套餐中高防实例的中国大陆规格",
+                  "example": "cn_300",
+                  "type": "string"
+                },
+                "DdosBurstableOverseasProtection": {
+                  "backendName": "ddosInstanceOverseas",
+                  "description_en": "The Anti-DDoS instance specification outside the Chinese mainland included in the plan",
+                  "description_zh": "套餐中高防实例的非中国大陆规格",
+                  "example": "overseas_300",
+                  "type": "string"
+                },
+                "DdosInstanceLevel": {
+                  "backendName": "ddosInstance",
+                  "description_en": "If empty, the plan does not include an Anti-DDoS instance. If a value is returned, the plan includes an Anti-DDoS instance. The value is `esa_ddos_instance`",
+                  "description_zh": "为空时，该套餐未购买高防实例；\n有返回值时，套餐已购买高防实例，值为`esa_ddos_instance`",
+                  "example": "esa_ddos_instance",
+                  "type": "string"
+                },
+                "Duration": {
+                  "backendName": "duration",
+                  "description_en": "The subscription duration of the plan instance. Unit: months",
+                  "description_zh": "套餐实例的购买时长，单位：月",
+                  "example": "3",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "EdgeRoutineRquest": {
+                  "backendName": "erRequest",
+                  "description_en": "The prepaid Edge Routine (ER) requests included in the plan (in units of 10,000)",
+                  "description_zh": "套餐中已预支付的ER请求数（万次）",
+                  "example": "100",
+                  "type": "string"
+                },
+                "EdgeWafRequest": {
+                  "backendName": "wafRequest",
+                  "description_en": "The prepaid WAF requests included in the plan (in units of 10,000)",
+                  "description_zh": "套餐中已预支付的WAF请求数（万次）",
+                  "example": "100",
+                  "type": "string"
+                },
+                "ExpireTime": {
+                  "backendName": "expireTime",
+                  "description_en": "The expiration time of the plan instance. The time is in ISO 8601 format and displayed in UTC. Format: yyyy-MM-ddTHH:mm:ssZ",
+                  "description_zh": "套餐实例的到期时间，日期格式按照 ISO8601 表示法，并使用 UTC 时间，格式为 yyyy-MM-ddTHH:mm:ssZ",
+                  "example": "2026-04-19T11:15:20Z",
+                  "type": "string"
+                },
+                "InstanceId": {
+                  "backendName": "instanceId",
+                  "description_en": "The plan instance ID",
+                  "description_zh": "套餐实例ID",
+                  "example": "sp-xcdn-96wblslz****",
+                  "type": "string"
+                },
+                "Layer4Traffic": {
+                  "backendName": "layer4Traffic",
+                  "description_en": "The prepaid Layer 4 proxy traffic (GB) included in the plan - Chinese mainland",
+                  "description_zh": "套餐中已预支付的四层代理流量(GB) - 中国大陆",
+                  "example": "100",
+                  "type": "string"
+                },
+                "Layer4TrafficIntl": {
+                  "backendName": "layer4TrafficIntl",
+                  "description_en": "The prepaid Layer 4 proxy traffic (GB) included in the plan - outside the Chinese mainland",
+                  "description_zh": "套餐中已预支付的四层代理流量(GB) - 非中国大陆",
+                  "example": "100",
+                  "type": "string"
+                },
+                "OwnerId": {
+                  "backendName": "ownerId",
+                  "type": "string"
+                },
+                "PlanName": {
+                  "backendName": "planNameEn",
+                  "description_en": "The plan name associated with the plan instance",
+                  "description_zh": "套餐实例对应的套餐名称",
+                  "example": "basic",
+                  "type": "string"
+                },
+                "PlanTraffic": {
+                  "backendName": "planTraffic",
+                  "description_en": "The prepaid Layer 7 acceleration traffic (GB) included in the plan",
+                  "description_zh": "套餐中已预支付的7层加速流量(GB)",
+                  "example": "100",
+                  "type": "string"
+                },
+                "PlanType": {
+                  "backendName": "type",
+                  "description_en": "The plan type associated with the plan instance. Valid values:\nnormal: Fixed edition plan.\nenterprise: Enterprise edition plan",
+                  "description_zh": "套餐实例对应的套餐类型，取值：\nnormal：固定版套餐。\nenterprise：企业版套餐",
+                  "example": "normal",
+                  "type": "string"
+                },
+                "RenewalDuration": {
+                  "backendName": "renewalDuration",
+                  "description_en": "The auto-renewal cycle. Unit: months",
+                  "description_zh": "自动续费的周期，单位为月",
+                  "example": "6",
+                  "format": "int64",
+                  "title_en": "自动续费的周期，单位为月。",
+                  "title_zh": "自动续费的周期，单位为月。",
+                  "type": "integer"
+                },
+                "RenewalStatus": {
+                  "backendName": "renewalStatus",
+                  "description_en": "The auto-renewal status. Valid values:\n\nnomal: Normal.\nauto_renewal: Auto-renewal enabled.\nnot_renewal: Auto-renewal disabled",
+                  "description_zh": "自动续费状态。取值：\n\nnomal 正常\nauto_renewal 自动续费\nnot_renewal 不续费",
+                  "example": "nomal",
+                  "title_en": "自动续费状态：\nnomal 正常\nauto_renewal 自动续费\nnot_renewal 不续费",
+                  "title_zh": "自动续费状态：\nnomal 正常\nauto_renewal 自动续费\nnot_renewal 不续费",
+                  "type": "string"
+                },
+                "ResourceOwner": {
+                  "backendName": "resourceOwner",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "ShareType": {
+                  "backendName": "shareType",
+                  "type": "string"
+                },
+                "SiteQuota": {
+                  "backendName": "siteQuota",
+                  "description_en": "The site quota for the plan instance",
+                  "description_zh": "套餐实例下的站点数量配额",
+                  "example": "1",
+                  "type": "string"
+                },
+                "Sites": {
+                  "backendName": "siteList",
+                  "description_en": "The list of sites bound to the current plan instance",
+                  "description_zh": "已经绑定到当前套餐实例下的站点列表",
+                  "itemName": "Item",
+                  "items": {
+                    "description_en": "The details of the bound site",
+                    "description_zh": "绑定的站点的详情",
+                    "properties": {
+                      "SiteId": {
+                        "backendName": "siteId",
+                        "description_en": "The site ID",
+                        "description_zh": "站点ID",
+                        "example": "123456****",
+                        "format": "int64",
+                        "type": "integer"
+                      },
+                      "SiteName": {
+                        "backendName": "siteName",
+                        "description_en": "The site name",
+                        "description_zh": "站点名称",
+                        "example": "example.com",
+                        "type": "string"
+                      },
+                      "SiteStatus": {
+                        "backendName": "status",
+                        "description_en": "The site status. Valid values:\n\npending: The site is pending configuration.\nactive: The site is activated.\noffline: The site is offline.\nmoved: The site has been superseded",
+                        "description_zh": "站点状态。取值：\n\npending：站点待配置。\nactive：站点已激活。\noffline：站点已下线。\nmoved：站点已被顶替",
+                        "example": "pending",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "nullToEmpty": true,
+                  "type": "array"
+                },
+                "SmartRoutingRequest": {
+                  "backendName": "smartRoutingRequest",
+                  "description_en": "The prepaid smart routing requests included in the plan (in units of 10,000)",
+                  "description_zh": "套餐中已预支付的智能路由请求数（万次）",
+                  "example": "100",
+                  "type": "string"
+                },
+                "StaticRequest": {
+                  "backendName": "staticRequest",
+                  "description_en": "The prepaid HTTP requests included in the plan (in units of 10,000)",
+                  "description_zh": "套餐中已预支付的HTTP请求数（万次）",
+                  "example": "100",
+                  "type": "string"
+                },
+                "Status": {
+                  "backendName": "status",
+                  "description_en": "The instance status. Valid values:\nonline: Normal service status.\noffline: Expired but not overdue, in an inactive state.\ndisable: Released",
+                  "description_zh": "套餐实例状态。取值：\nonline：正常服务状态。\noffline：到期但未超期，处于不可用的状态。\ndisable：已释放状态",
+                  "example": "online",
+                  "type": "string"
+                },
+                "SubscribeType": {
+                  "backendName": "subscribeType",
+                  "description_en": "The plan subscription type. Valid values:\n\nFree Edition (Chinese mainland): entranceplan\nFree Edition (International): entranceplan_intl\nBasic Edition: basicplan\nStandard Edition: standardplan\nPremium Edition: advancedplan\nEnterprise Edition: enterpriseplan",
+                  "description_zh": "套餐订阅类型。取值：\n\n免费版（国内）：entranceplan\n免费版（国际）：entranceplan_intl\n基础版：basicplan\n标准版：standardplan\n高级版：advancedplan\n企业版：enterpriseplan",
+                  "example": "basicplan",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "PageNumber": {
+            "backendName": "data.pageIndex",
+            "description_en": "The current page number, same as the PageNumber request parameter",
+            "description_zh": "当前页码，同请求参数的 PageNumber",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          },
+          "PageSize": {
+            "backendName": "data.pageSize",
+            "description_en": "The number of entries per page",
+            "description_zh": "每页大小",
+            "example": "10",
+            "format": "int32",
+            "type": "integer"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "CB1A380B-09F0-41BB-3C82-72F8FD6DA2FE",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.totalCount",
+            "description_en": "The total number of entries",
+            "description_zh": "总条数",
+            "example": "68",
+            "format": "int32",
+            "type": "integer"
+          },
+          "TotalPage": {
+            "backendName": "data.totalPage",
+            "description_en": "The total number of pages",
+            "description_zh": "总页数",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

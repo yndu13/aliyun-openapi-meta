@@ -120,5 +120,91 @@
   ],
   "pathPattern": "",
   "product_code": "ARMS",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The status code. A value of 200 indicates success",
+            "description_zh": "状态码。说明 200表示成功",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The response struct",
+            "description_zh": "返回结构体",
+            "properties": {
+              "Info": {
+                "backendName": "data",
+                "description_en": "The Info-level information",
+                "description_zh": "Info级别信息",
+                "example": "{regionId: 实例所属region, globalViewClusterId: 实例Id, failedInstances: 数据源JSON list中，添加失败的单个JSON的list}",
+                "properties": {
+                  "FailedInstances": {
+                    "backendName": "failedInstances",
+                    "description_en": "The list of instances that failed to be added",
+                    "description_zh": "添加失败的实例列表",
+                    "example": "[{\"sourceName\": \"数据源名称- ArmsPrometheus\",\"sourceType\":\"AlibabaPrometheus\",\"userId\":\"UserID\",\"clusterId\":\"ClusterId\",}]",
+                    "type": "string"
+                  },
+                  "GlobalViewClusterId": {
+                    "backendName": "globalViewClusterId",
+                    "description_en": "The aggregation instance ID",
+                    "description_zh": "聚合实例ID",
+                    "example": "global-v2-cn-1483223059272121-jmjjfznz",
+                    "type": "string"
+                  },
+                  "RegionId": {
+                    "backendName": "regionId",
+                    "description_en": "The region ID",
+                    "description_zh": "地域ID",
+                    "example": "cn-hangzhou",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "Msg": {
+                "backendName": "msg",
+                "description_en": "The additional description",
+                "description_zh": "附加说明信息",
+                "example": "OK",
+                "type": "string"
+              },
+              "Success": {
+                "backendName": "success",
+                "description_en": "Indicates whether the query was successful.\n\n`true`: Successful.\n`false`: Failed",
+                "description_zh": "查询是否成功。\n\n`true`：成功。\n`false`：失败",
+                "example": "true",
+                "type": "boolean"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The message returned for the result",
+            "description_zh": "返回结果的提示信息",
+            "example": "success",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID, which is used to locate logs and troubleshoot issues",
+            "description_zh": "请求ID，用于定位日志，排查问题",
+            "example": "34ED024E-9E31-434A-9E4E-D9D15C3****",
+            "nullToEmpty": true,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

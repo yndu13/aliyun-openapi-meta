@@ -2,7 +2,7 @@
   "cmd_full_name": "ddoscoo describle-cert-list",
   "cmd_name": "describle-cert-list",
   "deprecated": false,
-  "description_en": "Queries the list of all certificates by calling DescribleCertList",
+  "description_en": "Queries the list of all certificates",
   "description_zh": "调用DescribleCertList查询所有证书列表",
   "kebab_example": "",
   "method": "GET|POST",
@@ -34,7 +34,7 @@
     },
     {
       "example": "test",
-      "help_en": "The ID of the resource group",
+      "help_en": "The resource group ID",
       "help_zh": "资源组ID",
       "location": "query",
       "name": "resource_group_id",
@@ -62,7 +62,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "域名列表",
+      "help_en": "The list of domain names",
       "help_zh": "域名列表",
       "location": "query",
       "name": "domain_list",
@@ -77,5 +77,88 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "CertList": {
+            "backendName": "data",
+            "description_en": "The list of certificates",
+            "description_zh": "证书列表",
+            "itemName": "CertItem",
+            "items": {
+              "properties": {
+                "CertIdentifier": {
+                  "backendName": "certIdentifier",
+                  "type": "string"
+                },
+                "Common": {
+                  "backendName": "common",
+                  "description_en": "The domain name bound to the certificate",
+                  "description_zh": "证书绑定的域名",
+                  "example": "www.aliyun.com",
+                  "type": "string"
+                },
+                "DomainRelated": {
+                  "backendName": "domainRelated",
+                  "description_en": "Indicates whether the certificate is associated with a domain name configuration",
+                  "description_zh": "是否已绑定域名配置",
+                  "example": "false",
+                  "type": "boolean"
+                },
+                "EndDate": {
+                  "backendName": "endDate",
+                  "description_en": "The expiration date of the certificate",
+                  "description_zh": "证书到期日期",
+                  "example": "2020-09-23",
+                  "type": "string"
+                },
+                "Id": {
+                  "backendName": "id",
+                  "description_en": "The certificate ID",
+                  "description_zh": "证书ID",
+                  "example": "123",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "Issuer": {
+                  "backendName": "issuer",
+                  "description_en": "The certificate issuer",
+                  "description_zh": "证书签发者",
+                  "example": "DigiCert Inc",
+                  "type": "string"
+                },
+                "Name": {
+                  "backendName": "name",
+                  "description_en": "The certificate name",
+                  "description_zh": "证书名称",
+                  "example": "testCertName",
+                  "type": "string"
+                },
+                "StartDate": {
+                  "backendName": "startDate",
+                  "description_en": "The start date of the certificate",
+                  "description_zh": "证书开始日期",
+                  "example": "2019-09-24",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

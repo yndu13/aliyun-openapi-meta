@@ -340,5 +340,95 @@
   ],
   "pathPattern": "/[WorkspaceId]/index/retrieve",
   "product_code": "bailian",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The error code",
+            "description_zh": "错误状态码",
+            "example": "Index.InvalidParameter",
+            "type": "string"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The business data returned by the API",
+            "description_zh": "接口业务数据字段",
+            "properties": {
+              "Nodes": {
+                "backendName": "nodes",
+                "description_en": "An array of retrieved text chunks",
+                "description_zh": "命中的文本切片列表",
+                "itemName": "nodes",
+                "items": {
+                  "description_en": "A text chunk object",
+                  "description_zh": "文本切片对象",
+                  "properties": {
+                    "Metadata": {
+                      "backendName": "metadata",
+                      "description_en": "<props=\"china\">\n\nA map of metadata for the text chunk.\n\nFor document search knowledge bases, the `file_path` field in the metadata map is not applicable and should not be used in your application code.\n\nWhen you retrieve data from a document search knowledge base, if a text chunk contains an image, its URL is returned in the `image_url` field of the metadata map. This URL expires.\n\nWhen you retrieve data from an audio/video search knowledge base, if a text chunk contains audio, its URL is returned in the `audio_url` field of the metadata map. This URL expires.\n\nWhen you retrieve data from an audio/video search knowledge base, if a text chunk contains video, its URL is returned in the `video_url` field of the metadata map. This URL expires.\n\n</props>\n\n<props=\"intl\">\n\nA map of metadata for the text chunk.\n\nFor document search knowledge bases, the `file_path` field in the metadata map is not applicable and should not be used in your application code.\n\nWhen you retrieve data from a document search knowledge base, if a text chunk contains an image, its URL is returned in the `image_url` field of the metadata map. This URL expires.\n\n</props>",
+                      "description_zh": "<props=\"china\">\n\n文本切片的元数据Map。\n\n文档搜索类知识库的元数据Map中`file_path`字段无意义，请勿在业务代码中使用。\n\n检索文档搜索类识库时，若切片包含图片，将通过元数据 Map 中` image_url `字段透出，并附有过期时间。\n\n检索音视频搜索类知识库时，若切片包含音频，将通过元数据 Map 中` audio_url `字段透出，并附有过期时间。\n\n检索音视频搜索类知识库时，若切片包含视频，将通过元数据 Map 中` video_url `字段透出，并附有过期时间。\n\n</props>\n<props=\"intl\">\n\n文本切片的元数据Map。\n\n文档搜索类知识库的元数据Map中`file_path`字段无意义，请勿在业务代码中使用。\n\n检索文档搜索类知识库时，若切片包含图片，将通过元数据 Map 中` image_url `字段透出，并附有过期时间。\n\n</props>",
+                      "example": "{\n  \"parent\": \"\",\n  \"file_path\": \"https://***\",\n  \"image_url\": [\n    \"http://***\"\n  ],\n  \"nid\": \"***\",\n  \"title\": \"阿里云百炼文档\",\n  \"doc_id\": \"doc_***\",\n  \"content\": \"阿里云百炼是基于通义大模型、行业大模型以及三方大模型的一站式大模型开发平台。面向企业客户和个人开发者，提供完整的模型服务工具和全链路应用开发套件，预置丰富的能力插件，提供API及SDK等便捷的集成方式，高效完成大模型应用构建\",\n  \"workspace_id\": \"ws_***\",\n  \"hier_title\": \"阿里云百炼文档\",\n  \"doc_name\": \"阿里云百炼文档介绍.pdpf\",\n  \"pipeline_id\": \"rhd***\",\n  \"_id\": \"ws_***\"\n}",
+                      "type": "any"
+                    },
+                    "Score": {
+                      "backendName": "score",
+                      "description_en": "The similarity score of the text chunk, ranging from 0 to 1",
+                      "description_zh": "文本切片的相似度得分，可能值范围：[0-1]",
+                      "example": "0.3",
+                      "format": "double",
+                      "type": "number"
+                    },
+                    "Text": {
+                      "backendName": "text",
+                      "description_en": "The content of the text chunk",
+                      "description_zh": "文本切片内容",
+                      "example": "阿里云百炼是基于通义大模型、行业大模型以及三方大模型的一站式大模型开发平台。面向企业客户和个人开发者，提供完整的模型服务工具和全链路应用开发套件，预置丰富的能力插件，提供API及SDK等便捷的集成方式，高效完成大模型应用构建。",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "Required parameter(%s) missing or invalid, please check the request parameters.",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "request_id",
+            "description_en": "The request ID",
+            "description_zh": "请求 ID",
+            "example": "17204B98-7734-4F9A-8464-2446A84821CA",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "Status": {
+            "backendName": "status_code",
+            "description_en": "The HTTP status code of the response",
+            "description_zh": "接口返回的状态码",
+            "example": "200",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the API call was successful. Valid values:\n\ntrue: The call succeeded.\n\nfalse: The call failed",
+            "description_zh": "接口调用是否成功，可能值为：\ntrue：成功。\nfalse：失败",
+            "example": "true",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

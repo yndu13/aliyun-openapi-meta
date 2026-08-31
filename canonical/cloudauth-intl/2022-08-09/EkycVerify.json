@@ -37,7 +37,7 @@
     },
     {
       "example": "e0c34a77f5ac40a5aa5e6ed20c353888",
-      "help_en": "The merchant-defined unique business identifier, used for subsequent troubleshooting. The value is a combination of letters and digits up to 32 characters in length. Ensure that the value is unique",
+      "help_en": "A custom business unique identifier defined by the merchant, used for subsequent issue tracking and troubleshooting. Supports a combination of letters and numbers up to 32 characters in length. Ensure that this value is unique",
       "help_zh": "商户侧自定义的业务唯一标识，用于后续定位排查问题使用。支持长度为32位的字母和数字的组合，请确保唯一",
       "location": "query",
       "name": "merchant_biz_id",
@@ -50,7 +50,7 @@
     },
     {
       "example": "123456",
-      "help_en": "The custom user ID or other identifier that can identify a specific user, such as a phone number or email address. We strongly recommend that you mask the value of this field in advance, for example, by hashing the value",
+      "help_en": "A custom user ID or other identifier that can identify a specific user, such as a phone number or email address. We strongly recommend that you desensitize this field value in advance, for example, by hashing the value",
       "help_zh": "您自定义的用户ID，或者其他可以识别特定用户的标识，例如：手机号码、邮箱地址等。强烈建议对该字段的值进行预先脱敏，例如对值进行哈希处理",
       "location": "query",
       "name": "merchant_user_id",
@@ -76,7 +76,7 @@
     },
     {
       "example": "张**",
-      "help_en": "The real name of the user. If Authorize is set to T and the document type is a Chinese mainland ID card, you must provide at least one of the following: the key document information (DocName and DocNo) or the document image (IdOcrPictureBase64 or IdOcrPictureURL).\nNote: The value must contain at least one Chinese character and cannot contain special characters, except for the middle dot (·) used in ethnic minority names",
+      "help_en": "The real name of the user. When Authorize='T' and the document type is a mainland China ID card, either the key document information (DocName, DocNo) or the document image (IdOcrPictureBase64/URL) must be provided.\nNote: Supports a combination of Chinese characters with a minimum length of one character. No special characters are allowed, except for the middle dot (·) used in ethnic minority names",
       "help_zh": "用户的真实姓名。当Authorize='T'且证件类型为大陆身份证时，证件关键信息（DocName、DocNo）与证件图片（IdOcrPictureBase64/URL)必须至少输入其中一组\n注：支持长度为1个汉字以上的汉字组合，无特殊字符，少数民族的点【·】除外",
       "location": "query",
       "name": "doc_name",
@@ -89,7 +89,7 @@
     },
     {
       "example": "410***************",
-      "help_en": "The document number of the user. If Authorize is set to T and the document type is a Chinese mainland ID card, you must provide at least one of the following: the key document information (DocName and DocNo) or the document image (IdOcrPictureBase64 or IdOcrPictureURL).\nNote: The value is a combination of letters and digits up to 18 characters in length",
+      "help_en": "The document number of the user. When Authorize='T' and the document type is a mainland China ID card, either the key document information (DocName, DocNo) or the document image (IdOcrPictureBase64/URL) must be provided.\nNote: Supports a combination of letters and numbers with a length of 18 characters",
       "help_zh": "用户的证件号。当Authorize='T'且证件类型为大陆身份证时，证件关键信息（DocName、DocNo）与证件图片（IdOcrPictureBase64/URL)必须至少输入其中一组\n注：支持长度为18位的字母和数字组合",
       "location": "query",
       "name": "doc_no",
@@ -115,7 +115,7 @@
     },
     {
       "example": "base64",
-      "help_en": "The Base64-encoded document image.\nNote:\nIf you use this method to pass the document image, check the image size and do not pass an excessively large image.\nSpecify either IdOcrPictureBase64 or IdOcrPictureUrl",
+      "help_en": "The Base64-encoded document image.\nNote:\nIf you choose this method to pass in the document image, check the photo size and do not pass in an excessively large photo.\nSpecify either IdOcrPictureBase64 or IdOcrPictureUrl",
       "help_zh": "卡证图片Base64编码。\n说明\n如果您选择该方式传入证件图片，请检查照片大小，不要传入过大的照片。\nIdOcrPictureBase64和IdOcrPictureUrl二选一",
       "location": "formData",
       "name": "id_ocr_picture_base64",
@@ -141,7 +141,7 @@
     },
     {
       "example": "Base64",
-      "help_en": "The Base64-encoded face image.\n\nNote:\nIf you use this method to pass the face image, check the image size and do not pass an excessively large image.\nSpecify either FacePictureBase64 or FacePictureUrl",
+      "help_en": "The Base64-encoded face image.\n\nNote:\nIf you choose this method to pass in the face image, check the photo size and do not pass in an excessively large photo.\nSpecify either FacePictureBase64 or FacePictureUrl",
       "help_zh": "人像图片Base64编码。\n\n说明\n如果您选择该方式传入证件图片，请检查照片大小，不要传入过大的照片。\nFacePictureBase64和FacePictureUrl二选一",
       "location": "formData",
       "name": "face_picture_base64",
@@ -154,7 +154,7 @@
     },
     {
       "example": "F",
-      "help_en": "Specifies whether cropping is allowed. By default, cropping is not allowed. Valid values:\n\nT: Cropping is required.\nF: Cropping is not required. This is the default value",
+      "help_en": "Specifies whether cropping is allowed. By default, cropping is not allowed. Valid values:\n\nT: Detection is required.\nF: Detection is required. (Default value: F)",
       "help_zh": "是否允许裁剪，默认不允许，T/F\n\nT：表示需要检测\nF：表示需要检测（默认F）",
       "location": "query",
       "name": "crop",
@@ -167,7 +167,7 @@
     },
     {
       "example": "T",
-      "help_en": "Specifies whether to enable authoritative identity verification. This feature currently applies only to second-generation ID cards issued in the Chinese mainland",
+      "help_en": "Specifies whether to enable authoritative identity verification. Currently, this applies only to second-generation ID cards in mainland China",
       "help_zh": "是否开启身份权威核验，目前仅适用于中国大陆二代身份证",
       "location": "query",
       "name": "authorize",
@@ -180,7 +180,7 @@
     },
     {
       "example": "0",
-      "help_en": "The custom OCR quality detection threshold mode. Valid values:\n\n0: system default\n1: strict mode\n2: loose mode\n3 (default): quality detection disabled",
+      "help_en": "The custom OCR quality detection threshold mode. Valid values:\n\n0: system default\n1: strict mode\n2: loose mode\n3 (default): disable quality detection",
       "help_zh": "自定义OCR质量检测阈值模式：\n\n0：系统默认\n1：严格模式\n2：宽松模式\n3（默认）：关闭质量检测",
       "location": "query",
       "name": "id_threshold",
@@ -192,8 +192,9 @@
       "type": "string"
     },
     {
-      "help_en": "The FaceQualityCheck",
-      "help_zh": "The FaceQualityCheck",
+      "example": "Y",
+      "help_en": "Specifies whether to enable face quality detection",
+      "help_zh": "人脸质量检测",
       "location": "query",
       "name": "face_quality_check",
       "options": [
@@ -202,9 +203,103 @@
       "raw_name": "FaceQualityCheck",
       "required": false,
       "type": "string"
+    },
+    {
+      "example": "Y",
+      "help_en": "Specifies whether to enable document anti-spoofing",
+      "help_zh": "是否开启证件防伪",
+      "location": "query",
+      "name": "id_spoof",
+      "options": [
+        "--id-spoof"
+      ],
+      "raw_name": "IdSpoof",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
   "product_code": "Cloudauth-intl",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code",
+            "description_zh": "返回码",
+            "example": "Success",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The response message",
+            "description_zh": "返回信息",
+            "example": "success",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "4EB356FE-BB6A-5DCC-B4C5-E8051787EBA1",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "Result": {
+            "backendName": "result",
+            "description_en": "The response result",
+            "description_zh": "返回结果",
+            "properties": {
+              "ExtFaceInfo": {
+                "backendName": "extFaceInfo",
+                "description_en": "The face verification result information",
+                "description_zh": "人脸结果信息",
+                "example": "{\n\"faceAttack\": \"N\",\n\"faceComparisonScore\": 52.57,\n\"facePassed\": \"N\",\n\"authorityComparisonScore\": 80.39\n}\n\n",
+                "sensitive": true,
+                "type": "string"
+              },
+              "ExtIdInfo": {
+                "backendName": "extIdInfo",
+                "description_en": "The document recognition result. Returned only when the API response is successful",
+                "description_zh": "卡证识别结果只有当接口响应成功时返回",
+                "example": "{\n \"ocrIdInfo\": {\n \"firstName\": \"**龙\",\n \"lastName\": \"**\",\n \"countryCode\": \"CHN\",\n \"docType\": \"01560001\",\n \"dateOfBirth\": \"2002-08-04\",\n \"idNumber\": \"410************19\"\n },\n \"ocrIdPassed\": \"N\",\n \"spoofInfo\": {\n \"spoofResult\": \"Y\",\n }\n}\n\n",
+                "sensitive": true,
+                "type": "string"
+              },
+              "Passed": {
+                "backendName": "passed",
+                "description_en": "Indicates whether the verification is passed. T indicates passed, and F indicates not passed",
+                "description_zh": "是否通过，通过为T，不通过为F",
+                "example": "Y",
+                "type": "string"
+              },
+              "SubCode": {
+                "backendName": "subCode",
+                "description_en": "The sub-result code",
+                "description_zh": "子结果码",
+                "example": "205",
+                "type": "string"
+              },
+              "TransactionId": {
+                "backendName": "transactionId",
+                "description_en": "The unique identifier of the verification request",
+                "description_zh": "认证请求的唯一标识",
+                "example": "4ab0b***cbde97",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

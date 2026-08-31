@@ -3,6 +3,7 @@
   "cmd_full_name": "cs update-node-pool-component-instance",
   "cmd_name": "update-node-pool-component-instance",
   "deprecated": false,
+  "description_en": "更新节点组件",
   "description_zh": "更新节点组件",
   "kebab_example": "",
   "method": "PUT",
@@ -30,7 +31,7 @@
   "parameters": [
     {
       "example": "c2230fxxxxx",
-      "help_en": "The cluster_id",
+      "help_en": "集群ID",
       "help_zh": "集群ID",
       "location": "path",
       "name": "cluster_id",
@@ -43,7 +44,7 @@
     },
     {
       "example": "np8d8c9c2cd0f64e89884f82a5fbcd****",
-      "help_en": "The nodepool_id",
+      "help_en": "节点池ID",
       "help_zh": "节点池ID",
       "location": "path",
       "name": "nodepool_id",
@@ -56,7 +57,7 @@
     },
     {
       "example": "kubelet",
-      "help_en": "The name",
+      "help_en": "组件名称",
       "help_zh": "组件名称",
       "location": "path",
       "name": "name",
@@ -71,7 +72,7 @@
       "fields": [
         {
           "example": "{\"cpuManagerPolicy\":\"static\"}",
-          "help_en": "The custom_config",
+          "help_en": "节点组件自定义配置",
           "help_zh": "节点组件自定义配置",
           "name": "custom_config",
           "options": [
@@ -89,7 +90,7 @@
             "fields": [
               {
                 "example": "LOG_LEVEL",
-                "help_en": "The name",
+                "help_en": "环境变量名称",
                 "help_zh": "环境变量名称",
                 "name": "name",
                 "options": [
@@ -101,7 +102,7 @@
               },
               {
                 "example": "info",
-                "help_en": "The value",
+                "help_en": "环境变量值",
                 "help_zh": "环境变量值",
                 "name": "value",
                 "options": [
@@ -114,7 +115,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The envs",
+          "help_en": "节点组件环境变量",
           "help_zh": "节点组件环境变量",
           "name": "envs",
           "options": [
@@ -125,7 +126,7 @@
           "type": "array"
         }
       ],
-      "help_en": "The config",
+      "help_en": "节点组件配置",
       "help_zh": "节点组件配置",
       "location": "body",
       "name": "config",
@@ -139,7 +140,7 @@
     },
     {
       "example": "false",
-      "help_en": "The disable_rolling",
+      "help_en": "是否禁止轮转，默认值为false，更新基线配置会同步轮转节点",
       "help_zh": "是否禁止轮转，默认值为false，更新基线配置会同步轮转节点",
       "location": "body",
       "name": "disable_rolling",
@@ -155,7 +156,7 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The node_names",
+      "help_en": "指定轮转的节点列表，默认为全部节点",
       "help_zh": "指定轮转的节点列表，默认为全部节点",
       "location": "body",
       "name": "node_names",
@@ -171,7 +172,7 @@
       "fields": [
         {
           "example": "10",
-          "help_en": "The batch_interval",
+          "help_en": "批次之间的升级间隔时间，单位秒，默认0",
           "help_zh": "批次之间的升级间隔时间，单位秒，默认0",
           "name": "batch_interval",
           "options": [
@@ -183,7 +184,7 @@
         },
         {
           "example": "0",
-          "help_en": "The max_failed_nodes",
+          "help_en": "允许滚动过程中失败的最大节点数。默认为0，即任一节点失败即判定任务失败；大于0时，累计失败节点数超过该值则整体判定失败并停止",
           "help_zh": "允许滚动过程中失败的最大节点数。默认为0，即任一节点失败即判定任务失败；大于0时，累计失败节点数超过该值则整体判定失败并停止",
           "name": "max_failed_nodes",
           "options": [
@@ -195,7 +196,7 @@
         },
         {
           "example": "1",
-          "help_en": "The max_parallelism",
+          "help_en": "每批次的最大并行数，默认值1",
           "help_zh": "每批次的最大并行数，默认值1",
           "name": "max_parallelism",
           "options": [
@@ -212,7 +213,7 @@
             "EveryBatch"
           ],
           "example": "NotPause",
-          "help_en": "The pause_policy",
+          "help_en": "节点升级过程中的自动暂停策略。可取值：NotPause、FirstBatch、EveryBatch，默认策略NotPause",
           "help_zh": "节点升级过程中的自动暂停策略。可取值：NotPause、FirstBatch、EveryBatch，默认策略NotPause",
           "name": "pause_policy",
           "options": [
@@ -223,7 +224,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The rolling_policy",
+      "help_en": "轮转配置",
       "help_zh": "轮转配置",
       "location": "body",
       "name": "rolling_policy",
@@ -237,7 +238,7 @@
     },
     {
       "example": "1.33.3-aliyun.1",
-      "help_en": "The version",
+      "help_en": "节点组件版本",
       "help_zh": "节点组件版本",
       "location": "body",
       "name": "version",
@@ -253,8 +254,49 @@
   "pathPattern": "/clusters/[cluster_id]/nodepools/[nodepool_id]/component_instances/[name]",
   "product_code": "CS",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_zh": "返回数据",
+        "properties": {
+          "cluster_id": {
+            "backendName": "cluster_id",
+            "description_zh": "集群ID",
+            "example": "c2230fxxxxx",
+            "title_en": "集群ID。",
+            "title_zh": "集群ID。",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "request_id": {
+            "backendName": "request_id",
+            "description_zh": "请求ID",
+            "example": "xxxx",
+            "title_en": "请求ID。",
+            "title_zh": "请求ID。",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "task_id": {
+            "backendName": "task_id",
+            "description_zh": "任务ID",
+            "example": "T-xxxx",
+            "title_en": "任务ID。",
+            "title_zh": "任务ID。",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "title_en": "返回数据。",
+        "title_zh": "返回数据。",
+        "type": "object"
+      }
+    },
+    "5XX": {}
+  },
   "v1_body_parameters": [
     {
+      "help_en": "请求体参数",
       "help_zh": "请求体参数",
       "name": "body",
       "param_style": "json",

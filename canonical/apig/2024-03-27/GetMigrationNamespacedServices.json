@@ -23,7 +23,7 @@
     {
       "example": "mt-xxxxxxxx",
       "help_en": "The taskId",
-      "help_zh": "迁移任务 ID",
+      "help_zh": "迁移任务 ID此参数为路径参数，调用时必须提供有效的迁移任务 ID（可通过 ListMigrationTasks 获取）",
       "location": "path",
       "name": "task_id",
       "options": [
@@ -37,9 +37,83 @@
   "pathPattern": "/v1/migration-tasks/[taskId]/namespaced-services",
   "product_code": "APIG",
   "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "code": {
+            "description_zh": "响应状态码",
+            "example": "200",
+            "type": "string"
+          },
+          "data": {
+            "description_zh": "响应数据",
+            "properties": {
+              "namespacedServices": {
+                "description_zh": "命名空间分组的服务列表",
+                "itemName": "namespacedServices",
+                "items": {
+                  "description_zh": "命名空间分组的服务列表",
+                  "properties": {
+                    "namespace": {
+                      "description_zh": "K8s 命名空间",
+                      "example": "default",
+                      "type": "string"
+                    },
+                    "services": {
+                      "description_zh": "该命名空间下可迁移的 Service 列表",
+                      "itemName": "services",
+                      "items": {
+                        "description_zh": "该命名空间下可迁移的 Service 列表",
+                        "properties": {
+                          "name": {
+                            "description_zh": "Service 名称（选中 SLB 后前端会把它填入 serviceName）",
+                            "example": "nginx-ingress-lb",
+                            "type": "string"
+                          },
+                          "slbId": {
+                            "description_zh": "Service 关联的负载均衡实例 ID",
+                            "example": "lb-xxxx / nlb-xxxx",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "message": {
+            "description_zh": "响应信息",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "description_en": "Id of the request",
+            "description_zh": "请求 ID",
+            "example": "7D513911-206E-5E93-9C9E-71D63C0D68E7",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_parameters": [
     {
-      "help_zh": "迁移任务 ID",
+      "help_zh": "迁移任务 ID此参数为路径参数，调用时必须提供有效的迁移任务 ID（可通过 ListMigrationTasks 获取）",
       "name": "taskId",
       "position": "path",
       "required": false,

@@ -255,5 +255,50 @@
   ],
   "pathPattern": "",
   "product_code": "ARMS",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The HTTP status code. Valid values:\n\n2XX: success.\n3XX: redirection.\n4XX: request error.\n5XX: server error",
+            "description_zh": "接口状态码：\n\n`2XX`：成功\n`3XX`：重定向\n`4XX`：请求错误\n`5XX`：服务器错误",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The instance ID returned after the instance is created.\n\nFor aliyun-cs instances, the Prometheus instance ID is the Container Service cluster ID.\n\nFor ecs instances, the Prometheus instance ID is the VPC ID",
+            "description_zh": "新建实例成功后的实例ID。\n\n如果是aliyun-cs实例，则Prometheus实例ID就是CS的集群ID。\n\n如果是ecs实例，则Prometheus实例ID就是VPCID",
+            "example": "qduukd****",
+            "mappingResourcePropertyName": "$.ClusterId",
+            "nullToEmpty": true,
+            "title_en": "集群id",
+            "title_zh": "集群id",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The returned message",
+            "description_zh": "返回信息",
+            "example": "message",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "70675725-8F11-4817-8106-CFE0AD71****",
+            "nullToEmpty": true,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

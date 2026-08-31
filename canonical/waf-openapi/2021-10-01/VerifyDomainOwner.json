@@ -75,5 +75,43 @@
   ],
   "pathPattern": "",
   "product_code": "waf-openapi",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "F35F45B0-5D6B-4238-BE02-A62D****E840",
+            "type": "string"
+          },
+          "VerifyResult": {
+            "backendName": "data",
+            "description_en": "The verification result",
+            "description_zh": "校验结果",
+            "properties": {
+              "FailCode": {
+                "backendName": "failCode",
+                "description_en": "The reason why the verification failed.\n\nDnsTxtVerifyFailed: The DNS TXT record does not match.\n\nDnsServerError: The DNS server is abnormal.\n\nVerifyFileNotExist: The verification file does not exist.\n\nVerifyDomainNotAccess: Failed to access the domain name.\n\nFileContentVerifyFailed: The file content does not match",
+                "description_zh": "校验不通过原因\nDnsTxtVerifyFailed: DNS的TXT记录不匹配\nDnsServerError: DNS服务器异常\nVerifyFileNotExist：校验的文件不存在\nVerifyDomainNotAccess：访问域名失败\nFileContentVerifyFailed：文件内容不匹配",
+                "example": "DnsTxtVerifyFailed",
+                "type": "string"
+              },
+              "Result": {
+                "backendName": "result",
+                "description_en": "The verification result. Valid values:\n\ntrue: The verification is successful.\n\nfalse: The verification failed",
+                "description_zh": "校验结果。取值：\ntrue：表示校验通过。\nfalse：表示校验不通过",
+                "example": "true",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

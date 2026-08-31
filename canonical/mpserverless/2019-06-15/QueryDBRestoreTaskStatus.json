@@ -53,5 +53,61 @@
   ],
   "pathPattern": "",
   "product_code": "MPServerless",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "DetailMessage": {
+            "backendName": "detailMessage",
+            "description_en": "The error message when the job fails",
+            "description_zh": "任务失败时的错误信息",
+            "example": "SERVER_BUSY",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "FailedCount": {
+            "backendName": "failedCount",
+            "description_en": "The quantity of database records that failed to roll back",
+            "description_zh": "回档失败的数据库记录数量",
+            "example": "1",
+            "format": "int64",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Unique request ID",
+            "description_zh": "唯一请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Status": {
+            "backendName": "status",
+            "description_en": "The status of the rollback job. Valid values are as follows:\nNEW: Newly created. This status will never appear for an export job.\nWAITING: Queued. This may occur when there are many jobs.\nRUNNING: Executing.\nSUCCESS: Succeeded.\nFAILED: Failed.\n\nNote: You should abort polling once the job status becomes SUCCESS or FAILED",
+            "description_zh": "回档任务状态。可选值如下：\nNEW：新创建，导出任务不可能出现此状态。\nWAITING：排队中，任务较多时可能会出现。\nRUNNING：执行中。\nSUCCESS：成功。\nFAILED：失败。\n\n注意任务状态变成SUCCESS或者FAILED都应该中止轮询",
+            "example": "SUCCESS",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "SuccessCount": {
+            "backendName": "successCount",
+            "description_en": "The quantity of database records successfully rolled back",
+            "description_zh": "成功回档的数据库记录数量",
+            "example": "1",
+            "format": "int64",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

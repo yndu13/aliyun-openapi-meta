@@ -2,6 +2,96 @@
   "camel_example": "",
   "cmd_full_name": "paistudio list-quota-active-user-usages",
   "cmd_name": "list-quota-active-user-usages",
+  "components": {
+    "schemas": {
+      "QuotaUser": {
+        "description_zh": "资源配额用户",
+        "properties": {
+          "Resources": {
+            "backendName": "Resources",
+            "description_zh": "资源",
+            "properties": {
+              "Submitted": {
+                "$ref": "#/components/schemas/ResourceAmount",
+                "backendName": "Submitted",
+                "description_zh": "已提交资源",
+                "title": "已提交资源"
+              },
+              "Used": {
+                "$ref": "#/components/schemas/ResourceAmount",
+                "backendName": "Used",
+                "description_zh": "已使用资源",
+                "title": "已使用资源"
+              }
+            },
+            "title": "资源",
+            "type": "object"
+          },
+          "UserId": {
+            "backendName": "UserId",
+            "description_zh": "用户ID",
+            "title": "用户ID",
+            "type": "string"
+          },
+          "Username": {
+            "backendName": "Username",
+            "description_zh": "用户名",
+            "title": "用户名",
+            "type": "string"
+          },
+          "WorkloadCount": {
+            "backendName": "WorkloadCount",
+            "description_zh": "任务负载数量",
+            "format": "int32",
+            "title": "任务负载数量",
+            "type": "integer"
+          }
+        },
+        "title": "资源配额用户",
+        "type": "object"
+      },
+      "ResourceAmount": {
+        "description_en": "Resource amount  ",
+        "description_zh": "资源量",
+        "properties": {
+          "CPU": {
+            "backendName": "CPU",
+            "description_en": "Total CPU  ",
+            "description_zh": "CPU总量",
+            "example": "100",
+            "title": "CPU总量",
+            "type": "string"
+          },
+          "GPU": {
+            "backendName": "GPU",
+            "description_en": "Total GPU cards  ",
+            "description_zh": "GPU卡总量",
+            "example": "16",
+            "title": "GPU卡总量",
+            "type": "string"
+          },
+          "GPUType": {
+            "backendName": "GPUType",
+            "description_en": "GPU card type  ",
+            "description_zh": "GPU卡类型",
+            "example": "GPU",
+            "title": "GPU卡类型",
+            "type": "string"
+          },
+          "Memory": {
+            "backendName": "Memory",
+            "description_en": "Total memory  ",
+            "description_zh": "Memory总量",
+            "example": "100Gi",
+            "title": "Memory总量",
+            "type": "string"
+          }
+        },
+        "title": "资源量",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Lists users within a quota and their resource usage",
   "description_zh": "获取当前资源配额用户列表和其所使用的资源",
@@ -156,5 +246,53 @@
   ],
   "pathPattern": "/api/v1/quotas/[QuotaId]/activeuserusages",
   "product_code": "PaiStudio",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response object",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "QuotaUserUsage": {
+            "description_en": "A list of user resource usage details",
+            "description_zh": "用户资源使用详情列表",
+            "itemName": "QuotaUser",
+            "items": {
+              "$ref": "#/components/schemas/QuotaUser",
+              "description_en": "The resource usage details for a user",
+              "description_zh": "用户资源使用详情"
+            },
+            "type": "array"
+          },
+          "QuotaUserUsages": {
+            "itemName": "QuotaUserUsages",
+            "items": {
+              "$ref": "#/components/schemas/QuotaUser"
+            },
+            "title_en": "用户使用情况",
+            "title_zh": "用户使用情况",
+            "type": "array"
+          },
+          "RequestId": {
+            "description_en": "The request ID",
+            "description_zh": "Id of the request",
+            "example": "E7C42CC7-2E85-508A-84F4-923B605FD10F",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "TotalCount": {
+            "description_en": "The total number of entries that meet the filter criteria",
+            "description_zh": "符合过滤条件的实例数量",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

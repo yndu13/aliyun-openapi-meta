@@ -2,7 +2,7 @@
   "cmd_full_name": "ddoscoo describe-simple-domains",
   "cmd_name": "describe-simple-domains",
   "deprecated": false,
-  "description_en": "Invokes DescribeSimpleDomains to query the list of domain names configured in Anti-DDoS Pro or Anti-DDoS Premium",
+  "description_en": "Invokes DescribeSimpleDomains to query the list of domain names that are added to Anti-DDoS Pro and Anti-DDoS Premium",
   "description_zh": "调用DescribeSimpleDomains查询已接入DDoS高防的域名列表",
   "kebab_example": "",
   "method": "GET|POST",
@@ -21,7 +21,7 @@
   "parameters": [
     {
       "example": "1.1.1.1",
-      "help_en": "The source IP address of the request. You do not need to specify this parameter. The system automatically obtains this value",
+      "help_en": "The source IP address of the request. The system automatically obtains this value",
       "help_zh": "请求源IP。无需填写，系统自动获取",
       "location": "query",
       "name": "source_ip",
@@ -63,7 +63,7 @@
         "type": "string"
       },
       "example": "ddoscoo-cn-XXXXXX",
-      "help_en": "The Anti-DDoS Pro or Anti-DDoS Premium instance ID. To specify multiple instances, pass in InstanceIds.1, InstanceIds.2, InstanceIds.3, and so on.\n\nIf you do not specify this parameter, all instances are queried by default",
+      "help_en": "The ID of the Anti-DDoS Pro or Anti-DDoS Premium instance. To specify multiple instances, pass in InstanceIds.1, InstanceIds.2, InstanceIds.3, and so on.\n\nIf you do not specify this parameter, all instances are queried by default",
       "help_zh": "DDoS高防实例ID。若指定多个实例，依次传入InstanceIds.1, InstanceIds.2, InstanceIds.3, ...\n\n若不指定，则默认查询所有实例",
       "location": "query",
       "name": "instance_ids",
@@ -78,5 +78,36 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "DomainList": {
+            "backendName": "data",
+            "itemName": "Domain",
+            "items": {
+              "backendName": "data",
+              "description_en": "The domain name list",
+              "description_zh": "域名列表",
+              "example": "[\"1.example.com\",\"2.example.com\"]",
+              "nullToEmpty": true,
+              "type": "string"
+            },
+            "nullToEmpty": true,
+            "parseType": "null",
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

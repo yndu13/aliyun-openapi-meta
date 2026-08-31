@@ -52,5 +52,155 @@
   ],
   "pathPattern": "",
   "product_code": "dms-enterprise",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "ErrorCode": {
+            "backendName": "errorCode",
+            "description_en": "The error code returned if the request failed",
+            "description_zh": "错误码",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "message",
+            "description_en": "The error message returned if the request failed",
+            "description_zh": "错误信息",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "D9D91166-A626-5F4E-9CA6-7AB10C59DBD8",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful. Valid values:\n\ntrue: The request was successful.\nfalse: The request failed",
+            "description_zh": "请求是否成功，返回值如下：\n\ntrue：请求成功\nfalse：请求失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "type": "boolean",
+            "visibility": "Public"
+          },
+          "TaskFlowGraph": {
+            "backendName": "data",
+            "description_en": "The list of DAG variables of the task flow",
+            "description_zh": "任务流的DAG图变量列表",
+            "properties": {
+              "CanEdit": {
+                "backendName": "canEdit",
+                "description_en": "Indicates whether the task flow is editable. Valid values:\n\ntrue: editable\nfalse: non-editable",
+                "description_zh": "任务流是否支持编辑，返回值如下：\ntrue：支持修改\nfalse：不支持修改",
+                "example": "true",
+                "type": "boolean"
+              },
+              "DagName": {
+                "backendName": "dagName",
+                "description_en": "The name of the task flow",
+                "description_zh": "任务流名称",
+                "example": "test",
+                "type": "string"
+              },
+              "Edges": {
+                "backendName": "edges",
+                "itemName": "Edge",
+                "items": {
+                  "properties": {
+                    "DagId": {
+                      "backendName": "dagId",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "Id": {
+                      "backendName": "id",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "NodeEnd": {
+                      "backendName": "nodeEnd",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "NodeFrom": {
+                      "backendName": "nodeFrom",
+                      "format": "int64",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "Nodes": {
+                "backendName": "nodes",
+                "itemName": "Node",
+                "items": {
+                  "properties": {
+                    "DagId": {
+                      "backendName": "dagId",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "GraphParam": {
+                      "backendName": "graphParam",
+                      "type": "string"
+                    },
+                    "NodeConfig": {
+                      "backendName": "nodeConfig",
+                      "type": "string"
+                    },
+                    "NodeContent": {
+                      "backendName": "nodeContent",
+                      "type": "string"
+                    },
+                    "NodeId": {
+                      "backendName": "id",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "NodeName": {
+                      "backendName": "nodeName",
+                      "type": "string"
+                    },
+                    "NodeType": {
+                      "backendName": "nodeType",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "TimeVariables": {
+                      "backendName": "nodeParam",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "Status": {
+                "backendName": "status",
+                "description_en": "The status of the task flow. Valid values:\n\n0: invalid\n1: not scheduled\n2: to be scheduled",
+                "description_zh": "任务流状态，返回值如下：\n0：无效 \n1：无调度配置 \n2：等待调度",
+                "example": "2",
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

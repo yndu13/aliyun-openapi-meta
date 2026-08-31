@@ -3,7 +3,7 @@
   "cmd_full_name": "ens run-instances",
   "cmd_name": "run-instances",
   "deprecated": false,
-  "description_en": "Creates pay-as-you-go or subscription Edge Node Service (ENS) instances",
+  "description_en": "Creates pay-as-you-go or subscription ENS compute instances",
   "description_zh": "创建按量付费或包年包月的ENS计算实例",
   "kebab_example": "",
   "method": "GET|POST",
@@ -52,7 +52,7 @@
     },
     {
       "example": "m-5si16wo6simkt267p8b7h****",
-      "help_en": "The image ID. This parameter is not required for ARM-based instances but is required for other instance types",
+      "help_en": "The image ID. This parameter cannot be specified for ARM-based instances. This parameter is required for other instance types",
       "help_zh": "镜像ID。arm版卡不能填，其他类型规格必填",
       "location": "query",
       "name": "image_id",
@@ -65,7 +65,7 @@
     },
     {
       "example": "350000",
-      "help_en": "The region code.\nRequired for region-level scheduling. Ignored for edge zone-level scheduling",
+      "help_en": "The region code.\nThis parameter is required for region-level scheduling and is invalid for node-level scheduling",
       "help_zh": "地区Code。\n区域级调度时必填，节点级调度时无效",
       "location": "query",
       "name": "net_district_code",
@@ -78,7 +78,7 @@
     },
     {
       "example": "telecom",
-      "help_en": "The Internet service provider (ISP).\nRequired for region-level scheduling.</br>\nFor edge zone-level scheduling in multi-ISP scenarios, if this parameter is not specified, instances are created based on the ISPs available in the edge zone. For example, if both China Mobile and China Unicom are available, two instances with different ISPs are created.</br>\nYou can call https://help.aliyun.com/document_detail/2637461.html to query ISP information for edge zones",
+      "help_en": "The carrier.\nThis parameter is required for region-level scheduling.</br>\nFor node-level scheduling, if a node has multiple carriers and you do not specify a carrier, instances are created for each carrier on the node. For example, if a node has both China Mobile and China Unicom carriers, instances with two ISPs are created.</br>You can call https://help.aliyun.com/document_detail/2637461.html to query the carrier information of a node",
       "help_zh": "运营商。\n区域级调度时必填。</br>\n在节点级调度时如果是节点存在多运营商场景时，如果不输入运营商则会按节点的运营商进行生产，如有移动、联通两个运营商，则生产出来的实例有两个ISP。</br>您可以通过https://help.aliyun.com/document_detail/2637461.html获取节点运营商信息",
       "location": "query",
       "name": "carrier",
@@ -91,7 +91,7 @@
     },
     {
       "example": "Region",
-      "help_en": "The scheduling level. Specifies whether to perform edge zone-level or region-level scheduling. Valid values:\n\nBig: geographic area\nMiddle: province\nSmall: city\nRegion: edge zone",
+      "help_en": "The scheduling level. Use this parameter to specify node-level or region-level scheduling. Valid values:\n\nBig: major area\nMiddle: province\nSmall: city\nRegion: node",
       "help_zh": "调度层级。通过该字段来执行节点级调度或者区域调度。取值：\n\nBig：大区\nMiddle：省份\nSmall：城市\nRegion：节点",
       "location": "query",
       "name": "schedule_area_level",
@@ -104,7 +104,7 @@
     },
     {
       "example": "Concentrate",
-      "help_en": "The scheduling strategy. Valid values:\n\nConcentrate: centralized scheduling\nDisperse: distributed scheduling\n\nFor edge zone-level scheduling, set this parameter to Concentrate. For region-level scheduling, select a value as needed",
+      "help_en": "The scheduling strategy. Valid values:\n\nConcentrate: concentrated\nDisperse: dispersed\n\nFor node-level scheduling, the value is Concentrate. For region-level scheduling, select a value based on your requirements",
       "help_zh": "调度策略。取值：\n\nConcentrate：集中\nDisperse：分散\n\n节点级调度时，为Concentrate；区域级调度时，按客户需求选择",
       "location": "query",
       "name": "scheduling_strategy",
@@ -117,7 +117,7 @@
     },
     {
       "example": "cn-foshan-telecom",
-      "help_en": "The edge zone ID.\n\nRequired for edge zone-level scheduling. Ignored for region-level scheduling",
+      "help_en": "The node ID.\n\nThis parameter is required for node-level scheduling and is invalid for region-level scheduling",
       "help_zh": "节点ID。\n\n节点级调度时必填，区域级调度时无效",
       "location": "query",
       "name": "ens_region_id",
@@ -130,7 +130,7 @@
     },
     {
       "example": "testPassword",
-      "help_en": "The instance password.\n\nYou must specify at least one of the following parameters: Password, KeyPairName, and PasswordInherit",
+      "help_en": "The instance password.\n\nSpecify at least one of Password, KeyPairName, and PasswordInherit",
       "help_zh": "实例密码。\n\nPassword、KeyPairName、PasswordInherit至少填入一个",
       "location": "query",
       "name": "password",
@@ -143,7 +143,7 @@
     },
     {
       "example": "wx2-jumpserver",
-      "help_en": "The name of the key pair.\nYou must specify at least one of the following parameters: Password, KeyPairName, and PasswordInherit",
+      "help_en": "The key pair name.\nSpecify at least one of Password, KeyPairName, and PasswordInherit",
       "help_zh": "密钥对名称。\nPassword、KeyPairName、PasswordInherit至少填入一个",
       "location": "query",
       "name": "key_pair_name",
@@ -156,7 +156,7 @@
     },
     {
       "example": "BandwidthByDay",
-      "help_en": "The bandwidth billing method. Valid values:\nBandwidthByDay: daily peak bandwidth\n95BandwidthByMonth: monthly 95th percentile bandwidth\n\nYou can select a billing method during the initial purchase. Subsequent requests use the initially selected billing method by default",
+      "help_en": "Billable methods for bandwidth. Valid values:\nBandwidthByDay: daily peak bandwidth\n95BandwidthByMonth: monthly 95th percentile bandwidth\n\nYou can select a billing method only for the first purchase. Subsequent purchases use the billing method selected during the first purchase by default",
       "help_zh": "带宽计费方式。取值：\nBandwidthByDay：日峰值带宽\n95BandwidthByMonth：月95峰值带宽\n\n如果是第一次新购时可以进行选择计费方式，后续此字段值会根据第一次所选择的计费方式进行默认处理",
       "location": "query",
       "name": "internet_charge_type",
@@ -171,7 +171,7 @@
       "fields": [
         {
           "example": "local_ssd",
-          "help_en": "The category of the system cloud disk",
+          "help_en": "The type of the system cloud disk",
           "help_zh": "系统盘类型",
           "name": "category",
           "options": [
@@ -211,7 +211,7 @@
         "fields": [
           {
             "example": "cloud_efficiency",
-            "help_en": "The disk category. Valid values:\ncloud_efficiency: ultra disk\ncloud_ssd: all-flash disk\nlocal_hdd: local HDD\nlocal_ssd: local SSD",
+            "help_en": "The disk category. Valid values:\ncloud_efficiency: ultra cloud disk\ncloud_ssd: all-flash cloud disk\nlocal_hdd: local HDD\nlocal_ssd: local SSD",
             "help_zh": "磁盘种类。取值：\ncloud_efficiency：高效云盘\ncloud_ssd：全闪云盘\nlocal_hdd：本地HDD盘\nlocal_ssd：本地SSD盘",
             "name": "category",
             "options": [
@@ -223,7 +223,7 @@
           },
           {
             "example": "false",
-            "help_en": "Specifies whether to encrypt the cloud disk. Valid values:\n\ntrue: yes\n\nfalse (default): no",
+            "help_en": "Specifies whether to encrypt the cloud disk. Valid values:\n\ntrue: encrypts the cloud disk.\n\nfalse (default): does not encrypt the cloud disk",
             "help_zh": "是否加密云盘。取值范围：\n\ntrue：是\n\nfalse（默认值）：否",
             "name": "encrypted",
             "options": [
@@ -235,7 +235,7 @@
           },
           {
             "example": "false",
-            "help_en": "The ID of the Key Management Service (KMS) key used to encrypt the cloud disk. Valid values:\n\ntrue: yes\n\nfalse (default): no\n\nIf Encrypted is set to true and KMSKeyId is left empty, the default service key is used",
+            "help_en": "The ID of the KMS key used by the cloud disk. Valid values:\n\ntrue: encrypts the cloud disk.\n\nfalse (default): does not encrypt the cloud disk.\n\nIf Encrypted is set to true and KMSKeyId is empty, the default service key is used",
             "help_zh": "云盘使用的KMS密钥ID。取值范围：\n\ntrue：是\n\nfalse（默认值）：否\n\n如果Encrypted置为true，KMSKeyId为空时则使用服务默认密钥",
             "name": "kms_key_id",
             "options": [
@@ -273,8 +273,8 @@
       "type": "array"
     },
     {
-      "example": "1-9,12",
-      "help_en": "The subscription duration of the resource.\n\nIf PeriodUnit is set to Day, Period can only be set to 3.\n\nIf PeriodUnit is set to Month, Period can be set to 1-9 or 12",
+      "example": "1",
+      "help_en": "The duration of the purchased resource.\n\nIf PeriodUnit is set to Day, Period can only be set to 3.\n\nIf PeriodUnit is set to Month, Period can be set to 1-9 or 12",
       "help_zh": "购买资源的时长。\n\n如果PeriodUnit取值为Day时，则Period仅可设置为3。\n\n如果PeriodUnit取值为Month时，则Period可设置为1-9,12",
       "location": "query",
       "name": "period",
@@ -287,7 +287,7 @@
     },
     {
       "example": "1",
-      "help_en": "The maximum outbound public bandwidth. If this parameter is set to a value greater than 0, a public IP address is automatically assigned to the instance",
+      "help_en": "The maximum public bandwidth. If the value of this parameter is greater than 0, a public IP address is automatically assigned to the instance",
       "help_zh": "公网最大带宽，如果本参数的值大于0，则自动为实例分配公网IP",
       "location": "query",
       "name": "internet_max_bandwidth_out",
@@ -315,7 +315,7 @@
     },
     {
       "example": "net-id",
-      "help_en": "The network ID.\n\nThis parameter is valid only for edge zone-level scheduling. Specifying this parameter for region-level scheduling causes an error. If vSwitch information is not specified, only the validity of the network ID is verified. The actual resources are not provisioned based on this network ID",
+      "help_en": "The network ID.\n\nThis parameter can only be used for node-level scheduling. An error is returned if this parameter is specified for region-level scheduling. If you do not specify vSwitch information, only the validity of the network ID is verified. The actual resource creation does not use this network ID",
       "help_zh": "网络ID。\n\n只能在节点级调度使用，区域级调度时配置该参数会报错。如果不指定交换机信息时，则只会校验网络ID是否合法，实际资源生产并不以此网络ID为准",
       "location": "query",
       "name": "net_work_id",
@@ -328,7 +328,7 @@
     },
     {
       "example": "vsw-5sagnw7m613oulalkd10n****",
-      "help_en": "The vSwitch ID.\n\nThis parameter is valid only for edge zone-level scheduling. Specifying this parameter for region-level scheduling causes an error",
+      "help_en": "The vSwitch ID.\n\nThis parameter can only be used for node-level scheduling. An error is returned if this parameter is specified for region-level scheduling",
       "help_zh": "交换机ID。\n\n只能在节点级调度使用，区域级调度时配置该参数会报错",
       "location": "query",
       "name": "vswitch_id",
@@ -367,7 +367,7 @@
     },
     {
       "example": "TestName",
-      "help_en": "The instance name. The name must be 2 to 128 characters in length and must start with a letter or a Chinese character. It cannot start with `http://` or `https://`. It can contain Chinese characters, English letters, digits, colons (:), underscores (_), periods (.), and hyphens (-).\n\nThe default value is the instance ID",
+      "help_en": "The instance name. The name must be 2 to 128 characters in length and must start with a letter or Chinese character. It cannot start with `http://` or `https://`. It can contain Chinese characters, letters, digits, colons (:), underscores (_), periods (.), or hyphens (-).\n\nDefault value: the InstanceId of the instance",
       "help_zh": "实例名称。长度为2~128个字符，必须以大小字母或中文开头，不能以`http://`和`https://`开头。可以包含中文、英文、数字、半角冒号（:）、下划线（_）、点号（.）或者连字符（-）。\n\n默认值为实例的InstanceId",
       "location": "query",
       "name": "instance_name",
@@ -380,7 +380,7 @@
     },
     {
       "example": "True",
-      "help_en": "Specifies whether to add ordered suffixes to HostName and InstanceName. The suffixes start from 001 and increment sequentially, up to a maximum of 999",
+      "help_en": "Specifies whether to add sequential suffixes to HostName and InstanceName. The sequential suffixes start from 001 and cannot exceed 999",
       "help_zh": "是否为HostName和InstanceName添加有序后缀，有序后缀从001开始递增，最大不能超过999",
       "location": "query",
       "name": "unique_suffix",
@@ -393,7 +393,7 @@
     },
     {
       "example": "ZWtest",
-      "help_en": "The user-defined data. Maximum size: 16 KB. You can pass UserData encoded in Base64 format",
+      "help_en": "The custom user data. Maximum size: 16 KB. You can pass in UserData information. UserData is Base64-encoded",
       "help_zh": "用户自定义数据，最大支持16 KB。您可传入UserData信息，UserData以Base64的方式编码",
       "location": "query",
       "name": "user_data",
@@ -406,7 +406,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to enable auto-renewal. Valid values:\n\ntrue: enables auto-renewal\nfalse (default): disables auto-renewal\n\nThis parameter is invalid for pay-as-you-go instances",
+      "help_en": "Specifies whether to enable auto-renewal. Valid values:\n\ntrue: enables auto-renewal.\nfalse: does not enable auto-renewal. (Default)\n\nThis parameter is invalid for pay-as-you-go instances",
       "help_zh": "是否自动续费。取值：\n\ntrue：自动续费\nfalse：不自动续费（默认）\n\n按量付费时，该参数无效",
       "location": "query",
       "name": "auto_renew",
@@ -423,7 +423,7 @@
         "PriceLowPriority"
       ],
       "example": "PriceHighPriority",
-      "help_en": "The price-based scheduling strategy. Valid values:\n\nPriceHighPriority: prioritize higher prices\nPriceLowPriority: prioritize lower prices",
+      "help_en": "The scheduling price strategy. Valid values:\n\nPriceHighPriority: high price first\nPriceLowPriority: low price first",
       "help_zh": "调度价格策略。取值：\n\nPriceHighPriority：优先高价\nPriceLowPriority：优先低价",
       "location": "query",
       "name": "scheduling_price_strategy",
@@ -436,7 +436,7 @@
     },
     {
       "example": "10.0.XX.XX",
-      "help_en": "The private IP address.\nThis parameter is valid only for edge zone-level scheduling. Specifying this parameter for region-level scheduling causes an error.\nIf you specify a private IP address, you can create only one instance. The private IP address takes effect only when both the private IP address and the vSwitch ID are specified",
+      "help_en": "The private IP address.\nThis parameter can only be used for node-level scheduling. An error is returned if this parameter is specified for region-level scheduling.\nIf a private IP address is specified, the number of instances can only be 1. The private IP address takes effect only when both the private IP address and vSwitch ID are specified",
       "help_zh": "私网IP地址。\n只能在节点级调度使用，区域级调度时配置该参数会报错。\n如果指定了私网IP，实例数量只能为1台，且私网IP和交换机ID同时非空时，该私网IP才生效",
       "location": "query",
       "name": "private_ip_address",
@@ -453,7 +453,7 @@
         "Day"
       ],
       "example": "Month",
-      "help_en": "The unit of the subscription duration. Valid values:\nMonth (default): month\nDay: day",
+      "help_en": "The unit of the purchase duration. Valid values:\nMonth (default): monthly purchase.\nDay: daily purchase",
       "help_zh": "购买资源的时长单位。取值：\nMonth（默认）：按月购买。\nDay：按天购买",
       "location": "query",
       "name": "period_unit",
@@ -466,7 +466,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to enable public IP identification. Valid values:\n\ntrue: enabled\n\nfalse: disabled\n\nDefault value: true",
+      "help_en": "Specifies whether to enable public IP identification. Valid values:\n\ntrue: enables public IP identification.\n\nfalse: does not enable public IP identification.\n\nDefault value: true",
       "help_zh": "是否启用公网ipidentification。\n取值：\n\ntrue：启用。\n\nfalse：不启用\n\n默认值：true",
       "location": "query",
       "name": "public_ip_identification",
@@ -479,7 +479,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to use the preset password from the image. Valid values:\n\ntrue: uses the preset password\nfalse: does not use the preset password\n\nYou must specify at least one of the following parameters: Password, KeyPairName, and PasswordInherit",
+      "help_en": "Specifies whether to use the preset password of the image. Valid values:\n\ntrue: uses the preset password.\nfalse: does not use the preset password.\n\nSpecify at least one of Password, KeyPairName, and PasswordInherit",
       "help_zh": "是否使用镜像预置密码。取值：\n\ntrue：使用\nfalse：不使用\n\nPassword、KeyPairName、PasswordInherit至少填入一个",
       "location": "query",
       "name": "password_inherit",
@@ -492,7 +492,7 @@
     },
     {
       "example": "instance",
-      "help_en": "The instance billing strategy. Valid values:\n\ninstance: instance-level billing\nIf this parameter is not specified, user-level billing is applied by default",
+      "help_en": "The instance billing strategy. Valid values:\n\ninstance: instance-level billing.\nIf not specified, the default is user-level billing",
       "help_zh": "实例计费策略。取值：\n\ninstance：实例粒度\n不传默认按用户维度",
       "location": "query",
       "name": "instance_charge_strategy",
@@ -510,7 +510,7 @@
         "Hour"
       ],
       "example": "Day",
-      "help_en": "The billing cycle for instance compute resources. Only applicable to instance-level pay-as-you-go billing. Valid values:\n\nDay: billed daily\n\nMonth: billed monthly",
+      "help_en": "The billing cycle for instance compute resources. Only instance-level pay-as-you-go is supported. Valid values:\n\nDay: daily billing.\n\nMonth: monthly billing",
       "help_zh": "实例计算资源计费周期，仅支持实例级后付费。\n取值\n\nDay：按天计费。\n\nMonth：按月计费",
       "location": "query",
       "name": "billing_cycle",
@@ -529,7 +529,7 @@
         "ipv4Withipv6"
       ],
       "example": "ipv4",
-      "help_en": "The IP version. Valid values:\n\nipv4 (default): IPv4\n\nipv6: IPv6\n\nipv4Andipv6: IPv4 and IPv6 (single-stack)\nipv4Withipv6: IPv4 and IPv6 (dual-stack)",
+      "help_en": "The IP type. Valid values:\n\nipv4 (default): IPv4.\n\nipv6: IPv6.\n\nipv4Andipv6: IPv4 and IPv6 (single stack).\nipv4Withipv6: IPv4 and IPv6 (dual-stack)",
       "help_zh": "IP类型。取值：\n\nipv4（默认值）：IPv4。\n\nipv6：IPv6。\n\nipv4Andipv6：IPv4和IPv6(单栈)。\nipv4Withipv6：IPv4和IPv6(双栈)",
       "location": "query",
       "name": "ip_type",
@@ -542,7 +542,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to use vouchers. Default value: true, which indicates that vouchers are used",
+      "help_en": "Specifies whether to use coupons. Default value: true (AutoUseCoupon=true)",
       "help_zh": "是否使用代金券，默认为使用，即AutoUseCoupon=true",
       "location": "query",
       "name": "auto_use_coupon",
@@ -570,7 +570,7 @@
           },
           {
             "example": "tagValue",
-            "help_en": "The tag value. The value can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`",
+            "help_en": "The tag value. The tag value cannot exceed 128 characters in length, and cannot start with `aliyun` or `acs:`, or contain `http://` or `https://`",
             "help_zh": "标签值。不可超过128个字符，不能以`aliyun`或`acs:`开头，不能包含`http://`或者`https://`",
             "name": "value",
             "options": [
@@ -583,7 +583,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The tags bound to the instance",
+      "help_en": "The tags that are bound to the instance",
       "help_zh": "实例所绑定的标签",
       "location": "query",
       "name": "tag",
@@ -597,7 +597,7 @@
     },
     {
       "example": "2023-06-28T14:38:52Z",
-      "help_en": "The automatic release time for the pay-as-you-go instance. Specify the time in the ISO 8601 standard in UTC+0 format: `yyyy-MM-ddTHH:mm:ssZ`.\n\nIf the seconds (`ss`) value is not `00`, the release time is automatically rounded down to the start of the current minute (`mm`).\n\nThe earliest release time is one hour after the current time.\nhttps://help.aliyun.com/document_detail/25696.html",
+      "help_en": "The automatic release time of the pay-as-you-go instance. Specify the time in the https://help.aliyun.com/document_detail/25696.html standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.\n\nIf the value of seconds (`ss`) is not `00`, the time is automatically set to the start of the current minute (`mm`).\n\nThe earliest release time is one hour after the current time",
       "help_zh": "按量付费实例的自动释放时间。按照https://help.aliyun.com/document_detail/25696.html标准表示，使用UTC+0时间。格式为：0。\n\n如果秒（`ss`）取值不是`00`，则自动取为当前分钟（`mm`）开始时。\n\n最短释放时间为当前时间一小时之后",
       "location": "query",
       "name": "auto_release_time",
@@ -614,7 +614,7 @@
         "NoSpot"
       ],
       "example": "SpotAsPriceGo",
-      "help_en": "The bidding strategy for the pay-as-you-go instance. This parameter takes effect only when `InstanceChargeType` is set to `PostPaid`. Valid values:\n\nNoSpot: regular pay-as-you-go instance\nSpotAsPriceGo: system-generated bid that follows the current market price\n\nDefault value: NoSpot",
+      "help_en": "The bidding policy for the pay-as-you-go instance. This parameter takes effect when the `InstanceChargeType` parameter is set to `PostPaid`. Valid values:\n\nNoSpot: a regular pay-as-you-go instance.\nSpotAsPriceGo: the system automatically bids at the current market price.\n\nDefault value: NoSpot",
       "help_zh": "按量付费实例的竞价策略。当参数`InstanceChargeType`取值为`PostPaid`时生效。取值范围：\n\nNoSpot：正常按量付费实例。\nSpotAsPriceGo：系统自动出价，跟随当前市场实际价格。\n\n默认值：NoSpot",
       "location": "query",
       "name": "spot_strategy",
@@ -640,7 +640,7 @@
     },
     {
       "example": "2",
-      "help_en": "The number of randomly generated IPv6 addresses assigned to the primary private ENI",
+      "help_en": "The number of randomly generated IPv6 addresses to assign to the primary ENI of the private network",
       "help_zh": "为私网主网卡指定随机生成的ipv6地址数量",
       "location": "query",
       "maximum": "10",
@@ -655,7 +655,7 @@
     },
     {
       "example": "false",
-      "help_en": "The deletion protection status of the instance. Specifies whether the instance can be released through the console or API operations. Valid values: \n\ntrue: enables deletion protection\nfalse: disables deletion protection\n\nDefault value: false.\n\nThis property applies only to pay-as-you-go instances. It prevents only manual release operations and does not prevent system-triggered releases",
+      "help_en": "The release protection property of the instance. Specifies whether the instance can be released from the console or by calling an API operation. Valid values: \n\ntrue: Enables instance release protection.\nfalse: Disables instance release protection.\n\nDefault value: false.\n\nThis property applies only to pay-as-you-go instances and can only restrict manual release operations. It does not take effect on system-initiated release operations",
       "help_zh": "实例释放保护属性，指定是否支持通过控制台或API释放实例。取值范围： \n\ntrue：开启实例释放保护。\nfalse：关闭实例释放保护。\n\n默认值：false。\n\n该属性仅适用于按量付费实例，且只能限制手动释放操作，对系统释放操作不生效",
       "location": "query",
       "name": "deletion_protection",
@@ -668,7 +668,7 @@
     },
     {
       "example": "lt-test",
-      "help_en": "The launch template ID",
+      "help_en": "The ID of the instance launch template",
       "help_zh": "实例启动模板ID",
       "location": "query",
       "name": "launch_template_id",
@@ -681,7 +681,7 @@
     },
     {
       "example": "lt-test",
-      "help_en": "The launch template name",
+      "help_en": "The name of the instance launch template",
       "help_zh": "实例启动模板名称",
       "location": "query",
       "name": "launch_template_name",
@@ -694,7 +694,7 @@
     },
     {
       "example": "2",
-      "help_en": "The launch template version",
+      "help_en": "The version of the instance launch template",
       "help_zh": "实例启动模板版本",
       "location": "query",
       "name": "launch_template_version",
@@ -706,8 +706,9 @@
       "type": "int"
     },
     {
-      "help_en": "The VpdId",
-      "help_zh": "The VpdId",
+      "example": "vpd-5s7xxxxxxx",
+      "help_en": "The VPD network ID",
+      "help_zh": "VPD 网络 ID",
       "location": "query",
       "name": "vpd_id",
       "options": [
@@ -721,8 +722,8 @@
       "element": {
         "type": "string"
       },
-      "help_en": "The VpdVSwitchIds",
-      "help_zh": "The VpdVSwitchIds",
+      "help_en": "The list of VPD vSwitch IDs",
+      "help_zh": "VPD 交换机 ID 列表",
       "location": "query",
       "name": "vpd_vswitchids",
       "options": [
@@ -734,8 +735,9 @@
       "type": "array"
     },
     {
-      "help_en": "The DeploymentSetId",
-      "help_zh": "The DeploymentSetId",
+      "example": "ds-5s1p6x2l3r4b****",
+      "help_en": "The deployment set ID",
+      "help_zh": "部署集 ID",
       "location": "query",
       "name": "deployment_set_id",
       "options": [
@@ -746,8 +748,8 @@
       "type": "string"
     },
     {
-      "help_en": "The AutoInstallCloudAssistant",
-      "help_zh": "The AutoInstallCloudAssistant",
+      "help_en": "Specifies whether to automatically install the Cloud Assistant client on the instance",
+      "help_zh": "是否为实例自动安装云助手客户端",
       "location": "query",
       "name": "auto_install_cloud_assistant",
       "options": [
@@ -762,8 +764,9 @@
         "cn-zhangjiakou",
         "ap-southeast-1"
       ],
-      "help_en": "The CloudAssistantRegion",
-      "help_zh": "The CloudAssistantRegion",
+      "example": "cn-zhangjiakou",
+      "help_en": "The region for Cloud Assistant access. Valid values: cn-zhangjiakou (Zhangjiakou) and ap-southeast-1 (Singapore)",
+      "help_zh": "接入云助手的地域。取值：cn-zhangjiakou（张家口）、ap-southeast-1（新加坡）",
       "location": "query",
       "name": "cloud_assistant_region",
       "options": [
@@ -776,5 +779,43 @@
   ],
   "pathPattern": "",
   "product_code": "Ens",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "InstanceIds": {
+            "backendName": "data.InstanceIds",
+            "description_en": "The list of instance IDs",
+            "description_zh": "实例ID列表",
+            "itemName": "InstanceIds",
+            "items": {
+              "description_en": "The list of instance IDs",
+              "description_zh": "实例ID列表",
+              "example": "['i-5xxxx26dix05koz15l5413j25o', 'i-5sdmxxxx']",
+              "mappingResourcePropertyName": "$.InstanceId",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "OrderId": {
+            "backendName": "data.OrderId",
+            "description_en": "The order ID",
+            "description_zh": "订单编号",
+            "example": "213177957850399",
+            "mappingResourcePropertyName": "$.OrderId",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "91E4AFBE-4E35-5D2A-A886-BB477C9953D2",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

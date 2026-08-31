@@ -2,6 +2,35 @@
   "camel_example": "",
   "cmd_full_name": "opensearch create-ab-test-group",
   "cmd_name": "create-ab-test-group",
+  "components": {
+    "schemas": {
+      "ABTestGroup": {
+        "description_en": "The information about an A/B test group",
+        "description_zh": "ABTest实验组",
+        "properties": {
+          "name": {
+            "backendName": "name",
+            "description_en": "The alias of the test group",
+            "description_zh": "实验组别名",
+            "example": "“kevin_test”",
+            "title": "实验组别名",
+            "type": "string"
+          },
+          "status": {
+            "backendName": "status",
+            "description_en": "The status of the test group. Valid values:\n\n0: not in effect\n1: in effect",
+            "description_zh": "实验组状态\n\n0  未生效\n1  生效",
+            "example": "1",
+            "format": "int32",
+            "title": "实验组状态",
+            "type": "integer"
+          }
+        },
+        "title": "ABTest实验组",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Creates an experiment group",
   "description_zh": "创建实验组",
@@ -98,6 +127,103 @@
   "pathPattern": "/v4/openapi/app-groups/[appGroupIdentity]/scenes/[sceneId]/groups",
   "product_code": "OpenSearch",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "D77D0DAF-790D-F5F5-A9C0-133738165014",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "result": {
+            "backendName": "result",
+            "description_en": "The returned results",
+            "description_zh": "返回结果",
+            "properties": {
+              "created": {
+                "backendName": "created",
+                "description_en": "The time when the experiment group was created",
+                "description_zh": "创建时间",
+                "example": "1588839490",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "id": {
+                "backendName": "id",
+                "description_en": "The ID of the group",
+                "description_zh": "组ID",
+                "example": "13466",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "name": {
+                "backendName": "name",
+                "description_en": "The alias of the group",
+                "description_zh": "组别名",
+                "example": "Group_2020-5-7_15:23:3",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "status": {
+                "backendName": "status",
+                "description_en": "The status of the experiment group.\n\n0: Inactive\n\n1: Active",
+                "description_zh": "状态\n0 未生效\n1 生效",
+                "example": "1",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "updated": {
+                "backendName": "updated",
+                "description_en": "The time when the experiment group was last updated",
+                "description_zh": "最后修改时间",
+                "example": "1588839490",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "httpCode": {
+            "backendName": "httpCode",
+            "format": "int32",
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "message": {
+            "backendName": "message",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body. For more information, see https://help.aliyun.com/document_detail/178935.html",

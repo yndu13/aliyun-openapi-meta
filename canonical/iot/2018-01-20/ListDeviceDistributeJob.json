@@ -7,7 +7,7 @@
   "description_zh": "调用该接口获取设备分发任务列表",
   "kebab_example": "",
   "method": "GET|POST",
-  "multi_version": true,
+  "multi_version": false,
   "name": "ListDeviceDistributeJob",
   "operation": {
     "action": "ListDeviceDistributeJob",
@@ -115,5 +115,169 @@
   ],
   "pathPattern": "",
   "product_code": "Iot",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The error code returned if the call fails. For more information, see [Error codes]（https://help.aliyun.com/document_detail/87387.html）",
+            "description_zh": "调用失败时，返回的错误码。更多信息，请参见[错误码]（https://help.aliyun.com/document_detail/87387.html）",
+            "example": "iot.system.SystemException",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The list of device distribution tasks returned if the call is successful. For more information, see the JobInfo section",
+            "description_zh": "调用成功后，返回的设备分发任务列表，详情参见JobInfo下信息",
+            "nullToEmpty": true,
+            "properties": {
+              "JobInfo": {
+                "backendName": "items",
+                "itemName": "items",
+                "items": {
+                  "properties": {
+                    "GmtCreate": {
+                      "backendName": "createTime",
+                      "format": "int64",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "JobId": {
+                      "backendName": "taskId",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "ProductKey": {
+                      "backendName": "productKey",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "SourceInstanceId": {
+                      "backendName": "srcInstanceId",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "SourceInstanceName": {
+                      "backendName": "srcInstanceName",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "SourceRegion": {
+                      "backendName": "srcRegion",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "SourceUid": {
+                      "backendName": "srcUid",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Status": {
+                      "backendName": "status",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "Strategy": {
+                      "backendName": "strategy",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    },
+                    "TargetInstanceConfigs": {
+                      "backendName": "targetInstanceConfigs",
+                      "itemName": "targetInstanceConfigs",
+                      "items": {
+                        "properties": {
+                          "TargetInstanceId": {
+                            "backendName": "targetInstanceId",
+                            "type": "string",
+                            "visibility": "Public"
+                          },
+                          "TargetInstanceName": {
+                            "backendName": "tarInstanceName",
+                            "type": "string",
+                            "visibility": "Public"
+                          },
+                          "TargetRegion": {
+                            "backendName": "tarRegion",
+                            "type": "string",
+                            "visibility": "Public"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array",
+                      "visibility": "Public"
+                    },
+                    "TargetUid": {
+                      "backendName": "tarUid",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Total": {
+                      "backendName": "total",
+                      "format": "int32",
+                      "type": "integer",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "NextToken": {
+                "backendName": "scrollToken",
+                "description_en": "The token for the next page. You can pass this value in the next request to retrieve the next page of data.\n\nIf the returned value is empty, no more pages are available",
+                "description_zh": "下一页标识。可在下次请求时传入，来获取下一页数据。\n\n如果返回值为空，则表示没有下一页数据了",
+                "example": "TGlzdFJlc291***",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Total": {
+                "backendName": "totalNum",
+                "description_en": "The total number of device distribution tasks returned",
+                "description_zh": "返回的设备分发任务总条数",
+                "example": "10",
+                "format": "int32",
+                "type": "integer",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "errorMessage",
+            "description_en": "The error message returned if the call fails",
+            "description_zh": "调用失败时，返回的出错信息",
+            "example": "系统异常",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The unique identifier generated by Alibaba Cloud for the request",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "E55E50B7-40EE-4B6B-8BBE-D3ED55CCF565",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the call was successful.\ntrue: The call was successful.\nfalse: The call failed",
+            "description_zh": "表示是否调用成功。\ntrue：调用成功。\nfalse：调用失败",
+            "example": "true",
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

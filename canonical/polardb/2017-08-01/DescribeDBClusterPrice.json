@@ -331,5 +331,139 @@
   ],
   "pathPattern": "",
   "product_code": "polardb",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "OrderType": {
+            "backendName": "data.orderType",
+            "description_en": "The order type. Valid values:\nBUY: new purchase.\nUPGRADE: specification change.\nRENEW: renewal.\nCONVERT: billing method conversion",
+            "description_zh": "订单类型。取值范围如下：\nBUY：新购。\nUPGRADE：变更配置。\nRENEW：续费。\nCONVERT：转换付费类型",
+            "example": "BUY",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "PriceInfo": {
+            "backendName": "data.priceInfo",
+            "description_en": "The price details",
+            "description_zh": "价格详细信息",
+            "properties": {
+              "Coupons": {
+                "backendName": "coupons",
+                "itemName": "Coupon",
+                "items": {
+                  "properties": {
+                    "CouponNo": {
+                      "backendName": "couponNo",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "IsSelected": {
+                      "backendName": "isSelected",
+                      "type": "string",
+                      "visibility": "Public"
+                    },
+                    "Name": {
+                      "backendName": "name",
+                      "type": "string",
+                      "visibility": "Public"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "Currency": {
+                "backendName": "currency",
+                "description_en": "The currency unit",
+                "description_zh": "货币单位",
+                "example": "CNY",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "DiscountPrice": {
+                "backendName": "discountPrice",
+                "description_en": "The discount amount",
+                "description_zh": "折扣",
+                "example": "1978.2",
+                "format": "float",
+                "type": "number",
+                "visibility": "Public"
+              },
+              "OriginalPrice": {
+                "backendName": "originalPrice",
+                "description_en": "The original price",
+                "description_zh": "原价",
+                "example": "1099.0",
+                "format": "float",
+                "type": "number",
+                "visibility": "Public"
+              },
+              "RuleIds": {
+                "backendName": "ruleIds",
+                "itemName": "RuleId",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "visibility": "Public"
+              },
+              "TradePrice": {
+                "backendName": "tradePrice",
+                "description_en": "The final price, which is the original price minus the discount",
+                "description_zh": "最终价，为原价减去折扣",
+                "example": "165.0",
+                "format": "float",
+                "type": "number",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求 ID",
+            "example": "7E2FE3BB-C677-5FF9-9FC5-XXX",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Rules": {
+            "backendName": "data.rules",
+            "itemName": "Rule",
+            "items": {
+              "properties": {
+                "Name": {
+                  "backendName": "name",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "RuleId": {
+                  "backendName": "ruleId",
+                  "format": "int64",
+                  "type": "integer",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "visibility": "Public"
+          },
+          "ShowDiscount": {
+            "backendName": "data.showDiscount",
+            "description_en": "Indicates whether discounts are allowed",
+            "description_zh": "是否允许使用折扣",
+            "example": "False",
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

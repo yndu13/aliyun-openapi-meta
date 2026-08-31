@@ -63,5 +63,176 @@
   ],
   "pathPattern": "",
   "product_code": "CCC",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code",
+            "description_zh": "响应码",
+            "example": "OK",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The response data",
+            "description_zh": "坐席状态数据",
+            "nullToEmpty": false,
+            "properties": {
+              "BreakCode": {
+                "backendName": "breakCode",
+                "description_en": "The reason code for the agent's break. This can be a system-defined or a custom code. System-defined codes include:",
+                "description_zh": "小休状态码，分为系统定义的和客户定义的两种，系统定义的小休码包括：Warm-up\n（坐席上线后置闲前的临时小休状态）、RingingTimeout（坐席振铃超时导致的小休）、RejectCall（坐席拒接导致的小休）。客户自定义状态码没有限制，客户可以根据业务需要自行定义",
+                "example": "Warm-up",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "DeviceId": {
+                "backendName": "deviceId",
+                "description_en": "The ID of the registered device, such as a browser-based WebRTC softphone or a physical phone. An agent can register only one device at a time",
+                "description_zh": "设备ID，浏览器WebRTC软电话或实体话机设备的标识ID，同一时间只允许一种设备注册",
+                "example": "ACC-YUNBS-1.0.10-****",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Extension": {
+                "backendName": "extension",
+                "description_en": "The agent's extension",
+                "description_zh": "坐席分机号",
+                "example": "8001****",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "InstanceId": {
+                "backendName": "instanceId",
+                "description_en": "The ID of the instance",
+                "description_zh": "实例ID",
+                "example": "ccc-test",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "JobId": {
+                "backendName": "jobId",
+                "description_en": "The ID of the call. This parameter is returned only if the agent is on a call",
+                "description_zh": "通话ID，如果该字段有值，说明坐席当前处于通话过程中",
+                "example": "无",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "OutboundScenario": {
+                "backendName": "outboundScenario",
+                "description_en": "Indicates whether the outbound-only mode is enabled for the agent",
+                "description_zh": "坐席是否开启了仅外呼模式",
+                "example": "false",
+                "nullToEmpty": false,
+                "type": "boolean",
+                "visibility": "Public"
+              },
+              "SignedSkillGroupIdList": {
+                "backendName": "signedSkillGroupIdList",
+                "description_en": "The IDs of the skill groups that the agent is signed in to",
+                "description_zh": "坐席签入的技能组ID列表",
+                "itemName": "SkillGroupId",
+                "items": {
+                  "backendName": "signedSkillGroupIdList",
+                  "description_en": "The ID of the skill group",
+                  "description_zh": "技能组ID",
+                  "example": "skillgroup@ccc-test",
+                  "nullToEmpty": false,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "nullToEmpty": false,
+                "type": "array",
+                "visibility": "Public"
+              },
+              "UserId": {
+                "backendName": "userId",
+                "description_en": "The ID of the agent",
+                "description_zh": "坐席ID",
+                "example": "agent@ccc-test",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "UserState": {
+                "backendName": "userState",
+                "description_en": "The current state of the agent",
+                "description_zh": "坐席状态",
+                "example": "OFFLINE",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              },
+              "WorkMode": {
+                "backendName": "workMode",
+                "description_en": "The agent's work mode",
+                "description_zh": "工作模式",
+                "example": "ON_SITE",
+                "nullToEmpty": false,
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "HttpStatusCode": {
+            "backendName": "httpStatusCode",
+            "description_en": "The HTTP status code",
+            "description_zh": "HTTP状态码",
+            "example": "200",
+            "format": "int32",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The response message",
+            "description_zh": "响应信息",
+            "example": "无",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Params": {
+            "backendName": "params",
+            "itemName": "Param",
+            "items": {
+              "backendName": "params",
+              "description_en": "A reserved parameter",
+              "description_zh": "参数信息",
+              "example": "无",
+              "nullToEmpty": false,
+              "type": "string",
+              "visibility": "Public"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "EEEE671A-3E24-4A04-81E6-6C4F5B39DF75",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

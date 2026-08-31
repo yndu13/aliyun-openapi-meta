@@ -2,6 +2,75 @@
   "camel_example": "",
   "cmd_full_name": "hbr create-restore-job",
   "cmd_name": "create-restore-job",
+  "components": {
+    "schemas": {
+      "OtsTableRestoreDetail": {
+        "description_en": "The information about the restoration of the Tablestore instance",
+        "description_zh": "Tablestore恢复信息",
+        "properties": {
+          "BatchChannelCount": {
+            "backendName": "batchChannelCount",
+            "description_en": "The number of concurrent processes for each restore job",
+            "description_zh": "每一个恢复任务的并发处理数量",
+            "example": "0",
+            "format": "int32",
+            "title": "Concurrent processing channel count for each restore task",
+            "type": "integer"
+          },
+          "IndexNameSuffix": {
+            "backendName": "indexNameSuffix",
+            "description_en": "The name prefixes of the indexes that you want to restore",
+            "description_zh": "指定要恢复的索引名称前缀",
+            "example": "2022xxxx143933",
+            "title": "Specify a suffix to restored index name",
+            "type": "string"
+          },
+          "OverwriteExisting": {
+            "backendName": "overwriteExisting",
+            "description_en": "Specifies whether to overwrite existing tables",
+            "description_zh": "是否覆盖已存在的表",
+            "example": "true",
+            "title": "Overwrite existing table or not",
+            "type": "boolean"
+          },
+          "ReGenerateAutoIncrementPK": {
+            "backendName": "reGenerateAutoIncrementPK",
+            "description_en": "Specifies whether to regenerate auto-increment primary keys",
+            "description_zh": "是否重新生成自增主键",
+            "example": "true",
+            "title": "Re-generate auto incrmental primary key or not",
+            "type": "boolean"
+          },
+          "RestoreIndex": {
+            "backendName": "restoreIndex",
+            "description_en": "Specifies whether to restore indexes",
+            "description_zh": "是否恢复索引",
+            "example": "true",
+            "title": "Restore index or not",
+            "type": "boolean"
+          },
+          "RestoreSearchIndex": {
+            "backendName": "restoreSearchIndex",
+            "description_en": "Specifies whether to restore search indexes",
+            "description_zh": "是否恢复搜索索引",
+            "example": "true",
+            "title": "Restore search index or not",
+            "type": "boolean"
+          },
+          "SearchIndexNameSuffix": {
+            "backendName": "searchIndexNameSuffix",
+            "description_en": "The name prefixes of the search indexes that you want to restore",
+            "description_zh": "指定要恢复的搜索索引名称前缀",
+            "example": "2022xxxx143933",
+            "title": "Specify a suffix to restored search index name",
+            "type": "string"
+          }
+        },
+        "title": "A short description of struct",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Creates a restore job",
   "description_zh": "创建一个恢复任务",
@@ -487,5 +556,54 @@
   ],
   "pathPattern": "",
   "product_code": "hbr",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code. The value 200 indicates success",
+            "description_zh": "返回码，200表示成功",
+            "example": "200",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The response message. The value \"successful\" is returned for a success. An error message is returned for a failure",
+            "description_zh": "返回信息描述，成功一般返回successful，错误时会返回相应错误信息",
+            "example": "successful",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RestoreId": {
+            "backendName": "restoreId",
+            "description_en": "The ID of the restore job",
+            "description_zh": "恢复任务ID",
+            "example": "r-*********************",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful.\ntrue: The request was successful.\nfalse: The request failed",
+            "description_zh": "请求是否成功。\ntrue：成功\nfalse：失败",
+            "example": "true",
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

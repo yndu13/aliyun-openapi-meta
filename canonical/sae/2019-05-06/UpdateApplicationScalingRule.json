@@ -126,5 +126,242 @@
   ],
   "pathPattern": "/pop/v1/sam/scale/applicationScalingRule",
   "product_code": "sae",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The returned information",
+        "description_zh": "返回信息",
+        "properties": {
+          "Code": {
+            "description_en": "The HTTP status code or a POP error code.\n\n2xx: The request was successful.\n\n3xx: The request was redirected.\n\n4xx: A client-side error occurred.\n\n5xx: A server-side error occurred",
+            "description_zh": "接口状态或POP错误码。取值说明如下：\n\n2xx：成功。\n3xx：重定向。\n4xx：请求错误。\n5xx：服务器错误",
+            "example": "200",
+            "type": "string"
+          },
+          "Data": {
+            "description_en": "The response data",
+            "description_zh": "返回结果",
+            "properties": {
+              "AppId": {
+                "description_en": "The application ID",
+                "description_zh": "应用ID",
+                "example": "7171a6ca-d1cd-4928-8642-7d5cfe69****",
+                "type": "string"
+              },
+              "CreateTime": {
+                "description_en": "The time when the scaling policy was created, in milliseconds",
+                "description_zh": "弹性伸缩策略的创建时间。单位：毫秒",
+                "example": "1616642248938",
+                "format": "int64",
+                "type": "integer"
+              },
+              "EnableIdle": {
+                "description_en": "Specifies whether to enable idle mode",
+                "description_zh": "是否开启闲置模式",
+                "type": "boolean"
+              },
+              "LastDisableTime": {
+                "description_en": "The time when the scaling policy was last disabled, in milliseconds",
+                "description_zh": "最近一次禁用弹性伸缩策略的时间",
+                "example": "1641882854484",
+                "format": "int64",
+                "type": "integer"
+              },
+              "Metric": {
+                "description_en": "The configuration for metric-based scaling",
+                "description_zh": "监控指标弹性伸缩",
+                "properties": {
+                  "MaxReplicas": {
+                    "description_en": "The maximum number of instances",
+                    "description_zh": "最大实例数",
+                    "example": "3",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "Metrics": {
+                    "description_en": "The metrics that trigger scaling actions",
+                    "description_zh": "监控指标弹性伸缩列表",
+                    "items": {
+                      "description_en": "The configuration for a specific metric trigger",
+                      "description_zh": "监控指标数据",
+                      "properties": {
+                        "MetricTargetAverageUtilization": {
+                          "description_en": "The target value for the specified metric. The unit varies based on the metric type.\n\nTarget CPU utilization, in percentage.\n\nTarget memory usage, in percentage.\n\nTarget queries per second (QPS).\n\nTarget response time, in milliseconds.\n\nThe target number of active TCP connections.\n\nTarget QPS for the public-facing SLB instance.\n\nTarget response time of the public-facing SLB instance, in milliseconds.\n\nTarget QPS for the internal SLB instance.\n\nTarget response time of the internal SLB instance, in milliseconds",
+                          "description_zh": "监控指标的目标值。\n\nCPU使用率目标值，单位为百分比。\n内存使用率目标值，单位为百分比。\nQPS，单位为秒。\n响应时间，单位为毫秒。\nTCP活跃连接数平均值，单位为个/秒。\n公网SLB QPS，单位为秒。\n公网SLB响应时间，单位为毫秒。\n私网SLB QPS，单位为秒。\n私网SLB响应时间，单位为毫秒",
+                          "example": "20",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "MetricType": {
+                          "description_en": "The metric that triggers the scaling policy. Valid values:\n\nCPU: CPU utilization.\n\nMEMORY: memory usage.\n\nQPS: The average queries per second (QPS) per instance over the last minute. This applies only to Java applications.\n\nRT: The average response time (RT) of all service interfaces in the application over the last minute. This applies only to Java applications.\n\ntcpActiveConn: The average number of active TCP connections per instance over the last 30 seconds.\n\nSLB_QPS: The average QPS from the public-facing SLB, per instance, over the last 15 seconds.\n\nSLB_RT: The average response time of a public-facing SLB instance over the last 15 seconds.\n\nINTRANET_SLB_QPS: The average QPS from the internal SLB, per instance, over the last 15 seconds.\n\nINTRANET_SLB_RT: The average response time of an internal SLB instance over the last 15 seconds",
+                          "description_zh": "监控指标触发条件。取值说明如下：\n\nCPU：CPU使用率。\nMEMORY：内存使用率。\nQPS：JAVA应用1分钟内单个实例的平均QPS。\nRT：JAVA应用1分钟内应用所有服务接口平均RT值。\ntcpActiveConn：30秒内单个实例的平均TCP活跃连接数。\nSLB_QPS：15秒内单个实例的平均公网SLB QPS。\nSLB_RT：15秒内公网SLB平均响应时间。\nINTRANET_SLB_QPS：15秒内单个实例的平均私网SLB QPS。\nINTRANET_SLB_RT：15秒内私网SLB平均响应时间",
+                          "example": "CPU",
+                          "type": "string"
+                        },
+                        "SlbId": {
+                          "description_en": "The SLB instance ID",
+                          "description_zh": "SLB实例ID",
+                          "example": "lb-xxx",
+                          "type": "string"
+                        },
+                        "SlbLogstore": {
+                          "description_en": "The name of the Logstore for SLB access logs",
+                          "description_zh": "SLB访问日志Logstore",
+                          "example": "test",
+                          "type": "string"
+                        },
+                        "SlbProject": {
+                          "description_en": "The name of the Log Service Project for SLB access logs",
+                          "description_zh": "SLB访问日志Project",
+                          "example": "test",
+                          "type": "string"
+                        },
+                        "Vport": {
+                          "description_en": "The SLB port",
+                          "description_zh": "SLB端口",
+                          "example": "80",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "MinReplicas": {
+                    "description_en": "The minimum number of instances",
+                    "description_zh": "最小实例数",
+                    "example": "1",
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "ScaleRuleEnabled": {
+                "description_en": "Specifies whether the scaling policy is enabled. Valid values:\n\ntrue: Enabled.\n\nfalse: Disabled",
+                "description_zh": "是否启用弹性伸缩策略。取值说明如下：\n\ntrue：启用状态。\nfalse：禁用状态",
+                "example": "true",
+                "type": "boolean"
+              },
+              "ScaleRuleName": {
+                "description_en": "The name of the scaling policy",
+                "description_zh": "弹性伸缩策略名称",
+                "example": "test",
+                "type": "string"
+              },
+              "ScaleRuleType": {
+                "description_en": "The type of the scaling policy. Valid values:\n\ntiming: scheduled scaling\n\nmetric: metric-based scaling\n\nmix: hybrid scaling",
+                "description_zh": "弹性伸缩策略类型。取值说明如下：\n\ntiming：定时弹性。\nmetric：监控指标弹性。\nmix：混合弹性",
+                "example": "timing",
+                "type": "string"
+              },
+              "Timer": {
+                "description_en": "The configuration for scheduled scaling",
+                "description_zh": "定时弹性伸缩",
+                "properties": {
+                  "BeginDate": {
+                    "description_en": "The start date of the short-term scheduled scaling policy.\n\nIf BeginDate and EndDate are both set to null, the policy is long-term by default.\n\nIf you specify a date range, for example, BeginDate is set to 2021-03-25 and EndDate is set to 2021-04-25, the policy is effective for one month",
+                    "description_zh": "定时弹性伸缩策略的短期起始日期。取值说明如下：\n\n当BeginDate和EndDate取值均为null时，表示长期执行，为默认值。\n当取值为具体日期时，例如BeginDate为2021-03-25，EndDate为2021-04-25，表示执行有效期为1个月",
+                    "example": "2021-03-25",
+                    "type": "string"
+                  },
+                  "EndDate": {
+                    "description_en": "The end date of the short-term scheduled scaling policy.\n\nIf BeginDate and EndDate are both set to null, the policy is long-term by default.\n\nIf you specify a date range, for example, BeginDate is set to 2021-03-25 and EndDate is set to 2021-04-25, the policy is effective for one month",
+                    "description_zh": "定时弹性伸缩策略的短期结束日期。取值说明如下：\n\n当BeginDate和EndDate取值均为null时，表示长期执行，为默认值。\n当取值为具体日期时，例如BeginDate为2021-03-25，EndDate为2021-04-25，表示执行有效期为1个月",
+                    "example": "2021-04-25",
+                    "type": "string"
+                  },
+                  "Period": {
+                    "description_en": "The recurrence schedule for the scaling policy.\n\n*** * *: The policy runs at a specified time every day.\n\n* * Fri,Mon: The policy runs at a specified time on specific days of a week. You can select multiple days. The time is in the GMT+8 time zone. Valid values:\n\nSun: Sunday\n\nMon: Monday\n\nTue: Tuesday\n\nWed: Wednesday\n\nThu: Thursday\n\nFri: Friday\n\nSat: Saturday\n\n**1,2,3,28,31 * *: The policy runs at a specified time on specific days of a month. You can select multiple days. If a month does not have a specific day, such as the 31st, the policy skips that day",
+                    "description_zh": "执行定时弹性伸缩策略的周期。取值说明如下：\n\n*** * *：每天指定时间执行定时策略。\n* * Fri,Mon：每周指定天数的指定时间执行定时策略，支持多选，GMT+8时区。取值说明如下： \n\n    - Sun：星期日\n    - Mon：星期一\n    - Tue：星期二\n    - Wed：星期三\n    - Thu：星期四\n    - Fri：星期五\n    - Sat：星期六\n**1,2,3,28,31 * *：每月指定日期的指定时间执行定时策略，支持多选。取值范围[1,31]。若当月无31日，则跳过该日期执行定时策略",
+                    "example": "* * *",
+                    "type": "string"
+                  },
+                  "Schedules": {
+                    "description_en": "The schedules for the scaling policy",
+                    "description_zh": "单天内触发时间点",
+                    "items": {
+                      "description_en": "The configuration for a specific trigger schedule",
+                      "description_zh": "时间点数据",
+                      "properties": {
+                        "AtTime": {
+                          "description_en": "The time at which the scaling action is triggered. Format: HH:mm",
+                          "description_zh": "时间点。格式：时:分",
+                          "example": "08:00",
+                          "type": "string"
+                        },
+                        "MaxReplicas": {
+                          "description_en": "The maximum number of instances",
+                          "description_zh": "最大实例数",
+                          "example": "10",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "MinReplicas": {
+                          "description_en": "The minimum number of instances",
+                          "description_zh": "最小实例数",
+                          "example": "1",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "TargetReplicas": {
+                          "description_en": "The target number of instances",
+                          "description_zh": "目标实例数",
+                          "example": "3",
+                          "format": "int32",
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "UpdateTime": {
+                "description_en": "The time when the scaling policy was updated, in milliseconds",
+                "description_zh": "弹性伸缩策略的更新时间。单位：毫秒",
+                "example": "1616642248938",
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "ErrorCode": {
+            "description_en": "The error code.\n\nThis parameter is returned only if the request fails.\n\nFor more information, see the Error codes section in this topic",
+            "description_zh": "错误码。取值说明如下：\n\n请求成功：不返回ErrorCode字段。\n请求失败：返回ErrorCode字段。具体信息，请参见本文的错误码列表",
+            "type": "string"
+          },
+          "Message": {
+            "description_en": "The response message.\n\nsuccess is returned if the request is successful.\n\nAn error message is returned if the request fails",
+            "description_zh": "附加信息。取值说明如下：\n\n请求正常，返回success。\n请求异常，返回具体异常错误码",
+            "example": "success",
+            "type": "string"
+          },
+          "RequestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "91F93257-7A4A-4BD3-9A7E-2F6EAE6D****",
+            "type": "string"
+          },
+          "Success": {
+            "description_en": "Specifies whether the request was successful. Valid values:\n\ntrue: The request was successful.\n\nfalse: The request failed",
+            "description_zh": "重启应用实例是否成功。取值说明如下：\n\ntrue：重启成功。\nfalse：重启失败",
+            "example": "true",
+            "type": "boolean"
+          },
+          "TraceId": {
+            "description_en": "The trace ID used to query call details",
+            "description_zh": "调用链ID，用于精确查询调用信息",
+            "example": "0a98a02315955564772843261e****",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

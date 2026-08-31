@@ -2,6 +2,147 @@
   "camel_example": "",
   "cmd_full_name": "paistudio operate-node",
   "cmd_name": "operate-node",
+  "components": {
+    "schemas": {
+      "NodeCordonParameters": {
+        "description_en": "Parameter settings for cordoning a node",
+        "description_zh": "节点禁止调度参数配置",
+        "properties": {
+          "Comment": {
+            "backendName": "Comment",
+            "description_en": "User-configurable reason for disabling scheduling  ",
+            "description_zh": "用户可配置禁止调度原因",
+            "example": "this is a comment",
+            "title": "用户可配置禁止调度原因",
+            "type": "string"
+          },
+          "QuotaId": {
+            "backendName": "QuotaId",
+            "description_en": "Quota ID, used when disabling edge zone scheduling in a workspace  ",
+            "description_zh": "Quota Id，在工作空间禁止节点调度时使用",
+            "example": "quota1dkoutl3tj1",
+            "title": "Quota Id，在工作空间禁止节点调度时使用",
+            "type": "string"
+          },
+          "WorkspaceId": {
+            "backendName": "WorkspaceId",
+            "description_en": "Workspace ID, used when disabling edge zone scheduling in a workspace  ",
+            "description_zh": "Workspace Id，在工作空间禁止节点调度时使用",
+            "example": "12345",
+            "title": "Workspace Id，在工作空间禁止节点调度时使用",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "NodeDrainParameters": {
+        "description_en": "Parameters for the node drain operation",
+        "description_zh": "清空节点操作参数",
+        "properties": {
+          "Force": {
+            "backendName": "Force",
+            "type": "boolean"
+          },
+          "PodFromSubProducts": {
+            "backendName": "PodFromSubProducts",
+            "description_en": "Delete pods of the specified job types  ",
+            "description_zh": "清空指定任务类型的Pod",
+            "items": {
+              "description_en": "Job Type: dlc/dsw/eas/tensorboard  ",
+              "description_zh": "任务类型：dlc/dsw/eas/tensorboard",
+              "example": "dlc",
+              "title": "任务类型：dlc/dsw/eas/tensorboard",
+              "type": "string"
+            },
+            "title": "清空指定任务类型的Pod",
+            "type": "array"
+          },
+          "PodNames": {
+            "backendName": "PodNames",
+            "description_en": "Delete specified pods  ",
+            "description_zh": "清空指定Pod",
+            "items": {
+              "description_en": "Pod name  ",
+              "description_zh": "Pod名称",
+              "example": "dlcxxxx-master-0",
+              "title": "Pod名称",
+              "type": "string"
+            },
+            "title": "清空指定Pod",
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "NodeOperationParameters": {
+        "description_en": "The node operation parameter settings",
+        "description_zh": "节点操作参数配置",
+        "properties": {
+          "CordonParameters": {
+            "$ref": "#/components/schemas/NodeCordonParameters",
+            "backendName": "CordonParameters",
+            "description_en": "The parameter settings for disabling node scheduling",
+            "description_zh": "节点禁止调度参数配置"
+          },
+          "DrainParameters": {
+            "$ref": "#/components/schemas/NodeDrainParameters",
+            "backendName": "DrainParameters",
+            "description_en": "The parameter settings for draining task instances from a node",
+            "description_zh": "节点驱逐任务实例参数配置"
+          },
+          "ResizeDiskParameters": {
+            "$ref": "#/components/schemas/ResizeDiskParameters",
+            "backendName": "ResizeDiskParameters",
+            "description_en": "The parameters for changing disk capacity",
+            "description_zh": "变更磁盘容量参数",
+            "title": "变更磁盘容量参数"
+          },
+          "UncordonParameters": {
+            "$ref": "#/components/schemas/NodeUncordonParameters",
+            "backendName": "UncordonParameters",
+            "description_en": "The parameter settings for enabling node scheduling",
+            "description_zh": "节点启动调度参数配置"
+          }
+        },
+        "type": "object"
+      },
+      "NodeUncordonParameters": {
+        "description_en": "Parameter settings for uncordoning a node",
+        "description_zh": "节点启动调度参数配置",
+        "properties": {
+          "QuotaId": {
+            "backendName": "QuotaId",
+            "description_en": "Quota ID. You can use this ID when you start a workspace or disable scheduling nodes",
+            "description_zh": "Quota Id，启动工作空间禁止调度节点时使用",
+            "example": "quota1ci8g793pgm",
+            "title": "Quota Id，启动工作空间禁止调度节点时使用",
+            "type": "string"
+          },
+          "WorkspaceId": {
+            "backendName": "WorkspaceId",
+            "description_en": "The ID of the workspace that contains the node to uncordon",
+            "description_zh": "Workspace Id，启动在工作空间禁止调度的节点时使用",
+            "example": "12345",
+            "title": "Workspace Id，启动在工作空间禁止调度的节点时使用",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ResizeDiskParameters": {
+        "properties": {
+          "NewDiskSize": {
+            "backendName": "NewDiskSize",
+            "description_en": "The target disk capacity after the change",
+            "description_zh": "变更磁盘容量目标",
+            "title": "变更磁盘容量目标",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Operates on a specified node",
   "description_zh": "您可以通过OperateNode对节点进行操作",
@@ -255,6 +396,33 @@
   "pathPattern": "/api/v1/nodes/[NodeId]",
   "product_code": "PaiStudio",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "NodeId": {
+            "description_en": "The node ID",
+            "description_zh": "节点ID",
+            "example": "lingjunxxxx-mgxxx-xxxx",
+            "type": "string"
+          },
+          "RequestId": {
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "96496E6E-00B4-5F55-80F6-1844FA9E92DC",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body",

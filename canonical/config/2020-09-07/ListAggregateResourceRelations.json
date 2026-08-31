@@ -154,5 +154,109 @@
   ],
   "pathPattern": "",
   "product_code": "Config",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "traceId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "7A25F9DE-4C8B-5AD3-A241-FFF5A259E5A1",
+            "type": "string"
+          },
+          "ResourceRelations": {
+            "backendName": "data",
+            "description_en": "The result of the relationship",
+            "description_zh": "资源关系结果",
+            "properties": {
+              "MaxResults": {
+                "backendName": "maxResults",
+                "description_en": "The maximum number of entries returned on each page",
+                "description_zh": "每页的最大记录数",
+                "example": "10",
+                "format": "int32",
+                "type": "integer"
+              },
+              "NextToken": {
+                "backendName": "nextToken",
+                "description_en": "The token that was used to initiate the next request",
+                "description_zh": "查询下一页使用的Token",
+                "example": "AcBjqMYSy0is7zSMGu16****",
+                "nullToEmpty": true,
+                "required": false,
+                "type": "string"
+              },
+              "ResourceRelationList": {
+                "backendName": "data",
+                "description_en": "An array that contains the relationships",
+                "description_zh": "资源关系列表",
+                "itemName": "ResourceRelationList",
+                "items": {
+                  "description_zh": "资源关系列表",
+                  "properties": {
+                    "AccountId": {
+                      "backendName": "accountId",
+                      "description_en": "The Alibaba Cloud account ID of the resource owner",
+                      "description_zh": "资源拥有者的阿里云账号ID",
+                      "example": "100931896542****",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "RelationType": {
+                      "backendName": "relationType",
+                      "description_en": "The type of the relationship between the resource and the object.\n\nValid values:\n\nIsContained: The object is included as part of the resource.\nIsAttachedTo: The object is added to the resource.\nIsAssociatedIn: The object is associated with the resource.\nContains: The object contains the resource",
+                      "description_zh": "资源关系类型",
+                      "example": "IsAttachedTo",
+                      "type": "string"
+                    },
+                    "SourceResourceId": {
+                      "backendName": "sourceResourceId",
+                      "description_en": "The resource ID of the current resource",
+                      "description_zh": "当前资源的资源ID",
+                      "example": "i-j6cajg9yrfoh4sas****",
+                      "type": "string"
+                    },
+                    "SourceResourceRegionId": {
+                      "backendName": "sourceResourceRegionId",
+                      "description_en": "The region ID of the current resource",
+                      "description_zh": "当前资源的资源所属地域ID",
+                      "example": "cn-shanghai",
+                      "type": "string"
+                    },
+                    "SourceResourceType": {
+                      "backendName": "sourceResourceType",
+                      "description_en": "The type of the resource",
+                      "description_zh": "当前资源的资源类型",
+                      "example": "ACS::ECS::Instance",
+                      "type": "string"
+                    },
+                    "TargetResourceId": {
+                      "backendName": "targetResourceId",
+                      "description_en": "The resource ID of the resource that is associated with the object",
+                      "description_zh": "关联资源的资源ID",
+                      "example": "d-j6c8k731qbrc7fxi****",
+                      "type": "string"
+                    },
+                    "TargetResourceType": {
+                      "backendName": "targetResourceType",
+                      "description_en": "The type of the resource that is associated with the object",
+                      "description_zh": "关联资源的资源类型",
+                      "example": "ACS::ECS::Disk",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

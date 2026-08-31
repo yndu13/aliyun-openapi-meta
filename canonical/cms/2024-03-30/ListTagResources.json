@@ -1,6 +1,36 @@
 {
   "cmd_full_name": "cms list-tag-resources",
   "cmd_name": "list-tag-resources",
+  "components": {
+    "schemas": {
+      "Tag": {
+        "description_en": "The tag",
+        "description_zh": "标签",
+        "properties": {
+          "key": {
+            "backendName": "key",
+            "description_en": "The tag key",
+            "description_zh": "标签键",
+            "example": "env",
+            "maxLength": 128,
+            "title": "标签键",
+            "type": "string"
+          },
+          "value": {
+            "backendName": "value",
+            "description_en": "The tag value",
+            "description_zh": "标签值",
+            "example": "test",
+            "maxLength": 256,
+            "title": "标签值",
+            "type": "string"
+          }
+        },
+        "title": "标签",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Queries labels associated with resources",
   "description_zh": "查标签接口",
@@ -121,5 +151,90 @@
   ],
   "pathPattern": "/tags",
   "product_code": "Cms",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "maxResults": {
+            "description_en": "The maximum number of results to return. Maximum value: 200",
+            "description_zh": "最大返回结果数，最大值200",
+            "example": "20",
+            "format": "int32",
+            "title_en": "列表最大数量",
+            "title_zh": "列表最大数量",
+            "type": "integer"
+          },
+          "nextToken": {
+            "description_en": "The token for the next query",
+            "description_zh": "下一个查询开始Token",
+            "example": "xxxxxxxxxx",
+            "title_en": "下一个查询开始Token",
+            "title_zh": "下一个查询开始Token",
+            "type": "string"
+          },
+          "requestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "0CEC5375-C554-562B-A65F-***",
+            "title_en": "请求id",
+            "title_zh": "请求id",
+            "type": "string"
+          },
+          "tagResources": {
+            "description_en": "The label list",
+            "description_zh": "标签列表",
+            "itemName": "tagResources",
+            "items": {
+              "description_en": "The label list",
+              "description_zh": "标签列表",
+              "properties": {
+                "resourceId": {
+                  "description_en": "The resource ID",
+                  "description_zh": "资源ID",
+                  "example": "test",
+                  "title_en": "资源ID",
+                  "title_zh": "资源ID",
+                  "type": "string"
+                },
+                "resourceType": {
+                  "description_en": "The resource type",
+                  "description_zh": "资源类型",
+                  "example": "Service",
+                  "title_en": "资源类型",
+                  "title_zh": "资源类型",
+                  "type": "string"
+                },
+                "tagKey": {
+                  "description_en": "The label key",
+                  "description_zh": "标签键",
+                  "example": "env",
+                  "title_en": "标签键",
+                  "title_zh": "标签键",
+                  "type": "string"
+                },
+                "tagValue": {
+                  "description_en": "The label value",
+                  "description_zh": "标签值",
+                  "example": "test",
+                  "title_en": "标签值",
+                  "title_zh": "标签值",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title_en": "资源列表",
+            "title_zh": "资源列表",
+            "type": "array"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

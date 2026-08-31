@@ -84,5 +84,52 @@
   ],
   "pathPattern": "",
   "product_code": "Slb",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Listeners": {
+            "backendName": "data.vips",
+            "itemName": "Listener",
+            "items": {
+              "properties": {
+                "BackendServers": {
+                  "backendName": "rsList",
+                  "itemName": "BackendServer",
+                  "items": {
+                    "properties": {
+                      "ServerHealthStatus": {
+                        "backendName": "status",
+                        "type": "string"
+                      },
+                      "ServerId": {
+                        "backendName": "vmName",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "ListenerPort": {
+                  "backendName": "frontendPort",
+                  "format": "int32",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

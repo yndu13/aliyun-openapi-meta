@@ -2,7 +2,7 @@
   "cmd_full_name": "ddoscoo config-layer7-cc-rule",
   "cmd_name": "config-layer7-cc-rule",
   "deprecated": false,
-  "description_en": "Edits a Layer 7 HTTP flood mitigation rule by calling ConfigLayer7CCRule",
+  "description_en": "Edits a Layer 7 HTTP flood mitigation rule",
   "description_zh": "调用ConfigLayer7CCRule编辑7层CC规则",
   "kebab_example": "",
   "method": "GET|POST",
@@ -86,7 +86,7 @@
     },
     {
       "example": "5",
-      "help_en": "The interval, in seconds. This parameter is used together with Count. When the same IP address consecutively visits the number of times specified by Count within the interval specified by Interval, the rule is triggered. Valid values: 5 to 10800",
+      "help_en": "The interval period, in seconds. This parameter is used together with Count. When the same IP address consecutively visits the number of times specified by Count within the interval specified by Interval, the rule is triggered. Valid values: 5 to 10800",
       "help_zh": "间隔时间，与Count结合使用。当同一个IP在Interval指定的间隔时间内连续访问Count中指定的访问次数，则触发规则。取值范围为5~10,800。 ",
       "location": "query",
       "name": "interval",
@@ -99,7 +99,7 @@
     },
     {
       "example": "match",
-      "help_en": "The URI matching mode. Valid values:\n\nmatch: exact match. The URI of the access request must be exactly the same as the specified Uri to be counted as a visit.\nprefix: prefix match. If the URI of the access request contains the specified Uri, the visit is counted",
+      "help_en": "The URI matching mode. Valid values:\n\nmatch: exact match. The URI of the access request must be exactly the same as the specified Uri to be counted as a visit.\nprefix: prefix match. The URI of the access request contains the specified Uri to be counted as a visit",
       "help_zh": "URI匹配模式，取值：\n\nmatch：完全匹配。访问请求的URI与指定的Uri完全相同，才计入访问次数。\nprefix：前缀匹配。访问请求的URI包含指定的Uri，则计入访问次数",
       "location": "query",
       "name": "mode",
@@ -139,5 +139,21 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "本次请求的ID",
+            "example": "CF33B4C3-196E-4015-AADD-5CAD00057B80",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

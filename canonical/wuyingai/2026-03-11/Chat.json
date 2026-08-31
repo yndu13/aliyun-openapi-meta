@@ -31,8 +31,8 @@
               "fields": [
                 {
                   "example": "report.pdf",
-                  "help_en": "The FileName",
-                  "help_zh": "The FileName",
+                  "help_en": "输入内容中的文件名",
+                  "help_zh": "输入内容中的文件名",
                   "name": "file_name",
                   "options": [
                     "--file-name"
@@ -78,9 +78,6 @@
                   "type": "string"
                 },
                 {
-                  "enum": [
-                    "text/file/image"
-                  ],
                   "example": "text",
                   "help_en": "The content type",
                   "help_zh": "内容类型",
@@ -106,9 +103,6 @@
             "type": "array"
           },
           {
-            "enum": [
-              "user / assistant / system / tool"
-            ],
             "example": "user",
             "help_en": "The message role",
             "help_zh": "消息角色",
@@ -282,8 +276,8 @@
       "type": "string"
     },
     {
-      "help_en": "The Resume",
-      "help_zh": "The Resume",
+      "help_en": "断线续传标识。设为 true 时表示恢复上一次未完成的流式响应，此时 Input 必须为空",
+      "help_zh": "断线续传标识。设为 true 时表示恢复上一次未完成的流式响应，此时 Input 必须为空",
       "location": "formData",
       "name": "resume",
       "options": [
@@ -296,5 +290,205 @@
   ],
   "pathPattern": "/api/agent/chat",
   "product_code": "WuyingAI",
-  "protocol": "HTTPS|SSE"
+  "protocol": "HTTPS|SSE",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The business status code",
+            "description_zh": "业务状态码",
+            "example": "200",
+            "title_en": "业务状态码",
+            "title_zh": "业务状态码",
+            "type": "string"
+          },
+          "Content": {
+            "backendName": "content",
+            "description_en": "The content block list (included only when the status is completed)",
+            "description_zh": "内容块列表（仅 completed 时携带）",
+            "itemName": "content",
+            "items": {
+              "properties": {
+                "Data": {
+                  "backendName": "data",
+                  "description_en": "Structured data (such as tool calling). Example: {\"call_id\":\"call_xxx\",\"name\":\"get_weather\", \"output\":\"Tool output details, in text format\"}. This field is returned when the response includes tool calling results",
+                  "description_zh": "结构化数据（如工具调用）。示例：{\"call_id\":\"call_xxx\",\"name\":\"get_weather\", \"output\":\"工具返回明细，文本格式\"}",
+                  "example": "{\"call_id\":\"call_xxx\",\"name\":\"get_weather\",\"arguments\":\"{\"city\":\"Beijing\"}\"}",
+                  "title_en": "结构化数据（如工具调用）。示例：{\"call_id\":\"call_xxx\",\"name\":\"get_weather\", \"output\":\"工具返回明细，文本格式\"}",
+                  "title_zh": "结构化数据（如工具调用）。示例：{\"call_id\":\"call_xxx\",\"name\":\"get_weather\", \"output\":\"工具返回明细，文本格式\"}",
+                  "type": "object"
+                },
+                "Object": {
+                  "backendName": "object",
+                  "description_en": "The object type",
+                  "description_zh": "对象类型",
+                  "example": "\"\"",
+                  "title_en": "对象类型",
+                  "title_zh": "对象类型",
+                  "type": "string"
+                },
+                "Text": {
+                  "backendName": "text",
+                  "description_en": "The text content",
+                  "description_zh": "文本内容",
+                  "example": "您好",
+                  "title_en": "文本内容",
+                  "title_zh": "文本内容",
+                  "type": "string"
+                },
+                "Type": {
+                  "backendName": "type",
+                  "description_en": "The content type (\"text\" / \"data\")",
+                  "description_zh": "内容类型（\"text\" / \"data\"）",
+                  "example": "text",
+                  "title_en": "内容类型（\"text\" / \"data\"）",
+                  "title_zh": "内容类型（\"text\" / \"data\"）",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "title_en": "内容块列表（仅 completed 时携带）",
+            "title_zh": "内容块列表（仅 completed 时携带）",
+            "type": "array"
+          },
+          "Created": {
+            "backendName": "created",
+            "description_en": "(Deprecated) The creation timestamp",
+            "description_zh": "（已废弃）创建时间戳",
+            "example": "1773380609",
+            "type": "string"
+          },
+          "CreatedAt": {
+            "backendName": "created_at",
+            "description_en": "The creation timestamp (Unix seconds)",
+            "description_zh": "创建时间戳（Unix 秒）",
+            "example": "1773380609",
+            "title_en": "创建时间戳（Unix 秒）",
+            "title_zh": "创建时间戳（Unix 秒）",
+            "type": "string"
+          },
+          "HttpStatusCode": {
+            "backendName": "httpStatusCode",
+            "description_en": "The HTTP status code",
+            "description_zh": "HTTP 状态码",
+            "example": "200",
+            "format": "int32",
+            "title_en": "HTTP 状态码",
+            "title_zh": "HTTP 状态码",
+            "type": "integer"
+          },
+          "Id": {
+            "backendName": "id",
+            "description_en": "The unique identifier of the message",
+            "description_zh": "消息唯一标识",
+            "example": "msg_xxx",
+            "title_en": "消息唯一标识",
+            "title_zh": "消息唯一标识",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The error details (returned on failure)",
+            "description_zh": "错误详情（失败时返回）",
+            "example": "null",
+            "title_en": "错误详情（失败时返回）",
+            "title_zh": "错误详情（失败时返回）",
+            "type": "string"
+          },
+          "Object": {
+            "backendName": "object",
+            "description_en": "The event object type",
+            "description_zh": "事件对象类型",
+            "example": "response",
+            "title_en": "事件对象类型",
+            "title_zh": "事件对象类型",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求 ID",
+            "example": "EA12****-****-****-****-****E5C",
+            "title_en": "请求 ID",
+            "title_zh": "请求 ID",
+            "type": "string"
+          },
+          "Role": {
+            "backendName": "role",
+            "description_en": "The role (user / assistant / system / tool)",
+            "description_zh": "角色（user / assistant / system / tool）",
+            "example": "user",
+            "title_en": "角色（user / assistant / system / tool）",
+            "title_zh": "角色（user / assistant / system / tool）",
+            "type": "string"
+          },
+          "SequenceNumber": {
+            "backendName": "sequence_number",
+            "description_en": "The event sequence number (an incrementing integer in string form, used to ensure ordering). When StreamOptions filters out certain event types, filtered events still consume sequence numbers, so the sequence numbers received by the client may not be consecutive",
+            "description_zh": "事件序号（字符串形式的递增整数，用于保证顺序）。注意：当 StreamOptions 过滤掉某类事件时，被过滤事件仍占用序号，因此客户端收到的序号可能不连续",
+            "example": "1",
+            "title_en": "事件序号（字符串形式的递增整数，用于保证顺序）。注意：当 StreamOptions 过滤掉某类事件时，被过滤事件仍占用序号，因此客户端收到的序号可能不连续",
+            "title_zh": "事件序号（字符串形式的递增整数，用于保证顺序）。注意：当 StreamOptions 过滤掉某类事件时，被过滤事件仍占用序号，因此客户端收到的序号可能不连续",
+            "type": "string"
+          },
+          "SessionId": {
+            "backendName": "session_id",
+            "description_en": "The session ID",
+            "description_zh": "会话 ID",
+            "example": "176405663****961",
+            "title_en": "会话 ID",
+            "title_zh": "会话 ID",
+            "type": "string"
+          },
+          "Status": {
+            "backendName": "status",
+            "description_en": "The reply status (created / in_progress / completed)",
+            "description_zh": "回复状态（created / in_progress / completed）",
+            "example": "in_progress",
+            "title_en": "回复状态（created / in_progress / completed）",
+            "title_zh": "回复状态（created / in_progress / completed）",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request is successful",
+            "description_zh": "是否成功",
+            "example": "true",
+            "title_en": "是否成功",
+            "title_zh": "是否成功",
+            "type": "boolean"
+          },
+          "Text": {
+            "backendName": "text",
+            "description_en": "The incremental text content (included in Object=content events)",
+            "description_zh": "增量文本内容（Object=content 事件携带）",
+            "example": "\"hello\"",
+            "title_en": "增量文本内容（Object=content 事件携带）",
+            "title_zh": "增量文本内容（Object=content 事件携带）",
+            "type": "string"
+          },
+          "TraceId": {
+            "backendName": "trace_id",
+            "example": "0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d",
+            "title_en": "全局 TraceId，仅在 Object=response 且 Status=completed 的结束事件中携带，用于后续额度/账单/问题排查的链路溯源",
+            "title_zh": "全局 TraceId，仅在 Object=response 且 Status=completed 的结束事件中携带，用于后续额度/账单/问题排查的链路溯源",
+            "type": "string"
+          },
+          "Type": {
+            "backendName": "type",
+            "description_en": "The message type (reasoning (model thinking process) / message (formal reply))",
+            "description_zh": "消息类型（reasoning（模型思考过程） / message（正式回复））",
+            "example": "message / text\n",
+            "title_en": "消息类型（reasoning（模型思考过程） / message（正式回复））",
+            "title_zh": "消息类型（reasoning（模型思考过程） / message（正式回复））",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

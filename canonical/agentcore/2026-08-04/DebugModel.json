@@ -78,5 +78,123 @@
   ],
   "pathPattern": "/workspaces/[workspaceId]/models/[modelId]/actions/debug",
   "product_code": "AgentCore",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_zh": "模型调试成功时返回的模型文本响应；调试失败时为空",
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "description_zh": "业务状态码。成功时为 SUCCESS",
+            "example": "SUCCESS",
+            "type": "string"
+          },
+          "data": {
+            "backendName": "data",
+            "description_zh": "模型调试结果",
+            "properties": {
+              "connectionId": {
+                "backendName": "connectionId",
+                "description_zh": "模型连接 ID",
+                "example": "mc-1",
+                "type": "string"
+              },
+              "debugSuccess": {
+                "backendName": "debugSuccess",
+                "description_zh": "模型调试是否成功",
+                "type": "boolean"
+              },
+              "errorCode": {
+                "backendName": "errorCode",
+                "description_en": "调试失败时的错误码。取值：MODEL_CONNECTION_NOT_READY（模型连接尚未发布就绪）、MODEL_CONNECTION_TEST_FAILED（平台调用网关失败）、UPSTREAM_MODEL_NOT_FOUND（模型服务商侧不存在该模型）、UPSTREAM_UNAUTHORIZED（模型服务商拒绝所配置的凭证）、UPSTREAM_RATE_LIMITED（模型服务商限流）、UPSTREAM_SERVER_ERROR（模型服务商服务端错误）、UPSTREAM_HTTP_ERROR（模型服务商返回其它非成功状态）、UPSTREAM_EMPTY_RESPONSE（模型服务商返回空响应）、UPSTREAM_INVALID_RESPONSE（模型服务商响应格式非法）、UPSTREAM_MODEL_ERROR（模型服务商拒绝本次请求）、MODEL_RESPONSE_INVALID（响应解析失败）",
+                "description_zh": "调试失败错误码",
+                "example": "UPSTREAM_MODEL_ERROR",
+                "title_en": "调试失败错误码",
+                "title_zh": "调试失败错误码",
+                "type": "string"
+              },
+              "errorMessage": {
+                "backendName": "errorMessage",
+                "description_en": "调试失败时的错误描述，为固定脱敏文案，不透传模型服务商的原始错误详情",
+                "description_zh": "调试失败错误描述",
+                "example": "The model endpoint rejected the debug request.",
+                "title_en": "调试失败错误描述",
+                "title_zh": "调试失败错误描述",
+                "type": "string"
+              },
+              "inputTokens": {
+                "backendName": "inputTokens",
+                "description_zh": "本次模型调试请求消耗的输入 Token 数量",
+                "example": "3",
+                "format": "int64",
+                "type": "integer"
+              },
+              "latencyMs": {
+                "backendName": "latencyMs",
+                "description_zh": "本次模型调试调用耗时，单位为毫秒",
+                "example": "12",
+                "format": "int64",
+                "type": "integer"
+              },
+              "modelId": {
+                "backendName": "modelId",
+                "description_zh": "模型 ID",
+                "example": "model-1",
+                "type": "string"
+              },
+              "outputTokens": {
+                "backendName": "outputTokens",
+                "description_zh": "本次模型调试响应消耗的输出 Token 数量",
+                "example": "2",
+                "format": "int64",
+                "type": "integer"
+              },
+              "response": {
+                "backendName": "response",
+                "description_zh": "模型调试成功时返回的模型文本响应；调试失败时为空",
+                "example": "ok",
+                "type": "string"
+              },
+              "status": {
+                "backendName": "status",
+                "description_en": "调试结果状态。取值：NORMAL（正常）、ABNORMAL（异常）",
+                "description_zh": "调试结果状态",
+                "example": "NORMAL",
+                "title_en": "调试结果状态",
+                "title_zh": "调试结果状态",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "httpStatusCode": {
+            "backendName": "httpStatusCode",
+            "description_zh": "HTTP 状态码。成功时为 200",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "message": {
+            "backendName": "message",
+            "description_zh": "请求处理结果消息",
+            "example": "success",
+            "type": "string"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "description_zh": "请求 ID",
+            "example": "request-1",
+            "type": "string"
+          },
+          "success": {
+            "backendName": "success",
+            "description_zh": "请求是否成功",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

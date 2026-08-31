@@ -109,5 +109,58 @@
   ],
   "pathPattern": "",
   "product_code": "alimt",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The error code",
+            "description_zh": "错误码",
+            "example": "200",
+            "format": "int32",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "errorMsg",
+            "description_en": "The message returned",
+            "description_zh": "返回信息",
+            "example": "success",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The unique ID of the request. Use this ID for troubleshooting",
+            "description_zh": "请求的唯一id，用于后续排查问题使用",
+            "example": "86D18195-D89C-4C8C-9DC4-5FCE789CE6D5",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "TranslatedList": {
+            "backendName": "data",
+            "itemName": "Translated",
+            "items": {
+              "backendName": "data",
+              "description_en": "The result, in JSON format.\n\ncode: The status code for the translation of a single segment.\n\nwordCount: The number of characters in the source text.\n\ndetectedLanguage: The language code of the source language detected when SourceLanguage is set to \\`auto\\`.\n\nindex: The key from the input parameters. This unique ID maps the result to the source text.\n\ntranslated: The translation result",
+              "description_zh": "返回结果，json格式\n\ncode：单条翻译的状态码\n\nwordCount：原文的字符数\n\ndetectedLanguage：源语言传入auto时，语种识别后的源语言代码\n\nindex：入参时候的key，唯一id，用于对应到原文\n\ntranslated：翻译结果",
+              "example": "[\n      {\n            \"code\": \"200\",\n            \"wordCount\": \"9\",\n            \"detectedLanguage\": \"en\"\n            \"index\": \"11\",\n            \"translated\": \"你好男孩\"\n      },\n      {\n            \"code\": \"200\",\n            \"wordCount\": \"7\",\n            \"detectedLanguage\": \"en\"\n            \"index\": \"12\",\n            \"translated\": \"回家\"\n      },\n      {\n            \"code\": \"200\",\n            \"wordCount\": \"6\",\n            \"detectedLanguage\": \"en\"\n            \"index\": \"13\",\n            \"translated\": \"我们可以\"\n      }\n]",
+              "nullToEmpty": false,
+              "type": "object",
+              "visibility": "Public"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

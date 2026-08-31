@@ -3,7 +3,7 @@
   "cmd_full_name": "privatelink disable-vpc-endpoint-zone-connection",
   "cmd_name": "disable-vpc-endpoint-zone-connection",
   "deprecated": false,
-  "description_en": "Closes connections in an endpoint zone",
+  "description_en": "Calls the DisableVpcEndpointZoneConnection operation to disconnect an endpoint zone connection",
   "description_zh": "调用DisableVpcEndpointZoneConnection接口，断开终端节点可用区连接",
   "kebab_example": "",
   "method": "GET|POST",
@@ -23,7 +23,7 @@
     {
       "doc_required": true,
       "example": "cn-hangzhou",
-      "help_en": "The ID of the region where the connection request from the endpoint is rejected.\n\nYou can call the https://help.aliyun.com/document_detail/120468.html operation to query the most recent region list",
+      "help_en": "The region ID of the endpoint connection that you want to reject endpoint connection.\n\nYou can invoke the https://help.aliyun.com/document_detail/120468.html operation to query the most recent region list",
       "help_zh": "要拒绝终端节点连接的地域ID。\n\n您可以通过调用https://help.aliyun.com/document_detail/120468.html接口获取地域ID",
       "location": "query",
       "name": "region_id",
@@ -49,7 +49,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\n\ntrue: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n\nfalse (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed",
+      "help_en": "Specifies whether to perform only a dry run, without performing the actual request. Valid values:\ntrue: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\nfalse (default): performs a dry run and performs the actual request. If the request passes the dry run, an HTTP 2xx status code is returned and the operation is directly performed",
       "help_zh": "是否只预检此次请求。取值：\ntrue：发送检查请求，不会拒绝连接请求。检查项包括是否填写了必需参数、请求格式、业务限制。如果检查不通过，则返回对应错误。如果检查通过，则返回错误码`DryRunOperation`。\nfalse（默认值）：发送正常请求，通过检查后返回HTTP 2xx状态码并直接进行操作",
       "location": "query",
       "name": "dry_run",
@@ -90,7 +90,7 @@
     },
     {
       "example": "cn-hangzhou-b",
-      "help_en": "The ID of the zone that is associated with the endpoint",
+      "help_en": "The zone ID of the endpoint connection",
       "help_zh": "终端节点连接可用区ID",
       "location": "query",
       "name": "zone_id",
@@ -103,7 +103,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to close connections in the endpoint zone after migration. Valid values:\n\ntrue: yes\n\nfalse (default): no\n\nSet the value to true if you want to close connections in the endpoint zone after migration",
+      "help_en": "Specifies whether to disconnect the legacy connection after smooth migration of EPS resource. Valid values:\n\ntrue: disconnects the legacy connection.\n\nfalse (default): does not disconnect the legacy connection.\n\nSet this property to true when you want to disconnect the legacy connection in the endpoint zone after smooth migration of EPS resource",
       "help_zh": "是否断开平滑迁移后的旧连接。取值：\n\ntrue：是。\n\nfalse（默认值）：否。\n\n在资源做平滑迁移后，断开终端节点在此可用区的旧的连接时选择此属性",
       "location": "query",
       "name": "replaced_resource",
@@ -117,5 +117,23 @@
   ],
   "pathPattern": "",
   "product_code": "Privatelink",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "0ED8D006-F706-4D23-88ED-E11ED28DCAC0",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

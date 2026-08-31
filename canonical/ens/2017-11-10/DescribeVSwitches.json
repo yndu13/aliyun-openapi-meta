@@ -133,8 +133,8 @@
       "type": "array"
     },
     {
-      "help_en": "The EnableIpv6",
-      "help_zh": "The EnableIpv6",
+      "help_en": "是否查询开启 IPv6 网段的交换机，取值：\ntrue：查询指定地域下开启 IPv6 网段的交换机。\nfalse：不查询指定地域下开启 IPv6 网段的交换机。\n\n如果不传入该参数，系统默认查询指定地域下的所有交换机",
+      "help_zh": "是否查询开启 IPv6 网段的交换机，取值：\ntrue：查询指定地域下开启 IPv6 网段的交换机。\nfalse：不查询指定地域下开启 IPv6 网段的交换机。\n\n如果不传入该参数，系统默认查询指定地域下的所有交换机",
       "location": "query",
       "name": "enable_ipv6",
       "options": [
@@ -147,5 +147,152 @@
   ],
   "pathPattern": "",
   "product_code": "Ens",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "PageNumber": {
+            "backendName": "data.pagerVo.page",
+            "description_en": "The page number",
+            "description_zh": "当前查询页码",
+            "example": "1",
+            "format": "int32",
+            "type": "integer"
+          },
+          "PageSize": {
+            "backendName": "data.pagerVo.pageSize",
+            "description_en": "The number of entries per page",
+            "description_zh": "当前查询每页的行数",
+            "example": "2",
+            "format": "int32",
+            "type": "integer"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.pagerVo.total",
+            "description_en": "The total number of entries",
+            "description_zh": "列表数据总数",
+            "example": "3",
+            "format": "int32",
+            "type": "integer"
+          },
+          "VSwitches": {
+            "backendName": "data.content",
+            "itemName": "VSwitch",
+            "items": {
+              "properties": {
+                "CidrBlock": {
+                  "backendName": "cidr",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "CreatedTime": {
+                  "backendName": "createTime",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "Description": {
+                  "backendName": "description",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "EnsRegionId": {
+                  "backendName": "ensRegionId",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "FreeIpCount": {
+                  "backendName": "freeIpCount",
+                  "format": "int64",
+                  "nullToEmpty": true,
+                  "type": "integer"
+                },
+                "Ipv6CidrBlock": {
+                  "backendName": "ipv6Cidr",
+                  "example": "2408:XXXX:0:a600::/110",
+                  "title_en": "交换机IPV6网段",
+                  "title_zh": "交换机IPV6网段",
+                  "type": "string"
+                },
+                "NetworkId": {
+                  "backendName": "networkId",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "Status": {
+                  "backendName": "status",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "valueMapping": {
+                    "cases": [
+                      {
+                        "targetValue": "Available",
+                        "value": "available"
+                      },
+                      {
+                        "targetValue": "Releasing",
+                        "value": "releasing"
+                      },
+                      {
+                        "targetValue": "Pending",
+                        "value": "pending"
+                      }
+                    ]
+                  }
+                },
+                "Tags": {
+                  "backendName": "append_info.tags",
+                  "itemName": "Tag",
+                  "items": {
+                    "properties": {
+                      "Key": {
+                        "backendName": "key",
+                        "type": "string"
+                      },
+                      "TagKey": {
+                        "backendName": "key",
+                        "deprecated": true,
+                        "type": "string"
+                      },
+                      "TagValue": {
+                        "backendName": "value",
+                        "deprecated": true,
+                        "type": "string"
+                      },
+                      "Value": {
+                        "backendName": "value",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "VSwitchId": {
+                  "backendName": "vswitchId",
+                  "nullToEmpty": true,
+                  "type": "string"
+                },
+                "VSwitchName": {
+                  "backendName": "name",
+                  "nullToEmpty": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

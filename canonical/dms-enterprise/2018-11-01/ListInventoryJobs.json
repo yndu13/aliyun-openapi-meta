@@ -2,6 +2,63 @@
   "camel_example": "",
   "cmd_full_name": "dms-enterprise list-inventory-jobs",
   "cmd_name": "list-inventory-jobs",
+  "components": {
+    "schemas": {
+      "KnowledgeJobInfoVO": {
+        "properties": {
+          "CreateTime": {
+            "backendName": "createTime",
+            "type": "string"
+          },
+          "Creator": {
+            "backendName": "creator",
+            "type": "string"
+          },
+          "Description": {
+            "backendName": "description",
+            "type": "string"
+          },
+          "EndTime": {
+            "backendName": "endTime",
+            "type": "string"
+          },
+          "JobId": {
+            "backendName": "jobId",
+            "format": "int32",
+            "type": "integer"
+          },
+          "KnowledgeCnt": {
+            "backendName": "knowledgeCnt",
+            "format": "int32",
+            "type": "integer"
+          },
+          "Progress": {
+            "backendName": "progress",
+            "format": "int32",
+            "type": "integer"
+          },
+          "ShowJobId": {
+            "backendName": "showJobId",
+            "type": "string"
+          },
+          "Status": {
+            "backendName": "status",
+            "type": "string"
+          },
+          "Supplement": {
+            "backendName": "supplement",
+            "type": "string"
+          },
+          "TableCnt": {
+            "backendName": "tableCnt",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Retrieves a paginated list of asset inventory jobs",
   "description_zh": "分页查询资产盘点任务历史列表",
@@ -101,5 +158,98 @@
   ],
   "pathPattern": "/",
   "product_code": "dms-enterprise",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "description_en": "成功返回",
+      "description_zh": "成功返回",
+      "schema": {
+        "description_en": "The response body",
+        "description_zh": "返回内容",
+        "properties": {
+          "Data": {
+            "backendName": "data",
+            "description_en": "The paginated list of asset inventory jobs",
+            "description_zh": "盘点任务列表分页结果",
+            "properties": {
+              "Items": {
+                "backendName": "items",
+                "description_en": "The list of asset inventory jobs",
+                "description_zh": "盘点任务列表",
+                "itemName": "item",
+                "items": {
+                  "$ref": "#/components/schemas/KnowledgeJobInfoVO",
+                  "description_en": "An asset inventory job",
+                  "description_zh": "表名，您可以调用[ListTables]（https://help.aliyun.com/document_detail/141878.html）接口获取该参数。\n\n该参数必填的情况：ResourceType的参数值为META_TABLE或LOGIC_TABLE",
+                  "example": "[]"
+                },
+                "title_en": "盘点任务列表",
+                "title_zh": "盘点任务列表",
+                "type": "array"
+              },
+              "TotalCount": {
+                "backendName": "totalCount",
+                "description_en": "The total count",
+                "description_zh": "总条数",
+                "example": "10",
+                "format": "int32",
+                "title_en": "总条数",
+                "title_zh": "总条数",
+                "type": "integer"
+              }
+            },
+            "title_en": "盘点任务列表分页结果",
+            "title_zh": "盘点任务列表分页结果",
+            "type": "object",
+            "visibility": "Public"
+          },
+          "ErrorCode": {
+            "backendName": "errorCode",
+            "description_en": "The error code",
+            "description_zh": "错误码",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "title_en": "错误码。",
+            "title_zh": "错误码。",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "message",
+            "description_en": "The error message",
+            "description_zh": "错误信息",
+            "example": "UnknownError",
+            "nullToEmpty": false,
+            "title_en": "错误信息。",
+            "title_zh": "错误信息。",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "Id of the request",
+            "example": "0C1CB646-1DE4-4AD0-B4A4-7D47DD52E931",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the request was successful. Valid values:\n\n`true`: The request was successful.\n\n`false`: The request failed",
+            "description_zh": "请求是否成功，返回值如下：\ntrue：请求成功\nfalse：请求失败",
+            "example": "true",
+            "nullToEmpty": false,
+            "title_en": "请求是否成功，返回值如下：\ntrue：请求成功\nfalse：请求失败",
+            "title_zh": "请求是否成功，返回值如下：\ntrue：请求成功\nfalse：请求失败",
+            "type": "boolean",
+            "visibility": "Public"
+          }
+        },
+        "title_en": "返回内容",
+        "title_zh": "返回内容",
+        "type": "object"
+      }
+    }
+  }
 }

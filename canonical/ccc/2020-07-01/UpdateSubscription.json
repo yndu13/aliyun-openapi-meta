@@ -157,5 +157,161 @@
   ],
   "pathPattern": "",
   "product_code": "CCC",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The response code",
+            "description_zh": "响应码",
+            "example": "OK",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "Data",
+            "description_zh": "数据",
+            "properties": {
+              "AccessPoint": {
+                "backendName": "accessPoint",
+                "description_en": "The endpoint for MQ. The service endpoint for webhook",
+                "description_zh": "MQ 的接入地址。Webhook 的服务地址",
+                "example": "rmq-cn-****.cn-shanghai.rmq.aliyuncs.com:8080",
+                "type": "string"
+              },
+              "EventList": {
+                "backendName": "eventList",
+                "description_en": "The event checklist",
+                "description_zh": "消息事件清单",
+                "itemName": "Event",
+                "items": {
+                  "description_en": "An event",
+                  "description_zh": "消息事件",
+                  "properties": {
+                    "Disabled": {
+                      "backendName": "disabled",
+                      "description_en": "Indicates whether the push is disabled",
+                      "description_zh": "是否推送",
+                      "example": "true",
+                      "type": "boolean"
+                    },
+                    "Name": {
+                      "backendName": "name",
+                      "description_en": "The event name",
+                      "description_zh": "事件名称",
+                      "example": "Dialing",
+                      "type": "string"
+                    },
+                    "Topic": {
+                      "backendName": "topic",
+                      "description_en": "The event topic",
+                      "description_zh": "事件主题",
+                      "example": "无",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "InstanceId": {
+                "backendName": "instanceId",
+                "description_en": "The instance ID",
+                "description_zh": "实例ID",
+                "example": "ccc-test",
+                "type": "string"
+              },
+              "MqInstanceId": {
+                "backendName": "mqInstanceId",
+                "description_en": "The MQ instance ID. Specify this only when MqType is rocketmq4 or rocketmq5",
+                "description_zh": "MQ 实例，当 MqType==rocketmq4 或 MqType==rocketmq5 时，需要指定",
+                "example": "rmq-cn-****",
+                "type": "string"
+              },
+              "MqType": {
+                "backendName": "mqType",
+                "description_en": "The message push type.\n\nrocketmq4\n\nrocketmq5\n\nwebhook",
+                "description_zh": "消息推送类型。\nrocketmq4\nrocketmq5\nwebhook",
+                "example": "rocketmq5",
+                "type": "string"
+              },
+              "ProducerId": {
+                "backendName": "producerId",
+                "description_en": "For MQ, enter the Group ID. For webhook, enter PID_Webhook",
+                "description_zh": "MQ 方式，对应 GroupId。 Webhook 方式，填写 PID_Webhook",
+                "example": "GID_xxx",
+                "type": "string"
+              },
+              "Topic": {
+                "backendName": "defaultTopic",
+                "description_en": "For MQ, enter the topic name. For webhook, enter Topic_Webhook",
+                "description_zh": "MQ 方式为 MQ 的 Topic。Webhook 方式填写 Topic_Webhook",
+                "example": "ccc-event",
+                "type": "string"
+              },
+              "Username": {
+                "backendName": "username",
+                "description_en": "The MQ username. Specify this only when MqType is rocketmq5",
+                "description_zh": "MQ 用户名，只有当 MqType==rocketmq5 时，需要指定",
+                "example": "username",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "HttpStatusCode": {
+            "backendName": "httpStatusCode",
+            "description_en": "The HTTP status code",
+            "description_zh": "HTTP状态码",
+            "example": "200",
+            "format": "int32",
+            "nullToEmpty": false,
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The response message",
+            "description_zh": "响应信息",
+            "example": "无",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Params": {
+            "backendName": "params",
+            "description_en": "The list of invalid parameters",
+            "description_zh": "错误参数列表",
+            "itemName": "Param",
+            "items": {
+              "backendName": "params",
+              "description_en": "An invalid parameter",
+              "description_zh": "错误参数",
+              "example": "无",
+              "nullToEmpty": false,
+              "type": "string",
+              "visibility": "Public"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "03C67DAD-EB26-41D8-949D-9B0C470FB716",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

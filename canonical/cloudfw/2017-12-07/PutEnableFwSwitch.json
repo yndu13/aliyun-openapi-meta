@@ -153,5 +153,61 @@
   ],
   "pathPattern": "",
   "product_code": "Cloudfw",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "AbnormalResourceStatusList": {
+            "backendName": "result.abnormalResourceStatusList",
+            "description_en": "The status information list of assets that are not synchronized",
+            "description_zh": "资产未同步时的状态信息列表",
+            "itemName": "AbnormalResource",
+            "items": {
+              "properties": {
+                "Msg": {
+                  "backendName": "msg",
+                  "description_en": "The message when the asset is not synchronized. Valid values:\ncloudfirewall do not sync this ip address: Cloud Firewall has not synchronized this asset IP address",
+                  "description_zh": "资产未同步时的信息。取值：\ncloudfirewall do not sync this ip address：云防火墙没有同步这个资产IP",
+                  "example": "cloudfirewall do not sync this ip address",
+                  "type": "string"
+                },
+                "Resource": {
+                  "backendName": "resource",
+                  "description_en": "The asset IP address",
+                  "description_zh": "资产IP",
+                  "example": "203.0.113.0",
+                  "type": "string"
+                },
+                "Status": {
+                  "backendName": "status",
+                  "description_en": "The status of the asset that is not synchronized. Valid values:\nip_not_sync: The asset is not synchronized",
+                  "description_zh": "资产未同步时的状态。取值：\nip_not_sync：资产未同步",
+                  "example": "ip_not_sync",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "DryRun": {
+            "backendName": "result.dryRun",
+            "description_en": "Indicates that this is a successful dry run response. A value of true indicates that only the dry run was completed and no real changes were made. This field is not returned or is set to false for real calls",
+            "description_zh": "标识本次为 DryRun 预检成功响应；取值 true 表示仅完成预检、未执行真实变更。真实调用不返回该字段或为 false",
+            "example": "true",
+            "type": "boolean"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "B2841452-CB8D-4F7D-B247-38E1CF7334F8",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

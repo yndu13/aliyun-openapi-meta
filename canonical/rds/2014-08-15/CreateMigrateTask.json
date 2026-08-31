@@ -139,5 +139,81 @@
   ],
   "pathPattern": "",
   "product_code": "Rds",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回参数详情",
+        "properties": {
+          "BackupMode": {
+            "backendName": "data.taskType",
+            "description_en": "The type of the migration task. Valid values:\n\nFULL: The migration task migrates full backup files.\nUPDF: The migration task migrates incremental or log backup files",
+            "description_zh": "迁移上云任务类型，返回值：\nFULL：通过全量备份文件执行还原操作。\nUPDF：通过增量备份文件或日志文件还原增量数据",
+            "example": "FULL",
+            "type": "string",
+            "valueMapping": {
+              "cases": [
+                {
+                  "targetValue": "FULL",
+                  "value": "0"
+                },
+                {
+                  "targetValue": "DIFF",
+                  "value": "1"
+                },
+                {
+                  "targetValue": "UPDF",
+                  "value": "2"
+                }
+              ]
+            },
+            "visibility": "Public"
+          },
+          "DBInstanceId": {
+            "backendName": "data.dbInstanceName",
+            "description_en": "The instance ID",
+            "description_zh": "实例ID",
+            "example": "rm-uf6wjk5****",
+            "mappingResourcePropertyName": "$.DbInstanceId",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "DBName": {
+            "backendName": "data.dbName",
+            "description_en": "The name of the database",
+            "description_zh": "数据库名称",
+            "example": "test02",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "MigrateTaskId": {
+            "backendName": "data.migrateTaskId",
+            "description_en": "The ID of the migration task",
+            "description_zh": "迁移任务ID",
+            "example": "564563****",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "866F5EB8-4650-4061-87F0-379F6F968BCE",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "TaskId": {
+            "backendName": "data.taskId",
+            "description_en": "The task ID",
+            "description_zh": "任务ID",
+            "example": "545****",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

@@ -7,7 +7,7 @@
   "description_zh": "调用该接口查询指定解析器的详细信息，包括解析器基本信息、解析脚本、运行状态和关联的数据源等",
   "kebab_example": "",
   "method": "GET|POST",
-  "multi_version": true,
+  "multi_version": false,
   "name": "GetParser",
   "operation": {
     "action": "GetParser",
@@ -50,5 +50,127 @@
   ],
   "pathPattern": "",
   "product_code": "Iot",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "The error code returned if the call fails. For more information, see [Error codes]（https://help.aliyun.com/document_detail/87387.html）",
+            "description_zh": "调用失败时，返回的错误码。更多信息，请参见[错误码]（https://help.aliyun.com/document_detail/87387.html）",
+            "example": "iot.system.SystemException",
+            "type": "string"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The details of the parser",
+            "description_zh": "返回的解析器详细信息",
+            "nullToEmpty": false,
+            "properties": {
+              "DataSourceId": {
+                "backendName": "dataSourceId",
+                "description_en": "The ID of the data source associated with the parser",
+                "description_zh": "解析器关联的数据源ID",
+                "example": "1003",
+                "format": "int64",
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "Description": {
+                "backendName": "description",
+                "description_en": "The description of the parser",
+                "description_zh": "解析器描述",
+                "example": "转发数据。",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Name": {
+                "backendName": "name",
+                "description_en": "The name of the parser",
+                "description_zh": "解析器名称",
+                "example": "DataParser",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "ParserId": {
+                "backendName": "connectorId",
+                "description_en": "The parser ID",
+                "description_zh": "解析器ID",
+                "example": "1001",
+                "format": "int64",
+                "nullToEmpty": false,
+                "type": "integer",
+                "visibility": "Public"
+              },
+              "Script": {
+                "backendName": "script",
+                "description_en": "The published script of the parser",
+                "description_zh": "解析器已发布脚本",
+                "example": "var data = payload(\"json\"); var h = data.items.Humidity.value; var t = data.items.Temperature.value; writeTsdb(1000,timestamp(),\"temperature\", t , {\"deviceName\":deviceName()}); writeTsdb(1000,timestamp(),\"humidity\", h , {\"deviceName\":deviceName()});",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "ScriptDraft": {
+                "backendName": "scriptDraft",
+                "description_en": "The draft of the parser script",
+                "description_zh": "解析器脚本的草稿",
+                "example": "var data = payload(\"json\"); var h = data.items.Humidity.value; var t = data.items.Temperature.value; writeTsdb(1000,timestamp(),\"temperature\", t , {\"deviceName\":deviceName()}); writeTsdb(1000,timestamp(),\"humidity\", h , {\"deviceName\":deviceName()});",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "Status": {
+                "backendName": "status",
+                "description_en": "The running status of the parser. Valid values:\n\nRUNNING: Running.\nSTOP: Stopped.\nABNORMAL: Abnormal",
+                "description_zh": "解析器运行状态。可取值：\n\nRUNNING：运行中。\nSTOP：已停止。\nABNORMAL：存在异常",
+                "example": "STOP",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "UtcCreated": {
+                "backendName": "utcCreated",
+                "description_en": "The time when the parser was created, in UTC. The time is in the `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'` format",
+                "description_zh": "创建解析器的UTC时间。格式为`yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`",
+                "example": "2022-03-27T12:45:43.000Z",
+                "type": "string",
+                "visibility": "Public"
+              },
+              "UtcModified": {
+                "backendName": "utcModified",
+                "description_en": "The time when the parser was last updated, in UTC. The time is in the `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'` format",
+                "description_zh": "更新解析器的UTC时间。格式为`yyyy-MM-dd'T'HH:mm:ss.SSS'Z'`",
+                "example": "2022-04-27T12:45:43.000Z",
+                "type": "string",
+                "visibility": "Public"
+              }
+            },
+            "type": "object",
+            "visibility": "Public"
+          },
+          "ErrorMessage": {
+            "backendName": "errorMessage",
+            "description_en": "The error message returned if the call fails",
+            "description_zh": "调用失败时，返回的出错信息",
+            "example": "系统异常",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The unique identifier generated by Alibaba Cloud for the request",
+            "description_zh": "阿里云为该请求生成的唯一标识符",
+            "example": "E4C0FF92-2A86-41DB-92D3-73B60310D25E",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Indicates whether the call was successful.\ntrue: The call was successful.\nfalse: The call failed",
+            "description_zh": "表示是否调用成功。\ntrue：调用成功。\nfalse：调用失败",
+            "example": "true",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

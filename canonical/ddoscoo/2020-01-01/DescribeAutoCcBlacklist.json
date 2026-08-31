@@ -87,5 +87,71 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "AutoCcBlacklist": {
+            "backendName": "data.lists",
+            "description_en": "The list of blacklisted IP addresses for the Anti-DDoS Pro or Anti-DDoS Premium instance",
+            "description_zh": "针对DDoS高防实例的黑名单IP列表",
+            "itemName": "AutoCcBlacklist",
+            "items": {
+              "properties": {
+                "DestIp": {
+                  "backendName": "dst",
+                  "description_en": "The IP address of the Anti-DDoS Pro or Anti-DDoS Premium instance",
+                  "description_zh": "DDoS高防实例的IP",
+                  "example": "192.0.XX.XX",
+                  "type": "string"
+                },
+                "EndTime": {
+                  "backendName": "etime",
+                  "description_en": "The expiration time of the blacklisted IP address. This value is a UNIX timestamp. Unit: seconds",
+                  "description_zh": "黑名单IP的失效时间。时间戳格式，单位：秒",
+                  "example": "1584093569",
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "SourceIp": {
+                  "backendName": "src",
+                  "description_en": "The blacklisted IP address",
+                  "description_zh": "黑名单IP",
+                  "example": "47.100.XX.XX",
+                  "type": "string"
+                },
+                "Type": {
+                  "backendName": "owner",
+                  "description_en": "The source of the blacklisted IP address. Valid values:\n\nmanual: The IP address is manually added.\n\nauto: The IP address is automatically added",
+                  "description_zh": "黑名单IP的来源。取值：\nmanual：手动添加\nauto：自动添加",
+                  "example": "manual",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request. Alibaba Cloud generates a unique ID for each request. You can use this ID to troubleshoot issues",
+            "description_zh": "本次调用请求的ID，是由阿里云为该请求生成的唯一标识符，可用于排查和定位问题",
+            "example": "E78C8472-0B15-42D5-AF22-A32A78818AB2",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "data.total_count",
+            "description_en": "The total number of blacklisted IP addresses",
+            "description_zh": "黑名单IP的总数",
+            "example": "2",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

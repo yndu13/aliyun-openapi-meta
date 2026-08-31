@@ -53,5 +53,84 @@
   ],
   "pathPattern": "",
   "product_code": "ddoscoo",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "本次请求的ID",
+            "example": "C33EB3D5-AF96-43CA-9C7E-37A81BC06A1E",
+            "type": "string"
+          },
+          "StatusList": {
+            "backendName": "data",
+            "description_en": "The near-origin traffic diversion configurations of the Anti-DDoS Pro and Anti-DDoS Premium instances",
+            "description_zh": "DDoS高防实例的近源流量压制配置",
+            "itemName": "StatusItem",
+            "items": {
+              "properties": {
+                "BlockStatusList": {
+                  "backendName": "line_status",
+                  "description_en": "The near-origin traffic diversion configurations",
+                  "description_zh": "近源流量压制配置",
+                  "itemName": "BlockStatusItem",
+                  "items": {
+                    "properties": {
+                      "BlockStatus": {
+                        "backendName": "status",
+                        "description_en": "The traffic blocking status. Valid values:\nareablock: Blocked.\nnormal: Normal (not blocked)",
+                        "description_zh": "流量封禁状态。取值：\nareablock：表示封禁中。\nnormal：表示正常（未封禁）",
+                        "example": "areablock",
+                        "type": "string"
+                      },
+                      "EndTime": {
+                        "backendName": "end_time",
+                        "description_en": "The end time of the blocking. The value is a UNIX timestamp. Unit: seconds",
+                        "description_zh": "封禁结束时间。使用时间戳表示，单位：秒",
+                        "example": "1540196323",
+                        "format": "int64",
+                        "type": "integer"
+                      },
+                      "Line": {
+                        "backendName": "line",
+                        "description_en": "The type of the blocked line. Valid values:\nct: China Telecom international line.\ncut: China Unicom international line",
+                        "description_zh": "封禁线路类型。取值：\nct：表示电信海外线路。\ncut：表示联通海外线路",
+                        "example": "cut",
+                        "type": "string"
+                      },
+                      "StartTime": {
+                        "backendName": "start_time",
+                        "description_en": "The start time of the blocking. The value is a UNIX timestamp. Unit: seconds",
+                        "description_zh": "封禁开始时间。使用时间戳表示，单位：秒",
+                        "example": "1540195323",
+                        "format": "int64",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "nullToEmpty": true,
+                  "type": "array"
+                },
+                "Ip": {
+                  "backendName": "eip",
+                  "description_en": "The IP address of the Anti-DDoS Pro and Anti-DDoS Premium instance",
+                  "description_zh": "DDoS高防实例的IP",
+                  "example": "203.XX.XX.88",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

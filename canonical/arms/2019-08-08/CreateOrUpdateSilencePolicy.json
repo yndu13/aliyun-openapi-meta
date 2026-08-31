@@ -138,5 +138,145 @@
   ],
   "pathPattern": "",
   "product_code": "ARMS",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The ID of the request",
+            "description_zh": "请求ID",
+            "example": "A5EC8221-08F2-4C95-9AF1-49FD998C****",
+            "title_en": "请求ID",
+            "title_zh": "请求ID",
+            "type": "string"
+          },
+          "SilencePolicy": {
+            "backendName": "data",
+            "description_en": "The silence policy",
+            "description_zh": "静默策略对象",
+            "properties": {
+              "EffectiveTimeType": {
+                "backendName": "effectiveTimeType",
+                "description_en": "The effective type. Valid values: PERMANENT: The policy is effective permanently. CYCLE_EFFECT: The policy is effective cyclically. CUSTOM_TIME: The policy is effective during a custom time period",
+                "description_zh": "生效类型, 取值范围如下 \nPERMANENT: 永久生效 \nCYCLE_EFFECT: 循环生效 \nCUSTOM_TIME:自定义时间段",
+                "example": "PERMANENT",
+                "type": "string"
+              },
+              "Id": {
+                "backendName": "id",
+                "description_en": "The ID of the silence policy",
+                "description_zh": "静默策略ID",
+                "example": "1234",
+                "format": "int64",
+                "title_en": "静默策略ID",
+                "title_zh": "静默策略ID",
+                "type": "integer"
+              },
+              "MatchingRules": {
+                "backendName": "matchingRules",
+                "description_en": "A list of matching rules",
+                "description_zh": "分派规则",
+                "itemName": "matchingRules",
+                "items": {
+                  "description_en": "The matching rule",
+                  "description_zh": "分派规则对象",
+                  "properties": {
+                    "MatchingConditions": {
+                      "backendName": "matchingConditions",
+                      "description_en": "A list of matching conditions",
+                      "description_zh": "分派规则条件",
+                      "itemName": "matchingConditions",
+                      "items": {
+                        "description_en": "The matching condition",
+                        "description_zh": "分派条件对象",
+                        "properties": {
+                          "Key": {
+                            "backendName": "key",
+                            "description_en": "The key of the matching condition",
+                            "description_zh": "分派规则条件Key",
+                            "example": "altertname",
+                            "title_en": "条件字段",
+                            "title_zh": "条件字段",
+                            "type": "string"
+                          },
+                          "Operator": {
+                            "backendName": "operator",
+                            "description_en": "The logical operator of the matching condition. Valid values:\n\n`eq`: equal to\n`neq`: not equal to\n`in`: contains\n`nin`: does not contain\n`re`: regular expression match\n`nre`: regular expression mismatch",
+                            "description_zh": "分派规则条件聚合方式。\n\n`eq`：等于\n`neq`：不等于\n`in`：包含\n`nin`：不包含\n`re`：匹配正则\n`nre`：正则不匹配",
+                            "example": "eq",
+                            "title_en": "对应关系",
+                            "title_zh": "对应关系",
+                            "type": "string"
+                          },
+                          "Value": {
+                            "backendName": "value",
+                            "description_en": "The value of the matching condition",
+                            "description_zh": "分派规则条件Value",
+                            "example": "test",
+                            "title_en": "条件字段值",
+                            "title_zh": "条件字段值",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "title_en": "分派条件",
+                      "title_zh": "分派条件",
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "title_en": "分派规则",
+                "title_zh": "分派规则",
+                "type": "array"
+              },
+              "Name": {
+                "backendName": "name",
+                "description_en": "The name of the silence policy",
+                "description_zh": "静默策略名称",
+                "example": "silencepolicy_test",
+                "title_en": "静默策略名称",
+                "title_zh": "静默策略名称",
+                "type": "string"
+              },
+              "State": {
+                "backendName": "state",
+                "description_en": "Specifies whether to enable the silence policy. Valid values: enable and disable",
+                "description_zh": "静默策略是否启用，enable 启用，disable 停用",
+                "example": "enable",
+                "title_en": "静默策略是否启用，enable 启用，disable 停用",
+                "title_zh": "静默策略是否启用，enable 启用，disable 停用",
+                "type": "string"
+              },
+              "TimePeriod": {
+                "backendName": "timePeriod",
+                "description_en": "Effective period. Valid values: DAY: daily WEEK: weekly",
+                "description_zh": "生效周期 \nDAY 每日 \nWEEK 每周",
+                "example": "WEEK",
+                "type": "string"
+              },
+              "TimeSlots": {
+                "backendName": "timeSlots",
+                "description_en": "The time period during which the silence policy is effective",
+                "description_zh": "静默规则生效时间段",
+                "example": "[{startWeek: \"1\", startTime: \"00:00\", endTime: \"11:59\", endWeek:\"7\"}]\n",
+                "type": "string"
+              }
+            },
+            "title_en": "静默策略对象",
+            "title_zh": "静默策略对象",
+            "type": "object"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

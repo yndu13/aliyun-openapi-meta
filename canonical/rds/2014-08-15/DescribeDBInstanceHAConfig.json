@@ -36,5 +36,85 @@
   ],
   "pathPattern": "",
   "product_code": "Rds",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response parameters",
+        "description_zh": "返回参数详情",
+        "properties": {
+          "DBInstanceId": {
+            "backendName": "data.dbInstanceName",
+            "description_en": "The instance ID",
+            "description_zh": "实例ID",
+            "example": "rm-uf6wjk5****",
+            "mappingResourcePropertyName": "$.DbInstanceId",
+            "type": "string"
+          },
+          "HAMode": {
+            "backendName": "data.haMode",
+            "description_en": "The high availability mode of the instance. Valid values:\n\nRPO: Data consistency is preferred. The instance ensures data reliability to minimize data losses. If you have high requirements on data consistency, select this mode.\nRTO: Service availability is preferred. The instance restores the database service at the earliest opportunity to ensure service availability. If you have high requirements on instance availability, select this mode.\n\nThis parameter is returned only for instances that run MySQL",
+            "description_zh": "高可用模式，取值：\nRPO：数据一致性优先，实例会尽可能保障数据的可靠性，即数据丢失量最少。对于数据一致性要求比较高的用户应该使用RPO模式。\nRTO：实例可用性优先，实例会尽快恢复服务，即可用时间最长。对于数据库在线时间要求比较高的用户应该使用RTO模式。\n\n仅MySQL实例返回此参数",
+            "example": "RPO",
+            "type": "string"
+          },
+          "HostInstanceInfos": {
+            "backendName": "data.hostInstanceInfos",
+            "itemName": "NodeInfo",
+            "items": {
+              "properties": {
+                "DataSyncTime": {
+                  "backendName": "dataDelay",
+                  "type": "string"
+                },
+                "LogSyncTime": {
+                  "backendName": "logDelay",
+                  "type": "string"
+                },
+                "NodeId": {
+                  "backendName": "nodeId",
+                  "type": "string"
+                },
+                "NodeType": {
+                  "backendName": "nodeType",
+                  "type": "string"
+                },
+                "RegionId": {
+                  "backendName": "region",
+                  "mappingResourcePropertyName": "$.RegionId",
+                  "type": "string"
+                },
+                "SyncStatus": {
+                  "backendName": "syncStatus",
+                  "type": "string"
+                },
+                "ZoneId": {
+                  "backendName": "zoneId",
+                  "mappingResourcePropertyName": "$.ZoneId",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1AD222E9-E606-4A42-BF6D-8A4442913CEF",
+            "type": "string"
+          },
+          "SyncMode": {
+            "backendName": "data.syncMode",
+            "description_en": "The data replication mode of the instance. Valid values:\n\nSync: the synchronous mode\nSemi-sync: the semi-synchronous replication mode\nAsync: the asynchronous mode\n\nThis parameter is returned only for instances that run MySQL",
+            "description_zh": "数据复制方式，取值：\nSync：强同步\nSemi-sync：半同步\nAsync：异步\n\n仅MySQL实例返回此参数",
+            "example": "Sync",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
 }

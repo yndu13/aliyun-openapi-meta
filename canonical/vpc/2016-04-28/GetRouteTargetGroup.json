@@ -106,5 +106,198 @@
   ],
   "pathPattern": "/",
   "product_code": "Vpc",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "ConfigMode": {
+            "backendName": "data.configMode",
+            "description_en": "The configuration mode of the route target group. Valid values:\n\nActive-Standby: active/standby mode",
+            "description_zh": "路由目标组的配置模式，支持模式如下：\n\nActive-Standby: 主备模式",
+            "example": "Active-Standby",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "CreateTime": {
+            "backendName": "createTime",
+            "description_en": "The time when the route target group was created",
+            "description_zh": "创建路由目标组的时间",
+            "example": "2025-12-30T06:40:50Z",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RegionId": {
+            "backendName": "data.regionId",
+            "description_en": "The region ID of the VPC to which the route target group belongs. You can call the [DescribeRegions]（https://help.aliyun.com/document_detail/25609.html） operation to query the region ID",
+            "description_zh": "路由目标组所属的VPC的地域ID。您可以通过调用DescribeRegions接口获取地域ID",
+            "example": "cn-qingdao",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "1AE05898-06E5-4782-xxxxx",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "ResourceGroupId": {
+            "backendName": "data.resourceGroupId",
+            "description_en": "The ID of the resource group to which the route target group belongs",
+            "description_zh": "要查询的路由目标组所属资源组的ID",
+            "example": "rg-acfmxazdjdhd****",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RouteTargetGroupDescription": {
+            "backendName": "data.routeTargetGroupDescription",
+            "description_en": "The description of the route target group",
+            "description_zh": "路由目标组描述",
+            "example": "myRouteTargetGroupDescription",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RouteTargetGroupId": {
+            "backendName": "data.routeTargetGroupId",
+            "description_en": "The instance ID of the routing target group",
+            "description_zh": "路由目标组实例ID",
+            "example": "rtg-xxxx",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RouteTargetGroupName": {
+            "backendName": "data.routeTargetGroupName",
+            "description_en": "The name of the route target group",
+            "description_zh": "路由目标组名称",
+            "example": "myRouteTargetGroupName",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "RouteTargetMemberList": {
+            "backendName": "data.routeTargetMemberList",
+            "description_en": "The member list of the route target group",
+            "description_zh": "路由目标组的成员列表",
+            "itemName": "RouteTargetMemberList",
+            "items": {
+              "properties": {
+                "EnableStatus": {
+                  "backendName": "enableStatus",
+                  "description_en": "The enable status of the route target group member. Valid values:\n\nEnable: Enabled.\nDisable: Disabled.\n\nOnly route target group members in the disabled state can be replaced with other instances. Route target group members in the enabled state cannot be modified",
+                  "description_zh": "路由目标组成员使能状态。取值：\n\nEnable：使能中。\nDisable：未使能。\n\n只有未使能状态的路由目标组成员允许被修改为其他实例。使能中的路由目标组成员禁止修改",
+                  "example": "Enable",
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "HealthCheckStatus": {
+                  "backendName": "healthCheckStatus",
+                  "description_en": "The health check status of the route target group member. Valid values:\n\nNormal: Normal.\nAbnormal: Abnormal",
+                  "description_zh": "路由目标组成员健康检查状态。取值：\n\nNormal：正常\nAbnormal：状态异常",
+                  "example": "Normal",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "MemberId": {
+                  "backendName": "memberId",
+                  "description_en": "The instance ID of the routing target group member",
+                  "description_zh": "路由目标组成员实例ID",
+                  "example": "ep-xxxx",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "MemberType": {
+                  "backendName": "memberType",
+                  "description_en": "The member type of the route target group.\n\nCurrently supported types:\n\nGatewayLoadBalancerEndpoint",
+                  "description_zh": "路由目标组的成员类型。\n\n当前支持的类型：\n\nGatewayLoadBalancerEndpoint",
+                  "example": "GatewayLoadBalancerEndpoint",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "Weight": {
+                  "backendName": "weight",
+                  "description_en": "The weight of the route target group member. Valid values:\n\n100: The member is the active instance.\n0: The member is the standby instance.\n\nThe weight can only be set during creation and cannot be modified",
+                  "description_zh": "路由目标组成员的权重值。取值：\n\n100：表示成员为主实例。\n0：表示成员为备实例。\n\n权重值仅支持在创建时设置，不支持修改",
+                  "example": "100",
+                  "format": "int32",
+                  "type": "integer",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "Status": {
+            "backendName": "data.status",
+            "description_en": "The status of the routing target group. Valid values:\n\nRecovering: The active/standby switchback is in progress.\nSwitched: The active/standby switchover is complete.\nAvailable: The routing target group is available.\nAbnormal: The standby instance has instance failures.\nPending: The routing target group is being created.\nSwitching: The active/standby switchover is in progress.\nDeleting: The routing target group is being deleted.\nUnavailable: Both the primary and secondary instances have instance failures",
+            "description_zh": "路由目标组的状态。取值：\n\nRecovering：主备回切中\nSwitched：主备已切换\nAvailable：可用\nAbnormal：备实例异常\nPending：创建中\nSwitching：主备切换中\nDeleting：删除中\nUnavailable：主备实例均异常",
+            "example": "Available",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          },
+          "Tags": {
+            "backendName": "data.tags",
+            "description_en": "The tags of the route target group",
+            "description_zh": "路由目标组的标签",
+            "itemName": "Tag",
+            "items": {
+              "description_en": "The tag of the resource",
+              "description_zh": "资源的标签",
+              "properties": {
+                "Key": {
+                  "backendName": "tagKey",
+                  "description_en": "The tag key",
+                  "description_zh": "标签键",
+                  "example": "FinanceDept",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "visibility": "Public"
+                },
+                "Value": {
+                  "backendName": "tagValue",
+                  "description_en": "The tag value",
+                  "description_zh": "标签值",
+                  "example": "FinanceJoshua",
+                  "nullToEmpty": true,
+                  "type": "string",
+                  "visibility": "Public"
+                }
+              },
+              "type": "object"
+            },
+            "nullToEmpty": false,
+            "type": "array",
+            "visibility": "Public"
+          },
+          "VpcId": {
+            "backendName": "data.vpcId",
+            "description_en": "The ID of the VPC to which the route target group belongs",
+            "description_zh": "路由目标组所属的VPC的ID",
+            "example": "vpc-xxxx",
+            "nullToEmpty": false,
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

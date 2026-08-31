@@ -2,6 +2,41 @@
   "camel_example": "",
   "cmd_full_name": "opensearch modify-second-rank",
   "cmd_name": "modify-second-rank",
+  "components": {
+    "schemas": {
+      "SecondRank": {
+        "description_zh": "精排表达式配置",
+        "properties": {
+          "active": {
+            "backendName": "active",
+            "description_zh": "是否是默认表达式",
+            "title": "是否是默认表达式",
+            "type": "boolean"
+          },
+          "description": {
+            "backendName": "description",
+            "description_zh": "描述",
+            "title": "描述",
+            "type": "string"
+          },
+          "meta": {
+            "backendName": "meta",
+            "description_zh": "表达式",
+            "title": "表达式",
+            "type": "any"
+          },
+          "name": {
+            "backendName": "name",
+            "description_zh": "名称",
+            "title": "名称",
+            "type": "string"
+          }
+        },
+        "title": "精排表达式配置",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Modifies a fine sort expression for an OpenSearch application version. If you set `dryRun` to `true`, the modified fine sort expression is validated. The `dryRun` parameter is `false` by default",
   "description_zh": "修改一个OpenSearch 应用版本的精排配置。当 dryRun=true 时，表示修改后的精排表达式进行校验，默认 dryRun 不传为 false",
@@ -123,6 +158,65 @@
   "pathPattern": "/v4/openapi/app-groups/[appGroupIdentity]/apps/[appId]/second-ranks/[name]",
   "product_code": "OpenSearch",
   "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "The response body",
+        "description_zh": "响应体",
+        "example": "{}",
+        "properties": {
+          "requestId": {
+            "backendName": "requestId",
+            "description_en": "The request ID",
+            "description_zh": "请求ID",
+            "example": "C5E2F73C-8241-81F8-3A62-65478C5A3111",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "result": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "backendName": "result",
+            "description_en": "The information about the fine sort expression",
+            "description_zh": "精排表达式信息",
+            "example": "{}",
+            "type": "object",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "5XX": {
+      "schema": {
+        "properties": {
+          "code": {
+            "backendName": "code",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "httpCode": {
+            "backendName": "httpCode",
+            "format": "int32",
+            "type": "integer",
+            "visibility": "Public"
+          },
+          "message": {
+            "backendName": "message",
+            "type": "string",
+            "visibility": "Public"
+          },
+          "requestId": {
+            "backendName": "requestId",
+            "type": "string",
+            "visibility": "Public"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
   "v1_body_parameters": [
     {
       "help_en": "The request body, which contains the fine sort information",

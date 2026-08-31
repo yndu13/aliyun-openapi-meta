@@ -2,6 +2,391 @@
   "camel_example": "",
   "cmd_full_name": "paistudio list-nodes",
   "cmd_name": "list-nodes",
+  "components": {
+    "schemas": {
+      "Node": {
+        "description_en": "The details of a resource node",
+        "description_zh": "资源节点",
+        "properties": {
+          "AcceleratorType": {
+            "backendName": "AcceleratorType",
+            "description_en": "The accelerator type of the resource node instance, such as CPU or GPU",
+            "description_zh": "资源节点规格加速器类型（CPU/GPU）",
+            "example": "CPU",
+            "title": "资源节点规格加速器类型（CPU/GPU）",
+            "type": "string"
+          },
+          "AllocatableCPU": {
+            "backendName": "AllocatableCPU",
+            "description_en": "The number of allocatable CPU cores",
+            "description_zh": "用户可分配CPU核数",
+            "title": "用户可分配CPU核数",
+            "type": "string"
+          },
+          "AllocatableMemory": {
+            "backendName": "AllocatableMemory",
+            "description_en": "The amount of allocatable memory in GiB",
+            "description_zh": "用户可分配内存大小",
+            "title": "用户可分配内存大小",
+            "type": "string"
+          },
+          "AncestorQuotaWorkloadNum": {
+            "backendName": "AncestorQuotaWorkloadNum",
+            "format": "int64",
+            "type": "integer"
+          },
+          "AvailabilityZone": {
+            "backendName": "AvailableZone",
+            "type": "string"
+          },
+          "BoundQuotas": {
+            "backendName": "BoundQuotas",
+            "description_en": "The list of quotas that are bound to the node",
+            "description_zh": "绑定的Quota列表",
+            "items": {
+              "$ref": "#/components/schemas/QuotaIdName",
+              "description_en": "The details of a quota that is bound to the node",
+              "description_zh": "所绑定的Quota信息"
+            },
+            "title": "绑定的Quota列表",
+            "type": "array"
+          },
+          "CPU": {
+            "backendName": "CPU",
+            "description_en": "The number of CPU cores",
+            "description_zh": "CPU核数",
+            "example": "4",
+            "title": "CPU核数",
+            "type": "string"
+          },
+          "CreatorId": {
+            "backendName": "CreatorId",
+            "description_en": "The ID of the user who created the resource node",
+            "description_zh": "资源节点创建人",
+            "example": "281044699048527748",
+            "title": "资源节点创建人",
+            "type": "string"
+          },
+          "DescendantQuotaWorkloadNum": {
+            "backendName": "DescendantQuotaWorkloadNum",
+            "format": "int64",
+            "type": "integer"
+          },
+          "DiskCapacity": {
+            "backendName": "DiskCapacity",
+            "format": "int64",
+            "type": "integer"
+          },
+          "DiskPL": {
+            "backendName": "DiskPL",
+            "type": "string"
+          },
+          "GPU": {
+            "backendName": "GPU",
+            "description_en": "The number of GPUs",
+            "description_zh": "GPU卡数",
+            "example": "0",
+            "title": "GPU卡数",
+            "type": "string"
+          },
+          "GPUMemory": {
+            "backendName": "GPUMemory",
+            "description_en": "The GPU memory size in GiB",
+            "description_zh": "GPU显存",
+            "title": "GPU显存",
+            "type": "string"
+          },
+          "GPUType": {
+            "backendName": "GPUType",
+            "description_en": "The GPU model",
+            "description_zh": "GPU卡型号",
+            "example": "\"\"",
+            "title": "GPU卡型号",
+            "type": "string"
+          },
+          "GmtCreateTime": {
+            "backendName": "GmtCreateTime",
+            "deprecated": true,
+            "description_en": "The time when the resource node was created",
+            "description_zh": "资源节点创建时间",
+            "example": "2024-07-10T11:49:47Z",
+            "title": "资源节点创建时间",
+            "type": "string"
+          },
+          "GmtCreatedTime": {
+            "backendName": "GmtCreatedTime",
+            "description_zh": "资源节点创建时间",
+            "title": "资源节点创建时间",
+            "type": "string"
+          },
+          "GmtExpiredTime": {
+            "backendName": "GmtExpiredTime",
+            "description_en": "The time when the resource node expires",
+            "description_zh": "资源节点过期时间",
+            "example": "2025-06-22T00:00:00Z\n",
+            "title": "资源节点过期时间",
+            "type": "string"
+          },
+          "GmtModifiedTime": {
+            "backendName": "GmtModifiedTime",
+            "description_en": "The time when the resource node was last modified",
+            "description_zh": "资源节点更新时间",
+            "example": "2024-07-10T11:49:47Z",
+            "title": "资源节点更新时间",
+            "type": "string"
+          },
+          "HyperZone": {
+            "backendName": "Zone",
+            "type": "string"
+          },
+          "IsBound": {
+            "backendName": "IsBound",
+            "description_en": "Indicates whether the node is bound to a quota",
+            "description_zh": "是否已经绑定了Quota",
+            "example": "false",
+            "title": "是否已经绑定了Quota",
+            "type": "boolean"
+          },
+          "LimitCPU": {
+            "backendName": "LimitCPU",
+            "description_en": "The maximum number of CPU cores",
+            "description_zh": "限制CPU核数",
+            "example": "4",
+            "title": "限制CPU核数",
+            "type": "string"
+          },
+          "LimitGPU": {
+            "backendName": "LimitGPU",
+            "description_en": "The maximum number of GPUs",
+            "description_zh": "限制GPU核数",
+            "example": "0",
+            "title": "限制GPU核数",
+            "type": "string"
+          },
+          "LimitMemory": {
+            "backendName": "LimitMemory",
+            "description_en": "The maximum memory size in GiB",
+            "description_zh": "限制内存大小",
+            "example": "8",
+            "title": "限制内存大小",
+            "type": "string"
+          },
+          "MachineGroupId": {
+            "backendName": "MachineGroupId",
+            "description_en": "The ID of the machine group to which the resource node belongs",
+            "description_zh": "资源节点所属机器组Id",
+            "example": "mg1234456",
+            "title": "资源节点所属机器组Id",
+            "type": "string"
+          },
+          "Memory": {
+            "backendName": "Memory",
+            "description_en": "The memory size in GiB",
+            "description_zh": "内存大小",
+            "example": "8",
+            "title": "内存大小",
+            "type": "string"
+          },
+          "NodeName": {
+            "backendName": "NodeName",
+            "description_en": "The name of the resource node",
+            "description_zh": "资源节点名称",
+            "example": "lingjxxxx",
+            "title": "资源节点名称",
+            "type": "string"
+          },
+          "NodeStatus": {
+            "backendName": "NodeStatus",
+            "description_en": "The status of the resource node",
+            "description_zh": "资源节点状态",
+            "example": "Ready",
+            "title": "资源节点状态",
+            "type": "string"
+          },
+          "NodeType": {
+            "backendName": "NodeType",
+            "description_en": "The instance type of the resource node",
+            "description_zh": "资源节点规格类型",
+            "example": "ecs.c8i.xlarge",
+            "title": "资源节点规格类型",
+            "type": "string"
+          },
+          "OrderStatus": {
+            "backendName": "OrderStatus",
+            "description_en": "The order status of the resource node",
+            "description_zh": "资源节点订单状态",
+            "example": "Ready",
+            "title": "资源节点订单状态",
+            "type": "string"
+          },
+          "PodNum": {
+            "backendName": "PodNum",
+            "description_en": "The number of pods on the node",
+            "description_zh": "节点上Pod数量",
+            "example": "2",
+            "format": "int64",
+            "title": "节点上Pod数量",
+            "type": "integer"
+          },
+          "ReasonCode": {
+            "backendName": "ReasonCode",
+            "description_en": "The error code",
+            "description_zh": "错误码",
+            "example": "\"\"",
+            "title": "错误码",
+            "type": "string"
+          },
+          "ReasonMessage": {
+            "backendName": "ReasonMessage",
+            "description_en": "The error message",
+            "description_zh": "错误消息",
+            "example": "\"\"",
+            "title": "错误消息",
+            "type": "string"
+          },
+          "RequestCPU": {
+            "backendName": "RequestCPU",
+            "description_en": "The number of requested CPU cores",
+            "description_zh": "申请CPU核数",
+            "example": "4",
+            "title": "申请CPU核数",
+            "type": "string"
+          },
+          "RequestGPU": {
+            "backendName": "RequestGPU",
+            "description_en": "The number of requested GPUs",
+            "description_zh": "申请GPU核数",
+            "example": "0",
+            "title": "申请GPU核数",
+            "type": "string"
+          },
+          "RequestMemory": {
+            "backendName": "RequestMemory",
+            "description_en": "The requested memory size in GiB",
+            "description_zh": "申请内存大小",
+            "example": "8",
+            "title": "申请内存大小",
+            "type": "string"
+          },
+          "ResourceGroupId": {
+            "backendName": "ResourceGroupId",
+            "description_en": "The ID of the resource group to which the resource node belongs",
+            "description_zh": "资源节点所属资源组Id",
+            "example": "rgf0zhfqn1d4ity2",
+            "title": "资源节点所属资源组Id",
+            "type": "string"
+          },
+          "ResourceGroupName": {
+            "backendName": "ResourceGroupName",
+            "description_en": "The name of the resource group to which the resource node belongs",
+            "description_zh": "资源节点所属资源组名称",
+            "example": "test",
+            "title": "资源节点所属资源组名称",
+            "type": "string"
+          },
+          "SelfQuotaWorkloadNum": {
+            "backendName": "SelfQuotaWorkloadNum",
+            "format": "int64",
+            "type": "integer"
+          },
+          "SubNodes": {
+            "backendName": "SubNodes",
+            "description_zh": "子节点名称",
+            "items": {
+              "type": "string"
+            },
+            "title": "子节点名称",
+            "type": "array"
+          },
+          "SystemReservedCPU": {
+            "backendName": "SystemReservedCPU",
+            "description_en": "The number of CPU cores that are reserved for the system",
+            "description_zh": "系统预留CPU核数",
+            "title": "系统预留CPU核数",
+            "type": "string"
+          },
+          "SystemReservedMemory": {
+            "backendName": "SystemReservedMemory",
+            "description_en": "The amount of memory that is reserved for the system in GiB",
+            "description_zh": "系统预留内存大小",
+            "title": "系统预留内存大小",
+            "type": "string"
+          },
+          "Users": {
+            "backendName": "Users",
+            "description_en": "The user information",
+            "description_zh": "用户信息",
+            "items": {
+              "$ref": "#/components/schemas/UserInfo",
+              "description_en": "The details of a user who is running workloads on the node",
+              "description_zh": "在该节点上运行workload的用户信息"
+            },
+            "title": "用户信息",
+            "type": "array"
+          },
+          "WorkloadNum": {
+            "backendName": "WorkloadNum",
+            "description_en": "The number of workloads on the node",
+            "description_zh": "节点上Workload数量",
+            "example": "2",
+            "format": "int64",
+            "title": "节点上Workload数量",
+            "type": "integer"
+          }
+        },
+        "title": "资源节点",
+        "type": "object"
+      },
+      "QuotaIdName": {
+        "description_en": "Resource Quota ID & Name  ",
+        "description_zh": "资源配额Id&Name",
+        "properties": {
+          "QuotaId": {
+            "backendName": "QuotaId",
+            "description_en": "Resource quota ID  ",
+            "description_zh": "资源配额ID",
+            "example": "quota12345",
+            "title": "资源配额ID",
+            "type": "string"
+          },
+          "QuotaName": {
+            "backendName": "QuotaName",
+            "description_en": "Resource quota name  ",
+            "description_zh": "资源配额名称",
+            "example": "dlc-quota",
+            "title": "资源配额名称",
+            "type": "string"
+          }
+        },
+        "title": "资源配额ID&名称",
+        "type": "object"
+      },
+      "UserInfo": {
+        "description_en": "User information  ",
+        "description_zh": "用户信息",
+        "properties": {
+          "UserId": {
+            "backendName": "UserId",
+            "description_en": "User ID  ",
+            "description_zh": "用户Id",
+            "example": "161222222222",
+            "title": "用户Id",
+            "type": "string"
+          },
+          "UserName": {
+            "backendName": "UserName",
+            "description_en": "username  ",
+            "description_zh": "用户名",
+            "example": "test",
+            "title": "用户名",
+            "type": "string"
+          }
+        },
+        "title": "用户信息",
+        "type": "object"
+      }
+    }
+  },
   "deprecated": false,
   "description_en": "Returns a list of resource nodes",
   "description_zh": "获取资源节点列表",
@@ -461,5 +846,44 @@
   ],
   "pathPattern": "/api/v1/nodes",
   "product_code": "PaiStudio",
-  "protocol": "HTTP|HTTPS"
+  "protocol": "HTTP|HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Response schema",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Nodes": {
+            "description_en": "The list of nodes",
+            "description_zh": "节点列表",
+            "itemName": "NodeItem",
+            "items": {
+              "$ref": "#/components/schemas/Node",
+              "description_en": "The node information",
+              "description_zh": "节点信息"
+            },
+            "type": "array"
+          },
+          "RequestId": {
+            "description_en": "The request ID",
+            "description_zh": "请求Id",
+            "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",
+            "title_en": "请求Id",
+            "title_zh": "请求Id",
+            "type": "string"
+          },
+          "TotalCount": {
+            "description_en": "The number of nodes that meet the filter conditions",
+            "description_zh": "符合过滤条件的节点数量",
+            "example": "23",
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }

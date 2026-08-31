@@ -66,5 +66,56 @@
   ],
   "pathPattern": "",
   "product_code": "ARMS",
-  "protocol": "HTTPS"
+  "protocol": "HTTPS",
+  "responses": {
+    "200": {
+      "schema": {
+        "description_en": "Schema of Response",
+        "description_zh": "Schema of Response",
+        "properties": {
+          "Code": {
+            "backendName": "code",
+            "description_en": "Status code. 200 indicates success; other status codes indicate exceptions",
+            "description_zh": "状态码。200为成功，其他状态码为异常",
+            "example": "200",
+            "format": "int32",
+            "type": "integer"
+          },
+          "Data": {
+            "backendName": "data",
+            "description_en": "The return parameter type is related to the module value passed in.\n\nQueryTopo\n   ```\n  {\n\"nodes\": [Object] #Node collection. See the Node definition in the supplementary description of return parameters.\n\"edges\": [Object] #Edge collection. See the Edge definition in the supplementary description of return parameters.\n  }\n  ```\n- QueryTopoRed\n\n  ```\n  {\n\"nodeRed\": {\n\"nodeId\": {\n\"count\": double, #Total number of requests during the query period\n\"error\": double, #Total number of errors during the query period\n\"rt\": double, #Average latency during the query period, in milliseconds\n}\n},\n\"edgeRed\": {\n\"edgeId\": {\n    \"count\": double, #Total number of requests during the query period\n\"error\": double, #Total number of errors during the query period\n\"rt\": double, #Average latency during the query period, in milliseconds\n}\n}\n}\n  ```",
+            "description_zh": "返回参数类型与传入的module值相关。\n\nQueryTopo\n   ```\n  {\n\"nodes\": [Object] #节点集合，详见返回参数补充说明中的Node定义\n\"edges\": [Object] #边集合，详见返回参数补充说明中的Edge定义\n  }\n  ```\n- QueryTopoRed\n\n  ```\n  {\n\"nodeRed\": {\n\"nodeId\": {\n\"count\": double, #查询时段的总请求数\n\"error\": double, #查询时段的总错误数\n\"rt\": double, #查询时段的平均耗时,单位毫秒\n}\n},\n\"edgeRed\": {\n\"edgeId\": {\n    \"count\": double, #查询时段的总请求数\n\"error\": double, #查询时段的总错误数\n\"rt\": double, #查询时段的平均耗时,单位毫秒\n}\n}\n}\n  ```",
+            "example": "- QueryTopo\n\n\n\t{\n\t\t\"nodes\": [\n\t\t\t{\n\t\t\t\t\"nodeId\": \"3bfe1a747389273388182760406c079d\",\n\t\t\t\t\"entity\": {\n\t\t\t\t\t\"regionId\": \"cn-hangzhou\",\n\t\t\t\t\t\"appType\": \"TRACE\",\n\t\t\t\t\t\"appId\": \"xxxxxxxxxxxxxxxx\",\n\t\t\t\t\t\"name\": \"prometheus-pop-cn-hangzhou\",\n\t\t\t\t\t\"entityId\": \"3bfe1a747389273388182760406c079d\",\n\t\t\t\t\t\"firstSeenTms\": 1721733226981,\n\t\t\t\t\t\"lastSeenTms\": 1721789171614,\n\t\t\t\t\t\"type\": \"APPLICATION\"\n\t\t\t\t},\n\t\t\t\t\"attrs\": {\n\t\t\t\t\t\"RED\": {\n\t\t\t\t\t\t\"count\": 643848.0,\n\t\t\t\t\t\t\"error\": 0.0,\n\t\t\t\t\t\t\"rt\": 172.31701892372112\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t],\n\t\t\"edges\": [\n\t\t\t{\n\t\t\t\t\"from\": \"98b4184b22e588cf86e9a29aa4179606\",\n\t\t\t\t\"to\": \"98b4184b22e588cf86e9a29aa4179606\",\n\t\t\t\t\"type\": \"CALLS\",\n\t\t\t\t\"attrs\": {\n\t\t\t\t\t\"RED\": {\n\t\t\t\t\t\t\"count\": 4.0,\n\t\t\t\t\t\t\"error\": 0.0,\n\t\t\t\t\t\t\"rt\": 37.0\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t\"edgeId\": \"5d611597e4b0013d0947615c9eca4de6\",\n\t\t\t\t\"firstSeenTms\": 1721783795125,\n\t\t\t\t\"lastSeenTms\": 1721787371614\n\t\t\t}\n\t\t]\n\t}\n\n\n- QueryTopoRed\n\n\t{\n\t\t\"nodeRed\": {\n\t\t\t\"361d9f32e58cef316bf2355f3ff05575\": {\n\t\t\t\t\"count\": 3258110.0,\n\t\t\t\t\"error\": 74.0,\n\t\t\t\t\"rt\": 167.39844355494878\n\t\t\t}\n\t\t},\n\t\t\"edgeRed\": {}\n\t}\n\n",
+            "type": "string"
+          },
+          "Message": {
+            "backendName": "message",
+            "description_en": "The message returned when the call fails",
+            "description_zh": "调用失败时返回的信息",
+            "example": "success",
+            "type": "string"
+          },
+          "RequestId": {
+            "backendName": "requestId",
+            "description_en": "Id of the request",
+            "description_zh": "Id of the request",
+            "example": "626037F5-FDEB-45B0-804C-B3C92797A64E",
+            "title_en": "Id of the request",
+            "title_zh": "Id of the request",
+            "type": "string"
+          },
+          "Success": {
+            "backendName": "success",
+            "description_en": "Whether the query is successful:\n\n`true`: Successful.\n`false`: Failed",
+            "description_zh": "查询是否成功：\n\n`true`：成功。\n`false`：失败",
+            "example": "true",
+            "type": "boolean"
+          }
+        },
+        "title_en": "Schema of Response",
+        "title_zh": "Schema of Response",
+        "type": "object"
+      }
+    }
+  }
 }
