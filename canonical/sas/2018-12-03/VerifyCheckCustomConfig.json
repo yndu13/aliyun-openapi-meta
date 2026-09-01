@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun sas VerifyCheckCustomConfig --region cn-hangzhou --Type REPAIR_CONFIG --RepairConfigs.1.Name IPLists --RepairConfigs.1.FlowId 7fec0a3395b345c18f108ffc9fc00000 --CheckId 76 --RepairConfigs.1.Value '172.26.49.XX' --CustomConfigs.1.Name IPList --CustomConfigs.1.Operation DELETE --CustomConfigs.1.Value '10.12.4.XX' --RepairConfigs.1.Operation DELETE --CustomCheckConfig '{\"InstanceSubType\":\"DISK\",\"CheckRule\":\"AssociatedData_:_ToDataList_:_DataName_:_ACS_ECS_Instance_,_PropertyPath_:_InstanceId_,_FromPropertyPath_:_InstanceId_,_MatchProperty_:_Operator_:_AND_,_MatchProperties_:_DataName_:_ACS_ECS_Disk_,_PropertyPath_:_DiskId_,_MatchOperator_:_EQ_,_MatchPropertyValue_:_testId\",\"Vendor\":\"ALIYUN\",\"InstanceType\":\"ECS\",\"CloudAssetInstance\":{\"InstanceId\":\"i-0jl4mjgl261cfrz50000\",\"RegionId\":\"cn-hangzhou\"}}'",
   "cmd_full_name": "sas verify-check-custom-config",
   "cmd_name": "verify-check-custom-config",
   "deprecated": false,
   "description_en": "Authenticates whether the configuration information entered by a user is compliant with the requirements of the corresponding parameter settings",
   "description_zh": "用来验证用户输入的配置信息是否符合对应参数配置的要求",
-  "kebab_example": "",
+  "kebab_example": "aliyun sas verify-check-custom-config --check-id 76 --custom-configs Value=10.12.4.XX Operation=DELETE Name=IPList --repair-configs FlowId=7fec0a3395b345c18f108ffc9fc00000 Value=172.26.49.XX Operation=DELETE Name=IPLists --type REPAIR_CONFIG --custom-check-config '{\"InstanceSubType\":\"DISK\",\"CheckRule\":\"AssociatedData_:_ToDataList_:_DataName_:_ACS_ECS_Instance_,_PropertyPath_:_InstanceId_,_FromPropertyPath_:_InstanceId_,_MatchProperty_:_Operator_:_AND_,_MatchProperties_:_DataName_:_ACS_ECS_Disk_,_PropertyPath_:_DiskId_,_MatchOperator_:_EQ_,_MatchPropertyValue_:_testId\",\"Vendor\":\"ALIYUN\",\"InstanceType\":\"ECS\",\"CloudAssetInstance\":{\"InstanceId\":\"i-0jl4mjgl261cfrz50000\",\"RegionId\":\"cn-hangzhou\"}}' --api-version 2018-12-03 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "VerifyCheckCustomConfig",
@@ -277,49 +277,44 @@
         "description_zh": "返回消息的结构体",
         "properties": {
           "ErrorCheckConfigs": {
-            "backendName": "errorCheckConfigs",
             "description_en": "The list of check parameters that have configuration check errors",
             "description_zh": "配置检查错误的检查参数列表",
-            "itemName": "ErrorCheckConfig",
             "items": {
+              "description_en": "",
+              "description_zh": "",
               "properties": {
                 "ErrorCode": {
-                  "backendName": "errorCode",
                   "description_en": "The error code",
                   "description_zh": "错误码",
                   "example": "ConfigEqualIllegal",
                   "type": "string"
                 },
                 "ErrorMsg": {
-                  "backendName": "errorMsg",
                   "description_en": "The error message",
                   "description_zh": "错误消息",
                   "example": "Custom parameter is not equal to corresponding check parameter",
                   "type": "string"
                 },
                 "LinkErrorConfigs": {
-                  "backendName": "linkErrorConfigs",
                   "description_en": "The related configurations that caused this error",
                   "description_zh": "导致此错误的相关配置",
-                  "itemName": "LinkErrorConfig",
                   "items": {
+                    "description_en": "",
+                    "description_zh": "",
                     "properties": {
                       "Name": {
-                        "backendName": "name",
                         "description_en": "The name of the check item configuration. The name is unique within the check item",
                         "description_zh": "检查项配置项名称，同检查项唯一",
                         "example": "IpLists",
                         "type": "string"
                       },
                       "ShowName": {
-                        "backendName": "showName",
                         "description_en": "The display name of the user check configuration",
                         "description_zh": "用户检查配置展示名称",
                         "example": "IP Lists",
                         "type": "string"
                       },
                       "Type": {
-                        "backendName": "type",
                         "description_en": "The type of the parameter that has an error. Valid values:\nrepair: repair parameter\ncustom: custom configuration parameter",
                         "description_zh": "出错的参数类型：\nrepair：修复参数\ncustom：自定义配置参数",
                         "example": "repair",
@@ -331,21 +326,18 @@
                   "type": "array"
                 },
                 "Name": {
-                  "backendName": "name",
                   "description_en": "The name of the custom configuration item for the check item. The name is unique within the check item",
                   "description_zh": "检查项自定义配置项名称，同检查项唯一",
                   "example": "IpList",
                   "type": "string"
                 },
                 "Type": {
-                  "backendName": "type",
                   "description_en": "The type of the parameter that has an error. Valid values:\ncustom: custom configuration parameter",
                   "description_zh": "出错的参数类型：\ncustom：自定义配置参数",
                   "example": "custom",
                   "type": "string"
                 },
                 "Value": {
-                  "backendName": "value",
                   "description_en": "The user-configured value string of the custom configuration item for the check item",
                   "description_zh": "检查项自定义配置项用户配置值字符串",
                   "example": "10.12.4.XX",
@@ -357,19 +349,16 @@
             "type": "array"
           },
           "ErrorCheckCustomConfig": {
-            "backendName": "errorCheckCustomConfig",
             "description_en": "The error code returned for the custom check item validation",
             "description_zh": "检查自定义检查项返回的错误码",
             "properties": {
               "ErrorCode": {
-                "backendName": "errorCode",
                 "description_en": "The error code returned upon failure. This parameter is not returned upon success. Valid values:\nCspmVerifyCheckCustomItemNoPass: The asset did not pass the custom rule that was configured.\nCspmVerifyCheckCustomItemError: A validation error occurred because the input rule has issues",
                 "description_zh": "失败时错误码。成功时此参数不返回。\nCspmVerifyCheckCustomItemNoPass：资产未通过设置的自定义规则。\nCspmVerifyCheckCustomItemError：验证错误，输入规则存在问题",
                 "example": "CspmVerifyCheckCustomItemNoPass",
                 "type": "string"
               },
               "ErrorMsg": {
-                "backendName": "errorMsg",
                 "description_en": "The exception information",
                 "description_zh": "异常信息",
                 "example": "Creation verification failed.",
@@ -379,49 +368,44 @@
             "type": "object"
           },
           "ErrorRepairConfigs": {
-            "backendName": "errorRepairConfigs",
             "description_en": "The list of repair parameters that have configuration check errors",
             "description_zh": "配置检查错误的修复参数列表",
-            "itemName": "ErrorRepairConfig",
             "items": {
+              "description_en": "",
+              "description_zh": "",
               "properties": {
                 "ErrorCode": {
-                  "backendName": "errorCode",
                   "description_en": "The error code",
                   "description_zh": "错误码",
                   "example": "ConfigEqualIllegal",
                   "type": "string"
                 },
                 "ErrorMsg": {
-                  "backendName": "errorMsg",
                   "description_en": "The error message",
                   "description_zh": "错误消息",
                   "example": "Repair parameter is not equal to corresponding check parameter",
                   "type": "string"
                 },
                 "LinkErrorConfigs": {
-                  "backendName": "linkErrorConfigs",
                   "description_en": "The related configurations that caused this error",
                   "description_zh": "导致此错误的相关配置",
-                  "itemName": "LinkErrorConfig",
                   "items": {
+                    "description_en": "",
+                    "description_zh": "",
                     "properties": {
                       "Name": {
-                        "backendName": "name",
                         "description_en": "The name of the check item configuration. The name is unique within the check item",
                         "description_zh": "检查项配置项名称，同检查项唯一",
                         "example": "IpList",
                         "type": "string"
                       },
                       "ShowName": {
-                        "backendName": "showName",
                         "description_en": "The display name of the user check configuration",
                         "description_zh": "用户检查配置展示名称",
                         "example": "Ip List",
                         "type": "string"
                       },
                       "Type": {
-                        "backendName": "type",
                         "description_en": "The type of the parameter that has an error. Valid values:\nrepair: repair parameter\ncustom: custom configuration parameter",
                         "description_zh": "出错的参数类型：\nrepair：修复参数\ncustom：自定义配置参数",
                         "example": "custom",
@@ -433,21 +417,18 @@
                   "type": "array"
                 },
                 "Name": {
-                  "backendName": "name",
                   "description_en": "The name of the repair configuration item for the check item. The name is unique within the check item",
                   "description_zh": "检查项修复配置项名称，同检查项唯一",
                   "example": "IpLists",
                   "type": "string"
                 },
                 "Type": {
-                  "backendName": "type",
                   "description_en": "The type of the parameter that has an error. Valid values:\nrepair: repair parameter",
                   "description_zh": "出错的参数类型：\nrepair：修复参数",
                   "example": "repair",
                   "type": "string"
                 },
                 "Value": {
-                  "backendName": "value",
                   "description_en": "The name of the repair parameter for the check item. The name is unique within the check item",
                   "description_zh": "检查项修复参数名称，同检查项唯一",
                   "example": "172.26.49.XX\n",
@@ -459,16 +440,15 @@
             "type": "array"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID, which is a unique identifier generated by Alibaba Cloud for the request. You can use this ID to troubleshoot issues",
             "description_zh": "本次调用请求的ID，是由阿里云为该请求生成的唯一标识符，可用于排查和定位问题",
             "example": "7532B7EE-7CE7-5F4D-BF04-B12447DD****",
-            "title_en": "Id of the request",
+            "title_en": "",
             "title_zh": "Id of the request",
             "type": "string"
           }
         },
-        "title_en": "Schema of Response",
+        "title_en": "",
         "title_zh": "Schema of Response",
         "type": "object"
       }

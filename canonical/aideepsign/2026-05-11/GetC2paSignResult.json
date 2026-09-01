@@ -40,12 +40,15 @@
   "responses": {
     "200": {
       "schema": {
+        "description_zh": "查询任务返回结果",
         "properties": {
           "Code": {
             "backendName": "Code",
             "description_en": "The business error code of this API call. The value `OK` is returned when the call succeeds",
             "description_zh": "本次接口调用的业务错误码。调用成功时返回 `OK`",
             "example": "OK",
+            "title_en": "返回码",
+            "title_zh": "返回码",
             "type": "string"
           },
           "ErrorCode": {
@@ -53,8 +56,8 @@
             "description_en": "The task error code. This parameter is returned only when `Status=FAILED`",
             "description_zh": "任务失败错误码，仅在 `Status=FAILED` 时返回",
             "example": "C2PA_FORMAT_UNSUPPORTED",
-            "title_en": "任务错误码，仅FAILED时返回",
-            "title_zh": "任务错误码，仅FAILED时返回",
+            "title_en": "任务错误码。Status为FAILED时返回；Bucket因共享依赖故障进入PAUSING或PAUSED时也返回。用户主动暂停或任务进入CANCELED时不返回",
+            "title_zh": "任务错误码。Status为FAILED时返回；Bucket因共享依赖故障进入PAUSING或PAUSED时也返回。用户主动暂停或任务进入CANCELED时不返回",
             "type": "string"
           },
           "ErrorMessage": {
@@ -62,9 +65,18 @@
             "description_en": "The task error message. This parameter is returned only when `Status=FAILED`",
             "description_zh": "任务失败错误信息，仅在 `Status=FAILED` 时返回",
             "example": "only valid JPEG and PNG source files are supported",
-            "title_en": "任务错误信息，仅FAILED时返回",
-            "title_zh": "任务错误信息，仅FAILED时返回",
+            "title_en": "任务错误信息。返回条件与ErrorCode相同",
+            "title_zh": "任务错误信息。返回条件与ErrorCode相同",
             "type": "string"
+          },
+          "FailedCount": {
+            "backendName": "FailedCount",
+            "description_zh": "Bucket任务签名失败、跳过或被终止的对象数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "example": "2",
+            "format": "int64",
+            "title_en": "Bucket任务签名失败、跳过或被终止的对象数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "title_zh": "Bucket任务签名失败、跳过或被终止的对象数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "type": "integer"
           },
           "HttpStatusCode": {
             "backendName": "HttpStatusCode",
@@ -72,6 +84,8 @@
             "description_zh": "HTTP 状态码。接口调用成功时返回 `200`",
             "example": "200",
             "format": "int32",
+            "title_en": "HTTP状态码",
+            "title_zh": "HTTP状态码",
             "type": "integer"
           },
           "Message": {
@@ -79,6 +93,24 @@
             "description_en": "The additional information. The value `success` is returned when the call succeeds",
             "description_zh": "附加信息。接口调用成功时返回 `success`",
             "example": "success",
+            "title_en": "返回信息",
+            "title_zh": "返回信息",
+            "type": "string"
+          },
+          "ReportFileUrl": {
+            "backendName": "ReportFileUrl",
+            "description_zh": "Bucket任务进入CANCELED且内部JSON报告写入成功时返回的临时下载地址；报告只覆盖终止前已发现的对象",
+            "example": "https://ai-deepsign-hangzhou-prod.oss-cn-hangzhou.aliyuncs.com/c2pa_bucket_reports/047b8305-9572-4eed-b7fb-8588b989b6e5/c2pa_report.json?Expires=1788000000&Signature=***",
+            "title_en": "Bucket任务进入CANCELED且内部JSON报告写入成功时返回的临时下载地址；报告只覆盖终止前已发现的对象",
+            "title_zh": "Bucket任务进入CANCELED且内部JSON报告写入成功时返回的临时下载地址；报告只覆盖终止前已发现的对象",
+            "type": "string"
+          },
+          "ReportObjectKey": {
+            "backendName": "ReportObjectKey",
+            "description_zh": "Bucket任务最终标准JSON报告的Object Key，仅Bucket任务成功时返回",
+            "example": "ai-deepsign-signed/047b8305-9572-4eed-b7fb-8588b989b6e5/c2pa_report.json",
+            "title_en": "Bucket任务最终标准JSON报告的Object Key，仅Bucket任务成功时返回",
+            "title_zh": "Bucket任务最终标准JSON报告的Object Key，仅Bucket任务成功时返回",
             "type": "string"
           },
           "RequestId": {
@@ -95,8 +127,8 @@
             "description_en": "The temporary download URL of the signature file. This parameter is returned only when `Status=SUCCEEDED`",
             "description_zh": "签名文件的临时下载地址，仅在 `Status=SUCCEEDED` 时返回",
             "example": "https://example.oss-cn-hangzhou.aliyuncs.com/...",
-            "title_en": "签名后文件的临时下载地址，仅成功时返回",
-            "title_zh": "签名后文件的临时下载地址，仅成功时返回",
+            "title_en": "签名后文件的临时下载地址，仅单文件任务成功时返回",
+            "title_zh": "签名后文件的临时下载地址，仅单文件任务成功时返回",
             "type": "string"
           },
           "Status": {
@@ -104,15 +136,26 @@
             "description_en": "The task status. Valid values: `PROCESSING`, `SUCCEEDED`, `FAILED`",
             "description_zh": "任务状态。取值：`PROCESSING`、`SUCCEEDED`、`FAILED`",
             "example": "SUCCEEDED",
-            "title_en": "任务状态：PROCESSING、SUCCEEDED 或 FAILED。FAILED 为终态，系统不会自动重试、重新入队或重签；C2pa.SigningOutcomeUnconfirmed 表示可能已有DigiCert副作用，需人工核实",
-            "title_zh": "任务状态：PROCESSING、SUCCEEDED 或 FAILED。FAILED 为终态，系统不会自动重试、重新入队或重签；C2pa.SigningOutcomeUnconfirmed 表示可能已有DigiCert副作用，需人工核实",
+            "title_en": "任务状态。单文件任务取值为PROCESSING、SUCCEEDED或FAILED；Bucket任务还可能返回PAUSING、PAUSED、CANCELING或CANCELED。SUCCEEDED、FAILED和CANCELED为终态；Bucket的SUCCEEDED表示编排和报告完成，不表示所有文件都签名成功",
+            "title_zh": "任务状态。单文件任务取值为PROCESSING、SUCCEEDED或FAILED；Bucket任务还可能返回PAUSING、PAUSED、CANCELING或CANCELED。SUCCEEDED、FAILED和CANCELED为终态；Bucket的SUCCEEDED表示编排和报告完成，不表示所有文件都签名成功",
             "type": "string"
+          },
+          "SucceededCount": {
+            "backendName": "SucceededCount",
+            "description_zh": "Bucket任务签名成功的对象数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "example": "1",
+            "format": "int64",
+            "title_en": "Bucket任务签名成功的对象数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "title_zh": "Bucket任务签名成功的对象数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "type": "integer"
           },
           "Success": {
             "backendName": "Success",
             "description_en": "Indicates whether this query call is successful. This value can still be `true` even if the task itself failed",
             "description_zh": "表示本次查询调用是否成功。任务本身失败时，该值仍可能为 `true`",
             "example": "True",
+            "title_en": "请求是否成功",
+            "title_zh": "请求是否成功",
             "type": "boolean"
           },
           "TaskId": {
@@ -120,11 +163,30 @@
             "description_en": "The C2PA signing task ID",
             "description_zh": "C2PA 签名任务 ID",
             "example": "7093c29e-f472-4e1e-91c6-a43df7c7382e",
-            "title_en": "CA/DigiCert异步签名任务ID，不属于原SignUserImage",
-            "title_zh": "CA/DigiCert异步签名任务ID，不属于原SignUserImage",
+            "title_en": "官方C2PA签名任务ID",
+            "title_zh": "官方C2PA签名任务ID",
             "type": "string"
+          },
+          "TaskType": {
+            "backendName": "TaskType",
+            "description_zh": "任务类型：FILE或BUCKET",
+            "example": "BUCKET",
+            "title_en": "任务类型：FILE或BUCKET",
+            "title_zh": "任务类型：FILE或BUCKET",
+            "type": "string"
+          },
+          "TotalCount": {
+            "backendName": "TotalCount",
+            "description_zh": "Bucket任务扫描到的对象总数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "example": "3",
+            "format": "int64",
+            "title_en": "Bucket任务扫描到的对象总数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "title_zh": "Bucket任务扫描到的对象总数，仅Bucket任务SUCCEEDED或CANCELED时返回",
+            "type": "integer"
           }
         },
+        "title_en": "查询任务返回结果",
+        "title_zh": "查询任务返回结果",
         "type": "object"
       }
     }

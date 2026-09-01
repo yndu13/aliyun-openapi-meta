@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun cr ListTagResources --region cn-hangzhou --ResourceType Instance --RegionId 'cn-hangzhou'",
   "cmd_full_name": "cr list-tag-resources",
   "cmd_name": "list-tag-resources",
   "deprecated": false,
   "description_en": "Queries the tags that are added to cloud resources. Instance resources are supported",
   "description_zh": "查询资源已经绑定的标签列表。当前支持实例 Instance 资源",
-  "kebab_example": "",
+  "kebab_example": "aliyun cr list-tag-resources --resource-type Instance --biz-region-id cn-hangzhou --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "ListTagResources",
@@ -130,49 +130,65 @@
         "description_zh": "Schema of Response",
         "properties": {
           "NextToken": {
-            "backendName": "nextToken",
             "description_en": "A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists",
             "description_zh": "是否拥有下一次查询的令牌（Token）。取值：第一次查询和没有下一次查询时，均无需填写。如果有下一次查询，取值为上一次API调用返回的NextToken值",
             "example": "AAAAAfj+3fkqd8igM6VLaQjlaYc=\n",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "7FF809ED-B42F-5AC3-9A17-CFE14BE32A8E",
-            "title_en": "Id of the request",
+            "title_en": "",
             "title_zh": "Id of the request",
             "type": "string"
           },
           "TagResources": {
-            "backendName": "tagResources",
-            "itemName": "TagResource",
-            "items": {
-              "properties": {
-                "ResourceId": {
-                  "backendName": "resourceId",
-                  "type": "string"
+            "description_en": "",
+            "description_zh": "",
+            "itemNode": true,
+            "properties": {
+              "TagResource": {
+                "description_en": "The tags that are added to the resource",
+                "description_zh": "标签资源列表",
+                "items": {
+                  "description_en": "The tags that are added to the resource",
+                  "description_zh": "",
+                  "properties": {
+                    "ResourceId": {
+                      "description_en": "The resource ID",
+                      "description_zh": "资源ID",
+                      "example": "cri-w19e7qr2wibl****",
+                      "type": "string"
+                    },
+                    "ResourceType": {
+                      "description_en": "The resource type",
+                      "description_zh": "资源类型",
+                      "example": "Instance",
+                      "type": "string"
+                    },
+                    "TagKey": {
+                      "description_en": "The tag key",
+                      "description_zh": "标签的键",
+                      "example": "test-key\n",
+                      "type": "string"
+                    },
+                    "TagValue": {
+                      "description_en": "The tag value",
+                      "description_zh": "标签的值",
+                      "example": "test-val",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 },
-                "ResourceType": {
-                  "backendName": "resourceType",
-                  "type": "string"
-                },
-                "TagKey": {
-                  "backendName": "tagKey",
-                  "type": "string"
-                },
-                "TagValue": {
-                  "backendName": "tagValue",
-                  "type": "string"
-                }
-              },
-              "type": "object"
+                "type": "array"
+              }
             },
-            "type": "array"
+            "type": "object"
           }
         },
-        "title_en": "Schema of Response",
+        "title_en": "",
         "title_zh": "Schema of Response",
         "type": "object"
       }

@@ -4,7 +4,7 @@
   "deprecated": false,
   "description_en": "Queries the latest sensitive data in all the DataWorks workspaces of a tenant",
   "description_zh": "调用GetSensitiveData，获取租户下所有DataWorks工作空间的最新敏感数据识别结果",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataworks-public get-sensitive-data --page-size 1000 --page-no 1 --name dbType_:_hologres_,_instanceName_:_ABC_,_databaseName_:_abc_,_dbType_:_ODPS.ODPS_,_projectName_:_adbc --api-version 2020-05-18 --region cn-hangzhou",
   "method": "GET",
   "multi_version": true,
   "name": "GetSensitiveData",
@@ -76,22 +76,16 @@
         "description_zh": "返回参数",
         "properties": {
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID，一次请求的唯一标识",
             "example": "0000-ABCD-EFG****",
-            "nullToEmpty": false,
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           },
           "SensitiveData": {
-            "backendName": "data",
             "description_en": "The information about the sensitive data returned. The information includes totalCount and sensDatas. sensDatas includes the following parameters:\n\nguid: the ID of the metadata of the tenant. For example, the ID of the metadata in the MaxCompute compute engine is in the Project name.Table name.Column name format.\nsensType: the type of the sensitive data.\nsensLevel: the sensitivity level of the sensitive data",
             "description_zh": "返回的敏感数据信息。包括totalCount（敏感数据总条数）和sensDatas（敏感数据列表）。\n其中sensDatas（敏感数据列表）包括：\nguid：租户元数据的唯一id，例如ODPS.ODPS类型数据的guid由project.table.column组成。\nsensType：敏感类型。\nsensLevel：敏感级别",
             "example": "{      \"sensDatas\": [       {         \"sensLevel\": \"L1\",         \"guid\": \"dsg_demo.animal.dog\",         \"sensType\": \" Name\"       }      ],     \"totalCount\": 2171 }",
-            "nullToEmpty": false,
-            "type": "object",
-            "visibility": "Public"
+            "type": "object"
           }
         },
         "type": "object"

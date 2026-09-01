@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun pvtz DescribePvtzStatisticsGlobalOverview --region cn-hangzhou --NetworkParams.1.VpcOwner 5924158341670144 --NetworkParams.1.VpcId 'vpc-bp1y5y4wk5810n50cx765' --NetworkParams.1.VpcType STANDARD --ServerRegion 'cn-hangzhou' --NetworkParams.1.RegionId 'cn-hangzhou' --OverviewPeriod 'DAY,_WEEK,_MONTH' --method POST --force",
   "cmd_full_name": "pvtz describe-pvtz-statistics-global-overview",
   "cmd_name": "describe-pvtz-statistics-global-overview",
   "deprecated": false,
-  "description_en": "Retrieves global DNS resolution statistics for PrivateZone",
+  "description_en": "Queries the global overview of DNS resolution statistics for Alibaba Cloud DNS PrivateZone",
   "description_zh": "Pvtz解析统计信息全局总览",
-  "kebab_example": "",
+  "kebab_example": "aliyun pvtz describe-pvtz-statistics-global-overview --server-region cn-hangzhou --overview-period DAY,_WEEK,_MONTH --network-params VpcType=STANDARD VpcId=vpc-bp1y5y4wk5810n50cx765 VpcOwner=5924158341670144 RegionId=cn-hangzhou --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "DescribePvtzStatisticsGlobalOverview",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "cn-hangzhou",
-      "help_en": "The region",
+      "help_en": "The service region",
       "help_zh": "服务区域",
       "location": "query",
       "name": "server_region",
@@ -35,7 +35,7 @@
     },
     {
       "example": "DAY, WEEK, MONTH",
-      "help_en": "The statistical period. Valid values: `DAY`, `WEEK`, and `MONTH`",
+      "help_en": "The statistical period",
       "help_zh": "统计周期",
       "location": "query",
       "name": "overview_period",
@@ -63,7 +63,7 @@
           },
           {
             "example": "vpc-bp1y5y4wk5810n50cx765",
-            "help_en": "The VPC ID",
+            "help_en": "VPC ID",
             "help_zh": "VPC ID",
             "name": "vpc_id",
             "options": [
@@ -75,7 +75,7 @@
           },
           {
             "example": "5924158341670144",
-            "help_en": "The ID of the Alibaba Cloud account to which the VPC belongs",
+            "help_en": "The VPC owner",
             "help_zh": "VPC所有者",
             "name": "vpc_owner",
             "options": [
@@ -87,7 +87,7 @@
           },
           {
             "example": "STANDARD",
-            "help_en": "The type of the VPC. Valid values:\n\nSTANDARD: standard VPC\n\nEDS: Elastic Desktop Service (EDS) VPC",
+            "help_en": "The VPC type.\n\nValid values:\n\nSTANDARD: standard VPC.\n\nEDS: Elastic Desktop Service workspace VPC",
             "help_zh": "VPC类型。\n\nSTANDARD：标准VPC。\n\nEDS：无影工作区VPC",
             "name": "vpc_type",
             "options": [
@@ -119,17 +119,17 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response data",
+        "description_en": "Schema of Response",
         "description_zh": "Schema of Response",
         "properties": {
           "Data": {
             "backendName": "data",
-            "description_en": "The statistical results",
+            "description_en": "The statistics result",
             "description_zh": "统计结果",
             "properties": {
               "AvgResolveLatency": {
                 "backendName": "avgResolveLatency",
-                "description_en": "The average resolution latency for all VPCs with traffic analysis enabled. The average resolution latency is the average time from when an Alibaba Cloud DNS server receives a DNS query to when it returns a response",
+                "description_en": "The average resolution latency across all VPCs that have network traffic analysis enabled. The average resolution latency is the average time elapsed from when the Alibaba Cloud DNS server receives a DNS query request to when it generates and returns a resolution response",
                 "description_zh": "统计所有启用流量分析的VPC的平均解析时延。平均解析时延是指：阿里云 DNS 服务器从接收到 DNS 查询请求起，到生成并返回解析应答为止的平均耗时",
                 "example": "15",
                 "format": "int64",
@@ -137,7 +137,7 @@
               },
               "AvgResolveLatencyTrend": {
                 "backendName": "avgResolveLatencyTrend",
-                "description_en": "The trend in the average resolution latency for all VPCs with traffic analysis enabled",
+                "description_en": "The trend of the average resolution latency across all VPCs that have network traffic analysis enabled",
                 "description_zh": "统计所有启用流量分析的VPC的平均解析时延趋势变化",
                 "example": "-2",
                 "format": "int64",
@@ -145,7 +145,7 @@
               },
               "AvgSuccessRatio": {
                 "backendName": "avgSuccessRatio",
-                "description_en": "The average resolution success rate for all VPCs with traffic analysis enabled",
+                "description_en": "The average resolution success rate across all VPCs that have network traffic analysis enabled",
                 "description_zh": "统计所有启用流量分析的VPC的平均解析成功率",
                 "example": "98",
                 "format": "int64",
@@ -153,7 +153,7 @@
               },
               "AvgSuccessRatioTrend": {
                 "backendName": "avgSuccessRatioTrend",
-                "description_en": "The trend in the average resolution success rate for all VPCs with traffic analysis enabled",
+                "description_en": "The trend of the average resolution success rate across all VPCs that have network traffic analysis enabled",
                 "description_zh": "统计所有启用流量分析的VPC的平均解析成功率趋势变化",
                 "example": "1",
                 "format": "int64",
@@ -161,7 +161,7 @@
               },
               "TotalResolveCount": {
                 "backendName": "totalResolveCount",
-                "description_en": "The total number of resolutions for all VPCs with traffic analysis enabled",
+                "description_en": "The total number of DNS resolutions across all VPCs that have network traffic analysis enabled",
                 "description_zh": "统计所有启用流量分析VPC的总解析数",
                 "example": "100000",
                 "format": "int64",
@@ -169,7 +169,7 @@
               },
               "TotalResolveCountTrend": {
                 "backendName": "totalResolveCountTrend",
-                "description_en": "The trend in the resolution volume for all VPCs with traffic analysis enabled",
+                "description_en": "The trend of DNS resolution volume across all VPCs that have network traffic analysis enabled",
                 "description_zh": "统计所有启用流量分析VPC的解析量趋势",
                 "example": "5",
                 "format": "int64",
@@ -180,7 +180,7 @@
           },
           "RequestId": {
             "backendName": "requestId",
-            "description_en": "The request ID",
+            "description_en": "Id of the request",
             "description_zh": "Id of the request",
             "example": "0B7AD377-7E86-44A8-B9A8-53E8666E72FE",
             "title_en": "Id of the request",

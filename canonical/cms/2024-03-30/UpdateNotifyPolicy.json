@@ -12,14 +12,14 @@
             "description_en": "The subscription conditions",
             "description_zh": "订阅条件",
             "items": {
-              "description_en": "A single condition",
+              "description_en": "The individual condition",
               "description_zh": "单个条件",
               "properties": {
                 "field": {
                   "backendName": "field",
-                  "description_en": "The field",
-                  "description_zh": "字段",
-                  "example": "severity",
+                  "description_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                  "description_zh": "事件字段的 JSON 路径，支持点号嵌套",
+                  "example": "labels.alertname\t",
                   "title": "字段",
                   "type": "string"
                 },
@@ -33,8 +33,8 @@
                 },
                 "value": {
                   "backendName": "value",
-                  "description_en": "The value",
-                  "description_zh": "值",
+                  "description_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                  "description_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                   "example": "CRITICAL",
                   "title": "值",
                   "type": "string"
@@ -48,16 +48,16 @@
           },
           "expression": {
             "backendName": "expression",
-            "description_en": "The expression",
-            "description_zh": "表达式",
+            "description_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+            "description_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
             "example": "1 and 2 or 3",
             "title": "表达式",
             "type": "string"
           },
           "relation": {
             "backendName": "relation",
-            "description_en": "The relationship between conditions",
-            "description_zh": "条件间关系",
+            "description_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+            "description_zh": "条件间逻辑关系。expression 为空时生效",
             "example": "AND",
             "title": "条件间关系",
             "type": "string"
@@ -952,12 +952,12 @@
           "tagSelector": {
             "$ref": "#/components/schemas/FilterSetting",
             "backendName": "tagSelector",
-            "description_en": "The tag filter",
-            "description_zh": "标签筛选器"
+            "description_en": "The label filter. This parameter is not supported and does not take effect if specified",
+            "description_zh": "标签筛选器，尚未支持，传入不生效"
           },
           "workspaceUuids": {
             "backendName": "workspaceUuids",
-            "description_en": "A list of workspace UUIDs",
+            "description_en": "The list of workspace UUIDs",
             "description_zh": "工作空间 UUID 列表",
             "items": {
               "description_en": "The workspace UUID",
@@ -975,7 +975,7 @@
   "deprecated": false,
   "description_en": "Updates a notification policy",
   "description_zh": "更新通知策略",
-  "kebab_example": "",
+  "kebab_example": "aliyun cms update-notify-policy --workspace default-cms-xxxx-cn-hangzhou --api-version 2024-03-30 --region cn-hangzhou",
   "method": "PUT",
   "multi_version": true,
   "name": "UpdateNotifyPolicy",
@@ -1326,9 +1326,9 @@
                     "element": {
                       "fields": [
                         {
-                          "example": "severity",
-                          "help_en": "The field",
-                          "help_zh": "字段",
+                          "example": "labels.alertname\t",
+                          "help_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                          "help_zh": "事件字段的 JSON 路径，支持点号嵌套",
                           "name": "field",
                           "options": [
                             "--field"
@@ -1351,8 +1351,8 @@
                         },
                         {
                           "example": "CRITICAL",
-                          "help_en": "The value",
-                          "help_zh": "值",
+                          "help_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                          "help_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                           "name": "value",
                           "options": [
                             "--value"
@@ -1376,8 +1376,8 @@
                   },
                   {
                     "example": "1 and 2 or 3",
-                    "help_en": "The expression",
-                    "help_zh": "表达式",
+                    "help_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+                    "help_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
                     "name": "expression",
                     "options": [
                       "--expression"
@@ -1388,8 +1388,8 @@
                   },
                   {
                     "example": "AND",
-                    "help_en": "The relationship between conditions",
-                    "help_zh": "条件间关系",
+                    "help_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+                    "help_zh": "条件间逻辑关系。expression 为空时生效",
                     "name": "relation",
                     "options": [
                       "--relation"
@@ -1564,9 +1564,9 @@
               "element": {
                 "fields": [
                   {
-                    "example": "severity",
-                    "help_en": "The field",
-                    "help_zh": "字段",
+                    "example": "labels.alertname\t",
+                    "help_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                    "help_zh": "事件字段的 JSON 路径，支持点号嵌套",
                     "name": "field",
                     "options": [
                       "--field"
@@ -1589,8 +1589,8 @@
                   },
                   {
                     "example": "CRITICAL",
-                    "help_en": "The value",
-                    "help_zh": "值",
+                    "help_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                    "help_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                     "name": "value",
                     "options": [
                       "--value"
@@ -1614,8 +1614,8 @@
             },
             {
               "example": "1 and 2 or 3",
-              "help_en": "The expression",
-              "help_zh": "表达式",
+              "help_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+              "help_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
               "name": "expression",
               "options": [
                 "--expression"
@@ -1626,8 +1626,8 @@
             },
             {
               "example": "AND",
-              "help_en": "The relationship between conditions",
-              "help_zh": "条件间关系",
+              "help_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+              "help_zh": "条件间逻辑关系。expression 为空时生效",
               "name": "relation",
               "options": [
                 "--relation"
@@ -1667,9 +1667,9 @@
                   "element": {
                     "fields": [
                       {
-                        "example": "severity",
-                        "help_en": "The field",
-                        "help_zh": "字段",
+                        "example": "labels.alertname\t",
+                        "help_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                        "help_zh": "事件字段的 JSON 路径，支持点号嵌套",
                         "name": "field",
                         "options": [
                           "--field"
@@ -1692,8 +1692,8 @@
                       },
                       {
                         "example": "CRITICAL",
-                        "help_en": "The value",
-                        "help_zh": "值",
+                        "help_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                        "help_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                         "name": "value",
                         "options": [
                           "--value"
@@ -1717,8 +1717,8 @@
                 },
                 {
                   "example": "1 and 2 or 3",
-                  "help_en": "The expression",
-                  "help_zh": "表达式",
+                  "help_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+                  "help_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
                   "name": "expression",
                   "options": [
                     "--expression"
@@ -1729,8 +1729,8 @@
                 },
                 {
                   "example": "AND",
-                  "help_en": "The relationship between conditions",
-                  "help_zh": "条件间关系",
+                  "help_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+                  "help_zh": "条件间逻辑关系。expression 为空时生效",
                   "name": "relation",
                   "options": [
                     "--relation"
@@ -1754,7 +1754,7 @@
               "element": {
                 "type": "string"
               },
-              "help_en": "A list of workspace UUIDs",
+              "help_en": "The list of workspace UUIDs",
               "help_zh": "工作空间 UUID 列表",
               "name": "workspace_uuids",
               "options": [

@@ -4,7 +4,7 @@
   "deprecated": false,
   "description_en": "Modifies the elastic mode of a delivery group, including fixed quantity (no elastic scaling), scheduled scaling, and automatic scaling",
   "description_zh": "修改交付组的弹性模式，包括固定数量（不使用弹性扩缩容）、定时扩缩容和自动扩缩容",
-  "kebab_example": "",
+  "kebab_example": "aliyun appstream-center modify-node-pool-attribute --product-type CloudApp --pool-id rg-ew7va2g1wl3vm0000 --node-capacity 2 --node-pool-strategy '{\"MaxIdleAppInstanceAmount\":3,\"WarmUp\":false,\"StrategyType\":\"NODE_FIXED\",\"ScalingStep\":2,\"MaxScalingAmount\":10,\"ScalingDownAfterIdleMinutes\":5,\"StrategyEnableDate\":\"2023-01-05\",\"StrategyDisableDate\":\"2023-01-19\",\"RecurrenceSchedules\":[{\"RecurrenceType\":\"weekly\",\"RecurrenceValues\":[1],\"TimerPeriods\":[{\"EndTime\":\"15:00\",\"Amount\":2,\"StartTime\":\"12:00\"}]}],\"ScalingUsageThreshold\":\"85\",\"NodeAmount\":1}' --biz-region-id cn-hangzhou --api-version 2021-09-01 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "ModifyNodePoolAttribute",
@@ -21,6 +21,9 @@
   },
   "parameters": [
     {
+      "enum": [
+        "CloudApp"
+      ],
       "example": "CloudApp",
       "help_en": "The product type",
       "help_zh": "产品类型",
@@ -101,6 +104,9 @@
           "element": {
             "fields": [
               {
+                "enum": [
+                  "weekly"
+                ],
                 "example": "weekly",
                 "help_en": "The type of the strategy execution cycle. You must specify both `RecurrenceType` and `RecurrenceValues`",
                 "help_zh": "策略执行周期的类型。必须同时指定`RecurrenceType`和`RecurrenceValues`。 ",
@@ -252,6 +258,11 @@
           "type": "string"
         },
         {
+          "enum": [
+            "NODE_FIXED",
+            "NODE_SCALING_BY_SCHEDULE",
+            "NODE_SCALING_BY_USAGE"
+          ],
           "example": "NODE_FIXED",
           "help_en": "The elastic mode.\n\n\n`NODE_FIXED` (fixed quantity): Applicable to subscription and pay-as-you-go resources.\n`NODE_SCALING_BY_USAGE` (automatic scaling): Applicable to subscription and pay-as-you-go resources.\n`NODE_SCALING_BY_SCHEDULE` (scheduled scaling): Applicable only to pay-as-you-go resources",
           "help_zh": "弹性模式。\n\n\n`NODE_FIXED`（固定数量）：适用于包年包月资源和按量付费资源。\n`NODE_SCALING_BY_USAGE`（自动扩缩容）：适用于包年包月资源和按量付费资源。\n`NODE_SCALING_BY_SCHEDULE`（定时扩缩容）：仅适用于按量付费资源",
@@ -289,6 +300,10 @@
       "type": "object"
     },
     {
+      "enum": [
+        "cn-hangzhou",
+        "cn-shanghai"
+      ],
       "example": "cn-hangzhou",
       "help_en": "The region ID of the delivery group. For more information about supported regions, see https://help.aliyun.com/document_detail/426036.html",
       "help_zh": "交付组所属的地域ID。关于支持的地域详情，请参见https://help.aliyun.com/document_detail/426036.html",
@@ -312,28 +327,25 @@
         "description_zh": "返回信息集合",
         "properties": {
           "Code": {
-            "backendName": "code",
             "description_en": "The error code returned if the request failed",
             "description_zh": "出错时的错误码",
             "example": "InvalidParameter.PoolId",
             "type": "string"
           },
           "Message": {
-            "backendName": "message",
             "description_en": "The error message returned if the request failed",
             "description_zh": "出错时的错误消息",
             "example": "The parameter PoolId is invalid.",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "1CBAFFAB-B697-4049-A9B1-67E1FC5F****",
             "type": "string"
           }
         },
-        "title_en": "BaseResult",
+        "title_en": "",
         "title_zh": "BaseResult",
         "type": "object"
       }

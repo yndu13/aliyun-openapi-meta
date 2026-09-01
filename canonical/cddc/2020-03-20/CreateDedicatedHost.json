@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Creates hosts in a dedicated cluster",
   "description_zh": "调用CreateDedicatedHost接口添加专属集群主机",
-  "kebab_example": "",
+  "kebab_example": "aliyun cddc create-dedicated-host --dedicated-host-group-id dhg-6w7q18iwt5jo0000 --host-class rds.g6.4xlarge --pay-type prepaid --client-token ETnLKlblzczshOTUbOCzSBZH80000 --biz-region-id cn-hangzhou --zone-id cn-hangzhou-i --vswitch-id vsw-bp133c8ifzxd3iv6q0000 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "CreateDedicatedHost",
@@ -142,6 +142,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "cloud_essd",
+        "cloud_essd0"
+      ],
       "example": "cloud_essd0",
       "help_en": "The disk type of the host. This parameter takes effect only for dedicated clusters that run Tair. Valid values:\n\ncloud_essd: PL1 enhanced SSD (ESSD).\ncloud_essd0: PL0 ESSD",
       "help_zh": "主机磁盘类型，仅针对Tair类型主机生效，当前只支持以下两种类型：\ncloud_essd：PL1云盘\ncloud_essd0：PL0云盘",
@@ -505,46 +509,53 @@
   "responses": {
     "200": {
       "schema": {
+        "description_en": "",
+        "description_zh": "",
         "properties": {
           "ClusterName": {
-            "backendName": "data.clusterName",
             "description_en": "The name of the cluster",
             "description_zh": "集群名称",
             "example": "ca-2ze0x527ovq3y****",
             "type": "string"
           },
           "DedicateHostList": {
-            "backendName": "data.dedicateHostList",
-            "itemName": "DedicateHostList",
-            "items": {
-              "properties": {
-                "DedicatedHostId": {
-                  "backendName": "dedicatedHostName",
-                  "type": "string",
-                  "visibility": "Public"
-                }
-              },
-              "type": "object"
+            "description_en": "",
+            "description_zh": "",
+            "itemNode": true,
+            "properties": {
+              "DedicateHostList": {
+                "description_en": "The created hosts",
+                "description_zh": "已创建完成的主机信息",
+                "items": {
+                  "description_en": "",
+                  "description_zh": "",
+                  "properties": {
+                    "DedicatedHostId": {
+                      "description_en": "The ID of the created host",
+                      "description_zh": "已创建完成的主机ID",
+                      "example": " ch-bp108dki3wdl6****",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
             },
-            "type": "array",
-            "visibility": "Public"
+            "type": "object"
           },
           "OrderId": {
-            "backendName": "data.orderId",
             "description_en": "The order ID",
             "description_zh": "订单ID",
             "example": "102565235",
             "format": "int64",
-            "type": "integer",
-            "visibility": "Public"
+            "type": "integer"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "C860658E-68A6-46C1-AF6E-3AE7C4D32375",
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           }
         },
         "type": "object"

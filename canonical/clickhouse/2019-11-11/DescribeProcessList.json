@@ -4,7 +4,7 @@
   "deprecated": false,
   "description_en": "Call the DescribeProcessList operation to retrieve running queries on an ApsaraDB for ClickHouse Community-Compatible cluster",
   "description_zh": "调用DescribeProcessList接口查询云数据库ClickHouse社区兼容版集群正在运行的查询",
-  "kebab_example": "",
+  "kebab_example": "aliyun clickhouse describe-process-list --biz-region-id cn-hangzhou --db-cluster-id cc-bp1190tj036am0000 --api-version 2019-11-11 --region cn-hangzhou",
   "method": "GET|POST|PUT",
   "multi_version": true,
   "name": "DescribeProcessList",
@@ -156,135 +156,145 @@
         "description_zh": "返回的结果",
         "properties": {
           "ProcessList": {
-            "backendName": "data.processList",
             "description_en": "The list of tasks",
             "description_zh": "任务列表",
             "properties": {
               "Data": {
-                "backendName": "data",
-                "itemName": "ResultSet",
-                "items": {
-                  "properties": {
-                    "InitialAddress": {
-                      "backendName": "initialAddress",
-                      "type": "string",
-                      "visibility": "Public"
+                "description_en": "",
+                "description_zh": "",
+                "itemNode": true,
+                "properties": {
+                  "ResultSet": {
+                    "description_en": "The details of the tasks",
+                    "description_zh": "任务详情",
+                    "items": {
+                      "description_en": "",
+                      "description_zh": "",
+                      "properties": {
+                        "InitialAddress": {
+                          "description_en": "The IP address of the client that initiated the query",
+                          "description_zh": "发起查询的客户端IP地址",
+                          "example": "::ffff:10.1.XX.XX",
+                          "type": "string"
+                        },
+                        "InitialQueryId": {
+                          "description_en": "The query ID",
+                          "description_zh": "查询ID",
+                          "example": "2dd144fd-4230-4249-b15c-e63f964fbb5a",
+                          "type": "string"
+                        },
+                        "InitialUser": {
+                          "description_en": "The database account",
+                          "description_zh": "数据库账号",
+                          "example": "test",
+                          "type": "string"
+                        },
+                        "Query": {
+                          "description_en": "The query statement",
+                          "description_zh": "查询语句",
+                          "example": "select * from test order by score limit 1;",
+                          "type": "string"
+                        },
+                        "QueryDurationMs": {
+                          "description_en": "The query duration in milliseconds",
+                          "description_zh": "查询耗时。单位：毫秒",
+                          "example": "2000",
+                          "type": "string"
+                        },
+                        "QueryStartTime": {
+                          "description_en": "The time when the query started. The time is in the yyyy-MM-ddTHH:mm:ssZ format and is in UTC",
+                          "description_zh": "查询开始时间。格式：yyyy-MM-ddTHH:mm:ssZ（UTC时间）",
+                          "example": "2021-02-02T09:14:48Z",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
                     },
-                    "InitialQueryId": {
-                      "backendName": "initialQueryId",
-                      "type": "string",
-                      "visibility": "Public"
-                    },
-                    "InitialUser": {
-                      "backendName": "initialUser",
-                      "type": "string",
-                      "visibility": "Public"
-                    },
-                    "Query": {
-                      "backendName": "query",
-                      "type": "string",
-                      "visibility": "Public"
-                    },
-                    "QueryDurationMs": {
-                      "backendName": "queryDurationMs",
-                      "type": "string",
-                      "visibility": "Public"
-                    },
-                    "QueryStartTime": {
-                      "backendName": "queryStartTime",
-                      "type": "string",
-                      "visibility": "Public"
-                    }
-                  },
-                  "type": "object"
+                    "type": "array"
+                  }
                 },
-                "type": "array",
-                "visibility": "Public"
+                "type": "object"
               },
               "Rows": {
-                "backendName": "rows",
                 "description_en": "The number of rows returned for the query",
                 "description_zh": "查询返回的数据行数",
                 "example": "1145700",
-                "type": "string",
-                "visibility": "Public"
+                "type": "string"
               },
               "RowsBeforeLimitAtLeast": {
-                "backendName": "rowsBeforeLimitAtLeast",
                 "description_en": "The page size in rows",
                 "description_zh": "分页大小",
                 "example": "1",
-                "type": "string",
-                "visibility": "Public"
+                "type": "string"
               },
               "Statistics": {
-                "backendName": "statistics",
                 "description_en": "The statistics of the query result",
                 "description_zh": "查询结果的统计信息",
                 "properties": {
                   "BytesRead": {
-                    "backendName": "bytesRead",
                     "description_en": "The size of the scanned data, in bytes",
                     "description_zh": "扫描数据大小。单位：Byte",
                     "example": "9141300000",
                     "format": "int32",
-                    "type": "integer",
-                    "visibility": "Public"
+                    "type": "integer"
                   },
                   "ElapsedTime": {
-                    "backendName": "elapsed",
                     "description_en": "The elapsed time",
                     "description_zh": "平均响应时间",
                     "example": "4156",
                     "format": "float",
-                    "type": "number",
-                    "visibility": "Public"
+                    "type": "number"
                   },
                   "RowsRead": {
-                    "backendName": "rowsRead",
                     "description_en": "The number of rows scanned",
                     "description_zh": "扫描数据行数",
                     "example": "1000000",
                     "format": "int32",
-                    "type": "integer",
-                    "visibility": "Public"
+                    "type": "integer"
                   }
                 },
-                "type": "object",
-                "visibility": "Public"
+                "type": "object"
               },
               "TableSchema": {
-                "backendName": "meta",
-                "itemName": "ResultSet",
-                "items": {
-                  "properties": {
-                    "Name": {
-                      "backendName": "name",
-                      "type": "string",
-                      "visibility": "Public"
+                "description_en": "",
+                "description_zh": "",
+                "itemNode": true,
+                "properties": {
+                  "ResultSet": {
+                    "description_en": "The details of the columns",
+                    "description_zh": "列表详情",
+                    "items": {
+                      "description_en": "",
+                      "description_zh": "",
+                      "properties": {
+                        "Name": {
+                          "description_en": "The name of the column",
+                          "description_zh": "列名",
+                          "example": "InitialUser",
+                          "type": "string"
+                        },
+                        "Type": {
+                          "description_en": "The type of the column",
+                          "description_zh": "列类型",
+                          "example": "String",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
                     },
-                    "Type": {
-                      "backendName": "type",
-                      "type": "string",
-                      "visibility": "Public"
-                    }
-                  },
-                  "type": "object"
+                    "type": "array"
+                  }
                 },
-                "type": "array",
-                "visibility": "Public"
+                "type": "object"
               }
             },
-            "type": "object",
-            "visibility": "Public"
+            "type": "object"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "FD61BB0D-788A-5185-A8E3-1B90BA8F6F04",
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           }
         },
         "type": "object"

@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun slb CreateRules --region cn-hangzhou --ListenerPort 443 --RuleList 'RuleName_:_Rule2_,_Domain_:_test.com_,_VServerGroupId_:_rsp-bp114ni000000' --LoadBalancerId 'lb-bp1ca0zt07t934w000000' --RegionId 'cn-hangzhou'",
   "cmd_full_name": "slb create-rules",
   "cmd_name": "create-rules",
   "deprecated": false,
   "description_en": "Adds one or more forwarding rules to a specified HTTP or HTTPS listener",
   "description_zh": "为指定的HTTP或HTTPS监听添加转发规则",
-  "kebab_example": "",
+  "kebab_example": "aliyun slb create-rules --biz-region-id cn-hangzhou --load-balancer-id lb-bp1ca0zt07t934w000000 --listener-port 443 --rule-list RuleName_:_Rule2_,_Domain_:_test.com_,_VServerGroupId_:_rsp-bp114ni000000 --api-version 2014-05-15 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "CreateRules",
@@ -109,38 +109,47 @@
   "responses": {
     "200": {
       "schema": {
+        "description_en": "",
+        "description_zh": "",
         "properties": {
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "9DEC9C28-AB05-4DDF-9A78-6B08EC9CE18C",
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           },
           "Rules": {
-            "backendName": "data",
-            "itemName": "Rule",
-            "items": {
-              "properties": {
-                "RuleId": {
-                  "backendName": "ruleId",
-                  "mappingResourcePropertyName": "$.RuleId",
-                  "type": "string",
-                  "visibility": "Public"
+            "description_en": "",
+            "description_zh": "",
+            "itemNode": true,
+            "properties": {
+              "Rule": {
+                "description_en": "A list of forwarding rules",
+                "description_zh": "转发规则列表",
+                "items": {
+                  "description_en": "A forwarding rule",
+                  "description_zh": "转发规则列表",
+                  "enumValueTitles": {},
+                  "properties": {
+                    "RuleId": {
+                      "description_en": "The ID of the forwarding rule",
+                      "description_zh": "转发规则ID",
+                      "example": "rule-bp12jzy0*****",
+                      "type": "string"
+                    },
+                    "RuleName": {
+                      "description_en": "The name of the forwarding rule",
+                      "description_zh": "转发规则名称",
+                      "example": "Rule2",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 },
-                "RuleName": {
-                  "backendName": "ruleName",
-                  "mappingResourcePropertyName": "$.RuleName",
-                  "type": "string",
-                  "visibility": "Public"
-                }
-              },
-              "type": "object"
+                "type": "array"
+              }
             },
-            "nullToEmpty": true,
-            "type": "array",
-            "visibility": "Public"
+            "type": "object"
           }
         },
         "type": "object"

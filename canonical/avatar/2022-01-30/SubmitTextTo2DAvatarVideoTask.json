@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Submit a job to generate a 2D digital human video offline based on a piece of text. This API immediately returns a TaskUuid as the unique ID for the submitted job. You can later use this TaskUuid to invoke the query and cancel job APIs",
   "description_zh": "提交根据一段文本离线生成2D数字人视频任务，该接口会立即返回一个TaskUuid作为本次提交任务的唯一id，后续可以根据TaskUuid调用查询和取消任务接口",
-  "kebab_example": "",
+  "kebab_example": "aliyun avatar submit-text-to-2d-avatar-video-task --tenant-id 1 --app AppId=3d95xx946a --title '这是一个示例标题' --text '这是一个示例文本' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "SubmitTextTo2DAvatarVideoTask",
@@ -263,6 +263,11 @@
           "type": "int"
         },
         {
+          "enum": [
+            "16000",
+            "24000",
+            "48000"
+          ],
           "example": "16000",
           "help_en": "The output audio sampling rate (unit: Hz)",
           "help_zh": "输出音频采样率（单位: Hz）",
@@ -452,19 +457,16 @@
         "description_zh": "Schema of Response",
         "properties": {
           "Code": {
-            "backendName": "code",
             "description_en": "Error code  ",
             "description_zh": "错误码",
             "example": "-10000000",
             "type": "string"
           },
           "Data": {
-            "backendName": "data",
             "description_en": "Result data of the invocation  ",
             "description_zh": "调用结果数据",
             "properties": {
               "TaskUuid": {
-                "backendName": "taskUuid",
                 "description_en": "Unique UUID of the job, used later to query job details. Please store it securely.  ",
                 "description_zh": "任务唯一uuid，后续用来查询任务详细请，请务必保存好",
                 "example": "xxxx-xxx-xxx",
@@ -474,21 +476,18 @@
             "type": "object"
           },
           "Message": {
-            "backendName": "message",
             "description_en": "Error message  ",
             "description_zh": "错误消息",
             "example": "这个一次错误消息。",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "Request ID  ",
             "description_zh": "请求ID",
             "example": "13E0445E-CA7F-5DD3-9B0F-D4B39E0180F7",
             "type": "string"
           },
           "Success": {
-            "backendName": "success",
             "description_en": "Indicates whether the invocation succeeded.  ",
             "description_zh": "调用是否成功",
             "example": "false",

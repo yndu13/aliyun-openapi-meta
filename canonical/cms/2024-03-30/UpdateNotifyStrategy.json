@@ -12,14 +12,14 @@
             "description_en": "The subscription conditions",
             "description_zh": "订阅条件",
             "items": {
-              "description_en": "A single condition",
+              "description_en": "The individual condition",
               "description_zh": "单个条件",
               "properties": {
                 "field": {
                   "backendName": "field",
-                  "description_en": "The field",
-                  "description_zh": "字段",
-                  "example": "severity",
+                  "description_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                  "description_zh": "事件字段的 JSON 路径，支持点号嵌套",
+                  "example": "labels.alertname\t",
                   "title": "字段",
                   "type": "string"
                 },
@@ -33,8 +33,8 @@
                 },
                 "value": {
                   "backendName": "value",
-                  "description_en": "The value",
-                  "description_zh": "值",
+                  "description_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                  "description_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                   "example": "CRITICAL",
                   "title": "值",
                   "type": "string"
@@ -48,16 +48,16 @@
           },
           "expression": {
             "backendName": "expression",
-            "description_en": "The expression",
-            "description_zh": "表达式",
+            "description_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+            "description_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
             "example": "1 and 2 or 3",
             "title": "表达式",
             "type": "string"
           },
           "relation": {
             "backendName": "relation",
-            "description_en": "The relationship between conditions",
-            "description_zh": "条件间关系",
+            "description_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+            "description_zh": "条件间逻辑关系。expression 为空时生效",
             "example": "AND",
             "title": "条件间关系",
             "type": "string"
@@ -66,12 +66,12 @@
         "type": "object"
       },
       "NotifyStrategyForModify": {
-        "description_en": "The entity",
+        "description_en": "The entity for viewing",
         "description_zh": "用于查看的实体",
         "properties": {
           "autoRecoverSeconds": {
             "backendName": "autoRecoverSeconds",
-            "description_en": "The auto-recovery time in seconds",
+            "description_en": "The automatic recovery time in seconds",
             "description_zh": "自动恢复时间",
             "example": "300",
             "format": "int32",
@@ -79,7 +79,7 @@
           },
           "customTemplateEntries": {
             "backendName": "customTemplateEntries",
-            "description_en": "The notification channel template",
+            "description_en": "The notification channel templates",
             "description_zh": "通知渠道模板",
             "items": {
               "description_en": "The template details",
@@ -119,7 +119,7 @@
           },
           "enableIncidentManagement": {
             "backendName": "enableIncidentManagement",
-            "description_en": "Specifies whether to enable incident management",
+            "description_en": "Indicates whether incident management is enabled",
             "description_zh": "是否启用事件管理",
             "example": "true",
             "type": "boolean"
@@ -149,7 +149,7 @@
             "properties": {
               "groupingKeys": {
                 "backendName": "groupingKeys",
-                "description_en": "The keys used for merging",
+                "description_en": "The grouping keys",
                 "description_zh": "合并keys",
                 "items": {
                   "description_en": "The grouping field",
@@ -171,7 +171,7 @@
               },
               "silenceSec": {
                 "backendName": "silenceSec",
-                "description_en": "The silence period in seconds",
+                "description_en": "The silence duration in seconds",
                 "description_zh": "沉默秒数",
                 "example": "300",
                 "format": "int32",
@@ -180,7 +180,7 @@
               },
               "times": {
                 "backendName": "times",
-                "description_en": "The number of triggers",
+                "description_en": "The number of times the alert is triggered",
                 "description_zh": "触发次数",
                 "example": "1",
                 "format": "int32",
@@ -194,7 +194,7 @@
           },
           "ignoreRestoredNotification": {
             "backendName": "ignoreRestoredNotification",
-            "description_en": "Specifies whether to send a notification upon recovery",
+            "description_en": "Indicates whether to send a notification when the alert is restored",
             "description_zh": "恢复是否通知",
             "example": "false",
             "title": "恢复是否通知",
@@ -202,7 +202,7 @@
           },
           "notifyStrategyName": {
             "backendName": "name",
-            "description_en": "The name",
+            "description_en": "The name of the notification policy",
             "description_zh": "名称",
             "example": "策略名称",
             "required": true,
@@ -228,10 +228,10 @@
               },
               "restoreActionIds": {
                 "backendName": "restoreActionIds",
-                "description_en": "The list of restore action IDs",
+                "description_en": "The list of recovery action IDs",
                 "description_zh": "恢复动作 ID 列表",
                 "items": {
-                  "description_en": "The restore action ID",
+                  "description_en": "The recovery action ID",
                   "description_zh": "恢复动作 ID",
                   "example": "[\"restore-789\"]",
                   "type": "string"
@@ -250,19 +250,19 @@
           },
           "repeatNotifySetting": {
             "backendName": "repeatNotifySetting",
-            "description_en": "The settings for repeated notifications",
+            "description_en": "The repeat notification settings",
             "description_zh": "循环通知设置",
             "properties": {
               "endIncidentState": {
                 "backendName": "endIncidentState",
-                "description_en": "The incident state that stops the repeated notifications",
+                "description_en": "The end incident state",
                 "description_zh": "结束事件状态",
                 "example": "\"Resolved\"",
                 "type": "string"
               },
               "repeatInterval": {
                 "backendName": "repeatInterval",
-                "description_en": "The interval for repeated notifications",
+                "description_en": "The time interval for repeat notifications",
                 "description_zh": "重复通知的时间间隔",
                 "example": "5",
                 "format": "int32",
@@ -273,15 +273,15 @@
           },
           "routes": {
             "backendName": "routes",
-            "description_en": "The routing settings for the notification channel",
+            "description_en": "The notification channel route settings",
             "description_zh": "通知渠道路由设置",
             "items": {
-              "description_en": "The routing settings for the notification channel",
+              "description_en": "The notification channel route settings",
               "description_zh": "通知渠道路由设置",
               "properties": {
                 "channels": {
                   "backendName": "channels",
-                  "description_en": "The notification channel",
+                  "description_en": "The notification channels",
                   "description_zh": "通知渠道",
                   "items": {
                     "description_en": "The notification channel",
@@ -312,7 +312,7 @@
                         "description_en": "The enabled notification types",
                         "description_zh": "启用通知类型",
                         "items": {
-                          "description_en": "The notification channel",
+                          "description_en": "The notification channels",
                           "description_zh": "通知渠道",
                           "example": "SMS",
                           "type": "string"
@@ -325,7 +325,7 @@
                         "description_en": "The channel receivers",
                         "description_zh": "渠道接收方",
                         "items": {
-                          "description_en": "The specified recipient",
+                          "description_en": "The specified receiver",
                           "description_zh": "指定接受人",
                           "example": "contactId",
                           "type": "string"
@@ -342,6 +342,9 @@
                 },
                 "digitalEmployeeName": {
                   "backendName": "digitalEmployeeName",
+                  "description_en": "The name of the digital employee",
+                  "description_zh": "数字员工名称",
+                  "example": "值班助手",
                   "type": "string"
                 },
                 "effectTimeRange": {
@@ -351,10 +354,10 @@
                   "properties": {
                     "dayInWeek": {
                       "backendName": "dayInWeek",
-                      "description_en": "The days of the week when the policy is active. Monday to Sunday",
+                      "description_en": "The effective days (Monday to Sunday)",
                       "description_zh": "生效天(周一到周日)",
                       "items": {
-                        "description_en": "A value from 1 to 7. 1 indicates Monday and 7 indicates Sunday",
+                        "description_en": "A value from 1 to 7 that represents Monday to Sunday",
                         "description_zh": "1-7 表示周一到周日",
                         "example": "1",
                         "format": "int32",
@@ -399,12 +402,15 @@
                 },
                 "enableRca": {
                   "backendName": "enableRca",
+                  "description_en": "Indicates whether root cause analysis is enabled",
+                  "description_zh": "是否启用根因分析",
+                  "example": "true",
                   "type": "boolean"
                 },
                 "filterSetting": {
                   "$ref": "#/components/schemas/FilterSetting",
                   "backendName": "filterSetting",
-                  "description_en": "The routing conditions",
+                  "description_en": "The route condition",
                   "description_zh": "路由条件"
                 },
                 "severities": {
@@ -443,12 +449,12 @@
           "tagSelector": {
             "$ref": "#/components/schemas/FilterSetting",
             "backendName": "tagSelector",
-            "description_en": "The tag filter",
-            "description_zh": "标签筛选器"
+            "description_en": "The label filter. This parameter is not supported and does not take effect if specified",
+            "description_zh": "标签筛选器，尚未支持，传入不生效"
           },
           "workspaceUuids": {
             "backendName": "workspaceUuids",
-            "description_en": "A list of workspace UUIDs",
+            "description_en": "The list of workspace UUIDs",
             "description_zh": "工作空间 UUID 列表",
             "items": {
               "description_en": "The workspace UUID",
@@ -466,7 +472,7 @@
   "deprecated": false,
   "description_en": "Updates a notification policy",
   "description_zh": "更新通知策略",
-  "kebab_example": "",
+  "kebab_example": "aliyun cms update-notify-strategy --notify-strategy-id 12312-31-23-123-1-23123 --api-version 2024-03-30 --region cn-hangzhou",
   "method": "PUT",
   "multi_version": true,
   "name": "UpdateNotifyStrategy",
@@ -513,7 +519,7 @@
     },
     {
       "example": "300",
-      "help_en": "The auto-recovery time in seconds",
+      "help_en": "The automatic recovery time in seconds",
       "help_zh": "自动恢复时间",
       "location": "body",
       "name": "auto_recover_seconds",
@@ -554,7 +560,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The notification channel template",
+      "help_en": "The notification channel templates",
       "help_zh": "通知渠道模板",
       "location": "body",
       "name": "custom_template_entries",
@@ -580,7 +586,7 @@
     },
     {
       "example": "true",
-      "help_en": "Specifies whether to enable incident management",
+      "help_en": "Indicates whether incident management is enabled",
       "help_zh": "是否启用事件管理",
       "location": "body",
       "name": "enable_incident_management",
@@ -612,9 +618,9 @@
           "element": {
             "fields": [
               {
-                "example": "severity",
-                "help_en": "The field",
-                "help_zh": "字段",
+                "example": "labels.alertname\t",
+                "help_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                "help_zh": "事件字段的 JSON 路径，支持点号嵌套",
                 "name": "field",
                 "options": [
                   "--field"
@@ -637,8 +643,8 @@
               },
               {
                 "example": "CRITICAL",
-                "help_en": "The value",
-                "help_zh": "值",
+                "help_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                "help_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                 "name": "value",
                 "options": [
                   "--value"
@@ -662,8 +668,8 @@
         },
         {
           "example": "1 and 2 or 3",
-          "help_en": "The expression",
-          "help_zh": "表达式",
+          "help_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+          "help_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
           "name": "expression",
           "options": [
             "--expression"
@@ -674,8 +680,8 @@
         },
         {
           "example": "AND",
-          "help_en": "The relationship between conditions",
-          "help_zh": "条件间关系",
+          "help_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+          "help_zh": "条件间逻辑关系。expression 为空时生效",
           "name": "relation",
           "options": [
             "--relation"
@@ -702,7 +708,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The keys used for merging",
+          "help_en": "The grouping keys",
           "help_zh": "合并keys",
           "name": "grouping_keys",
           "options": [
@@ -726,7 +732,7 @@
         },
         {
           "example": "300",
-          "help_en": "The silence period in seconds",
+          "help_en": "The silence duration in seconds",
           "help_zh": "沉默秒数",
           "name": "silence_sec",
           "options": [
@@ -738,7 +744,7 @@
         },
         {
           "example": "1",
-          "help_en": "The number of triggers",
+          "help_en": "The number of times the alert is triggered",
           "help_zh": "触发次数",
           "name": "times",
           "options": [
@@ -762,7 +768,7 @@
     },
     {
       "example": "false",
-      "help_en": "Specifies whether to send a notification upon recovery",
+      "help_en": "Indicates whether to send a notification when the alert is restored",
       "help_zh": "恢复是否通知",
       "location": "body",
       "name": "ignore_restored_notification",
@@ -775,7 +781,7 @@
     },
     {
       "example": "策略名称",
-      "help_en": "The name",
+      "help_en": "The name of the notification policy",
       "help_zh": "名称",
       "location": "body",
       "name": "notify_strategy_name",
@@ -806,7 +812,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The list of restore action IDs",
+          "help_en": "The list of recovery action IDs",
           "help_zh": "恢复动作 ID 列表",
           "name": "restore_action_ids",
           "options": [
@@ -844,7 +850,7 @@
       "fields": [
         {
           "example": "\"Resolved\"",
-          "help_en": "The incident state that stops the repeated notifications",
+          "help_en": "The end incident state",
           "help_zh": "结束事件状态",
           "name": "end_incident_state",
           "options": [
@@ -856,7 +862,7 @@
         },
         {
           "example": "5",
-          "help_en": "The interval for repeated notifications",
+          "help_en": "The time interval for repeat notifications",
           "help_zh": "重复通知的时间间隔",
           "name": "repeat_interval",
           "options": [
@@ -867,7 +873,7 @@
           "type": "int"
         }
       ],
-      "help_en": "The settings for repeated notifications",
+      "help_en": "The repeat notification settings",
       "help_zh": "循环通知设置",
       "location": "body",
       "name": "repeat_notify_setting",
@@ -938,7 +944,7 @@
               ],
               "type": "object"
             },
-            "help_en": "The notification channel",
+            "help_en": "The notification channels",
             "help_zh": "通知渠道",
             "name": "channels",
             "options": [
@@ -949,8 +955,9 @@
             "type": "array"
           },
           {
-            "help_en": "The digitalEmployeeName",
-            "help_zh": "The digitalEmployeeName",
+            "example": "值班助手",
+            "help_en": "The name of the digital employee",
+            "help_zh": "数字员工名称",
             "name": "digital_employee_name",
             "options": [
               "--digital-employee-name"
@@ -965,7 +972,7 @@
                 "element": {
                   "type": "int"
                 },
-                "help_en": "The days of the week when the policy is active. Monday to Sunday",
+                "help_en": "The effective days (Monday to Sunday)",
                 "help_zh": "生效天(周一到周日)",
                 "name": "day_in_week",
                 "options": [
@@ -1027,8 +1034,9 @@
             "type": "object"
           },
           {
-            "help_en": "The enableRca",
-            "help_zh": "The enableRca",
+            "example": "true",
+            "help_en": "Indicates whether root cause analysis is enabled",
+            "help_zh": "是否启用根因分析",
             "name": "enable_rca",
             "options": [
               "--enable-rca"
@@ -1043,9 +1051,9 @@
                 "element": {
                   "fields": [
                     {
-                      "example": "severity",
-                      "help_en": "The field",
-                      "help_zh": "字段",
+                      "example": "labels.alertname\t",
+                      "help_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                      "help_zh": "事件字段的 JSON 路径，支持点号嵌套",
                       "name": "field",
                       "options": [
                         "--field"
@@ -1068,8 +1076,8 @@
                     },
                     {
                       "example": "CRITICAL",
-                      "help_en": "The value",
-                      "help_zh": "值",
+                      "help_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                      "help_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                       "name": "value",
                       "options": [
                         "--value"
@@ -1093,8 +1101,8 @@
               },
               {
                 "example": "1 and 2 or 3",
-                "help_en": "The expression",
-                "help_zh": "表达式",
+                "help_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+                "help_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
                 "name": "expression",
                 "options": [
                   "--expression"
@@ -1105,8 +1113,8 @@
               },
               {
                 "example": "AND",
-                "help_en": "The relationship between conditions",
-                "help_zh": "条件间关系",
+                "help_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+                "help_zh": "条件间逻辑关系。expression 为空时生效",
                 "name": "relation",
                 "options": [
                   "--relation"
@@ -1143,7 +1151,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The routing settings for the notification channel",
+      "help_en": "The notification channel route settings",
       "help_zh": "通知渠道路由设置",
       "location": "body",
       "name": "routes",
@@ -1162,9 +1170,9 @@
               "element": {
                 "fields": [
                   {
-                    "example": "severity",
-                    "help_en": "The field",
-                    "help_zh": "字段",
+                    "example": "labels.alertname\t",
+                    "help_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                    "help_zh": "事件字段的 JSON 路径，支持点号嵌套",
                     "name": "field",
                     "options": [
                       "--field"
@@ -1187,8 +1195,8 @@
                   },
                   {
                     "example": "CRITICAL",
-                    "help_en": "The value",
-                    "help_zh": "值",
+                    "help_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                    "help_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                     "name": "value",
                     "options": [
                       "--value"
@@ -1212,8 +1220,8 @@
             },
             {
               "example": "1 and 2 or 3",
-              "help_en": "The expression",
-              "help_zh": "表达式",
+              "help_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+              "help_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
               "name": "expression",
               "options": [
                 "--expression"
@@ -1224,8 +1232,8 @@
             },
             {
               "example": "AND",
-              "help_en": "The relationship between conditions",
-              "help_zh": "条件间关系",
+              "help_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+              "help_zh": "条件间逻辑关系。expression 为空时生效",
               "name": "relation",
               "options": [
                 "--relation"
@@ -1249,7 +1257,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "A list of workspace UUIDs",
+          "help_en": "The list of workspace UUIDs",
           "help_zh": "工作空间 UUID 列表",
           "name": "workspace_uuids",
           "options": [

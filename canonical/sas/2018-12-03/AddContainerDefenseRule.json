@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun sas AddContainerDefenseRule --region cn-hangzhou --RuleSwitch 1 --Description 'test-proc-defense' --Scope.1.ClusterId 8e200075b --RuleId 500018 --RuleAction 1 --Whitelist '{\"Path\":[\"/test/worker.sh\"],\"Hash\":[\"hashcode\"],\"Image\":[\"repo:tag\"]}' --RuleType 2 --RuleName 'auto-test-rule-lt9umq' --Scope.1.Namespaces.1 default --Scope.1.AllNamespace 0",
   "cmd_full_name": "sas add-container-defense-rule",
   "cmd_name": "add-container-defense-rule",
   "deprecated": false,
   "description_en": "Creates a rule for non-image program defense",
   "description_zh": "新建非镜像程序防御规则",
-  "kebab_example": "",
+  "kebab_example": "aliyun sas add-container-defense-rule --rule-id 500018 --rule-action 1 --rule-switch 1 --rule-name auto-test-rule-lt9umq --description test-proc-defense --rule-type 2 --whitelist '{\"Path\":[\"/test/worker.sh\"],\"Hash\":[\"hashcode\"],\"Image\":[\"repo:tag\"]}' --scope '[{\"Namespaces\":[\"default\"],\"ClusterId\":\"8e200075b\",\"AllNamespace\":0}]' --api-version 2018-12-03 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "AddContainerDefenseRule",
@@ -34,6 +34,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "1",
+        "2"
+      ],
       "example": "1",
       "help_en": "The action that is performed when the rule is hit. Valid values:\n\n1: alert\n2: block",
       "help_zh": "规则命中时执行操作。取值：\n\n1：告警。\n\n2：阻断",
@@ -47,6 +51,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "0",
+        "1"
+      ],
       "example": "1",
       "help_en": "The switch of the rule. Valid values:\n\n0: off\n1: on",
       "help_zh": "规则开关。取值：\n\n0：关闭。\n\n1：开启",
@@ -159,6 +167,10 @@
       "element": {
         "fields": [
           {
+            "enum": [
+              "0",
+              "1"
+            ],
             "example": "0",
             "help_en": "Specifies whether to include all namespaces. Valid values:\n\n0: You can use the Namespaces parameter to specify the namespaces to include.\n1: All namespaces are included",
             "help_zh": "是否包含所有命名空间。取值：\n\n0：（用Namespaces参数）指定需要包含的命名空间。\n\n1：包含所有命名空间",
@@ -222,23 +234,19 @@
         "description_zh": "PlainResult<Long>",
         "properties": {
           "Code": {
-            "backendName": "code",
             "description_en": "The response code. The status code 200 indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code",
             "description_zh": "结果代码，200表示成功，若为别的值则表示失败，调用方可根据此字段判断失败原因",
             "example": "200",
             "type": "string"
           },
           "Data": {
-            "backendName": "data",
             "description_en": "The ID of the rule that is created",
             "description_zh": "返回结果，创建成功的规则ID",
             "example": "182",
             "format": "int64",
-            "mappingResourcePropertyName": "$.RuleId",
             "type": "integer"
           },
           "HttpStatusCode": {
-            "backendName": "httpStatusCode",
             "description_en": "The HTTP status code that is returned",
             "description_zh": "请求数据结果的HTTP状态码",
             "example": "200",
@@ -246,23 +254,24 @@
             "type": "integer"
           },
           "Message": {
-            "backendName": "message",
             "description_en": "The returned message",
             "description_zh": "接口请求返回的信息",
             "example": "There was an error with your request.",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "本次调用请求的ID，是由阿里云为该请求生成的唯一标识符，可用于排查和定位问题",
             "example": "8C376***AE74FB4",
             "type": "string"
           },
           "Success": {
-            "backendName": "success",
             "description_en": "Indicates whether the request was successful. Valid values:\n\ntrue\nfalse",
             "description_zh": "接口调用是否成功。取值：\ntrue：成功\nfalse：失败",
+            "enumValueTitles": {
+              "false": "接口调用失败",
+              "true": "接口调用成功"
+            },
             "example": "true",
             "type": "boolean"
           }

@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Queries the connection information about a client based on the ID of the Smart Access Gateway (SAG) APP instance and username of the client account",
   "description_zh": "根据用户名和智能接入网关APP实例ID查询指定用户在线连接列表",
-  "kebab_example": "",
+  "kebab_example": "aliyun smartag describe-user-online-clients --biz-region-id cn-hangzhou --smart-ag-id sag-wfjgn0000000000 --user-name doctest --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "DescribeUserOnlineClients",
@@ -69,38 +69,46 @@
   "responses": {
     "200": {
       "schema": {
+        "description_en": "",
+        "description_zh": "",
         "properties": {
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The ID of the request",
             "description_zh": "请求ID",
             "example": "7108A98F-C47D-45F7-A4D8-C2E3022735DA",
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           },
           "Users": {
-            "backendName": "items",
-            "itemName": "User",
-            "items": {
-              "properties": {
-                "ClientIp": {
-                  "backendName": "clientIp",
-                  "mappingResourcePropertyName": "$.ClientIp",
-                  "type": "string",
-                  "visibility": "Public"
+            "description_en": "",
+            "description_zh": "",
+            "itemNode": true,
+            "properties": {
+              "User": {
+                "description_en": "The information about the client",
+                "description_zh": "用户信息",
+                "items": {
+                  "description_en": "",
+                  "description_zh": "",
+                  "properties": {
+                    "ClientIp": {
+                      "description_en": "The IP address of the client",
+                      "description_zh": "阿里云APP客户端IP",
+                      "example": "10.**.**.**",
+                      "type": "string"
+                    },
+                    "OnlineTime": {
+                      "description_en": "The time when the client was connected to Alibaba Cloud",
+                      "description_zh": "上线时间",
+                      "example": "1559125519",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 },
-                "OnlineTime": {
-                  "backendName": "onlineTime",
-                  "mappingResourcePropertyName": "$.OnlineTime",
-                  "type": "string",
-                  "visibility": "Public"
-                }
-              },
-              "type": "object"
+                "type": "array"
+              }
             },
-            "nullToEmpty": true,
-            "type": "array",
-            "visibility": "Public"
+            "type": "object"
           }
         },
         "type": "object"

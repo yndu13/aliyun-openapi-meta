@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun cas Encrypt --region cn-hangzhou --Plaintext 1234000 --Algorithm RSAESOAEPSHA_1",
   "cmd_full_name": "cas encrypt",
   "cmd_name": "encrypt",
   "deprecated": false,
   "description_en": "Encrypts data by using a certificate in a certificate application repository",
   "description_zh": "本接口一般用于证书仓库中证书加密",
-  "kebab_example": "",
+  "kebab_example": "aliyun cas encrypt --plaintext 1234000 --algorithm RSAESOAEPSHA_1 --api-version 2020-04-07 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "Encrypt",
@@ -60,6 +60,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Base64",
+        "RAW"
+      ],
       "example": "RAW",
       "help_en": "The message type. Valid values:\n\nRAW (default): Directly encrypts the value of Plaintext.\n\nBase64: Decodes the Base64-encoded value of Plaintext and then encrypts the decoded data",
       "help_zh": "消息类型。取值：\n\nRAW（默认值）：将会对Plaintext直接加密操作。\nBase64：Plaintext为base64编码格式，将会对Plaintext base64解密之后再进行加密操作",
@@ -109,21 +113,18 @@
         "description_zh": "对象",
         "properties": {
           "CertIdentifier": {
-            "backendName": "data.CertIdentifier",
             "description_en": "The unique identifier of the certificate",
             "description_zh": "证书唯一识别码",
             "example": "1ef1da5f-38ed-69b3-****-037781890265",
             "type": "string"
           },
           "CiphertextBlob": {
-            "backendName": "data.CiphertextBlob",
             "description_en": "The encrypted data. The data is Base64-encoded",
             "description_zh": "待解密数据。使用Base64编码",
             "example": "ZOyIygCyaOW6Gj****MlNKiuyjfzw=",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "5979d897-d69f-4fc9-87dd-f3bb73c40b80",

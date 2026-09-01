@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Retrieves information from a specified knowledge base",
   "description_zh": "在指定的知识库中检索信息",
-  "kebab_example": "",
+  "kebab_example": "aliyun bailian retrieve --workspace-id llm-3shx2gu255oqxxxx --index-id 5pwe0mxxxx --api-version 2023-12-29 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "Retrieve",
@@ -47,6 +47,10 @@
       "type": "int"
     },
     {
+      "enum": [
+        "false",
+        "true"
+      ],
       "example": "true",
       "help_en": "Specifies whether to enable reranking. For more information, see https://help.aliyun.com/document_detail/2807740.html. Valid values:\n\n`true`: Enables reranking.\n\n`false`: Disables reranking.\n\nDefault value: `true`",
       "help_zh": "是否开启重排序。更多信息，请参见https://help.aliyun.com/document_detail/2807740.html。取值范围：\ntrue：开启。\nfalse：不开启。\n\n默认值为 true",
@@ -60,6 +64,10 @@
       "type": "bool"
     },
     {
+      "enum": [
+        "false",
+        "true"
+      ],
       "example": "false",
       "help_en": "Specifies whether to enable <props=\"china\">conversational query rewriting (https://help.aliyun.com/model-studio/use-cases/rag-optimization#b7031e2ad6cji)</props><props=\"intl\">conversational query rewriting (https://www.alibabacloud.com/help/model-studio/use-cases/rag-optimization#b7031e2ad6cji)</props>.\nValid values:\n\n`true`: Enables conversational query rewriting.\n\n`false`: Disables conversational query rewriting.\n\nDefault value: `false`",
       "help_zh": "是否开启<props=\"china\">多轮对话改写 (https://help.aliyun.com/model-studio/use-cases/rag-optimization#b7031e2ad6cji)</props><props=\"intl\">多轮对话改写 (https://www.alibabacloud.com/help/model-studio/use-cases/rag-optimization#b7031e2ad6cji)</props>。\n取值范围：\ntrue：开启。\nfalse：不开启。\n\n默认值为 false",
@@ -76,6 +84,10 @@
       "element": {
         "fields": [
           {
+            "enum": [
+              "gte-rerank",
+              "gte-rerank-hybrid"
+            ],
             "example": "gte-rerank-hybrid",
             "help_en": "The reranking model to use. Specifying a model here overrides the default model selected when the knowledge base was created. Valid values:\n\n<props=\"china\">\n\n`qwen3-rerank-hybrid`: Performs reranking by using the qwen3-rerank (hybrid) model.\n\n`qwen3-rerank`: Performs reranking by using the qwen3-rerank model.\n\n`gte-rerank-hybrid`: Performs reranking by using the gte-rerank (hybrid) model.\n\n`gte-rerank`: Performs reranking by using the gte-rerank model.\n\n</props>\n\n<props=\"intl\">\n\n`gte-rerank-hybrid`: Performs reranking by using the gte-rerank (hybrid) model.\n\n`gte-rerank`: Performs reranking by using the gte-rerank model.\n\n</props>\n\nIf you do not specify this parameter, the model configured for the knowledge base is used.\n\n<props=\"china\">\n\nUse `qwen3-rerank` for semantic ranking only. We recommend `qwen3-rerank-hybrid` if you require both semantic ranking and text matching features for higher relevance.\n\n</props>\n\n<props=\"intl\">\n\nUse `gte-rerank` for semantic ranking only. We recommend `gte-rerank-hybrid` if you require both semantic ranking and text matching features for higher relevance.\n\n</props>\n\n<props=\"china\">\n\nThe `gte-rerank-hybrid` and `gte-rerank` models are no longer updated and are not recommended for use.\n\n</props>",
             "help_zh": "使用指定的排序模型。此处指定值将覆盖创建知识库时所选择的排序模型。取值范围：\n\n<props=\"china\">\n\nqwen3-rerank-hybrid：qwen3-rerank(hybrid)排序。\nqwen3-rerank：qwen3-rerank排序。\ngte-rerank-hybrid：gte-rerank(hybrid)排序。\ngte-rerank：gte-rerank排序。\n\n</props>\n\n<props=\"intl\">\n\ngte-rerank-hybrid：官方排序。\ngte-rerank：gte-rerank排序。\n\n\n\n</props>\n\n\n默认值为空，使用创建知识库时选择的排序模型。\n\n\n<props=\"china\">\n\n如仅需语义排序，可使用`qwen3-rerank`；若同时需要语义排序和文本匹配特征以确保相关性，建议使用`qwen3-rerank-hybrid`。\n\n\n\n</props>\n\n\n\n<props=\"intl\">\n\n如仅需语义排序，可使用`gte-rerank`；若同时需要语义排序和文本匹配特征以确保相关性，建议使用`gte-rerank-hybrid`。\n\n\n\n</props>\n\n\n\n<props=\"china\">\n\n`gte-rerank-hybrid`与`gte-rerank`后续停止更新，不建议使用。\n\n\n\n</props>",
@@ -99,6 +111,11 @@
             "type": "string"
           },
           {
+            "enum": [
+              "custom: 自定义模式。",
+              "qa:（默认值） 问答模式。",
+              "similar: 相似模式。"
+            ],
             "example": "qa",
             "help_en": "<props=\"china\">\n\nSpecifies the instruction intervention mode for the reranking model. This mode determines the model's scoring preference.\n\nValid values:\n\n`qa`: (Default) Q\\&A mode. The model assigns higher scores to candidates that directly answer the query. Recommended for Q\\&A scenarios.\n\n`similar`: Similarity mode. The model assigns higher scores to candidates with high content similarity to the query. Recommended for match-based retrieval scenarios.\n\n`custom`: Custom mode. The model's ranking behavior is determined by the instructions in the `RerankInstruct` parameter.\n\n</props>\n\n<props=\"intl\">\n\nThis parameter is not yet available. Do not specify a value for it.\n\n</props>",
             "help_zh": "<props=\"china\">\n指定重排序模型的指令干预模式，以决定其评分偏好。\n\n可选值：\n\nqa:（默认值） 问答模式。模型倾向于为能直接回答查询（Query）的候选项赋予更高分。建议在问答场景使用。\n\nsimilar: 相似模式。模型倾向于为与查询内容一致性高的候选项赋予更高分。建议在匹配检索场景使用。\n\ncustom: 自定义模式。模型的排序行为由 rerank_instruct 参数中的指令决定。\n\n</props>\n\n<props=\"intl\">该参数暂不开放，请勿传入。</props>",
@@ -155,6 +172,9 @@
       "element": {
         "fields": [
           {
+            "enum": [
+              "conv-rewrite-qwen-1.8b"
+            ],
             "example": "conv-rewrite-qwen-1.8b",
             "help_en": "Specifies the model for conversational query rewriting, which automatically rewrites the original query based on the conversation context to improve retrieval results. Valid value:\n\n`conv-rewrite-qwen-1.8b`: The only model currently supported for this feature.\n\nIf this parameter is not specified, `conv-rewrite-qwen-1.8b` is used by default",
             "help_zh": "多轮对话改写模型名称。它会基于会话上下文自动调整原始输入prompt（用户问题）以提升检索效果。取值范围：\nconv-rewrite-qwen-1.8b：conv-rewrite-qwen-1.8b模型（目前只支持该模型）\n\n默认值为空，采用conv-rewrite-qwen-1.8b模型",
@@ -344,37 +364,33 @@
   "responses": {
     "200": {
       "schema": {
+        "description_en": "",
+        "description_zh": "",
         "properties": {
           "Code": {
-            "backendName": "code",
             "description_en": "The error code",
             "description_zh": "错误状态码",
             "example": "Index.InvalidParameter",
             "type": "string"
           },
           "Data": {
-            "backendName": "data",
             "description_en": "The business data returned by the API",
             "description_zh": "接口业务数据字段",
             "properties": {
               "Nodes": {
-                "backendName": "nodes",
                 "description_en": "An array of retrieved text chunks",
                 "description_zh": "命中的文本切片列表",
-                "itemName": "nodes",
                 "items": {
                   "description_en": "A text chunk object",
                   "description_zh": "文本切片对象",
                   "properties": {
                     "Metadata": {
-                      "backendName": "metadata",
                       "description_en": "<props=\"china\">\n\nA map of metadata for the text chunk.\n\nFor document search knowledge bases, the `file_path` field in the metadata map is not applicable and should not be used in your application code.\n\nWhen you retrieve data from a document search knowledge base, if a text chunk contains an image, its URL is returned in the `image_url` field of the metadata map. This URL expires.\n\nWhen you retrieve data from an audio/video search knowledge base, if a text chunk contains audio, its URL is returned in the `audio_url` field of the metadata map. This URL expires.\n\nWhen you retrieve data from an audio/video search knowledge base, if a text chunk contains video, its URL is returned in the `video_url` field of the metadata map. This URL expires.\n\n</props>\n\n<props=\"intl\">\n\nA map of metadata for the text chunk.\n\nFor document search knowledge bases, the `file_path` field in the metadata map is not applicable and should not be used in your application code.\n\nWhen you retrieve data from a document search knowledge base, if a text chunk contains an image, its URL is returned in the `image_url` field of the metadata map. This URL expires.\n\n</props>",
                       "description_zh": "<props=\"china\">\n\n文本切片的元数据Map。\n\n文档搜索类知识库的元数据Map中`file_path`字段无意义，请勿在业务代码中使用。\n\n检索文档搜索类识库时，若切片包含图片，将通过元数据 Map 中` image_url `字段透出，并附有过期时间。\n\n检索音视频搜索类知识库时，若切片包含音频，将通过元数据 Map 中` audio_url `字段透出，并附有过期时间。\n\n检索音视频搜索类知识库时，若切片包含视频，将通过元数据 Map 中` video_url `字段透出，并附有过期时间。\n\n</props>\n<props=\"intl\">\n\n文本切片的元数据Map。\n\n文档搜索类知识库的元数据Map中`file_path`字段无意义，请勿在业务代码中使用。\n\n检索文档搜索类知识库时，若切片包含图片，将通过元数据 Map 中` image_url `字段透出，并附有过期时间。\n\n</props>",
                       "example": "{\n  \"parent\": \"\",\n  \"file_path\": \"https://***\",\n  \"image_url\": [\n    \"http://***\"\n  ],\n  \"nid\": \"***\",\n  \"title\": \"阿里云百炼文档\",\n  \"doc_id\": \"doc_***\",\n  \"content\": \"阿里云百炼是基于通义大模型、行业大模型以及三方大模型的一站式大模型开发平台。面向企业客户和个人开发者，提供完整的模型服务工具和全链路应用开发套件，预置丰富的能力插件，提供API及SDK等便捷的集成方式，高效完成大模型应用构建\",\n  \"workspace_id\": \"ws_***\",\n  \"hier_title\": \"阿里云百炼文档\",\n  \"doc_name\": \"阿里云百炼文档介绍.pdpf\",\n  \"pipeline_id\": \"rhd***\",\n  \"_id\": \"ws_***\"\n}",
                       "type": "any"
                     },
                     "Score": {
-                      "backendName": "score",
                       "description_en": "The similarity score of the text chunk, ranging from 0 to 1",
                       "description_zh": "文本切片的相似度得分，可能值范围：[0-1]",
                       "example": "0.3",
@@ -382,7 +398,6 @@
                       "type": "number"
                     },
                     "Text": {
-                      "backendName": "text",
                       "description_en": "The content of the text chunk",
                       "description_zh": "文本切片内容",
                       "example": "阿里云百炼是基于通义大模型、行业大模型以及三方大模型的一站式大模型开发平台。面向企业客户和个人开发者，提供完整的模型服务工具和全链路应用开发套件，预置丰富的能力插件，提供API及SDK等便捷的集成方式，高效完成大模型应用构建。",
@@ -397,14 +412,12 @@
             "type": "object"
           },
           "Message": {
-            "backendName": "message",
             "description_en": "The error message",
             "description_zh": "错误信息",
             "example": "Required parameter(%s) missing or invalid, please check the request parameters.",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "request_id",
             "description_en": "The request ID",
             "description_zh": "请求 ID",
             "example": "17204B98-7734-4F9A-8464-2446A84821CA",
@@ -413,14 +426,12 @@
             "type": "string"
           },
           "Status": {
-            "backendName": "status_code",
             "description_en": "The HTTP status code of the response",
             "description_zh": "接口返回的状态码",
             "example": "200",
             "type": "string"
           },
           "Success": {
-            "backendName": "success",
             "description_en": "Indicates whether the API call was successful. Valid values:\n\ntrue: The call succeeded.\n\nfalse: The call failed",
             "description_zh": "接口调用是否成功，可能值为：\ntrue：成功。\nfalse：失败",
             "example": "true",

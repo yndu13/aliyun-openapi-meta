@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Submit an offline task to generate a 2D digital human video from a WAV audio file. This operation returns a unique TaskUuid immediately. You can use the TaskUuid to query or cancel the task later",
   "description_zh": "提交根据一段wav音频文件生成2D数字人视频任务，该接口会立即返回一个TaskUuid作为本次提交任务的唯一id，后续可以根据TaskUuid调用查询和取消任务接口",
-  "kebab_example": "",
+  "kebab_example": "aliyun avatar submit-audio-to-2d-avatar-video-task --tenant-id 20516 --app AppId=3d95xx946a --title '常吃的皮蛋一般是由哪一种蛋加工而成的？' --url '可访问的公网url地址' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "SubmitAudioTo2DAvatarVideoTask",
@@ -214,6 +214,11 @@
     {
       "fields": [
         {
+          "enum": [
+            "16000",
+            "24000",
+            "48000"
+          ],
           "example": "16000",
           "help_en": "Output audio sampling rate in Hz",
           "help_zh": "输出音频采样率（单位: Hz）",
@@ -301,19 +306,16 @@
         "description_zh": "Schema of Response",
         "properties": {
           "Code": {
-            "backendName": "code",
             "description_en": "Error code",
             "description_zh": "错误码",
             "example": "10050008",
             "type": "string"
           },
           "Data": {
-            "backendName": "data",
             "description_en": "Response data",
             "description_zh": "调用结果数据",
             "properties": {
               "TaskUuid": {
-                "backendName": "taskUuid",
                 "description_en": "Unique task ID. Save this value to query task details later",
                 "description_zh": "任务唯一uuid，后续用来查询任务详细请，请务必保存好",
                 "example": "xxxx-xxx-xx-xx",
@@ -323,14 +325,12 @@
             "type": "object"
           },
           "Message": {
-            "backendName": "message",
             "description_en": "Error message",
             "description_zh": "错误消息",
             "example": "这个一个错误消息。",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "Request ID",
             "description_zh": "请求ID",
             "example": "4C8BF3A5-948F-1F89-AACD-D18DEF52D1XX",
@@ -339,7 +339,6 @@
             "type": "string"
           },
           "Success": {
-            "backendName": "success",
             "description_en": "Indicates whether the request succeeded",
             "description_zh": "是否成功",
             "example": "true",

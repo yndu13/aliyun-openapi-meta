@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun csas CreateWmEmbedTask --region cn-hangzhou --FileUrl 'https://example.com/abc0000.pdf' --Filename 'abc0000.pdf' --WmType PureDocument",
   "cmd_full_name": "csas create-wm-embed-task",
   "cmd_name": "create-wm-embed-task",
   "deprecated": false,
   "description_en": "Creates a digital watermarking embedding task",
   "description_zh": "创建数字水印嵌入任务",
-  "kebab_example": "",
+  "kebab_example": "aliyun csas create-wm-embed-task --wm-type PureDocument --filename abc0000.pdf --file-url https://example.com/abc0000.pdf --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateWmEmbedTask",
@@ -72,6 +72,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "32",
+        "40",
+        "64"
+      ],
       "example": "32",
       "help_en": "The bit width of the watermark information capacity. Default value: 32. This parameter must be consistent between embedding and extraction. For example, if the 40-bit SDK is used for embedding, set this parameter to 40 during extraction as well",
       "help_zh": "水印信息的容量位宽，默认为32。该参数嵌入和提取时需要保持一致。比如嵌入时使用的是 40 位的SDK，那么提取时也需要将该值设为 40",
@@ -114,6 +119,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "false",
+        "true"
+      ],
       "example": "false",
       "help_en": "Video watermark parameter. Specifies whether to use the long video watermark SDK. Valid values:\n\ntrue: The long video watermark SDK is used.\nfalse: The long video watermark SDK is not used.\n\nDefault value: false",
       "help_zh": "视频水印参数：是否使用长视频水印SDK，默认为false。取值：\n\ntrue: 是\nfalse: 否",
@@ -182,6 +191,10 @@
         {
           "fields": [
             {
+              "enum": [
+                "false",
+                "true"
+              ],
               "example": "true",
               "help_en": "Specifies whether to add a background invisible watermark. Valid values:",
               "help_zh": "是否添加背景暗水印。取值：\n\ntrue：是\nfalse：否",
@@ -392,6 +405,10 @@
           "type": "object"
         },
         {
+          "enum": [
+            "false",
+            "true"
+          ],
           "example": "true",
           "help_en": "Specifies whether to enable component invisible watermark. The component invisible watermark can resist document addition, deletion, modification, save-as (same format), and full-select copy from docx to a new docx document. It cannot resist format conversion attacks. Valid values:",
           "help_zh": "是否启用组件暗水印。组件暗水印可以抵抗文档增、删、改、另存（格式不变）、docx全选复制拷贝到新docx文档，不能抵抗格式转换攻击。取值：\n\ntrue：是\nfalse：否",
@@ -404,6 +421,10 @@
           "type": "bool"
         },
         {
+          "enum": [
+            "false",
+            "true"
+          ],
           "example": "true",
           "help_en": "Specifies whether to enable zero-width character invisible watermark. The zero-width character invisible watermark can resist document addition, deletion, modification, save-as (same format), partial text copy-paste, and CopytoTxt attacks. It cannot resist format conversion toPDF attacks. Valid values:",
           "help_zh": "是否启用零宽字符暗水印。零宽字符暗水印可以抵抗文档增、删、改、另存（格式不变）、部分文本复制粘贴、CopytoTxt攻击。不能抵抗格式转换toPDF攻击。取值：\n\ntrue：是\nfalse：否",
@@ -642,6 +663,14 @@
               "type": "object"
             },
             {
+              "enum": [
+                "bottom-left",
+                "bottom-right",
+                "pos",
+                "repeat",
+                "top-left",
+                "top-right"
+              ],
               "example": "pos",
               "help_en": "The display mode of the logo watermark. Valid values:",
               "help_zh": "Logo水印显示模式。取值：\npos：固定位置模式。\nrepeat：平铺模式。\ntop-left：左上模式。\ntop-right：右上模式。\nbottom-left：左下模式。\nbottom-right：右下模式",
@@ -763,6 +792,10 @@
         {
           "fields": [
             {
+              "enum": [
+                "false",
+                "true"
+              ],
               "example": "true",
               "help_en": "Specifies whether to enable this feature",
               "help_zh": "是否启用。\n\ntrue ：  显示\n\nfalse： 不显示",
@@ -897,6 +930,14 @@
               "type": "object"
             },
             {
+              "enum": [
+                "bottom-left",
+                "bottom-right",
+                "pos",
+                "repeat",
+                "top-left",
+                "top-right"
+              ],
               "example": "pos",
               "help_en": "The display mode of the text watermark. Valid values:",
               "help_zh": "文本水印显示模式。取值：\npos：固定位置模式。\nrepeat：平铺模式。\ntop-left：左上模式。\ntop-right：右上模式。\nbottom-left：左下模式。\nbottom-right：右下模式",
@@ -1305,16 +1346,14 @@
         "description_zh": "Schema of Response",
         "properties": {
           "Data": {
-            "backendName": "data",
             "description_en": "The task information",
             "description_zh": "任务信息",
             "properties": {
               "TaskId": {
-                "backendName": "taskId",
                 "description_en": "The task ID, which is used to query the task execution result",
                 "description_zh": "任务ID，用于后续查询任务执行结果",
                 "example": "job:5GfrJYsoaffmCE7Z5bZtjUefzxfd****",
-                "title_en": "嵌入任务ID",
+                "title_en": "",
                 "title_zh": "嵌入任务ID",
                 "type": "string"
               }
@@ -1322,16 +1361,15 @@
             "type": "object"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "本次请求的ID",
             "example": "BE4FB974-11BC-5453-9BE1-1606A73EACA6",
-            "title_en": "Id of the request",
+            "title_en": "",
             "title_zh": "Id of the request",
             "type": "string"
           }
         },
-        "title_en": "Schema of Response",
+        "title_en": "",
         "title_zh": "Schema of Response",
         "type": "object"
       }

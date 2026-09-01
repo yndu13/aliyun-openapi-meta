@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Create MyBase dedicated hosts. If cluster information is not provided, a MyBase dedicated cluster is automatically created",
   "description_zh": "创建MyBase专有版主机，如未提供集群信息会自动创建MyBase专有版集群",
-  "kebab_example": "",
+  "kebab_example": "aliyun cddc create-my-base --biz-region-id cn-hangzhou --engine alisql --security-group-id sg-t4neld965n89ocvt0000,sg-t4neld965n89ocvu0000 --zone-id ap-southeast-1a --vswitch-id vsw-t4ni3mzqqw98vt3170000 --ecs-class-list sysDiskCapacity=40 sysDiskEncrypted=false instanceType=ecs.c6.large sysDiskAutoSnapshotPolicyId=sp-bp1i9wclcwpe52th0000 diskCount=1 dataDiskEncrypted=false diskCapacity=50 sysDiskKMSKeyId=b3c210f3-3ffb-480e-9ca2-0000 dataDiskKMSKeyId=b3c210f3-3ffb-480e-9ca2-0000 dataDiskPerformanceLevel=PL1 dataDiskAutoSnapshotPolicyId=sp-bp1i9wclcwpe52th0000 nodeCount=1 diskType=cloud_essd sysDiskType=cloud_essd systemDiskPerformanceLevel=PL1 --pay-type PrePaid --vpc-id vpc-t4nbtmekgxotv0d3y0000 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "CreateMyBase",
@@ -49,6 +49,10 @@
     },
     {
       "doc_required": true,
+      "enum": [
+        "alisql",
+        "tair"
+      ],
       "example": "alisql",
       "help_en": "The database type. Valid values:\n\nalisql\n\ntair",
       "help_zh": "数据库类型，取值：\nalisql。\ntair",
@@ -534,6 +538,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "PayByBandwidth",
+        "PayByTraffic"
+      ],
       "example": "PayByBandwidth",
       "help_en": "The network billing method. Valid values include the following:",
       "help_zh": "网络计费类型。取值范围：\nPayByBandwidth：按固定带宽计费。\nPayByTraffic：按使用流量计费",
@@ -660,43 +668,59 @@
   "responses": {
     "200": {
       "schema": {
+        "description_en": "",
+        "description_zh": "",
         "properties": {
           "OrderList": {
-            "backendName": "data.orderList",
-            "itemName": "OrderList",
-            "items": {
-              "properties": {
-                "CreateTimestamp": {
-                  "backendName": "createTimestamp",
-                  "format": "int64",
-                  "type": "integer"
+            "description_en": "",
+            "description_zh": "",
+            "itemNode": true,
+            "properties": {
+              "OrderList": {
+                "description_en": "Orders",
+                "description_zh": "订单列表",
+                "items": {
+                  "description_en": "",
+                  "description_zh": "",
+                  "properties": {
+                    "CreateTimestamp": {
+                      "description_en": "The UNIX timestamp when the host was successfully created",
+                      "description_zh": "主机创建成功的时间戳",
+                      "example": "1661498032347",
+                      "format": "int64",
+                      "type": "integer"
+                    },
+                    "DedicatedHostGroupName": {
+                      "description_en": "The ID of the created MyBase dedicated cluster",
+                      "description_zh": "创建的专有版集群ID",
+                      "example": "dhg-7a9********",
+                      "type": "string"
+                    },
+                    "ECSInstanceIds": {
+                      "description_en": "The IDs of the ECS instances that were successfully created. Separate multiple host IDs with commas (,)",
+                      "description_zh": "已创建成功的ECS主机ID，多个主机ID以英文逗号（,）分隔",
+                      "example": "[\"i-t4n1tandot8j3axw****\",\"i-t4n1tandot8j3axv****\"]",
+                      "type": "string"
+                    },
+                    "OrderId": {
+                      "description_en": "The order ID",
+                      "description_zh": "订单ID",
+                      "example": "21767077790****",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 },
-                "DedicatedHostGroupName": {
-                  "backendName": "dedicatedHostGroupName",
-                  "type": "string"
-                },
-                "ECSInstanceIds": {
-                  "backendName": "instanceIds",
-                  "type": "string"
-                },
-                "OrderId": {
-                  "backendName": "orderId",
-                  "type": "string",
-                  "visibility": "Public"
-                }
-              },
-              "type": "object"
+                "type": "array"
+              }
             },
-            "type": "array",
-            "visibility": "Public"
+            "type": "object"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "937F6B32-A796-53A0-99C8-F7A9660E****",
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           }
         },
         "type": "object"

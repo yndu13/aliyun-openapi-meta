@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun eflo-controller UpdateNodeGroup --region cn-hangzhou --NewNodeGroupName 'test-update' --SystemDisk '{\"PerformanceLevel\":\"example-string\"}' --KeyPairName test --FileSystemMountEnabled true --RamRoleName 'xianwen-test-ram-role' --UserData ZWNobyBoZWxsbyBlY3Mh --NodeGroupId i120021051733814190732 --ImageId i1232142432432 --LoginPassword '密码'",
   "cmd_full_name": "eflo-controller update-node-group",
   "cmd_name": "update-node-group",
   "deprecated": false,
   "description_en": "Updates a node group",
   "description_zh": "更新节点分组",
-  "kebab_example": "",
+  "kebab_example": "aliyun eflo-controller update-node-group --node-group-id i120021051733814190732 --new-node-group-name test-update --user-data ZWNobyBoZWxsbyBlY3Mh --file-system-mount-enabled true --biz-key-pair-name test --biz-ram-role-name xianwen-test-ram-role --image-id i1232142432432 --login-password '密码' --system-disk PerformanceLevel=example-string --api-version 2022-12-15 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "UpdateNodeGroup",
@@ -89,8 +89,8 @@
     },
     {
       "example": "xianwen-test-ram-role",
-      "help_en": "The RAM role name of the node. You can call the RAM API ListRoles to query the node RAM roles that you have created. The trusted entity of the role must be set to Lingjun AI Computing Service.\nNote: Clearing an existing role is not supported",
-      "help_zh": "节点 RAM 角色名称。您可以使用 RAM API ListRoles 查询您已创建的节点 RAM 角色。设置的角色的信任主体必须为“智能计算灵骏”。\n注意：当前暂不支持将已有角色清空",
+      "help_en": "The RAM role name of the node. You can call the RAM API ListRoles to query the node RAM roles that you have created. The trusted entity of the role must be set to Lingjun AI Computing Service.\n<warning>If you set this parameter to an empty string (\"\"), the RAM role of the node group is cleared.</warning>",
+      "help_zh": "节点 RAM 角色名称。您可以使用 RAM API ListRoles 查询您已创建的节点 RAM 角色。设置的角色的信任主体必须为“智能计算灵骏”。\n<warning>提交值为空字符串\"\"表示清空节点组的 RAM 角色。</warning>",
       "location": "formData",
       "max_length": "128",
       "name": "ram_role_name",
@@ -130,7 +130,7 @@
     {
       "fields": [
         {
-          "help_en": "The PerformanceLevel",
+          "help_en": "The performance level (PL)",
           "help_zh": "性能等级",
           "name": "performance_level",
           "options": [
@@ -141,7 +141,7 @@
           "type": "string"
         }
       ],
-      "help_en": "The SystemDisk",
+      "help_en": "The system cloud disk configuration",
       "help_zh": "系统盘配置",
       "location": "formData",
       "name": "system_disk",

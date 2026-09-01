@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun slb DescribeZones --region cn-hangzhou --AcceptLanguage 'example-string' --RegionId 'cn-hangzhou'",
   "cmd_full_name": "slb describe-zones",
   "cmd_name": "describe-zones",
   "deprecated": false,
   "description_en": "Queries the zones in a region",
   "description_zh": "查询指定地域的可用区信息",
-  "kebab_example": "",
+  "kebab_example": "aliyun slb describe-zones --biz-region-id cn-hangzhou --accept-language example-string --api-version 2014-05-15 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "DescribeZones",
@@ -53,58 +53,78 @@
   "responses": {
     "200": {
       "schema": {
+        "description_en": "",
+        "description_zh": "",
         "properties": {
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "A48D35FF-440A-4BC0-A4A2-A9BF69B7E43A",
-            "type": "string",
-            "visibility": "Public"
+            "type": "string"
           },
           "Zones": {
-            "backendName": "data",
-            "itemName": "Zone",
-            "items": {
-              "properties": {
-                "LocalName": {
-                  "backendName": "name",
-                  "type": "string",
-                  "visibility": "Public"
-                },
-                "SlaveZones": {
-                  "backendName": "childIds",
-                  "itemName": "SlaveZone",
-                  "items": {
-                    "properties": {
-                      "LocalName": {
-                        "backendName": "name",
-                        "type": "string",
-                        "visibility": "Public"
-                      },
-                      "ZoneId": {
-                        "backendName": "id",
-                        "type": "string",
-                        "visibility": "Public"
-                      }
+            "description_en": "",
+            "description_zh": "",
+            "itemNode": true,
+            "properties": {
+              "Zone": {
+                "description_en": "The zones",
+                "description_zh": "可用区列表",
+                "items": {
+                  "description_en": "",
+                  "description_zh": "",
+                  "properties": {
+                    "LocalName": {
+                      "description_en": "The name of the zone",
+                      "description_zh": "可用区名称",
+                      "example": "Hangzhou Zone B",
+                      "type": "string"
                     },
-                    "type": "object"
+                    "SlaveZones": {
+                      "description_en": "",
+                      "description_zh": "",
+                      "itemNode": true,
+                      "properties": {
+                        "SlaveZone": {
+                          "description_en": "The secondary zones",
+                          "description_zh": "主可用区对应的备可用区列表",
+                          "items": {
+                            "description_en": "",
+                            "description_zh": "",
+                            "properties": {
+                              "LocalName": {
+                                "description_en": "The name of the secondary zone",
+                                "description_zh": "备可用区名称",
+                                "example": "Hangzhou Zone G",
+                                "type": "string"
+                              },
+                              "ZoneId": {
+                                "description_en": "The ID of the secondary zone",
+                                "description_zh": "备可用区ID",
+                                "example": "cn-hangzhou-g",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "ZoneId": {
+                      "description_en": "The ID of the zone",
+                      "description_zh": "可用区ID",
+                      "example": "cn-hangzhou-b",
+                      "type": "string"
+                    }
                   },
-                  "nullToEmpty": true,
-                  "type": "array",
-                  "visibility": "Public"
+                  "type": "object"
                 },
-                "ZoneId": {
-                  "backendName": "id",
-                  "type": "string",
-                  "visibility": "Public"
-                }
-              },
-              "type": "object"
+                "type": "array"
+              }
             },
-            "nullToEmpty": true,
-            "type": "array",
-            "visibility": "Public"
+            "type": "object"
           }
         },
         "type": "object"

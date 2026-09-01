@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun resourcemanager CreatePolicy --region cn-hangzhou --PolicyName 'OSS-Administrator' --PolicyDocument 'Statement_:_Action_:_oss:0_,_Effect_:_Allow_,_Resource_:_acs:oss:0:0:0_,_Version_:_1'",
   "cmd_full_name": "resourcemanager create-policy",
   "cmd_name": "create-policy",
   "deprecated": false,
-  "description_en": "Creates a permission policy",
+  "description_en": "Creates an access policy",
   "description_zh": "调用CreatePolicy创建一个权限策略",
-  "kebab_example": "",
+  "kebab_example": "aliyun resourcemanager create-policy --policy-name OSS-Administrator --policy-document Statement_:_Action_:_oss:0_,_Effect_:_Allow_,_Resource_:_acs:oss:0:0:0_,_Version_:_1 --api-version 2020-03-31 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "CreatePolicy",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "OSS-Administrator",
-      "help_en": "The name of the permission policy.\n\nThe name must be 1 to 128 characters in length and can contain letters, digits, and hyphens (-)",
+      "help_en": "Policy Name of the access policy.\n\nPolicy Name must be 1 to 128 characters in length and can contain letters, digits, and hyphens (-)",
       "help_zh": "权限策略名称。\n\n长度为1~128个字符，可包含英文字母、数字和短划线（-）",
       "location": "query",
       "name": "policy_name",
@@ -35,7 +35,7 @@
     },
     {
       "example": "OSS管理员权限",
-      "help_en": "The description of the permission policy.\n\nThe description must be 1 to 1,024 characters in length",
+      "help_en": "The description of the access policy.\n\nThe description must be 1 to 1,024 characters in length",
       "help_zh": "权限策略描述。\n\n长度为1~1024个字符",
       "location": "query",
       "name": "description",
@@ -48,7 +48,7 @@
     },
     {
       "example": "{ \"Statement\": [{ \"Action\": [\"oss:*\"], \"Effect\": \"Allow\", \"Resource\": [\"acs:oss:*:*:*\"]}], \"Version\": \"1\"}",
-      "help_en": "The document of the policy.\n\nThe document must be 1 to 6,144 characters in length",
+      "help_en": "The content of the access policy.\n\nThe content must be 1 to 6,144 characters in length",
       "help_zh": "权限策略内容。\n\n长度为1~6144个字符",
       "location": "query",
       "name": "policy_document",
@@ -69,20 +69,20 @@
         "properties": {
           "Policy": {
             "backendName": "Policy",
-            "description_en": "The information about the permission policy",
+            "description_en": "The access policy information",
             "description_zh": "权限策略信息",
             "properties": {
               "CreateDate": {
                 "backendName": "CreateDate",
-                "description_en": "The time when the permission policy was created",
-                "description_zh": "权限策略创建时间",
+                "description_en": "The time when the access policy was created. The time is in RFC 3339 UTC format, indicated by Z",
+                "description_zh": "权限策略创建时间，采用 RFC 3339 UTC 时间格式，以 Z 表示 UTC",
                 "example": "2015-01-23T12:33:18Z",
                 "type": "string",
                 "visibility": "Public"
               },
               "DefaultVersion": {
                 "backendName": "DefaultVersion",
-                "description_en": "The version number of the permission policy. Default value: v1",
+                "description_en": "The version number of the access policy. Default value: v1",
                 "description_zh": "权限策略版本号。默认值：v1",
                 "example": "v1",
                 "type": "string",
@@ -90,7 +90,7 @@
               },
               "Description": {
                 "backendName": "Description",
-                "description_en": "The description of the permission policy",
+                "description_en": "The description of the access policy",
                 "description_zh": "权限策略描述",
                 "example": "OSS管理员权限",
                 "type": "string",
@@ -98,7 +98,7 @@
               },
               "PolicyName": {
                 "backendName": "PolicyName",
-                "description_en": "The name of the permission policy",
+                "description_en": "The name of the access policy",
                 "description_zh": "权限策略名称",
                 "example": "OSS-Administrator",
                 "type": "string",
@@ -106,7 +106,7 @@
               },
               "PolicyType": {
                 "backendName": "PolicyType",
-                "description_en": "The type of the permission policy. Valid values:\n\nCustom\nSystem",
+                "description_en": "The type of the access policy. Valid values:\nCustom: custom policy.\nSystem: system policy",
                 "description_zh": "权限策略类型。取值：\nCustom：自定义策略。\nSystem：系统策略",
                 "example": "Custom",
                 "type": "string",

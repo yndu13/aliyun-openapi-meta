@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun polardbx ExecuteMetaQuery --region cn-hangzhou --RegionId 'cn-hangzhou' --DBInstanceName 'pxsp-000000000' --Sql show_databases",
   "cmd_full_name": "polardbx execute-meta-query",
   "cmd_name": "execute-meta-query",
   "deprecated": false,
   "description_en": "Executes a metadata query",
   "description_zh": "执行元数据查询",
-  "kebab_example": "",
+  "kebab_example": "aliyun polardbx execute-meta-query --biz-region-id cn-hangzhou --db-instance-name pxsp-000000000 --sql show_databases --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "ExecuteMetaQuery",
@@ -74,6 +74,20 @@
       "raw_name": "StorageInstId",
       "required": false,
       "type": "string"
+    },
+    {
+      "help_en": "The maximum number of rows to return. Default value: 100. Valid values: 1 to 1000. The actual number of returned rows is the minimum value among the code hard limit, the Biz DB limit, and the outermost LIMIT clause in the SQL statement. To retrieve data continuously, implement pagination in the SQL statement",
+      "help_zh": "本次最多返回的结果行数。缺省为 100，取值范围 1~1000；最终行数还会取代码硬上限、Biz DB 上限和 SQL 最外层 LIMIT 的最小值，连续取数请在 SQL 中自行分页",
+      "location": "query",
+      "maximum": "1000",
+      "minimum": "1",
+      "name": "max_result_rows",
+      "options": [
+        "--max-result-rows"
+      ],
+      "raw_name": "MaxResultRows",
+      "required": false,
+      "type": "int"
     }
   ],
   "pathPattern": "",
@@ -85,7 +99,7 @@
         "properties": {
           "AccessDeniedDetail": {
             "backendName": "accessDeniedDetail",
-            "description_en": "The details of the access denial",
+            "description_en": "The details about the access denial",
             "description_zh": "访问被拒绝的详细原因",
             "properties": {
               "AuthAction": {
@@ -132,10 +146,21 @@
             "description_en": "The list of instance details",
             "description_zh": "实例详情列表",
             "properties": {
+              "AppliedOffset": {
+                "backendName": "appliedOffset",
+                "format": "int64",
+                "type": "integer"
+              },
+              "AppliedRowLimit": {
+                "backendName": "appliedRowLimit",
+                "format": "int64",
+                "type": "integer"
+              },
               "Columns": {
                 "backendName": "columns",
                 "description_en": "The column names",
                 "description_zh": "列名",
+                "itemName": "Columns",
                 "items": {
                   "description_en": "The column names",
                   "description_zh": "列名",
@@ -143,6 +168,20 @@
                   "type": "string"
                 },
                 "type": "array"
+              },
+              "HasMore": {
+                "backendName": "hasMore",
+                "type": "boolean"
+              },
+              "RecordsSizeBytes": {
+                "backendName": "recordsSizeBytes",
+                "format": "int64",
+                "type": "integer"
+              },
+              "ReturnedRowCount": {
+                "backendName": "returnedRowCount",
+                "format": "int64",
+                "type": "integer"
               },
               "RowCount": {
                 "backendName": "rowCount",
@@ -156,6 +195,7 @@
                 "backendName": "rows",
                 "description_en": "The number of affected or returned rows. This field is available only for compute nodes (CNs)",
                 "description_zh": "影响/返回行数。仅CN有该字段",
+                "itemName": "Rows",
                 "items": {
                   "description_en": "The number of affected or returned rows. This field is available only for compute nodes (CNs)",
                   "description_zh": "影响/返回行数。仅CN有该字段",
@@ -169,7 +209,7 @@
           },
           "Message": {
             "backendName": "message",
-            "description_en": "The additional information returned. If the request is successful, success is returned. If the request fails, the corresponding error code is returned",
+            "description_en": "The additional information returned by the operation. success is returned if the request is successful. Otherwise, an error code is returned",
             "description_zh": "接口额外返回信息，成功返回success，错误返回对应错误码",
             "example": "\"\"",
             "nullToEmpty": true,

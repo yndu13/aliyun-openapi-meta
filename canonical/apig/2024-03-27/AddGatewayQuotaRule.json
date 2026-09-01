@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig POST /v1/gateways/gw-d8ki1xxxxxxxxxxxxxxx/quota-rules --region cn-hangzhou --header \"Content-Type=application/json\" --body \"key_:_value\"",
   "cmd_full_name": "apig add-gateway-quota-rule",
   "cmd_name": "add-gateway-quota-rule",
   "deprecated": false,
   "description_en": "Creates a gateway quota throttling rule",
   "description_zh": "新增网关配额限流规则",
-  "kebab_example": "",
+  "kebab_example": "aliyun apig add-gateway-quota-rule --gateway-id gw-d8ki1xxxxxxxxxxxxxxx --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "AddGatewayQuotaRule",
@@ -70,7 +70,7 @@
       },
       "example": "group1,group2",
       "help_en": "The list of consumer group IDs (not supported currently)",
-      "help_zh": "消费者组ID列表（暂不支持）",
+      "help_zh": "绑定规则的消费者组ID列表",
       "location": "body",
       "name": "consumer_group_ids",
       "options": [
@@ -101,7 +101,7 @@
     {
       "example": "false",
       "help_en": "Specifies whether to perform only a dry run without applying the configuration. A dry run checks whether conflicting rules exist on the bound consumers. For example, a consumer that already has a calendar-day quota cannot have another calendar-day quota rule added",
-      "help_zh": "是否仅预检（预检不下发实际配置），用于检查绑定的消费者上是否存在冲突的规则（同一消费者不能配置两个相同周期的自然周期配额，例如已有自然日配额的消费者不能再新增一个自然日配额规则）",
+      "help_zh": "是否仅预检（预检不下发实际配置），用于检查绑定的消费主体上是否存在冲突的规则（同一消费主体不能配置两个相同周期的自然周期配额，例如已有自然日配额的消费主体不能再新增一个自然日配额规则）",
       "location": "body",
       "name": "dry_run",
       "options": [
@@ -115,7 +115,7 @@
     {
       "example": "false",
       "help_en": "Specifies whether to allow overwriting when conflicts exist. If overwriting is allowed, the conflicting subjects (consumers) are unbound from the old rule and bound to the new rule",
-      "help_zh": "冲突时是否允许覆盖。注意如果选择允许覆盖，冲突主体（消费者）会从旧规则解绑并绑定到新规则",
+      "help_zh": "冲突时是否允许覆盖。注意如果选择允许覆盖，冲突主体（消费者或消费者组）会从旧规则解绑并绑定到新规则",
       "location": "body",
       "name": "overwrite",
       "options": [
@@ -166,7 +166,7 @@
       ],
       "example": "token",
       "help_en": "The quota dimension or throttling type. Valid values: token and credit. The credit quota applies only to dedicated instances running version 2.1.19 or later",
-      "help_zh": "配额维度/限制类型，目前支持token、credit。其中，credit配额仅适用于 2.1.19 及以上版本的专享实例",
+      "help_zh": "配额维度/限制类型，目前支持token、credit",
       "location": "body",
       "name": "quota_dimension",
       "options": [
@@ -240,7 +240,7 @@
     {
       "example": "calendar",
       "help_en": "The reset period type. Valid values: calendar (the period starts from the beginning of a calendar day, week, or month) and epoch (the period starts from when the rule is applied). The epoch type applies only to dedicated instances running version 2.1.19 or later",
-      "help_zh": "重置周期类型。支持自然周期（windowAlignment=calendar）和自定义周期（windowAlignment=epoch）。其中，自定义周期仅适用于 2.1.19 及以上版本的专享实例",
+      "help_zh": "重置周期类型。支持自然周期（windowAlignment=calendar）和自定义周期（windowAlignment=epoch）",
       "location": "body",
       "name": "window_alignment",
       "options": [
@@ -300,16 +300,16 @@
                   "items": {
                     "backendName": "items",
                     "description_en": "The list of conflicting subjects (consumers)",
-                    "description_zh": "冲突的主体（消费者）列表",
+                    "description_zh": "冲突的主体（消费者或消费者组）列表",
                     "itemName": "items",
                     "items": {
                       "description_en": "The details of a conflicting subject (consumer)",
-                      "description_zh": "冲突的主体（消费者）详情",
+                      "description_zh": "冲突的主体（消费者或消费者组）详情",
                       "properties": {
                         "conflictPeriodType": {
                           "backendName": "conflictPeriodType",
                           "description_en": "The period type of the existing conflicting rule on the consumer. A value of day, week, or month indicates the conflicting rule has a daily, weekly, or monthly period respectively",
-                          "description_zh": "消费者上已有冲突规则的周期类型。conflictPeriodType  = \"day\"/\"week\"/\"month\"分别表示消费者已有冲突规则的周期为日/周/月",
+                          "description_zh": "消费主体上已有冲突规则的周期类型。conflictPeriodType  = \"day\"/\"week\"/\"month\"分别表示消费主体已有冲突规则的周期为日/周/月",
                           "example": "week",
                           "title_en": "消费者上已有冲突规则的周期类型。conflictPeriodType  = \"day\"/\"week\"/\"month\"分别表示消费者已有冲突规则的周期为日/周/月",
                           "title_zh": "消费者上已有冲突规则的周期类型。conflictPeriodType  = \"day\"/\"week\"/\"month\"分别表示消费者已有冲突规则的周期为日/周/月",
@@ -318,7 +318,7 @@
                         "conflictType": {
                           "backendName": "conflictType",
                           "description_en": "The type of the existing conflicting rule on the consumer. A value of calendar indicates the conflicting rule uses a calendar period. A value of epoch indicates the conflicting rule uses an epoch period",
-                          "description_zh": "消费者上已有冲突规则的类型。conflictType  = \"calendar\"表示消费者已有冲突规则为自然周期；conflictType = \"epoch\"表示已有冲突规则为自定义周期",
+                          "description_zh": "消费主体上已有冲突规则的类型。conflictType  = \"calendar\"表示消费主体已有冲突规则为自然周期；conflictType = \"epoch\"表示已有冲突规则为自定义周期",
                           "example": "calendar",
                           "title_en": "消费者上已有冲突规则的类型。conflictType  = \"calendar\"表示消费者已有冲突规则为自然周期；conflictType = \"epoch\"表示已有冲突规则为自定义周期。",
                           "title_zh": "消费者上已有冲突规则的类型。conflictType  = \"calendar\"表示消费者已有冲突规则为自然周期；conflictType = \"epoch\"表示已有冲突规则为自定义周期。",
@@ -327,14 +327,14 @@
                         "consumerId": {
                           "backendName": "consumerId",
                           "description_en": "The consumer ID",
-                          "description_zh": "消费者ID",
+                          "description_zh": "冲突消费者 ID（现可统一使用 subjectId 替代）",
                           "example": "cs-xxxxxx",
                           "type": "string"
                         },
                         "consumerName": {
                           "backendName": "consumerName",
                           "description_en": "The consumer name",
-                          "description_zh": "消费者名称",
+                          "description_zh": "冲突消费者 ID（现可统一使用 subjectName 替代）",
                           "example": "consumer-a",
                           "type": "string"
                         },

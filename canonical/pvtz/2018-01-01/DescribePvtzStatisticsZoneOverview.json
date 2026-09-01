@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun pvtz DescribePvtzStatisticsZoneOverview --region cn-hangzhou --NetworkParams.1.VpcOwner 5209821778041881 --NetworkParams.1.VpcId 'vpc-uf68l2l04nqoyg7ie1kaw' --NetworkParams.1.VpcType STANDARD --AcceptLanguage 'zh-CN' --ServerRegion 'cn-hangzhou' --NetworkParams.1.RegionId 'cn-hangzhou' --ClientToken '234534535432323...' --Module AUTHORITY --OverviewPeriod 'DAY_统计周期_DAY,_WEEK,_MONTH' --method POST --force",
   "cmd_full_name": "pvtz describe-pvtz-statistics-zone-overview",
   "cmd_name": "describe-pvtz-statistics-zone-overview",
   "deprecated": false,
-  "description_en": "Provides an overview of resolution statistics for zones in PrivateZone",
+  "description_en": "Queries the overview of DNS parse statistics information at the zone dimension for Alibaba Cloud DNS PrivateZone",
   "description_zh": "Pvtz解析统计信息Zone维度总览",
-  "kebab_example": "",
+  "kebab_example": "aliyun pvtz describe-pvtz-statistics-zone-overview --accept-language zh-CN --client-token 234534535432323... --server-region cn-hangzhou --overview-period 'DAY_统计周期_DAY,_WEEK,_MONTH' --module AUTHORITY --network-params VpcType=STANDARD VpcId=vpc-uf68l2l04nqoyg7ie1kaw VpcOwner=5209821778041881 RegionId=cn-hangzhou --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "DescribePvtzStatisticsZoneOverview",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "zh-CN",
-      "help_en": "The language of the response. Valid values:\n\n`zh-CN`: Chinese\n\n`en-US`: English\n\nDefault value: `en-US`.\n\nThis parameter takes precedence over the `Lang` parameter",
+      "help_en": "The supported language. Valid values:\n\nzh-CN: Chinese\nen-US: English\n\nDefault value: en-US.\nThis parameter takes precedence over Lang",
       "help_zh": "支持的语言。取值：\n\nzh-CN：中文\nen-US：英文\n\n默认：en-US\n优先级高于Lang",
       "location": "query",
       "name": "accept_language",
@@ -35,7 +35,7 @@
     },
     {
       "example": "234534535432323...",
-      "help_en": "A client token to ensure request idempotence. Your client must generate a unique token for each request. The token can contain only ASCII characters",
+      "help_en": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters",
       "help_zh": "客户端Token，用于保证请求的幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符",
       "location": "query",
       "name": "client_token",
@@ -48,7 +48,7 @@
     },
     {
       "example": "cn-hangzhou",
-      "help_en": "The region ID",
+      "help_en": "The service region",
       "help_zh": "服务区域",
       "location": "query",
       "name": "server_region",
@@ -60,7 +60,7 @@
       "type": "string"
     },
     {
-      "example": "DAY",
+      "example": "DAY\n统计周期(DAY, WEEK, MONTH)",
       "help_en": "The statistical period",
       "help_zh": "统计周期",
       "location": "query",
@@ -74,7 +74,7 @@
     },
     {
       "example": "AUTHORITY",
-      "help_en": "The statistical module",
+      "help_en": "The statistics module",
       "help_zh": "统计模块",
       "location": "query",
       "name": "module",
@@ -102,7 +102,7 @@
           },
           {
             "example": "vpc-uf68l2l04nqoyg7ie1kaw",
-            "help_en": "The ID of the VPC",
+            "help_en": "VPC ID",
             "help_zh": "VPC ID",
             "name": "vpc_id",
             "options": [
@@ -114,7 +114,7 @@
           },
           {
             "example": "5209821778041881",
-            "help_en": "The ID of the Alibaba Cloud account to which the VPC belongs",
+            "help_en": "The VPC owner",
             "help_zh": "VPC所有者",
             "name": "vpc_owner",
             "options": [
@@ -126,7 +126,7 @@
           },
           {
             "example": "STANDARD",
-            "help_en": "The type of the VPC. Valid values:\n\n`STANDARD`: standard VPC\n\n`EDS`: Elastic Desktop Service (EDS) VPC",
+            "help_en": "The VPC type. Valid values:\n\nSTANDARD: standard VPC.\n\nEDS: Wuying Workspace VPC",
             "help_zh": "vpc类型。描述：\n\nSTANDARD：标准VPC。\n\nEDS：无影工作区VPC",
             "name": "vpc_type",
             "options": [
@@ -158,17 +158,17 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response returned",
+        "description_en": "Schema of Response",
         "description_zh": "Schema of Response",
         "properties": {
           "Data": {
             "backendName": "data",
-            "description_en": "The statistical results",
+            "description_en": "The statistics result",
             "description_zh": "统计结果",
             "properties": {
               "RefusedDomainCount": {
                 "backendName": "refusedDomainCount",
-                "description_en": "The number of domains with refused responses",
+                "description_en": "The number of domain names with negative responses",
                 "description_zh": "否定应答域名数量",
                 "example": "2",
                 "format": "int64",
@@ -176,7 +176,7 @@
               },
               "SuddenDropDomainCount": {
                 "backendName": "suddenDropDomainCount",
-                "description_en": "The number of domains with a sudden drop in QPS",
+                "description_en": "The number of domain names with a sudden QPS drop",
                 "description_zh": "QPS突降域名数量",
                 "example": "3",
                 "format": "int64",
@@ -184,7 +184,7 @@
               },
               "SuddenIncreaseDomainCount": {
                 "backendName": "suddenIncreaseDomainCount",
-                "description_en": "The number of domains with a sudden increase in QPS",
+                "description_en": "The number of domain names with a sudden QPS increase",
                 "description_zh": "QPS突增域名数量",
                 "example": "5",
                 "format": "int64",
@@ -195,7 +195,7 @@
           },
           "RequestId": {
             "backendName": "requestId",
-            "description_en": "The request ID",
+            "description_en": "Id of the request",
             "description_zh": "Id of the request",
             "example": "C6F1D541-E7A6-447A-A2B5-9F7A20B2A8FB",
             "title_en": "Id of the request",

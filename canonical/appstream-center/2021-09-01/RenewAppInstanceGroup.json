@@ -4,7 +4,7 @@
   "deprecated": false,
   "description_en": "Renews a delivery group",
   "description_zh": "为交付组续费",
-  "kebab_example": "",
+  "kebab_example": "aliyun appstream-center renew-app-instance-group --product-type CloudApp --period 1 --period-unit Week --app-instance-group-id aig-9ciijz60n4xsv0000 --api-version 2021-09-01 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "RenewAppInstanceGroup",
@@ -20,6 +20,9 @@
   },
   "parameters": [
     {
+      "enum": [
+        "CloudApp"
+      ],
       "example": "CloudApp",
       "help_en": "The product type",
       "help_zh": "产品类型",
@@ -46,6 +49,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "false",
+        "true"
+      ],
       "example": "false",
       "help_en": "Specifies whether to enable automatic payment",
       "help_zh": "是否自动付费",
@@ -72,6 +79,11 @@
       "type": "int"
     },
     {
+      "enum": [
+        "Month",
+        "Week",
+        "Year"
+      ],
       "example": "Week",
       "help_en": "The unit part of the resource purchase duration. This parameter is used together with `Period` to represent the complete purchase duration. Valid combinations of `Period` and `PeriodUnit`:\n\n1 Week\n1 Month\n2 Month\n3 Month\n6 Month\n1 Year\n2 Year\n3 Year\n\nThis parameter is case-sensitive. For example, `Week` is valid, but `week` is invalid. If the request parameters do not match the valid combinations listed above, such as `2 Week`, the call to this operation succeeds, but an error occurs during the order placement phase",
       "help_zh": "资源购买时长的单位部分，与`Period`一起表示完整的购买时长。可使用的`Period`与`PeriodUnit`的搭配如下：\n\n1 Week（1周）\n1 Month（1个月）\n2 Month（2个月）\n3 Month（3个月）\n6 Month（6个月）\n1 Year（1年）\n2 Year（2年）\n3 Year（3年）\n\n该参数区分大小写。例如，`Week`是有效的，`week`是无效的。另外，如果请求参数不符合上述搭配，例如`2 Week`，虽然调用本接口会成功，但最终在下单阶段会出错",
@@ -148,37 +160,33 @@
         "description_zh": "返回信息集合",
         "properties": {
           "Code": {
-            "backendName": "code",
             "description_en": "The error code returned if the call failed",
             "description_zh": "出错时的错误码",
             "example": "InvalidParameter.ProductType",
             "type": "string"
           },
           "Message": {
-            "backendName": "message",
             "description_en": "The error message returned if the call failed",
             "description_zh": "出错时的错误消息",
             "example": "The parameter ProductType is invalid.",
             "type": "string"
           },
           "OrderId": {
-            "backendName": "data",
             "description_en": "The order ID",
             "description_zh": "订单ID",
             "example": "123456****",
             "type": "string"
           },
           "RequestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "1CBAFFAB-B697-4049-A9B1-67E1FC5F****",
-            "title_en": "Id of the request",
+            "title_en": "",
             "title_zh": "Id of the request",
             "type": "string"
           }
         },
-        "title_en": "Schema of Response",
+        "title_en": "",
         "title_zh": "Schema of Response",
         "type": "object"
       }

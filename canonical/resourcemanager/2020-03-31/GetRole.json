@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun resourcemanager GetRole --region cn-hangzhou --RoleName ECSAdmin",
   "cmd_full_name": "resourcemanager get-role",
   "cmd_name": "get-role",
   "deprecated": false,
-  "description_en": "Queries the information about a RAM role",
+  "description_en": "Queries the information about a role by calling GetRole",
   "description_zh": "调用GetRole获取角色信息",
-  "kebab_example": "",
+  "kebab_example": "aliyun resourcemanager get-role --role-name ECSAdmin --api-version 2020-03-31 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "GetRole",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "ECSAdmin",
-      "help_en": "The name of the role.\n\nThe name must be 1 to 64 characters in length, and can contain letters, digits, periods (.), and hyphens (-)",
+      "help_en": "The role name.\n\nThe name must be 1 to 64 characters in length and can contain letters, digits, periods (.), and hyphens (-)",
       "help_zh": "角色名称。\n\n长度为1~64个字符，可包含英文字母、数字、点号（.）和短横线（-）",
       "location": "query",
       "name": "role_name",
@@ -35,7 +35,7 @@
     },
     {
       "example": "zh-CN",
-      "help_en": "The language in which you want to return the description of the role. Valid values:\n\nen: English\nzh-CN: Chinese\nja: Japanese",
+      "help_en": "The language type. The role description is returned in the specified language. Valid values:\n\nen: English.\nzh-CN: Chinese.\nja: Japanese",
       "help_zh": "语言类型。角色描述将以此语言返回。\n\nen：英文。\nzh-CN：中文。\nja：日文",
       "location": "query",
       "name": "language",
@@ -64,12 +64,12 @@
           },
           "Role": {
             "backendName": "Role",
-            "description_en": "The information about the role",
+            "description_en": "The role information",
             "description_zh": "角色信息",
             "properties": {
               "Arn": {
                 "backendName": "Arn",
-                "description_en": "The Alibaba Cloud Resource Name (ARN) of the role",
+                "description_en": "The resource descriptor of the role",
                 "description_zh": "角色的资源描述符",
                 "example": "acs:ram::123456789012****:role/ECSAdmin",
                 "mappingResourcePropertyName": "$.Arn",
@@ -78,7 +78,7 @@
               },
               "AssumeRolePolicyDocument": {
                 "backendName": "AssumeRolePolicyDocument",
-                "description_en": "The document of the policy in which the identity that can assume the role is specified",
+                "description_en": "The content of the access policy that specifies the trusted entity to assume the role",
                 "description_zh": "扮演角色的权限策略内容",
                 "example": "{ \\\"Statement\\\": [ { \\\"Action\\\": \\\"sts:AssumeRole\\\", \\\"Effect\\\": \\\"Allow\\\", \\\"Principal\\\": { \\\"RAM\\\": \\\"acs:ram::12345678901234****:root\\\" } } ], \\\"Version\\\": \\\"1\\\" }",
                 "mappingResourcePropertyName": "$.AssumeRolePolicyDocument",
@@ -87,8 +87,8 @@
               },
               "CreateDate": {
                 "backendName": "CreateDate",
-                "description_en": "The time when the role was created",
-                "description_zh": "角色创建时间",
+                "description_en": "The time when the role was created. The time is in RFC 3339 UTC format, indicated by Z",
+                "description_zh": "角色创建时间，采用 RFC 3339 UTC 时间格式，以 Z 表示 UTC",
                 "example": "2015-01-23T12:33:18Z",
                 "mappingResourcePropertyName": "$.CreateTime",
                 "type": "string",
@@ -113,13 +113,13 @@
               },
               "LatestDeletionTask": {
                 "backendName": "LatestDeletionTask",
-                "description_en": "The information of the most recent deletion task",
+                "description_en": "The information about the most recent deletion task",
                 "description_zh": "最近一次删除任务信息",
                 "properties": {
                   "CreateDate": {
                     "backendName": "CreateDate",
-                    "description_en": "The time when the deletion task was created",
-                    "description_zh": "删除任务创建时间",
+                    "description_en": "The time when the deletion task was created. The time is in RFC 3339 UTC format, indicated by Z",
+                    "description_zh": "删除任务创建时间，采用 RFC 3339 UTC 时间格式，以 Z 表示 UTC",
                     "example": "2018-10-23T12:33:18Z",
                     "type": "string",
                     "visibility": "Public"
@@ -148,7 +148,7 @@
               },
               "RoleId": {
                 "backendName": "RoleId",
-                "description_en": "The ID of the role",
+                "description_en": "The role ID",
                 "description_zh": "角色ID",
                 "example": "90123456789****",
                 "mappingResourcePropertyName": "$.RoleId",
@@ -157,7 +157,7 @@
               },
               "RoleName": {
                 "backendName": "RoleName",
-                "description_en": "The name of the role",
+                "description_en": "The role name",
                 "description_zh": "角色名称",
                 "example": "ECSAdmin",
                 "mappingResourcePropertyName": "$.RoleName",
@@ -166,7 +166,7 @@
               },
               "RolePrincipalName": {
                 "backendName": "RolePrincipalName",
-                "description_en": "The name of the role after authorization",
+                "description_en": "The name of the authorized role",
                 "description_zh": "被授权角色名称",
                 "example": "ECSAdmin@role.123456.onaliyunservice.com",
                 "type": "string",
@@ -174,8 +174,8 @@
               },
               "UpdateDate": {
                 "backendName": "UpdateDate",
-                "description_en": "The time when the role was updated",
-                "description_zh": "角色更新时间",
+                "description_en": "The time when the role was last updated. The time is in RFC 3339 UTC format, indicated by Z",
+                "description_zh": "角色更新时间，采用 RFC 3339 UTC 时间格式，以 Z 表示 UTC",
                 "example": "2016-01-23T12:33:18Z",
                 "mappingResourcePropertyName": "$.UpdateDate",
                 "type": "string",
