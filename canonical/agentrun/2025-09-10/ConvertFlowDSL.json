@@ -292,98 +292,6 @@
         "title": "Flow DSL转换数据",
         "type": "object"
       },
-      "ConvertFlowDSLInput": {
-        "description_en": "工作流DSL转换所需的输入参数，支持多种DSL格式（如Dify、n8n等），包含DSL来源和转换选项",
-        "description_zh": "工作流DSL转换所需的输入参数，支持多种DSL格式（如Dify、n8n等），包含DSL来源和转换选项",
-        "properties": {
-          "dslSource": {
-            "backendName": "dslSource",
-            "description_en": "工作流DSL的来源配置，支持inline和base64两种格式",
-            "description_zh": "工作流DSL的来源配置，支持inline和base64两种格式",
-            "properties": {
-              "content": {
-                "backendName": "content",
-                "description_en": "DSL内容，可以是原始JSON字符串，或根据encoding字段指定的编码格式",
-                "description_zh": "DSL内容，可以是原始JSON字符串，或根据encoding字段指定的编码格式",
-                "example": "{\"app\":{\"name\":\"My Flow\"}}",
-                "required": true,
-                "title": "内容",
-                "type": "string"
-              },
-              "encoding": {
-                "backendName": "encoding",
-                "description_en": "DSL内容的编码方式。不填表示内容为原始字符串；base64表示内容经过Base64编码；base64+gzip表示内容经过gzip压缩后再Base64编码",
-                "description_zh": "DSL内容的编码方式。不填表示内容为原始字符串；base64表示内容经过Base64编码；base64+gzip表示内容经过gzip压缩后再Base64编码",
-                "example": "base64",
-                "title": "内容编码",
-                "type": "string"
-              },
-              "provider": {
-                "backendName": "provider",
-                "description_en": "源DSL的提供商类型，如：dify、n8n、zapier等",
-                "description_zh": "源DSL的提供商类型，如：dify、n8n、zapier等",
-                "example": "dify",
-                "required": true,
-                "title": "DSL提供商",
-                "type": "string"
-              }
-            },
-            "required": true,
-            "title": "DSL来源",
-            "type": "object"
-          },
-          "options": {
-            "backendName": "options",
-            "description_en": "DSL转换的可选配置参数",
-            "description_zh": "DSL转换的可选配置参数",
-            "properties": {
-              "compatibilityCheck": {
-                "backendName": "compatibilityCheck",
-                "description_en": "是否执行兼容性检查，默认为true",
-                "description_zh": "是否执行兼容性检查，默认为true",
-                "example": "true",
-                "title": "兼容性检查",
-                "type": "boolean"
-              },
-              "credentialName": {
-                "backendName": "credentialName",
-                "description_en": "调用方指定的 AgentRun 凭证资源名称。转换后会替换模型相关节点访问凭证",
-                "description_zh": "调用方指定的 AgentRun 凭证资源名称。转换后会替换模型相关节点访问凭证",
-                "title": "访问凭证名称",
-                "type": "string"
-              },
-              "flowName": {
-                "backendName": "flowName",
-                "description_zh": "自定义流程名称",
-                "title": "自定义流程名称",
-                "type": "string"
-              },
-              "vpcEndpointName": {
-                "backendName": "vpcEndpointName",
-                "description_en": "全局VPC端点名称，对所有节点统一生效。如果指定了vpcEndpoints映射，则映射中的节点优先使用映射值",
-                "description_zh": "全局VPC端点名称，对所有节点统一生效。如果指定了vpcEndpoints映射，则映射中的节点优先使用映射值",
-                "title": "vpc端点名称",
-                "type": "string"
-              },
-              "vpcEndpoints": {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "backendName": "vpcEndpoints",
-                "description_en": "按节点名称指定VPC端点，key为节点名称(stateName)，value为该节点使用的VPC端点名称。优先级高于vpcEndpointName",
-                "description_zh": "按节点名称指定VPC端点，key为节点名称(stateName)，value为该节点使用的VPC端点名称。优先级高于vpcEndpointName",
-                "example": "{\"LLM节点\":\"vpc-endpoint-1\",\"Agent节点\":\"vpc-endpoint-2\"}",
-                "title": "vpc端点映射",
-                "type": "object"
-              }
-            },
-            "title": "转换选项",
-            "type": "object"
-          }
-        },
-        "title": "Flow DSL转换输入",
-        "type": "object"
-      },
       "ConvertFlowDSLResult": {
         "description_en": "The unified result format for workflow DSL conversion operations",
         "description_zh": "工作流DSL转换操作的统一结果格式",
@@ -505,7 +413,7 @@
   "deprecated": false,
   "description_en": "Converts a Flow DSL",
   "description_zh": "转换Flow DSL",
-  "kebab_example": "",
+  "kebab_example": "aliyun agentrun convert-flow-dsl --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "ConvertFlowDSL",

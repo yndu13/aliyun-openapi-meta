@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig GET /v1/http-api-batch-import-tasks/async-task-xxx --region cn-hangzhou --header \"Content-Type=application/json\"",
   "cmd_full_name": "apig get-batch-import-task",
   "cmd_name": "get-batch-import-task",
   "deprecated": false,
   "description_en": "查询批量操作任务",
   "description_zh": "查询批量导入任务",
-  "kebab_example": "",
+  "kebab_example": "aliyun apig get-batch-import-task --task-id async-task-xxx --region cn-hangzhou",
   "method": "GET",
   "multi_version": false,
   "name": "GetBatchImportTask",
@@ -76,7 +76,6 @@
               },
               "result": {
                 "description_zh": "任务结果详情",
-                "parseType": "json",
                 "properties": {
                   "apiType": {
                     "description_zh": "API类型",
@@ -94,7 +93,6 @@
                   },
                   "dryRunResults": {
                     "description_zh": "预检结果列表",
-                    "itemName": "dryRunResult",
                     "items": {
                       "description_zh": "预检结果项",
                       "properties": {
@@ -110,7 +108,6 @@
                           "properties": {
                             "errorMessages": {
                               "description_zh": "预检错误信息列表",
-                              "itemName": "errorMessage",
                               "items": {
                                 "description_zh": "预检错误信息",
                                 "example": "invalid oas format",
@@ -206,7 +203,6 @@
                             },
                             "failureComponents": {
                               "description_zh": "预检失败的数据结构列表",
-                              "itemName": "failureComponent",
                               "items": {
                                 "description_zh": "预检失败的数据结构项",
                                 "properties": {
@@ -227,7 +223,6 @@
                             },
                             "failureOperations": {
                               "description_zh": "预检失败的 Rest API Operation 列表",
-                              "itemName": "failureOperation",
                               "items": {
                                 "description_zh": "预检失败的 Rest API Operation 项",
                                 "properties": {
@@ -253,7 +248,6 @@
                             },
                             "failureRoutes": {
                               "description_zh": "预检失败的路由列表",
-                              "itemName": "failureRoute",
                               "items": {
                                 "description_zh": "预检失败的路由项",
                                 "properties": {
@@ -274,7 +268,6 @@
                             },
                             "successComponents": {
                               "description_zh": "预检成功的数据结构列表",
-                              "itemName": "successComponent",
                               "items": {
                                 "description_zh": "预检成功的数据结构项",
                                 "properties": {
@@ -295,7 +288,6 @@
                             },
                             "successOperations": {
                               "description_zh": "预检成功的 Rest API Operation 列表",
-                              "itemName": "successOperation",
                               "items": {
                                 "description_zh": "预检成功的 Rest API Operation 项",
                                 "properties": {
@@ -326,7 +318,6 @@
                             },
                             "successRoutes": {
                               "description_zh": "预检成功的路由列表",
-                              "itemName": "successRoute",
                               "items": {
                                 "description_zh": "预检成功的路由项",
                                 "properties": {
@@ -347,7 +338,6 @@
                             },
                             "warningMessages": {
                               "description_zh": "预检告警信息列表",
-                              "itemName": "warningMessage",
                               "items": {
                                 "description_zh": "预检告警信息",
                                 "example": "operation will be overwritten",
@@ -379,14 +369,12 @@
                       "title_zh": "预检结果项。",
                       "type": "object"
                     },
-                    "parseType": "json",
                     "title_en": "预检结果列表。",
                     "title_zh": "预检结果列表。",
                     "type": "array"
                   },
                   "failureItems": {
                     "description_zh": "处理失败的API列表",
-                    "itemName": "failureItem",
                     "items": {
                       "description_zh": "失败项",
                       "properties": {
@@ -423,7 +411,6 @@
                       "title_zh": "失败项。",
                       "type": "object"
                     },
-                    "parseType": "json",
                     "title_en": "处理失败的API列表。",
                     "title_zh": "处理失败的API列表。",
                     "type": "array"
@@ -437,7 +424,6 @@
                   },
                   "importRequest": {
                     "description_zh": "正式导入请求体。仅预检任务返回，可作为BatchImportHttpApis请求体重新提交，dryRun固定为false；临时specFileUrl仍受URL有效期约束",
-                    "parseType": "json",
                     "properties": {
                       "allowUpdate": {
                         "description_zh": "是否允许覆盖更新已有的API",
@@ -482,7 +468,6 @@
                       },
                       "specOssConfig": {
                         "description_zh": "OAS文件的OSS配置，和预检请求保持一致",
-                        "parseType": "json",
                         "properties": {
                           "bucketName": {
                             "description_zh": "OSS Bucket名称",
@@ -530,7 +515,6 @@
                   },
                   "successItems": {
                     "description_zh": "处理成功的API列表",
-                    "itemName": "successItem",
                     "items": {
                       "description_zh": "成功项",
                       "properties": {
@@ -567,7 +551,6 @@
                       "title_zh": "成功项。",
                       "type": "object"
                     },
-                    "parseType": "json",
                     "title_en": "处理成功的API列表。",
                     "title_zh": "处理成功的API列表。",
                     "type": "array"
@@ -586,6 +569,13 @@
                   "PartialSuccess",
                   "Failed"
                 ],
+                "enumValueTitles": {
+                  "Failed": "失败",
+                  "PartialSuccess": "部分成功",
+                  "Pending": "等待执行",
+                  "Running": "执行中",
+                  "Success": "成功"
+                },
                 "example": "Running",
                 "title_en": "任务状态，取值：Pending、Running、Success、PartialSuccess、Failed。",
                 "title_zh": "任务状态，取值：Pending、Running、Success、PartialSuccess、Failed。",

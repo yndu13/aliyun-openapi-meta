@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun resourcemanager CreateAutoGroupingRule --region cn-hangzhou --RuleType custom_condition --RuleContents.1.AutoGroupingScopeCondition 'children_:_desired_:_env_:_online_,_project_:_A_,_featurePath_:_.tags_,_featureSource_:_RESOURCE_,_operator_:_TagMatchAll_,_operator_:_and' --RuleContents.1.TargetResourceGroupCondition 'children_:_desired_:_rg-aek200000000qcy_,_featurePath_:_.resourceGroupId_,_featureSource_:_RESOURCE_,_operator_:_StringEquals_,_operator_:_and' --RuleName 'A项目线上资源自动转组规则'",
   "cmd_full_name": "resourcemanager create-auto-grouping-rule",
   "cmd_name": "create-auto-grouping-rule",
   "deprecated": false,
-  "description_en": "Creates a transfer rule. Custom transfer rules and transfer rules for associated resources are supported",
+  "description_en": "Creates an automatic resource group transfer rule. Two types are supported: custom transfer rules and attached-resource transfer rules",
   "description_zh": "调用CreateAutoGroupingRule创建自动转组规则。支持自定义转组规则和关联资源跟随转组规则两类",
-  "kebab_example": "",
+  "kebab_example": "aliyun resourcemanager create-auto-grouping-rule --rule-name 'A项目线上资源自动转组规则' --rule-type custom_condition --rule-contents AutoGroupingScopeCondition=children_:_desired_:_env_:_online_,_project_:_A_,_featurePath_:_.tags_,_featureSource_:_RESOURCE_,_operator_:_TagMatchAll_,_operator_:_and TargetResourceGroupCondition=children_:_desired_:_rg-aek200000000qcy_,_featurePath_:_.resourceGroupId_,_featureSource_:_RESOURCE_,_operator_:_StringEquals_,_operator_:_and --api-version 2020-03-31 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "CreateAutoGroupingRule",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "A项目线上资源自动转组规则",
-      "help_en": "The name of the rule",
+      "help_en": "The rule name",
       "help_zh": "规则名称",
       "location": "query",
       "max_length": "128",
@@ -36,7 +36,7 @@
     },
     {
       "example": "带有标签 {\"env\": \"online\"} 和 {\"project\": \"A\"} 的资源转移到资源组 rg-aek2********qcy",
-      "help_en": "The description of the rule",
+      "help_en": "The rule description",
       "help_zh": "规则描述",
       "location": "query",
       "max_length": "512",
@@ -54,7 +54,7 @@
         "custom_condition"
       ],
       "example": "custom_condition",
-      "help_en": "The type of the rule. Valid values:\n\ncustom_condition: custom transfer rule\nassociated_transfer: transfer rule for associated resources",
+      "help_en": "The rule type. Valid values:\ncustom_condition: custom transfer rule.\nassociated_transfer: attached-resource transfer rule",
       "help_zh": "规则类型。取值：\ncustom_condition：自定义转组规则。\nassociated_transfer：关联资源跟随转组规则",
       "location": "query",
       "name": "rule_type",
@@ -70,7 +70,7 @@
         "fields": [
           {
             "example": "{\"children\":[{\"desired\":\"{\\\"env\\\":\\\"online\\\", \\\"project\\\":\\\"A\\\"}\",\"featurePath\":\"$.tags\",\"featureSource\":\"RESOURCE\",\"operator\":\"TagMatchAll\"}],\"operator\":\"and\"}",
-            "help_en": "The condition for the range of resources to be automatically transferred",
+            "help_en": "The scope condition for automatic resource group transfer. Specifies the scope of resources to be automatically transferred",
             "help_zh": "自动转组范围条件，用于指定需要自动转组的资源范围",
             "max_length": "50000",
             "name": "auto_grouping_scope_condition",
@@ -83,7 +83,7 @@
           },
           {
             "example": "{\"children\":[{\"desired\":\"rg-aek2********qcy\",\"featurePath\":\"$.resourceGroupId\",\"featureSource\":\"RESOURCE\",\"operator\":\"StringEquals\"}],\"operator\":\"and\"}",
-            "help_en": "The condition for the destination resource group",
+            "help_en": "The target resource group condition. Specifies the destination resource group for automatic grouping",
             "help_zh": "目标资源组条件，用于指定自动分组的目标资源组",
             "max_length": "255",
             "name": "target_resource_group_condition",
@@ -97,7 +97,7 @@
         ],
         "type": "object"
       },
-      "help_en": "The content records of the rule",
+      "help_en": "The list of rule entries",
       "help_zh": "规则内容列表",
       "location": "query",
       "name": "rule_contents",
@@ -111,7 +111,7 @@
     },
     {
       "example": "rg-aekz******4b5ea,rg-aek2******fxykq",
-      "help_en": "The IDs of resource groups. Separate multiple IDs with commas (,)",
+      "help_en": "The scope of resource group IDs. Separate multiple resource group IDs with commas (,)",
       "help_zh": "资源组ID范围，多个资源组ID用半角逗号（,）分隔",
       "location": "query",
       "max_length": "8000",
@@ -125,7 +125,7 @@
     },
     {
       "example": "rg-aekz******zj2oi,rg-aekz******r62ua",
-      "help_en": "The IDs of resource groups to be excluded. Separate multiple IDs with commas (,)",
+      "help_en": "The resource group IDs to exclude. Separate multiple resource group IDs with commas (,)",
       "help_zh": "资源组ID排除范围，多个资源组ID用半角逗号（,）分隔",
       "location": "query",
       "max_length": "8000",
@@ -139,7 +139,7 @@
     },
     {
       "example": "cn-hangzhou,cn-shanghai",
-      "help_en": "The IDs of regions. Separate multiple IDs with commas (,)",
+      "help_en": "The scope of region IDs. Separate multiple region IDs with commas (,)",
       "help_zh": "地域ID范围，多个地域ID用半角逗号（,）分隔",
       "location": "query",
       "max_length": "2000",
@@ -153,7 +153,7 @@
     },
     {
       "example": "cn-beijing,cn-guangzhou",
-      "help_en": "The IDs of regions to be excluded. Separate multiple IDs with commas (,)",
+      "help_en": "The region IDs to exclude. Separate multiple region IDs with commas (,)",
       "help_zh": "地域ID排除范围，多个地域ID用半角逗号（,）分隔",
       "location": "query",
       "max_length": "2000",
@@ -167,7 +167,7 @@
     },
     {
       "example": "i-2zee******ym49kfmwis,vpc-5ts6******fnw493g849a",
-      "help_en": "The IDs of resources. Separate multiple IDs with commas (,)",
+      "help_en": "The scope of resource IDs. Separate multiple resource IDs with commas (,)",
       "help_zh": "资源ID范围，多个资源ID用半角逗号（,）分隔",
       "location": "query",
       "max_length": "5000",
@@ -181,7 +181,7 @@
     },
     {
       "example": "pc-uf6p******4h784y,rmq-cn-******ny0y",
-      "help_en": "The IDs of resources to be excluded. Separate multiple IDs with commas (,)",
+      "help_en": "The resource IDs to exclude. Separate multiple resource IDs with commas (,)",
       "help_zh": "资源ID排除范围，多个资源ID用半角逗号（,）分隔",
       "location": "query",
       "max_length": "5000",
@@ -195,7 +195,7 @@
     },
     {
       "example": "rds.dbinstance,oss.bucket",
-      "help_en": "The resource types. Separate multiple resource types with commas (,)",
+      "help_en": "The scope of resource types. Separate multiple resource types with commas (,)",
       "help_zh": "资源类型范围，多个资源类型用半角逗号（,）分隔",
       "location": "query",
       "max_length": "2000",
@@ -209,7 +209,7 @@
     },
     {
       "example": "mse.cluster,slb.loadbalancer",
-      "help_en": "The resource types to be excluded. Separate multiple resource types with commas (,)",
+      "help_en": "The resource types to exclude. Separate multiple resource types with commas (,)",
       "help_zh": "资源类型排除范围，多个资源类型用半角逗号（,）分隔",
       "location": "query",
       "max_length": "2000",
@@ -242,7 +242,7 @@
           },
           "RuleId": {
             "backendName": "data.ruleId",
-            "description_en": "The ID of the rule",
+            "description_en": "The rule ID",
             "description_zh": "规则ID",
             "example": "gr-acfo******hy6a",
             "type": "string"

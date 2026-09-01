@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun fc PUT /2023-03-30/functions/my-func/sessions/test-sessionid-1 --region cn-hangzhou --qualifier aliasName1 --header \"Content-Type=application/json\" --body \"example-string\"",
   "cmd_full_name": "fc update-session",
   "cmd_name": "update-session",
   "components": {
@@ -526,119 +526,13 @@
         },
         "title": "Session 出站请求转换配置",
         "type": "object"
-      },
-      "UpdateSessionInput": {
-        "description_en": "The parameters for updating a session",
-        "description_zh": "更新会话的参数",
-        "properties": {
-          "allowInternetAccess": {
-            "backendName": "allowInternetAccess",
-            "type": "boolean"
-          },
-          "disableSessionIdReuse": {
-            "backendName": "disableSessionIdReuse",
-            "description_en": "Specifies whether to disable session ID reuse after the session expires. Default value: False, which indicates that after a session expires, you can use the same session ID to initiate requests. The system treats the request as a new session and binds it to a new instance. If you set this parameter to True, the session ID cannot be reused after the session expires",
-            "description_zh": "默认值 False，表示在 SessionID 会话过期后，可携带相同SessionID继续发起请求，系统将视为新会话绑定新实例。当配置为 True，表示在 SessionID 会话过期后，不可复用 SessionID",
-            "example": "false",
-            "title": "默认值 False，表示在 SessionID 会话过期后，可携带相同SessionID继续发起请求，系统将视为新会话绑定新实例。当配置为 True，表示在 SessionID 会话过期后，不可复用 SessionID。",
-            "type": "boolean"
-          },
-          "enableAutoPause": {
-            "backendName": "enableAutoPause",
-            "type": "boolean"
-          },
-          "enableAutoResume": {
-            "backendName": "enableAutoResume",
-            "type": "boolean"
-          },
-          "juiceFsConfig": {
-            "$ref": "#/components/schemas/JuiceFsConfig",
-            "backendName": "juiceFsConfig",
-            "description_zh": "JuiecFs 挂载配置",
-            "title": "JuiecFs 挂载配置"
-          },
-          "nasConfig": {
-            "$ref": "#/components/schemas/NASConfig",
-            "backendName": "nasConfig",
-            "description_zh": "会话 NAS 挂载点配置",
-            "title": "会话 NAS 挂载点配置"
-          },
-          "network": {
-            "$ref": "#/components/schemas/UpdateSessionNetworkConfig",
-            "backendName": "network"
-          },
-          "ossMountConfig": {
-            "$ref": "#/components/schemas/OSSMountConfig",
-            "backendName": "ossConfig",
-            "description_zh": "会话 OSS 挂载点配置",
-            "title": "会话 OSS 挂载点配置"
-          },
-          "polarFsConfig": {
-            "$ref": "#/components/schemas/PolarFsConfig",
-            "backendName": "polarFsConfig",
-            "description_zh": "会话 PolarFs 挂载点配置",
-            "title": "会话 PolarFs 挂载点配置"
-          },
-          "sessionIdleTimeoutInSeconds": {
-            "backendName": "sessionIdleTimeoutInSeconds",
-            "description_en": "The session idle timeout",
-            "description_zh": "Session 闲置过期时间",
-            "example": "1800",
-            "format": "int64",
-            "title": "Session 闲置过期时间",
-            "type": "integer"
-          },
-          "sessionTTLInSeconds": {
-            "backendName": "sessionTTLInSeconds",
-            "description_en": "The session lifetime",
-            "description_zh": "Session生命周期",
-            "example": "21600",
-            "format": "int64",
-            "title": "Session生命周期",
-            "type": "integer"
-          }
-        },
-        "title": "更新会话的参数",
-        "type": "object"
-      },
-      "UpdateSessionNetworkConfig": {
-        "properties": {
-          "allowOut": {
-            "backendName": "allowOut",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "denyOut": {
-            "backendName": "denyOut",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "rules": {
-            "additionalProperties": {
-              "items": {
-                "$ref": "#/components/schemas/SessionNetworkRule"
-              },
-              "type": "array"
-            },
-            "backendName": "rules",
-            "description_en": "The request transform rules configured by exact target host. If omitted, existing rules are retained. An empty object clears all rules, and a non-empty object replaces all rules entirely. Null is not supported. The transform.headers and transform.headerValueReplacements fields are supported",
-            "description_zh": "按精确目标 Host 配置的请求转换规则。省略时保留已有规则，空对象清空，非空对象整体替换；不支持 null。支持 transform.headers 与 transform.headerValueReplacements",
-            "title": "按精确目标 Host 配置的请求转换规则。省略时保留已有规则，空对象清空，非空对象整体替换；不支持 null。支持 transform.headers 与 transform.headerValueReplacements。",
-            "type": "object"
-          }
-        },
-        "type": "object"
       }
     }
   },
   "deprecated": false,
   "description_en": "Updates the configuration of a session in Active state, such as lifecycle settings including SessionTTLInSeconds and SessionIdleTimeoutInSeconds. The update takes effect immediately, and LastModifiedTime is automatically refreshed. You can use this operation to extend or shorten the session validity period for dynamic management without changing the execution environment bound to the session",
   "description_zh": "更新Active状态下的会话配置，如 SessionTTLInSeconds 和 SessionIdleTimeoutInSeconds 等生命周期配置。更新后生效，LastModifiedTime 自动刷新。可用于延长或缩短会话有效期，实现动态管理，不改变会话绑定的执行环境",
-  "kebab_example": "",
+  "kebab_example": "aliyun fc update-session --function-name my-func --session-id test-sessionid-1 --qualifier aliasName1 --region cn-hangzhou",
   "method": "PUT",
   "multi_version": false,
   "name": "UpdateSession",

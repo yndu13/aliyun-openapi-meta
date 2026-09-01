@@ -187,36 +187,6 @@
         "title": "路由配置",
         "type": "object"
       },
-      "ScalingConfig": {
-        "description_en": "The reserved configuration",
-        "description_zh": "预留配置",
-        "properties": {
-          "minInstances": {
-            "backendName": "minInstances",
-            "description_en": "The minimum number of instances",
-            "description_zh": "最小实例数",
-            "example": "2",
-            "format": "int64",
-            "title": "最小实例数",
-            "type": "integer"
-          },
-          "scheduledPolicies": {
-            "backendName": "scheduledPolicies",
-            "description_en": "The scheduled scale-out policies",
-            "description_zh": "定时扩容策略",
-            "items": {
-              "$ref": "#/components/schemas/ScheduledPolicy",
-              "description_en": "The reserved configuration policy",
-              "description_zh": "预留配置策略",
-              "title": "定时伸缩策略"
-            },
-            "title": "定时扩容策略",
-            "type": "array"
-          }
-        },
-        "title": "预留实例弹性配置",
-        "type": "object"
-      },
       "ScalingStatus": {
         "description_en": "The reserved instance elastic configuration",
         "description_zh": "预留实例弹性配置",
@@ -330,67 +300,6 @@
         "title": "调度策略",
         "type": "object"
       },
-      "UpdateAgentRuntimeEndpointInput": {
-        "description_en": "Update the agent runtime endpoint input  ",
-        "description_zh": "更新智能体运行时端点输入",
-        "properties": {
-          "agentRuntimeEndpointName": {
-            "backendName": "agentRuntimeEndpointName",
-            "description_en": "Agent runtime endpoint Name  ",
-            "description_zh": "智能体运行时端点名称",
-            "example": "production-endpoint",
-            "title": "智能体运行时端点名称",
-            "type": "string"
-          },
-          "deleteScalingConfig": {
-            "backendName": "deleteScalingConfig",
-            "description_en": "为 true 时删除该端点的弹性配置",
-            "description_zh": "为 true 时删除该端点的弹性配置",
-            "title": "是否删除弹性配置",
-            "type": "boolean"
-          },
-          "description": {
-            "backendName": "description",
-            "description_en": "Description  ",
-            "description_zh": "描述",
-            "example": "Updated endpoint configuration",
-            "title": "描述",
-            "type": "string"
-          },
-          "disablePublicNetworkAccess": {
-            "backendName": "disablePublicNetworkAccess",
-            "description_en": "Whether to disable public network access for this endpoint  ",
-            "description_zh": "是否禁用该端点的公网访问",
-            "title": "禁用公网访问",
-            "type": "boolean"
-          },
-          "routingConfiguration": {
-            "$ref": "#/components/schemas/RoutingConfiguration",
-            "backendName": "routingConfiguration",
-            "description_en": "The Ingress configuration of the agent runtime endpoint, which supports weight assignment across multiple versions  ",
-            "description_zh": "智能体运行时端点的路由配置，支持多版本权重分配",
-            "example": "{}",
-            "title": "路由配置"
-          },
-          "scalingConfig": {
-            "$ref": "#/components/schemas/ScalingConfig",
-            "backendName": "scalingConfig",
-            "description_en": "端点的弹性伸缩配置，包括最小实例数和定时扩容策略（复用 ScalingConfig）",
-            "description_zh": "端点的弹性伸缩配置，包括最小实例数和定时扩容策略（复用 ScalingConfig）",
-            "title": "弹性配置"
-          },
-          "targetVersion": {
-            "backendName": "targetVersion",
-            "description_en": "Target Version of the agent runtime  ",
-            "description_zh": "智能体运行时的目标版本",
-            "example": "LATEST",
-            "title": "目标版本",
-            "type": "string"
-          }
-        },
-        "title": "更新智能体运行时端点输入",
-        "type": "object"
-      },
       "VersionWeight": {
         "description_en": "Weight configuration for a single version  ",
         "description_zh": "单个版本的权重配置",
@@ -423,7 +332,7 @@
   "deprecated": false,
   "description_en": "Updates an agent runtime access endpoint",
   "description_zh": "更新智能体运行时访问端点",
-  "kebab_example": "",
+  "kebab_example": "aliyun agentrun update-agent-runtime-endpoint --agent-runtime-id 12345678-1234-1234-1234-123456789abc --agent-runtime-endpoint-id 87654321-4321-4321-4321-210987654321 --region cn-hangzhou",
   "method": "PUT",
   "multi_version": false,
   "name": "UpdateAgentRuntimeEndpoint",

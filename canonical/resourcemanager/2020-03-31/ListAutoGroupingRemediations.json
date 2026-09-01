@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun resourcemanager ListAutoGroupingRemediations --region cn-hangzhou --RuleId 'gr-acfnugygwms32yy'",
   "cmd_full_name": "resourcemanager list-auto-grouping-remediations",
   "cmd_name": "list-auto-grouping-remediations",
   "deprecated": false,
-  "description_en": "Queries a list of automatic grouping remediation records",
+  "description_en": "Lists auto-grouping remediation records",
   "description_zh": "调用ListAutoGroupingRemediations列出自动分组修正记录",
-  "kebab_example": "",
+  "kebab_example": "aliyun resourcemanager list-auto-grouping-remediations --rule-id gr-acfnugygwms32yy --api-version 2020-03-31 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "ListAutoGroupingRemediations",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "TGlzdFJlc291cm****",
-      "help_en": "The pagination token that is used in the next request to retrieve a new page of results. If you leave this parameter empty, the query starts from the beginning",
+      "help_en": "The pagination token that marks the position from which to start reading. If this parameter is left empty, data is read from the beginning",
       "help_zh": "标记当前开始读取的位置，置空表示从头开始",
       "location": "query",
       "name": "next_token",
@@ -35,7 +35,7 @@
     },
     {
       "example": "10",
-      "help_en": "The maximum number of data entries to return",
+      "help_en": "The maximum number of records to return in this request",
       "help_zh": "本次读取的最大数据记录数量",
       "location": "query",
       "maximum": "50",
@@ -63,7 +63,7 @@
     },
     {
       "example": "ecs",
-      "help_en": "The ID of the Alibaba Cloud service.\n\nYou can obtain the ID from the Service code column in https://help.aliyun.com/document_detail/94479.html",
+      "help_en": "The cloud service ID.\n\nYou can obtain the cloud service ID from the Cloud Service Code column in https://help.aliyun.com/document_detail/94479.html",
       "help_zh": "云服务ID。\n\n您可以从https://help.aliyun.com/document_detail/94479.html的**云服务编码**列获取云服务ID",
       "location": "query",
       "name": "service",
@@ -76,7 +76,7 @@
     },
     {
       "example": "instance",
-      "help_en": "The resource type,\n\nYou can obtain the resource type from the Resource type column in https://help.aliyun.com/document_detail/94479.html",
+      "help_en": "The resource type.\n\nYou can obtain the resource type from the Resource Type column in https://help.aliyun.com/document_detail/94479.html",
       "help_zh": "资源类型。\n\n您可以从https://help.aliyun.com/document_detail/94479.html的**资源类型**列获取",
       "location": "query",
       "name": "resource_type",
@@ -89,7 +89,7 @@
     },
     {
       "example": "i-23v38****",
-      "help_en": "The resource ID,",
+      "help_en": "The resource ID",
       "help_zh": "资源ID",
       "location": "query",
       "name": "resource_id",
@@ -102,7 +102,7 @@
     },
     {
       "example": "rg-aekz26emqhc****",
-      "help_en": "The ID of the new resource group",
+      "help_en": "The ID of the target resource group for remediation",
       "help_zh": "修正目标资源组ID",
       "location": "query",
       "name": "target_resource_group_id",
@@ -115,8 +115,8 @@
     },
     {
       "example": "2022-01-01 00:00:00",
-      "help_en": "The earliest remediation time. This parameter is empty by default",
-      "help_zh": "最早时间，默认为空",
+      "help_en": "The earliest time. This parameter is empty by default. The format is YYYY-MM-DD HH:mm:ss without a time zone identifier",
+      "help_zh": "最早时间，默认为空，格式为 YYYY-MM-DD HH:mm:ss，不包含时区标识",
       "location": "query",
       "name": "earliest_remediation_time",
       "options": [
@@ -128,8 +128,8 @@
     },
     {
       "example": "2022-02-01 00:00:00",
-      "help_en": "The latest remediation time. This parameter is empty by default",
-      "help_zh": "最晚时间，默认为空",
+      "help_en": "The latest time. This parameter is empty by default. The format is YYYY-MM-DD HH:mm:ss without a time zone identifier",
+      "help_zh": "最晚时间，默认为空，格式为 YYYY-MM-DD HH:mm:ss，不包含时区标识",
       "location": "query",
       "name": "latest_remediation_time",
       "options": [
@@ -159,7 +159,7 @@
           },
           "NextToken": {
             "backendName": "data.nextToken",
-            "description_en": "The pagination token that is used in the next request to retrieve a new page of results",
+            "description_en": "The token for the next query",
             "description_zh": "下一个查询开始的Token",
             "example": "TGlzdFJlc291cm****",
             "type": "string"
@@ -170,7 +170,7 @@
             "description_zh": "修正记录",
             "itemName": "Remediation",
             "items": {
-              "description_en": "The remediation record",
+              "description_en": "The remediation records",
               "description_zh": "修正记录",
               "properties": {
                 "RegionId": {
@@ -189,8 +189,8 @@
                 },
                 "RemediationTime": {
                   "backendName": "remediationTime",
-                  "description_en": "The remediation time",
-                  "description_zh": "修正时间",
+                  "description_en": "The remediation time. The format is YYYY-MM-DD HH:mm:ss without a time zone identifier",
+                  "description_zh": "修正时间，格式为 YYYY-MM-DD HH:mm:ss，不包含时区标识",
                   "example": "2022-01-01 00:00:00",
                   "type": "string"
                 },
@@ -203,21 +203,21 @@
                 },
                 "ResourceType": {
                   "backendName": "resourceType",
-                  "description_en": "The resource type.\n\nYou can obtain the resource type from the Resource type column in [Services that work with Resource Group]（https://help.aliyun.com/document_detail/94479.html）",
+                  "description_en": "The resource type.\n\nYou can obtain the resource type from the Resource Type column in [Cloud services that support resource groups]（https://help.aliyun.com/document_detail/94479.html）",
                   "description_zh": "资源类型。\n\n您可以从[支持资源组的云服务]（https://help.aliyun.com/document_detail/94479.html）的**资源类型**列获取",
                   "example": "instance",
                   "type": "string"
                 },
                 "Service": {
                   "backendName": "service",
-                  "description_en": "The ID of the Alibaba Cloud service.\n\nYou can obtain the ID from the Service code column in [Services that work with Resource Group]（https://help.aliyun.com/document_detail/94479.html）",
+                  "description_en": "The cloud service ID.\n\nYou can obtain the cloud service ID from the Cloud Service Code column in [Cloud services that support resource groups]（https://help.aliyun.com/document_detail/94479.html）",
                   "description_zh": "云服务ID。\n\n您可以从[支持资源组的云服务]（https://help.aliyun.com/document_detail/94479.html）的**云服务编码**列获取云服务ID",
                   "example": "ecs",
                   "type": "string"
                 },
                 "TargetResourceGroupInfo": {
                   "backendName": "targetResourceGroupInfo",
-                  "description_en": "The information about the new resource group",
+                  "description_en": "The information about the target resource group for remediation",
                   "description_zh": "修正目标资源组信息",
                   "properties": {
                     "ResourceGroupDisplayName": {

@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Retrieves a dataset. Release version: v6.2.0",
   "description_zh": "获取数据集，发布版本：v6.2.0",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public get-dataset --op-tenant-id 30001011 --project-id 7255013756724992 --id 7255018404425088 --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "GetDataset",
@@ -58,6 +58,19 @@
       "raw_name": "Id",
       "required": true,
       "type": "int"
+    },
+    {
+      "example": "30001011",
+      "help_en": "操作用户ID",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
@@ -318,6 +331,288 @@
                   "backendName": "DatasetVersionDTO",
                   "parseType": "struct",
                   "properties": {
+                    "ApiInfo": {
+                      "backendName": "apiInfo",
+                      "parseType": "struct",
+                      "properties": {
+                        "ApiNo": {
+                          "backendName": "ApiNo",
+                          "example": "1011",
+                          "format": "int64",
+                          "title_en": "业务Id",
+                          "title_zh": "业务Id",
+                          "type": "integer"
+                        },
+                        "ExecTimeout": {
+                          "backendName": "ExecTimeout",
+                          "example": "60",
+                          "format": "int32",
+                          "required": true,
+                          "title_en": "执行超时时间（秒）",
+                          "title_zh": "执行超时时间（秒）",
+                          "type": "integer"
+                        },
+                        "ExecuteMode": {
+                          "backendName": "ExecuteMode",
+                          "example": "1",
+                          "format": "int32",
+                          "required": true,
+                          "title_en": "执行模式：1-同步，2-异步",
+                          "title_zh": "执行模式：1-同步，2-异步",
+                          "type": "integer"
+                        },
+                        "OsApiGroup": {
+                          "backendName": "OsApiGroup",
+                          "example": "1011",
+                          "format": "int32",
+                          "required": true,
+                          "title_en": "数据服务api分组",
+                          "title_zh": "数据服务api分组",
+                          "type": "integer"
+                        },
+                        "OsApiGroupName": {
+                          "backendName": "osApiGroupName",
+                          "example": "test",
+                          "title_en": "数据服务api分组名称",
+                          "title_zh": "数据服务api分组名称",
+                          "type": "string"
+                        },
+                        "OsProject": {
+                          "backendName": "OsProject",
+                          "example": "1060",
+                          "format": "int32",
+                          "parseType": "struct",
+                          "required": true,
+                          "title_en": "数据服务项目",
+                          "title_zh": "数据服务项目",
+                          "type": "integer"
+                        },
+                        "OsProjectName": {
+                          "backendName": "OsProjectName",
+                          "example": "1012",
+                          "title_en": "数据服务项目名称",
+                          "title_zh": "数据服务项目名称",
+                          "type": "string"
+                        },
+                        "Protocol": {
+                          "backendName": "Protocol",
+                          "example": "1",
+                          "format": "int32",
+                          "required": true,
+                          "title_en": "协议类型: 1.https 2.http 3.http和https",
+                          "title_zh": "协议类型: 1.https 2.http 3.http和https",
+                          "type": "integer"
+                        },
+                        "RequestMethod": {
+                          "backendName": "RequestMethod",
+                          "example": "1",
+                          "format": "int32",
+                          "required": true,
+                          "title_en": "请求方式：1-GET，2-LIST",
+                          "title_zh": "请求方式：1-GET，2-LIST",
+                          "type": "integer"
+                        },
+                        "RequestParamList": {
+                          "backendName": "RequestParamList",
+                          "itemName": "ApiRequestParamDTO",
+                          "items": {
+                            "parseType": "struct",
+                            "properties": {
+                              "DateFormat": {
+                                "backendName": "DateFormat",
+                                "example": "yyyyMMdd",
+                                "title_en": "日期格式",
+                                "title_zh": "日期格式",
+                                "type": "string"
+                              },
+                              "DefaultValue": {
+                                "backendName": "DefaultValue",
+                                "example": "1",
+                                "title_en": "默认值",
+                                "title_zh": "默认值",
+                                "type": "string"
+                              },
+                              "Descr": {
+                                "backendName": "Descr",
+                                "example": "test",
+                                "title_en": "描述",
+                                "title_zh": "描述",
+                                "type": "string"
+                              },
+                              "IsUrl": {
+                                "backendName": "IsUrl",
+                                "parseType": "struct",
+                                "title_en": "是否url参数",
+                                "title_zh": "是否url参数",
+                                "type": "boolean"
+                              },
+                              "MappingColumn": {
+                                "backendName": "MappingColumn",
+                                "example": "col01",
+                                "title_en": "映射列",
+                                "title_zh": "映射列",
+                                "type": "string"
+                              },
+                              "Must": {
+                                "backendName": "Must",
+                                "parseType": "struct",
+                                "title_en": "是否必填",
+                                "title_zh": "是否必填",
+                                "type": "boolean"
+                              },
+                              "Operator": {
+                                "backendName": "Operator",
+                                "example": "=",
+                                "title_en": "操作符",
+                                "title_zh": "操作符",
+                                "type": "string"
+                              },
+                              "Optional": {
+                                "backendName": "Optional",
+                                "title_en": "是否可选",
+                                "title_zh": "是否可选",
+                                "type": "boolean"
+                              },
+                              "OriginalColumn": {
+                                "backendName": "OriginalColumn",
+                                "example": "col01",
+                                "title_en": "原始列名",
+                                "title_zh": "原始列名",
+                                "type": "string"
+                              },
+                              "ParamName": {
+                                "backendName": "ParamName",
+                                "example": "col01",
+                                "title_en": "参数名称",
+                                "title_zh": "参数名称",
+                                "type": "string"
+                              },
+                              "ParamType": {
+                                "backendName": "ParamType",
+                                "example": "int",
+                                "title_en": "参数类型",
+                                "title_zh": "参数类型",
+                                "type": "string"
+                              },
+                              "Sample": {
+                                "backendName": "Sample",
+                                "example": "1",
+                                "title_en": "示例值",
+                                "title_zh": "示例值",
+                                "type": "string"
+                              },
+                              "SeqNum": {
+                                "backendName": "SeqNum",
+                                "example": "1",
+                                "format": "int32",
+                                "title_en": "序号",
+                                "title_zh": "序号",
+                                "type": "integer"
+                              }
+                            },
+                            "title_en": "请求参数列表",
+                            "title_zh": "请求参数列表",
+                            "type": "object"
+                          },
+                          "parseType": "struct",
+                          "required": true,
+                          "title_en": "请求参数列表",
+                          "title_zh": "请求参数列表",
+                          "type": "array"
+                        },
+                        "ResponseParamList": {
+                          "backendName": "ResponseParamList",
+                          "itemName": "ApiResponseParamDTO",
+                          "items": {
+                            "parseType": "struct",
+                            "properties": {
+                              "DateFormat": {
+                                "backendName": "DateFormat",
+                                "example": "yyyyMMdd",
+                                "title_en": "日期格式",
+                                "title_zh": "日期格式",
+                                "type": "string"
+                              },
+                              "Descr": {
+                                "backendName": "Descr",
+                                "example": "test",
+                                "title_en": "描述",
+                                "title_zh": "描述",
+                                "type": "string"
+                              },
+                              "IsUrl": {
+                                "backendName": "IsUrl",
+                                "parseType": "struct",
+                                "title_en": "是否url参数",
+                                "title_zh": "是否url参数",
+                                "type": "boolean"
+                              },
+                              "MappingColumn": {
+                                "backendName": "MappingColumn",
+                                "example": "col01",
+                                "title_en": "映射列",
+                                "title_zh": "映射列",
+                                "type": "string"
+                              },
+                              "OriginalColumn": {
+                                "backendName": "OriginalColumn",
+                                "example": "col01",
+                                "title_en": "原始列名",
+                                "title_zh": "原始列名",
+                                "type": "string"
+                              },
+                              "ParamName": {
+                                "backendName": "paramName",
+                                "example": "col01",
+                                "title_en": "参数名称",
+                                "title_zh": "参数名称",
+                                "type": "string"
+                              },
+                              "ParamType": {
+                                "backendName": "ParamType",
+                                "example": "int",
+                                "title_en": "参数类型",
+                                "title_zh": "参数类型",
+                                "type": "string"
+                              },
+                              "Sample": {
+                                "backendName": "Sample",
+                                "example": "1",
+                                "title_en": "示例值",
+                                "title_zh": "示例值",
+                                "type": "string"
+                              },
+                              "SeqNum": {
+                                "backendName": "SeqNum",
+                                "example": "1",
+                                "title_en": "序号",
+                                "title_zh": "序号",
+                                "type": "string"
+                              }
+                            },
+                            "title_en": "返回参数列表",
+                            "title_zh": "返回参数列表",
+                            "type": "object"
+                          },
+                          "parseType": "struct",
+                          "title_en": "返回参数列表",
+                          "title_zh": "返回参数列表",
+                          "type": "array"
+                        },
+                        "Timeout": {
+                          "backendName": "Timeout",
+                          "example": "60",
+                          "format": "int32",
+                          "required": true,
+                          "title_en": "超时时间（秒）",
+                          "title_zh": "超时时间（秒）",
+                          "type": "integer"
+                        }
+                      },
+                      "title_en": "在线数据集的api信息",
+                      "title_zh": "在线数据集的api信息",
+                      "type": "object"
+                    },
                     "Creator": {
                       "backendName": "Creator",
                       "description_en": "The creator ID",

@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun pvtz DescribePvtzStatisticsHistory --region cn-hangzhou --ZoneName 'host.local' --NetworkParams.1.VpcOwner 1634808626233933 --StartTimestamp 1516779348000 --DomainName 'example.com' --NetworkParams.1.VpcId 'vpc-bp1hneq5pcy2gv87op0uf' --NetworkParams.1.VpcType STANDARD --EndTimestamp 1571673600000 --ServerRegion 'cn-hangzhou' --NetworkParams.1.RegionId 'cn-hangzhou' --Module '统计模块_AUTH_FORWARD' --StatisticalType 'PROTOCOL：DNS请求UDP协议、TCP协议维度统计（仅全局域名统计），_FORWARD：转发解析量，包含解析成功数/解析失败数/解析总数_RECURSION：递归解析量，包含解析成功数/解析失败数/解析总数_QTYPE：DNS请求记录类型分布，如A、AAAA、CNAME、MX_等_RCODE：DNS否定应答统计_SUCCESS_RATIO：平均解析成功率（解析成功率_=_返回与请求记录类型（QTYPE）匹配的有效应答次数_/_总解析次数）_LATENCY：DNS平均解析延迟（ms），指阿里云_DNS_服务器从接收到_DNS_查询请求起，到生成并返回解析应答为止的平均耗时。_REQUEST：DNS请求量统计，展示QPS查询趋势' --Rcode 0 --method POST --force",
   "cmd_full_name": "pvtz describe-pvtz-statistics-history",
   "cmd_name": "describe-pvtz-statistics-history",
   "deprecated": false,
-  "description_en": "PrivateZone Resolution Trends",
+  "description_en": "Queries the trend of Alibaba Cloud DNS PrivateZone parse statistics information",
   "description_zh": "Pvtz解析统计信息趋势",
-  "kebab_example": "",
+  "kebab_example": "aliyun pvtz describe-pvtz-statistics-history --server-region cn-hangzhou --module '统计模块_AUTH_FORWARD' --statistical-type 'PROTOCOL：DNS请求UDP协议、TCP协议维度统计（仅全局域名统计），_FORWARD：转发解析量，包含解析成功数/解析失败数/解析总数_RECURSION：递归解析量，包含解析成功数/解析失败数/解析总数_QTYPE：DNS请求记录类型分布，如A、AAAA、CNAME、MX_等_RCODE：DNS否定应答统计_SUCCESS_RATIO：平均解析成功率（解析成功率_=_返回与请求记录类型（QTYPE）匹配的有效应答次数_/_总解析次数）_LATENCY：DNS平均解析延迟（ms），指阿里云_DNS_服务器从接收到_DNS_查询请求起，到生成并返回解析应答为止的平均耗时。_REQUEST：DNS请求量统计，展示QPS查询趋势' --start-timestamp 1516779348000 --end-timestamp 1571673600000 --zone-name host.local --domain-name example.com --rcode 0 --network-params VpcType=STANDARD VpcId=vpc-bp1hneq5pcy2gv87op0uf VpcOwner=1634808626233933 RegionId=cn-hangzhou --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "DescribePvtzStatisticsHistory",
@@ -34,7 +34,7 @@
       "type": "string"
     },
     {
-      "example": "AUTH",
+      "example": "统计模块(AUTH\\FORWARD)",
       "help_en": "The statistics module",
       "help_zh": "统计模块",
       "location": "query",
@@ -47,8 +47,8 @@
       "type": "string"
     },
     {
-      "example": "- PROTOCOL: DNS request statistics by UDP and TCP protocol (global domain statistics only).\n- FORWARD: Forwarding resolution volume, including successful resolutions, failed resolutions, and total resolutions.\n- RECURSION: Recursive resolution volume, including successful resolutions, failed resolutions, and total resolutions.\n- QTYPE: Distribution of DNS request record types, such as A, AAAA, CNAME, and MX.\n- RCODE: Negative DNS response statistics.\n- SUCCESS_RATIO: Average resolution success rate (resolution success rate = number of valid responses matching the requested record type (QTYPE) / total number of resolutions).\n- LATENCY: Average DNS resolution latency (ms), which is the average time elapsed from when the Alibaba Cloud DNS server receives a DNS query to when it generates and returns a response.\n- REQUEST: DNS request volume statistics, showing QPS query trends.",
-      "help_en": "The type of statistics to collect",
+      "example": "PROTOCOL：DNS请求UDP协议、TCP协议维度统计（仅全局域名统计），\nFORWARD：转发解析量，包含解析成功数/解析失败数/解析总数\nRECURSION：递归解析量，包含解析成功数/解析失败数/解析总数\nQTYPE：DNS请求记录类型分布，如A、AAAA、CNAME、MX 等\nRCODE：DNS否定应答统计\nSUCCESS_RATIO：平均解析成功率（解析成功率 = 返回与请求记录类型（QTYPE）匹配的有效应答次数 / 总解析次数）\nLATENCY：DNS平均解析延迟（ms），指阿里云 DNS 服务器从接收到 DNS 查询请求起，到生成并返回解析应答为止的平均耗时。\nREQUEST：DNS请求量统计，展示QPS查询趋势",
+      "help_en": "The collection statistics type",
       "help_zh": "设置采集统计类型",
       "location": "query",
       "name": "statistical_type",
@@ -61,7 +61,7 @@
     },
     {
       "example": "1516779348000",
-      "help_en": "The start of the query time range. This value is a UNIX timestamp in milliseconds",
+      "help_en": "The start time (UNIX timestamp)",
       "help_zh": "开始时间（时间戳）",
       "location": "query",
       "name": "start_timestamp",
@@ -74,7 +74,7 @@
     },
     {
       "example": "1571673600000",
-      "help_en": "The end of the query time range. This value is a UNIX timestamp in milliseconds",
+      "help_en": "The end time (UNIX timestamp)",
       "help_zh": "结束时间（时间戳）",
       "location": "query",
       "name": "end_timestamp",
@@ -141,7 +141,7 @@
           },
           {
             "example": "vpc-bp1hneq5pcy2gv87op0uf",
-            "help_en": "The ID of the VPC",
+            "help_en": "The VPC ID. The unique identifier of the VPC",
             "help_zh": "Vpc ID。VPC唯一识别码",
             "name": "vpc_id",
             "options": [
@@ -153,7 +153,7 @@
           },
           {
             "example": "1634808626233933",
-            "help_en": "The ID of the VPC owner",
+            "help_en": "The VPC owner",
             "help_zh": "VPC所有者",
             "name": "vpc_owner",
             "options": [
@@ -165,7 +165,7 @@
           },
           {
             "example": "STANDARD",
-            "help_en": "The VPC type. Valid values:\n\n`STANDARD`: Standard VPC.\n\n`EDS`: Elastic Desktop Service VPC",
+            "help_en": "The VPC type. Valid values:\n\nSTANDARD: standard VPC.\n\nEDS: Elastic Desktop Service workspace VPC",
             "help_zh": "vpc类型。描述：\n\nSTANDARD：标准VPC。\n\nEDS：无影工作区VPC",
             "name": "vpc_type",
             "options": [
@@ -197,21 +197,21 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response data",
+        "description_en": "Schema of Response",
         "description_zh": "Schema of Response",
         "properties": {
           "Data": {
             "backendName": "data",
-            "description_en": "The statistical data",
+            "description_en": "The statistics results",
             "description_zh": "统计结果",
             "itemName": "data",
             "items": {
-              "description_en": "A data object",
+              "description_en": "The object",
               "description_zh": "对象",
               "properties": {
                 "Count": {
                   "backendName": "count",
-                  "description_en": "The number of requests",
+                  "description_en": "The total number of tasks",
                   "description_zh": "任务总数",
                   "example": "29",
                   "format": "int64",
@@ -226,7 +226,7 @@
                 },
                 "FailCount": {
                   "backendName": "failCount",
-                  "description_en": "The number of failed requests",
+                  "description_en": "The number of negative responses",
                   "description_zh": "否定应答数量",
                   "example": "100",
                   "format": "int64",
@@ -234,21 +234,21 @@
                 },
                 "Protocol": {
                   "backendName": "protocol",
-                  "description_en": "The protocol",
+                  "description_en": "The protocol type",
                   "description_zh": "协议类型",
                   "example": "UDP、TCP",
                   "type": "string"
                 },
                 "Qtype": {
                   "backendName": "qtype",
-                  "description_en": "The query type",
+                  "description_en": "The request record type",
                   "description_zh": "请求记录类型",
                   "example": "A",
                   "type": "string"
                 },
                 "Ratio": {
                   "backendName": "ratio",
-                  "description_en": "The success rate",
+                  "description_en": "The success rate or proportion",
                   "description_zh": "成功率或占比",
                   "example": "95",
                   "format": "int64",
@@ -256,7 +256,7 @@
                 },
                 "SuccessCount": {
                   "backendName": "successCount",
-                  "description_en": "The number of successful requests",
+                  "description_en": "The total number of successes",
                   "description_zh": "成功总数",
                   "example": "5",
                   "format": "int64",
@@ -264,7 +264,7 @@
                 },
                 "Timestamp": {
                   "backendName": "timestamp",
-                  "description_en": "The timestamp of the data point. Unit: milliseconds",
+                  "description_en": "The statistics time (UNIX timestamp)",
                   "description_zh": "统计时间（时间戳）",
                   "example": "1687190400000",
                   "format": "int64",
@@ -272,7 +272,7 @@
                 },
                 "ZoneName": {
                   "backendName": "zoneName",
-                  "description_en": "The name of the zone",
+                  "description_en": "The zone name",
                   "description_zh": "zone名称",
                   "example": "cn-zhangjiakou-share.log.aliyuncs.com",
                   "type": "string"
@@ -284,7 +284,7 @@
           },
           "RequestId": {
             "backendName": "requestId",
-            "description_en": "The request ID",
+            "description_en": "Id of the request",
             "description_zh": "Id of the request",
             "example": "46973D4C-E3E4-4ABA-9190-9A9DE406C7E",
             "title_en": "Id of the request",

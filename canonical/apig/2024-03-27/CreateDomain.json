@@ -1,66 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig POST /v1/domains --region cn-hangzhou --dryRun true --clientToken '5f7a2c1e-9b3d-4e8f-a1c6-0d2b8e4f7a13' --header \"Content-Type=application/json\" --body \"key_:_value\"",
   "cmd_full_name": "apig create-domain",
   "cmd_name": "create-domain",
-  "components": {
-    "schemas": {
-      "TlsCipherSuitesConfig": {
-        "description_en": "The TLS cipher suite configuration",
-        "description_zh": "TLS加密套件配置",
-        "properties": {
-          "configType": {
-            "backendName": "configType",
-            "description_en": "The configuration type",
-            "description_zh": "配置类型",
-            "example": "Default",
-            "title": "configType",
-            "type": "string"
-          },
-          "tlsCipherSuite": {
-            "backendName": "tlsCipherSuite",
-            "description_en": "tlsCipherSuite",
-            "description_zh": "tlsCipherSuite",
-            "items": {
-              "description_en": "The TLS cipher suite information",
-              "description_zh": "TLS加密套件信息",
-              "properties": {
-                "name": {
-                  "backendName": "name",
-                  "description_en": "The TLS cipher suite name, such as ECDHE-ECDSA-AES256-GCM-SHA384",
-                  "description_zh": "TLS 加密套件名称，例如 ECDHE-ECDSA-AES256-GCM-SHA384",
-                  "example": "ECDHE-ECDSA-AES256-GCM-SHA384",
-                  "title": "name",
-                  "type": "string"
-                },
-                "supportVersions": {
-                  "backendName": "supportVersions",
-                  "description_en": "The supported versions",
-                  "description_zh": "支持的版本",
-                  "items": {
-                    "description_en": "The supported versions",
-                    "description_zh": "支持的版本",
-                    "example": "TLS 1.2",
-                    "type": "string"
-                  },
-                  "title": "supportVersions",
-                  "type": "array"
-                }
-              },
-              "type": "object"
-            },
-            "title": "tlsCipherSuite",
-            "type": "array"
-          }
-        },
-        "title": "A short description of struct",
-        "type": "object"
-      }
-    }
-  },
   "deprecated": false,
   "description_en": "Creates a domain name",
   "description_zh": "创建域名",
-  "kebab_example": "",
+  "kebab_example": "aliyun apig create-domain --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateDomain",
@@ -136,6 +81,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Dedicated",
+        "Serverless"
+      ],
       "example": "Dedicated",
       "help_en": "The domain scope. Valid values: Dedicated (dedicated gateway domain name), Serverless (Serverless gateway domain name). Default value: Dedicated",
       "help_zh": "域名作用域。取值：Dedicated（专享网关域名）、Serverless（Serverless 网关域名）。默认值：Dedicated",
@@ -164,6 +113,10 @@
       "type": "bool"
     },
     {
+      "enum": [
+        "AI",
+        "API"
+      ],
       "example": "API",
       "help_en": "The gateway type. If not specified, the default value is API",
       "help_zh": "网关类型（可选；不传默认 API）",
@@ -178,6 +131,11 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Close",
+        "GlobalConfig",
+        "Open"
+      ],
       "example": "Open",
       "help_en": "The HTTP/2 setting. Valid values: GlobalConfig (follows the global configuration), Open (enabled), Close (disabled). Default value: GlobalConfig. This setting is supported only for HTTPS domain names in the Dedicated scope",
       "help_zh": "HTTP/2 设置。取值：GlobalConfig（跟随全局配置）、Open（开启）、Close（关闭）。默认值：GlobalConfig。仅 Dedicated 作用域的 HTTPS 域名支持该设置",
@@ -219,6 +177,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "HTTP",
+        "HTTPS"
+      ],
       "example": "HTTP",
       "help_en": "The protocol type used by the domain name. Valid values: HTTP, HTTPS. This parameter is required for the Dedicated scope and is not allowed for the Serverless scope",
       "help_zh": "域名使用的协议类型。取值：HTTP、HTTPS。Dedicated 作用域必须设置，Serverless 作用域不允许设置",
@@ -380,14 +342,12 @@
         "description_zh": "Schema of Response",
         "properties": {
           "code": {
-            "backendName": "code",
             "description_en": "The response code",
             "description_zh": "响应码",
             "example": "Ok",
             "type": "string"
           },
           "data": {
-            "backendName": "data",
             "description_en": "The response data",
             "description_zh": "响应数据",
             "properties": {
@@ -395,21 +355,18 @@
                 "description_en": "The domain name ID",
                 "description_zh": "域名id",
                 "example": "d-cpu1aullhtgkidg7sa4g",
-                "mappingResourcePropertyName": "$.DomainId",
                 "type": "string"
               }
             },
             "type": "object"
           },
           "message": {
-            "backendName": "message",
             "description_en": "The response message",
             "description_zh": "响应消息",
             "example": "success",
             "type": "string"
           },
           "requestId": {
-            "backendName": "requestId",
             "description_en": "The request ID, which is used to trace the API call chain",
             "description_zh": "请求id，用于追溯API调用链路",
             "example": "0C2D1C68-0D93-5561-8EE6-FDB7BF067A30",

@@ -221,51 +221,6 @@
         "title": "订单商品信息",
         "type": "object"
       },
-      "OrderRenderProductDTO": {
-        "description_en": "Product collection  ",
-        "description_zh": "商品集合",
-        "properties": {
-          "productId": {
-            "backendName": "productId",
-            "description_en": "Product ID  ",
-            "description_zh": "商品ID",
-            "example": "6600****6736",
-            "required": true,
-            "title": "商品ID",
-            "type": "string"
-          },
-          "purchaserId": {
-            "backendName": "purchaserId",
-            "description_en": "Purchaser ID  ",
-            "description_zh": "采购方id",
-            "example": "PID56****2304",
-            "required": true,
-            "title": "采购方id",
-            "type": "string"
-          },
-          "quantity": {
-            "backendName": "quantity",
-            "description_en": "Quantity  ",
-            "description_zh": "购买数量",
-            "example": "1",
-            "format": "int32",
-            "required": true,
-            "title": "购买数量",
-            "type": "integer"
-          },
-          "skuId": {
-            "backendName": "skuId",
-            "description_en": "skuID",
-            "description_zh": "skuID",
-            "example": "6600****6737",
-            "required": true,
-            "title": "skuID",
-            "type": "string"
-          }
-        },
-        "title": "渲染商品",
-        "type": "object"
-      },
       "OrderRenderResult": {
         "description_en": "The list of unavailable items in the order",
         "description_zh": "订单不可售列表",
@@ -324,54 +279,6 @@
           }
         },
         "title": "采购单渲染返回",
-        "type": "object"
-      },
-      "PurchaseOrderRenderQuery": {
-        "description_en": "Request parameters for purchase order rendering",
-        "description_zh": "采购单渲染入参",
-        "properties": {
-          "buyerId": {
-            "backendName": "buyerId",
-            "description_en": "The ID of the end buyer.><notice>Assign a unique ID to each buyer.></notice>",
-            "description_zh": "分销真实买家ID><notice>请为不同的买家分配不同的ID，勿使用同一ID></notice>",
-            "example": "test1234567",
-            "required": true,
-            "title": "分销真实买家ID",
-            "type": "string"
-          },
-          "deliveryAddress": {
-            "$ref": "#/components/schemas/AddressInfo",
-            "backendName": "deliveryAddress",
-            "description_en": "Delivery address information",
-            "description_zh": "地址信息",
-            "required": true,
-            "title": "地址信息"
-          },
-          "extInfo": {
-            "backendName": "extInfo",
-            "description_en": "Extended information",
-            "description_zh": "扩展信息",
-            "example": "{}",
-            "required": false,
-            "title": "扩展信息",
-            "type": "object"
-          },
-          "productList": {
-            "backendName": "productList",
-            "description_en": "A collection of products.\n\nA single purchase order can contain a maximum of 20 SKUs",
-            "description_zh": "商品集合\n单个采购单最大采购SKU个数：20",
-            "itemName": "item",
-            "items": {
-              "$ref": "#/components/schemas/OrderRenderProductDTO",
-              "required": false
-            },
-            "minItems": 1,
-            "required": true,
-            "title": "商品集合",
-            "type": "array"
-          }
-        },
-        "title": "采购单渲染入参",
         "type": "object"
       },
       "PurchaseOrderRenderResult": {
@@ -461,7 +368,7 @@
   "deprecated": false,
   "description_en": "Renders a purchase order and returns both sellable and unsellable products. Customers can then select the sellable products to place their orders",
   "description_zh": "采购单渲染，会返回可售商品和不可售商品，客户可以选择可售商品进行采购单下单",
-  "kebab_example": "",
+  "kebab_example": "aliyun linkedmall render-purchase-order --buyer-id test1234567 --ext-info key=example-string --api-version 2023-09-30 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "RenderPurchaseOrder",

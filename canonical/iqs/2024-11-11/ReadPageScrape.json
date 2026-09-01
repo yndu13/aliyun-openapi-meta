@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun iqs POST /linked-retrieval/linked-retrieval-entry/v1/iqs/readpage/scrape --region cn-hangzhou --header \"Content-Type=application/json\" --body '{\"readability\":{\"excludeAllLinks\":false,\"readabilityMode\":\"none\",\"excludedTags\":[\"form\"],\"excludeAllImages\":false},\"formats\":[\"html\"],\"maxAge\":1296000,\"location\":\"example-string\",\"pageTimeout\":15000,\"url\":\"https://www.example.com\",\"timeout\":60000}'",
   "cmd_full_name": "iqs read-page-scrape",
   "cmd_name": "read-page-scrape",
   "components": {
@@ -57,112 +57,13 @@
           }
         },
         "type": "object"
-      },
-      "ReadPageScrapeBody": {
-        "description_en": "The post body in JSON format",
-        "description_zh": "post body（json 格式）",
-        "properties": {
-          "formats": {
-            "backendName": "formats",
-            "description_en": "The format of the parsing result.\n\nrawHtml: the HTML of the target site.\nhtml: the page content processed based on readabilityMode.\nmarkdown: the Markdown content converted from the HTML.\ntext: the text content extracted from the HTML.\nscreenshot: a screenshot of the target site",
-            "description_zh": "解析结果格式\n\nrawHtml：目标站点的 html\nhtml: 根据 readabilityMode 处理后的页面内容\nmarkdown：根据 html 转换成的 markdown 内容\ntext：html 中的文本内容\nscreenshot: 目标站点截图",
-            "items": {
-              "description_en": "默认值：[\"html\", \"markdown\", \"screenshot\"]",
-              "description_zh": "默认值：[\"html\", \"markdown\", \"screenshot\"]",
-              "example": "[\"html\", \"markdown\", \"screenshot\"]\n\n",
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "location": {
-            "backendName": "location",
-            "description_en": "This parameter does not need to be specified",
-            "description_zh": "无需传入",
-            "example": "null",
-            "type": "string"
-          },
-          "maxAge": {
-            "backendName": "maxAge",
-            "description_en": "The maximum cache validity period. Unit: seconds. Default value: 1296000.\nIf the cache duration is less than the value of maxAge, cached content is returned.\nIf maxAge is set to 0, caching is not used",
-            "description_zh": "最大缓存时间，单位（秒），默认值：1296000。\n若缓存时间小于 maxAge，则返回缓存内容；\n若 maxAge 等于 0，则不使用缓存",
-            "example": "1296000",
-            "format": "int32",
-            "type": "integer"
-          },
-          "pageTimeout": {
-            "backendName": "pageTimeout",
-            "description_en": "The timeout period for waiting for the target site resources to fully load. The value of pageTimeout must be less than the value of timeout.\n\nDefault value: 15000",
-            "description_zh": "等待目标站点资源完全加载的超时时间，pageTimeout 应小于 timeout 时长\n\n默认值：15000",
-            "example": "15000",
-            "format": "int32",
-            "type": "integer"
-          },
-          "readability": {
-            "backendName": "readability",
-            "description_en": "The readability configuration for the parsing result",
-            "description_zh": "解析结果可读性配置",
-            "properties": {
-              "excludeAllImages": {
-                "backendName": "excludeAllImages",
-                "description_en": "是否剔除所有图片\n\n默认值：false",
-                "description_zh": "是否剔除所有图片\n\n默认值：false",
-                "example": "false",
-                "type": "boolean"
-              },
-              "excludeAllLinks": {
-                "backendName": "excludeAllLinks",
-                "description_en": "是否剔除所有链接\n\n默认值：false",
-                "description_zh": "是否剔除所有链接\n\n默认值：false",
-                "example": "false",
-                "type": "boolean"
-              },
-              "excludedTags": {
-                "backendName": "excludedTags",
-                "description_en": "指定排除的标签",
-                "description_zh": "指定排除的标签",
-                "items": {
-                  "description_en": "[]",
-                  "description_zh": "[]",
-                  "example": "['form', 'header', 'footer', 'nav']\n",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "readabilityMode": {
-                "backendName": "readabilityMode",
-                "description_en": "none：不删除信息，默认为 none\n\nnormal: 基于自研算法，剔除目标页面无关信息（页头/页脚，导航等）\n\narticle: 基于自研算法，获取站点主要正文内容(适用于博客、新闻站点，不适用于目录页、导航页)",
-                "description_zh": "none：不删除信息，默认为 none\n\nnormal: 基于自研算法，剔除目标页面无关信息（页头/页脚，导航等）\n\narticle: 基于自研算法，获取站点主要正文内容(适用于博客、新闻站点，不适用于目录页、导航页)",
-                "example": "none",
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "timeout": {
-            "backendName": "timeout",
-            "description_en": "The end-to-end processing timeout period. Unit: ms.\n\nValid values: [0, 180000].\n\nDefault value: 60000",
-            "description_zh": "全链路处理超时时间，单位：ms\n\n可选值：[0, 180000]\n\n默认值：60000",
-            "example": "60000",
-            "format": "int32",
-            "type": "integer"
-          },
-          "url": {
-            "backendName": "url",
-            "description_en": "The target URL to parse. The URL must start with http:// or https://",
-            "description_zh": "解析的目标地址，必须以 http:// 或 https:// 开头",
-            "example": "https://www.example.com",
-            "required": true,
-            "type": "string"
-          }
-        },
-        "type": "object"
       }
     }
   },
   "deprecated": false,
   "description_en": "Reads HTML and parses web page content through a browser sandbox environment.\nThe operation begins parsing after the target page resources are fully loaded (you can adjust the maximum wait time through the pageTimeout parameter). The overall response time is significantly affected by the resource loading status of the target site",
   "description_zh": "通过浏览器沙箱环境读取 HTML 并解析网页内容。\n接口将在目标页面资源完全加载后开始解析（可通过 pageTimeout 参数调整最大等待时长），接口整体耗时将显著受目标站点资源加载情况的影响",
-  "kebab_example": "",
+  "kebab_example": "aliyun iqs read-page-scrape --url https://www.example.com --timeout 60000 --page-timeout 15000 --location example-string --max-age 1296000 --readability '{\"excludeAllLinks\":false,\"readabilityMode\":\"none\",\"excludedTags\":[\"form\"],\"excludeAllImages\":false}' --formats html --api-version 2024-11-11 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "ReadPageScrape",

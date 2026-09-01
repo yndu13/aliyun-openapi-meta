@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun fc PUT /2023-03-30/functions/my-func/provision-config --region cn-hangzhou --qualifier prod --header \"Content-Type=application/json\" --body \"example-string\"",
   "cmd_full_name": "fc put-provision-config",
   "cmd_name": "put-provision-config",
   "components": {
@@ -136,80 +136,6 @@
           }
         },
         "title": "函数预留配置",
-        "type": "object"
-      },
-      "PutProvisionConfigInput": {
-        "description_en": "Applies or updates the configuration of provisioned resources",
-        "description_zh": "申请或更新预留资源的配置",
-        "properties": {
-          "alwaysAllocateCPU": {
-            "backendName": "alwaysAllocateCPU",
-            "description_en": "Specifies whether to always allocate CPU. Default value: true",
-            "description_zh": "是否始终分配CPU，默认为true",
-            "example": "true",
-            "required": false,
-            "title": "是否始终分配CPU，默认为true。",
-            "type": "boolean"
-          },
-          "alwaysAllocateGPU": {
-            "backendName": "alwaysAllocateGPU",
-            "description_en": "Specifies whether to always allocate GPU. Default value: true",
-            "description_zh": "是否始终分配GPU，默认为true",
-            "example": "true",
-            "required": false,
-            "title": "是否始终分配GPU，默认为true。",
-            "type": "boolean"
-          },
-          "defaultTarget": {
-            "backendName": "defaultTarget",
-            "description_en": "The default minimum number of provisioned instances. Valid values: 0 to 10000.\nIf no metric-based auto elastic policy or scheduled elastic policy is configured, the current minimum number of instances equals the minimum number of instances you configured.\nIf you configured multiple elastic policies for the minimum number of instances, the system calculates the minimum number of instances triggered by each policy and uses the maximum value among the elastic policies that are effective at the current time as the current minimum number of instances",
-            "description_zh": "默认最小实例数，取值范围为[0,10000]。\n未配置指标追踪弹性策略或定时弹性策略时，当前最小实例数等于您配置最小实例数。\n如果您配置了多条最小实例数弹性策略，系统会计算每条策略触发时的最小实例数，并取当前时间有效的弹性策略中最小实例数的最大值作为当前最小实例数",
-            "example": "5",
-            "format": "int64",
-            "nullable": true,
-            "title": "预留的默认目标资源个数，没有指标追踪伸缩策略或定时策略生效时使用，取值范围为[0,10000]。",
-            "type": "integer"
-          },
-          "scheduledActions": {
-            "backendName": "scheduledActions",
-            "description_en": "The scheduled scaling configuration",
-            "description_zh": "定时策略配置",
-            "items": {
-              "$ref": "#/components/schemas/ScheduledAction",
-              "description_en": "The scheduled scaling policy",
-              "description_zh": "定时策略"
-            },
-            "required": false,
-            "title": "定时策略配置。",
-            "type": "array"
-          },
-          "target": {
-            "backendName": "target",
-            "deprecated": true,
-            "description_en": "<notice>This parameter is no longer recommended. Use the defaultTarget parameter instead.</notice>\nThe target number of provisioned resources. Valid values: 0 to 10000",
-            "description_zh": "<notice>建议不再使用该参数，请使用 defaultTarget 参数。 </notice>\n预留的目标资源个数。取值范围为[0,10000]",
-            "example": "1",
-            "format": "int64",
-            "nullable": true,
-            "required": true,
-            "title": "预留的目标资源个数。取值范围为[0,10000]。",
-            "type": "integer"
-          },
-          "targetTrackingPolicies": {
-            "backendName": "targetTrackingPolicies",
-            "description_en": "The metric-based scaling policy configuration",
-            "description_zh": "指标追踪伸缩策略配置",
-            "items": {
-              "$ref": "#/components/schemas/TargetTrackingPolicy",
-              "description_en": "The metric-based scaling policy",
-              "description_zh": "指标追踪策略"
-            },
-            "required": false,
-            "title": "指标追踪伸缩策略配置。",
-            "type": "array"
-          }
-        },
-        "title": "申请或更新预留资源的配置",
         "type": "object"
       },
       "ScheduledAction": {
@@ -361,7 +287,7 @@
   "deprecated": false,
   "description_en": "Creates a provisioned configuration",
   "description_zh": "创建预留配置",
-  "kebab_example": "",
+  "kebab_example": "aliyun fc put-provision-config --function-name my-func --qualifier prod --region cn-hangzhou",
   "method": "PUT",
   "multi_version": false,
   "name": "PutProvisionConfig",

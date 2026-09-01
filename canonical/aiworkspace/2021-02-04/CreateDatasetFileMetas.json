@@ -1,116 +1,9 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun aiworkspace POST /api/v1/datasets/d-lfd60v0p0000ujtsdx/datasetfilemetas --region cn-hangzhou --header \"Content-Type=application/json\" --body {\"DatasetFileMetas\":[\"example-string\"],\"WorkspaceId\":\"47800\",\"DatasetVersion\":\"v1\"}",
   "cmd_full_name": "aiworkspace create-dataset-file-metas",
   "cmd_name": "create-dataset-file-metas",
   "components": {
     "schemas": {
-      "DatasetFileMetaContentCreate": {
-        "description_en": "The file metadata content details",
-        "description_zh": "文件元数据内容详情",
-        "properties": {
-          "Comment": {
-            "backendName": "Comment",
-            "description_en": "The file comment",
-            "description_zh": "文件注释",
-            "example": "The first image file in the dataset.",
-            "title": "注释",
-            "type": "string"
-          },
-          "ContentType": {
-            "backendName": "ContentType",
-            "description_en": "The MIME type of the file. Contains Type and SubType",
-            "description_zh": "文件的MIME类型。包含Type和SubType",
-            "example": "image/jpeg",
-            "required": true,
-            "title": "image/jpeg",
-            "type": "string"
-          },
-          "DataSize": {
-            "backendName": "DataSize",
-            "description_en": "The file size in bytes",
-            "description_zh": "文件大小，字节",
-            "example": "10000",
-            "format": "int64",
-            "required": false,
-            "title": "文件大小，字节",
-            "type": "integer"
-          },
-          "FileCreateTime": {
-            "backendName": "FileCreateTime",
-            "description_en": "The file creation time in ISO 8601 format",
-            "description_zh": "文件创建时间，格式：ISO8601格式",
-            "example": "2025-01-12T14:36:01Z",
-            "format": "iso8601",
-            "title": "创建时间，格式：ISO8601格式",
-            "type": "string"
-          },
-          "FileFingerPrint": {
-            "backendName": "FileFingerPrint",
-            "description_en": "The file fingerprint value. Used to determine the uniqueness of file content. This value changes when the file content is modified. OSS files use ETag, and NAS files use MD5 values",
-            "description_zh": "文件指纹值。用于确定文件内容的唯一性，文件内容修改后该值会发生变化。OSS文件使用ETag，NAS文件使用MD5值",
-            "example": "D41D8CD98F*****E9800998ECF8",
-            "required": true,
-            "title": "md5/oss etag",
-            "type": "string"
-          },
-          "FileName": {
-            "backendName": "FileName",
-            "description_en": "The file name",
-            "description_zh": "文件名",
-            "example": "00001.jpeg",
-            "required": false,
-            "title": "文件名",
-            "type": "string"
-          },
-          "FileType": {
-            "backendName": "FileType",
-            "description_en": "The file type. Same as MIME Type",
-            "description_zh": "文件类型。与MIME Type相同",
-            "example": "image",
-            "required": true,
-            "title": "文件类型 image/audio/video/text",
-            "type": "string"
-          },
-          "FileUpdateTime": {
-            "backendName": "FileUpdateTime",
-            "description_en": "The last modification time of the file in ISO 8601 format",
-            "description_zh": "文件最后修改时间，格式：ISO8601格式",
-            "example": "2025-01-12T14:36:01Z",
-            "format": "iso8601",
-            "required": true,
-            "title": "修改时间，格式：ISO8601格式",
-            "type": "string"
-          },
-          "MetaAttributes": {
-            "backendName": "MetaAttributes",
-            "description_en": "The specific metadata of the file, not searchable. In JSON string format",
-            "description_zh": "文件的特定元数据，暂不具备检索能力。JSON String格式",
-            "example": "{\n    \"ImageHeight\": 1080,\n    \"ImageWidth\": 1920\n}",
-            "title": "JSON String，存储文件的基础元数据，暂不具备检索能力",
-            "type": "string"
-          },
-          "Tags": {
-            "backendName": "Tags",
-            "deprecated": false,
-            "description_en": "User manual tagging: (add indicates adding tags to the tag group). In JSON string format.\nThe operable tag groups are:\nuser: The list of tag names manually added by the user for a single metadata entry.\n\n```\n{\n    \"user\":{\n        \"add\":[\"lane_line\",\"sunny\"]\n    }\n}\n```",
-            "description_zh": "用户手动打标：（add表示对标签组内的标签进行增加操作）。JSON String格式。\n可操作的标签组为：\nuser: 对单个元数据，用户自行添加的标签名列表。\n\n```\n{\n    \"user\":{\n        \"add\":[\"车道线\",\"晴天\"]\n    }\n}\n```",
-            "example": "{\n    \"user\":{\n        \"add\":[\"Lane line\",\"Sunny day\"]\n    }\n}",
-            "title": "标签组(json string)，仅更新user标签组",
-            "type": "string"
-          },
-          "Uri": {
-            "backendName": "Uri",
-            "description_en": "The unique URI of the file. Used to record the unique file path. Supports file paths in OSS and NAS.\n<details>\n<summary>OSS</summary>\noss://${bucket}/${path}\n</details>\n<details>\n<summary>NAS</summary>\nnas://${fileSystemId}/${path}\n</details>",
-            "description_zh": "文件唯一URI。用于记录文件唯一路径。支持OSS、NAS下的文件路径。\n<details>\n<summary>OSS</summary>\noss://${bucket}/${path}\n</details>\n<details>\n<summary>NAS</summary>\nnas://${fileSystemId}/${path}\n</details>",
-            "example": "oss://*****-test/dataset/1653421.jpg\nnas://0e25d***dff/dataset/1653421.jpg",
-            "required": true,
-            "title": "oss/nas/cpfs uri",
-            "type": "string"
-          }
-        },
-        "title": "A short description of struct",
-        "type": "object"
-      },
       "DatasetFileMetaResponse": {
         "description_en": "The returned result of the metadata operation for a single file",
         "description_zh": "单个文件元数据操的作返回结果",
@@ -151,7 +44,7 @@
   "deprecated": false,
   "description_en": "Creates file metadata records in a dataset in batches",
   "description_zh": "批量创建数据集下的文件元数据记录",
-  "kebab_example": "",
+  "kebab_example": "aliyun aiworkspace create-dataset-file-metas --dataset-id d-lfd60v0p0000ujtsdx --workspace-id 47800 --dataset-version v1 --dataset-file-metas example-string --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateDatasetFileMetas",

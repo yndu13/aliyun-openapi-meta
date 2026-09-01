@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Creates a compute source. Business unit administrators and project administrators have permissions to perform this operation",
   "description_zh": "新建计算源：业务板块管理员、项目管理员 有权限操作",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public create-compute-source --op-tenant-id 30001011 --create-command '{\"Type\":\"MacCompute\",\"Description\":\"test\",\"ClusterId\":102311,\"CreateType\":\"CLUSTER\",\"TypeVersion\":\"CDH6\",\"ConfigList\":[{}],\"Name\":\"test1011\"}' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateComputeSource",
@@ -36,7 +36,32 @@
       "type": "int"
     },
     {
+      "example": "30001011",
+      "help_en": "The ID of the operator",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
+    },
+    {
       "fields": [
+        {
+          "example": "102311",
+          "help_en": "The ID of the associated cluster. This parameter takes effect only when CreateType is not specified or is set to COMPUTE_SOURCE, which creates a compute source that references a cluster. This parameter is mutually exclusive with CreateType=CLUSTER",
+          "help_zh": "关联的集群Id，仅CreateType缺省或COMPUTE_SOURCE时生效（创建引用集群的计算源）；与CreateType=CLUSTER互斥",
+          "name": "cluster_id",
+          "options": [
+            "--cluster-id"
+          ],
+          "raw_name": "ClusterId",
+          "required": false,
+          "type": "int"
+        },
         {
           "element": {
             "fields": [
@@ -78,6 +103,18 @@
           "type": "array"
         },
         {
+          "example": "CLUSTER",
+          "help_en": "The type of entity to create. Valid values:\n\nCLUSTER: Creates a cluster. ClusterId cannot be specified.\nCOMPUTE_SOURCE: Creates a compute source. This is the default value",
+          "help_zh": "创建实体类型：CLUSTER=创建为集群（不可传ClusterId）；COMPUTE_SOURCE=创建为计算源（缺省）",
+          "name": "create_type",
+          "options": [
+            "--create-type"
+          ],
+          "raw_name": "CreateType",
+          "required": false,
+          "type": "string"
+        },
+        {
           "example": "test",
           "help_en": "The description",
           "help_zh": "描述",
@@ -112,6 +149,18 @@
           "raw_name": "Type",
           "required": true,
           "type": "string"
+        },
+        {
+          "example": "CDH6",
+          "help_en": "The version of the compute source type",
+          "help_zh": "计算源类型版本",
+          "name": "type_version",
+          "options": [
+            "--type-version"
+          ],
+          "raw_name": "TypeVersion",
+          "required": false,
+          "type": "string"
         }
       ],
       "help_en": "The create command",
@@ -133,7 +182,7 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response parameters",
+        "description_en": "The response struct",
         "description_zh": "响应结果",
         "properties": {
           "Code": {

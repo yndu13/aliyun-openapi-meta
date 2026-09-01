@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig POST /v1/ai-model-cards --region cn-hangzhou --header \"Content-Type=application/json\" --body '{\"modelName\":\"qwen-plus\",\"features\":{\"toolChoice\":true,\"promptCaching\":false,\"functionCalling\":true},\"availablePaths\":[{\"path\":\"/v1/chat/completions\",\"type\":\"OpenAICompatible\"}],\"meta\":{\"maxInputTokens\":131072,\"supportedOutputModalities\":[\"text\"],\"maxTokens\":131072,\"supportedInputModalities\":[\"text\",\"image\"],\"maxOutputTokens\":8192},\"modelProvider\":\"qwen\",\"credit\":{\"inputCost\":1.5,\"outputCost\":3,\"cacheCost\":0.5,\"type\":\"fixed\"},\"gatewayId\":\"gw-8c13d2b4f8a1\"}'",
   "cmd_full_name": "apig create-ai-model-card",
   "cmd_name": "create-ai-model-card",
   "deprecated": false,
   "description_en": "Creates an AI model card",
   "description_zh": "创建AI模型卡片",
-  "kebab_example": "",
+  "kebab_example": "aliyun apig create-ai-model-card --gateway-id gw-8c13d2b4f8a1 --model-provider qwen --model-name qwen-plus --credit inputCost=1.5 outputCost=3 cacheCost=0.5 type=fixed --features '{\"toolChoice\":true,\"promptCaching\":false,\"functionCalling\":true}' --meta '{\"maxInputTokens\":131072,\"supportedOutputModalities\":[\"text\"],\"maxTokens\":131072,\"supportedInputModalities\":[\"text\",\"image\"],\"maxOutputTokens\":8192}' --available-paths path=/v1/chat/completions type=OpenAICompatible --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateAiModelCard",
@@ -290,38 +290,32 @@
         "description_zh": "Schema of Response",
         "properties": {
           "code": {
-            "backendName": "code",
             "description_en": "The response status code",
             "description_zh": "响应状态码。响应状态码",
             "example": "Ok",
             "type": "string"
           },
           "data": {
-            "backendName": "data",
             "description_en": "The model card information returned after successful creation",
             "description_zh": "创建成功后的模型卡片信息",
             "example": "{\"modelCardId\":\"mc-8c13d2b4f8a1\",\"gatewayId\":\"gw-8c13d2b4f8a1\",\"modelProvider\":\"qwen\",\"modelName\":\"qwen-plus\",\"source\":\"user\",\"credit\":{\"type\":\"fixed\",\"inputCost\":1.5,\"outputCost\":3,\"cacheCost\":0.5},\"features\":{\"functionCalling\":true,\"toolChoice\":true},\"meta\":{\"maxInputTokens\":131072,\"maxOutputTokens\":8192,\"maxTokens\":131072,\"supportedInputModalities\":[\"text\",\"image\"],\"supportedOutputModalities\":[\"text\"]},\"availablePaths\":[{\"path\":\"/v1/chat/completions\",\"type\":\"OpenAICompatible\"}],\"updateTime\":\"2026-07-14 18:30:00\"}",
             "properties": {
               "availablePaths": {
-                "backendName": "availablePaths",
                 "description_en": "The list of invocation paths supported by the model",
                 "description_zh": "模型支持的调用路径列表",
                 "example": "[{\"path\":\"/v1/chat/completions\",\"type\":\"OpenAICompatible\"}]",
-                "itemName": "availablePath",
                 "items": {
                   "description_en": "A single model invocation path configuration",
                   "description_zh": "单个模型调用路径配置",
                   "example": "{\"path\":\"/v1/chat/completions\",\"type\":\"OpenAICompatible\"}",
                   "properties": {
                     "path": {
-                      "backendName": "path",
                       "description_en": "The model invocation path",
                       "description_zh": "模型调用路径",
                       "example": "/v1/chat/completions",
                       "type": "string"
                     },
                     "type": {
-                      "backendName": "type",
                       "description_en": "The protocol type corresponding to the path",
                       "description_zh": "路径对应的协议类型",
                       "example": "OpenAICompatible",
@@ -333,13 +327,11 @@
                 "type": "array"
               },
               "credit": {
-                "backendName": "credit",
                 "description_en": "The credit billing information of the model",
                 "description_zh": "输出Token的Credits消耗系数模型的Credit计费信息",
                 "example": "{\"type\":\"fixed\",\"inputCost\":1.5,\"outputCost\":3,\"cacheCost\":0.5}",
                 "properties": {
                   "cacheCost": {
-                    "backendName": "cacheCost",
                     "description_en": "The cache hit token cost, in Credits per million tokens",
                     "description_zh": "缓存命中Token费用，单位为Credits/百万Token",
                     "example": "0.5",
@@ -347,7 +339,6 @@
                     "type": "number"
                   },
                   "inputCost": {
-                    "backendName": "inputCost",
                     "description_en": "The input token cost, in Credits per million tokens",
                     "description_zh": "输入Token的Credits消耗系数输入Token费用，单位为Credits/百万Token",
                     "example": "1.5",
@@ -355,7 +346,6 @@
                     "type": "number"
                   },
                   "outputCost": {
-                    "backendName": "outputCost",
                     "description_en": "The output token cost, in Credits per million tokens",
                     "description_zh": "输出Token的Credits消耗系数输出Token费用，单位为Credits/百万Token",
                     "example": "3",
@@ -363,7 +353,6 @@
                     "type": "number"
                   },
                   "type": {
-                    "backendName": "type",
                     "description_en": "The billing type. Currently, fixed is returned",
                     "description_zh": "计费类型。当前返回fixed",
                     "example": "fixed",
@@ -373,27 +362,23 @@
                 "type": "object"
               },
               "features": {
-                "backendName": "features",
                 "description_en": "The model capability switches",
                 "description_zh": "模型能力开关",
                 "example": "{\"functionCalling\":true,\"toolChoice\":true}",
                 "type": "object"
               },
               "gatewayId": {
-                "backendName": "gatewayId",
                 "description_en": "The AI gateway instance ID to which the model card belongs",
                 "description_zh": "模型卡片所属的AI网关实例ID",
                 "example": "gw-8c13d2b4f8a1",
                 "type": "string"
               },
               "meta": {
-                "backendName": "meta",
                 "description_en": "The token limits and input/output modality information of the model",
                 "description_zh": "模型的Token上限和输入、输出模态信息",
                 "example": "{\"maxInputTokens\":131072,\"maxOutputTokens\":8192,\"maxTokens\":131072,\"supportedInputModalities\":[\"text\",\"image\"],\"supportedOutputModalities\":[\"text\"]}",
                 "properties": {
                   "maxInputTokens": {
-                    "backendName": "maxInputTokens",
                     "description_en": "The maximum number of input tokens supported by the model",
                     "description_zh": "模型支持的最大输入Token数",
                     "example": "131072",
@@ -401,7 +386,6 @@
                     "type": "integer"
                   },
                   "maxOutputTokens": {
-                    "backendName": "maxOutputTokens",
                     "description_en": "The maximum number of output tokens supported by the model",
                     "description_zh": "改写输出最大 Token 数模型支持的最大输出Token数",
                     "example": "8192",
@@ -409,7 +393,6 @@
                     "type": "integer"
                   },
                   "maxTokens": {
-                    "backendName": "maxTokens",
                     "description_en": "The maximum total number of context tokens supported by the model",
                     "description_zh": "模型支持的上下文最大Token总数",
                     "example": "131072",
@@ -417,11 +400,9 @@
                     "type": "integer"
                   },
                   "supportedInputModalities": {
-                    "backendName": "supportedInputModalities",
                     "description_en": "The list of input modalities supported by the model",
                     "description_zh": "模型支持的输入模态列表",
                     "example": "[\"text\",\"image\"]",
-                    "itemName": "modality",
                     "items": {
                       "description_en": "A single modality name in the input modality list",
                       "description_zh": "输入模态列表中的单个模态名称",
@@ -431,11 +412,9 @@
                     "type": "array"
                   },
                   "supportedOutputModalities": {
-                    "backendName": "supportedOutputModalities",
                     "description_en": "The list of output modalities supported by the model",
                     "description_zh": "模型支持的输出模态列表",
                     "example": "[\"text\"]",
-                    "itemName": "modality",
                     "items": {
                       "description_en": "A single modality name in the output modality list",
                       "description_zh": "输出模态列表中的单个模态名称",
@@ -448,35 +427,30 @@
                 "type": "object"
               },
               "modelCardId": {
-                "backendName": "modelCardId",
                 "description_en": "The model card ID",
                 "description_zh": "模型卡片ID",
                 "example": "mc-8c13d2b4f8a1",
                 "type": "string"
               },
               "modelName": {
-                "backendName": "modelName",
                 "description_en": "The model name",
                 "description_zh": "模型名称",
                 "example": "qwen-plus",
                 "type": "string"
               },
               "modelProvider": {
-                "backendName": "modelProvider",
                 "description_en": "The model provider identifier",
                 "description_zh": "模型供应商标识",
                 "example": "qwen",
                 "type": "string"
               },
               "source": {
-                "backendName": "source",
                 "description_en": "The source of the model card. Currently, user is returned",
                 "description_zh": "供应商来源类型模型卡片来源。当前返回user",
                 "example": "user",
                 "type": "string"
               },
               "updateTime": {
-                "backendName": "updateTime",
                 "description_en": "The last update time of the model card, in the format of yyyy-MM-dd HH:mm:ss",
                 "description_zh": "模型卡片的最近更新时间，格式为yyyy-MM-dd HH:mm:ss",
                 "example": "2026-07-14 18:30:00",
@@ -486,14 +460,12 @@
             "type": "object"
           },
           "message": {
-            "backendName": "message",
             "description_en": "The response message",
             "description_zh": "响应消息",
             "example": "success",
             "type": "string"
           },
           "requestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "Id of the request请求ID",
             "example": "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E",

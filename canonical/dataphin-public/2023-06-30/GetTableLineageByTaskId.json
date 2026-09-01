@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Queries table lineage information",
   "description_zh": "查询表血缘信息",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public get-table-lineage-by-task-id --op-tenant-id 30001011 --table-lineage-by-task-id-query TaskId=n_123 NeedNotExistObject=true TaskEnv=DEV --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "GetTableLineageByTaskId",
@@ -50,7 +50,7 @@
         },
         {
           "example": "DEV",
-          "help_en": "The environment of the task to query: DEV or PROD",
+          "help_en": "The environment of the node used to filter the query. Valid values: DEV and PROD",
           "help_zh": "用于过滤要查询的任务所属的环境 DEV/PROD",
           "name": "task_env",
           "options": [
@@ -62,7 +62,7 @@
         },
         {
           "example": "n_123",
-          "help_en": "The task (node) ID used to filter the query",
+          "help_en": "The ID of the node used to filter the query",
           "help_zh": "用于过滤要查询的任务(节点)Id",
           "name": "task_id",
           "options": [
@@ -84,6 +84,19 @@
       "raw_name": "TableLineageByTaskIdQuery",
       "required": true,
       "type": "object"
+    },
+    {
+      "example": "30001011",
+      "help_en": "The ID of the operator",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
@@ -97,7 +110,7 @@
         "properties": {
           "Code": {
             "backendName": "Code",
-            "description_en": "The error code. OK indicates a successful request",
+            "description_en": "The error code. A value of OK indicates that the request was successful",
             "description_zh": "请求错误码, OK表示请求正常",
             "example": "OK",
             "title_en": "请求错误码, OK表示请求正常",
@@ -106,7 +119,7 @@
           },
           "Data": {
             "backendName": "Data",
-            "description_en": "The query results",
+            "description_en": "The query result",
             "description_zh": "查询结果",
             "itemName": "LineageInfo",
             "items": {
@@ -115,7 +128,7 @@
               "properties": {
                 "InputBizUnitId": {
                   "backendName": "InputBizUnitId",
-                  "description_en": "The business unit ID of the input table",
+                  "description_en": "The ID of the business unit to which the input table belongs",
                   "description_zh": "输入表所属业务板块Id",
                   "example": "123",
                   "format": "int64",
@@ -125,7 +138,7 @@
                 },
                 "InputDataSourceId": {
                   "backendName": "InputDataSourceId",
-                  "description_en": "The data source ID of the input table",
+                  "description_en": "The ID of the data source to which the input table belongs",
                   "description_zh": "输入表所属数据源Id",
                   "example": "123",
                   "format": "int64",
@@ -135,7 +148,7 @@
                 },
                 "InputDataSourceType": {
                   "backendName": "InputDataSourceType",
-                  "description_en": "The storage type of the input table",
+                  "description_en": "The storage format of the input table",
                   "description_zh": "输入表存储格式",
                   "example": "MAX_COMPUTE",
                   "title_en": "输入表存储格式",
@@ -144,7 +157,7 @@
                 },
                 "InputDbType": {
                   "backendName": "InputDbType",
-                  "description_en": "The data source type of the input table",
+                  "description_en": "The type of the input data source",
                   "description_zh": "输入数据源类型",
                   "example": "MAX_COMPUTE",
                   "title_en": "输入数据源类型",
@@ -153,7 +166,7 @@
                 },
                 "InputEnv": {
                   "backendName": "InputEnv",
-                  "description_en": "The environment of the input table: DEV or PROD",
+                  "description_en": "The environment to which the input table belongs. Valid values: DEV and PROD",
                   "description_zh": "输入表所属的env, DEV/PROD",
                   "example": "DEV",
                   "title_en": "输入表所属的env, DEV/PROD",
@@ -162,7 +175,7 @@
                 },
                 "InputProjectId": {
                   "backendName": "InputProjectId",
-                  "description_en": "The project ID of the input table",
+                  "description_en": "The ID of the project to which the input table belongs",
                   "description_zh": "输入表所属项目Id",
                   "example": "123",
                   "format": "int64",
@@ -172,7 +185,7 @@
                 },
                 "InputTableDeleted": {
                   "backendName": "InputTableDeleted",
-                  "description_en": "Indicates whether the input table is deleted",
+                  "description_en": "Indicates whether the input table has been deleted",
                   "description_zh": "输入表是否已删除",
                   "title_en": "输入表是否已删除",
                   "title_zh": "输入表是否已删除",
@@ -180,7 +193,7 @@
                 },
                 "InputTableId": {
                   "backendName": "InputTableId",
-                  "description_en": "The GUID of the input table. Each asset has a unique GUID in the following format:\n\nLogical table: dp_table.[TenantId].[BusinessUnitName].[TableName]\nCompute source physical table: [EngineType].[TenantId].[ProjectName].[TableName]\nData source table: dp_ds_table.[TenantId].[DataSourceId].[SchemaName].[TableName]",
+                  "description_en": "The GUID of the input table. Each asset has a unique GUID in the following format:\nLogical table: dp_table.[TenantId].[BusinessUnitName].[TableName]\nCompute source physical table: [EngineType].[TenantId].[ProjectName].[TableName]\nData source table: dp_ds_table.[TenantId].[DataSourceId].[SchemaName].[TableName]",
                   "description_zh": "输入表guid, 每个资产都有唯一的guid, 格式为: \n\n逻辑表：dp_table.[租户Id].[业务板块名].[表名]\n计算源物理表：[引擎类型].[租户Id].[项目名].[表名]\n数据源表：dp_ds_table.[租户Id].[数据源Id].[schema名].[表名]",
                   "example": "odps.123.test_project.order",
                   "title_en": "输入表guid, 每个资产都有唯一的guid, 格式为: \n逻辑表：dp_table.[租户Id].[业务板块名].[表名]\n计算源物理表：[引擎类型].[租户Id].[项目名].[表名]\n数据源表：dp_ds_table.[租户Id].[数据源Id].[schema名].[表名]",
@@ -198,7 +211,7 @@
                 },
                 "InputTableType": {
                   "backendName": "InputTableType",
-                  "description_en": "The type of the input table. \n\nPHYSICAL_TABLE Physical table (compute source)\nDIM_LOGIC_TABLE Dimension logical table\nFACT_LOGIC_TABLE Fact logical table\nSUM_LOGIC_TABLE Aggregate logical table\nREAL_TIME_LOGIC_TABLE Real-time meta table\nREAL_TIME_MIRROR_TABLE Real-time mirror table\nPHYSICAL_VIEW Physical view\nLOGICAL_VIEW Logical view\nDATA_SOURCE_PHYSICAL_TABLE Data source table\nDATA_SOURCE_VIEW Data source view\nDATA_SOURCE_MATERIALIZED_VIEW Data source materialized view",
+                  "description_en": "The type of the input table. Valid values: \n\nPHYSICAL_TABLE: physical table (compute source).\nDIM_LOGIC_TABLE: logical dimension table.\nFACT_LOGIC_TABLE: fact logical table.\nSUM_LOGIC_TABLE: aggregate logical table.\nREAL_TIME_LOGIC_TABLE: real-time meta table.\nREAL_TIME_MIRROR_TABLE: real-time mirror table.\nPHYSICAL_VIEW: physical view.\nLOGICAL_VIEW: logical view.\nDATA_SOURCE_PHYSICAL_TABLE: data source table.\nDATA_SOURCE_VIEW: data source view.\nDATA_SOURCE_MATERIALIZED_VIEW: data source materialized view",
                   "description_zh": "输入表类型 \n\nPHYSICAL_TABLE 物理表（计算源）\nDIM_LOGIC_TABLE 维度逻辑表\nFACT_LOGIC_TABLE 事实逻辑表\nSUM_LOGIC_TABLE 汇总逻辑表\nREAL_TIME_LOGIC_TABLE 实时元表\nREAL_TIME_MIRROR_TABLE 实时镜像表\nPHYSICAL_VIEW 物理视图\nLOGICAL_VIEW 逻辑视图\nDATA_SOURCE_PHYSICAL_TABLE 数据源表\nDATA_SOURCE_VIEW 数据源视图\nDATA_SOURCE_MATERIALIZED_VIEW 数据源物化视图",
                   "example": "PHYSICAL_TABLE",
                   "title_en": "输入表类型\nPHYSICAL_TABLE物理表（计算源）\nDIM_LOGIC_TABLE维度逻辑表\nFACT_LOGIC_TABLE事实逻辑表\nSUM_LOGIC_TABLE汇总逻辑表\nREAL_TIME_LOGIC_TABLE实时元表\nREAL_TIME_MIRROR_TABLE实时镜像表\nPHYSICAL_VIEW物理视图\nLOGICAL_VIEW逻辑视图\nDATA_SOURCE_PHYSICAL_TABLE数据源表\nDATA_SOURCE_VIEW数据源视图\nDATA_SOURCE_MATERIALIZED_VIEW数据源物化视图",
@@ -207,7 +220,7 @@
                 },
                 "OutputBizUnitId": {
                   "backendName": "OutputBizUnitId",
-                  "description_en": "The business unit ID of the output table",
+                  "description_en": "The ID of the business unit to which the output table belongs",
                   "description_zh": "输出表所属业务板块Id",
                   "example": "123",
                   "format": "int64",
@@ -217,7 +230,7 @@
                 },
                 "OutputDataSourceId": {
                   "backendName": "OutputDataSourceId",
-                  "description_en": "The data source ID of the output table",
+                  "description_en": "The ID of the data source to which the output table belongs",
                   "description_zh": "输出表所属数据源Id",
                   "example": "123",
                   "format": "int64",
@@ -227,7 +240,7 @@
                 },
                 "OutputDataSourceType": {
                   "backendName": "OutputDataSourceType",
-                  "description_en": "The storage type of the output table",
+                  "description_en": "The storage format of the output table",
                   "description_zh": "输出表存储格式",
                   "example": "MAX_COMPUTE",
                   "title_en": "输出表存储格式",
@@ -236,7 +249,7 @@
                 },
                 "OutputDbType": {
                   "backendName": "OutputDbType",
-                  "description_en": "The data source type of the output table",
+                  "description_en": "The type of the output data source",
                   "description_zh": "输出数据源类型",
                   "example": "MAX_COMPUTE",
                   "title_en": "输出数据源类型",
@@ -245,7 +258,7 @@
                 },
                 "OutputEnv": {
                   "backendName": "OutputEnv",
-                  "description_en": "The environment of the output table: DEV or PROD",
+                  "description_en": "The environment to which the output table belongs. Valid values: DEV and PROD",
                   "description_zh": "输出表所属的env, DEV/PROD",
                   "example": "DEV/PROD",
                   "title_en": "输出表所属的env, DEV/PROD",
@@ -254,7 +267,7 @@
                 },
                 "OutputProjectId": {
                   "backendName": "OutputProjectId",
-                  "description_en": "The project ID of the output table",
+                  "description_en": "The ID of the project to which the output table belongs",
                   "description_zh": "输出表所属项目Id",
                   "example": "123",
                   "format": "int64",
@@ -264,7 +277,7 @@
                 },
                 "OutputTableDeleted": {
                   "backendName": "OutputTableDeleted",
-                  "description_en": "Indicates whether the output table is deleted",
+                  "description_en": "Indicates whether the output table has been deleted",
                   "description_zh": "输出表是否已删除",
                   "title_en": "输出表是否已删除",
                   "title_zh": "输出表是否已删除",
@@ -299,7 +312,7 @@
                 },
                 "TaskEnv": {
                   "backendName": "TaskEnv",
-                  "description_en": "The environment of the task (node) associated with the lineage: DEV or PROD",
+                  "description_en": "The environment of the node associated with the lineage. Valid values: DEV and PROD",
                   "description_zh": "血缘对应的任务(节点)所属环境 DEV/PROD",
                   "example": "DEV",
                   "title_en": "血缘对应的任务(节点)所属环境 DEV/PROD",
@@ -308,7 +321,7 @@
                 },
                 "TaskId": {
                   "backendName": "TaskId",
-                  "description_en": "The task (node) ID associated with the lineage",
+                  "description_en": "The ID of the node associated with the lineage",
                   "description_zh": "血缘对应的任务(节点)Id",
                   "example": "n_123",
                   "title_en": "血缘对应的任务(节点)Id",
@@ -336,7 +349,7 @@
           },
           "HttpStatusCode": {
             "backendName": "HttpStatusCode",
-            "description_en": "The HTTP status code",
+            "description_en": "The HTTP status code returned by the backend",
             "description_zh": "后端响应HttpCode",
             "example": "200",
             "format": "int32",

@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Updates an offline compute node",
   "description_zh": "编辑离线计算任务",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public update-batch-task --op-tenant-id 30001011 --update-command '{\"CustomScheduleConfig\":{},\"DataSourceSchema\":\"erp\",\"Priority\":1,\"PythonModuleList\":[\"numpy\"],\"ProjectId\":10121101,\"NodeOutputNameList\":[\"test1011\"],\"Code\":\"show_tables\",\"ParamList\":[{}],\"Name\":\"test111\",\"DataSourceCatalog\":\"mysql_catalog\",\"SparkClientInfo\":{},\"NodeDescription\":\"xx测试\",\"DevelopOwnerIdList\":[\"numpy\"],\"SchedulePeriod\":\"DAILY\",\"TaskType\":21,\"UpStreamList\":[{}],\"FileId\":12113111,\"CronExpression\":\"0_0_1_0_0_0\",\"Engine\":\"PYTHON3_7\",\"NodeStatus\":1,\"DataSourceId\":\"12131111\"}' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "UpdateBatchTask",
@@ -36,10 +36,23 @@
       "type": "int"
     },
     {
+      "example": "30001011",
+      "help_en": "The ID of the operator user",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
+    },
+    {
       "fields": [
         {
           "example": "show tables;",
-          "help_en": "The node code",
+          "help_en": "The code of the node",
           "help_zh": "任务代码",
           "name": "code",
           "options": [
@@ -51,7 +64,7 @@
         },
         {
           "example": "0 0 1 * * ?",
-          "help_en": "The cron expression for automatic scheduling. Refer to the Linux cron expression syntax",
+          "help_en": "The cron expression for automatic scheduling. Refer to Linux cron expressions",
           "help_zh": "自动调度的cron表达式, 可参考Linux cron表达式",
           "name": "cron_expression",
           "options": [
@@ -89,7 +102,7 @@
             },
             {
               "example": "HOUR",
-              "help_en": "The interval unit. Valid values:\nMINUTE: minute\nHOUR: hour",
+              "help_en": "The interval unit. Valid values:\nMINUTE: minute.\nHOUR: hour",
               "help_zh": "间隔单位\nMINUTE:分钟\nHOUR:小时",
               "name": "interval_unit",
               "options": [
@@ -101,7 +114,7 @@
             },
             {
               "example": "DAILY",
-              "help_en": "The scheduling period. Valid values:\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
+              "help_en": "The schedule period. Valid values:\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
               "help_zh": "调度周期\n年 YEARLY\n月 MONTHLY\n周 WEEKLY\n日 DAILY\n小时 HOURLY\n分钟 MINUTELY",
               "name": "schedule_period",
               "options": [
@@ -124,7 +137,7 @@
               "type": "string"
             }
           ],
-          "help_en": "The custom scheduling interval configuration",
+          "help_en": "The custom schedule interval configuration",
           "help_zh": "自定义调度间隔配置",
           "name": "custom_schedule_config",
           "options": [
@@ -136,7 +149,7 @@
         },
         {
           "example": "mysql_catalog",
-          "help_en": "The catalog for database SQL nodes. This parameter takes effect only for data source types that require a catalog, such as Presto",
+          "help_en": "The catalog for database SQL nodes. This parameter applies only to datasource types that require a catalog, such as Presto",
           "help_zh": "数据库sql任务，仅对如Presto等需要设置Catalog的数据源类型生效",
           "name": "data_source_catalog",
           "options": [
@@ -148,7 +161,7 @@
         },
         {
           "example": "12131111",
-          "help_en": "The data source ID for database SQL nodes",
+          "help_en": "The datasource ID for database SQL nodes",
           "help_zh": "数据库sql任务，数据源Id",
           "name": "data_source_id",
           "options": [
@@ -160,7 +173,7 @@
         },
         {
           "example": "erp",
-          "help_en": "The schema for database SQL nodes. This parameter takes effect only for data source types that require a schema, such as Oracle",
+          "help_en": "The schema for database SQL nodes. This parameter applies only to datasource types that require a schema, such as Oracle",
           "help_zh": "数据库sql任务，仅对如Oracle等需要设置Schema的数据源类型生效",
           "name": "data_source_schema",
           "options": [
@@ -171,8 +184,22 @@
           "type": "string"
         },
         {
+          "element": {
+            "type": "string"
+          },
+          "help_en": "The list of development owner IDs",
+          "help_zh": "开发负责人id列表",
+          "name": "develop_owner_id_list",
+          "options": [
+            "--develop-owner-id-list"
+          ],
+          "raw_name": "DevelopOwnerIdList",
+          "required": false,
+          "type": "array"
+        },
+        {
           "example": "PYTHON3_7",
-          "help_en": "The execution engine for the node, such as a Python node. Valid values:\nPYTHON2_7\nPYTHON3_7\nPYTHON3_11",
+          "help_en": "The execution engine for the node, such as for Python nodes. Valid values:\nPYTHON2_7\nPYTHON3_7\nPYTHON3_11",
           "help_zh": "任务执行引擎，如Python任务\n1. PYTHON2_7\n2. PYTHON3_7\n3. PYTHON3_11",
           "name": "engine",
           "options": [
@@ -184,7 +211,7 @@
         },
         {
           "example": "12113111",
-          "help_en": "The ID of the node in the folder tree",
+          "help_en": "The node ID in the folder tree",
           "help_zh": "任务目录树节点Id",
           "name": "file_id",
           "options": [
@@ -312,7 +339,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The third-party Python packages that the node depends on",
+          "help_en": "The third-party Python packages required by the node",
           "help_zh": "任务依赖python三方包",
           "name": "python_module_list",
           "options": [
@@ -324,7 +351,7 @@
         },
         {
           "example": "DAILY",
-          "help_en": "The scheduling period. Valid values:\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
+          "help_en": "The schedule period. Valid values:\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
           "help_zh": "调度周期\n年：YEARLY\n月：MONTHLY\n周：WEEKLY\n日：DAILY\n小时：HOURLY\n分钟：MINUTELY",
           "name": "schedule_period",
           "options": [
@@ -390,7 +417,7 @@
                   },
                   {
                     "example": "CURRENT_PERIOD",
-                    "help_en": "The dependency period type. Valid values:\nCURRENT_PERIOD: current period.\nLAST_PERIOD: previous period.\nLAST_N_PERIOD: last N days.\nLAST_24_HOUR: last 24 hours",
+                    "help_en": "The type of the dependency period. Valid values:\nCURRENT_PERIOD: current period.\nLAST_PERIOD: previous period.\nLAST_N_PERIOD: last N days.\nLAST_24_HOUR: last 24 hours",
                     "help_zh": "依赖周期类型\nCURRENT_PERIOD:本周期\nLAST_PERIOD:上周期\nLAST_N_PERIOD:最近N日\nLAST_24_HOUR:最近24小时",
                     "name": "period_type",
                     "options": [
@@ -451,7 +478,7 @@
               },
               {
                 "example": "1",
-                "help_en": "The period offset. A value of 0 indicates a same-period dependency. A positive integer indicates a dependency on the previous N periods",
+                "help_en": "The period difference. A value of 0 indicates same-period dependency. A positive number indicates dependency on the previous N periods",
                 "help_zh": "周期差:0表示同周期依赖，正数表示依赖前N个周期",
                 "name": "period_diff",
                 "options": [
@@ -462,7 +489,7 @@
                 "type": "int"
               },
               {
-                "help_en": "Specifies whether the upstream node is enabled",
+                "help_en": "Indicates whether the upstream node is enabled",
                 "help_zh": "上游节点是否生效",
                 "name": "source_node_enabled",
                 "options": [
@@ -546,7 +573,7 @@
         "properties": {
           "Code": {
             "backendName": "Code",
-            "description_en": "The error code. A value of OK indicates that the request was successful",
+            "description_en": "The error code. A value of OK indicates a successful request",
             "description_zh": "请求错误码, OK表示请求正常",
             "example": "OK",
             "title_en": "请求错误码, OK表示请求正常",
@@ -596,7 +623,7 @@
             "properties": {
               "FileId": {
                 "backendName": "FileId",
-                "description_en": "The ID of the node in the folder tree",
+                "description_en": "The node ID in the folder tree",
                 "description_zh": "任务目录树节点Id",
                 "example": "12113111",
                 "format": "int64",

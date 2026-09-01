@@ -12,14 +12,14 @@
             "description_en": "The subscription conditions",
             "description_zh": "订阅条件",
             "items": {
-              "description_en": "A single condition",
+              "description_en": "The individual condition",
               "description_zh": "单个条件",
               "properties": {
                 "field": {
                   "backendName": "field",
-                  "description_en": "The field",
-                  "description_zh": "字段",
-                  "example": "severity",
+                  "description_en": "The JSON path of the event field. Dot-notation nesting is supported",
+                  "description_zh": "事件字段的 JSON 路径，支持点号嵌套",
+                  "example": "labels.alertname\t",
                   "title": "字段",
                   "type": "string"
                 },
@@ -33,8 +33,8 @@
                 },
                 "value": {
                   "backendName": "value",
-                  "description_en": "The value",
-                  "description_zh": "值",
+                  "description_en": "The matching value. Separate multiple values with commas when using IN or NOT_IN",
+                  "description_zh": "匹配值，IN/NOT_IN 时逗号分隔多个值",
                   "example": "CRITICAL",
                   "title": "值",
                   "type": "string"
@@ -48,16 +48,16 @@
           },
           "expression": {
             "backendName": "expression",
-            "description_en": "The expression",
-            "description_zh": "表达式",
+            "description_en": "Use either expression or relation. If expression is not empty, it takes precedence and relation is ignored. If expression is empty or not specified, relation (AND or OR) is used to perform a simple AND/OR operation on all conditions. Condition numbers correspond to the indexes of the conditions array (starting from 1). Each condition evaluates whether a single event field matches by using field (the event field path, which supports dot-notation nesting such as resource.tags.pod), op (the operator, such as CONTAIN, EQ, or IN), and value (the matching value)",
+            "description_zh": "expression 和 relation 二选一使用。如果 expression 非空，它优先生效，relation 被忽略；如果 expression 为空或不传，则用 relation（AND 或 OR）对所有条件做简单全量与/或运算。条件编号对应 conditions 数组的下标（从 1 开始），每个条件通过 field（事件字段路径，支持点号嵌套如 resource.tags.pod）、op（操作符，如 CONTAIN、EQ、IN 等）、value（匹配值）来评估单个事件字段是否匹配",
             "example": "1 and 2 or 3",
             "title": "表达式",
             "type": "string"
           },
           "relation": {
             "backendName": "relation",
-            "description_en": "The relationship between conditions",
-            "description_zh": "条件间关系",
+            "description_en": "The logical relationship between conditions. This parameter takes effect when expression is empty",
+            "description_zh": "条件间逻辑关系。expression 为空时生效",
             "example": "AND",
             "title": "条件间关系",
             "type": "string"
@@ -66,56 +66,81 @@
         "type": "object"
       },
       "NotifyPolicySummary": {
-        "description_en": "The lightweight view returned by ListNotifyPolicies, containing only scalar fields and a notifyStrategy snapshot",
+        "description_en": "The lightweight view returned by ListNotifyPolicies, which contains only scalar fields and a notifyStrategy snapshot",
         "description_zh": "ListNotifyPolicies 返回的轻量视图，仅含标量字段 + notifyStrategy 快照",
         "properties": {
           "createTime": {
             "backendName": "createTime",
+            "description_en": "The creation time, represented as a UNIX millisecond timestamp string",
             "description_zh": "创建时间（Unix 毫秒时间戳字符串）",
+            "example": "1700000000000",
             "title": "创建时间（Unix 毫秒时间戳字符串）",
             "type": "string"
           },
           "description": {
             "backendName": "description",
+            "description_en": "The description of the notification policy",
+            "description_zh": "通知策略的描述信息",
+            "example": "用于测试的通知策略",
             "type": "string"
           },
           "enabled": {
             "backendName": "enabled",
+            "description_en": "Indicates whether the notification policy is enabled",
             "description_zh": "是否启用",
+            "example": "true",
             "title": "是否启用",
             "type": "boolean"
           },
           "name": {
             "backendName": "name",
+            "description_en": "The Policy Name of the notification policy",
+            "description_zh": "通知策略名称",
+            "example": "示例通知策略",
             "type": "string"
           },
           "notifyStrategy": {
             "$ref": "#/components/schemas/NotifyStrategyDetail",
-            "backendName": "notifyStrategy"
+            "backendName": "notifyStrategy",
+            "description_en": "The configuration details of the notification policy",
+            "description_zh": "通知策略配置详情"
           },
           "updateTime": {
             "backendName": "updateTime",
+            "description_en": "The update time, represented as a UNIX millisecond timestamp string",
             "description_zh": "更新时间（Unix 毫秒时间戳字符串）",
+            "example": "1700000000000",
             "title": "更新时间（Unix 毫秒时间戳字符串）",
             "type": "string"
           },
           "userId": {
             "backendName": "userId",
+            "description_en": "The Alibaba Cloud account UID",
             "description_zh": "阿里云账号 UID",
+            "example": "1234567890",
             "title": "阿里云账号 UID",
             "type": "string"
           },
           "uuid": {
             "backendName": "uuid",
+            "description_en": "The unique identifier of the notification policy",
+            "description_zh": "通知策略的唯一标识",
+            "example": "ns-uuid-001",
             "type": "string"
           },
           "version": {
             "backendName": "version",
+            "description_en": "The version number of the notification policy",
+            "description_zh": "通知策略版本号",
+            "example": "1",
             "format": "int32",
             "type": "integer"
           },
           "workspace": {
             "backendName": "workspace",
+            "description_en": "The workspace identifier",
+            "description_zh": "工作空间标识",
+            "example": "default",
             "type": "string"
           }
         },
@@ -355,7 +380,7 @@
   "deprecated": false,
   "description_en": "Lists notify policies",
   "description_zh": "List NotifyPolicies",
-  "kebab_example": "",
+  "kebab_example": "aliyun cms list-notify-policies --workspace default-cms-xxxx-cn-hangzhou --api-version 2024-03-30 --region cn-hangzhou",
   "method": "GET",
   "multi_version": true,
   "name": "ListNotifyPolicies",

@@ -4,130 +4,6 @@
   "cmd_name": "create-refund-order",
   "components": {
     "schemas": {
-      "LeavePictureList": {
-        "description_en": "Credential  ",
-        "description_zh": "凭证",
-        "properties": {
-          "desc": {
-            "backendName": "desc",
-            "description_en": "Description><notice>If the after-sales order rendering API returns that a message description is required, this field is mandatory.</notice>  ",
-            "description_zh": "描述><notice>如售后单渲染接口返回必传留言描述，则为必传></notice>",
-            "example": "外观破损了。",
-            "required": false,
-            "title": "描述",
-            "type": "string"
-          },
-          "picture": {
-            "backendName": "picture",
-            "description_en": "Image of the after-sales Credential><notice>If the after-sales order rendering API returns that an after-sales image is required, this field is mandatory.</notice>  ",
-            "description_zh": "售后凭证图片><notice>如售后单渲染接口返回必传售后图片，则为必传></notice>",
-            "example": "https://img.alicdn.com/imgextra/i3/221428******/O1CN01w4vomR1QYYE*******_!!221428*******.jpg",
-            "required": false,
-            "title": "图片地址",
-            "type": "string"
-          }
-        },
-        "title": "图片信息",
-        "type": "object"
-      },
-      "RefundOrderCmd": {
-        "description_en": "Create a return or refund request",
-        "description_zh": "创建逆向",
-        "properties": {
-          "applyReasonTextId": {
-            "backendName": "applyReasonTextId",
-            "description_en": "Refund reason ID",
-            "description_zh": "退款原因ID",
-            "example": "47821",
-            "format": "int64",
-            "required": true,
-            "title": "退款原因ID",
-            "type": "integer"
-          },
-          "applyReasonTips": {
-            "backendName": "applyReasonTips",
-            "description_en": "Refund reason text",
-            "description_zh": "退款原因文本",
-            "example": "不想要了",
-            "required": false,
-            "title": "退款原因文本",
-            "type": "string"
-          },
-          "applyRefundCount": {
-            "backendName": "applyRefundCount",
-            "description_en": "Number of items to return",
-            "description_zh": "退货数量",
-            "example": "1",
-            "format": "int32",
-            "required": true,
-            "title": "退货数量",
-            "type": "integer"
-          },
-          "applyRefundFee": {
-            "backendName": "applyRefundFee",
-            "description_en": "Refund amount in cents",
-            "description_zh": "申请退款金额（分）",
-            "example": "100",
-            "format": "int64",
-            "required": true,
-            "title": "申请退款金额（分）",
-            "type": "integer"
-          },
-          "bizClaimType": {
-            "backendName": "bizClaimType",
-            "description_en": "Refund type\n1: Refund only\n3: Return and refund",
-            "description_zh": "退款类型\n1 仅退款 \n3 退货退款",
-            "example": "1",
-            "format": "int32",
-            "required": true,
-            "title": "退款类型",
-            "type": "integer"
-          },
-          "goodsStatus": {
-            "backendName": "goodsStatus",
-            "description_en": "Item status\n4: Not shipped\n1: Not received\n2: Received",
-            "description_zh": "货物状态\n4: 未发货 \n1: 未收到货\n2: 已收到货",
-            "example": "1",
-            "format": "int32",
-            "required": true,
-            "title": "货物状态",
-            "type": "integer"
-          },
-          "leaveMessage": {
-            "backendName": "leaveMessage",
-            "description_en": "Customer message",
-            "description_zh": "留言",
-            "example": "不想要了",
-            "required": false,
-            "title": "留言",
-            "type": "string"
-          },
-          "leavePictureLists": {
-            "backendName": "leavePictureLists",
-            "description_en": "Collection of images",
-            "description_zh": "图片集合",
-            "itemName": "item",
-            "items": {
-              "$ref": "#/components/schemas/LeavePictureList",
-              "required": false
-            },
-            "required": false,
-            "title": "图片集合",
-            "type": "array"
-          },
-          "orderLineId": {
-            "backendName": "orderLineId",
-            "description_en": "Sub-distribution order ID",
-            "description_zh": "子分销订单ID",
-            "example": "6692****5458",
-            "required": true,
-            "title": "子分销订单ID",
-            "type": "string"
-          }
-        },
-        "title": "创建逆向",
-        "type": "object"
-      },
       "RefundOrderResult": {
         "description_en": "Reverse operation result  ",
         "description_zh": "逆向操作结果",
@@ -178,7 +54,7 @@
   "deprecated": false,
   "description_en": "Create a support ticket",
   "description_zh": "创建售后单",
-  "kebab_example": "",
+  "kebab_example": "aliyun linkedmall create-refund-order --apply-refund-count 1 --biz-claim-type 1 --goods-status 1 --leave-message '不想要了' --apply-reason-text-id 47821 --apply-reason-tips '不想要了' --apply-refund-fee 100 --order-line-id 669200005458 --api-version 2023-09-30 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "CreateRefundOrder",

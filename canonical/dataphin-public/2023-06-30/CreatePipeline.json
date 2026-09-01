@@ -3,9 +3,9 @@
   "cmd_full_name": "dataphin-public create-pipeline",
   "cmd_name": "create-pipeline",
   "deprecated": false,
-  "description_en": "Create an integration pipeline/unstructured workflow task",
+  "description_en": "Creates an integration pipeline or unstructured workflow node",
   "description_zh": "创建集成管道/非结构化工作流任务",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public create-pipeline --op-tenant-id 30001011 --context ProjectId=123 Env=DEV --create-command '{\"ScheduleConfig\":\"cronExpression_:_0_0_0_0_0_0\",\"Comment\":\"comment\",\"PipelineConfig\":{},\"NodeInfo\":{},\"PipelineType\":0,\"Mode\":\"PIPELINE\",\"Submit\":true,\"PipelineJson\":\"example-string\",\"Settings\":\"example-string\"}' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreatePipeline",
@@ -24,7 +24,7 @@
   "parameters": [
     {
       "example": "30001011",
-      "help_en": "Tenant ID",
+      "help_en": "The tenant ID",
       "help_zh": "租户ID",
       "location": "query",
       "name": "op_tenant_id",
@@ -36,10 +36,23 @@
       "type": "int"
     },
     {
+      "example": "30001011",
+      "help_en": "The ID of the operator user",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
+    },
+    {
       "fields": [
         {
           "example": "DEV",
-          "help_en": "Current operating environment: DEV indicates the development environment, PROD indicates the production environment (for workflows, only PROD is currently supported)",
+          "help_en": "The current operating environment. Valid values:\n\nDEV: the development environment.\nPROD: the production environment.\n\nFor workflow nodes, only PROD is supported",
           "help_zh": "当前操作环境env：DEV-表示操作开发环境，PROD-表示操作生产环境（对于工作流，目前仅支持PROD）",
           "name": "env",
           "options": [
@@ -51,7 +64,7 @@
         },
         {
           "example": "123",
-          "help_en": "Project ID to which the integration pipeline/workflow task belongs",
+          "help_en": "The ID of the project to which the integration pipeline or workflow node belongs",
           "help_zh": "集成管道/工作流任务所属项目ID",
           "name": "project_id",
           "options": [
@@ -62,7 +75,7 @@
           "type": "int"
         }
       ],
-      "help_en": "Request context information",
+      "help_en": "The request context information",
       "help_zh": "请求上下文信息",
       "location": "formData",
       "name": "context",
@@ -78,7 +91,7 @@
       "fields": [
         {
           "example": "comment",
-          "help_en": "Comment",
+          "help_en": "The comment",
           "help_zh": "备注",
           "name": "comment",
           "options": [
@@ -90,7 +103,7 @@
         },
         {
           "example": "PIPELINE",
-          "help_en": "Integration pipeline configuration mode: PIPELINE indicates pipeline mode (default), JSON indicates script mode.\nFor workflows, this can be ignored",
+          "help_en": "The integration pipeline configuration mode. Valid values:\n\nPIPELINE: pipeline mode. This is the default value.\nJSON: script mode.\n\nIf the node is a workflow node, you can ignore this parameter",
           "help_zh": "集成管道配置模式：PIPELINE-表示管道模式（默认），JSON-表示脚本模式。\n如果为工作流，则无需关注",
           "name": "mode",
           "options": [
@@ -104,7 +117,7 @@
           "fields": [
             {
               "example": "/",
-              "help_en": "Directory of the integration pipeline/workflow task node (defaults to root directory). The directory must exist. If it does not exist, call the relevant API to create a directory of type offlinePipeline (or unstructuredPipeline for workflows)",
+              "help_en": "The folder of the integration pipeline or workflow node. Default value: root folder. The folder must already exist. If it does not exist, call the relevant API operation to create a folder of type offlinePipeline (or unstructuredPipeline for workflows)",
               "help_zh": "集成管道/工作流任务节点目录（默认为根目录），该目录必须存在，如若不存在，则需要调用相关接口创建类型为offlinePipeline（工作流则为unstructuredPipeline）的目录",
               "name": "directory",
               "options": [
@@ -116,7 +129,7 @@
             },
             {
               "example": "123",
-              "help_en": "Pipeline/workflow file ID. Leave empty for initial creation. When updating a pipeline/workflow task, at least one of pipelineId, fileId, or nodeId must be specified",
+              "help_en": "The pipeline or workflow file ID. Leave this parameter empty for initial creation. When updating a pipeline or workflow node, specify at least one of pipelineId, fileId, or nodeId",
               "help_zh": "管道/工作流 文件ID，首次创建为空，更新管道/工作流 任务时，pipelineId、fileId、nodeId至少配置一个",
               "name": "file_id",
               "options": [
@@ -128,7 +141,7 @@
             },
             {
               "example": "n_123",
-              "help_en": "Scheduling node ID of the pipeline/workflow task. Leave empty for initial creation. When updating a pipeline/workflow task, at least one of pipelineId, fileId, or nodeId must be specified",
+              "help_en": "The scheduling node ID of the pipeline or workflow node. Leave this parameter empty for initial creation. When updating a pipeline or workflow node, specify at least one of pipelineId, fileId, or nodeId",
               "help_zh": "管道/工作流 任务调度节点ID，首次创建为空，更新管道/工作流 任务时，pipelineId、fileId、nodeId至少配置一个",
               "name": "node_id",
               "options": [
@@ -140,7 +153,7 @@
             },
             {
               "example": "test",
-              "help_en": "Integration pipeline/workflow task name",
+              "help_en": "The name of the integration pipeline or workflow node",
               "help_zh": "集成管道/工作流 任务名称",
               "name": "node_name",
               "options": [
@@ -152,7 +165,7 @@
             },
             {
               "example": "123",
-              "help_en": "Pipeline/workflow task ID. Leave empty for initial creation. When updating a pipeline/workflow task, at least one of pipelineId, fileId, or nodeId must be specified",
+              "help_en": "The pipeline or workflow node ID. Leave this parameter empty for initial creation. When updating a pipeline or workflow node, specify at least one of pipelineId, fileId, or nodeId",
               "help_zh": "管道/工作流 任务ID，首次创建为空，更新管道/工作流任务时，pipelineId、fileId、nodeId至少配置一个",
               "name": "pipeline_id",
               "options": [
@@ -163,7 +176,7 @@
               "type": "int"
             }
           ],
-          "help_en": "Integration pipeline/workflow task basic information",
+          "help_en": "The basic information of the integration pipeline or workflow node",
           "help_zh": "集成管道/工作流 任务基本信息",
           "name": "node_info",
           "options": [
@@ -179,7 +192,7 @@
               "element": {
                 "fields": [
                   {
-                    "help_en": "For conditional distribution components, set to true when the downstream condition is true, otherwise set to false.\nFor workflow tasks, this can be ignored",
+                    "help_en": "Specifies the downstream condition for a conditional distribution component. Set this parameter to true if the downstream condition is true, or false otherwise. If the node is a workflow node, you can ignore this parameter",
                     "help_zh": "针对条件分发组件，连接下游条件为true时设置为true，否则设置为false。\n如果为工作流任务，则无需关注",
                     "name": "send_to",
                     "options": [
@@ -191,7 +204,7 @@
                   },
                   {
                     "example": "mysql_reader",
-                    "help_en": "Input step name, i.e., Steps[*].StepName",
+                    "help_en": "The name of the input step, which corresponds to Steps[*].StepName",
                     "help_zh": "输入步骤名称，即Steps[*].StepName",
                     "name": "source",
                     "options": [
@@ -203,7 +216,7 @@
                   },
                   {
                     "example": "odps_writer",
-                    "help_en": "Output step name, i.e., Steps[*].StepName",
+                    "help_en": "The name of the output step, which corresponds to Steps[*].StepName",
                     "help_zh": "输出步骤名称，即Steps[*].StepName",
                     "name": "target",
                     "options": [
@@ -216,7 +229,7 @@
                 ],
                 "type": "object"
               },
-              "help_en": "DAG (directed acyclic graph) link configuration: describes the connections between all components/operators",
+              "help_en": "The directed acyclic graph (DAG) link configuration that describes the connections between all components or operators",
               "help_zh": "DAG有向无环图链接配置：描述所有组件/算子的连接关系",
               "name": "hops",
               "options": [
@@ -230,7 +243,7 @@
               "element": {
                 "fields": [
                   {
-                    "help_en": "Indicates the data distribution method when the current component has multiple downstream components:\ntrue indicates that data from the current component is sent to all downstream components in a round-robin manner. For example, if the current component has 100 records and two downstream components, each downstream component receives 50 records. The default value is true.\nfalse indicates that data from the current component is sent in full to all downstream components. For example, if the current component has 100 records and two downstream components, both downstream components receive all 100 records.\nFor workflow tasks, this value can be ignored",
+                    "help_en": "Specifies the data distribution mode when the current component has multiple downstream components. Valid values:\n\ntrue: The data of the current component is distributed to all downstream components in a round-robin manner. For example, if the current component has 100 records and two downstream components, each downstream component receives 50 records. Default value: true.\nfalse: The full data of the current component is sent to all downstream components. For example, if the current component has 100 records and two downstream components, both downstream components receive 100 records.\n\nIf the node is a workflow node, you can ignore this parameter",
                     "help_zh": "用于表示当前组件有多个下游组件时当前组件数据的分发方式：\ntrue-表示当前组件的数据轮流发送到所有下游，例如当前组件有100条数据，有两个下游，则两个下游各有50条数据，默认为true，\nfalse-表示当前组件的数据全量发送到所有下游，例如当前组件有100条数据，有两个下游，则两个下游都有100条数据。\n如果为工作流任务，则无需关注此值",
                     "name": "is_distribute",
                     "options": [
@@ -242,7 +255,7 @@
                   },
                   {
                     "example": "mysqlinput",
-                    "help_en": "Plugin/operator ID. Each plugin/operator has a unique identifier. Refer to the utility class: com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig#stepKey. Developers should inherit this component/operator configuration class and implement the corresponding component/operator configuration. Each component/operator configuration has the same structure as the configuration created on the Dataphin page",
+                    "help_en": "The plugin ID. Each plugin or operator has a unique identifier. Refer to the utility class com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig#stepKey. Developers should inherit the component or operator configuration class and implement the corresponding component or operator configuration. Each component or operator configuration has the same structure as the configuration created on the Dataphin console",
                     "help_zh": "插件ID，每个插件/算子都有唯一的标志，参考工具类：com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig#stepKey。开发者应继承该组件/算子配置类，实现相应组件/算子配置，每个组件/算子配置与Dataphin页面创建的配置结构相同",
                     "name": "key",
                     "options": [
@@ -254,7 +267,7 @@
                   },
                   {
                     "example": "{}",
-                    "help_en": "Specific component configuration in JSON string format. Refer to the utility class: subclasses of com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig (for workflow operators, use com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.unstructured.BaseOAUnstructuredNeuronConfig) and their toJsonString method. Developers should inherit this component/operator configuration class and implement the corresponding component/operator configuration. Each component/operator configuration has the same structure as the task configuration created on the Dataphin page",
+                    "help_en": "The specific component configuration in JSON string format. Refer to the toJsonString method of the relevant subclasses of the utility class com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig (for workflow operators, use com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.unstructured.BaseOAUnstructuredNeuronConfig). Developers should inherit the component or operator configuration class and implement the corresponding component or operator configuration. Each component or operator configuration has the same structure as the node configuration created on the Dataphin console",
                     "help_zh": "具体组件配置，格式为JSON字符串，参考工具类：com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig（工作流算子则为com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.unstructured.BaseOAUnstructuredNeuronConfig）相关子类的toJsonString方法。开发者应继承该组件/算子配置类，实现相应组件/算子配置，每个组件/算子配置与Dataphin页面创建的任务配置结构相同",
                     "name": "plugin_config",
                     "options": [
@@ -266,7 +279,7 @@
                   },
                   {
                     "example": "mysql_reader",
-                    "help_en": "Step name. Step names must be unique within the same pipeline task",
+                    "help_en": "The step name. Step names must be unique within the same pipeline node",
                     "help_zh": "步骤名称，在同一个管道任务所有步骤名称不能重复",
                     "name": "step_name",
                     "options": [
@@ -278,7 +291,7 @@
                   },
                   {
                     "example": "input",
-                    "help_en": "Component type: input indicates an input component, output indicates an output component, transfrom indicates a transform component, process indicates a flow control component. For workflow tasks, this indicates the operator type, such as image for image, text for text. Refer to the utility class: com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig#stepType. Developers should inherit this component/operator configuration class and implement the corresponding component/operator configuration. Each component/operator configuration has the same structure as the configuration created on the Dataphin page",
+                    "help_en": "The component type. Valid values:\n\ninput: an input component.\noutput: an output component.\ntransfrom: a transform component.\nprocess: a flow control component.\n\nFor workflow nodes, this parameter specifies the operator type, such as image or text. Refer to the utility class com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig#stepType. Developers should inherit the component or operator configuration class and implement the corresponding component or operator configuration. Each component or operator configuration has the same structure as the configuration created on the Dataphin console",
                     "help_zh": "组件类型：input-表示输入组件，output-表示输出组件，transfrom-表示转换组件，process-表示流程控制组件，对于工作流任务则表示算子类型，例如：image-图片，text-文本。参考工具类：com.alibaba.dataphin.pipeline.common.facade.openapi.model.plugin.OABasePluginConfig#stepType。开发者应继承该组件/算子配置类，实现相应组件/算子配置，每个组件/算子配置与Dataphin页面创建的配置结构相同",
                     "name": "step_type",
                     "options": [
@@ -291,7 +304,7 @@
                 ],
                 "type": "object"
               },
-              "help_en": "Component/operator configuration: contains detailed configuration of all components/operators used",
+              "help_en": "The component or operator configurations, which contain the detailed configurations of all components or operators used",
               "help_zh": "组件/算子配置：包含所有用到的组件/算子详细配置",
               "name": "steps",
               "options": [
@@ -302,7 +315,7 @@
               "type": "array"
             }
           ],
-          "help_en": "Integration pipeline component/workflow operator configuration",
+          "help_en": "The integration pipeline component or workflow operator configuration",
           "help_zh": "集成管道组件/工作流算子配置",
           "name": "pipeline_config",
           "options": [
@@ -314,7 +327,7 @@
         },
         {
           "example": "{}",
-          "help_en": "In script mode: integration pipeline configuration (in JSON string format).\nWorkflow tasks do not support script mode",
+          "help_en": "The integration pipeline configuration in JSON string format for script mode. Workflow nodes do not support script mode",
           "help_zh": "脚本模式下：集成管道配置（json字符串格式）。\n工作流任务不支持脚本模式",
           "name": "pipeline_json",
           "options": [
@@ -326,7 +339,7 @@
         },
         {
           "example": "0",
-          "help_en": "Task type: 0 indicates offline integration (default), 1 indicates real-time integration, 14 indicates a workflow task",
+          "help_en": "The node type. Valid values:\n\n0: offline integration. Default value: 0.\n1: real-time integration.\n14: offline workflow node.\n15: real-time workflow",
           "help_zh": "任务类型：0-表示离线集成（默认），1-表示实时集成，14-表示离线工作流任务，15-表示实时工作流",
           "name": "pipeline_type",
           "options": [
@@ -338,7 +351,7 @@
         },
         {
           "example": "{\"cronExpression\":\"0 0 0 * * ?\"}",
-          "help_en": "Scheduling configuration in JSON string format. Refer to the utility class: com.alibaba.dataphin.pipeline.common.facade.openapi.model.OAScheduleConfig#toJsonString method",
+          "help_en": "The scheduling configuration in JSON string format. Refer to the utility class com.alibaba.dataphin.pipeline.common.facade.openapi.model.OAScheduleConfig#toJsonString method",
           "help_zh": "调度配置，格式为JSON字符串，参考工具类：com.alibaba.dataphin.pipeline.common.facade.openapi.model.OAScheduleConfig#toJsonString方法",
           "name": "schedule_config",
           "options": [
@@ -350,7 +363,7 @@
         },
         {
           "example": "{}",
-          "help_en": "Channel configuration in JSON string format. Refer to the utility class: com.alibaba.dataphin.pipeline.common.facade.openapi.model.OAPipelineSetting#toJsonString method",
+          "help_en": "The channel configuration in JSON string format. Refer to the utility class com.alibaba.dataphin.pipeline.common.facade.openapi.model.OAPipelineSetting#toJsonString method",
           "help_zh": "通道配置，格式为JSON字符串，参考工具类：com.alibaba.dataphin.pipeline.common.facade.openapi.model.OAPipelineSetting#toJsonString方法",
           "name": "settings",
           "options": [
@@ -361,7 +374,7 @@
           "type": "string"
         },
         {
-          "help_en": "Whether to submit. Submitted by default",
+          "help_en": "Specifies whether to submit the node. The node is submitted by default",
           "help_zh": "是否提交，默认提交",
           "name": "submit",
           "options": [
@@ -372,7 +385,7 @@
           "type": "bool"
         }
       ],
-      "help_en": "Pipeline/workflow task creation configuration",
+      "help_en": "The configuration for creating a pipeline or workflow node",
       "help_zh": "创建管道/工作流任务配置",
       "location": "formData",
       "name": "create_command",
@@ -396,7 +409,7 @@
         "properties": {
           "Code": {
             "backendName": "Code",
-            "description_en": "Backend response code",
+            "description_en": "The backend response code",
             "description_zh": "后端响应码",
             "example": "OK",
             "title_en": "后端响应码",
@@ -405,12 +418,12 @@
           },
           "Data": {
             "backendName": "Data",
-            "description_en": "Integration pipeline/workflow task creation result",
+            "description_en": "The creation result of the integration pipeline or workflow task",
             "description_zh": "集成管道/工作流 任务创建结果",
             "properties": {
               "HostMachine": {
                 "backendName": "HostMachine",
-                "description_en": "Server-side execution machine name and IP",
+                "description_en": "The name and IP address of the server machine that executes the task",
                 "description_zh": "服务端执行机器名称和ip",
                 "example": "hostName:hostIp",
                 "title_en": "服务端执行机器名称和ip",
@@ -419,7 +432,7 @@
               },
               "NodeId": {
                 "backendName": "NodeId",
-                "description_en": "Scheduling node ID of the pipeline/workflow task after successful creation",
+                "description_en": "The scheduling node ID of the pipeline or workflow task after successful creation",
                 "description_zh": "创建成功后的管道/工作流任务调度节点Id",
                 "example": "123",
                 "title_en": "创建成功后的管道任务调度节点Id",
@@ -428,7 +441,7 @@
               },
               "PipelineId": {
                 "backendName": "PipelineId",
-                "description_en": "Pipeline/workflow ID after successful creation",
+                "description_en": "The pipeline or workflow ID after successful creation",
                 "description_zh": "创建成功后的管道/工作流 ID",
                 "example": "123",
                 "format": "int64",
@@ -438,7 +451,7 @@
               },
               "SubmitId": {
                 "backendName": "SubmitId",
-                "description_en": "Submit ID of the pending release list generated after successfully submitting the pipeline, used for release through the release domain.\nWorkflow tasks only support PROD, so this value is not applicable",
+                "description_en": "The submit ID of the pending publish list generated after the pipeline is submitted. Use this ID to publish through the publish domain.\nWorkflow tasks support only PROD, so this value is not returned for workflow tasks",
                 "description_zh": "提交管道成功后生成的待发布列表提交ID，通过发布域进行发布。\n工作流任务仅支持PROD，因此无此值",
                 "example": "123",
                 "format": "int64",
@@ -448,7 +461,7 @@
               },
               "Version": {
                 "backendName": "Version",
-                "description_en": "Pending release version number generated after pipeline submission.\nWorkflow tasks only support PROD, so this value is not applicable",
+                "description_en": "The pending publish version number generated after the pipeline is submitted.\nWorkflow tasks support only PROD, so this value is not returned for workflow tasks",
                 "description_zh": "管道提交后生成的待发布版本号。\n工作流任务仅支持PROD，因此无此值",
                 "example": "1",
                 "title_en": "提交后生成的版本号",
@@ -462,7 +475,7 @@
           },
           "HttpStatusCode": {
             "backendName": "HttpStatusCode",
-            "description_en": "HTTP status code",
+            "description_en": "The HTTP status code",
             "description_zh": "HTTP响应码",
             "example": "200",
             "format": "int32",
@@ -472,7 +485,7 @@
           },
           "Message": {
             "backendName": "Message",
-            "description_en": "Backend response exception details",
+            "description_en": "The details of the backend exception",
             "description_zh": "后端相应异常详情",
             "example": "internal error",
             "title_en": "后端相应异常详情",
@@ -490,7 +503,7 @@
           },
           "Success": {
             "backendName": "Success",
-            "description_en": "Whether the request was successful",
+            "description_en": "Indicates whether the request was successful",
             "description_zh": "请求成功与否",
             "title_en": "请求成功与否",
             "title_zh": "请求成功与否",

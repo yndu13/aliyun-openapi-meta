@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun imm ContextualRetrieval --region cn-hangzhou --Messages '[{\"Role\":\"user\",\"Content\":\"你好\",\"Files\":[{}]}]' --ProjectName 'test-project' --DatasetName 'test-dataset'",
   "cmd_full_name": "imm contextual-retrieval",
   "cmd_name": "contextual-retrieval",
   "components": {
@@ -294,128 +294,6 @@
             "type": "array"
           }
         },
-        "type": "object"
-      },
-      "ContextualFile": {
-        "description_en": "The file",
-        "description_zh": "文件",
-        "nullToEmpty": true,
-        "nullable": true,
-        "properties": {
-          "ContentType": {
-            "backendName": "ContentType",
-            "description_en": "The Multipurpose Internet Mail Extensions (MIME) type of the file",
-            "description_zh": "文件内容类型（MIME Type）",
-            "example": "text/x-imm-faq",
-            "title": "ContentType",
-            "type": "string"
-          },
-          "DatasetName": {
-            "backendName": "DatasetName",
-            "description_en": "The dataset name",
-            "description_zh": "数据集名称",
-            "example": "test-dataset",
-            "title": "DatasetName",
-            "type": "string"
-          },
-          "Elements": {
-            "backendName": "Elements",
-            "description_en": "Elements",
-            "description_zh": "Elements",
-            "items": {
-              "$ref": "#/components/schemas/Element",
-              "description_en": "The document elements generated from document analysis",
-              "description_zh": "文档分析生成的文档元素信息"
-            },
-            "title": "Elements",
-            "type": "array"
-          },
-          "MediaType": {
-            "backendName": "MediaType",
-            "description_en": "The media type of the file",
-            "description_zh": "当前File的媒体类型",
-            "example": "document",
-            "title": "MediaType",
-            "type": "string"
-          },
-          "OSSURI": {
-            "backendName": "OSSURI",
-            "description_en": "The URI path of the OSS file. This parameter is used only when the URI is a PDS address",
-            "description_zh": "OSS文件的URI路径。仅在URI为PDS地址时使用",
-            "example": "oss://test-bucket/test-object.jpg",
-            "title": "OSSURI",
-            "type": "string"
-          },
-          "ObjectId": {
-            "backendName": "ObjectId",
-            "description_en": "The identifier of the file in the dataset",
-            "description_zh": "对应File存在于Dataset中的标识符",
-            "example": "0939d7ed-73fa-4009-bbe6-fbbe07b92b2e",
-            "title": "ObjectId",
-            "type": "string"
-          },
-          "OwnerId": {
-            "backendName": "OwnerId",
-            "description_en": "The user ID",
-            "description_zh": "用户ID",
-            "example": "1482910009923706",
-            "title": "OwnerId",
-            "type": "string"
-          },
-          "ProjectName": {
-            "backendName": "ProjectName",
-            "description_en": "The project name",
-            "description_zh": "项目名称",
-            "example": "test-project",
-            "title": "ProjectName",
-            "type": "string"
-          },
-          "URI": {
-            "backendName": "URI",
-            "description_en": "The URI of the file.\nThe format of an OSS URI is oss\\://${bucketname}/${objectname}. ${bucketname} is the name of an OSS bucket in the same region as the current project. ${objectname} is the file path.\nThe format of a PDS URI is pds\\://domains/${domain}/drives/${drive}/files/${file}/revisions/${revision}",
-            "description_zh": "文件URI。\nOSS地址规则为oss://${bucketname}/${objectname}，其中${bucketname}为和当前项目处于同一地域的OSS Bucket名称，${objectname}为文件路径。\nPDS地址规则为pds://domains/${domain}/drives/${drive}/files/${file}/revisions/${revision}",
-            "example": "oss://test-bucket",
-            "title": "URI",
-            "type": "string"
-          }
-        },
-        "title": "A short description of struct",
-        "type": "object"
-      },
-      "ContextualMessage": {
-        "description_en": "The message in a multi-turn dialogue with the AI assistant",
-        "description_zh": "AI 助手二期中，多轮对话中的消息",
-        "properties": {
-          "Content": {
-            "backendName": "Content",
-            "description_en": "The message content",
-            "description_zh": "消息内容",
-            "example": "你好",
-            "title": "消息内容",
-            "type": "string"
-          },
-          "Files": {
-            "backendName": "Files",
-            "description_en": "The files involved in the dialogue",
-            "description_zh": "对话中的文件列表",
-            "items": {
-              "$ref": "#/components/schemas/ContextualFile",
-              "description_en": "The data structure for file information",
-              "description_zh": "文件信息的结构体"
-            },
-            "title": "对话中的文件列表",
-            "type": "array"
-          },
-          "Role": {
-            "backendName": "Role",
-            "description_en": "The role in the dialogue",
-            "description_zh": "对话角色",
-            "example": "user",
-            "title": "对话角色",
-            "type": "string"
-          }
-        },
-        "title": "对话消息列表",
         "type": "object"
       },
       "CroppingSuggestion": {
@@ -2303,7 +2181,7 @@
   "deprecated": false,
   "description_en": "Retrieves semantically similar documents. The operation is designed for multi-turn conversations and can process message input in historical conversations. The operation returns results that are highly related to the current conversation based on an in-depth understanding of contextual content. It provides consistent and efficient information retrieval in multi-turn conversations",
   "description_zh": "检索API专为多轮对话场景设计，能够处理包含对话历史的消息输入，精准检索语义相近文档。通过深度解析上下文信息，该接口确保检索结果与当前对话内容高度相关，适用于复杂交互环境，为多轮对话提供一致且高效的信息检索服务",
-  "kebab_example": "",
+  "kebab_example": "aliyun imm contextual-retrieval --project-name test-project --dataset-name test-dataset --messages '[{\"Role\":\"user\",\"Content\":\"你好\",\"Files\":[{}]}]' --api-version 2020-09-30 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "ContextualRetrieval",

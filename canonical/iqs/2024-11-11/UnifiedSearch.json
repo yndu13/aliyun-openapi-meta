@@ -1,61 +1,9 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun iqs POST /linked-retrieval/linked-retrieval-entry/v1/iqs/search/unified --region cn-hangzhou --header \"Content-Type=application/json\" --body '{\"locationInfo\":{\"city\":\"example-string\",\"ip\":\"example-string\"},\"contents\":{\"summary\":true,\"rerankScore\":true,\"markdownText\":true,\"mainText\":true,\"richMainBody\":true},\"advancedParams\":{\"key\":\"example-string\"},\"query\":\"example-string\",\"engineType\":\"example-string\",\"location\":\"example-string\",\"category\":\"example-string\",\"timeRange\":\"example-string\"}'",
   "cmd_full_name": "iqs unified-search",
   "cmd_name": "unified-search",
   "components": {
     "schemas": {
-      "LocationInfo": {
-        "properties": {
-          "city": {
-            "backendName": "city",
-            "type": "string"
-          },
-          "ip": {
-            "backendName": "ip",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "RequestContents": {
-        "description_en": "The field definition for search request responses",
-        "description_zh": "搜索请求返回字段定义",
-        "properties": {
-          "mainText": {
-            "backendName": "mainText",
-            "description_en": "Specifies whether to return the main text. Default value: false",
-            "description_zh": "是否返回正文, 默认：false",
-            "title": "是否返回正文, 默认：false",
-            "type": "boolean"
-          },
-          "markdownText": {
-            "backendName": "markdownText",
-            "description_en": "Specifies whether to return markdown. Default value: false",
-            "description_zh": "是否返回markdown, 默认：false",
-            "title": "是否返回markdown, 默认：false",
-            "type": "boolean"
-          },
-          "rerankScore": {
-            "backendName": "rerankScore",
-            "description_en": "Specifies whether to enable Rerank and return the RerankScore. Default value: true",
-            "description_zh": "是否开启Rerank，并返回RerankScore, 默认：true",
-            "title": "是否开启Rerank，并返回RerankScore, 默认：true",
-            "type": "boolean"
-          },
-          "richMainBody": {
-            "backendName": "richMainBody",
-            "type": "boolean"
-          },
-          "summary": {
-            "backendName": "summary",
-            "description_en": "Specifies whether to return an enhanced summary. Default value: false. The summary feature is billed separately",
-            "description_zh": "是否返回增强summary, 默认：false， summary会单独收费",
-            "title": "是否返回增强summary, 默认：false， summary会单独收费",
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
       "SearchCredits": {
         "description_en": "The basic search service metering",
         "description_zh": "基础搜索服务计量",
@@ -340,66 +288,6 @@
         },
         "type": "object"
       },
-      "UnifiedSearchInput": {
-        "properties": {
-          "advancedParams": {
-            "backendName": "advancedParams",
-            "description_zh": "高级搜索参数",
-            "title": "高级搜索参数",
-            "type": "object"
-          },
-          "category": {
-            "backendName": "category",
-            "type": "string"
-          },
-          "contents": {
-            "$ref": "#/components/schemas/RequestContents",
-            "backendName": "contents",
-            "sensitive": true
-          },
-          "engineType": {
-            "backendName": "engineType",
-            "description_zh": "引擎类型：默认：Generic；可选值：Generic/GenericAdvanced， GenericAdvanced会单独计费返回更多条记录",
-            "enum": [
-              "Generic",
-              "GenericAdvanced",
-              "LiteAdvanced",
-              "Deep"
-            ],
-            "title": "引擎类型：默认：Generic；可选值：Generic/GenericAdvanced， GenericAdvanced会单独计费返回更多条记录",
-            "type": "string"
-          },
-          "location": {
-            "backendName": "location",
-            "type": "string"
-          },
-          "locationInfo": {
-            "$ref": "#/components/schemas/LocationInfo",
-            "backendName": "locationInfo"
-          },
-          "query": {
-            "backendName": "query",
-            "description_zh": "查询内容,长度限制：1-100",
-            "sensitive": true,
-            "title": "查询内容,长度限制：1-100",
-            "type": "string"
-          },
-          "timeRange": {
-            "backendName": "timeRange",
-            "description_zh": "内容发布时间范围",
-            "enum": [
-              "OneDay",
-              "OneWeek",
-              "OneMonth",
-              "OneYear",
-              "NoLimit"
-            ],
-            "title": "内容发布时间范围",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "UnifiedSearchOutput": {
         "description_zh": "requestId，用于问题排查",
         "properties": {
@@ -483,7 +371,7 @@
   "deprecated": false,
   "description_en": "Provides access to the Tongxiao unified search API, enabling quick and easy integration of web-wide general search capabilities",
   "description_zh": "通晓统一搜索API，简单快捷的接入全网通用搜索能力",
-  "kebab_example": "",
+  "kebab_example": "aliyun iqs unified-search --contents summary=true rerankScore=true markdownText=true mainText=true richMainBody=true --query example-string --engine-type example-string --category example-string --time-range example-string --location example-string --location-info city=example-string ip=example-string --advanced-params '{\"key\":\"example-string\"}' --api-version 2024-11-11 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "UnifiedSearch",

@@ -3,9 +3,9 @@
   "cmd_full_name": "dataphin-public get-batch-task-info-by-version",
   "cmd_name": "get-batch-task-info-by-version",
   "deprecated": false,
-  "description_en": "Retrieves the details of a specified version of a batch task",
+  "description_en": "Retrieves the details of a specific version of a batch task",
   "description_zh": "获取离线计算任务指定版本任务详情",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public get-batch-task-info-by-version --op-tenant-id 30001011 --project-id 131211211 --file-id 12113111 --version-id 1 --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "GetBatchTaskInfoByVersion",
@@ -48,7 +48,7 @@
     },
     {
       "example": "12113111",
-      "help_en": "The node ID in the node directory tree",
+      "help_en": "The node ID in the directory tree",
       "help_zh": "任务目录树节点Id",
       "location": "query",
       "name": "file_id",
@@ -71,6 +71,19 @@
       "raw_name": "VersionId",
       "required": true,
       "type": "int"
+    },
+    {
+      "example": "30001011",
+      "help_en": "The ID of the operator",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
@@ -79,7 +92,7 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response",
+        "description_en": "The response struct",
         "description_zh": "响应结果",
         "properties": {
           "Code": {
@@ -129,12 +142,12 @@
           },
           "TaskInfo": {
             "backendName": "TaskInfo",
-            "description_en": "The node details",
+            "description_en": "The task details",
             "description_zh": "任务详情",
             "properties": {
               "Code": {
                 "backendName": "Code",
-                "description_en": "The node code",
+                "description_en": "The task code",
                 "description_zh": "任务代码",
                 "example": "show tables;",
                 "title_en": "任务代码",
@@ -143,7 +156,7 @@
               },
               "CronExpression": {
                 "backendName": "CronExpression",
-                "description_en": "The cron expression for automatic scheduling. For more information, refer to the Linux cron expression syntax",
+                "description_en": "The cron expression for automatic scheduling. Refer to the Linux cron expression syntax",
                 "description_zh": "自动调度的cron表达式, 可参考Linux cron表达式",
                 "example": "0 0 1 * * ?",
                 "title_en": "自动调度的cron表达式, 可参考Linux cron表达式",
@@ -208,7 +221,7 @@
               },
               "DagId": {
                 "backendName": "DagId",
-                "description_en": "The ID of the DAG to which the node belongs",
+                "description_en": "The ID of the DAG to which the task belongs",
                 "description_zh": "所属的dagId",
                 "example": "dag_102121211",
                 "title_en": "所属的dagId",
@@ -242,9 +255,49 @@
                 "title_zh": "数据库sql任务，仅对如Oracle等需要设置Schema的数据源类型生效",
                 "type": "string"
               },
+              "DevelopOwnerIdList": {
+                "backendName": "DevelopOwnerIdList",
+                "description_en": "The list of development owner IDs",
+                "description_zh": "开发负责人id列表",
+                "itemName": "DevelopOwnerId",
+                "items": {
+                  "description_en": "The development owner ID",
+                  "description_zh": "开发负责人id",
+                  "example": "numpy",
+                  "required": true,
+                  "title_en": "开发负责人id",
+                  "title_zh": "开发负责人id",
+                  "type": "string"
+                },
+                "parseType": "struct",
+                "required": false,
+                "title_en": "开发负责人id列表",
+                "title_zh": "开发负责人id列表",
+                "type": "array"
+              },
+              "DevelopOwnerNameList": {
+                "backendName": "DevelopOwnerNameList",
+                "description_en": "The list of development owner names",
+                "description_zh": "开发负责人名称列表",
+                "itemName": "DevelopOwnerName",
+                "items": {
+                  "description_en": "The development owner name",
+                  "description_zh": "开发负责人名称",
+                  "example": "numpy",
+                  "required": true,
+                  "title_en": "开发负责人名称",
+                  "title_zh": "开发负责人名称",
+                  "type": "string"
+                },
+                "parseType": "struct",
+                "required": false,
+                "title_en": "开发负责人名称列表",
+                "title_zh": "开发负责人名称列表",
+                "type": "array"
+              },
               "FileId": {
                 "backendName": "FileId",
-                "description_en": "The node ID in the node directory tree",
+                "description_en": "The node ID in the directory tree",
                 "description_zh": "任务目录树节点Id",
                 "example": "12113111",
                 "format": "int64",
@@ -254,7 +307,7 @@
               },
               "HasDevNode": {
                 "backendName": "HasDevNode",
-                "description_en": "Indicates whether the node has a development environment node",
+                "description_en": "Indicates whether the task has a development environment node",
                 "description_zh": "是否有开发环境节点",
                 "title_en": "是否有开发环境节点",
                 "title_zh": "是否有开发环境节点",
@@ -262,7 +315,7 @@
               },
               "Name": {
                 "backendName": "Name",
-                "description_en": "The node name",
+                "description_en": "The task name",
                 "description_zh": "任务名称",
                 "example": "测试任务1",
                 "title_en": "任务名称",
@@ -271,7 +324,7 @@
               },
               "NeedPublish": {
                 "backendName": "NeedPublish",
-                "description_en": "Indicates whether the node needs to be published",
+                "description_en": "Indicates whether the task needs to be published",
                 "description_zh": "是否需要发布",
                 "title_en": "是否需要发布",
                 "title_zh": "是否需要发布",
@@ -279,7 +332,7 @@
               },
               "NodeDescription": {
                 "backendName": "NodeDescription",
-                "description_en": "The node description",
+                "description_en": "The task description",
                 "description_zh": "任务描述",
                 "example": "xx测试",
                 "title_en": "任务描述",
@@ -349,6 +402,46 @@
                 "title_zh": "当前操作的用户id",
                 "type": "string"
               },
+              "OpsOwnerIdList": {
+                "backendName": "OpsOwnerIdList",
+                "description_en": "The list of O&M owner IDs",
+                "description_zh": "运维负责人id列表",
+                "itemName": "OpsOwnerId",
+                "items": {
+                  "description_en": "The O&M owner ID",
+                  "description_zh": "运维负责人id",
+                  "example": "numpy",
+                  "required": true,
+                  "title_en": "运维负责人id",
+                  "title_zh": "运维负责人id",
+                  "type": "string"
+                },
+                "parseType": "struct",
+                "required": false,
+                "title_en": "运维负责人id列表",
+                "title_zh": "运维负责人id列表",
+                "type": "array"
+              },
+              "OpsOwnerNameList": {
+                "backendName": "OpsOwnerNameList",
+                "description_en": "The list of O&M owner names",
+                "description_zh": "运维负责人名称列表",
+                "itemName": "OpsOwnerName",
+                "items": {
+                  "description_en": "The O&M owner name",
+                  "description_zh": "运维负责人名称",
+                  "example": "numpy",
+                  "required": true,
+                  "title_en": "运维负责人名称",
+                  "title_zh": "运维负责人名称",
+                  "type": "string"
+                },
+                "parseType": "struct",
+                "required": false,
+                "title_en": "运维负责人名称列表",
+                "title_zh": "运维负责人名称列表",
+                "type": "array"
+              },
               "OwnerName": {
                 "backendName": "OwnerName",
                 "description_en": "The name of the node owner",
@@ -369,11 +462,11 @@
               },
               "ParamList": {
                 "backendName": "ParamList",
-                "description_en": "The list of custom node parameters",
+                "description_en": "The list of custom parameters for the node",
                 "description_zh": "节点自定义参数列表",
                 "itemName": "Param",
                 "items": {
-                  "description_en": "The custom node parameter",
+                  "description_en": "The custom parameter for the node",
                   "description_zh": "节点自定义参数",
                   "properties": {
                     "Key": {
@@ -405,7 +498,7 @@
               },
               "Paused": {
                 "backendName": "Paused",
-                "description_en": "Indicates whether the node scheduling is paused",
+                "description_en": "Indicates whether the node is paused for scheduling",
                 "description_zh": "节点是否被暂停调度",
                 "title_en": "节点是否被暂停调度",
                 "title_zh": "节点是否被暂停调度",
@@ -433,7 +526,7 @@
               },
               "Published": {
                 "backendName": "Published",
-                "description_en": "Indicates whether the node has been published",
+                "description_en": "Indicates whether the task is published",
                 "description_zh": "是否已发布",
                 "title_en": "是否已发布",
                 "title_zh": "是否已发布",
@@ -467,7 +560,7 @@
               },
               "ScheduleType": {
                 "backendName": "ScheduleType",
-                "description_en": "The scheduling type. Valid values:\n1: periodic node.\n3: manual node",
+                "description_en": "The node type. Valid values:\n1: periodic node.\n3: manual node",
                 "description_zh": "节点类型\n周期任务：1\n手动任务：3",
                 "example": "3",
                 "format": "int32",
@@ -482,7 +575,7 @@
                 "properties": {
                   "SparkClientVersion": {
                     "backendName": "SparkClientVersion",
-                    "description_en": "The Spark client version",
+                    "description_en": "The Spark client version name",
                     "description_zh": "spark客户端名称",
                     "example": "abc",
                     "title_en": "spark客户端版本名称",
@@ -496,7 +589,7 @@
               },
               "Status": {
                 "backendName": "Status",
-                "description_en": "The publish status. Valid values:\n0: draft.\n1: submitted.\n100: in development",
+                "description_en": "The submit status. Valid values:\n0: draft.\n1: submitted.\n100: in development",
                 "description_zh": "发布状态: 草稿0、已提交1、开发中100",
                 "example": "测试任务1",
                 "title_en": "发布状态: 草稿0、已提交1、开发中100",
@@ -505,7 +598,7 @@
               },
               "TaskType": {
                 "backendName": "TaskType",
-                "description_en": "The node type. For more information, see the API operation for creating a batch task",
+                "description_en": "The task type. For more information, refer to the API operation for creating batch tasks",
                 "description_zh": "任务类型，可参见创建离线计算任务接口",
                 "example": "21",
                 "format": "int32",
@@ -562,11 +655,11 @@
                     },
                     "FieldList": {
                       "backendName": "FieldList",
-                      "description_en": "The fields of the dependent logical table",
+                      "description_en": "The dependent logical table fields",
                       "description_zh": "依赖的逻辑表字段",
                       "itemName": "Field",
                       "items": {
-                        "description_en": "The fields of the dependent logical table",
+                        "description_en": "The dependent logical table fields",
                         "description_zh": "依赖的逻辑表字段",
                         "example": "column1",
                         "title_en": "依赖的逻辑表字段",
@@ -588,7 +681,7 @@
                     },
                     "PeriodDiff": {
                       "backendName": "PeriodDiff",
-                      "description_en": "The period difference. A value of 0 indicates a same-period dependency. A positive number indicates a dependency on the previous N periods",
+                      "description_en": "The period difference. A value of 0 indicates a same-cycle dependency. A positive number indicates a dependency on the previous N cycles",
                       "description_zh": "周期差:0表示同周期依赖，正数表示依赖前N个周期",
                       "example": "1",
                       "format": "int32",

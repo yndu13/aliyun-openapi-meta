@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun resourcemanager CreateRole --region cn-hangzhou --RoleName ECSAdmin --AssumeRolePolicyDocument 'Statement_:_Action_:_sts:AssumeRole_,_Effect_:_Allow_,_Principal_:_RAM_:_acs:ram::123456789012340000:root_,_Version_:_1'",
   "cmd_full_name": "resourcemanager create-role",
   "cmd_name": "create-role",
   "deprecated": false,
-  "description_en": "Creates a RAM role",
+  "description_en": "Creates a role by calling CreateRole",
   "description_zh": "调用CreateRole创建角色",
-  "kebab_example": "",
+  "kebab_example": "aliyun resourcemanager create-role --role-name ECSAdmin --assume-role-policy-document Statement_:_Action_:_sts:AssumeRole_,_Effect_:_Allow_,_Principal_:_RAM_:_acs:ram::123456789012340000:root_,_Version_:_1 --api-version 2020-03-31 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "CreateRole",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "ECSAdmin",
-      "help_en": "The name of the role.\n\nThe name must be 1 to 64 characters in length, and can contain letters, digits, periods (.), and hyphens (-)",
+      "help_en": "The name of the role.\n\nThe name must be 1 to 64 characters in length and can contain letters, digits, periods (.), and hyphens (-)",
       "help_zh": "角色名称。\n\n长度为1~64个字符，可包含英文字母、数字、点号（.）和短横线（-）",
       "location": "query",
       "name": "role_name",
@@ -48,7 +48,7 @@
     },
     {
       "example": "{ \"Statement\": [ { \"Action\": \"sts:AssumeRole\", \"Effect\": \"Allow\", \"Principal\": { \"RAM\": \"acs:ram::12345678901234****:root\" } } ], \"Version\": \"1\" }",
-      "help_en": "The document of the policy that specifies\n\none or more trusted entities to assume the role. The trusted entities can be Alibaba Cloud accounts, Alibaba Cloud services, or identity providers (IdPs).\n\nRAM users cannot assume the RAM roles of trusted Alibaba Cloud services",
+      "help_en": "The content of the access policy for assuming the role.\n\nSpecifies one or more entities that are allowed to assume the role. The trusted entity can be an Alibaba Cloud account, an Alibaba Cloud service, or an identity provider.\n\nA Resource Access Management (RAM) user cannot assume a RAM role whose trusted entity is an Alibaba Cloud service",
       "help_zh": "扮演角色的权限策略内容。\n\n指定允许扮演该角色的一个或多个主体，这个主体可以是阿里云账号、阿里云服务或身份提供商。\n\nRAM用户不能扮演可信实体为阿里云服务的RAM角色。 ",
       "location": "query",
       "name": "assume_role_policy_document",
@@ -61,7 +61,7 @@
     },
     {
       "example": "3600",
-      "help_en": "The maximum session duration of the role.\n\nValid values: 3600 to 43200. Unit: seconds. Default value: 3600.\n\nIf you do not specify this parameter, the default value is used",
+      "help_en": "The maximum session duration of the role.\n\nValid values: 3600 to 43200. Unit: seconds. Default value: 3600.\n\nIf this parameter is left empty, the default value is used",
       "help_zh": "角色最大会话时间。\n\n取值范围：3600秒~43200秒。默认值：3600秒。\n\n取值为空时将采用默认值",
       "location": "query",
       "name": "max_session_duration",
@@ -90,12 +90,12 @@
           },
           "Role": {
             "backendName": "Role",
-            "description_en": "The information about the role",
+            "description_en": "The role information",
             "description_zh": "角色信息",
             "properties": {
               "Arn": {
                 "backendName": "Arn",
-                "description_en": "The Alibaba Cloud Resource Name (ARN) of the role",
+                "description_en": "The resource descriptor of the role",
                 "description_zh": "角色的资源描述符",
                 "example": "acs:ram::123456789012****:role/ECSAdmin",
                 "mappingResourcePropertyName": "$.Arn",
@@ -104,7 +104,7 @@
               },
               "AssumeRolePolicyDocument": {
                 "backendName": "AssumeRolePolicyDocument",
-                "description_en": "The document of the policy in which the entity that can assume the role is specified",
+                "description_en": "The content of the access policy for assuming the role",
                 "description_zh": "扮演角色的权限策略内容",
                 "example": "{ \\\"Statement\\\": [ { \\\"Action\\\": \\\"sts:AssumeRole\\\", \\\"Effect\\\": \\\"Allow\\\", \\\"Principal\\\": { \\\"RAM\\\": \\\"acs:ram::12345678901234****:root\\\" } } ], \\\"Version\\\": \\\"1\\\" }",
                 "mappingResourcePropertyName": "$.AssumeRolePolicyDocument",
@@ -113,8 +113,8 @@
               },
               "CreateDate": {
                 "backendName": "CreateDate",
-                "description_en": "The time when the role was created",
-                "description_zh": "角色创建时间",
+                "description_en": "The time when the role was created. The time is in RFC 3339 UTC format, indicated by Z",
+                "description_zh": "角色创建时间，采用 RFC 3339 UTC 时间格式，以 Z 表示 UTC",
                 "example": "2015-01-23T12:33:18Z",
                 "mappingResourcePropertyName": "$.CreateTime",
                 "type": "string",
@@ -159,7 +159,7 @@
               },
               "RolePrincipalName": {
                 "backendName": "RolePrincipalName",
-                "description_en": "The name of the role after authorization",
+                "description_en": "The name of the authorized role",
                 "description_zh": "被授权角色名称",
                 "example": "ECSAdmin@role.123456.onaliyunservice.com",
                 "type": "string",

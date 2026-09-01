@@ -3,9 +3,9 @@
   "cmd_full_name": "dataphin-public get-quality-watch",
   "cmd_name": "get-quality-watch",
   "deprecated": false,
-  "description_en": "Retrieves a quality monitored object.\nRelease version: v5.4.2",
+  "description_en": "Retrieves a quality monitoring object.\nOnline version: v5.4.2",
   "description_zh": "获取质量监控对象。\n上线版本：v5.4.2",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public get-quality-watch --op-tenant-id 30001011 --id 11 --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "GetQualityWatch",
@@ -35,7 +35,7 @@
     },
     {
       "example": "11",
-      "help_en": "The monitor ID",
+      "help_en": "The watchtask ID",
       "help_zh": "监控Id",
       "location": "query",
       "name": "id",
@@ -45,6 +45,19 @@
       "raw_name": "Id",
       "required": true,
       "type": "int"
+    },
+    {
+      "example": "30001011",
+      "help_en": "The ID of the operator user",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
@@ -77,7 +90,7 @@
           },
           "Message": {
             "backendName": "Message",
-            "description_en": "The details of the backend exception",
+            "description_en": "The backend exception details",
             "description_zh": "后端相应异常详情",
             "example": "internal error",
             "title_en": "后端相应异常详情",
@@ -86,7 +99,7 @@
           },
           "QualityWatchInfo": {
             "backendName": "QualityWatchInfo",
-            "description_en": "The details of the monitored object",
+            "description_en": "The monitoring object details",
             "description_zh": "监控对象详情",
             "properties": {
               "CreateTime": {
@@ -109,7 +122,7 @@
               },
               "CreatorName": {
                 "backendName": "CreatorName",
-                "description_en": "The creator name",
+                "description_en": "The name of the creator",
                 "description_zh": "创建者名称",
                 "example": "test",
                 "title_en": "创建者名称",
@@ -118,7 +131,7 @@
               },
               "DataSourceInfo": {
                 "backendName": "DataSourceInfo",
-                "description_en": "The datasource config details",
+                "description_en": "The data source details",
                 "description_zh": "数据源详情",
                 "properties": {
                   "CreateTime": {
@@ -141,7 +154,7 @@
                   },
                   "CreatorName": {
                     "backendName": "CreatorName",
-                    "description_en": "The creator name",
+                    "description_en": "The name of the creator",
                     "description_zh": "创建者名称",
                     "example": "test",
                     "title_en": "创建者名称",
@@ -150,7 +163,7 @@
                   },
                   "Env": {
                     "backendName": "Env",
-                    "description_en": "The environment identifier. Valid values:\nPROD\nDEV",
+                    "description_en": "The environment identifier. Valid values:\n\nPROD: production environment.\nDEV: development environment",
                     "description_zh": "环境标识：PROD、DEV",
                     "example": "DEV",
                     "title_en": "环境标识：PROD、DEV",
@@ -204,7 +217,7 @@
                   },
                   "Type": {
                     "backendName": "Type",
-                    "description_en": "The data source type. Valid values:\nMAX_COMPUTE\nHADOOP",
+                    "description_en": "The data source type. Valid values:\n\nMAX_COMPUTE\nHADOOP",
                     "description_zh": "数据源类型: MAX_COMPUTE、HADOOP",
                     "example": "MAX_COMPUTE",
                     "title_en": "数据源类型: MAX_COMPUTE、HADOOP",
@@ -228,7 +241,7 @@
               },
               "Id": {
                 "backendName": "Id",
-                "description_en": "The monitor ID",
+                "description_en": "The watchtask ID",
                 "description_zh": "监控Id",
                 "example": "11",
                 "format": "int64",
@@ -280,7 +293,7 @@
                   },
                   "ComputeType": {
                     "backendName": "ComputeType",
-                    "description_en": "The metric computation type. Valid values:\nAUTO\nCUSTOM\nMOUNT\nCOMBINE",
+                    "description_en": "The metric computation type. Valid values: AUTO, CUSTOM, MOUNT, and COMBINE",
                     "description_zh": "指标计算类型类型：AUTO、CUSTOM、MOUNT、COMBINE",
                     "example": "AUTO",
                     "title_en": "指标计算类型类型：AUTO、CUSTOM、MOUNT、COMBINE",
@@ -399,7 +412,7 @@
                   },
                   "Type": {
                     "backendName": "Type",
-                    "description_en": "The metric type. Valid values:\nINDEX",
+                    "description_en": "The metric type. Valid values: INDEX",
                     "description_zh": "指标类型：INDEX",
                     "example": "INDEX",
                     "title_en": "指标类型：INDEX",
@@ -413,7 +426,7 @@
               },
               "LatestWatchTaskId": {
                 "backendName": "LatestWatchTaskId",
-                "description_en": "The ID of the most recent quality watchtask for the monitored object",
+                "description_en": "The ID of the latest quality watchtask",
                 "description_zh": "最近一次监控对象校验记录ID",
                 "example": "1",
                 "format": "int64",
@@ -423,7 +436,7 @@
               },
               "LatestWatchTaskStatus": {
                 "backendName": "LatestWatchTaskStatus",
-                "description_en": "The status of the most recent quality watchtask for the monitored object",
+                "description_en": "The status of the latest quality watchtask",
                 "description_zh": "最近一次监控对象校验记录状态",
                 "example": "SUCCESS",
                 "title_en": "最近一次监控对象校验记录状态",
@@ -487,7 +500,7 @@
               },
               "Status": {
                 "backendName": "Status",
-                "description_en": "The status. Valid values:\nENABLE\nDISABLE",
+                "description_en": "The status. Valid values:\n\nENABLE: Enabled.\nDISABLE: Disabled",
                 "description_zh": "状态：ENABLE，DISABLE",
                 "example": "ENABLE",
                 "title_en": "状态：ENABLE，DISABLE",
@@ -556,7 +569,7 @@
                   },
                   "Env": {
                     "backendName": "Env",
-                    "description_en": "The environment identifier. Valid values:\nDEV\nPROD",
+                    "description_en": "The environment identifier. Valid values:\n\nDEV: development environment.\nPROD: production environment",
                     "description_zh": "环境标识：DEV、PROD",
                     "example": "DEV",
                     "title_en": "环境标识：DEV、PROD",
@@ -628,7 +641,7 @@
                   },
                   "Type": {
                     "backendName": "Type",
-                    "description_en": "The type. Valid values:\nLOGIC_DIM_TABLE: logical dimension table.\nLOGIC_FACT_TABLE: logical fact table.\nLOGIC_SUM_TABLE: logical aggregate table.\nLOGIC_LABEL_TABLE: logical label table.\nPHYSICAL_TABLE: physical table.\nREALTIME_LOGICAL_TABLE: real-time meta table",
+                    "description_en": "The type. Valid values:\n\nLOGIC_DIM_TABLE: logical dimension table.\nLOGIC_FACT_TABLE: logical fact table.\nLOGIC_SUM_TABLE: logical aggregate table.\nLOGIC_LABEL_TABLE: logical label table.\nPHYSICAL_TABLE: physical table.\nREALTIME_LOGICAL_TABLE: real-time meta table",
                     "description_zh": "类型：LOGIC_DIM_TABLE 维度逻辑表，LOGIC_FACT_TABLE 事实逻辑表，LOGIC_SUM_TABLE 汇总逻辑表，LOGIC_LABEL_TABLE 标签逻辑表，PHYSICAL_TABLE 物理表，REALTIME_LOGICAL_TABLE 实时元表",
                     "example": "LOGIC_DIM_TABLE",
                     "title_en": "类型：LOGIC_DIM_TABLE 维度逻辑表，LOGIC_FACT_TABLE 事实逻辑表，LOGIC_SUM_TABLE 汇总逻辑表，LOGIC_LABEL_TABLE 标签逻辑表，PHYSICAL_TABLE 物理表，REALTIME_LOGICAL_TABLE 实时元表",
@@ -642,7 +655,7 @@
               },
               "Type": {
                 "backendName": "Type",
-                "description_en": "The monitored object type. Valid values:\nTABLE: Dataphin table.\nDATASOURCE_TABLE: full-domain table.\nDATASOURCE: data source.\nINDEX: metric.\nREALTIME_LOGICAL_TABLE: real-time meta table",
+                "description_en": "The monitored object type. Valid values:\n\nTABLE: Dataphin table.\nDATASOURCE_TABLE: global table.\nDATASOURCE: data source.\nINDEX: metric.\nREALTIME_LOGICAL_TABLE: real-time meta table",
                 "description_zh": "监控对象类型: TABLE Dataphin表，DATASOURCE_TABLE 全域表，DATASOURCE 数据源,INDEX 指标，REALTIME_LOGICAL_TABLE 实时元表",
                 "example": "TABLE",
                 "title_en": "监控对象类型: TABLE Dataphin表，DATASOURCE_TABLE 全域表，DATASOURCE 数据源,INDEX 指标，REALTIME_LOGICAL_TABLE 实时元表",

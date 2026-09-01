@@ -1,108 +1,9 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun iqs POST /linked-retrieval/linked-retrieval-entry/v1/iqs/readpage/basic --region cn-hangzhou --header \"Content-Type=application/json\" --body '{\"readability\":{\"excludeAllLinks\":false,\"readabilityMode\":\"none\",\"excludedTags\":[\"form\"],\"excludeAllImages\":false},\"formats\":[\"html\"],\"maxAge\":1296000,\"location\":\"example-string\",\"pageTimeout\":10000,\"url\":\"https://help.aliyun.com/document_detail/2837301.html0spm=a2c4g.11186623.help-menu-2837261.d_0_0_0.59ed3e95CppOt2_scm=20140722.H_2837301._.OR_help-T_cn~zh-V_1\",\"timeout\":60000}'",
   "cmd_full_name": "iqs read-page-basic",
   "cmd_name": "read-page-basic",
   "components": {
     "schemas": {
-      "ReadPageBody": {
-        "description_en": "Post body in JSON format",
-        "description_zh": "post body（json 格式）",
-        "properties": {
-          "formats": {
-            "backendName": "formats",
-            "description_en": "The format of the parsing result.\nrawHtml: the HTML of the target website.\nhtml: the page content processed based on readabilityMode.\nmarkdown: the Markdown content converted from HTML.\ntext: the text content extracted from HTML",
-            "description_zh": "解析结果格式\nrawHtml：目标站点的 html\nhtml: 根据 readabilityMode 处理后的页面内容\nmarkdown：根据 html 转换成的 markdown 内容\ntext：html 中的文本内容",
-            "items": {
-              "description_en": "Default value: ['html', 'markdown', 'text']",
-              "description_zh": "默认值：['html', 'markdown', 'text']",
-              "example": "['html', 'markdown', 'text']",
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "location": {
-            "backendName": "location",
-            "description_en": "You do not need to specify this parameter",
-            "description_zh": "无需传入",
-            "example": "null",
-            "type": "string"
-          },
-          "maxAge": {
-            "backendName": "maxAge",
-            "description_en": "The maximum cache validity period. Unit: seconds. Default value: 1296000.\n\nIf the cache duration is less than the value of maxAge, cached content is returned.\n\nIf the value of maxAge is 0, caching is not used",
-            "description_zh": "最大缓存时间，单位（秒），默认值：1296000。\n\n若缓存时间小于 maxAge，则返回缓存内容；\n\n若 maxAge 等于 0，则不使用缓存",
-            "example": "1296000",
-            "format": "int32",
-            "type": "integer"
-          },
-          "pageTimeout": {
-            "backendName": "pageTimeout",
-            "description_en": "The URL read timeout period. The value of pageTimeout must be less than the value of timeout.\n\nDefault value: 10000",
-            "description_zh": "url 读取超时时间，pageTimeout 应小于 timeout 时长\n\n默认值：10000",
-            "example": "10000",
-            "format": "int32",
-            "type": "integer"
-          },
-          "readability": {
-            "backendName": "readability",
-            "description_en": "The readability configuration for the parsing result",
-            "description_zh": "解析结果可读性配置",
-            "properties": {
-              "excludeAllImages": {
-                "backendName": "excludeAllImages",
-                "description_en": "Specifies whether to exclude all images.\n\nDefault value: false",
-                "description_zh": "是否剔除所有图片\n\n默认值：false",
-                "example": "false",
-                "type": "boolean"
-              },
-              "excludeAllLinks": {
-                "backendName": "excludeAllLinks",
-                "description_en": "Specifies whether to exclude all links.\n\nDefault value: false",
-                "description_zh": "是否剔除所有链接\n\n默认值：false",
-                "example": "false",
-                "type": "boolean"
-              },
-              "excludedTags": {
-                "backendName": "excludedTags",
-                "description_en": "The tags to exclude",
-                "description_zh": "指定排除的标签",
-                "items": {
-                  "description_en": "[]",
-                  "description_zh": "[]",
-                  "example": "['form', 'header', 'footer', 'nav']",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "readabilityMode": {
-                "backendName": "readabilityMode",
-                "description_en": "Valid values:\nnone: does not remove any information. Default value: none.\n\nnormal: removes irrelevant information from the target page, such as headers, footers, and navigation elements, based on a proprietary algorithm.\n\narticle: extracts the main body content of the website based on a proprietary algorithm. This mode is suitable for blogs and news websites, but not for directory or navigation pages",
-                "description_zh": "none：不删除信息，默认为 none\n\nnormal: 基于自研算法，剔除目标页面无关信息（页头/页脚，导航等）\n\narticle: 基于自研算法，获取站点主要正文内容(适用于博客、新闻站点，不适用于目录页、导航页)",
-                "example": "none",
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "timeout": {
-            "backendName": "timeout",
-            "description_en": "The end-to-end processing timeout period. Unit: ms.\n\nValid values: [0, 180000].\n\nDefault value: 60000",
-            "description_zh": "全链路处理超时时间，单位：ms\n\n可选值：[0, 180000]\n\n默认值：60000",
-            "example": "60000",
-            "format": "int32",
-            "type": "integer"
-          },
-          "url": {
-            "backendName": "url",
-            "description_en": "The target URL to parse. The value must start with http:// or https://",
-            "description_zh": "解析的目标地址，必须以 http:// 或 https:// 开头",
-            "example": "https://help.aliyun.com/document_detail/2837301.html?spm=a2c4g.11186623.help-menu-2837261.d_0_0_0.59ed3e95CppOt2&scm=20140722.H_2837301._.OR_help-T_cn~zh-V_1",
-            "required": true,
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "ReadPageItem": {
         "description_en": "The post body in JSON format",
         "description_zh": "post body (json 格式)",
@@ -162,7 +63,7 @@
   "deprecated": false,
   "description_en": "Quickly fetches HTML and parses static web page content",
   "description_zh": "快速获取 HTML 并解析静态网页内容",
-  "kebab_example": "",
+  "kebab_example": "aliyun iqs read-page-basic --url 'https://help.aliyun.com/document_detail/2837301.html0spm=a2c4g.11186623.help-menu-2837261.d_0_0_0.59ed3e95CppOt2_scm=20140722.H_2837301._.OR_help-T_cn~zh-V_1' --timeout 60000 --page-timeout 10000 --formats html --location example-string --max-age 1296000 --readability '{\"excludeAllLinks\":false,\"readabilityMode\":\"none\",\"excludedTags\":[\"form\"],\"excludeAllImages\":false}' --api-version 2024-11-11 --region cn-hangzhou",
   "method": "POST",
   "multi_version": true,
   "name": "ReadPageBasic",

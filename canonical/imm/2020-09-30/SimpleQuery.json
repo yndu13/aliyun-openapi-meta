@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun imm SimpleQuery --region cn-hangzhou --Order 'asc,desc' --NextToken 'MTIzNDU2Nzg6aW1tdGVzdDpleGFtcGxlYnVja2V0OmRhdGFzZXQwMDE6b3NzOi8vZXhhbXBsZWJ1Y2tldC9zYW1wbGVvYmplY3QxLmpwZw==' --Query 'example-string' --ProjectName 'test-project' --DatasetName 'test-dataset' --Aggregations '[{\"Field\":\"Size\",\"Operation\":\"sum\"}]' --MaxResults 10 --Sort 'Size,Filename' --WithFields '[\"Filename\"]' --WithoutTotalHits true",
   "cmd_full_name": "imm simple-query",
   "cmd_name": "simple-query",
   "components": {
@@ -1800,50 +1800,6 @@
         "title": "视频场景元素",
         "type": "object"
       },
-      "SimpleQuery": {
-        "description_en": "The search conditions that can be nested in SimpleQuery",
-        "description_zh": "SimpleQuery查询参数条件，可自嵌套",
-        "properties": {
-          "Field": {
-            "backendName": "Field",
-            "description_en": "This parameter is required. The field name. For a list of the supported fields, see [Supported fields and operators]（https://help.aliyun.com/document_detail/252856.html）",
-            "description_zh": "必填。字段名称。关于支持的字段，请参见[字段和操作符的支持列表]（https://help.aliyun.com/document_detail/2743991.html）",
-            "example": "Size",
-            "title": "需要查询的字段名",
-            "type": "string"
-          },
-          "Operation": {
-            "backendName": "Operation",
-            "description_en": "This parameter is required. The operator.\n\nEnumerated values:\n\nexist: exists query.\nnot: logical NOT.\nor: logical OR.\nprefix: prefix query.\nand: logical AND.\nIt: less than.\nmatch-phrase: string match query.\ngte: greater than or equal to.\neq: equal to.\nlte: less than or equal to.\ngt: greater than.\nnested: You can perform logical condition queries within the same object when the data type of a field is ARRAY",
-            "description_zh": "必填。操作运算符",
-            "example": "and",
-            "title": "运算符",
-            "type": "string"
-          },
-          "SubQueries": {
-            "backendName": "SubQueries",
-            "description_en": "The subquery structure.\n\nYou can configure Subquery conditions only if you set the Operation parameter to and, or, not, or nested.\n\nIf you set the Operation parameter to and, or, or not, all query conditions specified by the SubQueries parameter must comply with the logical relationship of the parent query condition.\n\nIf you set the Operation parameter to nested, the parent field of a subquery must be of the ARRAY type, such as Labels. The operator of a subquery condition must be one or more of the following operators: and, or, and not. The field of the subquery must be a sub-field of the parent field.\n\nFor information about how to call the SimpleQuery operation, see [SimpleQuery]（https://help.aliyun.com/document_detail/478175.html）",
-            "description_zh": "子查询的结构体。\n\n只有当Operations为逻辑运算符（and、or、not或nested）时，才能设置子查询条件。\n\n在逻辑运算符为and/or/not时，其SubQueries内描述的所有条件需符合父级设置的and/or/not逻辑关系。\n\n在逻辑运算符为nested时，其父级的Field必须为一个数组类的字段（如：Labels）。子查询条件SimpleQuery组的Operation必须为and/or/not中的一个或多个，其Field必须为父级Field的子属性。\n\n请参考[SimpleQuery - 简单查询]（https://help.aliyun.com/document_detail/478175.html）查看使用用例",
-            "items": {
-              "$ref": "#/components/schemas/SimpleQuery",
-              "description_en": "The subquery condition",
-              "description_zh": "子查询条件"
-            },
-            "title": "由 SimpleQuery 结构体组成的子查询数组",
-            "type": "array"
-          },
-          "Value": {
-            "backendName": "Value",
-            "description_en": "The field value. If you set the Operation parameter to and, or, not, or nested, this parameter is invalid",
-            "description_zh": "查询的字段值。当Operations为逻辑运算符（and、or、not或nested）时，该字段无效",
-            "example": "10",
-            "title": "需要查询的字段值",
-            "type": "string"
-          }
-        },
-        "title": "SimpleQuery 简单查询所用到的查询结构体",
-        "type": "object"
-      },
       "SubtitleStream": {
         "description_en": "The information about the subtitle stream",
         "description_zh": "字幕流信息",
@@ -2225,7 +2181,7 @@
   "deprecated": false,
   "description_en": "Queries files in a dataset by performing a simple query operation. The operation supports logical expressions",
   "description_zh": "查询和统计数据集内文件，支持逻辑关系表达方式",
-  "kebab_example": "",
+  "kebab_example": "aliyun imm simple-query --next-token MTIzNDU2Nzg6aW1tdGVzdDpleGFtcGxlYnVja2V0OmRhdGFzZXQwMDE6b3NzOi8vZXhhbXBsZWJ1Y2tldC9zYW1wbGVvYmplY3QxLmpwZw== --max-results 10 --project-name test-project --dataset-name test-dataset --query example-string --sort Size,Filename --order asc,desc --aggregations Field=Size Operation=sum --with-fields Filename --without-total-hits true --api-version 2020-09-30 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": true,
   "name": "SimpleQuery",

@@ -1,83 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig POST /v1/http-apis/api-cr68g1dlhtgm31fb000/deploy --region cn-hangzhou --header \"Content-Type=application/json\" --body \"key_:_value\"",
   "cmd_full_name": "apig deploy-http-api",
   "cmd_name": "deploy-http-api",
-  "components": {
-    "schemas": {
-      "HttpApiBackendMatchCondition": {
-        "description_en": "The configurations of the matching conditions",
-        "description_zh": "匹配条件配置",
-        "properties": {
-          "key": {
-            "backendName": "key",
-            "description_en": "The key of the matching condition",
-            "description_zh": "匹配Key",
-            "example": "color",
-            "title": "匹配Key。",
-            "type": "string"
-          },
-          "operator": {
-            "backendName": "operator",
-            "description_en": "The operator. Exact match, prefix match, and regular expressions are supported.\n\nValid values:\n\nequal\nregex\nprefix",
-            "description_zh": "操作符，支持精确匹配、前缀匹配、正则表达式三种方式",
-            "example": "equal",
-            "title": "操作符。",
-            "type": "string"
-          },
-          "type": {
-            "backendName": "type",
-            "description_en": "The match type. Query and Header parameters can be matched",
-            "description_zh": "匹配类型，支持Query参数或Header参数匹配",
-            "example": "Query",
-            "title": "匹配类型。",
-            "type": "string"
-          },
-          "value": {
-            "backendName": "value",
-            "description_en": "The value of the matching condition",
-            "description_zh": "匹配值",
-            "example": "gray",
-            "title": "匹配值。",
-            "type": "string"
-          }
-        },
-        "title": "匹配条件配置。",
-        "type": "object"
-      },
-      "HttpApiBackendMatchConditions": {
-        "description_en": "The matching condition configurations related to API publishing",
-        "description_zh": "API发布相关的匹配条件配置",
-        "properties": {
-          "conditions": {
-            "backendName": "conditions",
-            "description_en": "The configurations of the matching conditions",
-            "description_zh": "匹配条件配置",
-            "items": {
-              "$ref": "#/components/schemas/HttpApiBackendMatchCondition",
-              "description_en": "The matching conditions",
-              "description_zh": "匹配条件"
-            },
-            "title": "匹配条件。",
-            "type": "array"
-          },
-          "default": {
-            "backendName": "default",
-            "description_en": "Specifies whether the matching condition is the default one",
-            "description_zh": "是否默认匹配条件",
-            "example": "true",
-            "title": "是否默认匹配条件。",
-            "type": "boolean"
-          }
-        },
-        "title": "API发布相关的匹配条件配置。",
-        "type": "object"
-      }
-    }
-  },
   "deprecated": false,
   "description_en": "Publishes an HTTP API. This includes REST APIs and routes within HTTP APIs",
   "description_zh": "发布HTTP API。包括Rest API 和HTTP API里的路由",
-  "kebab_example": "",
+  "kebab_example": "aliyun apig deploy-http-api --http-api-id api-cr68g1dlhtgm31fb000 --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "DeployHttpApi",
@@ -182,6 +110,12 @@
         {
           "fields": [
             {
+              "enum": [
+                "Mock",
+                "MultiServiceByContent",
+                "MultiServiceByRatio",
+                "SingleService"
+              ],
               "example": "SingleService",
               "help_en": "The API publish scenario. Backend configurations cannot be specified during publishing. Configure them in advance by using UpdateHttpApi or UpdateHttpApiOperation before publishing",
               "help_zh": "API发布场景。发布时不允许指定后端配置，须通过 UpdateHttpApi 或 UpdateHttpApiOperation 预先配置后再发布",
@@ -240,6 +174,11 @@
                               "type": "string"
                             },
                             {
+                              "enum": [
+                                "equal",
+                                "prefix",
+                                "regex"
+                              ],
                               "example": "equal",
                               "help_en": "The operator. Exact match, prefix match, and regular expressions are supported.\n\nValid values:\n\nequal\nregex\nprefix",
                               "help_zh": "操作符，支持精确匹配、前缀匹配、正则表达式三种方式",
@@ -252,6 +191,10 @@
                               "type": "string"
                             },
                             {
+                              "enum": [
+                                "Header",
+                                "Query"
+                              ],
                               "example": "Query",
                               "help_en": "The match type. Query and Header parameters can be matched",
                               "help_zh": "匹配类型，支持Query参数或Header参数匹配",
@@ -324,6 +267,10 @@
                     "type": "int"
                   },
                   {
+                    "enum": [
+                      "HTTP",
+                      "HTTPS"
+                    ],
                     "example": "HTTP",
                     "help_en": "The service protocol. Valid values:\nHTTP\nHTTPS",
                     "help_zh": "服务协议:\nHTTP。\nHTTPS",
@@ -515,7 +462,6 @@
         "description_zh": "Schema of Response",
         "properties": {
           "code": {
-            "backendName": "code",
             "description_en": "The response status code",
             "description_zh": "响应状态码",
             "example": "Ok",
@@ -535,14 +481,12 @@
             "type": "object"
           },
           "message": {
-            "backendName": "message",
             "description_en": "The response message",
             "description_zh": "响应消息",
             "example": "success",
             "type": "string"
           },
           "requestId": {
-            "backendName": "requestId",
             "description_en": "The request ID",
             "description_zh": "请求ID",
             "example": "0C2D1C68-0D93-5561-8EE6-FDB7BF067A30",

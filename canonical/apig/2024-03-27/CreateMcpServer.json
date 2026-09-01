@@ -1,148 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig POST /v1/mcp-servers --region cn-hangzhou --header \"Content-Type=application/json\" --body {\"backendConfig\":{\"services\":[{\"protocol\":\"HTTP\",\"port\":8080,\"weight\":49,\"serviceId\":\"svc-crbgq0dlhtgr000\",\"version\":\"2.1.6\"}],\"scene\":\"SingleService\"},\"mcpServerConfig\":{\"swaggerConfig\":\"swagger.yaml\",\"mcpServerSpec\":\"mcp-spec.yaml\"},\"match\":\"example-string\",\"description\":\"mcp_tool_fetch_time\",\"type\":\"RealMCP\",\"createFromType\":\"ApiGatewayMcpHosting\",\"domainIds\":[\"d-cr62ts5lhtglnu000\"],\"protocol\":\"HTTP\",\"mcpStatisticsEnable\":false,\"grayMcpServerConfigs\":[{\"routeId\":\"gray-route-123\",\"backendConfig\":{\"services\":[{\"protocol\":\"HTTP\",\"port\":8080,\"weight\":100,\"serviceId\":\"svc-gray\",\"version\":\"v2.0.0\"}],\"scene\":\"SingleService\"},\"match\":\"example-string\"}],\"name\":\"fetch-time\",\"exposedUriPath\":\"/sse\",\"assembledSources\":[{\"mcpServerName\":\"test-mcp\",\"mcpServerId\":\"mcp-sdfa3qgavz\",\"tools\":[\"tool1\"]}],\"gatewayId\":\"gw-cq7l5s5lhtgi6qac0\"}",
   "cmd_full_name": "apig create-mcp-server",
   "cmd_name": "create-mcp-server",
-  "components": {
-    "schemas": {
-      "HttpRouteMatch": {
-        "description_en": "The route match rule",
-        "description_zh": "路由Match规则",
-        "properties": {
-          "headers": {
-            "backendName": "headers",
-            "description_en": "The list of HTTP request header matching rules",
-            "description_zh": "http请求头匹配规则列表",
-            "itemName": "header",
-            "items": {
-              "description_en": "The HTTP request header matching rule",
-              "description_zh": "http请求头匹配规则",
-              "properties": {
-                "name": {
-                  "backendName": "name",
-                  "description_en": "The name of the header",
-                  "description_zh": "header的名称",
-                  "example": "dev",
-                  "title": "header的名称",
-                  "type": "string"
-                },
-                "type": {
-                  "backendName": "type",
-                  "description_en": "The header matching type. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
-                  "description_zh": "header匹配类型：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
-                  "example": "Exact",
-                  "title": "header匹配规则. Exact:精确匹配, Prefix:前缀匹配,Regex: 正则匹配",
-                  "type": "string"
-                },
-                "value": {
-                  "backendName": "value",
-                  "description_en": "The value of the header",
-                  "description_zh": "header的value",
-                  "example": "true",
-                  "title": "header的value",
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "title": "http请求头匹配规则",
-            "type": "array"
-          },
-          "ignoreUriCase": {
-            "backendName": "ignoreUriCase",
-            "description_en": "Specifies whether the path is case-insensitive",
-            "description_zh": "路径是否大小写不敏感",
-            "example": "true",
-            "title": "路径是否大小写敏感",
-            "type": "boolean"
-          },
-          "methods": {
-            "backendName": "methods",
-            "description_en": "The list of request methods",
-            "description_zh": "请求方法列表",
-            "itemName": "method",
-            "items": {
-              "description_en": "The request method. Valid values:\nGET\nHEAD\nPOST\nPUT\nDELETE\nCONNECT\nOPTION\nTRACE\nPATCH",
-              "description_zh": "请求方法：\nGET\nHEAD\nPOST\nPUT\nDELETE\nCONNECT\nOPTION\nTRACE\nPATCH",
-              "example": "GET",
-              "type": "string"
-            },
-            "title": "请求方法. 取值范围:[GET, HEAD, POST, PUT, DELETE, CONNECT, OPTION, TRACE, PATCH]",
-            "type": "array"
-          },
-          "path": {
-            "backendName": "path",
-            "description_en": "The path rule",
-            "description_zh": "路径规则",
-            "properties": {
-              "type": {
-                "backendName": "type",
-                "description_en": "The path matching rule. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
-                "description_zh": "路径匹配规则：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
-                "example": "Prefix",
-                "title": "路径匹配规则。缺省为 Exact；支持 Exact:精确匹配、Prefix:前缀匹配、Regex:正则匹配",
-                "type": "string"
-              },
-              "value": {
-                "backendName": "value",
-                "description_en": "The path",
-                "description_zh": "路径",
-                "example": "/user",
-                "title": "路径",
-                "type": "string"
-              }
-            },
-            "title": "路径规则",
-            "type": "object"
-          },
-          "queryParams": {
-            "backendName": "queryParams",
-            "description_en": "The list of query request parameter matching rules",
-            "description_zh": "query请求参数匹配规则列表",
-            "itemName": "queryParam",
-            "items": {
-              "description_en": "The query request parameter matching rule",
-              "description_zh": "query请求参数匹配规则",
-              "properties": {
-                "name": {
-                  "backendName": "name",
-                  "description_en": "The parameter name",
-                  "description_zh": "参数名称",
-                  "example": "age",
-                  "title": "参数名称",
-                  "type": "string"
-                },
-                "type": {
-                  "backendName": "type",
-                  "description_en": "The query parameter matching type. Valid values:\nExact: exact match. \nPrefix: prefix match. \nRegex: regular expression match",
-                  "description_zh": "query参数匹配类型：\nExact：精确匹配。 \nPrefix：前缀匹配。 \nRegex：正则匹配",
-                  "example": "Exact",
-                  "title": "query参数匹配规则. Exact:精确匹配, Prefix:前缀匹配,Regex: 正则匹配",
-                  "type": "string"
-                },
-                "value": {
-                  "backendName": "value",
-                  "description_en": "The parameter value",
-                  "description_zh": "参数值",
-                  "example": "17",
-                  "title": "参数值",
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "title": "queryParam参数匹配规则",
-            "type": "array"
-          }
-        },
-        "title": "路由match规则",
-        "type": "object"
-      }
-    }
-  },
   "deprecated": false,
   "description_en": "Creates a Model Context Protocol (MCP) server",
   "description_zh": "创建一个模型上下文协议（MCP）服务器",
-  "kebab_example": "",
+  "kebab_example": "aliyun apig create-mcp-server --gateway-id gw-cq7l5s5lhtgi6qac0 --name fetch-time --description mcp_tool_fetch_time --type RealMCP --domain-ids d-cr62ts5lhtglnu000 --match example-string --backend-config '{\"services\":[{\"protocol\":\"HTTP\",\"port\":8080,\"weight\":49,\"serviceId\":\"svc-crbgq0dlhtgr000\",\"version\":\"2.1.6\"}],\"scene\":\"SingleService\"}' --protocol HTTP --exposed-uri-path /sse --assembled-sources '[{\"mcpServerName\":\"test-mcp\",\"mcpServerId\":\"mcp-sdfa3qgavz\",\"tools\":[\"tool1\"]}]' --mcp-statistics-enable false --create-from-type ApiGatewayMcpHosting --gray-mcp-server-configs '[{\"routeId\":\"gray-route-123\",\"backendConfig\":{\"services\":[{\"protocol\":\"HTTP\",\"port\":8080,\"weight\":100,\"serviceId\":\"svc-gray\",\"version\":\"v2.0.0\"}],\"scene\":\"SingleService\"},\"match\":\"example-string\"}]' --mcp-server-config swaggerConfig=swagger.yaml mcpServerSpec=mcp-spec.yaml --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateMcpServer",
@@ -335,6 +198,13 @@
       "type": "object"
     },
     {
+      "enum": [
+        "ApiGatewayAssembly",
+        "ApiGatewayHttpToMCP",
+        "ApiGatewayProxyMcpHosting",
+        "NacosHttpToMCP",
+        "NacosMcpHosting"
+      ],
       "example": "ApiGatewayMcpHosting",
       "help_en": "The creation source type. Valid values:\n\nApiGatewayHttpToMCP: gateway-managed HTTP-to-MCP conversion.\nApiGatewayProxyMcpHosting: gateway-managed MCP direct proxy.\nApiGatewayAssembly: gateway MCP assembly.\nNacosHttpToMCP: gateway-managed Nacos-synced HTTP-to-MCP conversion.\nNacosMcpHosting: gateway-managed Nacos-synced MCP direct proxy",
       "help_zh": "创建来源类型\n\nApiGatewayHttpToMCP 网关托管HTTP转MCP\nApiGatewayProxyMcpHosting 网关托管MCP直接代理\nApiGatewayAssembly    网关MCP组装\nNacosHttpToMCP        网关托管NACOS同步HTTP转MCP\nNacosMcpHosting      网关托管NACOS同步MCP直接代理",
@@ -412,6 +282,9 @@
           {
             "fields": [
               {
+                "enum": [
+                  "SingleService"
+                ],
                 "example": "SingleService",
                 "help_en": "The backend scenario",
                 "help_zh": "后端场景",
@@ -528,6 +401,11 @@
                       "type": "string"
                     },
                     {
+                      "enum": [
+                        "Exact",
+                        "Prefix",
+                        "Regex"
+                      ],
                       "example": "Exact",
                       "help_en": "The header matching type. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
                       "help_zh": "header匹配类型：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
@@ -593,6 +471,11 @@
               {
                 "fields": [
                   {
+                    "enum": [
+                      "Exact",
+                      "Prefix",
+                      "Regex"
+                    ],
                     "example": "Prefix",
                     "help_en": "The path matching rule. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
                     "help_zh": "路径匹配规则：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
@@ -643,6 +526,11 @@
                       "type": "string"
                     },
                     {
+                      "enum": [
+                        "Exact",
+                        "Prefix",
+                        "Regex"
+                      ],
                       "example": "Exact",
                       "help_en": "The query parameter matching type. Valid values:\nExact: exact match. \nPrefix: prefix match. \nRegex: regular expression match",
                       "help_zh": "query参数匹配类型：\nExact：精确匹配。 \nPrefix：前缀匹配。 \nRegex：正则匹配",
@@ -735,6 +623,11 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "Exact",
+                  "Prefix",
+                  "Regex"
+                ],
                 "example": "Exact",
                 "help_en": "The header matching type. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
                 "help_zh": "header匹配类型：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
@@ -800,6 +693,11 @@
         {
           "fields": [
             {
+              "enum": [
+                "Exact",
+                "Prefix",
+                "Regex"
+              ],
               "example": "Prefix",
               "help_en": "The path matching rule. Valid values:\nExact: exact match.\nPrefix: prefix match. \nRegex: regular expression match",
               "help_zh": "路径匹配规则：\nExact：精确匹配。\nPrefix：前缀匹配。 \nRegex：正则匹配",
@@ -850,6 +748,11 @@
                 "type": "string"
               },
               {
+                "enum": [
+                  "Exact",
+                  "Prefix",
+                  "Regex"
+                ],
                 "example": "Exact",
                 "help_en": "The query parameter matching type. Valid values:\nExact: exact match. \nPrefix: prefix match. \nRegex: regular expression match",
                 "help_zh": "query参数匹配类型：\nExact：精确匹配。 \nPrefix：前缀匹配。 \nRegex：正则匹配",
@@ -967,6 +870,12 @@
       "type": "string"
     },
     {
+      "enum": [
+        "HTTP",
+        "HTTPS",
+        "SSE",
+        "StreamableHTTP"
+      ],
       "example": "HTTP",
       "help_en": "The protocol type. This parameter is required. You must explicitly specify the protocol type (HTTP/HTTPS/SSE/StreamableHTTP). If this parameter is omitted, the API returns InvalidParameter.WithValue(400)",
       "help_zh": "协议类型，此参数为必填项，必须显式指定协议类型（HTTP/HTTPS/SSE/StreamableHTTP），省略时 API 返回 InvalidParameter.WithValue(400)",

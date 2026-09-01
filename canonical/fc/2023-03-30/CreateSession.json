@@ -1,98 +1,9 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun fc POST /2023-03-30/functions/my-func/sessions --region cn-hangzhou --qualifier aliasName1 --header \"Content-Type=application/json\" --body \"example-string\"",
   "cmd_full_name": "fc create-session",
   "cmd_name": "create-session",
   "components": {
     "schemas": {
-      "CreateSessionInput": {
-        "description_en": "The parameters for creating a session",
-        "description_zh": "创建会话的参数",
-        "properties": {
-          "allowInternetAccess": {
-            "backendName": "allowInternetAccess",
-            "type": "boolean"
-          },
-          "disableSessionIdReuse": {
-            "backendName": "disableSessionIdReuse",
-            "description_en": "Specifies whether to disable session ID reuse. Default value: False, which indicates that after a session expires, you can use the same SessionID to initiate requests. The system treats this as a new session and binds it to a new instance. If set to True, the SessionID cannot be reused after the session expires",
-            "description_zh": "默认值 False，表示在 SessionID 会话过期后，可携带相同SessionID继续发起请求，系统将视为新会话绑定新实例。当配置为 True，表示在 SessionID 会话过期后，不可复用 SessionID",
-            "example": "false",
-            "title": "默认值 False，表示在 SessionID 会话过期后，可携带相同SessionID继续发起请求，系统将视为新会话绑定新实例。当配置为 True，表示在 SessionID 会话过期后，不可复用 SessionID。",
-            "type": "boolean"
-          },
-          "enableAutoPause": {
-            "backendName": "enableAutoPause",
-            "type": "boolean"
-          },
-          "enableAutoResume": {
-            "backendName": "enableAutoResume",
-            "type": "boolean"
-          },
-          "juiceFsConfig": {
-            "$ref": "#/components/schemas/JuiceFsConfig",
-            "backendName": "juiceFsConfig",
-            "description_en": "The JuiceFs mount configuration",
-            "description_zh": "JuiceFs 挂载配置",
-            "title": "JuiceFs 挂载配置"
-          },
-          "nasConfig": {
-            "$ref": "#/components/schemas/NASConfig",
-            "backendName": "nasConfig",
-            "description_en": "The NAS configuration. After this parameter is configured, instances associated with the session can access the specified NAS resources",
-            "description_zh": "NAS配置，配置后Session关联的实例可以访问指定NAS资源"
-          },
-          "network": {
-            "$ref": "#/components/schemas/CreateSessionNetworkConfig",
-            "backendName": "network"
-          },
-          "ossMountConfig": {
-            "$ref": "#/components/schemas/OSSMountConfig",
-            "backendName": "ossMountConfig",
-            "description_en": "The OSS configuration. After this parameter is configured, instances associated with the session can access the specified OSS resources",
-            "description_zh": "OSS配置，配置后Session关联的实例可以访问指定OSS资源"
-          },
-          "polarFsConfig": {
-            "$ref": "#/components/schemas/PolarFsConfig",
-            "backendName": "polarFsConfig",
-            "description_en": "The PolarFs configuration. After this parameter is configured, instances associated with the session can access the specified PolarFs resources",
-            "description_zh": "PolarFs配置，配置后Session关联的实例可以访问指定PolarFs资源"
-          },
-          "sessionId": {
-            "backendName": "sessionId",
-            "description_en": "The custom session ID. If not configured, the server generates one. If configured, this value is used as the session ID. This parameter is applicable only to the HEADER_FIELD affinity mode. Format: The length is limited to [0,64]. The first character must be from a-zA-Z0-9_. Subsequent characters can be from a-zA-Z0-9_-",
-            "description_zh": "可自定义会话ID。不配置时由服务端生成。若配置则将此配置作为会话ID。仅适用于HEADER_FIELD亲和模式，\n格式规范：长度限制[0,64]，仅以 a-zA-Z0-9_ 字符做首字符，非首字符可为 a-zA-Z0-9_-",
-            "example": "custom-test-session-id",
-            "maxLength": 64,
-            "minLength": 0,
-            "title": "可自定义会话ID。不配置时由服务端生成。若配置则将此配置作为会话ID。仅适用于HEADER_FIELD亲和模式。",
-            "type": "string"
-          },
-          "sessionIdleTimeoutInSeconds": {
-            "backendName": "sessionIdleTimeoutInSeconds",
-            "description_en": "The session idle timeout",
-            "description_zh": "Session 闲置过期时间",
-            "example": "1800",
-            "format": "int64",
-            "title": "Session 闲置过期时间",
-            "type": "integer"
-          },
-          "sessionTTLInSeconds": {
-            "backendName": "sessionTTLInSeconds",
-            "description_en": "The session lifetime",
-            "description_zh": "Session生命周期",
-            "example": "21600",
-            "format": "int64",
-            "title": "Session生命周期",
-            "type": "integer"
-          },
-          "snapshotId": {
-            "backendName": "snapshotId",
-            "type": "string"
-          }
-        },
-        "title": "创建会话的参数",
-        "type": "object"
-      },
       "CreateSessionNetworkConfig": {
         "properties": {
           "allowOut": {
@@ -621,7 +532,7 @@
   "deprecated": false,
   "description_en": "Creates an explicit session resource. The system automatically generates a unique SessionID, pre-allocates a function instance, and binds it to the session. You can specify TTL and IdleTimeout. This operation applies to the HEADER_FIELD or GENERATED_COOKIE affinity types to implement session warm-up and configuration initialization. After the call, you can include the session in InvokeFunction requests for request routing",
   "description_zh": "创建一个显式会话资源。系统自动生成唯一 SessionID，预分配函数实例并绑定会话，支持指定 TTL 和 IdleTimeout。适用于 HEADER_FIELD 或 GENERATED_COOKIE 亲和类型，实现会话预热与配置初始化，调用后即可在 InvokeFunction 请求携带，用于路由请求",
-  "kebab_example": "",
+  "kebab_example": "aliyun fc create-session --function-name my-func --qualifier aliasName1 --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "CreateSession",

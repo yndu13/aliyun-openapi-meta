@@ -5,7 +5,7 @@
   "deprecated": false,
   "description_en": "Queries the deduction details of a core-hour package",
   "description_zh": "查询核时包抵扣明细",
-  "kebab_example": "",
+  "kebab_example": "aliyun wss describe-package-deductions --resource-type Desktop --package-ids chp-0bf5d9fdjr8vz0000 --instance-ids ecd-6wye9optu0kag0000 --page-num 1 --page-size 100 --start-time 1709117383000 --end-time 1709117383000 --resource-types example-string --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "DescribePackageDeductions",
@@ -67,7 +67,7 @@
     },
     {
       "example": "1",
-      "help_en": "The current page number. Default value: 1",
+      "help_en": "The page number. Default value: 1",
       "help_zh": "当前页码。默认值：1",
       "location": "query",
       "name": "page_num",
@@ -80,7 +80,7 @@
     },
     {
       "example": "100",
-      "help_en": "The number of entries per page in a paged query. Settings the number of rows per page for paging. Maximum value: 100",
+      "help_en": "The number of entries per page for paging. Maximum value: 100",
       "help_zh": "分页查询时设置的每页行数。最大值：100",
       "location": "query",
       "maximum": "100",
@@ -133,6 +133,122 @@
       "raw_name": "ResourceTypes",
       "required": false,
       "type": "array"
+    },
+    {
+      "example": "ecd-xxx",
+      "help_en": "The instance ID, such as ecd-xxx",
+      "help_zh": "实例id，ecd-xxx",
+      "location": "query",
+      "name": "instance_id",
+      "options": [
+        "--instance-id"
+      ],
+      "raw_name": "InstanceId",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "ecd-xxx",
+      "help_en": "The instance ID type",
+      "help_zh": "实例ID类型",
+      "location": "query",
+      "name": "instance_id_type",
+      "options": [
+        "--instance-id-type"
+      ],
+      "raw_name": "InstanceIdType",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of group resource types",
+      "help_zh": "资源组类型列表",
+      "location": "query",
+      "name": "group_resource_types",
+      "options": [
+        "--group-resource-types"
+      ],
+      "param_style": "repeatList",
+      "raw_name": "GroupResourceTypes",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of agent types",
+      "help_zh": "代理类型列表",
+      "location": "query",
+      "name": "agent_types",
+      "options": [
+        "--agent-types"
+      ],
+      "param_style": "repeatList",
+      "raw_name": "AgentTypes",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "example": "OpenClaw",
+      "help_en": "The agent type",
+      "help_zh": "代理类型",
+      "location": "query",
+      "name": "agent_type",
+      "options": [
+        "--agent-type"
+      ],
+      "raw_name": "AgentType",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "t-xxx",
+      "help_en": "The run ID",
+      "help_zh": "运行id",
+      "location": "query",
+      "name": "run_id",
+      "options": [
+        "--run-id"
+      ],
+      "raw_name": "RunId",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The list of run IDs",
+      "help_zh": "运行ID列表",
+      "location": "query",
+      "name": "run_id_list",
+      "options": [
+        "--run-id-list"
+      ],
+      "param_style": "repeatList",
+      "raw_name": "RunIdList",
+      "required": false,
+      "type": "array"
+    },
+    {
+      "element": {
+        "type": "string"
+      },
+      "help_en": "The deduction type",
+      "help_zh": "抵扣类型",
+      "location": "query",
+      "name": "deduction_types",
+      "options": [
+        "--deduction-types"
+      ],
+      "param_style": "repeatList",
+      "raw_name": "DeductionTypes",
+      "required": false,
+      "type": "array"
     }
   ],
   "pathPattern": "",
@@ -151,6 +267,15 @@
               "description_en": "The deduction details",
               "description_zh": "抵扣明细",
               "properties": {
+                "AgentType": {
+                  "backendName": "agentType",
+                  "description_en": "The agent type",
+                  "description_zh": "agent类型",
+                  "example": "OpenClaw",
+                  "title_en": "agent类型",
+                  "title_zh": "agent类型",
+                  "type": "string"
+                },
                 "Cpu": {
                   "backendName": "cpu",
                   "description_en": "The number of vCPUs",
@@ -158,6 +283,15 @@
                   "example": "4",
                   "format": "int32",
                   "type": "integer"
+                },
+                "DeductionType": {
+                  "backendName": "deductionType",
+                  "description_en": "The deduction type",
+                  "description_zh": "抵扣类型",
+                  "example": "KNOWLEDGE_SPACE/CONVESATION",
+                  "title_en": "抵扣类型",
+                  "title_zh": "抵扣类型",
+                  "type": "string"
                 },
                 "DesktopId": {
                   "backendName": "desktopId",
@@ -168,7 +302,7 @@
                 },
                 "DesktopName": {
                   "backendName": "desktopName",
-                  "description_en": "The name of the cloud computer",
+                  "description_en": "The name of the Cloud Desktop",
                   "description_zh": "云电脑名称",
                   "example": "DemoComputer",
                   "title_en": "",
@@ -177,7 +311,7 @@
                 },
                 "DesktopType": {
                   "backendName": "desktopType",
-                  "description_en": "The specifications of the cloud computer",
+                  "description_en": "The Cloud Desktop specifications",
                   "description_zh": "云电脑规格",
                   "example": "eds.enterprise_office.4c8g",
                   "type": "string"
@@ -230,18 +364,45 @@
                   "format": "int64",
                   "type": "integer"
                 },
+                "Model": {
+                  "backendName": "model",
+                  "description_en": "The model",
+                  "description_zh": "模型",
+                  "example": "qwen-3.7",
+                  "title_en": "模型",
+                  "title_zh": "模型",
+                  "type": "string"
+                },
                 "OsType": {
                   "backendName": "osType",
-                  "description_en": "The operating system type of the cloud computer",
+                  "description_en": "The operating system type of the Cloud Desktop",
                   "description_zh": "云电脑操作系统类型",
                   "example": "Windows",
                   "type": "string"
                 },
+                "PackageId": {
+                  "backendName": "packageId",
+                  "description_en": "The credit package ID",
+                  "description_zh": "积分包id",
+                  "example": "crp-xxx",
+                  "title_en": "积分包id",
+                  "title_zh": "积分包id",
+                  "type": "string"
+                },
                 "RegionId": {
                   "backendName": "regionId",
-                  "description_en": "The region ID of the cloud computer",
+                  "description_en": "The region ID of the Cloud Desktop",
                   "description_zh": "云电脑所属地域的地域ID",
                   "example": "cn-hangzhou",
+                  "type": "string"
+                },
+                "ResourceId": {
+                  "backendName": "resourceId",
+                  "description_en": "The ID of the first resource in the deduction item",
+                  "description_zh": "扣除项中首个资源的ID",
+                  "example": "ecd-xxx",
+                  "title_en": "扣除项中首个资源的ID",
+                  "title_zh": "扣除项中首个资源的ID",
                   "type": "string"
                 },
                 "ResourceType": {
@@ -268,9 +429,18 @@
                   "title_zh": "开始时间。格式：ISO 8601，例如：2023-01-01T00:00:00Z（UTC时间）。",
                   "type": "string"
                 },
+                "Summary": {
+                  "backendName": "summary",
+                  "description_en": "The summary",
+                  "description_zh": "总结",
+                  "example": "和ai查询的总结",
+                  "title_en": "总结",
+                  "title_zh": "总结",
+                  "type": "string"
+                },
                 "UsedCoreTime": {
                   "backendName": "usedCoreTime",
-                  "description_en": "The number of cores deducted in this period",
+                  "description_en": "The number of cores deducted in this deduction",
                   "description_zh": "本次抵扣核数",
                   "example": "4.0",
                   "format": "float",
@@ -320,7 +490,7 @@
           },
           "PageSize": {
             "backendName": "data.pageSize",
-            "description_en": "The number of entries per page in a paged query. Settings the number of rows per page for paging",
+            "description_en": "The number of entries per page in a paged query",
             "description_zh": "分页查询时设置的每页行数",
             "example": "100",
             "format": "int32",
@@ -339,7 +509,7 @@
           },
           "TotalCount": {
             "backendName": "data.totalCount",
-            "description_en": "The total number of deduction detail records returned",
+            "description_en": "The total number of core-hour package deduction details returned",
             "description_zh": "核时包抵扣明细查询结果总数",
             "example": "100",
             "format": "int64",

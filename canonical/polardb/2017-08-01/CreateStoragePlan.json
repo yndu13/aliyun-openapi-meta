@@ -1,11 +1,11 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun polardb CreateStoragePlan --region cn-hangzhou --StorageType Mainland --StorageClass 500 --UsedTime 3 --Period Month",
   "cmd_full_name": "polardb create-storage-plan",
   "cmd_name": "create-storage-plan",
   "deprecated": false,
   "description_en": "Purchases a storage plan",
   "description_zh": "购买存储包",
-  "kebab_example": "",
+  "kebab_example": "aliyun polardb create-storage-plan --period Month --used-time 3 --storage-class 500 --storage-type Mainland --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "CreateStoragePlan",
@@ -22,7 +22,7 @@
   "parameters": [
     {
       "example": "6000170000591aed949d0f5********************",
-      "help_en": "A client token to ensure the idempotence of the request. Generate this token on your client. The token must be unique across different requests. It is case-sensitive and can contain up to 64 ASCII characters",
+      "help_en": "The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token is case-sensitive and can contain only ASCII characters. The token can be up to 64 characters in length",
       "help_zh": "该参数用于保证请求的幂等性。由客户端生成该参数值，保证在不同请求间该参数值的唯一性。该参数区分大小写、长度不超过64个ASCII字符",
       "location": "query",
       "name": "client_token",
@@ -35,7 +35,7 @@
     },
     {
       "example": "Month",
-      "help_en": "The unit of the subscription duration for the storage plan. Valid values:\n\nMonth\n\nYear",
+      "help_en": "The unit of the storage plan duration. Valid values:\n\nMonth: month.\n\nYear: year",
       "help_zh": "存储包时长单位。取值：\n\nMonth：月\n\nYear：年",
       "location": "query",
       "name": "period",
@@ -48,7 +48,7 @@
     },
     {
       "example": "3",
-      "help_en": "The subscription duration of the storage plan.\n\nIf Period is set to Month, the value ranges from 1 to 9.\n\nIf Period is set to Year, the valid values are 1, 2, 3, and 5",
+      "help_en": "The duration of the storage plan.\n\nIf Period is set to Month, the value ranges from 1 to 9.\n\nIf Period is set to Year, valid values are 1, 2, 3, and 5",
       "help_zh": "存储包的使用时长。\n\n当Period取值为Month时，取值为1~9。\n\n当Period取值为Year时，取值范围：【1,2,3,5】",
       "location": "query",
       "name": "used_time",
@@ -61,7 +61,7 @@
     },
     {
       "example": "500",
-      "help_en": "The capacity of the storage plan, in GB. Valid values: 50, 100, 200, 300, 500, 1,000, 2,000, 3,000, 5,000, 10,000, 15,000, 20,000, 25,000, 30,000, 50,000, 100,000, and 200,000",
+      "help_en": "The capacity of the storage plan. Unit: GB. Valid values: 50, 100, 200, 300, 500, 1000, 2000, 3000, 5000, 10000, 15000, 20000, 25000, 30000, 50000, 100000, and 200000",
       "help_zh": "存储包的规格，单位为GB。取值范围：【50,100,200,300,500,1000,2000,3000,5000,10000,15000,20000,25000,30000,50000,100000,200000】",
       "location": "query",
       "name": "storage_class",
@@ -74,7 +74,7 @@
     },
     {
       "example": "Mainland",
-      "help_en": "The type of the storage plan. Valid values:\n\nMainland: For use in the Chinese mainland.\n\nOverseas: For use in China (Hong Kong) and regions outside China",
+      "help_en": "The type of the storage plan. Valid values:\n\nMainland: general-purpose, applicable in the Chinese mainland.\n\nOverseas: general-purpose, applicable in Hong Kong (China) and outside China",
       "help_zh": "存储包类型。取值：\n\nMainland：中国内地通用。\n\nOverseas：中国香港及海外通用",
       "location": "query",
       "name": "storage_type",
@@ -86,7 +86,7 @@
       "type": "string"
     },
     {
-      "help_en": "是否自动使用优惠券，取值：\ntrue（默认）：使用优惠券。\nfalse：不使用优惠券",
+      "help_en": "Specifies whether to automatically use coupons. Valid values:\ntrue (default): Uses coupons.\nfalse: Does not use coupons",
       "help_zh": "是否自动使用优惠券，取值：\ntrue（默认）：使用优惠券。\nfalse：不使用优惠券",
       "location": "query",
       "name": "auto_use_coupon",
@@ -99,7 +99,7 @@
     },
     {
       "example": "727xxxxxx934",
-      "help_en": "优惠券编号，不填时使用默认优惠券",
+      "help_en": "The coupon code. If this parameter is not specified, the default coupon is used",
       "help_zh": "优惠券编号，不填时使用默认优惠券",
       "location": "query",
       "name": "promotion_code",
@@ -117,7 +117,7 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "Response schema",
+        "description_en": "Schema of Response",
         "description_zh": "Schema of Response",
         "properties": {
           "DBInstanceId": {

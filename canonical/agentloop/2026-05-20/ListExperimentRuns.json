@@ -5,13 +5,13 @@
   "components": {
     "schemas": {
       "Evaluator": {
-        "description_en": "The evaluator configuration in an evaluation task. Used to reference a previously created evaluator or to describe an inline evaluator for the task",
+        "description_en": "The evaluator configuration in an evaluation task. Used to reference a previously created evaluator or to describe an inline evaluator for the current task",
         "description_zh": "评估任务中的评估器配置，用于引用已创建的评估器，或以内联方式描述本次任务使用的评估器",
         "example": "{\"evaluatorRef\":\"Builtin.agent_task_completion\",\"resultName\":\"agent_task_completion\",\"resultType\":\"score\",\"variableMapping\":{\"input\":\"trace.input\",\"output\":\"trace.output\",\"agent_trajectory\":\"trace.agent_trajectory\"}}",
         "properties": {
           "config": {
             "backendName": "config",
-            "description_en": "The evaluator runtime configuration. For inline LLM evaluators, this must include configurations such as prompt. When referencing an existing evaluator, this parameter is typically not required and is only specified when runtime parameters such as version need to be set",
+            "description_en": "The runtime configuration of the evaluator. For inline LLM evaluators, this must include configurations such as prompt. When referencing an existing evaluator, this parameter is typically not required and should only be specified when runtime parameters such as version need to be set",
             "description_zh": "评估器运行配置。内联 LLM 评估器需要包含 prompt 等配置；引用已有评估器时通常不传，仅在需要指定版本等运行时参数时传入",
             "example": "{\"version\":\"1.0.0\"}",
             "title": "评估器配置（如prompt等）",
@@ -51,7 +51,7 @@
           },
           "resultType": {
             "backendName": "resultType",
-            "description_en": "The evaluation result type. Required for inline evaluators. Defaults to score when referencing an existing evaluator and this parameter is not specified",
+            "description_en": "The evaluation result type. Required for inline evaluators. When referencing an existing evaluator, defaults to score if not specified",
             "description_zh": "评估结果类型。内联评估器场景必填；引用已有评估器时未传默认为 score",
             "example": "score",
             "title": "结果类型：score / binary / text",
@@ -59,11 +59,48 @@
           },
           "type": {
             "backendName": "type",
-            "description_en": "The evaluator type. Defaults to LLM if not specified. Inline CODE evaluators are currently not supported. For CODE type evaluators, reference a previously created evaluator by using evaluatorRef",
+            "description_en": "The evaluator type. Defaults to LLM if not specified. Inline CODE evaluators are not currently supported. For the CODE type, reference a previously created evaluator by using evaluatorRef",
             "description_zh": "评估器类型。未传时默认 LLM；内联 CODE 评估器当前不支持，CODE 类型请通过 evaluatorRef 引用已创建评估器",
             "example": "AGENT",
             "title": "评估器类型：LLM / CODE",
             "type": "string"
+          },
+          "variableExtractorMapping": {
+            "additionalProperties": {
+              "description_en": "The extraction rule for a single variable. The key is the evaluator variable name, and the value consists of three parts: the source field originField, the extraction method type, and the extraction expression expression. Trace variables managed by the engine, such as agent_trajectory, agent_trajectory_full, session_trajectory, tool_context, and rag_context, do not support extraction rule configuration",
+              "description_zh": "单个变量的提取规则，键为评估器变量名，值由被提取字段 originField、提取方式 type 和提取表达式 expression 三部分组成。agent_trajectory、agent_trajectory_full、session_trajectory、tool_context、rag_context 等由引擎接管的轨迹变量不支持配置提取规则",
+              "properties": {
+                "expression": {
+                  "backendName": "expression",
+                  "description_en": "The extraction expression. Its meaning is determined by type. When type is jsonpath, specify a JSONPath expression. You can use either a relative path relative to originField (such as $.order.expected) or an absolute path from the root (such as $trace.output.order.expected). When type is regex, specify a regular expression. Note that backslashes must be escaped in JSON. The expression syntax is validated upon saving. For regular expressions, RE2 compatibility is additionally validated. Patterns such as lookahead assertions, lookbehind assertions, backreferences, named groups, atomic groups, and possessive quantifiers are rejected",
+                  "description_zh": "提取表达式，含义由 type 决定。type=jsonpath 时填 JSONPath，既可写相对于 originField 的相对路径（$.order.expected），也可写从根开始的绝对路径（$trace.output.order.expected）；type=regex 时填正则表达式，注意 JSON 中反斜杠需转义。保存时会校验表达式语法，正则还会额外校验 RE2 兼容性，前后向断言、反向引用、命名组、原子组、占有量词等写法会被拒绝",
+                  "example": "$.order.expected",
+                  "title": "提取表达式",
+                  "type": "string"
+                },
+                "originField": {
+                  "backendName": "originField",
+                  "description_en": "The evaluation data field from which content is extracted. The extraction expression is applied to the content of this field. Required when saving with the evaluation task. For the trial run API, this parameter can be omitted and the backend derives it from the expression. Multiple variables can share the same source field",
+                  "description_zh": "被提取的评估数据字段，提取表达式作用于该字段的内容。随评估任务保存时必填（试跑接口可缺省，由后端从表达式推导）；多个变量可以共用同一个源字段",
+                  "example": "trace.output",
+                  "title": "被提取的评估数据字段",
+                  "type": "string"
+                },
+                "type": {
+                  "backendName": "type",
+                  "description_en": "The extraction method. jsonpath extracts values from the JSON content of the field by using JSONPath. regex performs regular expression matching on the full text of the field. When capturing groups are present, the first capturing group is returned. When no capturing group is present, the entire match is returned",
+                  "description_zh": "提取方式。jsonpath 表示在字段的 JSON 内容上按 JSONPath 取值；regex 表示在字段的完整文本上按正则匹配，含捕获组时取第一个捕获组，不含捕获组时取整段匹配",
+                  "example": "jsonpath",
+                  "title": "提取方式：jsonpath / regex",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "backendName": "variableExtractorMapping",
+            "description_en": "The variable extraction rule mapping that maps evaluator variables to a portion of the content within an evaluation data field. This is applicable when the variable value is not the entire field but a subset of the field content. This parameter shares the same variable name key space as variableMapping. Each variable can use only one of the two. Duplicate configurations cause an error. When referencing an existing evaluator, the variable names must exist in the evaluator definition. Call ListTraceFieldExtractionsPreview to perform a trial run for validation before saving",
+            "description_zh": "变量提取规则映射关系，将评估器变量映射到评估数据字段内容中的一部分，适用于变量值不是整个字段、而是字段内容里的一小块的场景。与 variableMapping 共用同一变量名键空间，同一变量只能二选一，重复配置会报错；引用已有评估器时变量名必须存在于评估器定义中。可先调用 ListTraceFieldExtractionsPreview 试跑验证后再保存",
+            "type": "object"
           },
           "variableMapping": {
             "additionalProperties": {
@@ -377,9 +414,9 @@
     }
   },
   "deprecated": false,
-  "description_en": "Queries the list of experiment run records",
+  "description_en": "Queries a list of experiment run records",
   "description_zh": "查询实验记录列表",
-  "kebab_example": "",
+  "kebab_example": "aliyun agentloop list-experiment-runs --agent-space al-playground-cn-hongkong --page 0 --page-size 10 --status evaluating --dataset-id arms_customer_agent_level1 --plan-name arms_agent_experiment --experiment-name experimentA --max-results 20 --next-token eyJwYWdlIjoxfQ== --region cn-hangzhou",
   "method": "GET",
   "multi_version": false,
   "name": "ListExperimentRuns",
@@ -461,7 +498,7 @@
     },
     {
       "example": "arms_agent_experiment",
-      "help_en": "Filters results by fuzzy match on experiment plan name",
+      "help_en": "Filters results by fuzzy match on the experiment plan name",
       "help_zh": "按实验计划名称模糊过滤",
       "location": "query",
       "name": "plan_name",
@@ -518,7 +555,7 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response for the experiment run records list",
+        "description_en": "The response for the experiment run record list",
         "description_zh": "实验记录列表响应",
         "properties": {
           "maxResults": {
@@ -555,7 +592,7 @@
             "itemName": "record",
             "items": {
               "$ref": "#/components/schemas/ExperimentRecord",
-              "description_en": "A single experiment run record object",
+              "description_en": "The experiment run record object",
               "description_zh": "单个实验记录对象"
             },
             "type": "array"
@@ -640,7 +677,7 @@
       "type": "int"
     },
     {
-      "help_en": "Filters results by fuzzy match on experiment plan name",
+      "help_en": "Filters results by fuzzy match on the experiment plan name",
       "help_zh": "按实验计划名称模糊过滤",
       "name": "planName",
       "position": "query",

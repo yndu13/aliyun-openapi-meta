@@ -3,9 +3,9 @@
   "cmd_full_name": "dataphin-public get-catalog-asset-details",
   "cmd_name": "get-catalog-asset-details",
   "deprecated": false,
-  "description_en": "Queries asset details. Release version: v6.1.0",
+  "description_en": "Queries asset details. Online version: v6.1.0",
   "description_zh": "查询资产详情，上线版本号：v6.1.0",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public get-catalog-asset-details --op-tenant-id 30001011 --get-catalog-asset-details-query IncludeDetailedAttributes=true IncludeColumns=true Guid=dp_ds_table.300023201.7311626611751680256.load_test.abc --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "GetCatalogAssetDetails",
@@ -72,7 +72,7 @@
           "type": "bool"
         }
       ],
-      "help_en": "The paging query for the listing asset catalog list",
+      "help_en": "The paged query for the listed asset catalog",
       "help_zh": "分页查询已上架资产目录列表",
       "location": "formData",
       "name": "get_catalog_asset_details_query",
@@ -83,6 +83,19 @@
       "raw_name": "GetCatalogAssetDetailsQuery",
       "required": true,
       "type": "object"
+    },
+    {
+      "example": "30001011",
+      "help_en": "The ID of the operator user",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
+      "required": false,
+      "type": "string"
     }
   ],
   "pathPattern": "",
@@ -110,7 +123,7 @@
             "properties": {
               "ApiCallMode": {
                 "backendName": "ApiCallMode",
-                "description_en": "The API call mode. Returned when the asset type is API. Valid values: 1 (synchronous call) and 2 (asynchronous call)",
+                "description_en": "The API call mode. Returned when the asset type is API. Valid values: 1=Synchronous call, 2=Asynchronous call",
                 "description_zh": "API调用模式；当资产类型为API时返回。枚举值：1=同步调用，2=异步调用",
                 "example": "1",
                 "title_en": "API调用模式；当资产类型为API时返回。枚举值：1=同步调用，2=异步调用。",
@@ -138,7 +151,7 @@
               },
               "ApiRequestMethod": {
                 "backendName": "ApiRequestMethod",
-                "description_en": "The API operation type. Returned when the asset type is API. Valid values: 1 (Get), 2 (List), 3 (Create), 4 (Update), and 5 (Delete)",
+                "description_en": "The API operation type. Returned when the asset type is API. Valid values: 1=Get, 2=List, 3=Create, 4=Update, 5=Delete",
                 "description_zh": "API操作类型；当资产类型为API时返回。枚举值：1=Get，2=List，3=Create，4=Update，5=Delete",
                 "example": "1",
                 "title_en": "API操作类型；当资产类型为API时返回。枚举值：1=Get，2=List，3=Create，4=Update，5=Delete。",
@@ -147,7 +160,7 @@
               },
               "AssetDescription": {
                 "backendName": "AssetDescription",
-                "description_en": "The asset description",
+                "description_en": "The description of the asset",
                 "description_zh": "资产描述；",
                 "example": "abc",
                 "title_en": "资产描述；",
@@ -156,7 +169,7 @@
               },
               "AssetDetailUrl": {
                 "backendName": "AssetDetailUrl",
-                "description_en": "The URL of the asset catalog details page",
+                "description_en": "The URL of the asset catalog detail page",
                 "description_zh": "资产目录详情链接；",
                 "example": "https://dataphin.poc.lydaas.com/market/catalog/detail/table/...",
                 "title_en": "资产目录详情链接；",
@@ -165,7 +178,7 @@
               },
               "AssetDisplayName": {
                 "backendName": "AssetDisplayName",
-                "description_en": "The asset display name. Returned when the asset type is TABLE, INDEX, or BIZ_INDEX",
+                "description_en": "The display name of the asset. This parameter is returned when the asset type is TABLE, INDEX, or BIZ_INDEX",
                 "description_zh": "资产展示名；当资产类型为TABLE / INDEX / BIZ_INDEX时返回",
                 "example": "abc表",
                 "title_en": "资产展示名；当资产类型为TABLE / INDEX / BIZ_INDEX时返回。",
@@ -174,7 +187,7 @@
               },
               "AssetFrom": {
                 "backendName": "AssetFrom",
-                "description_en": "The asset source. For TABLE (physical table), the value is in the format of \"Dataphin-Workspace Type-Project Chinese Name (Project English Name)\". For TABLE (logical table), the value is in the format of \"Dataphin-Workspace Type-Data Domain Chinese Name (Data Domain English Name)\". For TABLE (data source table), the value is in the format of \"Source System Name-Data Source Name-Database/Schema Name\". For INDEX (standard modeling metric), the value is the asset source of the associated aggregate table. For INDEX (custom metric), the value is the asset source of the source table. For API, the value is the data service project name. For PAGE, the value is the application system name",
+                "description_en": "The source of the asset. TABLE (physical table) returns \"Dataphin-workspace type-project Chinese name (project English name)\". TABLE (logical table) returns \"Dataphin-workspace type-data domain Chinese name (data domain English name)\". TABLE (data source table) returns \"source system name-data source name-database/schema name\". INDEX (standard modeling metric) returns the asset source of the associated aggregate logical table. INDEX (custom metric) returns the asset source of the source table. API returns \"data service project name\". PAGE returns \"application system name\"",
                 "description_zh": "资产来源。TABLE（物理表）返回\"Dataphin-空间类型-项目中文名（项目英文名）\"；TABLE（逻辑表）返回\"Dataphin-空间类型-数据板块中文名（数据板块英文名）\"；TABLE（数据源表）返回\"来源系统名-数据源名-Database/schema名\"；INDEX（规范建模指标）返回所属汇总逻辑表的资产来源；INDEX（自定义指标）返回来源表的资产来源；API返回\"数据服务项目名\"；PAGE返回\"应用系统名\"",
                 "example": "Dataphin-中间层-服饰零售 (LD_Fashion)",
                 "title_en": "资产来源。TABLE（物理表）返回\"Dataphin-空间类型-项目中文名（项目英文名）\"；TABLE（逻辑表）返回\"Dataphin-空间类型-数据板块中文名（数据板块英文名）\"；TABLE（数据源表）返回\"来源系统名-数据源名-Database/schema名\"；INDEX（规范建模指标）返回所属汇总逻辑表的资产来源；INDEX（自定义指标）返回来源表的资产来源；API返回\"数据服务项目名\"；PAGE返回\"应用系统名\"",
@@ -183,7 +196,7 @@
               },
               "AssetFullName": {
                 "backendName": "AssetFullName",
-                "description_en": "The full name of the asset. Returned when the asset type is TABLE or INDEX",
+                "description_en": "The full name of the asset. This parameter is returned when the asset type is TABLE or INDEX",
                 "description_zh": "资产全名；当资产类型为TABLE / INDEX时返回",
                 "example": "dwd_all.abc",
                 "title_en": "资产全名；当资产类型为TABLE / INDEX时返回。",
@@ -192,7 +205,7 @@
               },
               "AssetName": {
                 "backendName": "AssetName",
-                "description_en": "The asset name",
+                "description_en": "The name of the asset",
                 "description_zh": "资产名称；",
                 "example": "abc",
                 "title_en": "资产名称；",
@@ -201,11 +214,11 @@
               },
               "AssetTags": {
                 "backendName": "AssetTags",
-                "description_en": "The asset tags",
+                "description_en": "The tags of the asset",
                 "description_zh": "资产标签；",
                 "itemName": "AssetTag",
                 "items": {
-                  "description_en": "The asset tags",
+                  "description_en": "The tags of the asset",
                   "description_zh": "资产标签；",
                   "example": "[\"标签1\", \"标签2\"]",
                   "title_en": "资产标签；",
@@ -218,7 +231,7 @@
               },
               "AssetType": {
                 "backendName": "AssetType",
-                "description_en": "The asset type. Valid values: TABLE (table, including views and materialized views), INDEX (technical metric), BIZ_INDEX (business metric), API, and PAGE (dashboard)",
+                "description_en": "The asset type. Valid values:\nTABLE: table, including views and materialized views.\nINDEX: technical metric.\nBIZ_INDEX: business metric.\nAPI: API.\nPAGE: dashboard",
                 "description_zh": "资产类型；TABLE（表，包含视图、物化视图）、INDEX（技术指标）、BIZ_INDEX（业务指标）、API、PAGE（仪表板）",
                 "example": "TABLE",
                 "title_en": "资产类型；TABLE（表，包含视图、物化视图）、INDEX（技术指标）、BIZ_INDEX（业务指标）、API、PAGE（仪表板）",
@@ -227,7 +240,7 @@
               },
               "BiCatalog": {
                 "backendName": "BiCatalog",
-                "description_en": "The BI workspace or directory to which the asset belongs. Returned when the asset type is PAGE (dashboard)",
+                "description_en": "The BI workspace or folder to which the asset belongs. Returned when the asset type is PAGE (dashboard)",
                 "description_zh": "所属BI空间/目录；当资产类型为PAGE（仪表板）时返回",
                 "example": "dataphin演示空间",
                 "title_en": "所属BI空间/目录；当资产类型为PAGE（仪表板）时返回。",
@@ -236,7 +249,7 @@
               },
               "BizUnitId": {
                 "backendName": "BizUnitId",
-                "description_en": "The ID of the business unit to which the asset belongs. Returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
+                "description_en": "The ID of the data domain to which the asset belongs. This parameter is returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
                 "description_zh": "所属数据板块ID；当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回",
                 "example": "6865277495315392",
                 "format": "int64",
@@ -246,7 +259,7 @@
               },
               "BizUnitName": {
                 "backendName": "BizUnitName",
-                "description_en": "The name of the business unit to which the asset belongs. Returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
+                "description_en": "The name of the data domain to which the asset belongs. This parameter is returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
                 "description_zh": "所属数据板块名称：当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回",
                 "example": "服饰零售（LD_Fashion）",
                 "title_en": "所属数据板块名称：当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回。",
@@ -265,7 +278,7 @@
               },
               "CollectionCount": {
                 "backendName": "CollectionCount",
-                "description_en": "The number of favorites",
+                "description_en": "The collection count",
                 "description_zh": "收藏数；",
                 "example": "0",
                 "format": "int64",
@@ -275,21 +288,21 @@
               },
               "Columns": {
                 "backendName": "Columns",
-                "description_en": "The field list. Returned when the asset type is TABLE",
+                "description_en": "The list of columns. This parameter is returned when the asset type is TABLE",
                 "description_zh": "字段列表；当资产类型为TABLE时返回",
                 "itemName": "Column",
                 "items": {
-                  "description_en": "The asset field information",
+                  "description_en": "The asset column information",
                   "description_zh": "资产字段信息",
                   "properties": {
                     "AssociatedEntity": {
                       "backendName": "AssociatedEntity",
-                      "description_en": "The associated entity. Returned when the business type is DIMENSION",
+                      "description_en": "The associated entity. This parameter is returned when the business type is DIMENSION",
                       "description_zh": "关联实体；当业务类型为DIMENSION时返回",
                       "properties": {
                         "BizUnitId": {
                           "backendName": "BizUnitId",
-                          "description_en": "The business unit ID",
+                          "description_en": "The ID of the business unit",
                           "description_zh": "业务板块ID；",
                           "example": "7137404445633152",
                           "format": "int64",
@@ -299,7 +312,7 @@
                         },
                         "BizUnitName": {
                           "backendName": "BizUnitName",
-                          "description_en": "The business unit name",
+                          "description_en": "The name of the business unit",
                           "description_zh": "业务板块名称；",
                           "example": "LD_train",
                           "title_en": "业务板块名称；",
@@ -308,7 +321,7 @@
                         },
                         "DimensionDisplayName": {
                           "backendName": "DimensionDisplayName",
-                          "description_en": "The dimension display name",
+                          "description_en": "The display name of the dimension",
                           "description_zh": "维度展示名；",
                           "example": "上药erp数据源",
                           "title_en": "维度展示名；",
@@ -317,7 +330,7 @@
                         },
                         "DimensionId": {
                           "backendName": "DimensionId",
-                          "description_en": "The dimension ID",
+                          "description_en": "The ID of the dimension",
                           "description_zh": "维度ID；",
                           "example": "68014359",
                           "format": "int64",
@@ -327,7 +340,7 @@
                         },
                         "DimensionName": {
                           "backendName": "DimensionName",
-                          "description_en": "The dimension name",
+                          "description_en": "The name of the dimension",
                           "description_zh": "维度名称；",
                           "example": "etl_source",
                           "title_en": "维度名称；",
@@ -341,7 +354,7 @@
                     },
                     "BizType": {
                       "backendName": "BizType",
-                      "description_en": "The business type. Valid values:\nINDEX: Metric.\nSTAT_PERIOD: Statistical period.\nDIMENSION: Dimension",
+                      "description_en": "The business type. Valid values:\nINDEX: metric.\nSTAT_PERIOD: statistical period.\nDIMENSION: dimension",
                       "description_zh": "业务类型；枚举值：INDEX（指标）、STAT_PERIOD（统计日期）、DIMENSION（维度）",
                       "example": "DIMENSION",
                       "title_en": "业务类型；枚举值：INDEX（指标）、STAT_PERIOD（统计日期）、DIMENSION（维度）。",
@@ -359,7 +372,7 @@
                     },
                     "DataType": {
                       "backendName": "DataType",
-                      "description_en": "The field data type",
+                      "description_en": "The data type of the column",
                       "description_zh": "字段类型；",
                       "example": "double",
                       "title_en": "字段类型；",
@@ -368,7 +381,7 @@
                     },
                     "Description": {
                       "backendName": "Description",
-                      "description_en": "The field description",
+                      "description_en": "The description of the column",
                       "description_zh": "字段描述；",
                       "example": "test",
                       "title_en": "字段描述；",
@@ -377,7 +390,7 @@
                     },
                     "DisplayName": {
                       "backendName": "DisplayName",
-                      "description_en": "The field display name",
+                      "description_en": "The display name of the column",
                       "description_zh": "字段展示名；",
                       "example": "门店客流转化率",
                       "title_en": "字段展示名；",
@@ -386,7 +399,7 @@
                     },
                     "Guid": {
                       "backendName": "Guid",
-                      "description_en": "The field GUID",
+                      "description_en": "The GUID of the column",
                       "description_zh": "字段GUID；",
                       "example": "dp_table.300023201.ld_fashion.dws_lulu_location.conversion_rate",
                       "title_en": "字段GUID；",
@@ -395,7 +408,7 @@
                     },
                     "LevelShortName": {
                       "backendName": "LevelShortName",
-                      "description_en": "The data sensitivity level",
+                      "description_en": "The data classification level",
                       "description_zh": "数据分级；",
                       "example": "L4",
                       "title_en": "数据分级；",
@@ -404,7 +417,7 @@
                     },
                     "Name": {
                       "backendName": "Name",
-                      "description_en": "The field name",
+                      "description_en": "The name of the column",
                       "description_zh": "字段名；",
                       "example": "conversion_rate",
                       "title_en": "字段名；",
@@ -427,12 +440,12 @@
                       "description_zh": "关联标准；",
                       "itemName": "Standard",
                       "items": {
-                        "description_en": "The standard associated with the field",
+                        "description_en": "The standard associated with the column",
                         "description_zh": "字段关联标准",
                         "properties": {
                           "Code": {
                             "backendName": "Code",
-                            "description_en": "The standard code",
+                            "description_en": "The code of the standard",
                             "description_zh": "标准编码；",
                             "example": "hr_person_id",
                             "title_en": "标准编码；",
@@ -441,7 +454,7 @@
                           },
                           "Id": {
                             "backendName": "Id",
-                            "description_en": "The standard ID",
+                            "description_en": "The ID of the standard",
                             "description_zh": "标准ID；",
                             "example": "120350",
                             "format": "int64",
@@ -451,7 +464,7 @@
                           },
                           "Name": {
                             "backendName": "Name",
-                            "description_en": "The standard name",
+                            "description_en": "The name of the standard",
                             "description_zh": "标准名称；",
                             "example": "id",
                             "title_en": "标准名称；",
@@ -491,12 +504,12 @@
                 "description_zh": "自定义属性；当includeDetailedAttributes=true时返回",
                 "itemName": "CustomAttribute",
                 "items": {
-                  "description_en": "The custom attribute of the asset",
+                  "description_en": "The asset custom attribute",
                   "description_zh": "资产自定义属性",
                   "properties": {
                     "AttrType": {
                       "backendName": "AttrType",
-                      "description_en": "The attribute type. Valid values:\nBUSINESS: Business attribute.\nMANAGEMENT: Management attribute.\nTECHNOLOGY: Technical attribute",
+                      "description_en": "The attribute type. Valid values: BUSINESS (business attribute), MANAGEMENT (management attribute), TECHNOLOGY (technical attribute)",
                       "description_zh": "属性类型；枚举值：BUSINESS（业务属性）、MANAGEMENT（管理属性）、TECHNOLOGY（技术属性）",
                       "example": "MANAGEMENT",
                       "title_en": "属性类型；枚举值：BUSINESS（业务属性）、MANAGEMENT（管理属性）、TECHNOLOGY（技术属性）。",
@@ -541,7 +554,7 @@
               },
               "DataCellId": {
                 "backendName": "DataCellId",
-                "description_en": "The ID of the subject domain to which the asset belongs. Returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
+                "description_en": "The ID of the data domain. Returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
                 "description_zh": "所属主题域ID；当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回",
                 "example": "49837403",
                 "title_en": "所属主题域ID；当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回。",
@@ -550,7 +563,7 @@
               },
               "DataCellName": {
                 "backendName": "DataCellName",
-                "description_en": "The name of the subject domain to which the asset belongs. Returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
+                "description_en": "The name of the data domain. Returned when the asset type is TABLE (logical tables only) or INDEX (technical metrics whose source table is a logical table only)",
                 "description_zh": "所属主题域名称；当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回",
                 "example": "课程域",
                 "title_en": "所属主题域名称；当资产类型为TABLE（仅逻辑表） / INDEX（仅来源表为逻辑表的技术指标）时返回。",
@@ -559,7 +572,7 @@
               },
               "DataSourceName": {
                 "backendName": "DataSourceName",
-                "description_en": "The name of the data source to which the asset belongs. Returned when the asset type is TABLE (data source tables only) or INDEX (technical metrics whose source table is a data source table only)",
+                "description_en": "The name of the data source to which the asset belongs. This parameter is returned when the asset type is TABLE (data source tables only) or INDEX (technical metrics whose source table is a data source table only)",
                 "description_zh": "所属数据源名称；当资产类型为TABLE（仅数据源表） / INDEX（仅来源表为数据源表的技术指标）时返回",
                 "example": "demo_mysql",
                 "title_en": "所属数据源名称；当资产类型为TABLE（仅数据源表） / INDEX（仅来源表为数据源表的技术指标）时返回。",
@@ -568,7 +581,7 @@
               },
               "DatasourceId": {
                 "backendName": "DatasourceId",
-                "description_en": "The ID of the data source to which the asset belongs. Returned when the asset type is TABLE (data source tables only) or INDEX (technical metrics whose source table is a data source table only)",
+                "description_en": "The ID of the data source to which the asset belongs. This parameter is returned when the asset type is TABLE (data source tables only) or INDEX (technical metrics whose source table is a data source table only)",
                 "description_zh": "所属数据源ID；当资产类型为TABLE（仅数据源表） / INDEX（仅来源表为数据源表的技术指标）时返回",
                 "example": "7305549302863001856",
                 "format": "int64",
@@ -585,6 +598,71 @@
                   "description_en": "The directory information of the asset",
                   "description_zh": "资产归属目录信息",
                   "properties": {
+                    "DirectoryChain": {
+                      "backendName": "DirectoryChain",
+                      "description_en": "The complete directory hierarchy chain from the top-level directory to the current directory, including the current directory",
+                      "description_zh": "目录完整层级链（自顶层目录到当前目录，含当前目录）",
+                      "itemName": "DirectoryChainItem",
+                      "items": {
+                        "description_en": "The node in the directory hierarchy chain of the asset",
+                        "description_zh": "资产归属目录层级链节点",
+                        "properties": {
+                          "DirectoryDescription": {
+                            "backendName": "DirectoryDescription",
+                            "description_en": "The directory description",
+                            "description_zh": "目录描述",
+                            "example": "交易相关的数据资产",
+                            "title_en": "目录描述",
+                            "title_zh": "目录描述",
+                            "type": "string"
+                          },
+                          "DirectoryId": {
+                            "backendName": "DirectoryId",
+                            "description_en": "The directory ID",
+                            "description_zh": "目录ID",
+                            "example": "2001",
+                            "format": "int64",
+                            "title_en": "目录ID",
+                            "title_zh": "目录ID",
+                            "type": "integer"
+                          },
+                          "DirectoryName": {
+                            "backendName": "DirectoryName",
+                            "description_en": "The directory name",
+                            "description_zh": "目录名称",
+                            "example": "交易域",
+                            "title_en": "目录名称",
+                            "title_zh": "目录名称",
+                            "type": "string"
+                          },
+                          "Level": {
+                            "backendName": "Level",
+                            "description_en": "The folder level",
+                            "description_zh": "目录层级",
+                            "example": "1",
+                            "format": "int32",
+                            "title_en": "目录层级",
+                            "title_zh": "目录层级",
+                            "type": "integer"
+                          }
+                        },
+                        "title_en": "资产归属目录层级链节点",
+                        "title_zh": "资产归属目录层级链节点",
+                        "type": "object"
+                      },
+                      "title_en": "目录完整层级链（自顶层目录到当前目录，含当前目录）",
+                      "title_zh": "目录完整层级链（自顶层目录到当前目录，含当前目录）",
+                      "type": "array"
+                    },
+                    "DirectoryDescription": {
+                      "backendName": "DirectoryDescription",
+                      "description_en": "The directory description",
+                      "description_zh": "目录描述",
+                      "example": "订单明细相关的数据表",
+                      "title_en": "目录描述",
+                      "title_zh": "目录描述",
+                      "type": "string"
+                    },
                     "DirectoryId": {
                       "backendName": "DirectoryId",
                       "description_en": "The directory ID",
@@ -602,6 +680,15 @@
                       "example": "线上电商平台",
                       "title_en": "目录名称",
                       "title_zh": "目录名称",
+                      "type": "string"
+                    },
+                    "TopicDescription": {
+                      "backendName": "TopicDescription",
+                      "description_en": "The topic description",
+                      "description_zh": "专题描述",
+                      "example": "面向全公司的核心数据资产目录，涵盖线上线下全渠道",
+                      "title_en": "专题描述",
+                      "title_zh": "专题描述",
                       "type": "string"
                     },
                     "TopicId": {
@@ -634,7 +721,7 @@
               },
               "FirstOnShelveTime": {
                 "backendName": "FirstOnShelveTime",
-                "description_en": "The first listing time",
+                "description_en": "The time of the first listing",
                 "description_zh": "初次上架时间；",
                 "example": "2025-05-22 10:06:20",
                 "title_en": "初次上架时间；",
@@ -643,7 +730,7 @@
               },
               "FirstOnShelveUser": {
                 "backendName": "FirstOnShelveUser",
-                "description_en": "The user who first listed the asset",
+                "description_en": "The user who performed the first listing",
                 "description_zh": "初次上架用户；",
                 "properties": {
                   "DisplayName": {
@@ -680,7 +767,7 @@
               },
               "Guid": {
                 "backendName": "Guid",
-                "description_en": "The asset GUID, which serves as the unique identifier of the asset",
+                "description_en": "The GUID of the asset, which serves as the unique identifier of the asset",
                 "description_zh": "资产GUID，作为资产的唯一标识；",
                 "example": "dp_ds_table.300023201.7311626611751680256.load_test.abc",
                 "title_en": "资产GUID，作为资产的唯一标识；",
@@ -706,7 +793,7 @@
               },
               "IsPartitionTable": {
                 "backendName": "IsPartitionTable",
-                "description_en": "Indicates whether the table is a partitioned table. Returned when the asset type is TABLE. Valid values:\ntrue: Yes.\nfalse: No",
+                "description_en": "Indicates whether the table is a partitioned table. Returned when the asset type is TABLE. Valid values:\ntrue: The table is a partitioned table.\nfalse: The table is not a partitioned table",
                 "description_zh": "是否分区表；当资产类型为TABLE时返回。true：是；false：否",
                 "title_en": "是否分区表；当资产类型为TABLE时返回。true：是；false：否。",
                 "title_zh": "是否分区表；当资产类型为TABLE时返回。true：是；false：否。",
@@ -714,7 +801,7 @@
               },
               "LastDdlTime": {
                 "backendName": "LastDdlTime",
-                "description_en": "The last DDL change time",
+                "description_en": "The time of the last DDL change",
                 "description_zh": "最近变更时间；",
                 "example": "2024-10-11 16:10:19",
                 "title_en": "最近变更时间；",
@@ -723,7 +810,7 @@
               },
               "LastDmlTime": {
                 "backendName": "LastDmlTime",
-                "description_en": "The last DML update time",
+                "description_en": "The time of the last DML update",
                 "description_zh": "最近更新时间；",
                 "example": "2024-10-11 16:10:19",
                 "title_en": "最近更新时间；",
@@ -732,7 +819,7 @@
               },
               "LastOnShelveTime": {
                 "backendName": "LastOnShelveTime",
-                "description_en": "The last listing time",
+                "description_en": "The time of the last listing",
                 "description_zh": "最近上架时间；",
                 "example": "2025-05-22 10:06:20",
                 "title_en": "最近上架时间；",
@@ -741,7 +828,7 @@
               },
               "LastOnShelveUser": {
                 "backendName": "LastOnShelveUser",
-                "description_en": "The user who last listed the asset",
+                "description_en": "The user who performed the last listing",
                 "description_zh": "最近上架用户；",
                 "properties": {
                   "DisplayName": {
@@ -786,11 +873,11 @@
               },
               "MaintainUserIds": {
                 "backendName": "MaintainUserIds",
-                "description_en": "The listing maintenance personnel",
+                "description_en": "The IDs of the listing maintenance users",
                 "description_zh": "上架维护人员；",
                 "itemName": "MaintainUserId",
                 "items": {
-                  "description_en": "The listing maintenance personnel",
+                  "description_en": "The IDs of the listing maintenance users",
                   "description_zh": "上架维护人员；",
                   "example": "[\"300000901\", \"300006218\"]",
                   "title_en": "上架维护人员；",
@@ -803,7 +890,7 @@
               },
               "MaxSecurityLevel": {
                 "backendName": "MaxSecurityLevel",
-                "description_en": "The highest sensitivity level. Returned when the asset type is TABLE",
+                "description_en": "The maximum sensitivity level. This parameter is returned when the asset type is TABLE",
                 "description_zh": "最高敏感等级；当资产类型为TABLE时返回",
                 "example": "L3",
                 "title_en": "最高敏感等级；当资产类型为TABLE时返回。",
@@ -849,7 +936,7 @@
               },
               "PartitionKey": {
                 "backendName": "PartitionKey",
-                "description_en": "The partition field. Returned when the asset type is TABLE",
+                "description_en": "The partition key. Returned when the asset type is TABLE",
                 "description_zh": "分区字段；当资产类型为TABLE时返回",
                 "example": "ds",
                 "title_en": "分区字段；当资产类型为TABLE时返回。",
@@ -867,7 +954,7 @@
               },
               "ProfilingReportViewScopeType": {
                 "backendName": "ProfilingReportViewScopeType",
-                "description_en": "The visibility scope type of the profiling report. Returned when the asset type is TABLE or INDEX. Valid values:\nALL_USERS_CAN_VIEW: Visible to all users.\nPART_USERS_CAN_VIEW: Visible to some users.\nALL_USERS_CAN_NOT_VIEW: Not visible to any user",
+                "description_en": "The visibility scope type of the profiling report. This parameter is returned only when the asset type is TABLE or INDEX. Valid values:\nALL_USERS_CAN_VIEW: Visible to all users.\nPART_USERS_CAN_VIEW: Visible to some users.\nALL_USERS_CAN_NOT_VIEW: Not visible to any users",
                 "description_zh": "探查报告可见范围类型；当资产类型为TABLE、INDEX时返回。枚举值：ALL_USERS_CAN_VIEW（全部用户可见）、PART_USERS_CAN_VIEW（部分用户可见）、ALL_USERS_CAN_NOT_VIEW（全部用户不可见）",
                 "example": "ALL_USERS_CAN_VIEW",
                 "title_en": "探查报告可见范围类型；当资产类型为TABLE、INDEX时返回。枚举值：ALL_USERS_CAN_VIEW（全部用户可见）、PART_USERS_CAN_VIEW（部分用户可见）、ALL_USERS_CAN_NOT_VIEW（全部用户不可见）。",
@@ -910,7 +997,7 @@
               },
               "ProjectId": {
                 "backendName": "ProjectId",
-                "description_en": "The ID of the project to which the asset belongs. Returned when the asset type is TABLE (physical tables only) or INDEX (technical metrics whose source table is a physical table only)",
+                "description_en": "The ID of the project to which the asset belongs. This parameter is returned when the asset type is TABLE (physical tables only) or INDEX (technical metrics whose source table is a physical table only)",
                 "description_zh": "所属项目ID；当资产类型为TABLE（仅物理表） / INDEX（仅来源表为物理表的技术指标）时返回",
                 "example": "6865331517728384",
                 "format": "int64",
@@ -920,16 +1007,143 @@
               },
               "ProjectName": {
                 "backendName": "ProjectName",
-                "description_en": "The name of the project to which the asset belongs. Returned when the asset type is TABLE (physical tables only) or INDEX (technical metrics whose source table is a physical table only)",
+                "description_en": "The name of the project to which the asset belongs. This parameter is returned when the asset type is TABLE (physical tables only) or INDEX (technical metrics whose source table is a physical table only)",
                 "description_zh": "所属项目名称；当资产类型为TABLE（仅物理表） / INDEX（仅来源表为物理表的技术指标）时返回",
                 "example": "train",
                 "title_en": "所属项目名称；当资产类型为TABLE（仅物理表） / INDEX（仅来源表为物理表的技术指标）时返回。",
                 "title_zh": "所属项目名称；当资产类型为TABLE（仅物理表） / INDEX（仅来源表为物理表的技术指标）时返回。",
                 "type": "string"
               },
+              "QualityScoreRadar": {
+                "backendName": "QualityScoreRadar",
+                "description_en": "The quality score radar chart information. This parameter is returned only when includeDetailedAttributes is set to true. It contains the total score, the number of passed/validated rules, and the score details for each dimension",
+                "description_zh": "质量分雷达图信息；当includeDetailedAttributes=true时返回。包含总分、通过/校验规则数及各维度得分明细",
+                "properties": {
+                  "CatalogScores": {
+                    "backendName": "CatalogScores",
+                    "description_en": "The list of dimension scores",
+                    "description_zh": "维度得分列表",
+                    "itemName": "CatalogScore",
+                    "items": {
+                      "description_en": "The quality dimension score",
+                      "description_zh": "质量分维度得分",
+                      "properties": {
+                        "Catalog": {
+                          "backendName": "Catalog",
+                          "description_en": "The dimension name",
+                          "description_zh": "维度名称",
+                          "example": "完整性",
+                          "title_en": "维度名称",
+                          "title_zh": "维度名称",
+                          "type": "string"
+                        },
+                        "FieldRuleCount": {
+                          "backendName": "FieldRuleCount",
+                          "description_en": "The number of field-level rules",
+                          "description_zh": "字段级规则数",
+                          "example": "7",
+                          "format": "int32",
+                          "title_en": "字段级规则数",
+                          "title_zh": "字段级规则数",
+                          "type": "integer"
+                        },
+                        "PassRate": {
+                          "backendName": "PassRate",
+                          "description_en": "The pass rate",
+                          "description_zh": "通过率",
+                          "example": "0.83",
+                          "format": "double",
+                          "title_en": "通过率",
+                          "title_zh": "通过率",
+                          "type": "number"
+                        },
+                        "PassRuleCount": {
+                          "backendName": "PassRuleCount",
+                          "description_en": "The number of passed rules",
+                          "description_zh": "通过规则数",
+                          "example": "10",
+                          "format": "int32",
+                          "title_en": "通过规则数",
+                          "title_zh": "通过规则数",
+                          "type": "integer"
+                        },
+                        "Score": {
+                          "backendName": "Score",
+                          "description_en": "The dimension score",
+                          "description_zh": "维度得分",
+                          "example": "85.5",
+                          "format": "double",
+                          "title_en": "维度得分",
+                          "title_zh": "维度得分",
+                          "type": "number"
+                        },
+                        "TableRuleCount": {
+                          "backendName": "TableRuleCount",
+                          "description_en": "The number of table-level rules",
+                          "description_zh": "表级规则数",
+                          "example": "5",
+                          "format": "int32",
+                          "title_en": "表级规则数",
+                          "title_zh": "表级规则数",
+                          "type": "integer"
+                        },
+                        "ValidateRuleCount": {
+                          "backendName": "ValidateRuleCount",
+                          "description_en": "The number of validated rules",
+                          "description_zh": "校验规则数",
+                          "example": "12",
+                          "format": "int32",
+                          "title_en": "校验规则数",
+                          "title_zh": "校验规则数",
+                          "type": "integer"
+                        }
+                      },
+                      "title_en": "质量分维度得分",
+                      "title_zh": "质量分维度得分",
+                      "type": "object"
+                    },
+                    "title_en": "维度得分列表",
+                    "title_zh": "维度得分列表",
+                    "type": "array"
+                  },
+                  "PassRuleCount": {
+                    "backendName": "PassRuleCount",
+                    "description_en": "The number of passed rules",
+                    "description_zh": "通过规则数",
+                    "example": "10",
+                    "format": "int32",
+                    "title_en": "通过规则数",
+                    "title_zh": "通过规则数",
+                    "type": "integer"
+                  },
+                  "TotalScore": {
+                    "backendName": "TotalScore",
+                    "description_en": "The total quality score",
+                    "description_zh": "质量总分",
+                    "example": "85.5",
+                    "format": "double",
+                    "title_en": "质量总分",
+                    "title_zh": "质量总分",
+                    "type": "number"
+                  },
+                  "ValidateRuleCount": {
+                    "backendName": "ValidateRuleCount",
+                    "description_en": "The number of validated rules",
+                    "description_zh": "校验规则数",
+                    "example": "12",
+                    "format": "int32",
+                    "title_en": "校验规则数",
+                    "title_zh": "校验规则数",
+                    "type": "integer"
+                  }
+                },
+                "title_en": "质量分雷达图信息；当includeDetailedAttributes=true时返回。包含总分、通过/校验规则数及各维度得分明细。",
+                "title_zh": "质量分雷达图信息；当includeDetailedAttributes=true时返回。包含总分、通过/校验规则数及各维度得分明细。",
+                "type": "object"
+              },
               "ReadCount": {
                 "backendName": "ReadCount",
-                "description_en": "The number of views",
+                "description_en": "The view count",
                 "description_zh": "浏览量；",
                 "example": "5",
                 "format": "int64",
@@ -1000,7 +1214,7 @@
                     },
                     "Env": {
                       "backendName": "Env",
-                      "description_en": "The environment to which the node belongs",
+                      "description_en": "The environment to which the asset belongs",
                       "description_zh": "所属环境；",
                       "example": "PROD",
                       "title_en": "所属环境；",
@@ -1027,7 +1241,7 @@
                     },
                     "NodeScheduleType": {
                       "backendName": "NodeScheduleType",
-                      "description_en": "The scheduling method. Valid values:\nNORMAL: Timed scheduling.\nMANUAL: Manual scheduling",
+                      "description_en": "The scheduling type. Valid values: NORMAL (timed scheduling), MANUAL (manual scheduling)",
                       "description_zh": "调度方式；枚举值：NORMAL（周期调度）、MANUAL（手动调度）",
                       "example": "NORMAL",
                       "title_en": "调度方式；枚举值：NORMAL（周期调度）、MANUAL（手动调度）。",
@@ -1040,7 +1254,7 @@
                       "description_zh": "运维负责人列表；",
                       "itemName": "Owner",
                       "items": {
-                        "description_en": "The basic user information, including the user ID and username",
+                        "description_en": "The simple user information, including the user ID and username",
                         "description_zh": "简单用户信息, 包含了用户Id和用户名",
                         "properties": {
                           "DisplayName": {
@@ -1100,7 +1314,7 @@
                     },
                     "SubBizType": {
                       "backendName": "SubBizType",
-                      "description_en": "The node type. Example valid values: DLINK (offline integration) and PYTHON37 (Python compute node)",
+                      "description_en": "The node type. Example valid values: DLINK (offline integration), PYTHON37 (Python compute node)",
                       "description_zh": "任务类型；枚举值示例：DLINK（离线集成）、PYTHON37（python计算任务）等",
                       "example": "DLINK",
                       "title_en": "任务类型；枚举值示例：DLINK（离线集成）、PYTHON37（python计算任务）等。",
@@ -1118,7 +1332,7 @@
               },
               "SubType": {
                 "backendName": "SubType",
-                "description_en": "The subtype. Valid values: DIM_NORMAL (common logical dimension table), DIM_ENUM (enumeration logical dimension table), DIM_VIRTUAL (virtual logical dimension table), SUM_BIZ_UNIT (aggregate table), FACT_EVENT (event fact logical table), FACT_SNAPSHOT (snapshot fact logical table), DATASOURCE_TABLE (data source table), PHYSICAL_TABLE (physical table), DATASOURCE_VIEW (data source view), PHYSICAL_VIEW (physical view), MATERIALIZED_VIEW (materialized view), BIZ_INDEX (business metric), INDEX (technical metric - standard modeling metric), and CUSTOM_INDEX (technical metric - custom metric)",
+                "description_en": "The subtype. Valid values:\nDIM_NORMAL: common logical dimension table.\nDIM_ENUM: enumeration logical dimension table.\nDIM_VIRTUAL: virtual logical dimension table.\nSUM_BIZ_UNIT: aggregate logical table.\nFACT_EVENT: event fact logical table.\nFACT_SNAPSHOT: snapshot fact logical table.\nDATASOURCE_TABLE: data source table.\nPHYSICAL_TABLE: physical table.\nDATASOURCE_VIEW: view (data source view).\nPHYSICAL_VIEW: physical view.\nMATERIALIZED_VIEW: materialized view.\nBIZ_INDEX: business metric.\nINDEX: technical metric (standard modeling metric).\nCUSTOM_INDEX: technical metric (custom metric)",
                 "description_zh": "子类型；DIM_NORMAL（普通维度逻辑表）、DIM_ENUM（枚举维度逻辑表）、DIM_VIRTUAL（虚拟维度逻辑表）、SUM_BIZ_UNIT（汇总逻辑表）、FACT_EVENT（事件事实逻辑表）、FACT_SNAPSHOT（快照事实逻辑表）、DATASOURCE_TABLE（数据源表）、PHYSICAL_TABLE（物理表）、DATASOURCE_VIEW（视图-数据源视图）、PHYSICAL_VIEW（物理视图）、MATERIALIZED_VIEW（物化视图）BIZ_INDEX（业务指标）、INDEX（技术指标-规范建模指标）、CUSTOM_INDEX（技术指标-自定义指标）;",
                 "example": "DIM_NORMAL",
                 "title_en": "子类型；DIM_NORMAL（普通维度逻辑表）、DIM_ENUM（枚举维度逻辑表）、DIM_VIRTUAL（虚拟维度逻辑表）、SUM_BIZ_UNIT（汇总逻辑表）、FACT_EVENT（事件事实逻辑表）、FACT_SNAPSHOT（快照事实逻辑表）、DATASOURCE_TABLE（数据源表）、PHYSICAL_TABLE（物理表）、DATASOURCE_VIEW（视图-数据源视图）、PHYSICAL_VIEW（物理视图）、MATERIALIZED_VIEW（物化视图）BIZ_INDEX（业务指标）、INDEX（技术指标-规范建模指标）、CUSTOM_INDEX（技术指标-自定义指标）;",
@@ -1154,7 +1368,7 @@
               },
               "TableSizeInBytes": {
                 "backendName": "TableSizeInBytes",
-                "description_en": "The storage size in bytes. Returned when the asset type is TABLE",
+                "description_en": "The storage size. This parameter is returned only when the asset type is TABLE",
                 "description_zh": "存储量；当资产类型为TABLE时返回",
                 "example": "0",
                 "format": "int64",
@@ -1179,7 +1393,7 @@
           },
           "Message": {
             "backendName": "Message",
-            "description_en": "The details of the backend response exception",
+            "description_en": "The backend response exception details",
             "description_zh": "后端响应异常详情",
             "example": "internal error",
             "title_en": "后端相应异常详情",

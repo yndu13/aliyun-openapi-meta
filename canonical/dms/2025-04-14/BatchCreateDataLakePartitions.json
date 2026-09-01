@@ -135,59 +135,6 @@
         },
         "type": "object"
       },
-      "DLPartitionInput": {
-        "description_en": "The partition information of a data lakehouse table",
-        "description_zh": "湖仓表分区信息",
-        "properties": {
-          "CreateTime": {
-            "backendName": "createTime",
-            "description_en": "The time when the partition was created. This is a UNIX timestamp in seconds",
-            "description_zh": "创建时间，Unix 时间戳秒数",
-            "example": "1735109884",
-            "format": "int32",
-            "type": "integer"
-          },
-          "LastAccessTime": {
-            "backendName": "lastAccessTime",
-            "description_en": "The time when the partition was last accessed. This is a UNIX timestamp in seconds",
-            "description_zh": "上一次访问分区的时间，Unix 时间戳秒数",
-            "example": "1735109884",
-            "format": "int32",
-            "type": "integer"
-          },
-          "Parameters": {
-            "additionalProperties": {
-              "description_en": "A key-value pair",
-              "description_zh": "键值对 key/value",
-              "example": "{\"key\":\"value\"}",
-              "type": "string"
-            },
-            "backendName": "parameters",
-            "description_en": "The key-value pair parameters for the partition",
-            "description_zh": "分区的键值对参数",
-            "type": "object"
-          },
-          "StorageDescriptor": {
-            "$ref": "#/components/schemas/DLStorageDescriptor",
-            "backendName": "sd",
-            "description_en": "The data storage information of the data lakehouse table",
-            "description_zh": "湖仓表数据存储信息"
-          },
-          "Values": {
-            "backendName": "values",
-            "description_en": "The partition values",
-            "description_zh": "分区值",
-            "items": {
-              "description_en": "The value of a partition key column",
-              "description_zh": "分区列的值",
-              "example": "part_val1",
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object"
-      },
       "DLSerdeInfo": {
         "description_en": "Information about serialization and deserialization",
         "description_zh": "序列化和反序列化信息",
@@ -431,7 +378,7 @@
   "deprecated": false,
   "description_en": "Creates partitions for a data lake table in a batch",
   "description_zh": "调用此API可批量新建湖仓表分区",
-  "kebab_example": "",
+  "kebab_example": "aliyun dms batch-create-data-lake-partitions --catalog-name hive --db-name default --table-name test_table --partition-inputs '[\"example-string\"]' --if-not-exists true --need-result true --tid 30000 --workspace-id 120000 --region cn-hangzhou",
   "method": "GET|POST",
   "multi_version": false,
   "name": "BatchCreateDataLakePartitions",

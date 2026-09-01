@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun apig GET /v1/gateways/gw-xxxx/list-load-balancers --region cn-hangzhou --all false --loadBalancerId 'lb-xxxx' --related false --vpcId 'vpc-xxxx' --type NLB --network Internet --header \"Content-Type=application/json\"",
   "cmd_full_name": "apig list-gateway-load-balancers",
   "cmd_name": "list-gateway-load-balancers",
   "deprecated": false,
@@ -34,6 +34,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "CLB",
+        "NLB"
+      ],
       "example": "NLB",
       "help_en": "The type",
       "help_zh": "LB 类型过滤",
@@ -47,6 +51,10 @@
       "type": "string"
     },
     {
+      "enum": [
+        "Internet",
+        "Intranet"
+      ],
       "example": "Internet",
       "help_en": "The network",
       "help_zh": "网络类型过滤",
@@ -131,7 +139,6 @@
             "properties": {
               "items": {
                 "description_zh": "实例",
-                "itemName": "gatewayLoadBalancers",
                 "items": {
                   "description_zh": "实例",
                   "properties": {
@@ -202,13 +209,11 @@
                     },
                     "loadBalancerZoneMappings": {
                       "description_zh": "可用区映射",
-                      "itemName": "loadBalancerZoneMapping",
                       "items": {
                         "description_zh": "可用区映射",
                         "properties": {
                           "loadBalancerAddresses": {
                             "description_zh": "该可用区的 LB 地址列表",
-                            "itemName": "loadBalancerAddress",
                             "items": {
                               "description_zh": "该可用区的 LB 地址列表",
                               "properties": {
@@ -224,7 +229,6 @@
                                 },
                                 "ipv4LocalAddresses": {
                                   "description_zh": "私网 IPv4 地址列表",
-                                  "itemName": "ipv4LocalAddress",
                                   "items": {
                                     "description_zh": "私网 IPv4 地址列表",
                                     "example": "[\"192.168.x.x\"]",
@@ -239,7 +243,6 @@
                                 },
                                 "ipv6LocalAddresses": {
                                   "description_zh": "私网 IPv6 地址列表",
-                                  "itemName": "ipv6LocalAddress",
                                   "items": {
                                     "description_zh": "私网 IPv6 地址列表",
                                     "example": "[\"fd00:xxxx\"]",
@@ -274,6 +277,13 @@
                           },
                           "status": {
                             "description_zh": "可用区状态",
+                            "enumValueTitles": {
+                              "Active": "可用区正常",
+                              "Shifted": "可用区已迁移",
+                              "Staring": "可用区正在启动",
+                              "Stopped": "可用区已停止",
+                              "Stopping": "可用区正在停止"
+                            },
                             "example": "Active",
                             "type": "string"
                           },
@@ -294,7 +304,6 @@
                     },
                     "ports": {
                       "description_zh": "监听端口列表",
-                      "itemName": "port",
                       "items": {
                         "description_zh": "监听端口列表",
                         "properties": {
@@ -327,13 +336,11 @@
                     },
                     "virtualServerGroupList": {
                       "description_zh": "虚拟服务器组列表",
-                      "itemName": "virtualServerGroup",
                       "items": {
                         "description_zh": "虚拟服务器组列表",
                         "properties": {
                           "listeners": {
                             "description_zh": "关联的监听列表",
-                            "itemName": "listener",
                             "items": {
                               "description_zh": "关联的监听列表",
                               "properties": {

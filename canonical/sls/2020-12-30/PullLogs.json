@@ -1,5 +1,5 @@
 {
-  "camel_example": "",
+  "camel_example": "aliyun sls GET /logstores/ali-test-logstore/shards/1?type=log --region cn-hangzhou --cursor MTQ0NzMyOTQwMTEwMjEzMDkwNA --count 1000 --header \"Content-Type=application/json\"",
   "cmd_full_name": "sls pull-logs",
   "cmd_name": "pull-logs",
   "components": {
@@ -32,18 +32,6 @@
         "description_en": "Log group",
         "description_zh": "日志组",
         "properties": {
-          "LogItems": {
-            "description_en": "A list of logs",
-            "description_zh": "日志列表",
-            "items": {
-              "$ref": "#/components/schemas/LogItem",
-              "description_en": "A log",
-              "description_zh": "日志"
-            },
-            "required": true,
-            "title": "日志列表",
-            "type": "array"
-          },
           "LogTags": {
             "description_en": "The list of tags for the log",
             "description_zh": "日志的标签列表",
@@ -54,6 +42,18 @@
             },
             "required": false,
             "title": "日志的标签列表",
+            "type": "array"
+          },
+          "Logs": {
+            "description_en": "",
+            "description_zh": "日志列表",
+            "items": {
+              "$ref": "#/components/schemas/LogItem",
+              "description_en": "",
+              "description_zh": ""
+            },
+            "required": true,
+            "title": "日志列表",
             "type": "array"
           },
           "Source": {
@@ -79,13 +79,13 @@
         "description_en": "The list of LogGroups",
         "description_zh": "LogGroup 列表",
         "properties": {
-          "LogGroupList": {
+          "logGroupList": {
             "description_en": "",
             "description_zh": "logGroup 列表",
             "items": {
               "$ref": "#/components/schemas/LogGroup",
               "description_en": "",
-              "description_zh": ""
+              "description_zh": "日志组"
             },
             "required": true,
             "title": "logGroup 列表",
@@ -154,7 +154,7 @@
   "deprecated": false,
   "description_en": "Call the PullLogs operation to retrieve log data from a specified cursor position. This operation retrieves raw logs. To query or analyze logs, call the GetLogsV2 operation",
   "description_zh": "调用PullLogs接口获取指定游标（Cursor）位置的日志数据。此接口获取的是原始日志，如要查询或分析日志，请使用GetLogsV2接口",
-  "kebab_example": "",
+  "kebab_example": "aliyun sls pull-logs --project ali-test-project --log-store ali-test-logstore --shard-id 1 --cursor MTQ0NzMyOTQwMTEwMjEzMDkwNA --count 1000 --region cn-hangzhou",
   "method": "GET",
   "multi_version": false,
   "name": "PullLogs",

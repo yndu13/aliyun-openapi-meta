@@ -3,9 +3,9 @@
   "cmd_full_name": "dataphin-public list-node-down-stream",
   "cmd_name": "list-node-down-stream",
   "deprecated": false,
-  "description_en": "Queries the downstream nodes of a node. The query results can be used as a data reference when you create a data backfill workflow",
+  "description_en": "Queries the downstream of a node. The query results can be used as a data reference when you create a data backfill workflow",
   "description_zh": "查询节点下游，创建补数据工作流时可以作为数据参考",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public list-node-down-stream --op-tenant-id 30001011 --list-query '{\"NodeIdList\":[{}],\"DownStreamDepth\":1,\"ProjectId\":123011,\"FilterList\":[{}]}' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "ListNodeDownStream",
@@ -39,7 +39,7 @@
       "fields": [
         {
           "example": "1",
-          "help_en": "The depth. Default value: 3",
+          "help_en": "The depth of the downstream query. Default value: 3",
           "help_zh": "深度，默认3层",
           "name": "down_stream_depth",
           "options": [
@@ -93,7 +93,7 @@
             ],
             "type": "object"
           },
-          "help_en": "The filters. You can include or exclude results based on projects or nodes. Default value: empty",
+          "help_en": "The list of filters. You can include or exclude results based on projects and nodes. Default value: empty",
           "help_zh": "过滤器：可以根据项目、节点等进行正选和反选，默认为空",
           "name": "filter_list",
           "options": [
@@ -111,7 +111,7 @@
                   "type": "string"
                 },
                 "example": "112",
-                "help_en": "The list of field IDs. This parameter can be specified when the node ID is a logical table node ID. If this parameter is not specified, all fields in the table are used by default",
+                "help_en": "The list of field IDs. This parameter can be specified when the node ID is a logical table node ID. If this parameter is not specified, the full table is used by default",
                 "help_zh": "字段ID列表：当节点是逻辑表节点ID时可以传，不传默认是全表",
                 "name": "field_id_list",
                 "options": [
@@ -181,6 +181,19 @@
         "--env"
       ],
       "raw_name": "Env",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "30001011",
+      "help_en": "The ID of the operator",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
       "required": false,
       "type": "string"
     }

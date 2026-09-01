@@ -3,9 +3,9 @@
   "cmd_full_name": "dataphin-public list-nodes",
   "cmd_name": "list-nodes",
   "deprecated": false,
-  "description_en": "Retrieves a list of scheduling nodes",
+  "description_en": "Retrieves a list of scheduled nodes",
   "description_zh": "获取任务节点列表",
-  "kebab_example": "",
+  "kebab_example": "aliyun dataphin-public list-nodes --op-tenant-id 30001011 --list-query '{\"SchedulePeriodList\":[\"DAILY\"],\"ScheduleType\":\"NORMAL\",\"SchedulePaused\":true,\"NodeBizType\":\"SCRIPT\",\"PageSize\":10,\"NodeSubBizTypeList\":[\"SHELL\"],\"ProjectId\":12111,\"PriorityList\":[\"MIDDLE\"],\"DryRun\":false,\"OwnerList\":[\"121112\"],\"Page\":1,\"SearchText\":\"xx\"}' --region cn-hangzhou",
   "method": "POST",
   "multi_version": false,
   "name": "ListNodes",
@@ -51,7 +51,7 @@
         },
         {
           "example": "SCRIPT",
-          "help_en": "The node business type. Valid values:\nSCRIPT: script\nLOGICAL_TABLE: logical table",
+          "help_en": "The node business type. Valid values:\nSCRIPT: script.\nLOGICAL_TABLE: logical table",
           "help_zh": "节点业务类型\nSCRIPT：脚本\nLOGICAL_TABLE：逻辑表",
           "name": "node_biz_type",
           "options": [
@@ -65,7 +65,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The sub-business types. Valid values:\nMAX_COMPUTE_SQL\nHIVE_SQL\nSHELL\nPYTHON\nONE_SERVICE_SQL\nDATABASE_SQL",
+          "help_en": "The sub-business type. Valid values:\nMAX_COMPUTE_SQL\nHIVE_SQL\nSHELL\nPYTHON\nONE_SERVICE_SQL\nDATABASE_SQL, etc",
           "help_zh": "子业务类型\nMAX_COMPUTE_SQL\nHIVE_SQL\nSHELL\nPYTHON\nONE_SERVICE_SQL\nDATABASE_SQL等",
           "name": "node_sub_biz_type_list",
           "options": [
@@ -103,7 +103,7 @@
         },
         {
           "example": "10",
-          "help_en": "The number of entries per page",
+          "help_en": "The number of records per page",
           "help_zh": "分页记录数",
           "name": "page_size",
           "options": [
@@ -117,7 +117,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The node priorities. Valid values:\nHIGHEST\nHIGH\nMIDDLE\nLOW\nLOWEST",
+          "help_en": "The node priority. Valid values:\nHIGHEST\nHIGH\nMIDDLE\nLOW\nLOWEST",
           "help_zh": "节点优先级\nHIGHEST\nHIGH\nMIDDLE\nLOW\nLOWEST",
           "name": "priority_list",
           "options": [
@@ -155,7 +155,7 @@
           "element": {
             "type": "string"
           },
-          "help_en": "The scheduling periods. Valid values:\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
+          "help_en": "The scheduling period. Valid values:\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
           "help_zh": "调度周期\nYEARLY\nMONTHLY\nWEEKLY\nDAILY\nHOURLY\nMINUTELY",
           "name": "schedule_period_list",
           "options": [
@@ -167,7 +167,7 @@
         },
         {
           "example": "NORMAL",
-          "help_en": "The node scheduling type. Valid values:\nNORMAL: periodic scheduling\nSUPPLEMENT: data backfill\nMANUAL: manual scheduling",
+          "help_en": "The node scheduling type. Valid values:\nNORMAL: Periodic.\nSUPPLEMENT: Data backfill.\nMANUAL: Manual",
           "help_zh": "节点调度类型\nNORMAL：周期\nSUPPLEMENT：补数据\nMANUAL：手工",
           "name": "schedule_type",
           "options": [
@@ -179,7 +179,7 @@
         },
         {
           "example": "xx",
-          "help_en": "The search keyword. Fuzzy search by node name and exact search by node ID are supported",
+          "help_en": "The search keyword. Supports fuzzy match by node name and exact match by node ID",
           "help_zh": "关键词搜索：支持节点名称模糊搜索，节点id精确搜索",
           "name": "search_text",
           "options": [
@@ -204,7 +204,7 @@
     },
     {
       "example": "PROD",
-      "help_en": "The environment identifier. Valid values:\nDEV: development environment \nPROD (default): production environment",
+      "help_en": "The environment identifier. Valid values:\nDEV: Development environment. \nPROD (default): Production environment",
       "help_zh": "环境标识\nDEV：开发环境 \nPROD（默认）：生产环境",
       "location": "query",
       "name": "env",
@@ -212,6 +212,19 @@
         "--env"
       ],
       "raw_name": "Env",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "example": "30001011",
+      "help_en": "The ID of the operator",
+      "help_zh": "操作用户ID",
+      "location": "query",
+      "name": "op_user_id",
+      "options": [
+        "--op-user-id"
+      ],
+      "raw_name": "OpUserId",
       "required": false,
       "type": "string"
     }
@@ -222,7 +235,7 @@
   "responses": {
     "200": {
       "schema": {
-        "description_en": "The response parameters",
+        "description_en": "The response result",
         "description_zh": "响应结果",
         "properties": {
           "Code": {
@@ -246,7 +259,7 @@
           },
           "Message": {
             "backendName": "Message",
-            "description_en": "The error message",
+            "description_en": "The error message returned if the request failed",
             "description_zh": "请求错误信息",
             "example": "successful",
             "title_en": "请求错误信息",
@@ -260,7 +273,7 @@
             "properties": {
               "NodeList": {
                 "backendName": "NodeList",
-                "description_en": "The list of nodes on the current page",
+                "description_en": "The paginated list of nodes",
                 "description_zh": "分页节点列表",
                 "itemName": "NodeInfo",
                 "items": {
@@ -278,7 +291,7 @@
                     },
                     "CreateTime": {
                       "backendName": "CreateTime",
-                      "description_en": "The creation time",
+                      "description_en": "The time when the node was created",
                       "description_zh": "创建时间",
                       "example": "2024-05-30 16:47:13",
                       "title_en": "创建时间",
@@ -287,7 +300,7 @@
                     },
                     "Creator": {
                       "backendName": "Creator",
-                      "description_en": "The creator",
+                      "description_en": "The creator of the node",
                       "description_zh": "创建者",
                       "properties": {
                         "Id": {
@@ -311,7 +324,7 @@
                     },
                     "Description": {
                       "backendName": "Description",
-                      "description_en": "The description",
+                      "description_en": "The description of the node",
                       "description_zh": "描述",
                       "example": "xx test",
                       "title_en": "描述",
@@ -329,7 +342,7 @@
                     },
                     "ExtendInfo": {
                       "backendName": "ExtendInfo",
-                      "description_en": "The extended information",
+                      "description_en": "The extended information of the node",
                       "description_zh": "扩展信息",
                       "example": "{\"xx\":\"zz\"}",
                       "title_en": "扩展信息",
@@ -338,7 +351,7 @@
                     },
                     "From": {
                       "backendName": "From",
-                      "description_en": "The source",
+                      "description_en": "The source of the node",
                       "description_zh": "来源",
                       "example": "DATA_PROCESS",
                       "title_en": "来源",
@@ -347,7 +360,7 @@
                     },
                     "HasDev": {
                       "backendName": "HasDev",
-                      "description_en": "Indicates whether a development environment exists",
+                      "description_en": "Indicates whether the node has a development environment",
                       "description_zh": "是否有开发环境",
                       "example": "true",
                       "title_en": "是否有开发环境",
@@ -356,7 +369,7 @@
                     },
                     "HasProd": {
                       "backendName": "HasProd",
-                      "description_en": "Indicates whether a production environment exists",
+                      "description_en": "Indicates whether the node has a production environment",
                       "description_zh": "是否有生产环境",
                       "example": "true",
                       "title_en": "是否有生产环境",
@@ -374,7 +387,7 @@
                     },
                     "LastModifiedTime": {
                       "backendName": "LastModifiedTime",
-                      "description_en": "The last modification time",
+                      "description_en": "The time when the node was last modified",
                       "description_zh": "编辑时间",
                       "example": "2024-05-30 16:47:13",
                       "type": "string"
@@ -405,7 +418,7 @@
                     },
                     "Name": {
                       "backendName": "Name",
-                      "description_en": "The node name",
+                      "description_en": "The name of the node",
                       "description_zh": "节点名称",
                       "example": "xx测试",
                       "title_en": "节点名称",
@@ -483,7 +496,7 @@
                     },
                     "SchedulePaused": {
                       "backendName": "SchedulePaused",
-                      "description_en": "Indicates whether scheduling is paused",
+                      "description_en": "Indicates whether the node is paused",
                       "description_zh": "是否暂停",
                       "example": "true",
                       "title_en": "是否暂停",
@@ -507,7 +520,7 @@
                     },
                     "SubDetailType": {
                       "backendName": "SubDetailType",
-                      "description_en": "The sub-business types. Valid values:\nMAX_COMPUTE_SQL\nHIVE_SQL\nSHELL\nPYTHON\nONE_SERVICE_SQL\nDATABASE_SQL",
+                      "description_en": "The sub-business type. Valid values:\nMAX_COMPUTE_SQL\nHIVE_SQL\nSHELL\nPYTHON\nONE_SERVICE_SQL\nDATABASE_SQL, etc",
                       "description_zh": "子业务类型\nMAX_COMPUTE_SQL\nHIVE_SQL\nSHELL\nPYTHON\nONE_SERVICE_SQL\nDATABASE_SQL等",
                       "example": "SHELL",
                       "title_en": "节点子类型（如数据处理中的MAX_COMPUTER_SQL/HIVE_SQL/SHELL等，如逻辑表中的维度表/事实表/汇总表等）。如DATA_PROCESS中的MAX_COMPUTER_SQL、HIVE_SQL、SHELL等，如BBOX_LOGIC_TABLE_NODE中的DIM_LOGICAL_TABLE、FACT_LOGICAL_TABLE、SUMMARY_LOGICAL_TABLE等",
@@ -516,7 +529,7 @@
                     },
                     "Type": {
                       "backendName": "Type",
-                      "description_en": "The node type",
+                      "description_en": "The type of the node",
                       "description_zh": "节点类型",
                       "example": "DATA_PROCESS",
                       "title_en": "节点类型",
