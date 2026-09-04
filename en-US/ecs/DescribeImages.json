@@ -21,28 +21,28 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run, without performing the actual request.\n         \n- true: Only a dry run is performed. The system checks whether your AccessKey pair is valid, whether Resource Access Management (RAM) user authorization is granted, and whether the required parameters are specified. If the check fails, the corresponding error is returned. If the check succeeds, the DryRunOperation error code is returned.  \n- false: A request is sent. If the check succeeds, a 2XX HTTP status code is returned and the resource status is queried directly. \n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run, without performing the actual request.\n         \n- true: Only a dry run is performed. The system checks whether your AccessKey pair is valid, whether Resource Access Management (RAM) user authorization is granted, and whether the required parameters are specified. If the check fails, the corresponding error is returned. If the check succeeds, the DryRunOperation error code is returned. The request does not send the actual query.\n- false: A normal request is sent. If the check succeeds, a 2XX HTTP status code is returned and the resource status is directly queried. \n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Filter",
-      "description": "The list of filter conditions for querying resources.",
+      "description": "The list of filter conditions used to query resources.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The filter key for querying resources. Valid values:\n\n- When this parameter is set to `CreationStartTime`, you can query resources created after the time point specified by `Filter.N.Value`.\n- When this parameter is set to `CreationEndTime`, you can query resources created before the time point specified by `Filter.N.Value`.\n- When this parameter is set to `NetworkType`, you can query resources of the specified network type.\n- When this parameter is set to `CpuOnlineUpgrade`, `CpuOnlineDowngrade`, `MemoryOnlineUpgrade`, or `MemoryOnlineDowngrade`, you can query the CPU or memory hot-plugging support of the specified image.\n\nDefault value: null.",
+          "description": "The filter key used to query resources. Valid values:\n\n- When this parameter is set to `CreationStartTime`, you can query resources created after the specified time point (`Filter.N.Value`).\n- When this parameter is set to `CreationEndTime`, you can query resources created before the specified time point (`Filter.N.Value`).\n- When this parameter is set to `NetworkType`, you can query resources of the specified network type.\n- When this parameter is set to any of `CpuOnlineUpgrade`, `CpuOnlineDowngrade`, `MemoryOnlineUpgrade`, or `MemoryOnlineDowngrade`, you can query the CPU or memory hot-plugging support of the specified image.\n\nDefault value: null.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The filter value for querying resources.\n- When `Filter.N.Key` is set to `CreationStartTime` or `CreationEndTime`, the format is `yyyy-MM-ddTHH:mmZ`, using the UTC+0 time zone.\n- When `Filter.N.Key` is set to `NetworkType`, valid network type values include `vpc` and `classic`.\n\n- When `Filter.N.Key` is set to `CpuOnlineUpgrade`, `CpuOnlineDowngrade`, `MemoryOnlineUpgrade`, or `MemoryOnlineDowngrade`, valid values are `supported` and `unsupported`.\n\nDefault value: null.",
+          "description": "The filter value used to query resources.\n- When `Filter.N.Key` is set to `CreationStartTime` or `CreationEndTime`, the format is `yyyy-MM-ddTHH:mmZ`, in UTC+0 time zone.\n- When `Filter.N.Key` is set to `NetworkType`, valid network type values include `vpc` and `classic`.\n\n- When `Filter.N.Key` is set to `CpuOnlineUpgrade`, `CpuOnlineDowngrade`, `MemoryOnlineUpgrade`, or `MemoryOnlineDowngrade`, valid values are `supported` and `unsupported`.\n\nDefault value: null.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -65,14 +65,14 @@
     },
     {
       "name": "ImageName",
-      "description": "The image name. Fuzzy search is supported.",
+      "description": "The name of the image. Fuzzy search is supported.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ImageOwnerAlias",
-      "description": "The source of the image. Valid values:\n\n- system: Images provided by Alibaba Cloud that are not published through Alibaba Cloud Marketplace. This is different from the \"Public Image\" concept in the console.\n- self: Custom images that you created.\n- others: Includes shared images (images directly shared by other Alibaba Cloud users) and community images (images that any Alibaba Cloud user has fully shared publicly). Note the following:\n    - To find community images, IsPublic must be set to true.\n    - To find shared images, IsPublic must be set to false or left empty.\n- marketplace: Images published by Alibaba Cloud or third-party independent software vendors (ISVs) in Alibaba Cloud Marketplace. These images must be purchased together with ECS. Check the billing details of Alibaba Cloud Marketplace images.\n\nDefault value: empty.\n\n> An empty value returns results with values of system, self, and others.",
+      "description": "The source of the image. Valid values:\n\n- system: Images provided by Alibaba Cloud that are not published through Alibaba Cloud Marketplace. This is different from the concept of \"public images\" in the console.\n- self: Custom images that you created.\n- others: Includes shared images (images directly shared with you by other Alibaba Cloud users) and community images (images that any Alibaba Cloud user has fully shared publicly). Note the following:\n    - To find community images, IsPublic must be set to true.\n    - To find shared images, IsPublic must be set to false or left empty.\n- marketplace: Images published by Alibaba Cloud or third-party independent software vendors (ISVs) in Alibaba Cloud Marketplace. These images must be purchased together with ECS. Check the billing details of Alibaba Cloud Marketplace images on your own.\n\nDefault value: empty.\n\n> An empty value indicates that images with the system, self, and others values are returned.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -86,7 +86,7 @@
     },
     {
       "name": "InstanceType",
-      "description": "The instance type for which available images are queried.",
+      "description": "The instance type for which you want to query available images.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -121,14 +121,14 @@
     },
     {
       "name": "PageNumber",
-      "description": "The page number of the resources list.\n\nMinimum value: 1.\n\nDefault value: 1.",
+      "description": "The page number of the resources.\n\nMinimum value: 1.\n\nDefault value: 1.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PageSize",
-      "description": "The number of entries per page for paging queries. Settings this parameter specifies the number of entries to return on each page.\n\nMaximum value: 100.\n\nDefault value: 10.",
+      "description": "The number of entries per page for a paging query. Settings this parameter to specify the number of entries to return on each page.\n\nMaximum value: 100.\n\nDefault value: 10.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -142,7 +142,7 @@
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the enterprise resource group to which the custom image belongs. When you use this parameter to filter resources, the resource count cannot exceed 1000.\n\n> Filtering by the default resource group is not supported.",
+      "description": "The ID of the resource group to which the custom image belongs. When you use this parameter to filter resources, the resource count cannot exceed 1000.\n\n> Filtering by the default resource group is not supported.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -163,7 +163,7 @@
     },
     {
       "name": "Status",
-      "description": "The status of the image. Valid values:\n\n- Creating: The image is being created.\n- Waiting: The image is waiting in a multi-task queue.\n- Available: The image is available for use.\n- UnAvailable: The image is unavailable.\n- CreateFailed: The image failed to be created.\n- Deprecated: The image is deprecated.\n- ALL: All image statuses.\n\nDefault value: Available. Status is required only when Usable is specified, and has no default value in that case.\n> This parameter supports multiple values separated by commas (,). When the value is set to ALL, images in all statuses are queried. ALL cannot be used together with other status values.",
+      "description": "The status of the image. Valid values:\n\n- Creating: The image is being created.\n- Waiting: The image is waiting in a multi-task queue.\n- Available: The image is available.\n- UnAvailable: The image is unavailable.\n- CreateFailed: The image failed to be created.\n- Deprecated: The image is deprecated.\n- ALL: All image statuses.\n\nDefault value: Available. When Usable is used, Status is required and has no default value.\n> This parameter supports multiple values at the same time, separated by commas (,). When the value is set to ALL, images in all statuses are queried. ALL cannot be used together with other status values.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -177,7 +177,7 @@
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The tag key of the image. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with this tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count that has all specified tags attached cannot exceed 1000. If the resource count exceeds 1000, use the [ListTagResources](~~110425~~) operation to query resources.",
+          "description": "The tag key of the image. Valid values of N: 1 to 20.\n\nIf you use a single tag to filter resources, the resource count with this tag cannot exceed 1000. If you use multiple tags to filter resources, the resource count that has all specified tags attached cannot exceed 1000. If the resource count exceeds 1000, call the [ListTagResources](~~110425~~) operation to query resources.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -207,14 +207,14 @@
     },
     {
       "name": "Usable",
-      "description": "Specifies whether the image is available.\n> An available image indicates that the image can be used immediately to create instances. For more scenarios, see [Instant image availability](~~3044728~~).",
+      "description": "Specifies whether the image is available.\n> An available image indicates that the image can be immediately used to create instances. For more availability scenarios, see [Image instant availability](~~3044728~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "Usage",
-      "description": "Specifies whether the image is running on ECS instances. Valid values:\n\n- instance: The image is in use by ECS instances.\n- none: The image is idle and not used by any ECS instances.",
+      "description": "Specifies whether the image is running on ECS instances. Valid values:\n\n- instance: The image is in use and running on ECS instances.\n- none: The image is idle and not running on any ECS instances.",
       "position": "Query",
       "type": "String",
       "required": false

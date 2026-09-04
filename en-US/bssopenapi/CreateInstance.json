@@ -7,35 +7,35 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. The server checks whether a request that uses the same client token has been received. If a request that uses the same client token has been received, the server returns the same request result as the previous request.\n",
+      "description": "The client idempotency token. The server checks whether a request with the same ClientToken has been made. If yes, the server returns the result of the previous call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Logistics",
-      "description": "The logistics address of this order. This parameter is generally valid for physical orders.\n",
+      "description": "The logistics address for this order. This parameter is typically valid for orders of physical products.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Parameter",
-      "description": "The details of the modules.\n",
+      "description": "The list of modules.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Code",
-          "description": "The code property of the Nth module. Value of N: 1 to 100. If multiple module property parameters are involved, concatenate multiple parameters based on the value of N in sequence.\n",
+          "description": "The code of the Nth module property. Valid values of N: 1 to 100. If multiple module properties exist, concatenate them in the format of N=1, 2, 3...N.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
-          "description": "The value property of the Nth module. Value of N: 1 to 100.\n",
+          "description": "The value of the Nth module property. Valid values of N: 1 to 100.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -44,49 +44,49 @@
     },
     {
       "name": "Period",
-      "description": "The subscription duration. Unit: month. The value must be an integral multiple of 12.\n\n>  This parameter is required if you create a subscription instance.\n",
+      "description": "The subscription period. Unit: months. For yearly subscription products, specify a multiple of 12.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "PricingCycle",
-      "description": "The cycle type of the prepaid period\n- PricingCycle=1 indicates that the unit of the prepaid period is in years; \n- PricingCycle=2 indicates that the unit of the prepaid period is in months; \n- PricingCycle=3 indicates that the unit of the prepaid period is in days;\n- Default value: PricingCycle=2\n\nApplicable only to certain product types (ProductType being ddos_originpre_public_cn, ddosDip, ddoscoo, ddos_originpre_public_intl, ddosDip_intl, ddoscoo_intl)",
+      "description": "The unit of the subscription period.\n\n- PricingCycle=1: The unit of the subscription period is year.\n\n- PricingCycle=2: The unit of the subscription period is month.\n\n- PricingCycle=3: The unit of the subscription period is day.\n\nDefault value: PricingCycle=2.\n\nThis parameter is applicable only to specific product types (ProductType is ddos_originpre_public_cn, ddosDip, ddoscoo, ddos_originpre_public_intl, ddosDip_intl, or ddoscoo_intl).",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "ProductCode",
-      "description": "The code of the service to which the instance belongs. You can query the service code by calling the **QueryProductList** operation or viewing **Codes of Alibaba Cloud Services**.\n",
+      "description": "The product code. You can call the **QueryProductList** operation to query the product code.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProductType",
-      "description": "The type of the service.\n",
+      "description": "The product type.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RenewPeriod",
-      "description": "The auto-renewal period. Unit: month.\n\n>  This parameter is required if the **RenewalStatus** parameter is set to **AutoRenewal**.\n",
+      "description": "The auto-renewal epoch. Unit: months.\n> This parameter is required when you set **RenewalStatus** to **AutoRenewal** in Settings.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "RenewalStatus",
-      "description": "The renewal method. Valid values:\n\n*   AutoRenewal: The instance is automatically renewed.\n*   ManualRenewal: The instance is manually renewed.\n\nDefault value: ManualRenewal.\n",
+      "description": "The auto-renewal status. Valid values:\n- AutoRenewal: auto-renewal is enabled.\n- ManualRenewal: manual renewal.\n\nDefault value: ManualRenewal.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SubscriptionType",
-      "description": "The billing method. Valid values:\n\n*   Subscription: the subscription billing method.\n*   PayAsYouGo: the pay-as-you-go billing method.\n",
+      "description": "The billing method. Valid values:\n- Subscription: subscription.\n- PayAsYouGo: pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": true

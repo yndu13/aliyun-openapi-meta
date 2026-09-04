@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "DiskCategory",
-      "description": "The new disk type. This parameter takes effect only when you perform an Upgrade/Downgrade during migration between different dedicated block storage clusters. Currently, only cloud_essd (enterprise SSD) is supported.\n\nDefault value: empty, which indicates that the disk type is not changed during the Upgrade/Downgrade.",
+      "description": "The new disk type. This parameter takes effect only when you migrate a disk between different dedicated block storage clusters. Currently, only cloud_essd (enterprise SSD) is supported.\n\nDefault value: empty, which indicates that the disk type is not changed.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -21,21 +21,21 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform only a dry run. Valid values:\n- true: performs only a dry run. The system checks the required parameters, request format, business restrictions, and ECS inventory. If the check fails, the corresponding error is returned. If the check succeeds, the error code DryRunOperation is returned.\n- false: performs a dry run and sends the request. If the check succeeds, a 2XX HTTP status code is returned and the disk is migrated.\n\nDefault value: false.",
+      "description": "Specifies whether to perform only a dry run. Valid values:\n- true: performs only a dry run. The system checks whether your AccessKey pair is valid, whether RAM users are granted required permissions, and whether the required parameters are specified. If the request fails the dry run, an error message is returned. If the request passes the dry run, the DryRunOperation error code is returned.\n- false: performs a dry run and performs the actual request. If the request passes the dry run, a 2XX HTTP status code is returned and the disk is migrated.\n\nDefault value: false.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "PerformanceLevel",
-      "description": "The performance level of the enterprise SSD. This parameter takes effect only when you migrate a disk between different dedicated block storage clusters. Valid values:\n- PL0: a maximum of 10,000 random read/write IOPS per disk.\n- PL1: a maximum of 50,000 random read/write IOPS per disk.\n\nDefault value: empty, which indicates that the performance level is not changed.",
+      "description": "The performance level (PL) of the enterprise SSD. This parameter takes effect only when you migrate a disk between different dedicated block storage clusters. Valid values:\n- PL0: A maximum of 10,000 random read/write IOPS per disk.\n- PL1: A maximum of 50,000 random read/write IOPS per disk.\n\nDefault value: empty, which indicates that the performance level (PL) is not changed.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageClusterId",
-      "description": "The dedicated block storage cluster ID.\n- To migrate a disk to a dedicated block storage cluster, you must specify `StorageClusterId`.\n- To migrate a disk to a public cloud block storage cluster, `StorageClusterId` must be empty.\n\nDefault value: empty, which indicates that the disk is migrated to a public cloud block storage cluster.",
+      "description": "The dedicated block storage cluster ID.\n- To migrate a disk to a dedicated block storage cluster, you must specify StorageClusterId.\n- To migrate a disk to a public cloud block storage cluster, StorageClusterId must be empty.\n\nDefault value: empty, which indicates that the disk is migrated to a public cloud block storage cluster.",
       "position": "Query",
       "type": "String",
       "required": false

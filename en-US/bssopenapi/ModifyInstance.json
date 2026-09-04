@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.",
+      "description": "The client token that is used to ensure the idempotence of the request and prevent duplicate submissions.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the instance whose configuration you want to change.",
+      "description": "The instance ID of the instance whose configuration you want to modify.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ModifyType",
-      "description": "The type of configuration change. Valid values:\n\n- Upgrade\n\n- Downgrade",
+      "description": "The type of configuration change. Valid values:\n- Upgrade: upgrade.\n- Downgrade: downgrade.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "Parameter",
-      "description": "The list of parameters. You can specify up to 100 parameters.",
+      "description": "The list of parameters.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Code",
-          "description": "The code of the module property.\n\n> Specify only the module properties that you want to change. For example, if you have two properties, A and B, and you only want to change property A, pass only the information related to property A.",
+          "description": "The code of the nth module property. Valid values of n: 1 to 100. If multiple module properties exist, concatenate the parameters in the format of n=1,2,3…n.\n\n> Specify only the module properties that need to be changed. For example, if only property A needs to be changed among properties A and B, pass only the information related to property A.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Value",
-          "description": "The value of the module property.",
+          "description": "The value of the nth module property. Valid values of n: 1 to 100.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -65,7 +65,7 @@
     },
     {
       "name": "SubscriptionType",
-      "description": "The billing method. Valid values:\n\n- Subscription: subscription.\n\n- PayAsYouGo: pay-as-you-go.",
+      "description": "The billing method. Valid values:\n- Subscription: subscription.\n- PayAsYouGo: pay-as-you-go.",
       "position": "Query",
       "type": "String",
       "required": true

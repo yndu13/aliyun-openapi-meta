@@ -21,70 +21,70 @@
     },
     {
       "name": "Cidr",
-      "description": "The CIDR block of the transit router.",
+      "description": "The transit router CIDR block.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CidrBlock",
-      "description": "The allocated CIDR block.",
+      "description": "The allocated CIDR block under the transit router CIDR block.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "A client token that is used to ensure the idempotence of the request.\n\nGenerate a token from your client to make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** is different for each request.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DedicatedOwnerId",
-      "description": "The dedicated CIDR block.\n\nThe only valid value is **VPN**. This value specifies that you want to query the CIDR block that is reserved by the system for creating VPN connections.",
+      "description": "The dedicated CIDR block.\n\nSet the value to **VPN**, which specifies that you want to query the CIDR block reserved by the system for creating VPN connections in the backend.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request format, and service limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.\n\n- **false** (default): sends a normal request. After the request passes the check, the system queries the allocation details of the CIDR block.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request syntax, and business restrictions. If the request fails the dry run, the corresponding error is returned. If the request passes the dry run, the error code `DryRunOperation` is returned.\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, the transit router CIDR block allocation details are queried.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "MaxResults",
-      "description": "The number of entries per page.\n\n- If you do not specify this parameter, the query is not paginated.\n\n- If you specify this parameter, the query is paginated. Valid values: **1** to **100**. The recommended value is **20**.\n\n  The value of the returned **MaxResults** parameter indicates the number of list entries in the current query batch.",
+      "description": "The number of entries per page.\n\n- If you do not specify a value for **MaxResults**, it indicates that you do not need to query results by page. The value of **MaxResults** in the response indicates the total number of entries.\n- If you specify a value for **MaxResults**, it indicates that you need to query results by page. Valid values: **1** to **100**. We recommend that you set **MaxResults** to **20**.      \n\n  The value of **MaxResults** in the response indicates the number of entries on the current page.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n\n- You do not need to specify this parameter for the first request.\n\n- If a next page exists, set the value to the **NextToken** value returned from the previous request.",
+      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n- You do not need to specify this parameter for the first request or if no subsequent request exists.\n- If a subsequent request exists, set the value to the **NextToken** value returned in the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the Transit Router instance is deployed.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query region IDs.",
+      "description": "The region ID of the transit router instance.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query region IDs.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TransitRouterCidrId",
-      "description": "The ID of the CIDR block of the transit router.\n\nYou can call the [ListTransitRouterCidr](~~462772~~) operation to query the IDs of the CIDR blocks of the transit router.",
+      "description": "The ID of the transit router CIDR block.\n\nYou can call the [ListTransitRouterCidr](~~462772~~) operation to query the transit router CIDR block ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterId",
-      "description": "The ID of the Transit Router instance.",
+      "description": "The forward router instance ID.",
       "position": "Query",
       "type": "String",
       "required": true

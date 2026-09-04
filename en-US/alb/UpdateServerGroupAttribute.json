@@ -7,35 +7,35 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token, which is used to ensure the idempotence of the request.\n\nGenerate a unique value on your client and ensure that the value is unique for each request. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system uses the RequestId of the API request as the client token.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the RequestId of the API request as the ClientToken. The RequestId may be different for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConnectionDrainConfig",
-      "description": "The connection draining settings.\n\nIf connection draining is enabled, the load balancer allows existing connections to be processed for a specified period of time after a backend server is removed or declared unhealthy.\n\n> - Basic instances do not support connection draining. Only Standard and WAF-enhanced instances support this feature.\n>\n> - Server groups of the instance and IP types support connection draining. Server groups of the Function Compute type do not.",
+      "description": "The connection draining configuration.\n\nAfter connection draining is enabled, when a backend server is removed or fails a health check, the load balancing service allows existing connections to continue transmitting data for a specified period of time without break.\n> \n> - Basic Edition instances do not support connection draining. Only Standard Edition and WAF Enhanced Edition instances support this feature.\n> - Server type and IP type server groups support connection draining. Function Compute type server groups do not support this feature.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "CrossZoneEnabled",
-      "description": "Specifies whether to enable cross-zone load balancing for the server group. Valid values:\n\n- **true** (default): Enables cross-zone load balancing.\n\n- **false**: Disables cross-zone load balancing.\n\n> * Basic instances require cross-zone load balancing to be enabled. The option to disable it is supported only by Standard and WAF-enhanced instances.\n>\n> * Server groups of the instance and IP types support disabling cross-zone load balancing. Server groups of the Function Compute type do not.\n>\n> * Sticky sessions cannot be enabled when cross-zone load balancing is disabled.",
+      "description": "Specifies whether to enable cross-zone load balancing for the server group. Valid values:\n\n- **true**: enabled (default).\n\n- **false**: disabled.\n\n> \n> - Basic Edition instances do not support binding server groups with cross-zone load balancing disabled. Only Standard Edition and WAF Enhanced Edition instances support this feature.\n> - Server type and IP type server groups support disabling cross-zone load balancing. Function Compute type server groups do not support this feature.\n> - Session persistence is not supported when cross-zone load balancing is disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Performs a dry run to check the request's validity without modifying the resource. The system checks for required parameters, request format, and service limits. If the check is successful, the `DryRunOperation` error code is returned.\n\n- **false** (default): Sends a normal request. If the request is valid, the operation is performed and an HTTP `2xx` status code is returned.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n- **true**: performs a dry run without modifying the resource. The system checks the required parameters, request syntax, and business restrictions. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.\n- **false** (default): performs a dry run and sends the request. If the check succeeds, an HTTP `2xx` status code is returned and the operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckConfig",
-      "description": "The health check settings.",
+      "description": "The health check configuration.",
       "position": "Query",
       "type": "Struct",
       "required": false
@@ -49,56 +49,56 @@
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n- **Wrr**: weighted round robin. Backend servers with higher weights receive more requests.\n\n- **Wlc**: weighted least connections. The algorithm routes requests based on both the weight and the current load (number of connections) of each backend server. If backend servers have the same weight, the one with fewer active connections receives more requests.\n\n- **Sch**: consistent hashing. The source IP address is used as the hash key by default. If you configure the `UchConfig` parameter, a URL parameter is used as the hash key instead.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **Wrr**: weighted round-robin. Backend servers with higher weights receive more requests (higher probability) than those with lower weights.\n- **Wlc**: weighted least connections. In addition to the weight assigned to each backend server, the actual server load (number of connections) is also considered. When the weights are the same, backend servers with fewer current connections receive more requests (higher probability).\n- **Sch**: consistent hashing. Requests with the same hash factor are dispatched to the same backend server. If the UchConfig parameter is not configured, the default hash factor is the source IP address, and requests from the same source IP address are distributed to the same backend server. If the UchConfig parameter is configured, the hash factor is a URL parameter, and requests with the same URL parameter are distributed to the same backend server.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerGroupId",
-      "description": "The ID of the server group.",
+      "description": "The server group ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ServerGroupName",
-      "description": "The name of the server group.\n\nThe name must be 2 to 128 characters long, start with a letter, digit, or Chinese character, and can contain letters, digits, periods (.), underscores (\\_), hyphens (-), and spaces.",
+      "description": "The server group name.\n\nThe name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (_), hyphens (-), and spaces. The name must start with a letter, a digit, or a Chinese character.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServiceName",
-      "description": "The name of the corresponding Kubernetes (K8s) `Service`. This parameter is applicable only to Application Load Balancer (ALB) Ingress scenarios.",
+      "description": "This parameter is applicable only to ALB Ingress scenarios and specifies the `K8s Service` name that corresponds to the server group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlowStartConfig",
-      "description": "The slow start settings.\n\nIf you enable slow start, the load balancer warms up a newly added backend server over a specified period. During this warm-up period, the number of requests routed to the server increases linearly.\n\n> - Basic instances do not support slow start. Only Standard and WAF-enhanced instances support this feature.\n>\n> - Server groups of the instance and IP types support slow start. Server groups of the Function Compute type do not.\n>\n> - Slow start can be enabled only when the scheduling algorithm is weighted round robin.",
+      "description": "The slow start configuration.\n\nAfter slow start is enabled, newly added backend servers in the server group are warmed up during a specified period of time, and the number of requests forwarded to these servers increases linearly.\n>\n> - Basic Edition instances do not support slow start. Only Standard Edition and WAF Enhanced Edition instances support this feature.\n> - Server type and IP backend server groups support slow start configuration. Function Compute backend server groups do not support this feature.\n> - Slow start can be enabled only when the backend scheduling algorithm is weighted round-robin.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "StickySessionConfig",
-      "description": "The sticky session settings.",
+      "description": "The session persistence configuration.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "UchConfig",
-      "description": "The settings for URL-based consistent hashing.",
+      "description": "The URL consistent hashing parameter settings.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "UpstreamKeepaliveEnabled",
-      "description": "Specifies whether to enable persistent connections to backend servers.\n\n- **true**: Enables persistent connections.\n\n- **false**: Disables persistent connections.",
+      "description": "Specifies whether to enable upstream keepalive connections.\n\n- **true**: enabled.\n\n- **false**: disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false

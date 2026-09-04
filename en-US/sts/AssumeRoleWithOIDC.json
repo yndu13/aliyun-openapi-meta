@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "DurationSeconds",
-      "description": "The validity period of the token, in seconds.\n\nValid values: 900 to the value of the `MaxSessionDuration` parameter. The default value is 3600.\n\nFor more information about how to set the `MaxSessionDuration` parameter, see [CreateRole](~~28710~~) or [UpdateRole](~~28712~~).",
+      "description": "The validity period of the token. Unit: seconds.\n\nDefault value: 3600. Minimum value: 900. Maximum value: the value specified by `MaxSessionDuration`.\n\nTo set the maximum session duration `MaxSessionDuration` for a role, see [CreateRole](~~28710~~) or [UpdateRole](~~28712~~).",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "OIDCProviderArn",
-      "description": "The Alibaba Cloud Resource Name (ARN) of the OIDC identity provider.\n\nYou can view the ARN of the OIDC identity provider in the RAM console or by calling an API operation:\n\n- RAM console: For more information, see [View the information about an OIDC identity provider](~~327123~~).\n- API: For more information, see [GetOIDCProvider](~~327126~~) or [ListOIDCProviders](~~327127~~).",
+      "description": "The Alibaba Cloud Resource Name (ARN) of the OIDC IdP.\n\nYou can view the ARN of the OIDC IdP in the Resource Access Management (RAM) console or by calling an API operation:\n\n- RAM console: See [View the information of an OIDC IdP](~~327123~~).\n- API: See [GetOIDCProvider](~~327126~~) or [ListOIDCProviders](~~327127~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "OIDCToken",
-      "description": "The OIDC token that is issued by an external IdP.\n\nThe token must be 4 to 20,000 characters long.\n\n> Enter the original OIDC token. Do not Base64-decode the token.",
+      "description": "The OIDC token issued by the external IdP.\n\nLength: 4 to 20,000 characters.\n\n> Provide the original OIDC token without Base64 decoding.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Policy",
-      "description": "An access policy to further restrict the permissions of the STS token.\n\n- If you specify this policy, the permissions of the STS token are the intersection of the permissions that are granted to the RAM role and the permissions that are specified in this policy.\n- If you do not specify this policy, the STS token has the same permissions as the RAM role.\n\nThe policy must be 1 to 2,048 characters long.",
+      "description": "An additional permission policy attached to the STS token to further restrict its permissions:\n\n- If you specify access policy, the final permissions of the STS token are the intersection of the RAM role permissions and access policy.\n- If you do not specify access policy, the final permissions of the STS token are the permissions of the RAM role.\n\nLength: 1 to 2,048 characters.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RoleArn",
-      "description": "The ARN of the RAM role that you want to assume.\n\nYou can view the ARN of the role in the RAM console or by calling an API operation:\n\n- RAM console: For more information, see [View the ARN of a RAM role](~~39744~~).\n- API: For more information, see [ListRoles](~~28713~~) or [GetRole](~~28711~~).",
+      "description": "The ARN of the RAM role to assume.\n\nYou can view the role ARN in the Resource Access Management (RAM) console or by calling an API operation:\n\n- Resource Access Management (RAM) console: See [How do I view the ARN of a RAM role?](~~39744~~).\n- API: See [ListRoles](~~28713~~) or [GetRole](~~28711~~).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RoleSessionName",
-      "description": "The name of the role session.\n\nA custom parameter used to distinguish role sessions. The value is typically the identity of the user who calls the operation, such as a username. In ActionTrail, you can use the value of this parameter to identify the user who assumes the RAM role. This provides user-level access auditing.\n\nThe name can contain letters, digits, periods (.), at signs (@), hyphens (-), and underscores (\\_).\n\nThe name must be 2 to 64 characters long.",
+      "description": "The role session name.\n\nThis is a user-defined parameter. Set this parameter to the identity of the API caller, such as a username. In ActionTrail logs, you can use different values of RoleSessionName to distinguish actual operators even when the same RAM role is used, enabling user-level access auditing.\n\nFormat: The value can contain letters, digits, periods (.), at signs (@), hyphens (-), and underscores (_).\n\nLength: 2 to 64 characters.",
       "position": "Query",
       "type": "String",
       "required": true

@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "Cidr",
-      "description": "The new CIDR block of the transit router.",
+      "description": "The new transit router CIDR block.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,7 +28,7 @@
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, the transit router CIDR block is modified.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run without modifying the transit router CIDR block. The system checks the required parameters, request syntax, and business restrictions. If the request fails the dry run, the corresponding error is returned. If the request passes the dry run, the error code `DryRunOperation` is returned.\n- **false** (default): performs a dry run and sends the request. If the request passes the dry run, the transit router CIDR block is modified.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -42,28 +42,28 @@
     },
     {
       "name": "PublishCidrRoute",
-      "description": "Specifies whether to allow the system to automatically add a route for the transit router CIDR block to the transit router route table.\n\n- **true**: allowed.\n       \n     If you select allowed, after you create a VPN connection of the private gateway type and create a route learning relationship for the VPN connection, the system automatically adds a route entry to the transit router route table that has a route learning relationship with the VPN connection. The route entry is a blackhole route whose destination CIDR block is the transit router CIDR block from which IP addresses are allocated to the IPsec connection.\n        The blackhole route is propagated only to the route tables of VBR instances attached to the transit router.\n- **false**: not allowed.",
+      "description": "Specifies whether to allow the system to automatically add a route for the transit router CIDR block to the transit router route table.\n\n- **true**: allowed.\n       \n     If you select allowed, after you create a VPN connection of the private gateway type and create a route learning relationship for the VPN connection, the system automatically adds a route entry to the transit router route table that has a route learning relationship with the VPN connection. The route entry is a blackhole route whose destination CIDR block is the transit router CIDR block from which gateway IP addresses have been allocated for the IPsec connection.\n        The blackhole route is propagated only to the route tables of Virtual Border Router (VBR) instances associated with the transit router.\n- **false**: not allowed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "RegionId",
-      "description": "The ID of the region where the transit router is deployed.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the region ID.",
+      "description": "The ID of the region where the transit router instance is deployed.\n\nYou can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the region ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TransitRouterCidrId",
-      "description": "The ID of the transit router CIDR block.\n\nYou can call the [ListTransitRouterCidr](~~462772~~) operation to query the ID of the transit router CIDR block.",
+      "description": "The ID of the transit router CIDR block.\n\nYou can call the [ListTransitRouterCidr](~~462772~~) operation to query the transit router CIDR block ID.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TransitRouterId",
-      "description": "The ID of the transit router instance.",
+      "description": "The transit router instance ID.",
       "position": "Query",
       "type": "String",
       "required": true

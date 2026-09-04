@@ -21,28 +21,28 @@
     },
     {
       "name": "DryRun",
-      "description": "是否对此次修改请求执行预检。\n预检操作会帮助您检查参数有效性、依赖条件等，并不会实际修改实例，也不会产生费用。\n\n取值：\n- true：发送检查请求，不会修改导出目录。检查项包括是否填写了必需参数、请求格式、业务限制依赖条件。如果检查不通过，则返回对应错误。如果检查通过，则返回200 HttpCode。\n\n- false（默认）：发送正常。",
+      "description": "是否对此次修改请求执行预检。\n\n预检操作会帮助您检查参数有效性、依赖条件等，并不会实际修改导出目录，也不会产生费用。\n\n取值：\n\n- **true**：发送检查请求，不会修改导出目录。检查项包括是否填写了必需参数、请求格式、业务限制依赖条件。\n  - **DryRun=true 同样执行资源状态检查**（含导出目录 AVAILABLE 状态要求）\n  - 若导出目录状态不满足要求（如 CREATING），同样返回对应错误\n  - **DryRun 不绕过状态检查**，仅用于验证请求参数合法性和基本依赖关系\n  - 如果检查不通过，则返回对应错误。如果检查通过，则返回 200 HttpCode。\n\n- **false（默认值）**：发送正常请求，通过检查后直接修改导出目录参数。",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ExportId",
-      "description": "协议服务导出目录ID。",
+      "description": "协议服务导出目录 ID。调用 [DescribeProtocolMountTarget](https://help.aliyun.com/zh/cpfs/cpfsonecs/developer-reference/api-nas-2017-06-26-describeprotocolmounttarget-cpfs?spm=a2c4g.11186623.help-menu-111536.d_4_1_4_8_7.67152eb8kCm2NU&scm=20140722.H_2402287._.OR_help-T_cn~zh-V_1) 接口查询导出目录信息后获取。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FileSystemId",
-      "description": "文件系统ID。",
+      "description": "文件系统 ID。调用 [DescribeFileSystems](https://help.aliyun.com/zh/cpfs/cpfsonecs/developer-reference/api-nas-2017-06-26-describefilesystems-cpfs?spm=a2c4g.11186623.help-menu-111536.d_4_1_4_2_3.6097514bSOnDs6&scm=20140722.H_2402188._.OR_help-T_cn~zh-V_1) 接口查询文件系统信息后获取（入参 FileSystemType=cpfs）。",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ProtocolServiceId",
-      "description": "协议服务ID。",
+      "description": "协议服务 ID。调用 [DescribeProtocolService](https://help.aliyun.com/zh/cpfs/cpfsonecs/developer-reference/api-nas-2017-06-26-describeprotocolservice-cpfs?spm=a2c4g.11186623.help-menu-111536.d_4_1_4_8_3.4707210a8yHZsX&scm=20140722.H_2402283._.OR_help-T_cn~zh-V_1) 接口查询协议服务信息后获取。",
       "position": "Query",
       "type": "String",
       "required": true

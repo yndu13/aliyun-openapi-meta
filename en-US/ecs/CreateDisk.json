@@ -44,7 +44,7 @@
     },
     {
       "name": "BurstingEnabled",
-      "description": "Specifies whether to enable the performance burst feature. Valid values:\n\n- true: enables the feature.\n- false: does not enable the feature.\n\n> This parameter is supported only when `DiskCategory` is set to `cloud_auto`. For more information, see [ESSD AutoPL disks](~~368372~~).",
+      "description": "Specifies whether to enable the performance burst feature. Valid values:\n\n- true: enables the performance burst feature.\n- false: does not enable the performance burst feature.\n\n> This parameter is supported only when `DiskCategory` is set to `cloud_auto`. For more information, see [ESSD AutoPL disks](~~368372~~).",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -65,14 +65,14 @@
     },
     {
       "name": "DiskCategory",
-      "description": "The category of the data disk. Valid values:\n\n- cloud: basic disk.\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: enterprise SSD.\n- cloud_auto: ESSD AutoPL disk.\n- cloud_essd_entry: ESSD Entry disk.\n- cloud_regional_disk_auto: regional Enterprise SSD (ESSD).\n- elastic_ephemeral_disk_standard: elastic ephemeral disk - Standard Edition.\n- elastic_ephemeral_disk_premium: elastic ephemeral disk - Premium Edition.\n\nDefault value: cloud.",
+      "description": "The category of the data disk. Valid values:\n\n- cloud: basic disk.\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n- cloud_essd: enterprise SSD (ESSD).\n- cloud_auto: ESSD AutoPL disk.\n- cloud_essd_entry: ESSD Entry disk.\n- cloud_regional_disk_auto: regional Enterprise SSD (ESSD).\n- elastic_ephemeral_disk_standard: elastic ephemeral disk - Standard Edition.\n- elastic_ephemeral_disk_premium: elastic ephemeral disk - Premium Edition.\n\nDefault value: cloud.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DiskName",
-      "description": "The name of the disk. The name must be 2 to 128 characters in length and can contain characters from the Unicode letter category (including English and Chinese characters) and ASCII digits (0-9). The name can contain colons (:), underscores (_), periods (.), or hyphens (-). The name must start with a character from the Unicode letter category.\n\nDefault value: empty.",
+      "description": "The name of the disk. The name must be 2 to 128 characters in length and can contain Unicode characters under the letter category (including letters in English and Chinese) and ASCII digits (0-9). The name can contain colons (:), underscores (\\_), periods (.), and hyphens (-). The name must start with a Unicode character under the letter category.\n\nDefault value: empty.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -93,28 +93,28 @@
     },
     {
       "name": "InstanceId",
-      "description": "The ID of the subscription instance to which the created subscription disk is automatically attached.\n\n- After you specify the instance ID, the ResourceGroupId, Tag.N.Key, Tag.N.Value, ClientToken, and KMSKeyId parameters are ignored.\n- You cannot specify both ZoneId and InstanceId.\n\nDefault value: empty. A pay-as-you-go disk is created, and the region of the disk is determined by RegionId and ZoneId.",
+      "description": "The ID of the subscription instance to which the created subscription disk is automatically attached.\n\n- After you specify the instance ID, the ResourceGroupId, Tag.N.Key, Tag.N.Value, ClientToken, and KMSKeyId parameters are ignored.\n- You cannot specify both ZoneId and InstanceId.\n\nDefault value: empty. This indicates that a pay-as-you-go disk is created. The region of the disk is determined by RegionId and ZoneId.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "KMSKeyId",
-      "description": "The ID of the Key Management Service (KMS) key used by the disk.\n\n> If Encrypted is set to true and KMSKeyId is not specified, the default key is used for encryption, and the KMSKeyId value is returned after the instance is created.\n> - - Disk created from a non-shared encrypted snapshot: The encryption key used by the snapshot is used by default.\n> - - Disk created from a shared encrypted snapshot: The service key is used by default.\n> - - Disk created in a region where account-level default encryption for block storage is enabled: The specified account-level key is used by default.\n> - - Other cases: The service key is used by default.",
+      "description": "The ID of the Key Management Service (KMS) key used by the disk.\n\n> If Encrypted is set to true and KMSKeyId is not specified, the default key is used for encryption. The KMSKeyId value is returned after the instance is created.\n> - - If the disk is created from a non-shared encrypted snapshot, the encryption key used by the snapshot is used by default.\n> - - If the disk is created from a shared encrypted snapshot, the service key is used by default.\n> - - If the disk is created in a region where account-level default encryption for block storage is enabled, the specified account-level key is used by default.\n> - - In other cases, the service key is used by default.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MultiAttach",
-      "description": "Specifies whether to enable the multi-attach attribute. Valid values:\n\n- Disabled: does not enable the attribute.\n- Enabled: enables the attribute. Currently, only enterprise SSDs can be set to `Enabled`.\n\nDefault value: Disabled.\n\n> Disks with the multi-attach attribute enabled support only the pay-as-you-go billing method. Therefore, when `MultiAttach=Enabled`, you cannot specify the `InstanceId` parameter. You can invoke [AttachDisk](~~25515~~) to attach the disk after it is created. Note that a disk with the multi-attach feature enabled can be attached only as a data disk.",
+      "description": "Specifies whether to enable the multi-attach attribute. Valid values:\n\n- Disabled: disables the multi-attach attribute.\n- Enabled: enables the multi-attach attribute. Only enterprise SSDs can be set to `Enabled`.\n\nDefault value: Disabled.\n\n> Disks with the multi-attach attribute enabled support only the pay-as-you-go billing method. Therefore, when `MultiAttach=Enabled`, you cannot specify the `InstanceId` parameter. You can call [AttachDisk](~~25515~~) to attach the disk after it is created. Note that a disk with the multi-attach feature enabled can be attached only as a data disk.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PerformanceLevel",
-      "description": "The performance level of the enterprise SSD to create. Settings for the performance level. Valid values:\n\n- PL0: A single disk can deliver up to 10,000 random read/write IOPS.\n- PL1: A single disk can deliver up to 50,000 random read/write IOPS.\n- PL2: A single disk can deliver up to 100,000 random read/write IOPS.\n- PL3: A single disk can deliver up to 1,000,000 random read/write IOPS.\n\nDefault value: PL1.\n\nFor information about how to select an ESSD performance level, see [ESSD disks](~~122389~~).",
+      "description": "The performance level of the enterprise SSD. This parameter is available only when you create an ESSD. Valid values:\n\n- PL0: A single disk can deliver up to 10,000 random read/write IOPS.\n- PL1: A single disk can deliver up to 50,000 random read/write IOPS.\n- PL2: A single disk can deliver up to 100,000 random read/write IOPS.\n- PL3: A single disk can deliver up to 1,000,000 random read/write IOPS.\n\nDefault value: PL1.\n\nFor information about how to select an ESSD performance level, see [Enterprise SSDs](~~122389~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -128,7 +128,7 @@
     },
     {
       "name": "RegionId",
-      "description": "The region ID. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
+      "description": "The ID of the region in which to create the disk. You can call [DescribeRegions](~~25609~~) to query the most recent region list.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -142,35 +142,35 @@
     },
     {
       "name": "Size",
-      "description": "The size of the disk. Unit: GiB. You must specify a value for this parameter. Valid values:\n\n-   cloud: 5 to 2,000.\n-   cloud_efficiency: 20 to 32,768.\n-   cloud_ssd: 20 to 32,768.\n-   cloud_essd: The valid value range depends on the value of `PerformanceLevel`.\n    - PL0: 1 to 65,536.\n    - PL1: 20 to 65,536.\n    - PL2: 461 to 65,536.\n    - PL3: 1,261 to 65,536.\n- cloud_auto: 1 to 65,536.\n- cloud_essd_entry: 10 to 32,768.\n- cloud_regional_disk_auto: 10 to 65,536.\n- elastic_ephemeral_disk_standard: 64 to 8,192.\n- elastic_ephemeral_disk_premium: 64 to 8,192.\n\nIf you specify `SnapshotId`, the `SnapshotId` and `Size` parameters have the following limits:\n\n- If the snapshot specified by `SnapshotId` is larger than the specified `Size` value, the snapshot size of the created disk equals the size of the specified snapshot.\n- If the snapshot specified by `SnapshotId` is smaller than the specified `Size` value, the snapshot size of the created disk equals the specified `Size` value.",
+      "description": "Snapshot size of the disk. Unit: GiB. You must specify a value for this parameter. Valid values:\n\n-   cloud: 5 to 2,000.\n-   cloud_efficiency: 20 to 32,768.\n-   cloud_ssd: 20 to 32,768.\n-   cloud_essd: The valid values depend on the value of `PerformanceLevel`.\n    - PL0: 1 to 65,536.\n    - PL1: 20 to 65,536.\n    - PL2: 461 to 65,536.\n    - PL3: 1,261 to 65,536.\n- cloud_auto: 1 to 65,536.\n- cloud_essd_entry: 10 to 32,768.\n- cloud_regional_disk_auto: 10 to 65,536.\n- elastic_ephemeral_disk_standard: 64 to 8,192.\n- elastic_ephemeral_disk_premium: 64 to 8,192.\n\nIf you specify `SnapshotId`, the `SnapshotId` and `Size` parameters have the following limits:\n\n- If the snapshot specified by `SnapshotId` is larger than the specified `Size` value, snapshot size of the created disk equals snapshot size of the specified snapshot.\n- If the snapshot specified by `SnapshotId` is smaller than the specified `Size` value, snapshot size of the created disk equals the specified `Size` value.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "SnapshotId",
-      "description": "The ID of the snapshot to use to create the disk. Snapshots created on or before July 15, 2013 cannot be used to create disks. \n\nThe `SnapshotId` and `Size` parameters have the following limits:\n\n- If the snapshot specified by `SnapshotId` is larger than the specified `Size` value, the snapshot size of the created disk equals the size of the specified snapshot.\n- If the snapshot specified by `SnapshotId` is smaller than the specified `Size` value, the snapshot size of the created disk equals the specified `Size` value.\n- Elastic ephemeral disks cannot be created from snapshots.",
+      "description": "The ID of the snapshot to use to create the disk. Snapshots created on or before July 15, 2013 cannot be used to create disks. \n\nThe `SnapshotId` and `Size` parameters have the following limits:\n\n- If the snapshot specified by `SnapshotId` is larger than the specified `Size` value, snapshot size of the created disk equals snapshot size of the specified snapshot.\n- If the snapshot specified by `SnapshotId` is smaller than the specified `Size` value, snapshot size of the created disk equals the specified `Size` value.\n- Elastic ephemeral disks cannot be created from snapshots.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageClusterId",
-      "description": "The ID of the dedicated block storage cluster. To create a disk in a specific dedicated block storage cluster, specify this parameter.\n\n> Storage set parameters (`StorageSetId` and `StorageSetPartitionNumber`) and the dedicated block storage cluster parameter (`StorageClusterId`) are mutually exclusive. If you specify both, the API call fails.",
+      "description": "The ID of the dedicated block storage cluster. To create a disk in a specific dedicated block storage cluster, specify this parameter.\n\n> The storage set parameters (`StorageSetId` and `StorageSetPartitionNumber`) and the dedicated block storage cluster parameter (`StorageClusterId`) are mutually exclusive. If you specify both, the API call fails.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageSetId",
-      "description": "The ID of the storage set.\n\n> Storage set parameters (`StorageSetId` and `StorageSetPartitionNumber`) and the dedicated block storage cluster parameter (`StorageClusterId`) are mutually exclusive. If you specify both, the API call fails.",
+      "description": "The ID of the storage set.\n\n> The storage set parameters (`StorageSetId` and `StorageSetPartitionNumber`) and the dedicated block storage cluster parameter (`StorageClusterId`) are mutually exclusive. If you specify both, the API call fails.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "StorageSetPartitionNumber",
-      "description": "The number of partitions in the storage set. Valid values: 2 and greater, up to the privilege quota limit returned by [DescribeAccountAttributes](~~73772~~).\n\nDefault value: 2.",
+      "description": "The number of partitions in the storage set. Valid values: greater than or equal to 2, up to the privilege quota limit returned by [DescribeAccountAttributes](~~73772~~).\n\nDefault value: 2.",
       "position": "Query",
       "type": "Integer",
       "required": false
@@ -184,7 +184,7 @@
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The tag key of the disk. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.",
+          "description": "The tag key of the disk. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -198,14 +198,14 @@
         },
         {
           "name": "key",
-          "description": "The tag key of the disk.\n\n> For better code compatibility, use the Tag.N.Key parameter.",
+          "description": "The tag key of the disk.\n\n> For better code compatibility, use Tag.N.Key instead.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "value",
-          "description": "The tag value of the disk.\n\n> For better code compatibility, use the Tag.N.Value parameter.",
+          "description": "The tag value of the disk.\n\n> For better code compatibility, use Tag.N.Value instead.",
           "position": "Query",
           "type": "String",
           "required": false

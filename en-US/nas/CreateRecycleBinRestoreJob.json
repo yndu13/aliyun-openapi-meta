@@ -7,28 +7,28 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).\n\n> If you do not specify this parameter, the system automatically uses the request ID as the client token. The request ID may be different for each request.\n",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a value from your client to ensure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).\n\n>If you do not specify ClientToken, the system automatically uses the RequestId of the API request as the ClientToken. The RequestId may vary for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "FileId",
-      "description": "The ID of the file or directory that you want to restore.\n\nYou can call the [ListRecycledDirectoriesAndFiles](~~2412174~~) operation to query the FileId of the deleted data.\n",
+      "description": "The FileId of the file or directory to restore.\n\nYou can call the [ListRecycledDirectoriesAndFiles](~~2412174~~) operation to query the FileId of deleted data.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.\n",
+      "description": "The file system ID. **Required**.\n\n**How to obtain**:\n- Call [DescribeFileSystems](https://www.alibabacloud.com/help/en/nas/developer-reference/api-nas-2017-06-26-describefilesystems) to query the file system list and obtain the FileSystemId.\n- Call [CreateFileSystem](https://www.alibabacloud.com/help/en/nas/developer-reference/api-nas-2017-06-26-createfilesystem) to create a file system and obtain the FileSystemId from the response.\n\n**Usage notes**:\n- This operation applies only to General-purpose NAS file systems.\n- Before calling this operation, make sure that the recycle bin feature is enabled for the file system.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TargetFileId",
-      "description": "The ID of the directory to which the file is restored.\n\n*   You can call the [ListRecentlyRecycledDirectories](~~2412173~~) operation to query the TargetFileId for recently deleted directories.\n*   You can call the [ListDirectoriesAndFiles](~~2412163~~) operation to query the TargetFileId for existing directories.\n",
+      "description": "The FileId of the directory to which the file is restored.\n\n- You can call the [ListRecentlyRecycledDirectories](~~2412173~~) operation to query the TargetFileId of directories from which files have been deleted.\n\n- You can call the [ListDirectoriesAndFiles](~~2412163~~) operation to query the TargetFileId of existing directories in the file system.\n\n**Special notes**:\n- The FileId of the root directory of a file system is fixed to `2`. You can directly use this value as the TargetFileId to restore a file to the root directory without querying.",
       "position": "Query",
       "type": "String",
       "required": true

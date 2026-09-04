@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "A client-generated, case-sensitive token that you can use to ensure the idempotency of the request. The token must be unique for each request.\n\nIt must be an ASCII string with a maximum length of 64 characters. For more information, see [How to ensure idempotence](~~25693~~).\n\n>  If you do not specify this parameter, the system automatically uses the request ID as the client token. The request ID may be different for each request.\n",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests.\n\nThe token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).\n\n> If you do not specify this parameter, the system automatically uses the RequestId of the API request as the ClientToken. The RequestId may vary for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ExportId",
-      "description": "The ID of the export directory for the protocol service.\n",
+      "description": "The export directory ID of the protocol service. **Required**.\n\n**How to obtain**:\n- Call [CreateProtocolMountTarget](https://www.alibabacloud.com/help/en/cpfs/cpfsonecs/developer-reference/api-nas-2017-06-26-createprotocolmounttarget-cpfs) to create an export directory and obtain the ExportId from the response.\n- Or call [DescribeProtocolMountTarget](https://www.alibabacloud.com/help/en/cpfs/cpfsonecs/developer-reference/api-nas-2017-06-26-describeprotocolmounttarget-cpfs) to query the list of export directories and obtain the ExportId from the response.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "FileSystemId",
-      "description": "The ID of the file system.\n\n*   The IDs of CPFS file systems must start with `cpfs-`. Example: cpfs-125487\\*\\*\\*\\*.\n*   The IDs of CPFS for Lingjun file systems must start with `bmcpfs-`. Example: bmcpfs-0015\\*\\*\\*\\*.\n*   The IDs of CPFS SE file systems must start with `cpfsse-`. Example: cpfsse-022c71b134\\*\\*\\*\\*.\n",
+      "description": "The file system ID.\n\n- CPFS: The ID must start with `cpfs-`, such as cpfs-125487\\*\\*\\*\\*.\n\n- CPFS for Lingjun: The ID must start with `bmcpfs-`, such as bmcpfs-0015\\*\\*\\*\\*.\n- CPFS SE: The ID must start with `cpfsse-`, such as cpfsse-022c71b134\\*\\*\\*\\*.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "MaxResults",
-      "description": "The number of results for each query.\n\nValid values: 10 to 100. Default value: 20.\n",
+      "description": "The maximum number of results to return per query.\n\nValid values: 10 to 100. Default value: 20.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "A pagination token. It can be used in the next request to retrieve a new page of results.\n",
+      "description": "If the response is truncated, you can use NextToken to send a subsequent request to retrieve the content after the current truncation point.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ProtocolServiceId",
-      "description": "The ID of the protocol service.\n",
+      "description": "The protocol service ID. **Required**.\n\n**How to obtain**: Call the [DescribeProtocolService](https://www.alibabacloud.com/help/en/cpfs/cpfsonecs/developer-reference/api-nas-2017-06-26-describeprotocolservice-cpfs) operation to query the list of protocol services and obtain the ProtocolServiceId from the response.",
       "position": "Query",
       "type": "String",
       "required": true

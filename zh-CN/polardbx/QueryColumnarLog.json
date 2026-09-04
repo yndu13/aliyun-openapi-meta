@@ -1,0 +1,37 @@
+{
+  "name": "QueryColumnarLog",
+  "deprecated": false,
+  "protocol": "HTTPS",
+  "method": "POST",
+  "pathPattern": "/",
+  "parameters": [
+    {
+      "name": "DBInstanceName",
+      "description": "要查询列存审计日志的 PolarDB-X 实例 ID。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "MaxResultRows",
+      "description": "本次请求最多返回的结果行数。取值范围为 1～1000；未传时默认返回不超过 100 行。最终行数还受 SQL 顶层 LIMIT 和当前服务策略约束。",
+      "position": "Query",
+      "type": "Long",
+      "required": false
+    },
+    {
+      "name": "RegionId",
+      "description": "请求地域 ID，必须与当前 SQLQuery 服务部署地域一致。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    },
+    {
+      "name": "SQL",
+      "description": "要执行的只读查询语句。仅支持单条 MySQL SELECT；查询表必须使用 polardbx_sls.<表名> 全限定形式，并且仅限 polardbx_sls.polardbx_log（内核日志）、polardbx_sls.slow_detail_log（慢日志）、polardbx_sls.slow_trans_log（慢事务日志）和 polardbx_sls.sql_audit_log（审计日志）。不支持多语句、写操作、锁、用户变量、动态占位符或保留 Hint。",
+      "position": "Query",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

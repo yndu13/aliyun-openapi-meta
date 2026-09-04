@@ -7,63 +7,63 @@
   "parameters": [
     {
       "name": "Permissions",
-      "description": "A collection of security group rule objects.",
+      "description": "The security group rules.",
       "position": "Query",
       "type": "Json",
       "required": true,
       "sub_parameters": [
         {
           "name": "Description",
-          "description": "The description of the security group rule. It must be 2 to 256 characters long and cannot start with `http://` or `https://`.",
+          "description": "The description. The description must be 2 to 256 characters in length and cannot start with http:// or https://.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "DestCidrIp",
-          "description": "The destination IPv4 CIDR block. This parameter supports CIDR notation and single IPv4 addresses.",
+          "description": "The destination IPv4 CIDR block. Both CIDR format and IPv4 format IP address range are supported.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Direction",
-          "description": "The traffic direction for the rule. Valid values:\n\n- `egress`: Outgoing traffic.\n\n- `ingress`: Incoming traffic.",
+          "description": "The authorization direction. Valid values:\n\n- egress: outbound.\n- ingress: inbound.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "IpProtocol",
-          "description": "The protocol type. Valid values:\n\n- `TCP`\n\n- `UDP`\n\n- `ICMP`\n\n- `ICMPv6`\n\n- `ALL`: All protocols.",
+          "description": "The protocol type. Valid values: \n         \n- TCP: TCP protocol.\n- UDP: UDP protocol.\n- ICMP: ICMP protocol.\n- ICMPv6: ICMPv6 protocol.\n- ALL: All protocols are supported.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "Ipv6DestCidrIp",
-          "description": "The destination IPv6 CIDR block. This parameter supports CIDR notation and single IPv6 addresses.\n\n> This parameter and `DestCidrIp` are mutually exclusive.",
+          "description": "The destination IPv6 CIDR block. Both CIDR format and IPv6 format IP address range are supported. \n\n> This parameter and the `DestCidrIp` parameter cannot be set at the same time. Settings for these two parameters are mutually exclusive.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Ipv6SourceCidrIp",
-          "description": "The source IPv6 CIDR block. This parameter supports CIDR notation and single IPv6 addresses.\n\n> This parameter and `SourceCidrIp` are mutually exclusive.",
+          "description": "The source IPv6 CIDR block. Both CIDR format and IPv6 format IP address range are supported.\n> This parameter and the `DestCidrIp` parameter cannot be set at the same time. Settings for these two parameters are mutually exclusive.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Policy",
-          "description": "The access control policy. Valid values:\n\n- `Accept`: Allows matching traffic.\n\n- `Drop`: Denies matching traffic and drops the packets.",
+          "description": "The access permissions. Valid values: \n         \n- Accept: Allows access.\n- Drop: Deny access.",
           "position": "Query",
           "type": "String",
           "required": true
         },
         {
           "name": "PortRange",
-          "description": "The destination port range for the rule.\n\n- For TCP and UDP, the port range is 1 to 65535. Use a forward slash (/) to separate the start and end ports. For example, `1/200`.\n\n- For ICMP, the value must be `-1/-1`.\n\n- For ICMPv6, the value must be `-1/-1`.\n\n- If you set `IpProtocol` to `ALL`, the value must be `-1/-1`.",
+          "description": "The range of destination ports that correspond to the protocols for the security group. Valid values:\n         \n- TCP/UDP protocol: Valid values are 1 to 65535. Separate the start port and end port with a forward slash (/). Example: 1/200.\n- ICMP protocol: -1/-1.\n- ICMPv6: -1/-1.\n- ALL: -1/-1.",
           "position": "Query",
           "type": "String",
           "required": true
@@ -77,14 +77,14 @@
         },
         {
           "name": "SourceCidrIp",
-          "description": "The source IPv4 CIDR block. This parameter supports CIDR notation and single IPv4 addresses.",
+          "description": "The source IPv4 CIDR block. Both CIDR format and IPv4 format IP address range are supported.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "SourcePortRange",
-          "description": "The source port range for the rule.\n\n- For TCP and UDP, the port range is 1 to 65535. Use a forward slash (/) to separate the start and end ports. For example, `1/200`.\n\n- For ICMP, the value must be `-1/-1`.\n\n- For ICMPv6, the value must be `-1/-1`.\n\n- If you set `IpProtocol` to `ALL`, the value must be `-1/-1`.",
+          "description": "The range of source ports that correspond to the protocols for the security group. Valid values:\n         \n- TCP/UDP protocol: Valid values are 1 to 65535. Separate the start port and end port with a forward slash (/). Example: 1/200.\n- ICMP protocol: -1/-1.\n- ICMPv6: -1/-1.\n- ALL: -1/-1.",
           "position": "Query",
           "type": "String",
           "required": false
@@ -93,7 +93,7 @@
     },
     {
       "name": "SecurityGroupId",
-      "description": "The ID of the security group.",
+      "description": "The security group ID.",
       "position": "Query",
       "type": "String",
       "required": true

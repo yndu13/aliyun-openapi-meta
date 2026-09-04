@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotency of the request.\n\nYou can use the client to generate a token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the request as the **ClientToken**. The **RequestId** of each request may be different.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nGenerate a parameter value from your client to ensure that the value is unique among different requests. ClientToken supports only ASCII characters.\n\n> If you do not specify this parameter, the system uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** may vary for each API request.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ConnectionDrainConfig",
-      "description": "The settings for connection draining.\n\nIf you enable connection draining, the load balancer allows existing connections to be processed for a specified period of time after a backend server is removed or becomes unhealthy.\n\n> - Basic ALB instances do not support connection draining. This feature is supported only by standard and WAF-enabled ALB instances.\n>\n> - Connection draining is supported for instance-type and IP-type server groups, but not for function-type server groups.",
+      "description": "The connection draining configuration.\n\nAfter connection draining is enabled, when a backend server is removed or a health check failure occurs, the load balancing service allows existing connections to continue Normal data transmission for a specified period of time.\n\n>\n> - Basic Edition instances do not support connection draining. Only Standard Edition and WAF Enhanced Edition instances support this feature.\n> - Server type and IP type server groups support connection draining. Function Compute type server groups do not.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "CrossZoneEnabled",
-      "description": "Specifies whether to enable cross-zone load balancing for the server group. Valid values:\n\n- **true** (default): Enables cross-zone load balancing.\n\n- **false**: Disables cross-zone load balancing.\n\n> * Basic ALB instances cannot be associated with server groups for which cross-zone load balancing is disabled. This feature is supported only by standard and WAF-enabled ALB instances.\n>\n> * You can disable cross-zone load balancing for instance-type and IP-type server groups, but not for function-type server groups.\n>\n> * You cannot enable sticky sessions if you disable cross-zone load balancing.",
+      "description": "Specifies whether to enable cross-zone load balancing for the server group. Valid values:\n\n- **true**: enabled (default).\n\n- **false**: disabled.\n\n> \n> - Basic Edition instances do not support binding server groups with cross-zone load balancing disabled. Only Standard Edition and WAF Enhanced Edition instances support this feature.\n> - Server type and IP type server groups support disabling cross-zone load balancing. Function Compute type server groups do not.\n> - Session persistence is not supported when cross-zone load balancing is disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: Performs a dry run. The system validates the request for issues such as missing required parameters, incorrect syntax, and service limits, but does not create the server group. If the request is invalid, an error message is returned. If the request is valid, the `DryRunOperation` error code is returned.\n\n- **false** (default): sends a normal request. If the request passes the check, an HTTP 2xx status code is returned and the operation is performed.",
+      "description": "Specifies whether to perform a dry run. Valid values:\n\n- **true**: performs a dry run without creating the server group. The system checks required parameters, request syntax, and business restrictions. If the check fails, the corresponding error is returned. If the check succeeds, the error code `DryRunOperation` is returned.\n- **false** (default): sends a normal request. After the check succeeds, an HTTP 2xx status code is returned and the operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "HealthCheckConfig",
-      "description": "The health check settings.",
+      "description": "The health check configurations.",
       "position": "Query",
       "type": "Struct",
       "required": true
     },
     {
       "name": "IpVersionAffinityMode",
-      "description": "The IP version affinity mode of the server group.",
+      "description": "The IP version affinity mode.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,56 +56,56 @@
     },
     {
       "name": "Protocol",
-      "description": "The backend protocol. Valid values:\n\n- **HTTP** (default): The server group can be associated with HTTPS, HTTP, and QUIC listeners.\n\n- **HTTPS**: The server group can be associated with HTTPS listeners.\n\n- **gRPC**: The server group can be associated with HTTPS and QUIC listeners.\n\n> You do not need to configure this parameter if **ServerGroupType** is set to **Fc**.",
+      "description": "The backend protocol. Valid values:\n\n- **HTTP** (default): can be associated with HTTPS, HTTP, and QUIC listeners.\n\n- **HTTPS**: can be associated with HTTPS listeners.\n\n- **gRPC**: can be associated with HTTPS and QUIC listeners.\n\n> You do not need to configure the backend protocol when **ServerGroupType** is set to **Fc**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ResourceGroupId",
-      "description": "The ID of the resource group.",
+      "description": "The resource group ID.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "Scheduler",
-      "description": "The scheduling algorithm. Valid values:\n\n- **Wrr** (default): weighted round robin. Backend servers with higher weights receive more requests.\n\n- **Wlc**: weighted least connections. Requests are distributed based on the weight and the number of connections for each backend server. If two backend servers have the same weight, the one with fewer connections receives more requests.\n\n- **Sch**: consistent hashing. Routes requests with the same hash factor to the same backend server. By default, if the **UchConfig** parameter is not configured, the source IP address is used as the hash factor. If the **UchConfig** parameter is configured, a specified URL parameter is used as the hash factor.\n\n> This parameter is valid only when **ServerGroupType** is set to **Instance** or **Ip**.",
+      "description": "The scheduling algorithm. Valid values:\n\n- **Wrr** (default): weighted round-robin. Backend servers with higher weights receive more requests.\n\n- **Wlc**: weighted least connections. In addition to the weight assigned to each backend server, the actual load (number of connections) is also considered. When the weights are the same, backend servers with fewer current connections receive more requests.\n\n- **Sch**: consistent hashing. Requests with the same hash factor are routed to the same backend server. If the **UchConfig** parameter is not configured, the default hash factor is the source IP address, and requests from the same source IP address are distributed to the same backend server. If the **UchConfig** parameter is configured, the hash factor is the URL parameter, and requests with the same URL parameter are distributed to the same backend server.\n\n\n> This parameter takes effect only when **ServerGroupType** is set to **Instance** or **Ip**.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServerGroupName",
-      "description": "The name of the server group. The name must be 2 to 128 characters in length, start with a letter, digit, or Chinese character, and can contain digits, periods (.), underscores (\\_), hyphens (-), and spaces.",
+      "description": "The server group name. The name must be 2 to 128 characters in length, and must start with an uppercase letter, lowercase letter, Chinese character, or digit. The name can contain digits, periods (.), underscores (_), hyphens (-), and spaces.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "ServerGroupType",
-      "description": "The type of the server group. Valid values:\n\n- **Instance** (default): an instance-type server group. You can add **ECS** instances, **elastic network interfaces**, and **elastic container instances** to this type of server group.\n\n- **Ip**: an IP-type server group. You can add IP addresses as backend servers to this type of server group.\n\n- **Fc**: a function-type server group. You can add functions of Function Compute as backend servers to this type of server group.",
+      "description": "The type of the server group. Valid values:\n\n- **Instance** (default): server type. This type of server group supports adding **Ecs**, **Eni**, and **Eci** instances.\n\n- **Ip**: IP address type. This type of server group supports adding backend servers by IP address.\n\n- **Fc**: Function Compute type. This type supports adding Function Compute-based backend servers.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "ServiceName",
-      "description": "This parameter is available only in ALB Ingress scenarios. It specifies the name of the Kubernetes `Service` that is associated with the server group.",
+      "description": "This parameter is applicable only to ALB Ingress scenarios and specifies the `K8s Service` name that corresponds to the server group.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "SlowStartConfig",
-      "description": "The slow start settings.\n\nIf you enable slow start, requests are gradually and linearly routed to a newly added backend server over a specified period of time.\n\n> - Basic ALB instances do not support slow start. This feature is supported only by standard and WAF-enabled ALB instances.\n>\n> - Slow start is supported for instance-type and IP-type server groups, but not for function-type server groups.\n>\n> - Slow start can be enabled only if the scheduling algorithm is set to **Wrr** (weighted round robin).",
+      "description": "The slow start configuration.\n\nAfter slow start is enabled, newly added backend servers are warmed up during a specified period of time. The number of requests forwarded to the server increases linearly.\n\n> \n> - Basic Edition instances do not support slow start. Only Standard Edition and WAF Enhanced Edition instances support this feature.\n> - Server type and IP backend server groups support slow start configuration. Function Compute backend server groups do not.\n> - Slow start can be enabled only when the backend scheduling algorithm is weighted round-robin.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "StickySessionConfig",
-      "description": "The sticky session settings.\n\n> This parameter is valid only when **ServerGroupType** is set to **Instance** or **Ip**.",
+      "description": "The session persistence configuration.\n\n> This parameter takes effect only when **ServerGroupType** is set to **Instance** or **Ip**.",
       "position": "Query",
       "type": "Struct",
       "required": false
@@ -119,21 +119,21 @@
     },
     {
       "name": "UchConfig",
-      "description": "The settings for URL-based consistent hashing.",
+      "description": "The URL consistent hashing parameter settings.",
       "position": "Query",
       "type": "Struct",
       "required": false
     },
     {
       "name": "UpstreamKeepaliveEnabled",
-      "description": "Specifies whether to enable upstream keep-alive.\n\n- **true**: enables upstream keep-alive.\n\n- **false** (default): disables upstream keep-alive.",
+      "description": "Specifies whether to enable upstream keepalive connections.\n\n- **true**: enabled.\n- **false** (default): disabled.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "VpcId",
-      "description": "The ID of the VPC where the server group is created. You can add only servers within this VPC to the server group.\n\n> This parameter is valid only when **ServerGroupType** is set to **Instance** or **Ip**.",
+      "description": "The VPC-connected instance ID. Only servers in this VPC can be added to the server group.\n\n> This parameter takes effect only when **ServerGroupType** is set to **Instance** or **Ip**.",
       "position": "Query",
       "type": "String",
       "required": false

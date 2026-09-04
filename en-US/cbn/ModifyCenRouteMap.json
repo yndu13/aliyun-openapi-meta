@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AsPathMatchMode",
-      "description": "The match mode of the AS path list. Valid values:\n\n- **Include**: fuzzy match. A match is successful if the AS path in the match condition overlaps with the AS path of the route being matched. \n\n- **Complete**: exact match. A match is successful only if the AS path in the match condition is the same as the AS path of the route being matched.",
+      "description": "The match mode of the AS path list. Valid values:\n\n- **Include**: fuzzy match. A match is successful if the AS path in the match condition overlaps with the AS path of the route to be matched. \n\n- **Complete**: exact match. A match is successful only if the AS path in the match condition is the same as the AS path of the route to be matched.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -28,14 +28,14 @@
     },
     {
       "name": "CidrMatchMode",
-      "description": "The match mode of the prefix list. Valid values:\n\n- **Include**: fuzzy match. A match is successful if the route prefix in the match condition contains the route prefix of the route being matched.\n\n For example: A policy that defines 10.10.0.0/16 can fuzzy match the route 10.10.1.0/24.\n\n- **Complete**: exact match. A match is successful only if the route prefix in the match condition is the same as the route prefix of the route being matched. \n\n For example: A policy that defines 10.10.0.0/16 can only exactly match the route 10.10.0.0/16.",
+      "description": "The match mode of the prefix list. Valid values:\n\n- **Include**: fuzzy match. A match is successful if the route prefix in the match condition contains the route prefix of the route to be matched.\n\n For example, a policy that defines 10.10.0.0/16 can fuzzy match the route 10.10.1.0/24.\n\n- **Complete**: exact match. A match is successful only if the route prefix in the match condition is the same as the route prefix of the route to be matched. \n\n For example, a policy that defines 10.10.0.0/16 can exact match only the route 10.10.0.0/16.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "CommunityMatchMode",
-      "description": "The match mode of the Community. Valid values:\n\n- **Include**: fuzzy match. A match is successful if the Community in the match condition overlaps with the Community of the route being matched. \n\n- **Complete**: exact match. A match is successful only if the Community in the match condition is the same as the Community of the route being matched.\n\n- **Contain**: contains match. A match is successful only if the Community of the route being matched contains all the Communities specified in the match condition.",
+      "description": "The match mode of the Community. Valid values:\n\n- **Include**: fuzzy match. A match is successful if the Community in the match condition overlaps with the Community of the route to be matched. \n\n- **Complete**: exact match. A match is successful only if the Community in the match condition is the same as the Community of the route to be matched.\n\n- **Contain**: contains match. A match is successful only if the Community of the route to be matched contains all the Communities specified in the match condition.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -56,7 +56,7 @@
     },
     {
       "name": "DestinationChildInstanceTypes",
-      "description": "The list of destination instance types that the route must match. The following instance types are supported:\n\n- **VPC**: VPC instance.\n\n- **VBR**: VBR instance.\n\n- **CCN**: CCN instance.\n\n- **VPN**: IPsec connection.\n\n    > If the IPsec connection or SSL server is bindded to a VPN gateway instance and is connected to the transit router instance through the VPC associated with the VPN gateway instance, this parameter does not take effect. This parameter takes effect only when the IPsec connection is directly bindded to the transit router instance.\n\nThe destination instance type list takes effect only when the routing policy is applied in the outbound direction from the regional gateway and the destination instance types are instance types in the local region.",
+      "description": "The list of destination instance types that the route must match. The following instance types are supported:\n\n- **VPC**: VPC instance.\n\n- **VBR**: VBR instance.\n\n- **CCN**: CCN instance.\n\n- **VPN**: IPsec connection.\n\n    > If the IPsec connection or SSL server is bound to a VPN gateway instance and is connected to a transit router instance through the VPC associated with the VPN gateway instance, this parameter does not take effect. This parameter takes effect only when the IPsec connection is directly bound to a transit router instance.\n\nThe destination instance type list takes effect only when the direction of the routing policy is Export from Regional Gateway and the destination instance types are instance types in the local region.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -70,14 +70,14 @@
     },
     {
       "name": "DestinationInstanceIds",
-      "description": "The list of destination instance IDs that the route must match. The following instance types are supported:\n\n- Virtual Private Cloud (VPC) instance ID\n- Virtual Border Router (VBR) instance ID\n- Cloud Connect Network (CCN) instance ID\n- Smart Access Gateway instance ID\n- IPsec connection ID\n\nA maximum of 64 instance IDs can be specified.\n\n> The destination instance ID list takes effect only when the routing policy is applied in the outbound direction from the regional gateway and the destination instance IDs are in the local region.",
+      "description": "The list of destination instance IDs that the route must match. The following types of instance IDs are supported:\n\n- Virtual Private Cloud (VPC) instance ID\n- Virtual Border Router (VBR) instance ID\n- Cloud Connect Network (CCN) instance ID\n- Smart Access Gateway instance ID\n- IPsec connection ID\n\nA maximum of 64 instance IDs can be specified.\n\n> The destination instance ID list takes effect only when the direction of the routing policy is Export from Regional Gateway and the destination instance IDs are in the local region.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "DestinationInstanceIdsReverseMatch",
-      "description": "Specifies whether to use the reverse match mode for the destination instance ID list. Valid values:\n\n- **false** (default): no. A match is successful if the destination instance ID of the route is in **DestinationInstanceIds.N**.\n\n- **true**: yes. A match is successful if the destination instance ID of the route is not in **DestinationInstanceIds.N**.",
+      "description": "Specifies whether to use the reverse match mode for the destination instance ID list. Valid values:\n\n- **false** (default): No. A match is successful if the destination instance ID of the route is in **DestinationInstanceIds.N**.\n\n- **true**: Yes. A match is successful if the destination instance ID of the route is not in **DestinationInstanceIds.N**.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -91,14 +91,14 @@
     },
     {
       "name": "DestinationRouteTableIds",
-      "description": "The list of destination route table IDs that the route must match. A maximum of 64 route table IDs can be specified.\n\n> The destination route table ID list takes effect only when the routing policy is applied in the outbound direction from the regional gateway and the destination route table IDs are route table IDs of network instances in the local region.",
+      "description": "The list of destination route table IDs that the route must match. A maximum of 64 route table IDs can be specified.\n\n> The destination route table ID list takes effect only when the direction of the routing policy is Export from Regional Gateway and the destination route table IDs are route table IDs of network instances in the local region.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "MapResult",
-      "description": "The action to perform on a route that matches all the match conditions. Valid values:\n\n- **Permit**: permits the route.\n\n- **Deny**: denies the route.",
+      "description": "The action to perform on a route that matches all the match conditions. Valid values:\n\n- **Permit**: The route is permitted to pass.\n\n- **Deny**: The route is denied from passing.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -112,28 +112,28 @@
     },
     {
       "name": "MatchAsns",
-      "description": "The AS path list that the route must match.\n\n> Only AS SEQUENCE is supported. AS SET, AS CONFED SEQUENCE, and AS CONFED SET are not supported. This means that only AS number lists are supported, and sets and sublists are not supported.",
+      "description": "The AS path list that the route must match.\n\n> Only AS SEQUENCE is supported. AS SET, AS CONFED SEQUENCE, and AS CONFED SET are not supported. Specifically, only AS number lists are supported. Sets and sublists are not supported.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "MatchCommunitySet",
-      "description": "The Community set that the route must match.\n\nEach Community is in the n:m format, where the value range of both n and m is **1** to **65535**. Communities must comply with RFC 1997. Large Communities (RFC 8092) are not supported.\n\nA maximum of 64 Communities can be specified.\n\n> Incorrect Community configurations may cause routes to fail to be advertised to on-premises data centers.",
+      "description": "The Community set that the route must match.\n\nEach Community is in the n:m format, where the value ranges of n and m are **1** to **65535**. Communities must comply with RFC 1997. Large Communities (RFC 8092) are not supported.\n\nA maximum of 64 Communities can be specified.\n\n> Incorrect Community configurations may cause routes to fail to be advertised to on-premises data centers.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "NextPriority",
-      "description": "Policy priority of the next associated routing policy.\n\n- You can set policy priority of the next associated routing policy only when **MapResult** is set to **Permit**. Only routes that are permitted continue to match the next associated routing policy.\n- The next associated routing policy must have the same region and direction as the current routing policy.\n- Policy priority of the next associated routing policy must be lower than (a number greater than) policy priority of the current routing policy.",
+      "description": "Policy priority of the next associated routing policy.\n\n- You can set policy priority of the next associated routing policy only when **MapResult** is set to **Permit**. Only routes that are permitted to pass continue to match the next associated routing policy.\n- The next associated routing policy must have the same region and direction as the current routing policy.\n- Policy priority of the next associated routing policy must be lower than (a number greater than) policy priority of the current routing policy.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "OperateCommunitySet",
-      "description": "The Community set to be executed.\n\nEach Community is in the n:m format, where the value range of both n and m is **1** to **65535**. Communities must comply with RFC 1997. Large Communities (RFC 8092) are not supported.\n\nA maximum of 32 Communities can be specified.\n\n> Incorrect Community configurations may cause routes to fail to be advertised to on-premises data centers.",
+      "description": "The Community set to be executed.\n\nEach Community is in the n:m format, where the value ranges of n and m are **1** to **65535**. Communities must comply with RFC 1997. Large Communities (RFC 8092) are not supported.\n\nA maximum of 32 Communities can be specified.\n\n> Incorrect Community configurations may cause routes to fail to be advertised to on-premises data centers.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -147,7 +147,7 @@
     },
     {
       "name": "PrependAsPath",
-      "description": "The AS path that is prepended when the regional gateway receives or advertises route entries.\n\nThe requirements for configuring the prepended AS path vary based on the direction of the routing policy:\n\n- When configuring the prepended AS path in the inbound direction to the regional gateway, you must configure the source instance ID list and source region in the match conditions, and the source region must be the same as the region where the routing policy is applied.\n\n- When configuring the prepended AS path in the outbound direction from the regional gateway, you must configure the destination instance ID list in the match conditions.\n\n\nThis parameter specifies the action to execute on a route after the route matches the match conditions.",
+      "description": "The AS path that is prepended when the regional gateway receives or publishes route entries.\n\nThe requirements for configuring the prepended AS path vary based on the direction of the routing policy:\n\n- When configuring the prepended AS path for the Import to Regional Gateway direction, you must configure the source instance ID list and source region in the match conditions, and the source region must be the same as the region where the routing policy is applied.\n\n- When configuring the prepended AS path for the Export from Regional Gateway direction, you must configure the destination instance ID list in the match conditions.\n\n\nThis parameter specifies the action to execute on a route after the route matches the match conditions.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
@@ -175,21 +175,21 @@
     },
     {
       "name": "SourceChildInstanceTypes",
-      "description": "The list of source instance types that the route must match. The following instance types are supported:\n\n- **VPC**: VPC instance.\n\n- **VBR**: virtual border router instance.\n\n- **CCN**: CCN instance.\n\n- **VPN**: VPN gateway instance or IPsec connection.\n    \n    - If the IPsec connection or SSL server is attached to a VPN gateway instance, the VPC associated with the VPN gateway instance must be connected to the transit router instance, and the VPN gateway instance must run the BGP dynamic routing protocol for this parameter to take effect.\n    - If the IPsec connection is directly attached to the transit router instance, this parameter takes effect.",
+      "description": "The list of source instance types that the route must match. The following instance types are supported:\n\n- **VPC**: VPC instance.\n\n- **VBR**: border router instance.\n\n- **CCN**: CCN instance.\n\n- **VPN**: VPN gateway instance or IPsec connection.\n    \n    - If the IPsec connection or SSL server is attached to a VPN gateway instance, the VPC associated with the VPN gateway instance must be connected to a transit router instance, and the VPN gateway instance must run the BGP dynamic routing protocol for this parameter to take effect.\n    - If the IPsec connection is directly attached to a transit router instance, this parameter takes effect.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "SourceInstanceIds",
-      "description": "The list of source instance IDs that the route must match. The following instance types are supported:\n\n- Virtual Private Cloud (VPC) instance ID\n- Virtual Border Router (VBR) instance ID\n- Cloud Connect Network (CCN) instance ID\n- Smart Access Gateway instance ID\n- IPsec connection ID\n\nA maximum of 64 instance IDs can be specified.",
+      "description": "The list of source instance IDs that the route must match. The following types of instance IDs are supported:\n\n- Virtual Private Cloud (VPC) instance ID\n- Virtual Border Router (VBR) instance ID\n- Cloud Connect Network (CCN) instance ID\n- Smart Access Gateway instance ID\n- IPsec connection ID\n\nA maximum of 64 instance IDs can be specified.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "SourceInstanceIdsReverseMatch",
-      "description": "Specifies whether to use the reverse match mode for the source instance ID list. Valid values:\n\n- **false** (default): no. A match is successful if the source instance ID of the route is in **SourceInstanceIds.N**.\n\n- **true**: yes. A match is successful if the source instance ID of the route is not in **SourceInstanceIds.N**.",
+      "description": "Specifies whether to use the reverse match mode for the source instance ID list. Valid values:\n\n- **false** (default): No. A match is successful if the source instance ID of the route is in **SourceInstanceIds.N**.\n\n- **true**: Yes. A match is successful if the source instance ID of the route is not in **SourceInstanceIds.N**.",
       "position": "Query",
       "type": "Boolean",
       "required": false

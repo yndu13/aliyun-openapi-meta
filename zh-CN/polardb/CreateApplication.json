@@ -162,6 +162,36 @@
       "required": false
     },
     {
+      "name": "DnatEntries",
+      "description": "NAT映射：DNAT条目期望清单，与VpcNatGatewayId同时传入。可为空，表示不创建DNAT条目",
+      "position": "Query",
+      "type": "Json",
+      "required": false,
+      "sub_parameters": [
+        {
+          "name": "FrontPort",
+          "description": "前端端口，可选。缺省由管控自动分配（避开网关已占端口），分配结果可通过DescribeApplicationAttribute查询",
+          "position": "Query",
+          "type": "Integer",
+          "required": false
+        },
+        {
+          "name": "PortName",
+          "description": "端口名称，取值：webui | hermesagent | dashboard | ssh",
+          "position": "Query",
+          "type": "String",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "DnatIpAddress",
+      "description": "NAT映射：客户已分配的DNAT专用NAT IP地址（与SNAT IP分离）。须属于该网关、可用状态，且网关所在交换机属于办公网可达的主网段。与VpcNatGatewayId同时传入。前置条件：客户已为应用所在交换机绑定SNAT条目",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
       "name": "DryRun",
       "description": "默认为`false`，设置为`true`后将只进行参数和资源校验，不实际创建资源。\n",
       "position": "Query",
@@ -387,6 +417,13 @@
     {
       "name": "VpcId",
       "description": "专有网络VPC ID。",
+      "position": "Query",
+      "type": "String",
+      "required": false
+    },
+    {
+      "name": "VpcNatGatewayId",
+      "description": "NAT映射：客户自建的VPC NAT网关ID，传入则在创建实例时一并开通NAT映射。须与应用同VPC、私网类型（intranet）、可用状态",
       "position": "Query",
       "type": "String",
       "required": false

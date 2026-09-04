@@ -7,14 +7,14 @@
   "parameters": [
     {
       "name": "AutoPay",
-      "description": "Specifies whether to automatically complete automatic payment when you upgrade the instance type. Valid values:\n\n- true: Automatic payment is automatically completed.\n- false: An order is created but automatic payment is not completed.\n\nDefault value: true.\n> - If you set AutoPay to true, make sure that your account has a sufficient payment method balance. Otherwise, an abnormal order is generated, and you can only cancel the order.\n> - If your payment method balance is insufficient, you can set `AutoPay` to `false` to generate an unpaid order. Then, you can logon to the ECS console to pay for the order.\n> - When `OperatorType` is set to `downgrade`, the `AutoPay` parameter is ignored.",
+      "description": "Specifies whether to automatically complete the payment when you upgrade the instance type. Valid values:\n\n- true: The payment is automatically completed.\n- false: An order is created but the payment is not completed.\n\nDefault value: true.\n> - If automatic payment is enabled, make sure that the balance of your payment method is sufficient. Otherwise, an abnormal order is generated and can only be voided.\n> - If the balance of your payment method is insufficient, set `AutoPay` to `false`. An unpaid order is generated. You can log on to the ECS console to complete the payment.\n> - If `OperatorType` is set to `downgrade`, the `AutoPay` parameter is ignored.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "ClientToken",
-      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
+      "description": "The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).",
       "position": "Query",
       "type": "String",
       "required": false
@@ -65,14 +65,14 @@
     },
     {
       "name": "InstanceType",
-      "description": "The target instance type for the Upgrade/Downgrade. For more information, see [Instance family](~~25378~~) or invoke [DescribeInstanceTypes](~~25620~~).",
+      "description": "The target instance type to which you want to perform the Upgrade/Downgrade. For valid values, see [Instance family](~~25378~~) or invoke [DescribeInstanceTypes](~~25620~~).",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "MigrateAcrossZone",
-      "description": "Specifies whether to support cross-cluster Upgrade/Downgrade of instance types. Valid values:\n- true: Cross-cluster instance type changes are supported.\n- false: Cross-cluster instance type changes are not supported.\n\nDefault value: false.\n\nWhen `MigrateAcrossZone` is set to `true`, take note of the following items after you upgrade the Elastic Compute Service instance based on the response:\n\nVPC-type instances: For [retired instance types](~~55263~~), when a non-I/O optimized instance is changed to an I/O optimized instance, the disk device names and software authorization codes of the server change. For Linux instances, basic disks (cloud) are identified as xvda or xvdb. Ultra disks (cloud_efficiency) and standard SSDs (cloud_ssd) are identified as vda or vdb. This parameter is used for optimization of cross-cluster migration.",
+      "description": "Specifies whether to support cross-cluster Upgrade/Downgrade of instance types. Valid values:\n- true: Cross-cluster instance type changes are supported.\n- false: Cross-cluster instance type changes are not supported.\n\nDefault value: false.\n\nIf you set the `MigrateAcrossZone` parameter to `true` and upgrade the Elastic Compute Service instance based on the response, note the following:\n\nVPC-type instances: For [retired instance types](~~55263~~), when a non-I/O optimized instance is changed to an I/O optimized instance, the disk device names and software authorization codes of the server change. For Linux instances, basic disks (cloud) are identified as xvda or xvdb. Ultra disks (cloud_efficiency) and standard SSDs (cloud_ssd) are identified as vda or vdb.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -86,7 +86,7 @@
     },
     {
       "name": "OperatorType",
-      "description": "The type of the operation. Valid values:\n> This parameter is optional. The system can automatically determine whether the operation is an upgrade or a downgrade. If you upload this parameter, follow the rules below.\n\n- upgrade: upgrades the instance type. Make sure that your account has a sufficient payment method balance.\n\n- downgrade: downgrades the instance type. When the instance type specified by `InstanceType` is lower than the current instance type, set `OperatorType` to `downgrade`.\n\n> For precautions about upgrading or downgrading instance types, see the operation description section above.",
+      "description": "The type of the operation. Valid values:\n> This parameter is optional. The system can automatically determine whether the operation is an upgrade or a downgrade. If you specify this parameter, follow the rules below.\n\n- upgrade: upgrades the instance type. Make sure that the balance of your payment method is sufficient.\n\n- downgrade: downgrades the instance type. Set `OperatorType` to `downgrade` when the instance type specified by `InstanceType` is lower than the current instance type.\n\n> For precautions about upgrading or downgrading instance types, see the operation description section above.",
       "position": "Query",
       "type": "String",
       "required": false
@@ -100,7 +100,7 @@
     },
     {
       "name": "RebootWhenFinished",
-      "description": "Specifies whether to immediately restart the instance after the instance type is changed. Valid values:\n\n- true: The instance is immediately restarted.\n- false: The instance is not immediately restarted.\n\nDefault value: false.\n\n> If the instance is in the **Stopped** state, the instance remains stopped even if you set `RebootWhenFinished` to `true`. No operation is performed.",
+      "description": "Specifies whether to immediately restart the instance after the instance type change is complete. Valid values:\n\n- true: The instance is immediately restarted.\n- false: The instance is not immediately restarted.\n\nDefault value: false.\n\n> If the instance is in the **Stopped** state, the instance remains stopped even if you set `RebootWhenFinished` to `true`. No operation is performed.",
       "position": "Query",
       "type": "Boolean",
       "required": false
@@ -114,7 +114,7 @@
     },
     {
       "name": "SystemDisk.Category",
-      "description": "The new category of the system disk. Valid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n> This parameter is valid only when you upgrade from a [retired instance type](~~55263~~) to a [currently available instance family](~~25378~~) and change a non-I/O optimized instance to an I/O optimized instance.",
+      "description": "The new category of the system disk. Valid values:\n\n- cloud_efficiency: ultra disk.\n- cloud_ssd: standard SSD.\n> This parameter is valid only when you Increase Quota from a [retired instance type](~~55263~~) to a [normal instance family](~~25378~~) and upgrade a non-I/O optimized instance to an I/O optimized instance.",
       "position": "Query",
       "type": "String",
       "required": false

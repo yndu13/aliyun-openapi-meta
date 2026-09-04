@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "ClientToken",
-      "description": "The client token that ensures the idempotence of the request.\n\nYou can generate a token from your client, but you must ensure that it is unique across requests. The `ClientToken` can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**.",
+      "description": "The client token that is used to ensure the idempotence of the request.\n\nYou can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.\n\n> If you do not specify this parameter, the system automatically uses the **RequestId** of the API request as the **ClientToken**. The **RequestId** of each API request may be different.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "DryRun",
-      "description": "Specifies whether to perform a dry run to check for potential issues, including permissions and instance status. Valid values:\n\n- **false** (default): Sends a normal request. The system modifies the ECR attachment attributes if the request passes the check.\n\n- **true**: Sends a check request only. The system validates the request but does not modify the ECR attachment attributes. If the check fails, an error is returned. If the check passes, the system returns the request ID.",
+      "description": "Specifies whether to perform a dry run for this modification request, including permission and instance status checks. Valid values:\n\n- **false** (default): Sends a normal request. If the request passes the check, the transit router instance information is directly modified.\n- **true**: Sends a check request. Only the validation is performed, and the transit router instance information is not modified. The check items include whether required parameters are specified and the request format. If the check fails, the corresponding error is returned. If the check passes, the corresponding request ID is returned.",
       "position": "Query",
       "type": "Boolean",
       "required": false
     },
     {
       "name": "OrderType",
-      "description": "The payer for the network instance. This operation does not support changing the payer for an ECR attachment.",
+      "description": "The payer of the network instance. The payer of the ECR connection cannot be modified.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterAttachmentDescription",
-      "description": "The new description of the ECR attachment.\n\nThe description can be empty or 1 to 256 characters in length. It cannot start with `http://` or `https://`.",
+      "description": "The new description of the ECR connection.\n\nThe description can be empty or 1 to 256 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterAttachmentId",
-      "description": "The ID of the ECR attachment.",
+      "description": "The ID of the ECR connection.",
       "position": "Query",
       "type": "String",
       "required": true
     },
     {
       "name": "TransitRouterAttachmentName",
-      "description": "The new name of the ECR attachment.\n\nThe name can be empty or 1 to 128 characters in length. It cannot start with `http://` or `https://`.",
+      "description": "The new name of the ECR connection.\n\nThe name can be empty or 1 to 128 characters in length and cannot start with http:// or https://.",
       "position": "Query",
       "type": "String",
       "required": false

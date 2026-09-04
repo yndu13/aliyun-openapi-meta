@@ -7,7 +7,7 @@
   "parameters": [
     {
       "name": "AppId",
-      "description": "The ID of the app to which the channel to be recorded belongs. The app must belong to the primary account associated with the current API caller's account.",
+      "description": "The ID of the app to which the channel to be recorded belongs. The app must belong to the Alibaba Cloud account that calls this operation.",
       "position": "Query",
       "type": "String",
       "required": true
@@ -21,42 +21,42 @@
     },
     {
       "name": "MaxIdleTime",
-      "description": "The idle timeout period. When the task remains idle for longer than MaxIdleTime, the task is automatically stopped. Unit: seconds. The value must be within [10,14400], which is a maximum of 4 hours. Default value: 300.",
+      "description": "The idle timeout period. When the task remains idle for longer than MaxIdleTime, the task is automatically stopped. Unit: seconds. Valid values: 10 to 14400 (maximum 4 hours). Default value: 300.\n- In stream mixing recording mode, the task is considered idle when all subscribed user streams stop stream ingest.\n- In individual stream recording mode, the subscribed streams are independent of each other. When any stream stops stream ingest, it is considered idle. After MaxIdleTime is reached, the recording of that stream is stopped. When all subscribed streams have been idle beyond the timeout, the entire cloud recording task is stopped.",
       "position": "Query",
       "type": "Long",
       "required": false
     },
     {
       "name": "MixLayoutParams",
-      "description": "The layout parameters. This parameter is not required in single-stream recording mode and is required in stream mixing recording mode when the output is not audio-only.",
+      "description": "The layout parameters. Leave this parameter empty in single-stream recording mode. This parameter is required in stream mixing recording mode when the recording output is expected to contain non-audio-only files.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "MixTranscodeParams",
-      "description": "The transcoding parameters. This parameter is not required in single-stream recording mode and is required in stream mixing recording mode.",
+      "description": "The transcoding parameters. Leave this parameter empty in single-stream recording mode. This parameter is required in stream mixing recording mode.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NotifyAuthKey",
-      "description": "The authentication key for callback messages. Leave this parameter empty to skip authentication. If specified, the key must be 16 to 64 characters in length and consist of only uppercase and lowercase letters and digits.",
+      "description": "The authentication key for callback messages. If this parameter is left empty (default), no authentication is performed. If specified, the value must be 16 to 64 characters in length and can contain only uppercase and lowercase letters and digits.\n- If NotifyUrl is not specified, NotifyAuthKey is also invalid.\n- If a valid NotifyAuthKey is specified, authentication content is included in the callback messages.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "NotifyFileUploadedFormat",
-      "description": "The specified formats for which a callback message is sent when the recording file upload event (RecordFileUploaded) is triggered.",
+      "description": "The specified formats for which a callback message is sent when the recording file generation event (RecordFileUploaded) is triggered.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "NotifyUrl",
-      "description": "The URL for receiving callback messages. Task status messages are pushed to this URL in JSON format by using the POST method. The maximum length is 2048 characters.",
+      "description": "The URL for receiving callback messages. Task status messages are sent to this URL in JSON format by using the POST method. The maximum length is 2048 characters.\n\nFor more information about callback messages, see [Documentation](https://www.alibabacloud.com/help/en/live/on-cloud-recording-callback-message).",
       "position": "Query",
       "type": "String",
       "required": false

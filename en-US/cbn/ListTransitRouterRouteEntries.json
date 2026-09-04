@@ -7,42 +7,42 @@
   "parameters": [
     {
       "name": "MaxResults",
-      "description": "The number of entries per page. Valid values: **1** to **100**. Default value: **20**.",
+      "description": "The number of entries per page when entries are returned in pages. Valid values: **1** to **100**. Default value: **20**.",
       "position": "Query",
       "type": "Integer",
       "required": false
     },
     {
       "name": "NextToken",
-      "description": "The pagination token that is used in the next request to retrieve a new page of results. Valid values:\n\n- You do not need to specify this parameter for the first request.\n- You must specify the token that is obtained from the previous query as the value of **NextToken**.",
+      "description": "The token that determines the start point of the query. Valid values:\n\n- You do not need to specify this parameter for the first query or if no subsequent query is to be sent.\n- If a subsequent query is to be sent, set the value to the **NextToken** value returned by the previous API call.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "PrefixListId",
-      "description": "The prefix list ID.",
+      "description": "The ID of the prefix list.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "RouteFilter",
-      "description": "The filter conditions.",
+      "description": "The filter conditions for route entry CIDR blocks.",
       "position": "Query",
       "type": "RepeatList",
       "required": false,
       "sub_parameters": [
         {
           "name": "Key",
-          "description": "The match pattern for filtering CIDR blocks. Valid values:\n\n- **PrefixExactMatchCidrs**: exact matching.\n- **LongestPrefixMatchCidrs**: longest prefix matching. You can specify IP addresses and CIDR blocks.\n- **SubnetOfMatchCidrs**: subnet matching. The subnets of the specified CIDR blocks, including the CIDR block, are matches against the match conditions.\n- **SupernetOfMatchCidrs**: supernet matching. The supernets of the CIDR block, including the CIDR block, are matched against the match conditions.\n\nBy default, the logical operator among filter conditions is **AND**. Information about a route entry is returned only if the route entry matches all filter conditions. Filter conditions must be unique.",
+          "description": "The filter condition. Valid values:\n\n- **PrefixExactMatchCidrs**: exact match.\n- **LongestPrefixMatchCidrs**: longest prefix match. IP addresses and CIDR blocks are supported.\n- **SubnetOfMatchCidrs**: subnet match. Matches subnets of the specified CIDR block, including the specified CIDR block itself.\n- **SupernetOfMatchCidrs**: supernet match. Matches supernets of the specified CIDR block, including the specified CIDR block itself.\n\nMultiple filter conditions have an **AND** relationship by default, which means that a route entry must meet all filter conditions to be considered a match. You cannot specify the same filter condition more than once.",
           "position": "Query",
           "type": "String",
           "required": false
         },
         {
           "name": "Value",
-          "description": "The filter value.",
+          "description": "The list of filter condition values.",
           "position": "Query",
           "type": "RepeatList",
           "required": false
@@ -51,84 +51,84 @@
     },
     {
       "name": "TransitRouterRouteEntryDestinationCidrBlock",
-      "description": "The destination CIDR block of the route. **This parameter is to be deprecated. We recommend that you use the RouteFilter parameter**.",
+      "description": "The destination CIDR block of the route entry (**This parameter will be deprecated. Use the RouteFilter parameter instead**).",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryIds",
-      "description": "The route ID.",
+      "description": "The IDs of the route entries.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryNames",
-      "description": "The route name.",
+      "description": "The names of the route entries.",
       "position": "Query",
       "type": "RepeatList",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryNextHopId",
-      "description": "The ID of the network instance connection that you want to specify as the next hop.",
+      "description": "The ID of the network instance connection associated with the next hop of the route entry.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryNextHopResourceId",
-      "description": "The next hop ID.",
+      "description": "The instance ID of the next hop of the route entry.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryNextHopResourceType",
-      "description": "The next hop type. Valid values:\n\n- **VPC**\n- **VBR**\n- **TR**\n- **VPN**",
+      "description": "The type of the next hop instance of the route entry. Valid values:\n\n- **VPC**: Virtual Private Cloud (VPC) instance.\n- **VBR**: Virtual Border Router (VBR) instance.\n- **TR**: transit router instance.\n- **VPN**: IPsec connection instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryNextHopType",
-      "description": "The next hop type. Valid values:\n\n- **BlackHole**: routes network traffic to a black hole.\n- **Attachment**: routes network traffic to a network instance connection.",
+      "description": "The next hop type. Valid values:\n\n- **BlackHole**: the route entry is a blackhole route.\n- **Attachment**: the next hop of the route entry is a network instance connection.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryOriginResourceId",
-      "description": "The source instance ID.",
+      "description": "The instance ID of the origin of the route entry.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryOriginResourceType",
-      "description": "The source instance type. Valid values:\n\n- **VPC**\n- **VBR**\n- **TR**\n- **VPN**",
+      "description": "The type of the origin instance of the route entry. Valid values:\n\n- **VPC**: Virtual Private Cloud (VPC) instance.\n- **VBR**: Virtual Border Router (VBR) instance.\n- **TR**: transit router instance.\n- **VPN**: IPsec connection instance.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryStatus",
-      "description": "The status of the route. Valid values:\n\n- **All**\n- **Active** (default)\n- **Rejected**\n- **Prohibited**\n- **Standby**\n- **Candidate**\n\nIf you do not specify a value, routes in the active state are queried.",
+      "description": "The status of the route entry. Valid values:\n\n- **All**: queries route entries in all states.\n- **Active (default)**: queries only route entries in the active state.\n- **Rejected**: queries only route entries that are rejected due to route conflicts.\n- **Prohibited**: queries only route entries that are prohibited because they match a routing policy.\n- **Standby**: queries only route entries that serve as standby routes.\n- **Candidate**: queries only route entries that serve as candidate routes.\n\nIf you do not specify this parameter, only route entries in the active state are queried.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteEntryType",
-      "description": "The route type. Valid values:\n\n- **Propagated**: automatically learned by the route table.\n- **Static**: static routes.",
+      "description": "The type of the route entry. Valid values:\n\n- **Propagated**: generated by automatic learning on the current route table.\n- **Static**: generated by static configuration on the current route table.",
       "position": "Query",
       "type": "String",
       "required": false
     },
     {
       "name": "TransitRouterRouteTableId",
-      "description": "The ID of the route table of the Enterprise Edition transit router.",
+      "description": "The ID of the Enterprise Edition transit router route table.",
       "position": "Query",
       "type": "String",
       "required": true
